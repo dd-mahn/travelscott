@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+:root{
+  --main-color-1: #B07E5B;
+  --main-color-2: #5E896B;
+  --background-light: #FBF9F7;
+  --text-light: #333333;
+  --hero-gradient: linear-gradient(180deg, rgba(173, 210, 161, 0.85) 0%, rgba(73, 131, 46, 0.85) 0.01%, rgba(144, 179, 127, 0.52) 38.9%, rgba(176, 126, 91, 0.12) 81.9%);
+  --heading-gradient: linear-gradient(90deg, #B07E5B 0.07%, #5E896B 83.85%, #666 99.93%);
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  background: var(--background-light);
+  font-family: Poppins;
+} 
+
+.font-kaushan{
+  font-family: 'Kaushan Script', cursive;
+}
