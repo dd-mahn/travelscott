@@ -1,13 +1,31 @@
+body{
+    position: relative;
+}
+
 .header{
-    padding: 0 128px;
+    width: 100%;
+    padding: 0 6.4vw;
     min-height: 4rem;
-    position: sticky;
+    position: fixed;
+    top:0;
+    background: transparent;
+    z-index: 10;
 }
 
 .header h1{
-    font-size: 2rem;
+    font-size: 2vw;
 }
 
 .header button i{
-    font-size: 1.5rem;
+    font-size: 1.5vw;
+}
+
+.header li a{
+    font-size: 1vw;
+    mix-blend-mode: lighten;
+ 
+}
+
+.header *{
+    background: transparent!important;
 }

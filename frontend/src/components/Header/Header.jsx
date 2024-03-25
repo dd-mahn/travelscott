@@ -21,23 +21,29 @@ const navs = [
 const Header = () => {
     return (
         <Container className='header'>
-            <Row className='flex justify-between items-center'>
-                <Col lg='2'>
+            <Row className='flex justify-between items-center '>
+                <Col lg='2' className=''>
                     <h1 className='font-kaushan'>TravelScott</h1>
                 </Col>
                 <Col>
-                    <div className="flex flex-row justify-between gap-12 ">
-                        {/* {
-                            navs.map((nav,index) => (
-                                <div className='nav' key={index}>
-                                    <NavLink to={nav.path} activeClassName='active'>{nav.display}</NavLink>
-                                </div>
+                    <ul className="flex flex-row justify-between gap-14 ">
+                        {
+                            navs.map((item,index) => (
+                                <li className="nav__item " key={index}>
+                                    <NavLink 
+                                    to={item.path} 
+                                    className="" 
+                                    activeClassName="active__link"
+                                    >
+                                    {item.display}
+                                    </NavLink>
+                                </li>
                             ))
-                        } */}
-                    </div>
+                        }
+                    </ul>
                 </Col>
-                <Col>
-                    <button><i class="ri-contrast-2-fill"></i></button>
+                <Col className=''>
+                    <button className=''><i className="ri-contrast-2-fill"></i></button>
                 </Col>
             </Row>
         </Container>
