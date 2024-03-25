@@ -21,6 +21,38 @@
   font-family: Poppins;
 } 
 
+img{
+  max-width: 100%;
+
+}
+
+ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+ul li{
+  list-style: none;
+}
+
 .font-kaushan{
   font-family: 'Kaushan Script', cursive;
+}
+
+.btn{
+  padding: 10px 20px;
+  background: var(--main-color-1);
+  font-weight: 700;
+  letter-spacing: .1rem;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.1vw;
+  transition: all 0.3s ease;
+}
+
+.transparent{
+  background: transparent !important;
 }
