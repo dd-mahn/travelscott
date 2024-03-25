@@ -1,0 +1,56 @@
+.hero__content h1 span{
+    font-size: 6vw;
+    font-weight: bold;
+    background: var(--heading-gradient);
+    -webkit-background-clip: text;
+    color: transparent;
+    letter-spacing: .5rem;
+}
+
+.hero{
+    padding-left: 6.4vw;
+    min-height: 100svh;
+}
+
+.hero__content h1{
+    margin-top: 15rem;
+    font-size: 3vw;
+    font-weight: bold;
+    color: var(--text-light);
+    min-width:40vw;
+    line-height: 1.2;
+    letter-spacing: .3rem;
+    margin-bottom: 2rem;
+}
+
+.hero__circle{
+    background: url('../assets/hero-circle.svg') transparent 100% / 94.5% no-repeat;
+    width: 70%;
+    max-width: 100%;
+    position: relative;
+    height: 100svh;
+}
+
+.hero__circle::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: url('../assets/hero-blur.png') 100% / cover no-repeat;
+    filter: blur(10px);
+    z-index: 0;
+  }
+
+.hero__circle img{
+    position: fixed;
+    bottom: -140px;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    object-fit: contain;
+    z-index: 1;
+    background: transparent;
+}
+
