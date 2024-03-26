@@ -4,6 +4,7 @@ import HeroCircle from '../assets/hero-circle.svg';
 import HeroImg from '../assets/hero-img.svg';
 import AboutVideo from '../assets/home-about.mp4';
 import '../styles/home.css';
+import Gallery from './HomeComponents/Gallery';
 
 const Home = () => {
     return (
@@ -49,13 +50,9 @@ const Home = () => {
             </Container>
            </section>
         {/* About end */}
-
+            
         {/* Gallery Start */}
-            <section className='gallery'>
-                <Container>
-                    
-                </Container>
-            </section>
+            <Gallery />
         </>
     );
 };
