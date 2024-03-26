@@ -8,8 +8,7 @@ import Contact from '../pages/Contact';
 const Routers = () => {
     return (
         <Routes>
-             <Route path='/' element={<Navigate to='/home'/>} />
-             <Route path='/home' element={<Home/>}/>
+             <Route path='/' element={<Home/>}/>
              <Route path='/about' element={<About/>}/>
              <Route path='/discover' element={<Discover/>}/>
              <Route path='/contact' element={<Contact/>}/>
