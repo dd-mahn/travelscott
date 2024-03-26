@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
@@ -20,6 +20,10 @@
   background: var(--background-light);
   font-family: Poppins;
 } 
+
+body{
+  overflow-x: hidden;
+}
 
 img{
   max-width: 100%;
@@ -43,8 +47,8 @@ ul li{
 .btn{
   padding: 10px 20px;
   background: var(--main-color-1);
-  font-weight: 700;
-  letter-spacing: .1rem;
+  font-weight: 600;
+  letter-spacing: .05rem;
   color: white;
   border: none;
   border-radius: 5px;
