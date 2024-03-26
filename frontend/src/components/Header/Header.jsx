@@ -23,7 +23,7 @@ const Header = () => {
         <Container className='header'>
             <Row className='flex justify-between items-center '>
                 <Col lg='2' className=''>
-                    <h1 className='font-kaushan'>TravelScott</h1>
+                    <NavLink to={'/'}><h1 className='font-kaushan'>TravelScott</h1></NavLink>
                 </Col>
                 <Col>
                     <ul className="flex flex-row justify-between gap-14 ">
