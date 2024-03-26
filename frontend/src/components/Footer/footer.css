@@ -1,0 +1,39 @@
+footer{
+    padding: 2vw 6vw 0;
+    margin: 10rem 0 2rem;
+    border-top: 1px solid var(--text-light)
+}
+
+footer .container > :nth-child(1) h1{
+    font-size: 1.2vw;
+    font-weight: 500;
+    color: var(--text-light);
+}
+
+footer .container > :nth-child(1) li{
+    margin-bottom: .3rem;
+}
+
+footer .container > :nth-child(1) p{
+    font-size: 1vw;
+    font-weight: 400;
+    /* color: var(--main-color-1); */
+}
+
+footer .container > :nth-child(1) span{
+    text-decoration: underline;
+    font-size: 2vw;
+    font-weight:500;
+}
+
+footer .container > :nth-child(2) h1{
+    font-size: 6vw;
+    font-weight: 500;
+    color: var(--main-color-2);
+}
+
+footer .container > :nth-child(2) button a{
+    font-size: 1vw;
+    font-weight: 500;
+    color: var(--text-light);
+}
