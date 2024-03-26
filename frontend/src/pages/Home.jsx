@@ -53,7 +53,32 @@ const Home = () => {
             
         {/* Gallery Start */}
             <Gallery />
+        {/* Gallery End */}
+
+        {/* Quote start */}
+            <section className='quote'>
+                <Container>
+                    <Row className='flex justify-between'>
+                        <Col lg='6'>
+                            <p>“TO
+                                <i class="ri-footprint-fill"></i>
+                                <span>TRAVEL</span> 
+                                <br/> 
+                                IS TO <span>LIVE</span>
+                                <i class="ri-sun-line"></i>.”</p>
+                        </Col>
+                        <Col lg='4' className='flex items-end py-4'>
+                            <span>- HANS CHRISTIAN ANDERSEN</span>
+                        </Col>
+                    </Row>
+                    <Row className='flex justify-end'>
+                        <button className='start__btn btn'>TAKE YOUR FIRST FOOTSTEP</button>
+                    </Row>
+                </Container>
+            </section>
+        {/* Quote end */}
         </>
+        
     );
 };
 
