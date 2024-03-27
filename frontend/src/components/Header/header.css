@@ -23,7 +23,7 @@ body{
 .header li a{
     font-size: 1vw;
     mix-blend-mode: lighten;
- 
+    font-weight: 500;
 }
 
 .header *{
