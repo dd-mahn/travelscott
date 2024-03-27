@@ -60,6 +60,24 @@ ul li{
   transition: all 0.3s ease;
 }
 
+.btn-color-2{
+  background: var(--main-color-2);
+}
+
 .transparent{
   background: transparent !important;
+}
+
+input,
+textarea{
+  padding: .5vw .5vw;
+  border: 1px solid var(--text-light);
+  border-radius: 5px;
+  width: 100%;
+}
+
+input:focus,
+textarea:focus{
+  outline: none;
+  border: 1px solid var(--main-color-1);
 }
