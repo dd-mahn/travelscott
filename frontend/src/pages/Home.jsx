@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Form } from 'react-bootstrap';
 import HeroCircle from '../assets/hero-circle.svg';
 import HeroImg from '../assets/hero-img.svg';
 import AboutVideo from '../assets/home-about.mp4';
@@ -77,6 +77,47 @@ const Home = () => {
                 </Container>
             </section>
         {/* Quote end */}
+
+        {/* Contribution start */}
+            <section className="contribution">
+                <Container className='flex flex-col gap-20'>
+                    <Row className='grid place-content-center
+                    '>
+                        <h1>Contribution <i class="ri-shining-2-fill"></i></h1>
+                    </Row>
+                    <Row className='flex justify-between gap-28'>
+                        <Col lg="6">
+                            <Form className='form flex flex-col gap-4'>
+                                    <Form.Group controlId="name">
+                                        <Form.Label>Name</Form.Label>
+                                        <Form.Control type="text" placeholder="Enter your name" required/>
+                                    </Form.Group>
+
+                                    <Form.Group controlId="email">
+                                        <Form.Label>Email</Form.Label>
+                                        <Form.Control type="email" placeholder="Enter your email" required/>
+                                    </Form.Group>
+
+                                    <Form.Group controlId="feedback">
+                                        <Form.Label>Message</Form.Label>
+                                        <Form.Control as="textarea" required placeholder="What you want to improve?" />
+                                    </Form.Group>
+
+                                    <button className='submit__btn btn btn-color-2'>Submit</button>
+                            </Form>
+                        </Col>
+                        <Col lg="6" className='form-side flex flex-col items-start justify-start gap-8'>
+                            <h1>Submit your feedback</h1>
+                            <p>The application is currently in its development phase and we’re seeking input from global users to enhance its functionality. We believe that collective insights and resources can propel our project forward. Whether you’re a developer, a user, or just someone with a keen interest in travel, your feedback is crucial. By sharing your thoughts and resources, you become an integral part of our journey towards innovation. Together, let’s shape an application that resonates with people from every corner of the world.</p>
+                        </Col>
+                    </Row>
+                    <Row className='flex justify-between mt-40'>
+                        <h1>or share your preferred <br/> travel destinations and ideas with us.</h1>
+                        <button className='border-none bg-inherit underline'>FOLLOW THIS LINK</button>
+                    </Row>
+                </Container>
+            </section>
+        {/* Contribution end */}
         </>
         
     );

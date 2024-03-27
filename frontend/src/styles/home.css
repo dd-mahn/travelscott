@@ -88,7 +88,7 @@
 
 .about .row-1 p{
     font-size: 3vw;
-    font-weight: 400;
+    font-weight: 500;
 }
 
 .about .row-1 p strong{
@@ -108,7 +108,7 @@
 .about .row-2 p strong{
     font-size: 1.5vw;
     /* color: var(--main-color-2); */
-    font-weight: 600 !important;
+    font-weight: 500 !important;
 }
 
 /* Gallery */
@@ -125,7 +125,7 @@
 .gallery__slider-1 h1,
 .gallery__slider-2 h1{
     font-size: 3vw;
-    font-weight: 400;
+    font-weight: 500;
     color: var(--text-light);
     margin-bottom: 2rem;
 }
@@ -189,4 +189,82 @@
     font-size: 6vw;
     font-weight: 600;
     margin: 0 1rem;
+}
+
+/* Contribution */
+.contribution{
+    padding: 0 6vw;
+    margin: 20rem 0;
+}
+
+.contribution h1{
+    font-size: 3vw;
+    font-weight: 500;
+    color: var(--text-light);
+}
+
+.contribution .container :nth-child(1) h1{
+    font-weight: 600;
+    position: relative;
+}
+
+.contribution .container :nth-child(1) h1 i{
+    font-weight: 600;
+    position: absolute;
+    font-size: 1.3rem;
+    top:-.5vw;
+}
+
+.form{
+    padding: 1vw 2vw;
+    min-width: 40vw;
+    border: 1px solid var(--text-light);
+    border-radius: 5px;
+    font-size: 1vw;
+}
+
+.form div{
+    display: flex;
+    flex-direction: column;
+    gap: .5vw;
+}
+
+.form div label{
+    font-size: 1.2vw;
+    font-weight: 400;
+}
+
+.form div input::placeholder,
+.form div textarea::placeholder {
+    font-size: 1vw;
+    font-weight: 400;
+}
+
+.form div textarea{
+    min-height: 30svh;
+    max-height: 30svh;
+}
+
+.form button{
+    margin-top: .5rem;
+    max-width: 10vw;
+}
+
+.form-side h1{
+    line-height: 1.2;
+}
+
+.form-side p{
+    font-size: 1vw;
+    line-height: 1.8;
+}
+
+.contribution .container :nth-child(3) button{
+    align-self: flex-end;
+    margin-bottom: .25rem;
+    font-size: 1.2vw;
+}
+
+.contribution .container :nth-child(3) h1{
+    line-height: 1.2;
 }
