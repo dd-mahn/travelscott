@@ -1,19 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import url("https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
-:root{
-  --main-color-1: #B07E5B;
-  --main-color-2: #5E896B;
-  --background-light: #FBF9F7;
+:root {
+  --main-color-1: #b07e5b;
+  --main-color-2: #5e896b;
+  --background-light: #fbf9f7;
   --text-light: #333333;
-  --hero-gradient: linear-gradient(180deg, rgba(173, 210, 161, 0.85) 0%, rgba(73, 131, 46, 0.85) 0.01%, rgba(144, 179, 127, 0.52) 38.9%, rgba(176, 126, 91, 0.12) 81.9%);
-  --heading-gradient: linear-gradient(90deg, #B07E5B 0.07%, #5E896B 83.85%, #666 99.93%);
+  --hero-gradient: linear-gradient(
+    180deg,
+    rgba(173, 210, 161, 0.85) 0%,
+    rgba(73, 131, 46, 0.85) 0.01%,
+    rgba(144, 179, 127, 0.52) 38.9%,
+    rgba(176, 126, 91, 0.12) 81.9%
+  );
+  --heading-gradient: linear-gradient(
+    90deg,
+    #b07e5b 0.07%,
+    #5e896b 83.85%,
+    #666 99.93%
+  );
 }
 
-*{
+* {
   margin: 0;
   padding: 0;
   font-size: 20px;
@@ -22,36 +33,35 @@
   background-position: 50% 50%;
   background-size: cover; */
   font-family: Poppins;
-} 
+}
 
-body{
+body {
   overflow-x: hidden;
 }
 
-img{
+img {
   max-width: 100%;
-
 }
 
-ul{
+ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-ul li{
+ul li {
   list-style: none;
 }
 
-.font-kaushan{
-  font-family: 'Kaushan Script', cursive;
+.font-kaushan {
+  font-family: "Kaushan Script", cursive;
 }
 
-.btn{
+.btn {
   padding: 10px 20px;
   background: var(--main-color-1);
   font-weight: 600;
-  letter-spacing: .05rem;
+  letter-spacing: 0.05rem;
   color: white;
   border: none;
   border-radius: 5px;
@@ -60,24 +70,24 @@ ul li{
   transition: all 0.3s ease;
 }
 
-.btn-color-2{
+.btn-color-2 {
   background: var(--main-color-2);
 }
 
-.transparent{
+.transparent {
   background: transparent !important;
 }
 
 input,
-textarea{
-  padding: .5vw .5vw;
+textarea {
+  padding: 0.5vw 0.5vw;
   border: 1px solid var(--text-light);
   border-radius: 5px;
   width: 100%;
 }
 
 input:focus,
-textarea:focus{
+textarea:focus {
   outline: none;
   border: 1px solid var(--main-color-1);
 }
