@@ -10,8 +10,9 @@ footer .container > :nth-child(1) h1{
     color: var(--text-light);
 }
 
-footer .container > :nth-child(1) li{
+footer .container > :nth-child(1) a{
     margin-bottom: .3rem;
+    font-size: 1vw;
 }
 
 footer .container > :nth-child(1) p{
@@ -30,6 +31,7 @@ footer .container > :nth-child(2) h1{
     font-size: 6vw;
     font-weight: 500;
     color: var(--main-color-2);
+    line-height: 1.2;
 }
 
 footer .container > :nth-child(2) button a{
