@@ -8,8 +8,8 @@ import {Container, Row, Col } from 'react-bootstrap';
 
 const Gallery = () => {
 
-    let totalDes = 10
-    let totalKey = 20
+    let totalDes = 50
+    let totalKey = 10
 
     return (
         <section className='gallery'>
@@ -27,8 +27,8 @@ const Gallery = () => {
                 </Row>
                 <Row className='flex flex-col items-center gap-10 gallery__slider-2'>
                     <div className='flex justify-between items-center'>
-                        <h1><span>{totalKey}+</span> Travel Preferences</h1>
-                        <span>(Let's find out your best combination)</span>
+                        <h1><span>From {totalKey}+</span> Countries</h1>
+                        <span>(We spread travel love around the world)</span>
                     </div>
                     <MarqueeSlider velocity={25}>
                         {times(totalKey, Number).map(id => (
