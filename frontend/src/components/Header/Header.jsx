@@ -43,6 +43,9 @@ const Header = () => {
           </ul>
         </Col>
         <Col className="">
+          <button>
+            <i class="ri-search-2-line"></i>
+          </button>
           <button className="">
             <i className="ri-contrast-2-fill"></i>
           </button>
