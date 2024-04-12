@@ -50,7 +50,7 @@ const Home = () => {
             <Col lg="4" className="flex flex-col gap-6">
               <p>
                 Let your emotions guide your journey. Question-based analysis of
-                your travel mood leads to bespoke destination and plan
+                your travel spirit leads to bespoke destination and plan
                 suggestions that promise an unforgettable experience.
               </p>
               <p>
@@ -114,7 +114,7 @@ const Home = () => {
             <Col lg="6">
               <Form className="form flex flex-col gap-4">
                 <Form.Group controlId="name">
-                  <Form.Label>Name</Form.Label>
+                  <Form.Label>Name*</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Enter your name"
@@ -123,7 +123,7 @@ const Home = () => {
                 </Form.Group>
 
                 <Form.Group controlId="email">
-                  <Form.Label>Email</Form.Label>
+                  <Form.Label>Email*</Form.Label>
                   <Form.Control
                     type="email"
                     placeholder="Enter your email"
@@ -132,7 +132,7 @@ const Home = () => {
                 </Form.Group>
 
                 <Form.Group controlId="feedback">
-                  <Form.Label>Message</Form.Label>
+                  <Form.Label>Message*</Form.Label>
                   <Form.Control
                     as="textarea"
                     required
