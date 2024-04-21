@@ -34,8 +34,9 @@ footer .container > :nth-child(2) h1 {
   line-height: 1.2;
 }
 
-footer .container > :nth-child(2) button a {
-  font-size: 1vw;
+footer .container > :nth-child(2) button,
+footer .container > :nth-child(2) button i{
+  font-size: 1.2vw;
   font-weight: 500;
   color: var(--text-light);
 }
