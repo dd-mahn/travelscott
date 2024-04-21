@@ -1,0 +1,59 @@
+{
+  "Hotels, Hostels and Homestays": {
+    "Homestay Moc Chau": {
+      "address": "TK 69, Moc Chau Farm, Moc Chau, Son La, Vietnam",
+      "phone_number": "0329 796 182",
+      "rating": 4.55
+    },
+    "MAMA’s House Moc Chau": {
+      "address": "Bản Áng 3 Đông Sang, Mộc Châu, Sơn La, Mộc Châu, Son La",
+      "phone_number": "098 995 63 90",
+      "rating": 3.5
+    },
+    "Homestay Family Mộc Châu": {
+      "address": "Tiểu khu 14 - Thị Trấn Mộc Châu - Sơn La, Son La, Sơn La, 34000",
+      "phone_number": "0382 635 336",
+      "rating": 0.0
+    }
+  },
+  "Visits": {
+    "Tea Plantations": {
+      "description": "Visit the most famous tea plantations in Vietnam. Explore the vast green tea hills, especially the heart-shaped tea hill in Chi Lon Village, Doi Che Trai Tim. Many couples come here to take wedding photos.",
+      "location": "Chi Lon Village, Doi Che Trai Tim"
+    },
+    "Flower Fields": {
+      "description": "Explore the flower fields, especially during the end of October to the beginning of November when white mustard flowers gradually bloom.",
+      "time_to_visit": "End of October to beginning of November"
+    },
+    "Dai Yem Waterfall": {
+      "description": "Visit Dai Yem Waterfall, a beautiful natural attraction.",
+      "location": "Near Moc Chau town"
+    },
+    "Ban Ang Pine Forest": {
+      "description": "Explore the pine forest in Ban Ang village.",
+      "location": "Ban Ang village"
+    }
+  },
+  "Food and Drinks": {
+    "Suoi Bang Rock Snails": {
+      "description": "Try Suoi Bang rock snails, a specialty in Moc Chau. These snails are stir-fried or steamed with ginger and lemongrass, resulting in a crispy yet chewy texture with a delightful aroma and sweet taste.",
+      "recommended_pairing": "Local wine made by friendly native people"
+    },
+    "Mustard Greens": {
+      "description": "Mustard greens are an important part of many local families’s lives. They are chopped, stir-fried with garlic, and seasoned with basic spices for a delectable taste.",
+      "symbol_of_culinary_culture": true
+    },
+    "Nam Pia": {
+      "description": "Nam Pia is a unique dish made from the offal of buffalo, cow, or goat, particularly the part of the intestine that contains undigested food. It is typically served during special occasions in the highlands of Moc Chau.",
+      "specialty": true
+    },
+    "Deep-Fried Veal": {
+      "description": "Deep-fried veal is popular in Moc Chau. The calf used for this dish is young and strong, resulting in tender and crispy meat. Dip it in soy sauce for extra flavor.",
+      "recommended_dipping_sauce": "Soy sauce"
+    },
+    "Grilled Stream Fish": {
+      "description": "Enjoy grilled stream fish caught from the crystal-clear streams in Moc Chau. The fish can be cooked in various ways, such as frying or grilling.",
+      "location": "Crystal-clear streams in Moc Chau"
+    }
+  }
+}
