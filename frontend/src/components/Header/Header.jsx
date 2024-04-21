@@ -43,7 +43,7 @@ const Header = () => {
           </ul>
         </Col>
         <Col className="">
-          <button>
+          <button className="mr-4">
             <i class="ri-search-2-line"></i>
           </button>
           <button className="">
