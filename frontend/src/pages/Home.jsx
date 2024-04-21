@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Row, Col, Form } from "react-bootstrap";
-import HeroCircle from "../assets/hero-circle.svg";
-import HeroImg from "../assets/hero-img.svg";
+import HeroCircle from "../assets/svg/hero-circle.svg";
+import HeroImg from "../assets/svg/hero-img.svg";
 import AboutVideo from "../assets/home-about.mp4";
 import "../styles/home.css";
 import Gallery from "./HomeComponents/Gallery";
@@ -61,9 +61,9 @@ const Home = () => {
                 your trip, our gallery is your passport to discovering the most
                 worthwhile visits.
               </p>
-              <p>
+              {/* <p>
                 <strong>Manh Do</strong> <br /> @godsadeser
-              </p>
+              </p> */}
             </Col>
           </Row>
         </Container>
@@ -100,19 +100,18 @@ const Home = () => {
       {/* Quote end */}
 
       {/* Contribution start */}
-      <section className="contribution">
-        <Container className="flex flex-col gap-20">
+      <section className="contribution relative">
+        <img src={HeroCircle} alt="circle" className='absolute bot-0 right-0 width-1/5 z-0'/>
+        <Container className="flex flex-col gap-20  z-10">
           <Row
-            className="grid place-content-center
-                    "
-          >
+            className="grid place-content-center">
             <h1>
               Contribution <i class="ri-shining-2-fill"></i>
             </h1>
           </Row>
-          <Row className="flex justify-between gap-28">
+          <Row className="flex justify-between gap-16">
             <Col lg="6">
-              <Form className="form flex flex-col gap-4">
+              <Form className="form flex flex-col relative z-10 gap-4 ">
                 <Form.Group controlId="name">
                   <Form.Label>Name*</Form.Label>
                   <Form.Control
@@ -167,7 +166,7 @@ const Home = () => {
               us.
             </h1>
             <button className="border-none bg-inherit underline">
-              FOLLOW THIS LINK
+              FOLLOW THIS LINK <i class="ri-arrow-right-line"></i>
             </button>
           </Row>
         </Container>
