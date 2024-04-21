@@ -16,7 +16,7 @@ const Gallery = () => {
             <Container>
                 <Row className='flex flex-col items-center gap-10 gallery__slider-1'>
                     <h1><span>{totalDes}+</span> Destinations Listed</h1>
-                    <MarqueeSlider velocity={25}>
+                    <MarqueeSlider velocity={5}>
                         {times(totalDes, Number).map(id => (
                             <div key={`marquee-example-item-${id}`} className="item grid place-content-center">
                                 {/* <img src='demo' alt="Image" /> */}
