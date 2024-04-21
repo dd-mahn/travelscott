@@ -1,10 +1,107 @@
 import React from 'react';
+import { Container, Row, Col, Button } from 'react-bootstrap';
+import '../styles/about.css';
+import aboutIcons from '../assets/svg/about-icons.svg';
+import MarqueeSlider from 'react-marquee-slider';
+import circle from '../assets/svg/hero-circle.svg';
+import aboutVideo1 from '../assets/about-1.mp4';
+import aboutVideo2 from '../assets/about-2.mp4';
+import aboutProfile from '../assets/about-profile.jpg';
 
 function About() {
     return (
-        <div>
-            <h1>About Page</h1>
-            {/* Add your content here */}
+        <div className='about-section'>
+            <section className='about__hero'>
+                <Container>
+                    <Row className='flex gap-4'>
+                        <Col className='w-4/6 pt-6'>
+                            <h1>
+                                Ignite your <br></br> travel <span>inspiration</span>.
+                            </h1>
+                            <p>
+                                This platform is a canvas for your travel dreams, designed to awaken the adventurer within. 
+                                It’s a celebration of creativity, vital for inspiring journeys and crafting stories that resonate. 
+                                We invite you to explore further and immerse yourself in the experiences we’ve curated. 
+                                Our content is a mosaic of the world’s beauty, from serene landscapes to vibrant cityscapes. 
+                                Take the leap with us and discover the essence of travel, distilled into moments that will inspire your next odyssey. 
+                                Let’s embark on this voyage together and see where it takes us.
+                            </p>
+                        </Col>
+                        <Col>
+                            <img src={aboutIcons} alt='About Icons' />
+                        </Col>
+                    </Row>
+                </Container>
+            </section>
+            <section className='about__hook'>
+                <Container>
+                    <Row className='flex justify-center relative'>
+                        <img src={circle} alt="circle" className='w-1/2'/>
+                        <div className='absolute top-1/3 bg-transparent flex gap-12'>
+                            <h1>EXCITING</h1>
+                            <h1>CREATIVE</h1>
+                            <h1>AUTHENTIC</h1>
+                        </div>
+                    </Row>
+                    <Row className='mt-40 font-medium'>
+                        <a>Scroll <i className="ri-arrow-down-line"></i></a>
+                    </Row>
+                </Container>
+            </section>
+            <section className='about__feature'>
+                <Container>
+                    <h1>FEATURES</h1>
+                    <Row className='flex gap-24 mb-20'>
+                        <Col lg='5' className='w-3/5 flex flex-col gap-4'>
+                            <video src={aboutVideo1} autoPlay loop muted></video>
+                            <h2 className='font-semibold'>Travel Personality Test</h2>
+                            <p>Choose your own way, let your emotions guide your journey. Question-based analysis of your travel spirit leads to bespoke destination suggestions that promise an unforgettable experience.       </p>
+                        </Col>
+                        <Col lg='5' className='w-3/5 flex flex-col gap-4'>
+                            <video src={aboutVideo2} autoPlay loop muted></video>
+                            <h2 className='font-semibold'>Destination Catalogue</h2>
+                            <p>Our virtual gallery of global travel destinations. Each destination is presented with stunning imagery and essential details from various sources, making it easy to plan your next adventure. Whether you’re seeking inspiration or ready to book your trip, our gallery is your passport to discovering the most worthwhile visits.</p>
+
+                            <a className='underline font-medium mt-20' href='/discover'>DISCOVER THEM <i className="ri-arrow-right-line"></i></a>
+
+                        </Col>
+                        <Col lg='2'>
+                            <i class="ri-shining-2-fill"></i>
+                        </Col>
+                    </Row>
+                </Container>
+            </section>
+            <section className='about__credit relative'>
+                <img src={circle} alt="circle" className='absolute top-0 left-0 width-1/5' />
+                <img src={circle} alt="circle" className='absolute bot-0 right-0 width-1/5' />
+                <Container>
+                    <Row className='flex justify-between'>
+                        <Col lg='6' className='w-3/5 z-10'>
+                            <div className='some__words bg-inherit flex flex-col gap-8'>
+                                <p>
+                                “I created and developed this website fueled by my passion for travel and creativity. I was truly inspired by a famous personality test in 2023; it was quite impressive and sparked a significant surge in my imagination at that time. Thus, I began to create one myself, albeit with a different purpose. I love to travel, and I wish to share this joy with everyone. I hope you find my website useful, and don’t forget to enjoy it :). ”
+                                </p>
+                                <div className='flex gap-4'>
+                                    <img src={aboutProfile} alt="avatar" />
+                                    <div className='flex flex-col'>
+                                        <strong>Manh Do</strong>
+                                        <span>@godsadeser</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="credit d-off"></div>
+                        </Col>
+                        <Col lg='6' className='flex bg-transparent flex-col w-1/3 items-start z-10'>
+                            <button>
+                                SOME WORDS
+                            </button>
+                            <button className='disabled'>
+                                CREDITS
+                            </button>
+                        </Col>
+                    </Row>
+                </Container>
+            </section>
         </div>
     );
 }
