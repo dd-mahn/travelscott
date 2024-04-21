@@ -24,7 +24,7 @@
   );
 }
 
-* {
+body {
   margin: 0;
   padding: 0;
   font-size: 20px;
@@ -82,13 +82,25 @@ ul li {
 input,
 textarea {
   padding: 0.5vw 0.5vw;
-  border: 1px solid var(--text-light);
+  border: 2px solid var(--text-light);
   border-radius: 5px;
   width: 100%;
+  transition: .3s linear;
+}
+
+input:hover,
+textarea:hover{
+  border: 2px solid var(--main-color-2);
 }
 
 input:focus,
 textarea:focus {
+  transform: scale(1.01);
   outline: none;
-  border: 1px solid var(--main-color-1);
+  border: 2px solid var(--main-color-2);
+}
+
+input:focus:invalid,
+textarea:focus:invalid{
+  border: 1px solid rgb(252, 141, 141);
 }
