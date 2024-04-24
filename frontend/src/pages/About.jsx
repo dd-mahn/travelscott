@@ -13,7 +13,7 @@ function About() {
         <div className='about-section'>
             <section className='about__hero'>
                 <Container>
-                    <Row className='flex gap-4'>
+                    <Row className='flex justify-between'>
                         <Col className='w-4/6 pt-6'>
                             <h1>
                                 Ignite your <br></br> travel <span>inspiration</span>.
@@ -37,7 +37,7 @@ function About() {
                 <Container>
                     <Row className='flex justify-center relative'>
                         <img src={circle} alt="circle" className='w-1/2'/>
-                        <div className='absolute top-1/3 bg-transparent flex gap-12'>
+                        <div className='absolute top-1/3 bg-transparent flex'>
                             <h1>EXCITING</h1>
                             <h1>CREATIVE</h1>
                             <h1>AUTHENTIC</h1>
@@ -51,13 +51,13 @@ function About() {
             <section className='about__feature'>
                 <Container>
                     <h1>FEATURES</h1>
-                    <Row className='flex gap-24 mb-20'>
-                        <Col lg='5' className='w-3/5 flex flex-col gap-4'>
+                    <Row className='flex'>
+                        <Col lg='5' className='w-3/5 flex flex-col'>
                             <video src={aboutVideo1} autoPlay loop muted></video>
                             <h2 className='font-semibold'>Travel Personality Test</h2>
                             <p>Choose your own way, let your emotions guide your journey. Question-based analysis of your travel spirit leads to bespoke destination suggestions that promise an unforgettable experience.       </p>
                         </Col>
-                        <Col lg='5' className='w-3/5 flex flex-col gap-4'>
+                        <Col lg='5' className='w-3/5 flex flex-col'>
                             <video src={aboutVideo2} autoPlay loop muted></video>
                             <h2 className='font-semibold'>Destination Catalogue</h2>
                             <p>Our virtual gallery of global travel destinations. Each destination is presented with stunning imagery and essential details from various sources, making it easy to plan your next adventure. Whether you’re seeking inspiration or ready to book your trip, our gallery is your passport to discovering the most worthwhile visits.</p>
@@ -76,8 +76,8 @@ function About() {
                 <img src={circle} alt="circle" className='absolute bot-0 right-0 width-1/5' />
                 <Container>
                     <Row className='flex justify-between'>
-                        <Col lg='6' className='w-3/5 z-10'>
-                            <div className='some__words bg-inherit flex flex-col gap-8'>
+                        <Col className='w-3/5 z-10'>
+                            <div className='some__words bg-inherit flex flex-col'>
                                 <p>
                                 “I created and developed this website fueled by my passion for travel and creativity. I was truly inspired by a famous personality test in 2023; it was quite impressive and sparked a significant surge in my imagination at that time. Thus, I began to create one myself, albeit with a different purpose. I love to travel, and I wish to share this joy with everyone. I hope you find my website useful, and don’t forget to enjoy it :). ”
                                 </p>
@@ -91,7 +91,7 @@ function About() {
                             </div>
                             <div className="credit d-off"></div>
                         </Col>
-                        <Col lg='6' className='flex bg-transparent flex-col w-1/3 items-start z-10'>
+                        <Col className='flex bg-transparent flex-col items-start z-10'>
                             <button>
                                 SOME WORDS
                             </button>

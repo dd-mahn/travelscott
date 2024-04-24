@@ -12,14 +12,14 @@ const Home = () => {
       {/* Hero start */}
       <section className="hero">
         <Container>
-          <Row className="flex">
-            <Col lg="4" className="hero__content">
+          <Row className="flex justify-between">
+            <Col className="hero__content">
               <h1>
                 <span>EXPLORE</span> LIKE <br /> NEVER BEFORE
               </h1>
               <button className="start__btn btn">GET STARTED</button>
             </Col>
-            <Col lg="8" className="hero__circle">
+            <Col className="hero__circle">
               <img src={HeroCircle} alt="circle" />
               <img src={HeroImg} alt="Hero Img" />
             </Col>
@@ -31,23 +31,22 @@ const Home = () => {
       {/* About start */}
       <section className="about">
         <Container>
-          <Row className="flex justify-between mb-40 row-1">
-            <Col lg="2">
+          <Row className="flex justify-between">
+            <Col>
               <i className="ri-arrow-right-line"></i>
             </Col>
-            <Col lg="8">
+            <Col className="">
               <p>
-                {" "}
-                A <strong>Comprehensive Catalogue</strong> of <br />{" "}
+                A <strong>Comprehensive Catalogue</strong> of <br />
                 Destinations with Tailored Travel Insights
               </p>
             </Col>
           </Row>
-          <Row className="flex justify-between gap-20 row-2">
-            <Col lg="6">
+          <Row className="flex justify-between">
+            <Col>
               <video src={AboutVideo} autoPlay loop muted></video>
             </Col>
-            <Col lg="4" className="flex flex-col gap-6">
+            <Col className="flex flex-col">
               <p>
                 Let your emotions guide your journey. Question-based analysis of
                 your travel spirit leads to bespoke destination and plan
@@ -78,7 +77,7 @@ const Home = () => {
       <section className="quote">
         <Container>
           <Row className="flex justify-between">
-            <Col lg="6">
+            <Col>
               <p>
                 “TO
                 <i class="ri-footprint-fill"></i>
@@ -88,7 +87,7 @@ const Home = () => {
                 <i class="ri-sun-line"></i>.”
               </p>
             </Col>
-            <Col lg="4" className="flex items-end py-4">
+            <Col className="flex items-end py-4">
               <span>- HANS CHRISTIAN ANDERSEN</span>
             </Col>
           </Row>
@@ -101,17 +100,17 @@ const Home = () => {
 
       {/* Contribution start */}
       <section className="contribution relative">
-        <img src={HeroCircle} alt="circle" className='absolute bot-0 right-0 width-1/5 z-0'/>
-        <Container className="flex flex-col gap-20  z-10">
+        <img src={HeroCircle} alt="circle" className='absolute bot-0 right-0 z-0'/>
+        <Container className="flex flex-col z-10">
           <Row
             className="grid place-content-center">
             <h1>
               Contribution <i class="ri-shining-2-fill"></i>
             </h1>
           </Row>
-          <Row className="flex justify-between gap-16">
-            <Col lg="6">
-              <Form className="form flex flex-col relative z-10 gap-4 ">
+          <Row className="flex justify-between">
+            <Col>
+              <Form className="form flex flex-col relative z-10">
                 <Form.Group controlId="name">
                   <Form.Label>Name*</Form.Label>
                   <Form.Control
@@ -143,8 +142,7 @@ const Home = () => {
               </Form>
             </Col>
             <Col
-              lg="6"
-              className="form-side flex flex-col items-start justify-start gap-8"
+              className="form-side flex flex-col items-start justify-start"
             >
               <h1>Submit your feedback</h1>
               <p>
@@ -160,7 +158,7 @@ const Home = () => {
               </p>
             </Col>
           </Row>
-          <Row className="flex justify-between mt-40">
+          <Row className="flex justify-between">
             <h1>
               or share your preferred <br /> travel destinations and ideas with
               us.
