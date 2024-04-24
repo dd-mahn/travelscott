@@ -5,6 +5,7 @@
 @import "tailwindcss/utilities";
 
 :root {
+  /* color */
   --main-color-1: #b07e5b;
   --main-color-2: #5e896b;
   --background-light: #fbf9f7;
@@ -22,21 +23,56 @@
     #5e896b 83.85%,
     #666 99.93%
   );
+
+  /* border radius */
+  --border-radius:5px;
+
+  /* box-shadow */
+  --box-shadow-light: 0px 4px 30.8px 6px rgba(0, 0, 0, 0.25);
+
+  /* font size */
+  --fs-logo: 2rem;
+  --fs-icon-btn: 1.5rem;
+  --fs-regular: 1rem;
+  --fs-medium: 1.2rem;
+  --fs-heading: 3rem;
+  --fs-medium-heading: 4rem;
+  --fs-semi-big-heading: 5rem;
+  --fs-big-heading: 6rem;
+  --fs-button:1.1rem;
+
+  /* padding, margin */
+  --p-default-x: 6.4rem;
+  --m-default-y: 10rem;
+  --m-short-y: 5rem;
+  --m-medium-y: 15rem;
+  --m-long-y: 20rem;
+
+  /* form */
+  --p-form: 2rem 3rem;
+
+  /* gap */
+  --gap-regular: 1rem;
+  --gap-medium: 2rem;
+  --gap-semi-big: 4rem;
+  --gap-big: 6rem;
+  --gap-form:.5rem;
+}
+
+html{
+  font-size: 20px;
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
   padding: 0;
-  font-size: 20px;
   background-color: var(--background-light);
   /* background-image: url(./assets/grain.png);
   background-position: 50% 50%;
   background-size: cover; */
   font-family: Poppins;
   scroll-behavior: smooth;
-}
-
-body {
   overflow-x: hidden;
 }
 
@@ -67,7 +103,7 @@ ul li {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 1.1vw;
+  font-size: var(--fs-button);
   transition: all 0.3s ease;
 }
 
@@ -81,7 +117,7 @@ ul li {
 
 input,
 textarea {
-  padding: 0.5vw 0.5vw;
+  padding: 0.5rem 0.5rem;
   border: 2px solid var(--text-light);
   border-radius: 5px;
   width: 100%;
@@ -103,4 +139,93 @@ textarea:focus {
 input:focus:invalid,
 textarea:focus:invalid{
   border: 1px solid rgb(252, 141, 141);
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 375px) {
+  
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 415px) {
+  
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 650px) {
+  
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 769px) {
+  
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1024px) {
+  
+}
+
+@media only screen and (min-width: 1280px) {
+  :root{
+    /* font siz4 */
+  --fs-logo: 1.6rem;
+  --fs-icon-btn: 1.2rem;
+  --fs-regular: .8rem;
+  --fs-medium: .96rem;
+  --fs-heading: 2.4rem;
+  --fs-medium-heading: 3.2rem;
+  --fs-semi-big-heading: 4rem;
+  --fs-big-heading: 4.8rem;
+  --fs-button:.88rem;
+
+  /* padding, margin */
+  --p-default-x: 5rem;
+  --m-default-y: 8rem;
+  --m-short-y: 4rem;
+  --m-medium-y: 12rem;
+  --m-long-y: 16rem;
+
+  /* form */
+  --p-form: 1.6rem 2.4rem;
+
+  /* gap */
+  --gap-regular: .8rem;
+  --gap-medium: 1.6rem;
+  --gap-semi-big: 3.2rem;
+  --gap-big: 4.8rem;
+  --gap-form:.4rem;
+  }
+}
+
+@media only screen and (min-width: 1536px) {
+  :root{
+    /* font size */
+  --fs-logo: 2rem;
+  --fs-icon-btn: 1.5rem;
+  --fs-regular: 1rem;
+  --fs-medium: 1.2rem;
+  --fs-heading: 3rem;
+  --fs-medium-heading: 4rem;
+  --fs-semi-big-heading: 5rem;
+  --fs-big-heading: 6rem;
+  --fs-button:1.1rem;
+
+  /* padding, margin */
+  --p-default-x: 6.4rem;
+  --m-default-y: 10rem;
+  --m-short-y: 5rem;
+  --m-medium-y: 15rem;
+  --m-long-y: 20rem;
+
+  /* form */
+  --p-form: 2rem 3rem;
+
+  /* gap */
+  --gap-regular: 1rem;
+  --gap-medium: 2rem;
+  --gap-semi-big: 4rem;
+  --gap-big: 6rem;
+  --gap-form:.5rem;
+  }
 }
