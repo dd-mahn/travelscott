@@ -1,10 +1,11 @@
 import React from "react";
 import { Container, Row, Col, Form } from "react-bootstrap";
-import HeroCircle from "../assets/svg/hero-circle.svg";
+import circle from "../assets/circle-alt.png";
 import HeroImg from "../assets/svg/hero-img.svg";
 import AboutVideo from "../assets/home-about.mp4";
 import "../styles/home.css";
 import Gallery from "./HomeComponents/Gallery";
+import { Navigate } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -17,11 +18,14 @@ const Home = () => {
               <h1>
                 <span>EXPLORE</span> LIKE <br /> NEVER BEFORE
               </h1>
-              <button className="start__btn btn">GET STARTED</button>
+              <a href="/discover" className="start__btn btn">
+                GET STARTED
+              </a>
             </Col>
             <Col className="hero__circle">
-              <img src={HeroCircle} alt="circle" />
+              <img src={circle} alt="circle" />
               <img src={HeroImg} alt="Hero Img" />
+              
             </Col>
           </Row>
         </Container>
@@ -92,7 +96,9 @@ const Home = () => {
             </Col>
           </Row>
           <Row className="flex justify-end">
-            <button className="start__btn btn">TAKE YOUR FIRST FOOTSTEP</button>
+            <a href="/test" className="start__btn btn">
+              TAKE YOUR FIRST FOOTSTEP
+            </a>
           </Row>
         </Container>
       </section>
@@ -100,10 +106,13 @@ const Home = () => {
 
       {/* Contribution start */}
       <section className="contribution relative">
-        <img src={HeroCircle} alt="circle" className='absolute bot-0 right-0 z-0'/>
+        <img
+          src={circle}
+          alt="circle"
+          className="absolute bot-0 right-0 z-0"
+        />
         <Container className="flex flex-col z-10">
-          <Row
-            className="grid place-content-center">
+          <Row className="grid place-content-center">
             <h1>
               Contribution <i class="ri-shining-2-fill"></i>
             </h1>
@@ -141,15 +150,13 @@ const Home = () => {
                 <button className="submit__btn btn btn-color-2">Submit</button>
               </Form>
             </Col>
-            <Col
-              className="form-side flex flex-col items-start justify-start"
-            >
+            <Col className="form-side flex flex-col items-start justify-start">
               <h1>Submit your feedback</h1>
               <p>
                 The application is currently in its development phase and we’re
                 seeking input from global users to enhance its functionality. We
                 believe that collective insights and resources can propel our
-                project forward. Whether you’re a developer, a user, or just
+                project forward. Whether you’re a developer, an user, or just
                 someone with a keen interest in travel, your feedback is
                 crucial. By sharing your thoughts and resources, you become an
                 integral part of our journey towards innovation. Together, let’s

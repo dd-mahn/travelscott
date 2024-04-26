@@ -1,10 +1,9 @@
 import React from 'react';
+import UnderConstruction from './UnderConstruction';
 
 const Contact = () => {
     return (
-        <div>
-            {/* Your contact page content goes here */}
-        </div>
+        <UnderConstruction />
     );
 };
 
