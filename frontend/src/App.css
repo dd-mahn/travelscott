@@ -25,7 +25,7 @@
   );
 
   /* border radius */
-  --border-radius:5px;
+  --border-radius: 5px;
 
   /* box-shadow */
   --box-shadow-light: 0px 4px 30.8px 6px rgba(0, 0, 0, 0.25);
@@ -39,7 +39,7 @@
   --fs-medium-heading: 4rem;
   --fs-semi-big-heading: 5rem;
   --fs-big-heading: 6rem;
-  --fs-button:1.1rem;
+  --fs-button: 1.1rem;
 
   /* padding, margin */
   --p-default-x: 6.4rem;
@@ -56,10 +56,10 @@
   --gap-medium: 2rem;
   --gap-semi-big: 4rem;
   --gap-big: 6rem;
-  --gap-form:.5rem;
+  --gap-form: 0.5rem;
 }
 
-html{
+html {
   font-size: 20px;
   scroll-behavior: smooth;
 }
@@ -115,17 +115,21 @@ ul li {
   background: transparent !important;
 }
 
+.d-off {
+  display: none;
+}
+
 input,
 textarea {
   padding: 0.5rem 0.5rem;
   border: 2px solid var(--text-light);
   border-radius: 5px;
   width: 100%;
-  transition: .3s linear;
+  transition: 0.3s linear;
 }
 
 input:hover,
-textarea:hover{
+textarea:hover {
   border: 2px solid var(--main-color-2);
 }
 
@@ -137,95 +141,90 @@ textarea:focus {
 }
 
 input:focus:invalid,
-textarea:focus:invalid{
+textarea:focus:invalid {
   border: 1px solid rgb(252, 141, 141);
 }
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 375px) {
-  
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 415px) {
-  
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 650px) {
-  
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 769px) {
-  
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1024px) {
-  
 }
 
 @media only screen and (min-width: 1280px) {
-  :root{
+  :root {
     /* font siz4 */
-  --fs-logo: 1.6rem;
-  --fs-icon-btn: 1.2rem;
-  --fs-regular: .8rem;
-  --fs-medium: .96rem;
-  --fs-heading: 2.4rem;
-  --fs-medium-heading: 3.2rem;
-  --fs-semi-big-heading: 4rem;
-  --fs-big-heading: 4.8rem;
-  --fs-button:.88rem;
+    --fs-logo: 1.6rem;
+    --fs-icon-btn: 1.2rem;
+    --fs-regular: 0.8rem;
+    --fs-medium: 0.96rem;
+    --fs-heading: 2.4rem;
+    --fs-medium-heading: 3.2rem;
+    --fs-semi-big-heading: 4rem;
+    --fs-big-heading: 4.8rem;
+    --fs-button: 0.88rem;
 
-  /* padding, margin */
-  --p-default-x: 5rem;
-  --m-default-y: 8rem;
-  --m-short-y: 4rem;
-  --m-medium-y: 12rem;
-  --m-long-y: 16rem;
+    /* padding, margin */
+    --p-default-x: 5rem;
+    --m-default-y: 8rem;
+    --m-short-y: 4rem;
+    --m-medium-y: 12rem;
+    --m-long-y: 16rem;
 
-  /* form */
-  --p-form: 1.6rem 2.4rem;
+    /* form */
+    --p-form: 1.6rem 2.4rem;
 
-  /* gap */
-  --gap-regular: .8rem;
-  --gap-medium: 1.6rem;
-  --gap-semi-big: 3.2rem;
-  --gap-big: 4.8rem;
-  --gap-form:.4rem;
+    /* gap */
+    --gap-regular: 0.8rem;
+    --gap-medium: 1.6rem;
+    --gap-semi-big: 3.2rem;
+    --gap-big: 4.8rem;
+    --gap-form: 0.4rem;
   }
 }
 
 @media only screen and (min-width: 1536px) {
-  :root{
+  :root {
     /* font size */
-  --fs-logo: 2rem;
-  --fs-icon-btn: 1.5rem;
-  --fs-regular: 1rem;
-  --fs-medium: 1.2rem;
-  --fs-heading: 3rem;
-  --fs-medium-heading: 4rem;
-  --fs-semi-big-heading: 5rem;
-  --fs-big-heading: 6rem;
-  --fs-button:1.1rem;
+    --fs-logo: 2rem;
+    --fs-icon-btn: 1.5rem;
+    --fs-regular: 1rem;
+    --fs-medium: 1.2rem;
+    --fs-heading: 3rem;
+    --fs-medium-heading: 4rem;
+    --fs-semi-big-heading: 5rem;
+    --fs-big-heading: 6rem;
+    --fs-button: 1.1rem;
 
-  /* padding, margin */
-  --p-default-x: 6.4rem;
-  --m-default-y: 10rem;
-  --m-short-y: 5rem;
-  --m-medium-y: 15rem;
-  --m-long-y: 20rem;
+    /* padding, margin */
+    --p-default-x: 6.4rem;
+    --m-default-y: 10rem;
+    --m-short-y: 5rem;
+    --m-medium-y: 15rem;
+    --m-long-y: 20rem;
 
-  /* form */
-  --p-form: 2rem 3rem;
+    /* form */
+    --p-form: 2rem 3rem;
 
-  /* gap */
-  --gap-regular: 1rem;
-  --gap-medium: 2rem;
-  --gap-semi-big: 4rem;
-  --gap-big: 6rem;
-  --gap-form:.5rem;
+    /* gap */
+    --gap-regular: 1rem;
+    --gap-medium: 2rem;
+    --gap-semi-big: 4rem;
+    --gap-big: 6rem;
+    --gap-form: 0.5rem;
   }
 }
