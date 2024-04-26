@@ -20,9 +20,13 @@ body {
   font-size: var(--fs-icon-btn);
 }
 
+.header ul{
+  gap: var(--gap-medium);
+}
+
 .header li a {
   font-size: var(--fs-medium);
-  mix-blend-mode: lighten;
+  /* mix-blend-mode: lighten; */
   font-weight: 500;
 }
 
