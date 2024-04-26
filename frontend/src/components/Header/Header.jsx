@@ -22,13 +22,13 @@ const Header = () => {
   return (
     <Container className="header">
       <Row className="flex justify-between items-center ">
-        <Col lg="2" className="">
+        <Col>
           <NavLink to={"/"}>
             <h1 className="font-kaushan">TravelScott</h1>
           </NavLink>
         </Col>
         <Col>
-          <ul className="flex flex-row justify-between gap-14 ">
+          <ul className="flex flex-row justify-between">
             {navs.map((item, index) => (
               <li className="nav__item " key={index}>
                 <NavLink
