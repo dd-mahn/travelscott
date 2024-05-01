@@ -6,6 +6,7 @@ import AboutVideo from "../assets/home-about.mp4";
 import "../styles/home.css";
 import Gallery from "./HomeComponents/Gallery";
 import { Navigate } from "react-router-dom";
+import HeroSphere from "../common/HeroSphere";
 
 const Home = () => {
   return (
@@ -23,7 +24,8 @@ const Home = () => {
               </a>
             </Col>
             <Col className="hero__circle">
-              <img src={circle} alt="circle" />
+              {/* <HeroSphere/> */}
+              <img src={circle} alt="" />
               <img src={HeroImg} alt="Hero Img" />
               
             </Col>
