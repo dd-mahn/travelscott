@@ -7,7 +7,7 @@ import circle from "../assets/circle-alt.png";
 import aboutVideo1 from "../assets/about-1.mp4";
 import aboutVideo2 from "../assets/about-2.mp4";
 import aboutProfile from "../assets/about-profile.jpg";
-import CircleWithAnimation from "../common/CircleWithAnimation";
+import AboutSphere from "../common/AboutSphere";
 // import Circle from "../common/Circle";
 
 function About() {
@@ -60,8 +60,8 @@ function About() {
       <section className="about__hook">
         <Container>
           <Row className="flex justify-center relative">
-            {/* <img src={circle} alt="circle" className="w-1/2" /> */}
-            <CircleWithAnimation/>
+            <img src={circle} alt="circle" className="w-1/2" />
+            {/* <AboutSphere/> */}
             <div className="absolute bg-transparent flex justify-between">
               <h1>EXCITING</h1>
               <h1>CREATIVE</h1>
