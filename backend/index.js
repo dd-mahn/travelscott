@@ -33,7 +33,7 @@ const connect = async()=>{
 app.use(express.json())
 app.use(cors(corsOptions))
 app.use(cookieParser())
-app.use('/destinations', destinationRoutes)
+app.use('/api/destinations', destinationRoutes)
 
 app.listen(port, ()=> {
     connect()
