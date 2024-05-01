@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import destination from "../assets/data/sampleDestination.json";
 import "../styles/discover.css";
 import buttonSvg1 from "../assets/svg/discover-button1.svg";
 import buttonSvg2 from "../assets/svg/discover-button2.svg";
+import { BASE_URL } from "../utils/config";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import useFetch from "../hooks/useFetch";
+import ImageComponent from "../utils/ImageComponent";
 
 const Discover = () => {
   const types = [
@@ -14,27 +17,28 @@ const Discover = () => {
     "Urban",
     "Nostalgia",
   ];
-  const countries = [
-    "Vietnam",
-    "America",
-    "France",
-    "Japan",
-    "Thailand",
-    "Italy",
-    "Spain",
-    "Australia",
-    "Greece",
-    "Brazil",
-    "India",
-    "Canada",
-    "Mexico",
-    "Germany",
-    "China",
-    "Egypt",
-    "South Africa",
-    "Argentina",
-    "New Zealand",
-  ];
+
+  // const countries = [
+  //   "Vietnam",
+  //   "America",
+  //   "France",
+  //   "Japan",
+  //   "Thailand",
+  //   "Italy",
+  //   "Spain",
+  //   "Australia",
+  //   "Greece",
+  //   "Brazil",
+  //   "India",
+  //   "Canada",
+  //   "Mexico",
+  //   "Germany",
+  //   "China",
+  //   "Egypt",
+  //   "South Africa",
+  //   "Argentina",
+  //   "New Zealand",
+  // ];
 
   let filter = {
     type: [],
@@ -86,12 +90,42 @@ const Discover = () => {
     console.log(filter);
   }
 
+  const [pageCount, setPageCount] = useState(0);
+  const [page, setPage] = useState(0);
+
+  const {
+    data: destinationInfo,
+    error,
+    loading,
+  } = useFetch(`${BASE_URL}/destinations?page=${page}`);
+  const destinations = destinationInfo?.destinations || [];
+  // console.log(destinations)
+
+  const { data: destinationCount } = useFetch(`${BASE_URL}/destinations/count`);
+  const count = destinationCount?.count || 0;
+  // console.log(count)
+
+  const {data: countriesInfo} = useFetch(`${BASE_URL}/destinations/countries`);
+  const countries = countriesInfo?.countries || [];
+  // console.log(countries)
+
+
+  useEffect(() => {
+    const pages = Math.ceil(count / 20);
+    setPageCount(pages);
+    window.scrollTo(0, 0);
+  }, [page, count]);
+
+
   return (
     <div className="discover">
       <section className="discover__hero">
         <Container className="flex flex-col relative">
           <Row className="flex justify-end">
-            <a href="/test" className="test__btn relative flex justify-center items-center cursor-pointer">
+            <a
+              href="/test"
+              className="test__btn relative flex justify-center items-center cursor-pointer"
+            >
               <img src={buttonSvg1} alt="" />
               <img src={buttonSvg2} alt="" />
               <span className="underline font-medium z-5">
@@ -126,7 +160,7 @@ const Discover = () => {
               <i class="ri-shining-2-fill"></i>
             </h1>
           </Row>
-          <Row>
+          <Row className="flex justify-between">
             <Col className="flex flex-col">
               <div className="type__select">
                 <span onClick={toggle}>
@@ -157,7 +191,39 @@ const Discover = () => {
                 </ul>
               </div>
             </Col>
-            <Col></Col>
+            <Col>
+              {loading && <h4 className="text-center pt-5">Loading...</h4>}
+              {error && <h4 className="text-center pt-5">{error}</h4>}
+
+              {!loading  && !error && destinations.length === 0 && (
+                <h4 className="text-center pt-5">No destinations found</h4>
+              )}
+
+              {!loading && !error && <ResponsiveMasonry columnsCountBreakPoints={{350:1, 768:3, 992:4}}>
+                  <Masonry gutter='1rem'>             
+                    {
+                      destinations?.map((destination, index) => (
+                        // <ImageComponent key={index} base64String={destination?.images[0] || ''} />
+                        <img src="../assets/destination_images/moc-chau/ban-ang-pine-forest.jpg" key={index} alt="" style={{'width':'100%',
+                        'display':'block', 'borderRadius':'20px'}} ></img>
+                      ))
+                    }
+                  </Masonry>
+                </ResponsiveMasonry>
+              }
+
+              <div className="pagination">
+                {[...Array(pageCount).keys()].map((number) => (
+                  <span
+                    key={number}
+                    onClick={() => setPage(number)}
+                    className={page === number ? "active__page" : ""}
+                  >
+                    {number + 1}
+                  </span>
+                ))}
+              </div>
+            </Col>
           </Row>
         </Container>
       </section>
