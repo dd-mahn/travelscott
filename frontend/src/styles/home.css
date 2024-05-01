@@ -15,7 +15,7 @@
 }
 
 .hero__content h1 {
-  margin-top: var(--m-medium-y) ;
+  margin-top: var(--m-medium-y);
   font-size: var(--fs-heading);
   font-weight: 600;
   color: var(--text-light);
@@ -45,17 +45,27 @@
     z-index: 0;
   } */
 
-.hero__circle :nth-child(1) {
+.hero__circle :nth-child(1){
   position: absolute;
-  top: -10%;
+  top: -15%;
   right: -20%;
-  min-width: 50vw;
+  min-width: 50vw !important;
+  /* min-height: 50vw !important; */
+  /* max-height: 55vw; */
   max-width: 55vw;
+  -o-object-fit: contain;
   object-fit: contain;
   z-index: 0;
   background: transparent;
   transform: scale(1.2);
+  filter: saturate(0.7);
 }
+
+.hero__circle > div > canvas{
+  height: auto !important;
+  width: auto !important;
+}
+
 .hero__circle :nth-child(2) {
   position: absolute;
   top: 35%;
@@ -65,6 +75,7 @@
   object-fit: contain;
   z-index: 1;
   background: transparent;
+  transform: scale(1.1);
 }
 
 /* About Section */
@@ -75,12 +86,12 @@
 }
 
 .about video {
-  min-width: 45vw;
+  min-width: 55vw;
   border-radius: var(--border-radius);
   /* min-height: 550px; */
 }
 
-.about .row:nth-child(1){
+.about .row:nth-child(1) {
   margin-bottom: var(--m-default-y);
 }
 
@@ -100,22 +111,22 @@
   font-weight: 500 !important;
 }
 
-.about .row:nth-child(1) .col:nth-child(2){
+.about .row:nth-child(1) .col:nth-child(2) {
   min-width: 70vw;
 }
 
-.about .row:nth-child(2){
-  gap: var(--gap-big)
+.about .row:nth-child(2) {
+  gap: var(--gap-big);
 }
 
-.about .row:nth-child(2) .col:nth-child(2){
-  gap: var(--gap-regular)
+.about .row:nth-child(2) .col:nth-child(2) {
+  gap: var(--gap-regular);
 }
 
 .about .row:nth-child(2) p {
   font-size: var(--fs-regular);
   line-height: 1.8;
-  min-width: 30vw;
+  min-width: 20vw;
 }
 
 .about .row:nth-child(2) p strong {
@@ -213,7 +224,7 @@
   color: var(--text-light);
 }
 
-.contribution .container{
+.contribution .container {
   gap: var(--gap-big);
 }
 
@@ -229,8 +240,8 @@
   top: -0.5rem;
 }
 
-.contribution .container > :nth-child(2){
-  gap:var(--gap-semi-big);
+.contribution .container > :nth-child(2) {
+  gap: var(--gap-semi-big);
 }
 
 .form {
@@ -269,8 +280,8 @@
   max-width: 10vw;
 }
 
-.form-side{
-  gap:var(--gap-medium);
+.form-side {
+  gap: var(--gap-medium);
 }
 
 .form-side h1 {
@@ -282,7 +293,7 @@
   line-height: 1.8;
 }
 
-.contribution .container > :nth-child(3){
+.contribution .container > :nth-child(3) {
   margin-top: var(--m-default-y);
 }
 
@@ -302,9 +313,10 @@
   line-height: 1.2;
 }
 
-.contribution > :nth-child(1){
-  z-index:0;
+.contribution > :nth-child(1) {
+  z-index: 0;
   width: 40vw;
-  top:0;
+  top: 0;
   left: -25%;
+  transform: rotate(100deg);
 }
