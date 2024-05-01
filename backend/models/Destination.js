@@ -6,15 +6,19 @@ const destinationSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    video:{
+        type: String,
+        default: ''
+    },
     images: {
-        type: [Buffer],
+        type: [],
         default: []
     },
     country: {
         type: String,
         required: true
     },
-    address: {
+    location: {
         type: String,
         default: ''
     },
