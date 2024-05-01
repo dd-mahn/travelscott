@@ -1,0 +1,227 @@
+{
+  "_id": { "$oid": "6620e74e47920e781939111b" },
+  "name": "Moc Chau",
+  "video":"",
+  "images": [],
+  "country": "Vietnam",
+  "location": "Moc Chau, Son La, Vietnam",
+  "description": "Need a quick “Green“ fix? Then a few days in Moc Chau is just what the doctor ordered. Crowned “World’s Leading Regional Nature Destination“ by the 2022 World Travel Awards, Moc Chau provides a year-round, weather accommodating bounty. Located in the northern province of Son La (about 200km from Hanoi), Moc Chau is known as the “Green Pearl.”",
+  "places": {
+    "To stay": {
+      "The November - Moc Chau": {
+        "name": "The November - Moc Chau",
+        "image_url": "https://cf.bstatic.com/xdata/images/hotel/max1024x768/244277852.jpg?k=21d8aa9fb2ecb73da739fa8b9e27fefe3c6b8ccc45041b754ee1c988f9192dbc&o=&hp=1",
+        "description": "The November - Moc Chau is a homestay in Moc Chau, Vietnam, known for its serene garden views and stress-free environment. It offers free WiFi and private parking. Each unit is equipped with a terrace and a private bathroom stocked with essentials. Guests can unwind by the outdoor fireplace or enjoy the picnic area. The homestay also caters to children with an indoor play area and outdoor play equipment. It’s praised for its cozy atmosphere, clean rooms, and good value for money.",
+        "location": {
+          "on_map": "https://www.google.com/maps/place/The+November/@20.8303808,104.6378973,15z/data=!4m9!3m8!1s0x3133c1ea40036a35:0x5c327b3f19eb6b47!5m2!4m1!1i2!8m2!3d20.8303808!4d104.6378973!16s%2Fg%2F11j03r7wx1?entry=ttu",
+          "address": "Số 88, Ngõ 3, Tiểu khu 34, xã Đông Sang, Mộc Châu, Mộc Châu, Việt Nam"
+        },
+        "price": { "currency": "VND", "value": "660.000" },
+        "distance": { "$numberDouble": "3.1" },
+        "rating": {
+          "Booking.com": { "$numberDouble": "8.6" },
+          "Agoda": { "$numberDouble": "9.1" }
+        }
+      },
+      "Sol Inn - Moc Chau": {
+        "name": "Sol Inn - Moc Chau",
+        "image_url": "https://www.booking.com/hotel/vn/sol-inn-moc-chau.no.html",
+        "description": "Boasting a garden, a year-round outdoor pool and pool views, Sol Inn - Moc Chau is located in Mộc Châu. This property offers access to a balcony, free private parking and free WiFi. Featuring family rooms, this property also provides guests with an outdoor fireplace[^1^][11].",
+        "location": {
+          "on_map": "https://www.google.com/maps/place/Sol+Inn+-+Moc+Chau",
+          "address": "Số 186, ngõ 12, Bản Áng, Đông Sang, Mộc Châu, Sơn La[^2^][10]"
+        },
+        "price": { "currency": "VND", "value": "580.000" },
+        "distance": { "$numberInt": "2" },
+        "rating": {
+          "Booking.com": { "$numberDouble": "8.7" },
+          "Agoda": { "$numberDouble": "9.3" }
+        }
+      },
+      "Moc Chau Island": {
+        "name": "Moc Chau Island",
+        "image_url": "https://www.wandervietnam.com/moc-chau-island/",
+        "description": "Moc Chau Island is home to Vietnam’s new coolest attraction; a 632-meter-long glass bridge that has already been crowned with a Guinness World Book of Records title! The island itself is a fun place to visit for all the family, with zip-lining opportunities, arcades, entertainment, and places to eat[^3^][21].",
+        "location": {
+          "on_map": "https://www.google.com/maps/place/Moc+Chau+Island",
+          "address": "Bản Lùn, Xã Mường Sang, Huyện Mộc Châu, Tỉnh Sơn La[^4^][14]"
+        },
+        "price": { "currency": "VND", "value": "550.000" },
+        "distance": { "$numberInt": "2" },
+        "rating": {
+          "Booking.com": { "$numberInt": "8" },
+          "Agoda": { "$numberInt": "9" }
+        }
+      },
+      "Vườn An nhiên Mộc Châu": {
+        "name": "Vườn An nhiên Mộc Châu",
+        "image_url": "https://www.booking.com/hotel/vn/vuon-an-nhien-moc-chau.tl.html",
+        "description": "Vườn An nhiên Mộc Châu is a homestay located in Mộc Châu, Sơn La, Vietnam. It offers accommodations in a quiet area with clean facilities. The homestay is surrounded by a beautiful garden, and some accommodations include a terrace with mountain views, a fully equipped kitchen, and a private bathroom. The homestay provides free private parking, a 24-hour front desk, and free WiFi. It also features a shared kitchen and full-day security for guests. Buffet and continental breakfast options with warm dishes and local specialties are available each morning.",
+        "location": {
+          "on_map": "https://www.google.com/maps/place/Vườn+An+nhiên+Mộc+Châu",
+          "address": "37 Bản Áng 3, Đông Sang, Mộc Châu, Sơn La 34719, Vietnam"
+        },
+        "price": { "currency": "VND", "value": "700.000" },
+        "distance": { "$numberInt": "2" },
+        "rating": {
+          "Booking.com": { "$numberDouble": "9.1" },
+          "Agoda": { "$numberInt": "9" }
+        }
+      }
+    },
+    "To visit": {
+      "Moc Chau Tea Hills": {
+        "name": "Moc Chau Tea Hills",
+        "image_url": "https://asianwaytravel.com/wp-content/uploads/2018/11/moc-chau-tea-hills-e1543809311975.jpg",
+        "description": "Moc Chau Tea Hills are located in the Moc Chau Plateau, which is an ideal location for tea planting, animal husbandry, and other agriculture. The tea hills have become one of the most highlighted tourist destinations in the area. The tea hills lie about 15km away from Moc Chau Farm and are captivating with the green rows of tea trees running hill after hill. The whole landscape becomes even more vivid when the sunlight casts down on the hills.",
+        "location": {
+          "on_map": "https://www.google.com/maps/place/%C4%90%E1%BB%93i+Ch%C3%A8+M%E1%BB%99c+Ch%C3%A2u/@20.8323134,104.6935702,16.25z/data=!4m6!3m5!1s0x3133eb72899919f1:0x92aa361862dee80c!8m2!3d20.8323057!4d104.6925427!16s%2Fg%2F11pz3jqtyx?entry=ttu",
+          "address": "Moc Chau, Son La, Vietnam"
+        },
+        "tips": "The best time to visit is during the summer for a great photoshoot."
+      },
+      "Hua Tat Village": {
+        "name": "Hua Tat Village",
+        "image_url": "https://cdn.sgtiepthi.vn/wp-content/uploads/2022/05/Hua-Tat.jpg",
+        "description": "Hua Tat Village is a lovely small community of the H'mong tribe in Moc Chau, blessed with lush, breathtaking scenery, authentic local culture, and a poetic trekking path into a nearby pine forest. The village is home to friendly H'mong villagers who have preserved their indigenous culture and tradition. The village also offers a unique experience of trekking the Pine Tree Trail, visiting the H'mong Cooking Workshop, and trying out the art of H'mong Embroidery and paper-making at the H'moong Paper Workshop.",
+        "location": {
+          "on_map": "https://www.google.com/maps/place/Hua+T%E1%BA%A1t,+V%C3%A2n+H%E1%BB%93,+M%E1%BB%99c+Ch%C3%A2u,+Son+La/@20.7794878,104.7854519,16z/data=!3m1!4b1!4m6!3m5!1s0x3133ec587601b67f:0x9ee0f870eb65d6df!8m2!3d20.7783614!4d104.7827242!16s%2Fg%2F12vrtc88h?entry=ttu",
+          "address": "Van Ho, Moc Chau, Son La, Vietnam"
+        },
+        "tips": "Visitors should meet the H'mong people, trek the Pine Tree Trail, visit the H'mong Cooking Workshop, enter the world of H'mong Embroidery, and try making paper at the H'moong Paper Workshop."
+      },
+      "Doi (Bat) Cave": {
+        "name": "Doi (Bat) Cave",
+        "image_url": "https://asianwaytravel.com/wp-content/uploads/2018/11/doi-cave-son-moc-huong-cave-e1543808256762.jpg",
+        "description": "Doi Cave, also known as “Nguom Ca Khao”, is located on the slope of a limestone mountain about 700m from the public road. The cave is home to ten bat species, two of which are nationally endangered. The cave is mysterious and wild, with a marked inter-month fluctuation in the total bat abundance. It’s a fascinating place for nature lovers and those interested in biodiversity.",
+        "location": {
+          "on_map": "https://www.google.com/maps/place/Hang+D%C6%A1i/@20.8500612,104.6390153,15z/data=!4m2!3m1!1s0x0:0xd1ed21e0882cf80d?sa=X&ved=1t:2428&ictx=111",
+          "address": "Moc Chau, Son La, Vietnam"
+        },
+        "tips": "The cave is a natural habitat for bats, so visitors should respect the wildlife and not disturb the bats. Also, as the cave is quite dark and slippery, it’s recommended to bring a flashlight and wear appropriate footwear."
+      },
+      "Dai Yem Waterfall": {
+        "name": "Dai Yem Waterfall",
+        "image_url": "https://cdn3.ivivu.com/2022/12/th%C3%A1c-D%E1%BA%A3i-Y%E1%BA%BFm-ivivu-21.jpg",
+        "description": "Dai Yem Waterfall, also known as Pink Blouse Waterfall, is a beautiful two-level waterfall with a drop at a height of 50m. The waterfall is created by the two streams of Vat and Bo Sap. It’s especially spectacular in the rainy season between April and September. The waterfall cascades down from a height of over 100 meters, creating a misty veil of water that shrouds the area in a dreamy haze.",
+        "location": {
+          "on_map": "https://www.google.com/maps/place/Th%C3%A1c+D%E1%BA%A3i+Y%E1%BA%BFm/@20.8152076,104.5923043,15z/data=!4m2!3m1!1s0x0:0x7a9507f393b73966?sa=X&ved=1t:2428&ictx=111",
+          "address": "Muong Sang, Moc Chau, Son La, Vietnam"
+        },
+        "tips": "The waterfall is a popular tourist destination and is easily accessible. Visitors can swim behind the falls and around them. The water is clean and is an amazing blue/green color. They also have bamboo rafts you can tow (on ropes) over to the falls if you don’t want to swim but do want to get up close and personal."
+      },
+      "a Phach Village": {
+        "name": "Ba Phach Village",
+        "image_url": "https://digiticket.vn/blog/wp-content/uploads/2021/10/Ban-Pa-Phach-1.jpg",
+        "description": "Ba Phach Village is an iconic tribal village in Moc Chau Plateau. It is well-known for its spectacular sights of plump and peach flowers blooming in springtime and cauliflower blooming from November to December. The village is home to two ethnic groups – Thai people and H’mong people, each with their rich cultural customs and traditions. The village is divided into Lower Ba Phach, inhabited by the Thai, and Upper Ba Phach, inhabited by the H’mong people.",
+        "location": {
+          "on_map": "https://www.google.com/maps/place/P%C3%A1+Ph%C3%A1ch,+%C4%90%C3%B4ng+Sang,+M%E1%BB%99c+Ch%C3%A2u+District,+Son+La/data=!4m2!3m1!1s0x3133ea9cf0e95aeb:0xe21581abd544223c?sa=X&ved=1t:242&ictx=111",
+          "address": "Dong Sang, Moc Chau, Son La, Vietnam"
+        },
+        "tips": "Visitors should respect the local customs and traditions. It's also recommended to visit during the springtime to see the beautiful blooming flowers."
+      },
+      "Na Ka Plum Valley": {
+        "name": "Na Ka Plum Valley",
+        "image_url": "https://statics.vinpearl.com/Na-ka-plum-valley-02_1689503325.jpeg",
+        "description": "Na Ka Valley, nestled in Moc Chau, is a paradise known for its picturesque plum trees. The valley's breathtaking landscape, fresh mountain air, and juicy plums make it a must-visit spot for travelers. The best time to visit Na Ka Plum Valley is from January to February, during the spring season in Moc Chau. From April onwards, it is summer and also the plum harvest season.",
+        "location": {
+          "on_map": "https://www.google.com/maps/place/Na+Ka+Plum+Valley/@20.8968472,104.6534936,15z/data=!4m6!3m5!1s0x313395a341cb3297:0xb6e7825b75778a84!8m2!3d20.8968472!4d104.6534936!16s%2Fg%2F12hkrwz2t?entry=ttu",
+          "address": "Moc Chau, Son La, Vietnam"
+        },
+        "tips": "The best time to visit is during the plum harvest season. Visitors can participate in the plum harvest and enjoy the fresh plums."
+      }
+    },
+    "To eat": {
+      "Suoi Bang Rock Snails": {
+        "description": "Try Suoi Bang rock snails, a specialty in Moc Chau. These snails are stir-fried or steamed with ginger and lemongrass, resulting in a crispy yet chewy texture with a delightful aroma and sweet taste.",
+        "recommended_pairing": "Local wine made by friendly native people"
+      },
+      "Mustard Greens": {
+        "description": "Mustard greens are an important part of many local families’s lives. They are chopped, stir-fried with garlic, and seasoned with basic spices for a delectable taste.",
+        "symbol_of_culinary_culture": true
+      },
+      "Nam Pia": {
+        "description": "Nam Pia is a unique dish made from the offal of buffalo, cow, or goat, particularly the part of the intestine that contains undigested food. It is typically served during special occasions in the highlands of Moc Chau.",
+        "specialty": true
+      },
+      "Deep-Fried Veal": {
+        "description": "Deep-fried veal is popular in Moc Chau. The calf used for this dish is young and strong, resulting in tender and crispy meat. Dip it in soy sauce for extra flavor.",
+        "recommended_dipping_sauce": "Soy sauce"
+      },
+      "Grilled Stream Fish": {
+        "description": "Enjoy grilled stream fish caught from the crystal-clear streams in Moc Chau. The fish can be cooked in various ways, such as frying or grilling.",
+        "location": "Crystal-clear streams in Moc Chau"
+      }
+    }
+  },
+  "transportation": {
+    "overview": "Moc Chau is 180km away from Hanoi. Moving along the National Road 6 (Quoc Lo 6) normally takes between four and six hours. Thanks to the width and surface flatness, Moc Chau is relatively accessible. Thus, there are many transportation options available.",
+    "Coach (Xe khach)": {
+      "description": "Coaches from Giap Bat, My Dinh, Yen Nghia, and Thanh Xuan Stations depart from 4 AM to 11 PM. There are two types of coaches:",
+      "types": [
+        {
+          "name": "16-29-seat-coach",
+          "description": "Mainly runs during daytime"
+        },
+        { "name": "Space coach", "description": "Runs both day and night" }
+      ],
+      "price_range": { "currency": "VND", "range": "130.000 - 160.000" },
+      "additional_info": {
+        "note": "Prices are subject to change during holiday seasons, especially during Tet Holiday.",
+        "phone_numbers": {
+          "Bac Son": "022.355.1559",
+          "Hai Van": "0122.226.2626",
+          "Hung Thanh": "0989.264.264",
+          "Ngoc Thuan": "0913.017.079",
+          "Sanh Le": "0914.898.906 (My Dinh)",
+          "Khanh Thu": "0947 869 169 (Thanh Xuan)"
+        }
+      },
+      "quick_review": "Passengers can view the beautiful scenery of Northwest amidst the fog, the villages on both sides of the road, the forests, and the peach trees in daytime, or rest in preparation for the next day full of new experiences in coaches that provide beds at nighttime.",
+      "recommended": true
+    },
+    "Rented taxis, motorbikes": {
+      "description": "You have two options for rented transportation:",
+      "types": [
+        { "name": "Rented motorbike", "description": "" },
+        {
+          "name": "Rented taxi",
+          "description": "Prices depend on the time and destination."
+        }
+      ],
+      "price_range": { "currency": "VND", "range": "250,000 - 1,200,000" },
+      "additional_info": {
+        "note": "",
+        "phone_numbers": {
+          "Lien Thao": "0973.562.809",
+          "Than Gai": "01687.447.292"
+        }
+      },
+      "quick_review": "",
+      "recommended": true
+    },
+    "Personal car or bike": {
+      "description": "There are two ways to drive to Moc Chau:",
+      "types": [
+        {
+          "name": "Nguyen Trai -> Ha Dong -> National Road 6 (Quoc Lo 6)",
+          "description": ""
+        },
+        {
+          "name": "Lang Hoa Lac, Xuan Mai -> National Road 6 (Quoc Lo 6)",
+          "description": ""
+        }
+      ],
+      "price_range": { "currency": "", "range": "" },
+      "additional_info": {
+        "note": "Take caution of fog and slippery road conditions."
+      },
+      "quick_review": "",
+      "recommended": true
+    }
+  },
+  "types": ["Nature", "Relaxation", "Adventure"],
+  "reviews": { "_dummy": null },
+  "summary": "Moc Chau Plateau, with its cool climate, tea plantations, and ethnic villages, is a perfect escape from bustling cities. Whether you’re sipping tea amidst rolling hills, exploring local traditions, or chasing waterfalls, Moc Chau promises a serene and unforgettable experience.",
+  "__v": { "$numberInt": "2" }
+}
