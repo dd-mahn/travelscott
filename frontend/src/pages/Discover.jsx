@@ -4,12 +4,11 @@ import "../styles/discover.css";
 import buttonSvg1 from "../assets/svg/discover-button1.svg";
 import buttonSvg2 from "../assets/svg/discover-button2.svg";
 import { BASE_URL } from "../utils/config";
-import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import useFetch from "../hooks/useFetch";
-import ImageComponent from "../utils/ImageComponent";
+import MasonryImagesGallery from "./DiscoverComponents/MasonryGallery";
 
 const Discover = () => {
-  const types = [
+  const DOMTypes = [
     "Nature",
     "Relaxation",
     "Culture",
@@ -17,33 +16,6 @@ const Discover = () => {
     "Urban",
     "Nostalgia",
   ];
-
-  // const countries = [
-  //   "Vietnam",
-  //   "America",
-  //   "France",
-  //   "Japan",
-  //   "Thailand",
-  //   "Italy",
-  //   "Spain",
-  //   "Australia",
-  //   "Greece",
-  //   "Brazil",
-  //   "India",
-  //   "Canada",
-  //   "Mexico",
-  //   "Germany",
-  //   "China",
-  //   "Egypt",
-  //   "South Africa",
-  //   "Argentina",
-  //   "New Zealand",
-  // ];
-
-  let filter = {
-    type: [],
-    country: "",
-  };
 
   function toggle(e) {
     const isOpen = e.target.nextElementSibling.classList.contains("d-off");
@@ -61,61 +33,105 @@ const Discover = () => {
     }
   }
 
-  function filterByType(e) {
-    const type = e.target.innerText;
-    if (filter.type.includes(type)) {
-      e.target.classList.remove("type__selected");
-      filter.type = filter.type.filter((item) => item !== type);
+  function objectToQueryString(obj) {
+    return Object.keys(obj)
+      .filter((key) => obj[key].length > 0) // Ignore keys with empty values
+      .map((key) => {
+        if (Array.isArray(obj[key])) {
+          // For arrays, add each item as a separate query parameter
+          return obj[key]
+            .map(
+              (item) => `${encodeURIComponent(key)}=${encodeURIComponent(item)}`
+            )
+            .join("&");
+        } else {
+          // For strings, add the key-value pair as a single query parameter
+          return `${encodeURIComponent(key)}=${encodeURIComponent(obj[key])}`;
+        }
+      })
+      .join("&");
+  }
+
+const [filter, setFilter] = useState({ types: [], country: "" });
+const [pageCount, setPageCount] = useState(0);
+const [page, setPage] = useState(1);
+const [destinationInfo, setDestinationInfo] = useState(null);
+const [destinationCount, setDestinationCount] = useState(null);
+const [loading, setLoading] = useState(false);
+const [error, setError] = useState(null);
+
+function filterByType(e) {
+  const type = e.target.innerText;
+  if (filter.types.includes(type)) {
+    e.target.classList.remove("type__selected");
+    setFilter((prevFilter) => ({
+      ...prevFilter,
+      types: prevFilter.types.filter((item) => item !== type),
+    }));
+  } else {
+    e.target.classList.add("type__selected");
+    setFilter((prevFilter) => ({
+      ...prevFilter,
+      types: [...prevFilter.types, type],
+    }));
+  }
+}
+
+function filterByCountry(e) {
+  const country = e.target.innerText;
+  const countryList = document.querySelectorAll(".country__list li");
+  const isCountrySelected = e.target.classList.contains("country__selected");
+
+  countryList.forEach((item) => {
+    if (item.innerText === country) {
+      item.classList.toggle("country__selected", !isCountrySelected);
     } else {
-      e.target.classList.add("type__selected");
-      filter.type.push(type);
+      item.classList.remove("country__selected");
     }
-    console.log(filter);
+  });
+
+  setFilter((prevFilter) => ({
+    ...prevFilter,
+    country: isCountrySelected ? "" : country,
+  }));
+}
+
+const filterQueryString = objectToQueryString(filter);
+const destinationInfoUrl = `${BASE_URL}/destinations?page=${page}&${filterQueryString}`;
+const destinationCountUrl = `${BASE_URL}/destinations/count?${filterQueryString}`;
+
+const { data: destinationInfoData, error: destinationInfoError, loading: destinationInfoLoading } = useFetch(destinationInfoUrl);
+const { data: destinationCountData, error: destinationCountError } = useFetch(destinationCountUrl);
+
+useEffect(() => {
+  if (!destinationInfoError) {
+    setDestinationInfo(destinationInfoData);
+  } else {
+    setError(destinationInfoError);
   }
 
-  function filterByCountry(e) {
-    const country = e.target.innerText;
-    const countryList = document.querySelectorAll(".country__list li");
-    const isCountrySelected = e.target.classList.contains("country__selected");
-
-    countryList.forEach((item) => {
-      if (item.innerText === country) {
-        item.classList.toggle("country__selected", !isCountrySelected);
-      } else {
-        item.classList.remove("country__selected");
-      }
-    });
-
-    filter.country = isCountrySelected ? "" : country;
-    console.log(filter);
+  if (!destinationCountError) {
+    setDestinationCount(destinationCountData);
+  } else {
+    setError(destinationCountError);
   }
 
-  const [pageCount, setPageCount] = useState(0);
-  const [page, setPage] = useState(0);
+  setLoading(destinationInfoLoading);
+}, [destinationInfoData, destinationInfoError, destinationCountData, destinationCountError, destinationInfoLoading]);
 
-  const {
-    data: destinationInfo,
-    error,
-    loading,
-  } = useFetch(`${BASE_URL}/destinations?page=${page}`);
-  const destinations = destinationInfo?.destinations || [];
-  // console.log(destinations)
+const destinations = destinationInfo?.destinations || [];
+const count = destinationCount?.count || 0;
 
-  const { data: destinationCount } = useFetch(`${BASE_URL}/destinations/count`);
-  const count = destinationCount?.count || 0;
-  // console.log(count)
+useEffect(() => {
+  const pages = Math.ceil(count / 20);
+  setPageCount(pages);
+  // window.scrollTo(0, 0);
+}, [count]);
 
-  const {data: countriesInfo} = useFetch(`${BASE_URL}/destinations/countries`);
-  const countries = countriesInfo?.countries || [];
-  // console.log(countries)
-
-
-  useEffect(() => {
-    const pages = Math.ceil(count / 20);
-    setPageCount(pages);
-    window.scrollTo(0, 0);
-  }, [page, count]);
-
+const { data: countriesInfo } = useFetch(
+  `${BASE_URL}/destinations/countries`
+);
+const countries = countriesInfo?.countries || [];
 
   return (
     <div className="discover">
@@ -169,7 +185,7 @@ const Discover = () => {
                   <i class="ri-checkbox-blank-circle-fill"></i>
                 </span>
                 <ul className="type__list">
-                  {types.map((type, index) => (
+                  {DOMTypes.map((type, index) => (
                     <li key={index} onClick={filterByType}>
                       {type}
                     </li>
@@ -191,37 +207,37 @@ const Discover = () => {
                 </ul>
               </div>
             </Col>
-            <Col>
+            <Col className="gallery flex flex-col justify-between w-full">
               {loading && <h4 className="text-center pt-5">Loading...</h4>}
               {error && <h4 className="text-center pt-5">{error}</h4>}
 
-              {!loading  && !error && destinations.length === 0 && (
-                <h4 className="text-center pt-5">No destinations found</h4>
+              {!loading &&
+                !error &&
+                (destinations.length === 0 ||
+                  destinations === null ||
+                  destinations === undefined) && (
+                  <h4 className="text-center pt-5">No destinations found</h4>
+                )}
+
+              {!loading && !error && (
+                <MasonryImagesGallery destinations={destinations} />
               )}
 
-              {!loading && !error && <ResponsiveMasonry columnsCountBreakPoints={{350:1, 768:3, 992:4}}>
-                  <Masonry gutter='1rem'>             
-                    {
-                      destinations?.map((destination, index) => (
-                        // <ImageComponent key={index} base64String={destination?.images[0] || ''} />
-                        <img src="../assets/destination_images/moc-chau/ban-ang-pine-forest.jpg" key={index} alt="" style={{'width':'100%',
-                        'display':'block', 'borderRadius':'20px'}} ></img>
-                      ))
-                    }
-                  </Masonry>
-                </ResponsiveMasonry>
-              }
-
-              <div className="pagination">
-                {[...Array(pageCount).keys()].map((number) => (
-                  <span
-                    key={number}
-                    onClick={() => setPage(number)}
-                    className={page === number ? "active__page" : ""}
-                  >
-                    {number + 1}
-                  </span>
-                ))}
+              <div className="pagination flex justify-between">
+                <div className="flex ">
+                  {[...Array(pageCount).keys()].map((number) => (
+                    <span
+                      key={number + 1}
+                      onClick={() => setPage(number + 1)}
+                      className={page === number + 1 ? "active__page" : ""}
+                    >
+                      {number + 1}
+                    </span>
+                  ))}
+                </div>
+                <span>
+                  Showing {destinations.length} of {count}
+                </span>
               </div>
             </Col>
           </Row>
