@@ -8,10 +8,9 @@ const MasonryImagesGallery = ({destinations}) => {
       {/* 350:1, 768:3, 992:4 */}
       <Masonry gutter='1rem'>
         {
-          destinations?.map((destination,index) => (
-            <a href={`/destinations/${destination?._id}`} key={index}>
-              <img className='masonry__img' src={destination?.images[0]} alt={destination?.name}  style={{'width':'100%',
-              'display':'block', 'borderRadius':'5px'}} data-name={destination?.name} />
+          destinations?.map(destination => (
+            <a href={`/destinations/${destination?._id}`} key={destination?._id} data-name={destination?.name} className='destination__card'>
+              <img className='masonry__img' src={destination?.images[0]} alt={destination?.name} />
             </a>
           ))
         }
