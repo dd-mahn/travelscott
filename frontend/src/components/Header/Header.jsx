@@ -10,7 +10,7 @@ const navs = [
     display: "About",
   },
   {
-    path: "/discover",
+    path: "/destinations",
     display: "Discover",
   },
   {
