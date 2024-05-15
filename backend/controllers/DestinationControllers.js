@@ -19,15 +19,27 @@ export const createDestination = async (req, res) => {
 // Get all destinations with pagination
 export const getDestinations = async (req, res) => {
   try {
-    const page = parseInt(req.query.page) || 1;
-    const limit = 20;
+    const { country, types, page = 1, limit = 20 } = req.query;
+  
+    let filter = {};
+  
+    if (country) {
+      filter.country = { $regex: new RegExp("^" + country.toLowerCase(), "i") };
+    }
+  
+    if (types) {
+      let typesArray = Array.isArray(types) ? types : types.split(",");
+      let typesRegex = typesArray.map(type => new RegExp("^" + type.toLowerCase(), "i"));
+      filter.types = { $all: typesRegex };
+    }
+  
     const skip = (page - 1) * limit;
-
-    const destinations = await Destination.find({}).skip(skip).limit(limit);
-    const totalCount = await Destination.countDocuments();
-
+  
+    const destinations = await Destination.find(filter).skip(skip).limit(limit);
+    const totalCount = await Destination.countDocuments(filter);
+  
     const totalPages = Math.ceil(totalCount / limit);
-
+  
     res.status(201).json({
       destinations,
       page,
@@ -53,12 +65,26 @@ export const getSingleDestination = async (req, res) => {
 
 // Get destination count
 export const getDestinationCount = async (req, res) => {
-    try {
-        const count = await Destination.countDocuments();
-        res.json({ count: count });
-    } catch (error) {
-        res.status(500).json({ message: error.message });
+  try {
+    const { country, types } = req.query;
+
+    let filter = {};
+
+    if (country) {
+      filter.country = { $regex: new RegExp("^" + country.toLowerCase(), "i") };
     }
+  
+    if (types) {
+      let typesArray = Array.isArray(types) ? types : types.split(",");
+      let typesRegex = typesArray.map(type => new RegExp("^" + type.toLowerCase(), "i"));
+      filter.types = { $all: typesRegex };
+    }
+
+    const count = await Destination.countDocuments(filter);
+    res.json({ count });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
 // Get countries
@@ -244,5 +270,74 @@ export const updateDestinationImages = async (req, res) => {
   } catch (error) {
     console.log("Error:", error);
     res.status(400).json({ message: error.message });
+  }
+};
+
+// Get destinations with filter 
+export const getDestinationsWithFilter = async (req, res) => {
+  try {
+    const { country, types, page } = req.query;
+    const limit = 20;
+    const skip = (parseInt(page) - 1) * limit;
+
+    let destinations = [];
+    let typesArray = Array.isArray(types) ? types : types.split(",");
+    let typesRegex = typesArray.map(type => new RegExp("^" + type.toLowerCase(), "i"));
+
+    if (country && types) {
+      destinations = await Destination.find({ 
+        country: { $regex: new RegExp("^" + country.toLowerCase(), "i") }, 
+        types: { $all: typesRegex } 
+      }).skip(skip).limit(limit);
+    } else if (country) {
+      destinations = await Destination.find({ 
+        country: { $regex: new RegExp("^" + country.toLowerCase(), "i") } 
+      }).skip(skip).limit(limit);
+    } else if (types) {
+      destinations = await Destination.find({ types: { $all: typesRegex } }).skip(skip).limit(limit);
+    } else {
+      destinations = await Destination.find({}).skip(skip).limit(limit);
+    }
+
+    const totalCount = await Destination.countDocuments();
+
+    const totalPages = Math.ceil(totalCount / limit);
+
+    res.json({
+      destinations,
+      page: parseInt(page) || 1,
+      totalPages,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Get destination count with filter
+export const getDestinationCountWithFilter = async (req, res) => {
+  try {
+    const { country, types } = req.query;
+
+    let filter = {};
+
+    if (country && types) {
+      filter = {
+        country: { $regex: new RegExp("^" + country.toLowerCase(), "i") },
+        types: { $all: types },
+      };
+    } else if (country) {
+      filter = {
+        country: { $regex: new RegExp("^" + country.toLowerCase(), "i") },
+      };
+    } else if (types) {
+      filter = {
+        types: { $all: types },
+      };
+    }
+
+    const count = await Destination.countDocuments(filter);
+    res.json({ count });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
