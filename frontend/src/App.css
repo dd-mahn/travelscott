@@ -1,8 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap");
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+@import url("http://kenwheeler.github.io/slick/slick/slick-theme.css");
 
 :root {
   /* color */
@@ -10,6 +12,8 @@
   --main-color-2: #5e896b;
   --background-light: #fbf9f7;
   --text-light: #333333;
+  --border-color: #333333;
+  --text-dark: #fff;
   --hero-gradient: linear-gradient(
     180deg,
     rgba(173, 210, 161, 0.85) 0%,
@@ -25,7 +29,7 @@
   );
 
   /* border radius */
-  --border-radius: 5px;
+  --border-radius: 10px;
 
   /* box-shadow */
   --box-shadow-light: 0px 4px 30.8px 6px rgba(0, 0, 0, 0.25);
@@ -40,6 +44,13 @@
   --fs-semi-big-heading: 5rem;
   --fs-big-heading: 6rem;
   --fs-button: 1.1rem;
+
+  /* font weight */
+  --fw-regular: 300;
+  --fw-medium: 400;
+  --fw-semi: 500;
+  --fw-bold: 600;
+  --fw-heading-bold: 700;
 
   /* padding, margin */
   --p-default-x: 6.4rem;
@@ -59,6 +70,10 @@
   --gap-form: 0.5rem;
 }
 
+* {
+  color: var(--text-light);
+}
+
 html {
   font-size: 20px;
   scroll-behavior: smooth;
@@ -71,7 +86,9 @@ body {
   /* background-image: url(./assets/grain.png);
   background-position: 50% 50%;
   background-size: cover; */
-  font-family: Poppins;
+  /* font-family: Poppins; */
+  font-family: "Lexend", sans-serif;
+  font-weight: 300;
   scroll-behavior: smooth;
   overflow-x: hidden;
 }
@@ -119,6 +136,19 @@ ul li {
   display: none;
 }
 
+.text-light-gradient {
+  background: linear-gradient(
+    180deg,
+    #333 0%,
+    #424242 14.5%,
+    #515151 65%,
+    #999 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 input,
 textarea {
   padding: 0.5rem 0.5rem;
@@ -145,6 +175,16 @@ textarea:focus:invalid {
   border: 1px solid rgb(252, 141, 141);
 }
 
+.slick-prev:before,
+.slick-next:before {
+  color: var(--main-color-2) !important;
+  font-size: calc(1*var(--fs-icon-btn))  !important;
+  transition: .3s ease;
+}
+
+.slick-dots{
+  bottom: -20% !important
+}
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 375px) {
 }
