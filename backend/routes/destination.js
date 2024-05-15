@@ -10,7 +10,9 @@ import {
   deleteAllDestinations,
   updateDestinationImages,
   getCountries,
-  getDestinationCount
+  getDestinationCount,
+  getDestinationsWithFilter,
+  getDestinationCountWithFilter
 } from "../controllers/DestinationControllers.js";
 import express from "express";
 
@@ -18,6 +20,8 @@ const router = express.Router();
 
 router.post("/", createDestination);
 router.get("/", getDestinations);
+router.get("/filter", getDestinationsWithFilter);
+router.get('/filter/count', getDestinationCountWithFilter)
 router.get("/count", getDestinationCount);
 router.get("/countries", getCountries);
 router.get("/:id", getSingleDestination);
