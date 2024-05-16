@@ -24,7 +24,7 @@ const Gallery = () => {
                     </MarqueeSlider>
                 </Row>
                 <Row className='flex flex-col items-center gap-10 gallery__slider-2'>
-                    <div className='flex justify-between items-center'>
+                    <div className='flex justify-between items-baseline'>
                         <h1><span>From {totalKey}+</span> Countries</h1>
                         <span>(We spread travel love around the world)</span>
                     </div>
