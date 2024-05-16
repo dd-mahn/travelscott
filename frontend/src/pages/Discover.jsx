@@ -18,6 +18,11 @@ const Discover = () => {
   ];
 
   function toggle(e) {
+    console.log(e)
+    if (e.target.classList.contains("ri-checkbox-blank-circle-line") || e.target.classList.contains("ri-checkbox-blank-circle-fill")){
+      return;
+    }
+
     const isOpen = e.target.nextElementSibling.classList.contains("d-off");
     const firstIcon = e.target.querySelector(".ri-checkbox-blank-circle-line");
     const secondIcon = e.target.querySelector(".ri-checkbox-blank-circle-fill");
@@ -173,7 +178,7 @@ const countries = countriesInfo?.countries || [];
         <Container>
           <Row className="flex justify-center">
             <h1>
-              <i class="ri-shining-2-fill"></i>
+              <i class="ri-shining-2-fill"></i> Everything takes time.
             </h1>
           </Row>
           <Row className="flex justify-between">
