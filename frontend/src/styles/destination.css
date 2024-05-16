@@ -214,19 +214,18 @@
 }
 
 .destination__places .places{
-    /* min-width: 19vw;
-    max-width: 18vw; */
+    display: flex !important;
+    gap: calc(var(--gap-regular) * 0.8);
 }
 
 .destination__places .places img{
     width: 100% !important;
-    height: 25vh;
+    height: 15vw;
     object-fit: cover;
     border-radius: var(--border-radius);
 }
 
 .destination__places .places span{
-    margin-top: calc(var(--gap-regular) * 0.5) !important ;
     font-weight: var(--fw-medium);
     font-size: var(--fs-medium);
 }
