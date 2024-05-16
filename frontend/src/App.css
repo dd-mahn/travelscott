@@ -1,6 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
@@ -46,11 +49,11 @@
   --fs-button: 1.1rem;
 
   /* font weight */
-  --fw-regular: 300;
-  --fw-medium: 400;
-  --fw-semi: 500;
-  --fw-bold: 600;
-  --fw-heading-bold: 700;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semi: 600;
+  --fw-bold: 700;
+  --fw-heading-bold: 800;
 
   /* padding, margin */
   --p-default-x: 6.4rem;
@@ -87,8 +90,9 @@ body {
   background-position: 50% 50%;
   background-size: cover; */
   /* font-family: Poppins; */
-  font-family: "Lexend", sans-serif;
-  font-weight: 300;
+  font-family: "Inter", sans-serif;
+  font-weight: var(--fw-regular);
+  line-height: 1.6;
   scroll-behavior: smooth;
   overflow-x: hidden;
 }
@@ -107,6 +111,10 @@ ul li {
   list-style: none;
 }
 
+p {
+  text-align: justify;
+}
+
 .font-kaushan {
   font-family: "Kaushan Script", cursive;
 }
@@ -114,7 +122,7 @@ ul li {
 .btn {
   padding: 10px 20px;
   background: var(--main-color-1);
-  font-weight: 600;
+  font-weight: var(--fw-semi);
   letter-spacing: 0.05rem;
   color: white;
   border: none;
@@ -178,12 +186,12 @@ textarea:focus:invalid {
 .slick-prev:before,
 .slick-next:before {
   color: var(--main-color-2) !important;
-  font-size: calc(1*var(--fs-icon-btn))  !important;
-  transition: .3s ease;
+  font-size: calc(1 * var(--fs-icon-btn)) !important;
+  transition: 0.3s ease;
 }
 
-.slick-dots{
-  bottom: -20% !important
+.slick-dots {
+  bottom: -20% !important;
 }
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 375px) {
@@ -203,6 +211,35 @@ textarea:focus:invalid {
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1024px) {
+  :root {
+    /* font size */
+    --fs-logo: 1.28rem;
+    --fs-icon-btn: 0.96rem;
+    --fs-regular: 0.64rem;
+    --fs-medium: 0.768rem;
+    --fs-heading: 1.92rem;
+    --fs-medium-heading: 2.56rem;
+    --fs-semi-big-heading: 3.2rem;
+    --fs-big-heading: 3.84rem;
+    --fs-button: 0.704rem;
+
+    /* padding, margin */
+    --p-default-x: 4rem;
+    --m-default-y: 6.4rem;
+    --m-short-y: 3.2rem;
+    --m-medium-y: 9.6rem;
+    --m-long-y: 12.8rem;
+
+    /* form */
+    --p-form: 1.28rem 1.92rem;
+
+    /* gap */
+    --gap-regular: 0.64rem;
+    --gap-medium: 1.28rem;
+    --gap-semi-big: 2.56rem;
+    --gap-big: 3.84rem;
+    --gap-form: 0.32rem;
+  }
 }
 
 @media only screen and (min-width: 1280px) {
