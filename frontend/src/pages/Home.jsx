@@ -173,7 +173,7 @@ const Home = () => {
               us.
             </h1>
             <button className="border-none bg-inherit underline">
-              FOLLOW THIS LINK <i class="ri-arrow-right-line"></i>
+              FOLLOW THIS LINK <i class="ri-arrow-right-up-line"></i>
             </button>
           </Row>
         </Container>
