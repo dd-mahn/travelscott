@@ -141,7 +141,7 @@ const countries = countriesInfo?.countries || [];
   return (
     <div className="discover">
       <section className="discover__hero">
-        <Container className="flex flex-col relative">
+        <Container className="flex flex-col">
           <Row className="flex justify-end">
             <a
               href="/test"
@@ -154,23 +154,24 @@ const countries = countriesInfo?.countries || [];
               </span>
             </a>
           </Row>
-          <Row className="flex justify-center items-center">
+          <Row className="flex justify-center items-center relative">
             <h1 className="font-medium z-10">
               Then <strong>EXPLORE</strong> our great collection of <br></br>{" "}
               travel destinations around the world.
             </h1>
+            <div className="bg__float"></div>
+            <div className="bg__float"></div>
+            <div className="bg__float"></div>
+            <div className="bg__float"></div>
+            <div className="bg__float"></div>
+            <div className="bg__float"></div>
           </Row>
           <Row className="font-medium">
             <a>
               Scroll <i className="ri-arrow-down-line font-medium"></i>
             </a>
           </Row>
-          <div className="bg__float"></div>
-          <div className="bg__float"></div>
-          <div className="bg__float"></div>
-          <div className="bg__float"></div>
-          <div className="bg__float"></div>
-          <div className="bg__float"></div>
+          
         </Container>
       </section>
 
