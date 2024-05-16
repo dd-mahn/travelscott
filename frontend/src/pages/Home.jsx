@@ -123,7 +123,7 @@ const Home = () => {
             <Col>
               <Form className="form flex flex-col relative z-10">
                 <Form.Group controlId="name">
-                  <Form.Label>Name*</Form.Label>
+                  <Form.Label>Name</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Enter your name"
@@ -132,7 +132,7 @@ const Home = () => {
                 </Form.Group>
 
                 <Form.Group controlId="email">
-                  <Form.Label>Email*</Form.Label>
+                  <Form.Label>Email</Form.Label>
                   <Form.Control
                     type="email"
                     placeholder="Enter your email"
@@ -141,7 +141,7 @@ const Home = () => {
                 </Form.Group>
 
                 <Form.Group controlId="feedback">
-                  <Form.Label>Message*</Form.Label>
+                  <Form.Label>Message</Form.Label>
                   <Form.Control
                     as="textarea"
                     required
