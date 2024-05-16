@@ -35,20 +35,17 @@ function About() {
       <section className="about__hero">
         <Container className="w-100">
           <Row className="flex justify-between">
-            <Col className="w-4/6 pt-6">
+            <Col className="">
               <h1>
                 Ignite your <br></br> travel <span>inspiration</span>.
               </h1>
               <p>
-                This platform is a canvas for your travel dreams, designed to
-                awaken the adventurer within. It’s a celebration of creativity,
-                vital for inspiring journeys and crafting stories that resonate.
-                We invite you to explore further and immerse yourself in the
-                experiences we’ve curated. Our content is a mosaic of the
-                world’s beauty, from serene landscapes to vibrant cityscapes.
-                Take the leap with us and discover the essence of travel,
-                distilled into moments that will inspire your next odyssey.
-                Let’s embark on this voyage together and see where it takes us.
+                This platform is a canvas for your travel dreams, awakening the
+                adventurer within. It celebrates creativity, inspiring journeys,
+                and resonating stories. We invite you to explore our curated
+                experiences, a mosaic of the world's beauty. Join us to discover
+                the essence of travel and inspire your next odyssey. Let's
+                embark on this voyage together.
               </p>
             </Col>
             <Col>
@@ -112,19 +109,11 @@ function About() {
         </Container>
       </section>
       <section className="about__credit relative">
-        <img
-          src={circle}
-          alt="circle"
-          className="absolute top-0 left-0 width-1/5"
-        />
-        <img
-          src={circle}
-          alt="circle"
-          className="absolute bot-0 right-0 width-1/5"
-        />
+        <img src={circle} alt="circle" className="absolute top-0 left-0" />
+        <img src={circle} alt="circle" className="absolute bot-0 right-0" />
         <Container>
           <Row className="flex justify-between">
-            <Col className="w-3/5 z-10">
+            <Col className="z-10">
               <div className="some__words bg-inherit flex flex-col">
                 <p>
                   “I created and developed this website fueled by my passion for
