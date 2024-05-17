@@ -5,6 +5,7 @@ import cors from 'cors'
 import cookieParser from "cookie-parser"
 
 import destinationRoutes from "./routes/destination.js";
+import feedbackRoutes from "./routes/feedback.js";
 
 dotenv.config()
 const app = express()
@@ -34,6 +35,7 @@ app.use(express.json())
 app.use(cors(corsOptions))
 app.use(cookieParser())
 app.use('/api/destinations', destinationRoutes)
+app.use('/api/feedback', feedbackRoutes)
 
 app.listen(port, ()=> {
     connect()
