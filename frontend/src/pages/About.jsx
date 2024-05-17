@@ -4,6 +4,7 @@ import "../styles/about.css";
 import aboutIcons from "../assets/svg/about-icons.svg";
 import MarqueeSlider from "react-marquee-slider";
 import circle from "../assets/circle-alt.png";
+import circleSvg from "../assets/svg/hero-circle.svg";
 import aboutVideo1 from "../assets/about-1.mp4";
 import aboutVideo2 from "../assets/about-2.mp4";
 import aboutProfile from "../assets/about-profile.jpg";
@@ -57,7 +58,7 @@ function About() {
       <section className="about__hook">
         <Container>
           <Row className="flex justify-center relative">
-            <img src={circle} alt="circle" className="w-1/2" />
+            <img src={circleSvg} alt="circle" className="w-1/2" />
             {/* <AboutSphere/> */}
             <div className="absolute bg-transparent flex justify-between">
               <h1>EXCITING</h1>
@@ -109,8 +110,8 @@ function About() {
         </Container>
       </section>
       <section className="about__credit relative">
-        <img src={circle} alt="circle" className="absolute top-0 left-0" />
-        <img src={circle} alt="circle" className="absolute bot-0 right-0" />
+        <img src={circleSvg} alt="circle" className="absolute top-0 left-0" />
+        <img src={circleSvg} alt="circle" className="absolute bot-0 right-0" />
         <Container>
           <Row className="flex justify-between">
             <Col className="z-10">
