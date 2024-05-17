@@ -1,14 +1,56 @@
 import React from "react";
 import { Container, Row, Col, Form } from "react-bootstrap";
 import circle from "../assets/circle-alt.png";
+import circleSVG from "../assets/svg/hero-circle.svg";
 import HeroImg from "../assets/svg/hero-img.svg";
 import AboutVideo from "../assets/home-about.mp4";
 import "../styles/home.css";
 import Gallery from "./HomeComponents/Gallery";
 import { Navigate } from "react-router-dom";
 import HeroSphere from "../common/HeroSphere";
+import StarButton from "../components/ui/StarButton";
+import { BASE_URL } from "../utils/config";
 
 const Home = () => {
+
+  const sendFeedback = async () => {
+    // Get the form data
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const message = document.getElementById("feedback").value;
+
+    // Create the feedback object
+    const feedback = {
+      name: name,
+      email: email,
+      message: message
+    };
+
+    try {
+      const response = await fetch(`${BASE_URL}/feedback`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(feedback)
+      });
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        alert("Thank you for submitting your feedback!")
+
+        // Clear the form after submitting feedback
+        document.getElementById("name").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("feedback").value = "";
+      } else {
+        alert('Error: ' + response.status);
+      };
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <>
       {/* Hero start */}
@@ -19,13 +61,14 @@ const Home = () => {
               <h1>
                 <span>EXPLORE</span> LIKE <br /> NEVER BEFORE
               </h1>
-              <a href="/discover" className="start__btn btn">
+              {/* <a href="/discover" className="start__btn btn">
                 GET STARTED
-              </a>
+              </a> */}
+              <StarButton title="GET STARTED" link="/destinations"/>
             </Col>
             <Col className="hero__circle">
               {/* <HeroSphere/> */}
-              <img src={circle} alt="" />
+              <img src={circleSVG} alt="" />
               <img src={HeroImg} alt="Hero Img" />
               
             </Col>
@@ -109,7 +152,7 @@ const Home = () => {
       {/* Contribution start */}
       <section className="contribution relative">
         <img
-          src={circle}
+          src={circleSVG}
           alt="circle"
           className="absolute bot-0 right-0 z-0"
         />
@@ -149,7 +192,7 @@ const Home = () => {
                   />
                 </Form.Group>
 
-                <button className="submit__btn btn btn-color-2">Submit</button>
+                <button type="button" className="submit__btn btn btn-color-2" onClick={sendFeedback}>Submit</button>
               </Form>
             </Col>
             <Col className="form-side flex flex-col items-start justify-start">
