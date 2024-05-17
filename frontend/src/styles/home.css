@@ -58,7 +58,7 @@
   z-index: 0;
   background: transparent;
   transform: scale(1.2);
-  filter: saturate(0.7);
+  /* filter: saturate(0.7); */
 }
 
 .hero__circle > div > canvas{
@@ -107,7 +107,7 @@
 .about .row:nth-child(1) p strong {
   font-size: var(--fs-heading);
   color: var(--main-color-2);
-  letter-spacing: 3px;
+  /* letter-spacing:1px; */
   font-weight: var(--fw-medium) !important;
 }
 
@@ -191,7 +191,7 @@
 /* Quote */
 .quote {
   padding: 0 var(--p-default-x);
-  margin: var(--m-long-y) 0;
+  margin: calc(1.5 * var(--m-long-y))  0;
 }
 
 .quote p {
@@ -255,7 +255,7 @@
 }
 
 .contribution .container > :nth-child(2) {
-  gap: var(--gap-semi-big);
+  gap: calc(2 * var(--gap-semi-big));
 }
 
 .form {
@@ -332,5 +332,5 @@
   width: 40vw;
   top: 0;
   left: -25%;
-  transform: rotate(100deg);
+  transform: rotate(-130deg);
 }
