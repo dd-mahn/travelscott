@@ -341,3 +341,35 @@ export const getDestinationCountWithFilter = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// Get destination by search
+export const getDestinationBySearch = async (req, res) => {
+  try {
+    const { name, country } = req.query;
+    let query = {};
+
+    if (name) {
+      query.name = { $regex: new RegExp(name, "i") };
+    }
+
+    if (country) {
+      query.country = { $regex: new RegExp(country, "i") };
+    }
+
+    if (!name && !country) {
+      return res.status(400).json({ message: "Please provide a name or country to search." });
+    }
+
+    const destinations = await Destination.find(query);
+    
+    if(destinations.length === 0) {
+      return res.status(404).json({ message: "No destinations found." });
+    }
+
+    res.json(destinations);
+    
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "An error occurred while processing your request." });
+  }
+}
