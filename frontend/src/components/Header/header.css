@@ -3,17 +3,19 @@ body {
 }
 
 .header {
-  width: 100vw;
-  padding: 0 var(--p-default-x);
+  width: 100%;
+  padding: calc(0.5 * var(--gap-regular)) var(--p-default-x);
   min-height: 4rem;
   position: fixed;
   top: 0;
   background: transparent;
   z-index: 15;
+  mix-blend-mode: difference;
 }
 
 .header h1 {
   font-size: var(--fs-logo);
+  font-weight: var(--fw-under-regular);
 }
 
 .header button i {
@@ -27,9 +29,17 @@ body {
 .header li a {
   font-size: var(--fs-medium);
   /* mix-blend-mode: lighten; */
-  font-weight: 500;
+  font-weight: var(--fw-regular);
 }
 
 .header * {
-  background: transparent !important;
+  /* background: transparent !important; */
 }
+
+.header h1,
+.header a,
+.header i{
+  /* mix-blend-mode: difference; */
+  color: var(--text-dark);
+}
+
