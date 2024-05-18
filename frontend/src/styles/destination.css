@@ -6,7 +6,7 @@
 }
 
 .destination__overview .row:nth-child(1){
-    margin: calc(var(--m-default-y) * 2) 0 calc(var(--m-default-y) * 2.5);
+    margin: calc(var(--m-default-y) * 2) 0 calc(var(--m-long-y) * 2);
 }
 
 
@@ -246,7 +246,7 @@
 }
 
 .destination__insight .col:nth-child(1){
-    width: 35vw;
+    width: 40vw;
 }
 
 .destination__insight .col:nth-child(2){
@@ -269,8 +269,7 @@
 
 .insight__category a{
     font-size: var(--fs-regular);
-    padding: .5rem .25rem;
-    border-bottom: 1px solid var(--border-color);
+    margin: 0 calc(0.5 * var(--fs-regular));
 }
 
 .destination__insight p{
