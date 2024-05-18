@@ -99,8 +99,8 @@ function About() {
                 worthwhile visits.
               </p>
 
-              <a className="underline font-medium mt-20" href="/discover">
-                DISCOVER THEM <i className="ri-arrow-right-line"></i>
+              <a className="underline__btn mt-20" href="/discover">
+                Discover them <i className="ri-arrow-right-line"></i>
               </a>
             </Col>
             <Col>
