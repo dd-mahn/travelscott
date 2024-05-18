@@ -46,7 +46,11 @@
 }
 
 .test__btn span {
-  font-size: var(--fs-medium);
+  /* font-size: var(--fs-medium);
+  font-weight: var(--fw-medium);
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--border-color);
+  line-height: 1.4; */
 }
 
 .discover__hero > .container {
@@ -212,29 +216,51 @@
 /* Discover Card */
 .destination__card {
   border-radius: var(--border-radius);
+  position: relative;
 }
 
 .destination__card:hover {
   position: relative;
   box-shadow: var(--box-shadow-light);
+  
 }
 
 .destination__card:hover img {
-  transition: transform 0.3s linear;
   transform: scale(1);
   filter: brightness(0.8);
+  transition: filter 0.3s ease-in-out;
 }
 
-.destination__card:hover::before {
-  content: attr(data-name);
+.destination__card::before{
+  content: attr(data-name) " - " attr(data-country);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+
   position: absolute;
-  bottom: 10%;
-  left: 10%;
+  top:0;
+  z-index: 5;
+
+  border-radius: var(--border-radius);
   color: var(--text-dark);
+
   font-weight: var(--fw-semi);
   font-size: var(--fs-medium);
   text-transform: uppercase;
-  z-index: 5;
+
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+
+  transition: all 0.3s ease-in-out;
+}
+
+.destination__card:hover::before {
+  opacity: 1;
 }
 
 .destination__card img {
