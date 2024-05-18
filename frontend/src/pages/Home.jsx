@@ -215,8 +215,8 @@ const Home = () => {
               or share your preferred <br /> travel destinations and ideas with
               us.
             </h1>
-            <button className="border-none bg-inherit underline">
-              FOLLOW THIS LINK <i class="ri-arrow-right-up-line"></i>
+            <button className="bg-inherit underline__btn">
+              Follow this link <i class="ri-arrow-right-up-line"></i>
             </button>
           </Row>
         </Container>
