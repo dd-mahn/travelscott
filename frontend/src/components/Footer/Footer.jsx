@@ -107,8 +107,8 @@ const Footer = () => {
             <h1 className="font-kaushan">TravelScott</h1>
           </Col>
           <Col>
-            <button className="underline" onClick={() => window.scrollTo(0, 0)}>
-                BACK TO TOP <i class="ri-arrow-up-line"></i>
+            <button className="underline__btn" onClick={() => window.scrollTo(0, 0)}>
+                Back to top <i class="ri-arrow-up-line"></i>
             </button>
           </Col>
         </Row>
