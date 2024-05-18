@@ -149,8 +149,9 @@ const countries = countriesInfo?.countries || [];
             >
               <img src={buttonSvg1} alt="" />
               <img src={buttonSvg2} alt="" />
-              <span className="underline font-medium z-5">
+              <span className="underline__btn z-5">
                 Find out your travel spirit first
+                <i className="ri-arrow-right-line"></i>
               </span>
             </a>
           </Row>
