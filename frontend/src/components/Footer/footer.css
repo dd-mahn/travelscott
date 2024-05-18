@@ -1,12 +1,12 @@
 footer {
-  padding: 2rem 6rem 0;
+  padding: 2rem var(--p-default-x) 0;
   margin: 10rem 0 2rem;
   border-top: 1px solid var(--text-light);
 }
 
 footer .container > :nth-child(1) h1 {
   font-size: var(--fs-medium);
-  font-weight: 500;
+  font-weight: var(--fw-medium);
   color: var(--text-light);
 }
 
@@ -17,19 +17,19 @@ footer .container > :nth-child(1) a {
 
 footer .container > :nth-child(1) p {
   font-size: var(--fs-regular);
-  font-weight: 400;
+  font-weight: var(--fw-regular);
   /* color: var(--main-color-1); */
 }
 
 footer .container > :nth-child(1) span {
   text-decoration: underline;
   font-size: var(--fs-logo);
-  font-weight: 500;
+  font-weight: var(--fw-medium);
 }
 
 footer .container > :nth-child(2) h1 {
   font-size: var(--fs-big-heading);
-  font-weight: 500;
+  font-weight: var(--fw-medium);
   color: var(--main-color-2);
   line-height: 1.2;
 }
@@ -37,6 +37,6 @@ footer .container > :nth-child(2) h1 {
 footer .container > :nth-child(2) button,
 footer .container > :nth-child(2) button i{
   font-size: var(--fs-medium);
-  font-weight: 500;
+  font-weight: var(--fw-medium);
   color: var(--text-light);
 }
