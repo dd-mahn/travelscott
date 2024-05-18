@@ -251,7 +251,7 @@ function Destination() {
                 <span className="flex"><i class="ri-quill-pen-line"></i> Blogs</span>
                 <div className="flex flex-col">
                   {reviews?.blogs?.map((blog, index) => (
-                    <a href={blog.link} key={index}>
+                    <a href={blog.link} key={index} className="underline__btn">
                       {blog.name}{" "} <i class="ri-arrow-right-up-line"></i>
                     </a>
                   ))}
@@ -261,7 +261,7 @@ function Destination() {
                 <span className="flex"><i class="ri-movie-line"></i> Videos</span>
                 <div className="flex flex-col">
                   {reviews?.videos?.map((video, index) => (
-                    <a href={video.link} key={index}>
+                    <a href={video.link} key={index} className="underline__btn">
                       {video.name} <i class="ri-arrow-right-up-line"></i>
                     </a>
                   ))}
