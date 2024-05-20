@@ -9,6 +9,12 @@
   cursor: pointer;
 }
 
+.star__btn.color-2{
+  background: var(--main-color-2);
+  color: var(--text-dark);
+  border: 3px solid var(--main-color-2);
+  box-shadow: 0 0 0 var(--main-color-2);
+}
 .star-1 {
   position: absolute;
   top: 20%;
@@ -79,6 +85,11 @@
   background: transparent;
   color: var(--main-color-1);
   box-shadow: 0 0 25px #fec1958c;
+}
+
+.star__btn.color-2:hover{
+  color: var(--main-color-2);
+  box-shadow: 0 0 25px var(--main-color-2);
 }
 
 .star__btn:hover .star-1 {
