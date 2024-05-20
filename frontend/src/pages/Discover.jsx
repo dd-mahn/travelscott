@@ -6,6 +6,12 @@ import buttonSvg2 from "../assets/svg/discover-button2.svg";
 import { BASE_URL } from "../utils/config";
 import useFetch from "../hooks/useFetch";
 import MasonryImagesGallery from "./DiscoverComponents/MasonryGallery";
+import natureGif from "../assets/videos/nature.gif";
+import adventureGif from "../assets/videos/adventure.gif";
+import cultureGif from "../assets/videos/culture.gif";
+import relaxationGif from "../assets/videos/relaxation.gif";
+import urbanGif from "../assets/videos/urban.gif";
+import nostalgiaGif from "../assets/videos/nostalgia.gif";
 
 const Discover = () => {
   const DOMTypes = [
@@ -18,8 +24,11 @@ const Discover = () => {
   ];
 
   function toggle(e) {
-    console.log(e)
-    if (e.target.classList.contains("ri-checkbox-blank-circle-line") || e.target.classList.contains("ri-checkbox-blank-circle-fill")){
+    console.log(e);
+    if (
+      e.target.classList.contains("ri-checkbox-blank-circle-line") ||
+      e.target.classList.contains("ri-checkbox-blank-circle-fill")
+    ) {
       return;
     }
 
@@ -57,86 +66,97 @@ const Discover = () => {
       .join("&");
   }
 
-const [filter, setFilter] = useState({ types: [], country: "" });
-const [pageCount, setPageCount] = useState(0);
-const [page, setPage] = useState(1);
-const [destinationInfo, setDestinationInfo] = useState(null);
-const [destinationCount, setDestinationCount] = useState(null);
-const [loading, setLoading] = useState(false);
-const [error, setError] = useState(null);
+  const [filter, setFilter] = useState({ types: [], country: "" });
+  const [pageCount, setPageCount] = useState(0);
+  const [page, setPage] = useState(1);
+  const [destinationInfo, setDestinationInfo] = useState(null);
+  const [destinationCount, setDestinationCount] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-function filterByType(e) {
-  const type = e.target.innerText;
-  if (filter.types.includes(type)) {
-    e.target.classList.remove("type__selected");
-    setFilter((prevFilter) => ({
-      ...prevFilter,
-      types: prevFilter.types.filter((item) => item !== type),
-    }));
-  } else {
-    e.target.classList.add("type__selected");
-    setFilter((prevFilter) => ({
-      ...prevFilter,
-      types: [...prevFilter.types, type],
-    }));
-  }
-}
-
-function filterByCountry(e) {
-  const country = e.target.innerText;
-  const countryList = document.querySelectorAll(".country__list li");
-  const isCountrySelected = e.target.classList.contains("country__selected");
-
-  countryList.forEach((item) => {
-    if (item.innerText === country) {
-      item.classList.toggle("country__selected", !isCountrySelected);
+  function filterByType(e) {
+    const type = e.target.innerText;
+    if (filter.types.includes(type)) {
+      e.target.classList.remove("type__selected");
+      setFilter((prevFilter) => ({
+        ...prevFilter,
+        types: prevFilter.types.filter((item) => item !== type),
+      }));
     } else {
-      item.classList.remove("country__selected");
+      e.target.classList.add("type__selected");
+      setFilter((prevFilter) => ({
+        ...prevFilter,
+        types: [...prevFilter.types, type],
+      }));
     }
-  });
-
-  setFilter((prevFilter) => ({
-    ...prevFilter,
-    country: isCountrySelected ? "" : country,
-  }));
-}
-
-const filterQueryString = objectToQueryString(filter);
-const destinationInfoUrl = `${BASE_URL}/destinations?page=${page}&${filterQueryString}`;
-const destinationCountUrl = `${BASE_URL}/destinations/count?${filterQueryString}`;
-
-const { data: destinationInfoData, error: destinationInfoError, loading: destinationInfoLoading } = useFetch(destinationInfoUrl);
-const { data: destinationCountData, error: destinationCountError } = useFetch(destinationCountUrl);
-
-useEffect(() => {
-  if (!destinationInfoError) {
-    setDestinationInfo(destinationInfoData);
-  } else {
-    setError(destinationInfoError);
   }
 
-  if (!destinationCountError) {
-    setDestinationCount(destinationCountData);
-  } else {
-    setError(destinationCountError);
+  function filterByCountry(e) {
+    const country = e.target.innerText;
+    const countryList = document.querySelectorAll(".country__list li");
+    const isCountrySelected = e.target.classList.contains("country__selected");
+
+    countryList.forEach((item) => {
+      if (item.innerText === country) {
+        item.classList.toggle("country__selected", !isCountrySelected);
+      } else {
+        item.classList.remove("country__selected");
+      }
+    });
+
+    setFilter((prevFilter) => ({
+      ...prevFilter,
+      country: isCountrySelected ? "" : country,
+    }));
   }
 
-  setLoading(destinationInfoLoading);
-}, [destinationInfoData, destinationInfoError, destinationCountData, destinationCountError, destinationInfoLoading]);
+  const filterQueryString = objectToQueryString(filter);
+  const destinationInfoUrl = `${BASE_URL}/destinations?page=${page}&${filterQueryString}`;
+  const destinationCountUrl = `${BASE_URL}/destinations/count?${filterQueryString}`;
 
-const destinations = destinationInfo?.destinations || [];
-const count = destinationCount?.count || 0;
+  const {
+    data: destinationInfoData,
+    error: destinationInfoError,
+    loading: destinationInfoLoading,
+  } = useFetch(destinationInfoUrl);
+  const { data: destinationCountData, error: destinationCountError } =
+    useFetch(destinationCountUrl);
 
-useEffect(() => {
-  const pages = Math.ceil(count / 20);
-  setPageCount(pages);
-  // window.scrollTo(0, 0);
-}, [count]);
+  useEffect(() => {
+    if (!destinationInfoError) {
+      setDestinationInfo(destinationInfoData);
+    } else {
+      setError(destinationInfoError);
+    }
 
-const { data: countriesInfo } = useFetch(
-  `${BASE_URL}/destinations/countries`
-);
-const countries = countriesInfo?.countries || [];
+    if (!destinationCountError) {
+      setDestinationCount(destinationCountData);
+    } else {
+      setError(destinationCountError);
+    }
+
+    setLoading(destinationInfoLoading);
+  }, [
+    destinationInfoData,
+    destinationInfoError,
+    destinationCountData,
+    destinationCountError,
+    destinationInfoLoading,
+  ]);
+
+  const destinations = destinationInfo?.destinations || [];
+  const count = destinationCount?.count || 0;
+
+  useEffect(() => {
+    const pages = Math.ceil(count / 20);
+    setPageCount(pages);
+    // window.scrollTo(0, 0);
+  }, [count]);
+
+  const { data: countriesInfo } = useFetch(
+    `${BASE_URL}/destinations/countries`
+  );
+  const countries = countriesInfo?.countries || [];
 
   return (
     <div className="discover">
@@ -160,19 +180,60 @@ const countries = countriesInfo?.countries || [];
               Then <strong>EXPLORE</strong> our great collection of <br></br>{" "}
               travel destinations around the world.
             </h1>
-            <div className="bg__float"></div>
-            <div className="bg__float"></div>
-            <div className="bg__float"></div>
-            <div className="bg__float"></div>
-            <div className="bg__float"></div>
-            <div className="bg__float"></div>
+            <div className="bg__float">
+              <div className="float__inner">
+                <div className="float__front"></div>
+                <div className="float__back">
+                  <img src={relaxationGif} alt="gif" />
+                </div>
+              </div>
+            </div>
+            <div className="bg__float">
+              <div className="float__inner">
+                <div className="float__front"></div>
+                <div className="float__back">
+                  <img src={natureGif} alt="gif"></img>
+                </div>
+              </div>
+            </div>
+            <div className="bg__float">
+              <div className="float__inner">
+                <div className="float__front"></div>
+                <div className="float__back">
+                  <img src={adventureGif} alt="gif"></img>
+                </div>
+              </div>
+            </div>
+            <div className="bg__float">
+              <div className="float__inner">
+                <div className="float__front"></div>
+                <div className="float__back">
+                  <img src={urbanGif} alt="gif"></img>
+                </div>
+              </div>
+            </div>
+            <div className="bg__float">
+              <div className="float__inner">
+                <div className="float__front"></div>
+                <div className="float__back">
+                  <img src={nostalgiaGif} alt="gif"></img>
+                </div>
+              </div>
+            </div>
+            <div className="bg__float">
+              <div className="float__inner">
+                <div className="float__front"></div>
+                <div className="float__back">
+                  <img src={cultureGif} alt="gif"></img>
+                </div>
+              </div>
+            </div>
           </Row>
           <Row className="font-medium">
             <a>
               Scroll <i className="ri-arrow-down-line font-medium"></i>
             </a>
           </Row>
-          
         </Container>
       </section>
 
@@ -183,8 +244,45 @@ const countries = countriesInfo?.countries || [];
               <i class="ri-shining-2-fill"></i> Everything takes time.
             </h1>
           </Row>
+          <Row className="flex justify-between items-baseline">
+            <Col>
+              <h1 className="text-light-gradient">ALL DESTINATIONS</h1>
+            </Col>
+            {/* <Col>
+              <span>(Thanks for being patient)</span>
+            </Col> */}
+          </Row>
           <Row className="flex justify-between">
             <Col className="flex flex-col">
+              <div className="search__bar">
+                <form class="form">
+                  <button type="button">
+                    <i class="ri-search-2-line"></i>
+                  </button>
+                  <input
+                    class="input"
+                    placeholder="Search"
+                    required=""
+                    type="text"
+                  />
+                  <button class="reset" type="reset">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M6 18L18 6M6 6l12 12"
+                      ></path>
+                    </svg>
+                  </button>
+                </form>
+              </div>
               <div className="type__select">
                 <span onClick={toggle}>
                   Type
@@ -232,6 +330,7 @@ const countries = countriesInfo?.countries || [];
 
               <div className="pagination flex justify-between">
                 <div className="flex ">
+                  <span>Page:</span>
                   {[...Array(pageCount).keys()].map((number) => (
                     <span
                       key={number + 1}
