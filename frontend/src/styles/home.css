@@ -1,6 +1,16 @@
 /* Hero section */
 
-.hero__content h1 span {
+.hero {
+  padding-left: var(--p-default-x);
+  margin: 0 0 var(--m-long-y);
+  min-height: 100svh;
+}
+
+.hero__heading{
+  gap: calc(1.5*var(--gap-medium)) ;
+}
+
+.hero__heading h1 span {
   font-size: var(--fs-big-heading);
   font-weight: var(--fw-heading-bold);
   background: var(--heading-gradient);
@@ -9,20 +19,28 @@
   letter-spacing: 0.5rem;
 }
 
-.hero {
-  padding-left: var(--p-default-x);
-  min-height: 100svh;
-}
-
-.hero__content h1 {
-  margin-top: var(--m-medium-y);
+.hero__heading h1 {
+  margin-top: calc(0.8*var(--m-long-y)) ;
   font-size: var(--fs-heading);
-  font-weight: var(--fw-semi);
-  color: var(--text-light);
+  font-weight: var(--fw-bold);
+  color: var(--heading-low);
   min-width: 45vw;
   line-height: 1.2;
   letter-spacing: 0.3rem;
-  margin-bottom: 2rem;
+  text-transform: uppercase;
+}
+
+/* .hero__heading p{
+  font-size: var(--fs-medium);
+  font-weight: var(--fw-medium);
+  line-height: 1.5;
+  word-spacing: normal;
+  width: 35vw;
+} */
+
+.hero__heading a{
+  width: -moz-fit-content;
+  width: fit-content;
 }
 
 .hero__circle {
@@ -57,7 +75,7 @@
   object-fit: contain;
   z-index: 0;
   background: transparent;
-  transform: scale(1.2);
+  transform: scale(1.2) rotate(0deg);
   /* filter: saturate(0.7); */
 }
 
@@ -85,52 +103,54 @@
   margin: var(--m-long-y) 0;
 }
 
-.about video {
-  min-width: 55vw;
-  border-radius: var(--border-radius);
-  /* min-height: 550px; */
-}
-
-.about .row:nth-child(1) {
+.about .about__heading {
   margin-bottom: var(--m-default-y);
+  gap: calc(2 * var(--gap-big)) ;
 }
 
-.about .row:nth-child(1) i {
+.about .about__heading i {
   font-size: var(--fs-heading);
 }
 
-.about .row:nth-child(1) p {
+.about .about__heading p {
   font-size: var(--fs-heading);
   font-weight: var(--fw-medium);
 }
 
-.about .row:nth-child(1) p strong {
+.about .about__heading p strong {
   font-size: var(--fs-heading);
   color: var(--main-color-2);
   /* letter-spacing:1px; */
   font-weight: var(--fw-medium) !important;
 }
 
-.about .row:nth-child(1) .col:nth-child(2) {
-  min-width: 70vw;
+.about .about__heading .heading {
+  width: -moz-fit-content;
+  width: fit-content;
 }
 
-.about .row:nth-child(2) {
-  gap: var(--gap-big);
+.about .about__video {
+  gap: var(--gap-semi-big);
 }
 
-.about .row:nth-child(2) .col:nth-child(2) {
+.about video {
+  min-width: 55vw;
+  border-radius: var(--border-radius);
+  /* min-height: 550px; */
+}
+
+.about .about__video .description {
   gap: var(--gap-medium);
 }
 
-.about .row:nth-child(2) p {
+.about .about__video p {
   font-size: var(--fs-regular);
   line-height: 1.8;
   word-spacing: normal;
   width: 26vw;
 }
 
-.about .row:nth-child(2) p strong {
+.about .about__video p strong {
   font-size: 1.5rem;
   /* color: var(--main-color-2); */
   font-weight: var(--fw-semi) !important;
@@ -149,7 +169,7 @@
   font-size: var(--fs-heading);
   font-weight: var(--fw-medium);
   color: var(--text-light);
-  margin-bottom: 2rem;
+  /* margin-bottom: var(--gap-medium); */
 }
 
 .gallery__slider-1 h1 span,
@@ -161,8 +181,8 @@
 
 .gallery__slider-1 .item {
   margin: 0 0.5rem;
-  min-width: 40vw;
-  min-height: 30vw;
+  min-width: 50vw;
+  min-height: 35vw;
   background: #e8e8e8;
   border-radius: var(--border-radius);
 }
@@ -221,7 +241,7 @@
   margin: 0 1rem;
 }
 
-.quote .col:nth-child(2) span{
+.quote .author span{
   font-size: var(--fs-medium);
 }
 
@@ -232,7 +252,7 @@
 }
 
 .contribution h1 {
-  font-size:calc(0.8 * var(--fs-heading));
+  font-size:calc(var(--fs-heading));
   font-weight: var(--fw-medium);
   color: var(--text-light);
 }
@@ -241,96 +261,98 @@
   gap: var(--gap-big);
 }
 
-.contribution .container > :nth-child(1) h1 {
+.contribution .contribution__heading h1 {
   font-weight: var(--fw-semi);
   position: relative;
-  font-size: var(--fs-heading);
+  font-size: var(--fs-medium-heading);
 }
 
-.contribution .container > :nth-child(1) h1 i {
+.contribution .contribution__heading h1 i {
   font-weight: var(--fw-semi);
   position: absolute;
   font-size: var(--fs-icon-btn);
   top: -0.5rem;
 }
 
-.contribution .container > :nth-child(2) {
-  gap: calc(2 * var(--gap-semi-big));
+.contribution .contribution__form {
+  gap: var(--gap-big);
 }
 
-.form {
+.contribution__form .form {
   padding: var(--p-form);
-  min-width: 40vw;
+  min-width: 35vw;
   font-size: var(--fs-regular);
   box-shadow: var(--box-shadow-light);
   border-radius: var(--border-radius);
   gap: var(--gap-regular);
 }
 
-.form div {
+.contribution__form .form div {
   display: flex;
   flex-direction: column;
   gap: var(--gap-form);
 }
 
-.form div label {
+.contribution__form .form div label {
   font-size: var(--fs-medium);
   font-weight: var(--fw-medium);
 }
 
-.form div input::placeholder,
-.form div textarea::placeholder {
+.contribution__form .form div input::placeholder,
+.contribution__form .form div textarea::placeholder {
   font-size: var(--fs-regular);
-  font-weight: var(--fw-medium);
+  font-weight: var(--fw-regular);
 }
 
-.form div textarea {
-  min-height: 15vw;
+.contribution__form .form div textarea {
+  min-height: 10vw;
   max-height: 20vw;
 }
 
-.form button {
+.contribution__form .form button {
   text-align: center;
   margin-top: 0.5rem;
   max-width: 10vw;
 }
 
-.form-side {
+.contribution__form .form-side {
   gap: var(--gap-medium);
+  width: 50vw;
 }
 
-.form-side h1 {
+.contribution__form .form-side h1 {
   line-height: 1.2;
 }
 
-.form-side p {
+.contribution__form .form-side p {
+  width: 45vw;
   font-size: var(--fs-regular);
   line-height: 1.8;
 }
 
-.contribution .container > :nth-child(3) {
+.contribution .contribution__other {
   margin-top: var(--m-default-y);
 }
 
-.contribution .container > :nth-child(3) button {
+.contribution .contribution__other button {
   align-self: flex-end;
   font-size: var(--fs-medium);
   font-weight: var(--fw-medium);
 }
 
-.contribution .container > :nth-child(3) button i {
+.contribution .contribution__other button i {
   font-size: var(--fs-medium);
   font-weight: var(--fw-medium);
 }
 
-.contribution .container > :nth-child(3) h1 {
+.contribution .contribution__other h1 {
   line-height: 1.2;
 }
 
 .contribution > :nth-child(1) {
   z-index: 0;
-  width: 40vw;
+  width: 45vw;
   top: 0;
   left: -25%;
-  transform: rotate(-130deg);
+  /* transform: rotate(-130deg); */
 }
