@@ -161,8 +161,8 @@
 
 .gallery__slider-1 .item {
   margin: 0 0.5rem;
-  min-width: 30vw;
-  min-height: 20vw;
+  min-width: 40vw;
+  min-height: 30vw;
   background: #e8e8e8;
   border-radius: var(--border-radius);
 }
@@ -290,6 +290,7 @@
 }
 
 .form button {
+  text-align: center;
   margin-top: 0.5rem;
   max-width: 10vw;
 }
@@ -313,14 +314,13 @@
 
 .contribution .container > :nth-child(3) button {
   align-self: flex-end;
-  margin-bottom: 0.25rem;
   font-size: var(--fs-medium);
-  font-weight: var(--fw-semi);
+  font-weight: var(--fw-medium);
 }
 
 .contribution .container > :nth-child(3) button i {
   font-size: var(--fs-medium);
-  font-weight: var(--fw-semi);
+  font-weight: var(--fw-medium);
 }
 
 .contribution .container > :nth-child(3) h1 {
