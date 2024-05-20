@@ -36,7 +36,7 @@ function About() {
       <section className="about__hero">
         <Container className="w-100">
           <Row className="flex justify-between">
-            <Col className="">
+            <Col className="about__hero-content content">
               <h1>
                 Ignite your <br></br> travel <span>inspiration</span>.
               </h1>
@@ -49,7 +49,7 @@ function About() {
                 embark on this voyage together.
               </p>
             </Col>
-            <Col>
+            <Col className="about__hero-image">
               <img src={aboutIcons} alt="About Icons" />
             </Col>
           </Row>
@@ -57,7 +57,7 @@ function About() {
       </section>
       <section className="about__hook">
         <Container>
-          <Row className="flex justify-center relative">
+          <Row className="about__hook-main flex justify-center relative">
             <img src={circleSvg} alt="circle" className="w-1/2" />
             {/* <AboutSphere/> */}
             <div className="absolute bg-transparent flex justify-between">
@@ -66,7 +66,7 @@ function About() {
               <h1>AUTHENTIC</h1>
             </div>
           </Row>
-          <Row className="mt-40 font-medium">
+          <Row className="about__hook-scroll mt-40 font-medium">
             <a>
               Scroll <i className="ri-arrow-down-line"></i>
             </a>
@@ -77,7 +77,7 @@ function About() {
         <Container>
           <h1>FEATURES</h1>
           <Row className="flex">
-            <Col className="w-3/5 flex flex-col">
+            <Col className="feature__test w-3/5 flex flex-col">
               <video src={aboutVideo1} autoPlay loop muted></video>
               <h2 className="font-semibold">Travel Personality Test</h2>
               <p>
@@ -87,7 +87,7 @@ function About() {
                 experience.{" "}
               </p>
             </Col>
-            <Col className="w-3/5 flex flex-col">
+            <Col className="feature__catalogue w-3/5 flex flex-col">
               <video src={aboutVideo2} autoPlay loop muted></video>
               <h2 className="font-semibold">Destination Catalogue</h2>
               <p>
@@ -114,7 +114,7 @@ function About() {
         <img src={circleSvg} alt="circle" className="absolute bot-0 right-0" />
         <Container>
           <Row className="flex justify-between">
-            <Col className="z-10">
+            <Col className="credit__board z-10">
               <div className="some__words bg-inherit flex flex-col">
                 <p>
                   “I created and developed this website fueled by my passion for
@@ -156,7 +156,7 @@ function About() {
                 </p>
               </div>
             </Col>
-            <Col className="flex bg-transparent flex-col items-start z-10">
+            <Col className="credit__category flex bg-transparent flex-col items-start z-10">
               <button onClick={toggle}>SOME WORDS</button>
               <button className="disabled" onClick={toggle}>
                 CREDITS
