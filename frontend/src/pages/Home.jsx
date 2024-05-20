@@ -3,13 +3,14 @@ import { Container, Row, Col, Form } from "react-bootstrap";
 import circle from "../assets/circle-alt.png";
 import circleSVG from "../assets/svg/hero-circle.svg";
 import HeroImg from "../assets/svg/hero-img.svg";
-import AboutVideo from "../assets/home-about.mp4";
+import AboutVideo from "../assets/videos/home-about.mp4";
 import "../styles/home.css";
 import Gallery from "./HomeComponents/Gallery";
 import { Navigate } from "react-router-dom";
 import HeroSphere from "../common/HeroSphere";
 import StarButton from "../components/ui/StarButton";
 import { BASE_URL } from "../utils/config";
+import StarButtonForm from "../components/ui/StarButtonForm";
 
 const Home = () => {
 
@@ -141,9 +142,7 @@ const Home = () => {
             </Col>
           </Row>
           <Row className="flex justify-end">
-            <a href="/test" className="start__btn btn">
-              TAKE YOUR FIRST FOOTSTEP
-            </a>
+            <StarButton title="TAKE YOUR FIRST FOOTSTEP" link="/test"/>
           </Row>
         </Container>
       </section>
@@ -192,7 +191,8 @@ const Home = () => {
                   />
                 </Form.Group>
 
-                <button type="button" className="submit__btn btn btn-color-2" onClick={sendFeedback}>Submit</button>
+                {/* <button type="button" className="submit__btn btn btn-color-2" onClick={sendFeedback}>Submit</button> */}
+                <StarButtonForm title="Submit" callback={sendFeedback}/>
               </Form>
             </Col>
             <Col className="form-side flex flex-col items-start justify-start">
