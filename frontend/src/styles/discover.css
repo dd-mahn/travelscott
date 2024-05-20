@@ -47,7 +47,8 @@
   text-align: center;
   min-width: 90vw;
   font-weight: var(--fw-medium);
-  color: var(--text-light);
+  color: var(--heading-low);
+  line-height: 1.2;
 }
 
 .discover__hero > .container > .row:nth-child(2) h1 strong {
@@ -74,8 +75,8 @@
 .discover__hero .bg__float {
   position: absolute;
   background: transparent;
-  width: 10vw;
-  height: 10vw;
+  width: 12vw;
+  height: 12vw;
   border-radius: var(--border-radius);
   z-index: 0;
   perspective: 1000px;
