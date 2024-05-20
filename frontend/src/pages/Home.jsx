@@ -6,14 +6,11 @@ import HeroImg from "../assets/svg/hero-img.svg";
 import AboutVideo from "../assets/videos/home-about.mp4";
 import "../styles/home.css";
 import Gallery from "./HomeComponents/Gallery";
-import { Navigate } from "react-router-dom";
-import HeroSphere from "../common/HeroSphere";
 import StarButton from "../components/ui/StarButton";
 import { BASE_URL } from "../utils/config";
 import StarButtonForm from "../components/ui/StarButtonForm";
 
 const Home = () => {
-
   const sendFeedback = async () => {
     // Get the form data
     const name = document.getElementById("name").value;
@@ -24,33 +21,33 @@ const Home = () => {
     const feedback = {
       name: name,
       email: email,
-      message: message
+      message: message,
     };
 
     try {
       const response = await fetch(`${BASE_URL}/feedback`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(feedback)
+        body: JSON.stringify(feedback),
       });
       if (response.ok) {
         const data = await response.json();
         console.log(data);
-        alert("Thank you for submitting your feedback!")
+        alert("Thank you for submitting your feedback!");
 
         // Clear the form after submitting feedback
         document.getElementById("name").value = "";
         document.getElementById("email").value = "";
         document.getElementById("feedback").value = "";
       } else {
-        alert('Error: ' + response.status);
-      };
+        alert("Error: " + response.status);
+      }
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
   return (
     <>
@@ -58,20 +55,24 @@ const Home = () => {
       <section className="hero">
         <Container>
           <Row className="flex justify-between">
-            <Col className="hero__content">
+            <Col className="hero__heading flex flex-col">
               <h1>
-                <span>EXPLORE</span> LIKE <br /> NEVER BEFORE
+                <span>EXPLORE</span> <br /> like never before.
               </h1>
               {/* <a href="/discover" className="start__btn btn">
                 GET STARTED
               </a> */}
-              <StarButton title="GET STARTED" link="/destinations"/>
+              {/* <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+                facilisis eros diam, in tempor sem cursus nec. Vivamus
+                facilisis, dui.
+              </p> */}
+              <StarButton title="GET STARTED" link="/destinations" />
             </Col>
             <Col className="hero__circle">
               {/* <HeroSphere/> */}
               <img src={circleSVG} alt="" />
               <img src={HeroImg} alt="Hero Img" />
-              
             </Col>
           </Row>
         </Container>
@@ -81,22 +82,22 @@ const Home = () => {
       {/* About start */}
       <section className="about">
         <Container>
-          <Row className="flex justify-between">
-            <Col>
+          <Row className="about__heading flex">
+            <Col className="arrow">
               <i className="ri-arrow-right-line"></i>
             </Col>
-            <Col className="">
+            <Col className="heading">
               <p>
                 A <strong>Comprehensive Catalogue</strong> of <br />
                 Destinations with Tailored Travel Insights
               </p>
             </Col>
           </Row>
-          <Row className="flex justify-between">
-            <Col>
+          <Row className="about__video flex justify-between">
+            <Col className="video">
               <video src={AboutVideo} autoPlay loop muted></video>
             </Col>
-            <Col className="flex flex-col">
+            <Col className="description flex flex-col">
               <p>
                 Let your emotions guide your journey. Question-based analysis of
                 your travel spirit leads to bespoke destination and plan
@@ -126,8 +127,8 @@ const Home = () => {
       {/* Quote start */}
       <section className="quote">
         <Container>
-          <Row className="flex justify-between">
-            <Col>
+          <Row className="quote__main flex justify-between">
+            <Col className="content">
               <p>
                 “TO
                 <i class="ri-footprint-fill"></i>
@@ -137,12 +138,12 @@ const Home = () => {
                 <i class="ri-sun-line"></i>.”
               </p>
             </Col>
-            <Col className="flex items-end py-4">
+            <Col className="author flex items-end py-4">
               <span>- HANS CHRISTIAN ANDERSEN</span>
             </Col>
           </Row>
-          <Row className="flex justify-end">
-            <StarButton title="TAKE YOUR FIRST FOOTSTEP" link="/test"/>
+          <Row className="quote__button flex justify-end">
+            <StarButton title="TAKE YOUR FIRST FOOTSTEP" link="/test" />
           </Row>
         </Container>
       </section>
@@ -156,12 +157,12 @@ const Home = () => {
           className="absolute bot-0 right-0 z-0"
         />
         <Container className="flex flex-col z-10">
-          <Row className="grid place-content-center">
+          <Row className="contribution__heading grid place-content-center">
             <h1>
               Contribution <i class="ri-shining-2-fill"></i>
             </h1>
           </Row>
-          <Row className="flex justify-between">
+          <Row className="contribution__form flex justify-between ">
             <Col>
               <Form className="form flex flex-col relative z-10">
                 <Form.Group controlId="name">
@@ -192,7 +193,7 @@ const Home = () => {
                 </Form.Group>
 
                 {/* <button type="button" className="submit__btn btn btn-color-2" onClick={sendFeedback}>Submit</button> */}
-                <StarButtonForm title="Submit" callback={sendFeedback}/>
+                <StarButtonForm title="Submit" callback={sendFeedback} />
               </Form>
             </Col>
             <Col className="form-side flex flex-col items-start justify-start">
@@ -210,7 +211,7 @@ const Home = () => {
               </p>
             </Col>
           </Row>
-          <Row className="flex justify-between">
+          <Row className="contribution__other flex justify-between">
             <h1>
               or share your preferred <br /> travel destinations and ideas with
               us.
