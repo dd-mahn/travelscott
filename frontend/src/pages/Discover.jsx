@@ -170,14 +170,14 @@ const Discover = () => {
               <img src={buttonSvg1} alt="" />
               <img src={buttonSvg2} alt="" />
               <span className="underline__btn z-5">
-                Find out your travel spirit first
+                But first, take this test
                 <i className="ri-arrow-right-line"></i>
               </span>
             </a>
           </Row>
           <Row className="flex justify-center items-center relative">
             <h1 className="font-medium z-10">
-              Then <strong>EXPLORE</strong> our great collection of <br></br>{" "}
+              <strong>EXPLORE</strong> our great collection of <br></br>{" "}
               travel destinations around the world.
             </h1>
             <div className="bg__float">
