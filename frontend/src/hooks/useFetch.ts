@@ -1,35 +1,44 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
+import { FetchCountriesData, FetchDestinationData } from "src/types/FetchData";
 
-const useFetch = (url) => {
-  const [data, setData] = useState([]);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+type DataType = FetchCountriesData | FetchDestinationData;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
+const useFetch = (url: string) => {
+  const [data, setData] = useState<DataType>({});
+  const [error, setError] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
-      try {
-        const res = await fetch(url);
-        if (!res.ok) {
-          setError("Maybe something went wrong, please try again later.");
-        }
-        // console.log(res)
-        const result = await res.json();
-        // console.log(result)
-        setData(result);
-        setLoading(false);
-      } catch (error) {
-        setError(error.message);
-        setLoading(false);
+  // Function to fetch data from the provided URL
+  const fetchData = useCallback(async () => {
+    setLoading(true);
+
+    try {
+      const res = await fetch(url);
+      if (!res.ok) {
+        throw new Error("Maybe something went wrong, please try again later.");
       }
-    };
-    fetchData();
+      const result: DataType = await res.json();
+      setData(result);
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("An error occurred while fetching data.");
+      }
+    } finally {
+      setLoading(false);
+    }
   }, [url]);
+
+  // Fetch data when the component mounts or when the URL changes
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
   return {
-    data,
-    error,
-    loading,
+    data, // The fetched data
+    error, // Any error that occurred during fetching
+    loading, // A flag indicating if the data is currently being fetched
   };
 };
 
