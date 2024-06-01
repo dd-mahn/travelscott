@@ -1,5 +1,4 @@
 import Destination from "../models/Destination.js";
-import { convertImgToBase64 } from "../utils/imageHandler.js";
 import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
@@ -36,13 +35,14 @@ export const getDestinations = async (req, res) => {
     const skip = (page - 1) * limit;
   
     const destinations = await Destination.find(filter).skip(skip).limit(limit);
-    const totalCount = await Destination.countDocuments(filter);
+    const count = await Destination.countDocuments(filter);
   
-    const totalPages = Math.ceil(totalCount / limit);
+    const totalPages = Math.ceil(count / limit);
   
     res.status(201).json({
-      destinations,
-      page,
+      result: destinations,
+      count,
+      page: parseInt(page) || 1,
       totalPages,
     });
   } catch (error) {
@@ -92,7 +92,7 @@ export const getCountries = async (req, res) => {
     try {
         const countries = await Destination.distinct("country");
         const count = countries.length;
-        res.json({ countries: countries, count: count });
+        res.json({ result: countries, count: count });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -366,7 +366,7 @@ export const getDestinationBySearch = async (req, res) => {
       return res.status(404).json({ message: "No destinations found." });
     }
 
-    res.json(destinations);
+    res.json({result: destinations});
     
   } catch (error) {
     console.error(error);
