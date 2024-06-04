@@ -1,8 +1,8 @@
 import React from "react";
-import useFetch from "../hooks/useFetch";
+import useFetch from "../../../hooks/useFetch";
 import { Container, Row, Col } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import { BASE_URL } from "../utils/config";
+import { BASE_URL } from "../../../utils/config";
 import Slider from "react-slick";
 import "../styles/destination.css";
 import "slick-carousel/slick/slick.css";
@@ -11,54 +11,54 @@ import "slick-carousel/slick/slick-theme.css";
 function Destination() {
   const { id } = useParams();
 
-  const {
-    data: destination,
-    error,
-    loading,
-  } = useFetch(`${BASE_URL}/destinations/${id}`);
+  // const {
+  //   data: destination,
+  //   error,
+  //   loading,
+  // } = useFetch(`${BASE_URL}/destinations/${id}`);
 
-  const {
-    name,
-    video,
-    images,
-    country,
-    location,
-    description,
-    places,
-    transportation,
-    types,
-    reviews,
-    summary,
-  } = destination;
+  // const {
+  //   name,
+  //   video,
+  //   images,
+  //   country,
+  //   location,
+  //   description,
+  //   places,
+  //   transportation,
+  //   types,
+  //   reviews,
+  //   summary,
+  // } = destination;
 
-  let typesString = types?.join(", ");
+  // let typesString = types?.join(", ");
 
-  const videoUrl = `https://www.youtube.com/embed/${video}?autoplay=1&mute=1&loop=1`;
+  // const videoUrl = `https://www.youtube.com/embed/${video}?autoplay=1&mute=1&loop=1`;
 
-  const settings = {
-    dots: true, 
-    infinite: true, 
-    speed: 2000, 
-    slidesToShow: 1, 
-    slidesToScroll: 1, 
-    autoplay: true, 
-    autoplaySpeed: 3000, 
-    pauseOnHover: false, 
-    adaptiveHeight: true,
-    arrows: false,
-    fade: true,
-    cssEase: "linear",
-  };
+  // const settings = {
+  //   dots: true, 
+  //   infinite: true, 
+  //   speed: 2000, 
+  //   slidesToShow: 1, 
+  //   slidesToScroll: 1, 
+  //   autoplay: true, 
+  //   autoplaySpeed: 3000, 
+  //   pauseOnHover: false, 
+  //   adaptiveHeight: true,
+  //   arrows: false,
+  //   fade: true,
+  //   cssEase: "linear",
+  // };
 
-  const settingsPlaces = {
-    dots: false,
-    arrows: true,
-    infinite: false,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    adaptiveHeight: true,
+  // const settingsPlaces = {
+  //   dots: false,
+  //   arrows: true,
+  //   infinite: false,
+  //   slidesToShow: 4,
+  //   slidesToScroll: 1,
+  //   adaptiveHeight: true,
     
-  };
+  // };
 
   return (
     <>
@@ -66,8 +66,8 @@ function Destination() {
         <Container>
           <Row className="flex justify-center">
             <Col className="flex flex-col items-start">
-              <span>{country}</span>
-              <h1>{name}</h1>
+              {/* <span>{country}</span>
+              <h1>{name}</h1> */}
             </Col>
             {/* <Col>
               <span>{country}</span>
@@ -77,22 +77,22 @@ function Destination() {
             <Col>
               <span>
                 {" "}
-                <i class="ri-bard-fill"></i> {typesString}
+                {/* <i className="ri-bard-fill"></i> {typesString} */}
               </span>
               <span>
                 {" "}
-                <i class="ri-map-pin-fill"></i> {location}
+                {/* <i className="ri-map-pin-fill"></i> {location} */}
               </span>
-              <p>{description}</p>
+              {/* <p>{description}</p> */}
             </Col>
             <Col>
-              <Slider {...settings} className="destination__carousel ">
+              {/* <Slider {...settings} className="destination__carousel ">
                 {images?.map((image, index) => (
                   // <div className="carousel__image">
                   <img key={index} src={image} alt={name} />
                   // </div>
                 ))}
-              </Slider>
+              </Slider> */}
             </Col>
           </Row>
         </Container>
@@ -101,38 +101,38 @@ function Destination() {
         <iframe
           width="100%"
           height="100%"
-          frameborder="0"
+          frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
-          src={videoUrl}
+          // src={videoUrl}
         ></iframe>
       </section>
       <section className="destination__transportation">
         <Container className="flex flex-col">
           <Row>
             <h1 className="flex text-light-gradient">
-              <i class="ri-bus-fill"></i>
+              <i className="ri-bus-fill"></i>
               Transportation
             </h1>
           </Row>
           <Row className="flex justify-between">
             <Col>
-              <p>{transportation?.overview}</p>
+              {/* <p>{transportation?.overview}</p> */}
             </Col>
             <Col>
-              {transportation?.types.map((type, index) => (
+              {/* {transportation?.types.map((type, index) => (
                 <div
                   key={index}
                   className="transportation__option flex flex-col"
                 >
                   <div className="flex justify-between">
                     <button>{type.name}</button>
-                    <i class="ri-checkbox-blank-circle-line d-off"></i>
-                    <i class="ri-checkbox-blank-circle-fill"></i>
+                    <i className="ri-checkbox-blank-circle-line d-off"></i>
+                    <i className="ri-checkbox-blank-circle-fill"></i>
                   </div>
                   <div className="">
                     <div className="flex">
-                      <i class="ri-information-line"></i>
+                      <i className="ri-information-line"></i>
                       <div className="flex flex-col">
                         <p>{type.description}</p>
                         <ul>
@@ -148,7 +148,7 @@ function Destination() {
                       </div>
                     </div>
                     <div className="flex">
-                      <i class="ri-price-tag-3-line"></i>
+                      <i className="ri-price-tag-3-line"></i>
                       <span>
                         {type.price_range.currency !== ""
                           ? type.price_range.currency + " "
@@ -160,7 +160,7 @@ function Destination() {
                     </div>
                   </div>
                 </div>
-              ))}
+              ))} */}
             </Col>
           </Row>
         </Container>
@@ -169,7 +169,7 @@ function Destination() {
         <Container className="flex flex-col">
           <Row>
             <h1 className="flex text-light-gradient">
-              <i class="ri-map-pin-3-fill"></i> Places
+              <i className="ri-map-pin-3-fill"></i> Places
             </h1>
           </Row>
           <Row className="flex flex-col places__category">
@@ -184,14 +184,14 @@ function Destination() {
               </p>
             </div>
             <div>
-              <Slider {...settingsPlaces}>
+              {/* <Slider {...settingsPlaces}>
                 {places?.to_stay.map((place, index) => (
                   <div key={index} className="places flex flex-col">
                     <img src={place.image_url} alt="place_img" />
                     <span>{place.name}</span>
                   </div>
                 ))}
-              </Slider>
+              </Slider> */}
             </div>
             {/* <button>See All</button> */}
           </Row>
@@ -203,14 +203,14 @@ function Destination() {
               <p>(The most popular places that worth visiting)</p>
             </div>
             <div>
-              <Slider {...settingsPlaces}>
+              {/* <Slider {...settingsPlaces}>
                 {places?.to_visit.map((place, index) => (
                   <div key={index} className="places flex flex-col">
                     <img src={place.image_url} alt="place_img" />
                     <span>{place.name}</span>
                   </div>
                 ))}
-              </Slider>
+              </Slider> */}
             </div>
             {/* <button>See All</button> */}
           </Row>
@@ -226,14 +226,14 @@ function Destination() {
               </p>
             </div>
             <div>
-              <Slider {...settingsPlaces}>
+              {/* <Slider {...settingsPlaces}>
                 {places?.to_eat.map((place, index) => (
                   <div key={index} className="places flex flex-col">
                     <img src={place.image_url} alt="place_img" />
                     <span>{place.name}</span>
                   </div>
                 ))}
-              </Slider>
+              </Slider> */}
             </div>
           </Row>
         </Container>
@@ -242,29 +242,29 @@ function Destination() {
         <Container className="flex flex-col">
           <Row>
             <h1 className="flex text-light-gradient">
-              <i class="ri-eye-fill"></i> Insight
+              <i className="ri-eye-fill"></i> Insight
             </h1>
           </Row>
           <Row className="flex justify-between">
             <Col>
               <div className="insight__blogs insight__category flex flex-col">
-                <span className="flex"><i class="ri-quill-pen-line"></i> Blogs</span>
+                <span className="flex"><i className="ri-quill-pen-line"></i> Blogs</span>
                 <div className="flex flex-col">
-                  {reviews?.blogs?.map((blog, index) => (
+                  {/* {reviews?.blogs?.map((blog, index) => (
                     <a href={blog.link} key={index} className="underline__btn">
-                     {blog.name}{" "} <i class="ri-arrow-right-up-line"></i>
+                     {blog.name}{" "} <i className="ri-arrow-right-up-line"></i>
                     </a>
-                  ))}
+                  ))} */}
                 </div>
               </div>
               <div className="insight__videos insight__category flex flex-col">
-                <span className="flex"><i class="ri-movie-line"></i> Videos</span>
+                <span className="flex"><i className="ri-movie-line"></i> Videos</span>
                 <div className="flex flex-col">
-                  {reviews?.videos?.map((video, index) => (
+                  {/* {reviews?.videos?.map((video, index) => (
                     <a href={video.link} key={index} className="underline__btn">
-                     {video.name} <i class="ri-arrow-right-up-line"></i>
+                     {video.name} <i className="ri-arrow-right-up-line"></i>
                     </a>
-                  ))}
+                  ))} */}
                 </div>
               </div>
             </Col>
@@ -283,12 +283,12 @@ function Destination() {
         <Container className="flex flex-col">
           <Row>
             <h1 className="flex text-light-gradient">
-              <i class="ri-shining-2-fill"></i>
+              <i className="ri-shining-2-fill"></i>
               Summary
             </h1>
           </Row>
           <Row className="flex justify-center items-center">
-            <p>{summary}</p>
+            {/* <p>{summary}</p> */}
           </Row>
           <Row className="flex justify-end">
             <span>Have a good trip!</span>

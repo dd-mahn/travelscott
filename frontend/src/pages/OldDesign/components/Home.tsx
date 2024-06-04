@@ -1,60 +1,16 @@
 import React from "react";
 import { Container, Row, Col, Form } from "react-bootstrap";
-import circle from "../assets/circle-alt.png";
 import circleSVG from "../assets/svg/hero-circle.svg";
 import HeroImg from "../assets/svg/hero-img.svg";
 import AboutVideo from "../assets/videos/home-about.mp4";
 import "../styles/home.css";
-import Gallery from "./HomeComponents/Gallery";
-import StarButton from "../components/ui/StarButton";
-import { BASE_URL } from "../utils/config";
-import StarButtonForm from "../components/ui/StarButtonForm";
+import Gallery from "../../HomeComponents/Gallery";
+import StarButton from "../../../components/ui/StarButton";
+import { BASE_URL } from "../../../utils/config";
+import StarButtonForm from "../../../components/ui/StarButtonForm";
 
 const Home = () => {
-  const sendFeedback = async () => {
-    // Get the form data
-    const nameElement = document.getElementById("name") as HTMLInputElement;
-    const emailElement = document.getElementById("email") as HTMLInputElement;
-    const feedbackElement = document.getElementById("feedback") as HTMLInputElement;
-
-    // Check if the elements exist before accessing their values
-    const name = nameElement ? nameElement.value : "";
-    const email = emailElement ? emailElement.value : "";
-    const message = feedbackElement ? feedbackElement.value : "";
-
-    // Create the feedback object
-    const feedback = {
-      name: name,
-      email: email,
-      message: message,
-    };
-
-    try {
-      const response = await fetch(`${BASE_URL}/feedback`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(feedback),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log(data);
-        alert("Thank you for submitting your feedback!");
-
-        // Clear the form after submitting feedback
-        nameElement.value = "";
-        emailElement.value = "";
-        feedbackElement.value = "";
-      } else {
-        alert("Error: " + response.status);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
+  
   return (
     <>
       {/* Hero start */}
@@ -199,7 +155,7 @@ const Home = () => {
                 </Form.Group>
 
                 {/* <button type="button" className="submit__btn btn btn-color-2" onClick={sendFeedback}>Submit</button> */}
-                <StarButtonForm title="Submit" callback={sendFeedback} />
+                {/* <StarButtonForm title="Submit" callback={}/> */}
               </Form>
             </Col>
             <Col className="form-side flex flex-col items-start justify-start">

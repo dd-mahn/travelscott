@@ -1,35 +1,31 @@
 import React from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import "../styles/about.css";
-import aboutIcons from "../assets/svg/about-icons.svg";
-import MarqueeSlider from "react-marquee-slider";
-import circle from "../assets/circle-alt.png";
-import circleSvg from "../assets/svg/hero-circle.svg";
-import aboutVideo1 from "../assets/videos/about-1.mp4";
-import aboutVideo2 from "../assets/videos/about-2.mp4";
-import aboutProfile from "../assets/about-profile.jpg";
-import AboutSphere from "../common/AboutSphere";
-// import Circle from "../common/Circle";
+import "src/pages/OldDesign/styles/about.css";
+import aboutIcons from "src/assets/svg/about-icons.svg";
+import circleSvg from "src/assets/svg/hero-circle.svg";
+import aboutVideo1 from "src/assets/videos/about-1.mp4";
+import aboutVideo2 from "src/assets/videos/about-2.mp4";
+import aboutProfile from "src/assets/about-profile.jpg";
 
 function About() {
-  function toggle(e) {
-    const creditsDiv = document.querySelector(".credit");
-    const someWordsDiv = document.querySelector(".some__words");
+  // function toggle(e) {
+  //   const creditsDiv = document.querySelector(".credit");
+  //   const someWordsDiv = document.querySelector(".some__words");
 
-    if (e.target.textContent === "SOME WORDS") {
-      const creditsButton = e.target.nextElementSibling;
-      creditsButton.classList.add("disabled");
-      e.target.classList.remove("disabled");
-      someWordsDiv.classList.remove("d-off");
-      creditsDiv.classList.add("d-off");
-    } else if (e.target.textContent === "CREDITS") {
-      const someWordsButton = e.target.previousElementSibling;
-      someWordsButton.classList.add("disabled");
-      e.target.classList.remove("disabled");
-      creditsDiv.classList.remove("d-off");
-      someWordsDiv.classList.add("d-off");
-    }
-  }
+  //   if (e.target.textContent === "SOME WORDS") {
+  //     const creditsButton = e.target.nextElementSibling;
+  //     creditsButton.classList.add("disabled");
+  //     e.target.classList.remove("disabled");
+  //     someWordsDiv.classList.remove("d-off");
+  //     creditsDiv.classList.add("d-off");
+  //   } else if (e.target.textContent === "CREDITS") {
+  //     const someWordsButton = e.target.previousElementSibling;
+  //     someWordsButton.classList.add("disabled");
+  //     e.target.classList.remove("disabled");
+  //     creditsDiv.classList.remove("d-off");
+  //     someWordsDiv.classList.add("d-off");
+  //   }
+  // }
 
   return (
     <div className="about-section">
@@ -104,7 +100,7 @@ function About() {
               </a>
             </Col>
             <Col>
-              <i class="ri-shining-2-fill"></i>
+              <i className="ri-shining-2-fill"></i>
             </Col>
           </Row>
         </Container>
@@ -157,10 +153,10 @@ function About() {
               </div>
             </Col>
             <Col className="credit__category flex bg-transparent flex-col items-start z-10">
-              <button onClick={toggle}>SOME WORDS</button>
-              <button className="disabled" onClick={toggle}>
+              <Button>SOME WORDS</Button>
+              <Button title="credit" className="disabled">
                 CREDITS
-              </button>
+              </Button>
             </Col>
           </Row>
         </Container>
