@@ -1,5 +1,5 @@
 import { StayPlace, VisitPlace, EatPlace } from "src/types/Place";
-import { Transportation } from "src/types/Tranportation";
+import { Transportation } from "src/types/Transportation";
 import { Review } from "src/types/Review";
 
 export interface Destination {
@@ -13,7 +13,7 @@ export interface Destination {
         toVisit: VisitPlace[];
         toEat: EatPlace[];
     };
-    tranportation: {
+    transportation: {
         overview: string;
         types: Transportation[];
     }
