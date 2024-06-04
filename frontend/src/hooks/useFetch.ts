@@ -1,10 +1,10 @@
 import { useState, useEffect, useCallback } from "react";
-import { FetchCountriesData, FetchDestinationData } from "src/types/FetchData";
+import { FetchCountriesType, FetchDestinationType } from "src/types/FetchData";
 
-type DataType = FetchCountriesData | FetchDestinationData;
+type DataType = FetchCountriesType | FetchDestinationType;
 
 const useFetch = (url: string) => {
-  const [data, setData] = useState<DataType>({});
+  const [data, setData] = useState<DataType>();
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
