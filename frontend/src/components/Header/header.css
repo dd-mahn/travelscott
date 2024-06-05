@@ -1,45 +1,23 @@
-body {
-  position: relative;
-}
+header {
+  h1 {
+    @apply lg:text-2xl xl:text-3xl 2xl:text-3xl 3xl:text-4xl;
+  }
 
-.header {
-  width: 100%;
-  padding: calc(0.5 * var(--gap-regular)) var(--p-default-x);
-  min-height: 4rem;
-  position: fixed;
-  top: 0;
-  background: transparent;
-  z-index: 15;
-  mix-blend-mode: difference;
-}
+  button i {
+    @apply lg:text-xl xl:text-2xl 2xl:text-2xl 3xl:text-3xl;
+  }
 
-.header h1 {
-  font-size: var(--fs-logo);
-  font-weight: var(--fw-under-regular);
-}
+  ul {
+    @apply lg:gap-4 xl:gap-6 2xl:gap-8 3xl:gap-8;
+  }
 
-.header button i {
-  font-size: var(--fs-icon-btn);
-}
+  a {
+    @apply font-normal lg:text-base xl:text-lg 2xl:text-lg 3xl:text-xl;
+  }
 
-.header ul{
-  gap: var(--gap-medium);
+  h1,
+  a,
+  i {
+    @apply text-text-dark dark:text-text-light;
+  }
 }
-
-.header li a {
-  font-size: var(--fs-medium);
-  /* mix-blend-mode: lighten; */
-  font-weight: var(--fw-regular);
-}
-
-.header * {
-  /* background: transparent !important; */
-}
-
-.header h1,
-.header a,
-.header i{
-  /* mix-blend-mode: difference; */
-  color: var(--text-dark);
-}
-
