@@ -1,42 +1,26 @@
 footer {
-  padding: 2rem var(--p-default-x) 0;
+  @apply lg:gap-32 xl:gap-36 2xl:gap-40 3xl:gap-48;
   margin: 10rem 0 2rem;
   border-top: 1px solid var(--text-light);
-}
 
-footer .container > :nth-child(1) h1 {
-  font-size: var(--fs-medium);
-  font-weight: var(--fw-medium);
-  color: var(--text-light);
-}
+  a {
+    @apply font-medium text-gray lg:text-base xl:text-lg 2xl:text-lg 3xl:text-xl;
+  }
 
-footer .container > :nth-child(1) a {
-  margin-bottom: 0.3rem;
-  font-size: var(--fs-regular);
-}
+  p {
+    @apply font-medium lg:text-2xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl;
+  }
 
-footer .container > :nth-child(1) p {
-  font-size: var(--fs-regular);
-  font-weight: var(--fw-regular);
-  /* color: var(--main-color-1); */
-}
+  h1 {
+    @apply lg:text-8xl xl:text-8xl 2xl:text-9xl 3xl:text-9xl;
+  }
 
-footer .container > :nth-child(1) span {
-  text-decoration: underline;
-  font-size: var(--fs-logo);
-  font-weight: var(--fw-medium);
-}
+  button,
+  button i {
+    @apply font-medium;
+  }
 
-footer .container > :nth-child(2) h1 {
-  font-size: var(--fs-big-heading);
-  font-weight: var(--fw-medium);
-  color: var(--main-color-2);
-  line-height: 1.2;
-}
-
-footer .container > :nth-child(2) button,
-footer .container > :nth-child(2) button i{
-  font-size: var(--fs-medium);
-  font-weight: var(--fw-medium);
-  color: var(--text-light);
+  ul {
+    @apply lg:gap-1 xl:gap-1 2xl:gap-1.5 3xl:gap-2;
+  }
 }
