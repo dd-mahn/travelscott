@@ -1,0 +1,45 @@
+.hero {
+  .blob-1 {
+    top: 5%;
+    left: -10%;
+    background: radial-gradient(
+      circle at 50% 50%,
+      #eb996e,
+      rgba(76, 0, 255, 0)
+    );
+  }
+
+  .blob-2 {
+    bottom: 20%;
+    right: -30%;
+    background: radial-gradient(
+      circle at 50% 50%,
+      #8ab17c,
+      rgba(76, 0, 255, 0)
+    );
+    opacity: 0.4 !important;
+  }
+
+  .blob-3 {
+    width: 100%;
+    bottom: -20%;
+    background: radial-gradient(
+      circle at 50% 50%,
+      #595959,
+      rgba(76, 0, 255, 0)
+    );
+    opacity: 1;
+  }
+
+  .airplane-1 {
+    @apply z-10 lg:bottom-5p xl:bottom-5p 2xl:bottom-5p 2xl:right-5p 3xl:bottom-1/10 3xl:right-5p transform lg:right-0 lg:scale-75 xl:right-0 xl:scale-90 2xl:scale-100 3xl:scale-125;
+  }
+
+  .airplane-2 {
+    @apply z-10 lg:right-5p xl:right-15p 2xl:top-15p 2xl:right-1/10 3xl:top-15p 3xl:right-15p transform lg:top-0 lg:scale-50 xl:top-8 xl:scale-75 2xl:scale-90 3xl:scale-100;
+  }
+
+  .airplane-3 {
+    @apply z-10 xl:scale-60 lg:right-2/5 2xl:top-5p 2xl:right-2/5 3xl:top-5p transform lg:top-0 lg:scale-50 xl:right-1/2 xl:top-0 2xl:scale-90 3xl:right-1/2 3xl:scale-100;
+  }
+}
