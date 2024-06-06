@@ -39,7 +39,7 @@ p {
 }
 
 .btn {
-  @apply flex cursor-pointer items-center justify-center rounded border-none font-medium uppercase tracking-wide shadow-md shadow-gray transition-all lg:px-4 lg:py-3 lg:text-base xl:px-5 xl:py-3 xl:text-lg 2xl:px-6 2xl:py-3 2xl:text-xl 3xl:px-6 3xl:py-3 3xl:text-xl;
+  @apply flex cursor-pointer items-center justify-center rounded border-none font-medium uppercase tracking-wide shadow-md shadow-gray transition-all lg:px-3 lg:py-2 lg:text-base xl:px-5 xl:py-3 xl:text-lg 2xl:px-6 2xl:py-3 2xl:text-xl 3xl:px-6 3xl:py-3 3xl:text-xl;
 }
 
 .btn-primary {
