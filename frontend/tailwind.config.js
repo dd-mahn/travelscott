@@ -12,6 +12,7 @@ module.exports = {
     },
     colors: {
       'transparent': 'transparent',
+      'background-dark': '#21272F',
       'background-light': '#FBF9F7',
       'main-green': '#8AB17C',
       'main-brown': '#EB996E',
@@ -20,7 +21,7 @@ module.exports = {
       yellow: '#FFC400',
       'text-light': '#333333',
       'text-dark': '#FFFFFF',
-      gray: '#909090'
+      gray: '#989898'
     },
     fontFamily: {
       'logo': ['Kaushan Script', 'cursive'],
@@ -39,6 +40,7 @@ module.exports = {
       spacing: {
         'sect-default': '10rem',
         'sect-medium': '20rem',
+        'sect-semi': '30rem',
         'sect-long': '40rem'
       },
       inset: {
@@ -49,8 +51,20 @@ module.exports = {
         '2/5': '40%',
       },
       scale: {
+        '40': '.4',
         '60': '.6',
+        '70': '.7',
       },
+      rotate:{
+        '30': '30deg',
+      },
+      height: {
+        '1.25svh':'125vh',
+        '1.5svh':'150svh',
+        '1.75svh':'175svh',
+        '2svh':'200svh',
+        '2.25svh':'225svh',
+      }
     },
   },
   variants: {
