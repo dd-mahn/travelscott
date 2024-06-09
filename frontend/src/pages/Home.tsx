@@ -5,6 +5,70 @@ import airplane1 from "src/assets/svg/airplane-1.svg";
 import airplane2 from "src/assets/svg/airplane-2.svg";
 import airplane3 from "src/assets/svg/airplane-3.svg";
 import briefVideo from "src/assets/videos/brief.mp4";
+import featured1 from "src/assets/images/ui/home/featured-1.jpg";
+import featured2 from "src/assets/images/ui/home/featured-2.jpg";
+import featured3 from "src/assets/images/ui/home/featured-3.jpg";
+import featured4 from "src/assets/images/ui/home/featured-4.jpg";
+import featured5 from "src/assets/images/ui/home/featured-5.jpg";
+import featured6 from "src/assets/images/ui/home/featured-6.jpg";
+import featured7 from "src/assets/images/ui/home/featured-7.jpg";
+import featured8 from "src/assets/images/ui/home/featured-8.jpg";
+import featured9 from "src/assets/images/ui/home/featured-9.jpg";
+import featured10 from "src/assets/images/ui/home/featured-10.jpg";
+import planeIcon from "src/assets/svg/plane-icon.svg";
+
+const featuredDemo = [
+  {
+    img: featured1,
+    title: "A destination with culture",
+    location: "Africa",
+  },
+  {
+    img: featured2,
+    title: "A destination with nature",
+    location: "Europe",
+  },
+  {
+    img: featured3,
+    title: "A destination with nature",
+    location: "Europe",
+  },
+  {
+    img: featured4,
+    title: "A destination with nature",
+    location: "Europe",
+  },
+  {
+    img: featured5,
+    title: "A destination with nature",
+    location: "Europe",
+  },
+  {
+    img: featured6,
+    title: "A destination with nature",
+    location: "Europe",
+  },
+  {
+    img: featured7,
+    title: "A destination with nature",
+    location: "Europe",
+  },
+  {
+    img: featured8,
+    title: "A destination with nature",
+    location: "Europe",
+  },
+  {
+    img: featured9,
+    title: "A destination with nature",
+    location: "Europe",
+  },
+  {
+    img: featured10,
+    title: "A destination with nature",
+    location: "Europe",
+  },
+];
 
 const Home: React.FC = () => {
   return (
@@ -43,17 +107,17 @@ const Home: React.FC = () => {
           <button className="btn btn-secondary">Learn more</button>
         </div>
       </section>
-      <section className="brief px-sect xl:py-sect-semi flex flex-col lg:gap-36 lg:py-sect-medium xl:gap-48 2xl:gap-64 2xl:py-sect-long 3xl:gap-80 3xl:py-sect-long">
+      <section className="brief px-sect flex flex-col lg:gap-36 lg:py-sect-medium xl:gap-48 xl:py-sect-semi 2xl:gap-64 2xl:py-sect-long 3xl:gap-80 3xl:py-sect-long">
         <div className="flex min-h-40 flex-row items-center lg:gap-28 xl:gap-28 2xl:gap-44 3xl:gap-60">
           <img src={airplane1} alt="" className="rotate-30 transform" />
-          <p className="font-medium text-text-light lg:text-4xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl">
+          <h1 className="font-medium text-text-light lg:text-4xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl">
             A <span className="text-main-green">Comprehensive Catalogue</span>{" "}
-            of <br></br>
+            of <br />
             Destinations with Tailored Travel Insights.
-          </p>
+          </h1>
         </div>
-        <div className="3xl:h-2svh 2xl:h-2svh xl:h-1.75svh lg:h-2.25svh relative flex lg:flex-row lg:gap-20 xl:gap-28 2xl:gap-32 3xl:gap-40">
-          <div className="sticky top-0 z-0 h-svh rounded-lg">
+        <div className="relative flex lg:h-2.25svh lg:flex-row lg:gap-20 xl:h-1.75svh xl:gap-28 2xl:h-2svh 2xl:gap-32 3xl:h-2svh 3xl:gap-40">
+          <div className="sticky top-0 z-0 h-svh rounded-lg py-4">
             <video src={briefVideo} autoPlay muted loop></video>
           </div>
           <div className="relative flex flex-col items-center justify-center lg:w-2/5 lg:gap-16 xl:gap-20 2xl:gap-20 3xl:gap-24 3xl:pt-40">
@@ -83,6 +147,68 @@ const Home: React.FC = () => {
             </p>
           </div>
         </div>
+      </section>
+      <section className="featured px-sect flex flex-col items-center lg:gap-28 xl:gap-32 2xl:gap-36 3xl:gap-40">
+        <div className="flex w-fit flex-col gap-2">
+          <h1 className="relative font-medium text-text-light lg:text-4xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl">
+            <span className="opacity-0">--</span>
+            <i className="ri-shining-2-fill absolute -top-5p left-0 rotate-30 transform text-yellow lg:text-4.5xl xl:text-5xl 2xl:text-5.5xl 3xl:text-6.5xl"></i>{" "}
+            Featured Destinations
+          </h1>
+          <span className="self-end font-medium lg:text-base xl:text-base 2xl:text-lg 3xl:text-lg">
+            (Scroll)
+          </span>
+        </div>
+        <div className="scroller pl-sect grid w-svw auto-cols-max grid-flow-col gap-8 overflow-x-auto">
+          {featuredDemo.map((item, index) => (
+            <div key={index} className="card h-svg flex flex-col gap-4">
+              <div className="h-0.75svh w-full rounded-lg">
+                <img
+                  src={item.img}
+                  alt=""
+                  className="h-full w-full rounded-lg"
+                />
+              </div>
+              <div className="flex flex-col lg:gap-1 xl:gap-1 2xl:gap-1 3xl:gap-1">
+                <h2>{item.title}</h2>
+                <span>({item.location})</span>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="flex w-full flex-row justify-between">
+          <p className="font-medium lg:text-xl xl:text-xl 2xl:text-2xl 3xl:text-3xl">
+            They are just so few among the{" "}
+            <span className="font-semibold text-main-brown lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl">
+              100
+            </span>
+            + <br />
+            destinations that we have covered in our Catalogue.
+          </p>
+
+          <div className="relative flex items-end">
+            <div className="blob blur-blob absolute z-0 h-full w-1/3"></div>
+            <button title="navigate" className="btn btn-secondary z-5">
+              discover them <img src={planeIcon} alt="" />
+            </button>
+          </div>
+        </div>
+      </section>
+      <section className="px-sect inspired flex items-center justify-center py-sect-long">
+        <div className="relative flex w-fit flex-col lg:gap-4 xl:gap-4 2xl:gap-5 3xl:gap-6">
+          <div className="blob blur-blob absolute z-0 h-full w-1/2"></div>
+          <h1 className="text-center font-medium leading-normal lg:text-4xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl">
+            We got inspired by travelers of <br />
+            <span className="text-main-green">20</span>+ countries around the
+            world
+          </h1>
+          <span className="self-end font-medium lg:text-lg xl:text-xl 2xl:text-2xl 3xl:text-2xl">
+            (Maybe you are one)
+          </span>
+        </div>
+      </section>
+      <section className="globe">
+
       </section>
     </main>
   );

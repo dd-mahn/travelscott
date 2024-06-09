@@ -32,7 +32,7 @@
   }
 
   .airplane-1 {
-    @apply z-10 transform lg:bottom-5p lg:-right-5p lg:scale-70 xl:bottom-5p xl:right-0 xl:scale-90 2xl:bottom-5p 2xl:right-5p 2xl:scale-90 3xl:bottom-1/10 3xl:right-5p 3xl:scale-125;
+    @apply z-10 transform lg:-right-5p lg:bottom-5p lg:scale-70 xl:bottom-5p xl:right-0 xl:scale-90 2xl:bottom-5p 2xl:right-5p 2xl:scale-90 3xl:bottom-1/10 3xl:right-5p 3xl:scale-125;
   }
 
   .airplane-2 {
@@ -40,7 +40,7 @@
   }
 
   .airplane-3 {
-    @apply z-10 transform lg:right-2/5 lg:-top-4 lg:scale-40 xl:right-1/2 xl:top-0 xl:scale-60 2xl:right-2/5 2xl:top-5p 2xl:scale-75 3xl:right-1/2 3xl:top-5p 3xl:scale-100;
+    @apply z-10 transform lg:-top-4 lg:right-2/5 lg:scale-40 xl:right-1/2 xl:top-0 xl:scale-60 2xl:right-2/5 2xl:top-5p 2xl:scale-75 3xl:right-1/2 3xl:top-5p 3xl:scale-100;
   }
 }
 
@@ -50,20 +50,24 @@
   }
 
   video {
-    @apply h-svh rounded-lg;
+    @apply h-full rounded-lg;
+  }
+
+  h1 {
+    line-height: 1.6 !important;
   }
 
   p {
-    line-height: normal !important;
+    line-height: 1.6 !important;
   }
 
   p.active {
     @apply opacity-100;
   }
 
-  .blob-1{
-    top:15%;
-    left:0;
+  .blob-1 {
+    top: 15%;
+    left: 0;
     background: radial-gradient(
       circle at 50% 50%,
       #8ab17c,
@@ -72,14 +76,67 @@
     opacity: 0.4 !important;
   }
 
-  .blob-2{
-    bottom:15%;
-    right:0;
+  .blob-2 {
+    bottom: 15%;
+    right: 0;
     background: radial-gradient(
       circle at 50% 50%,
       #eb996e,
       rgba(76, 0, 255, 0)
     );
-    opacity:0.2 !important;
+    opacity: 0.2 !important;
+  }
+}
+
+.featured {
+  .scroller {
+    /* @apply lg:auto-cols-1/2 xl:auto-cols-1/2 2xl:auto-cols-2/5 3xl:auto-cols-0.35; */
+    scroll-behavior: smooth !important;
+    scroll-snap-type: inline mandatory;
+    scrollbar-width: 1rem;
+    scroll-padding: 2rem;
+  }
+
+  .scroller > div {
+    /* scroll-snap-align: start; */
+  }
+
+  .card {
+    h2 {
+      @apply font-medium lg:text-lg xl:text-xl 2xl:text-2xl 3xl:text-2xl;
+    }
+
+    span {
+      @apply font-normal lg:text-base xl:text-base 2xl:text-lg 3xl:text-lg;
+    }
+  }
+
+  .blob {
+    top: -40%;
+    right: -10%;
+    background: radial-gradient(
+      circle at 50% 50%,
+      #8ab17c,
+      rgba(76, 0, 255, 0)
+    );
+    filter: blur(25px);
+    opacity: 0.8 !important;
+  }
+}
+
+.inspired{
+  h1{
+    line-height: normal !important;
+  }
+
+  .blob{
+    top: -10%;
+    left: -30%;
+    background: radial-gradient(
+      circle at 50% 50%,
+      #eb996e,
+      rgba(76, 0, 255, 0)
+    );
+    opacity: 0.3 !important;
   }
 }
