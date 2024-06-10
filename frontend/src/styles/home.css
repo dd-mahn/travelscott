@@ -93,8 +93,7 @@
     /* @apply lg:auto-cols-1/2 xl:auto-cols-1/2 2xl:auto-cols-2/5 3xl:auto-cols-0.35; */
     scroll-behavior: smooth !important;
     scroll-snap-type: inline mandatory;
-    scrollbar-width: 1rem;
-    scroll-padding: 2rem;
+    scrollbar-color: transparent transparent;
   }
 
   .scroller > div {
@@ -124,12 +123,12 @@
   }
 }
 
-.inspired{
-  h1{
+.inspired {
+  h1 {
     line-height: normal !important;
   }
 
-  .blob{
+  .blob {
     top: -10%;
     left: -30%;
     background: radial-gradient(
@@ -138,5 +137,15 @@
       rgba(76, 0, 255, 0)
     );
     opacity: 0.3 !important;
+  }
+}
+
+.globe{
+  background: linear-gradient(180deg, rgb(51, 51, 51) 0%, #8ab17c 100%);
+
+  canvas {
+    width: 100svw !important;
+    height: 100svh !important;
+    transform: scale(2);
   }
 }

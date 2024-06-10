@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 import "src/styles/home.css";
 import airplane1 from "src/assets/svg/airplane-1.svg";
@@ -16,6 +16,9 @@ import featured8 from "src/assets/images/ui/home/featured-8.jpg";
 import featured9 from "src/assets/images/ui/home/featured-9.jpg";
 import featured10 from "src/assets/images/ui/home/featured-10.jpg";
 import planeIcon from "src/assets/svg/plane-icon.svg";
+
+import { useHorizontalScroll } from "src/utils/useHorizontalScroll";
+import EarthScene from "src/pages/HomeComponents/EarthScene";
 
 const featuredDemo = [
   {
@@ -71,6 +74,8 @@ const featuredDemo = [
 ];
 
 const Home: React.FC = () => {
+  const scrollRef = useHorizontalScroll();
+
   return (
     <main className="home flex flex-col">
       <section className="hero px-sect relative flex h-screen flex-col justify-center lg:gap-6 xl:gap-8 2xl:gap-8 3xl:gap-8">
@@ -159,16 +164,20 @@ const Home: React.FC = () => {
             (Scroll)
           </span>
         </div>
-        <div className="scroller pl-sect grid w-svw auto-cols-max grid-flow-col gap-8 overflow-x-auto">
+        <div
+          // ref={scrollRef}
+          className="scroller pl-sect grid w-svw grid-flow-col gap-8 overflow-x-auto lg:auto-cols-2/5 2xl:auto-cols-0.35"
+        >
           {featuredDemo.map((item, index) => (
-            <div key={index} className="card h-svg flex flex-col gap-4">
-              <div className="h-0.75svh w-full rounded-lg">
-                <img
-                  src={item.img}
-                  alt=""
-                  className="h-full w-full rounded-lg"
-                />
-              </div>
+            <div key={index} className="card h-svg flex flex-col gap-4 pb-8">
+              <div
+                className="h-0.75svh w-full rounded-lg"
+                style={{
+                  backgroundImage: `url(${item.img})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              ></div>
               <div className="flex flex-col lg:gap-1 xl:gap-1 2xl:gap-1 3xl:gap-1">
                 <h2>{item.title}</h2>
                 <span>({item.location})</span>
@@ -194,7 +203,7 @@ const Home: React.FC = () => {
           </div>
         </div>
       </section>
-      <section className="px-sect inspired flex items-center justify-center py-sect-long">
+      <section className="px-sect inspired flex items-center justify-center lg:py-sect-medium 2xl:py-sect-semi">
         <div className="relative flex w-fit flex-col lg:gap-4 xl:gap-4 2xl:gap-5 3xl:gap-6">
           <div className="blob blur-blob absolute z-0 h-full w-1/2"></div>
           <h1 className="text-center font-medium leading-normal lg:text-4xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl">
@@ -207,8 +216,8 @@ const Home: React.FC = () => {
           </span>
         </div>
       </section>
-      <section className="globe">
-
+      <section className="globe grid items-center rounded-3xl lg:py-sect-medium 2xl:py-sect-medium">
+        <EarthScene />
       </section>
     </main>
   );
