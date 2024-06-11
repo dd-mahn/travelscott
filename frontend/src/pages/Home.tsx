@@ -16,6 +16,14 @@ import featured8 from "src/assets/images/ui/home/featured-8.jpg";
 import featured9 from "src/assets/images/ui/home/featured-9.jpg";
 import featured10 from "src/assets/images/ui/home/featured-10.jpg";
 import planeIcon from "src/assets/svg/plane-icon.svg";
+import agodaLight from "src/assets/images/ui/home/agoda-light.png";
+import tripadvisorLight from "src/assets/images/ui/home/tripadvisor-light.png";
+import bookingLight from "src/assets/images/ui/home/booking-light.png";
+import skyscannerLight from "src/assets/images/ui/home/skyscanner-light.png";
+import expediaLight from "src/assets/images/ui/home/expedia-light.png";
+import airbnbLight from "src/assets/images/ui/home/airbnb-light.png";
+import kayakLight from "src/assets/images/ui/home/kayak-light.png";
+import uberLight from "src/assets/images/ui/home/uber-light.png";
 
 import { useHorizontalScroll } from "src/utils/useHorizontalScroll";
 import EarthScene from "src/pages/HomeComponents/EarthScene";
@@ -70,6 +78,56 @@ const featuredDemo = [
     img: featured10,
     title: "A destination with nature",
     location: "Europe",
+  },
+];
+const friendsDemo = [
+  {
+    name: "Agoda",
+    imgLight: agodaLight,
+    imgDark: "",
+    link: "agoda.com",
+  },
+  {
+    name: "Trip Advisor",
+    imgLight: tripadvisorLight,
+    imgDark: "",
+    link: "tripadvisor.com",
+  },
+  {
+    name: "SkyScanner",
+    imgLight: skyscannerLight,
+    imgDark: "",
+    link: "skyscanner.com",
+  },
+  {
+    name: "Booking",
+    imgLight: bookingLight,
+    imgDark: "",
+    link: "booking.com",
+  },
+  {
+    name: "AirBnb",
+    imgLight: airbnbLight,
+    imgDark: "",
+    link: "airbnb.com",
+  },
+  {
+    name: "Expedia",
+    imgLight: expediaLight,
+    imgDark: "",
+    link: "expedia.com",
+  },
+  {
+    name: "Kayak",
+    imgLight: kayakLight,
+    imgDark: "",
+    link: "kayak.com",
+  },
+  {
+    name: "Uber",
+    imgLight: uberLight,
+    imgDark: "",
+    link: "uber.com",
   },
 ];
 
@@ -203,7 +261,7 @@ const Home: React.FC = () => {
           </div>
         </div>
       </section>
-      <section className="px-sect inspired flex items-center justify-center lg:py-sect-medium 2xl:py-sect-semi">
+      <section className="px-sect inspired flex items-center justify-center lg:py-sect-semi 2xl:py-sect-semi">
         <div className="relative flex w-fit flex-col lg:gap-4 xl:gap-4 2xl:gap-5 3xl:gap-6">
           <div className="blob blur-blob absolute z-0 h-full w-1/2"></div>
           <h1 className="text-center font-medium leading-normal lg:text-4xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl">
@@ -211,13 +269,55 @@ const Home: React.FC = () => {
             <span className="text-main-green">20</span>+ countries around the
             world
           </h1>
-          <span className="self-end font-medium lg:text-lg xl:text-xl 2xl:text-2xl 3xl:text-2xl">
+          <span className="self-end font-medium lg:text-base xl:text-base 2xl:text-lg 3xl:text-lg">
             (Maybe you are one)
           </span>
         </div>
       </section>
       <section className="globe grid items-center rounded-3xl lg:py-sect-medium 2xl:py-sect-medium">
         <EarthScene />
+      </section>
+      <section className="friends px-sect flex flex-col gap-16 py-sect-medium">
+        <div className="flex flex-row items-end justify-between">
+          <span className="font-medium leading-normal lg:text-4xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl">
+            and our friends.
+          </span>
+          <p className="font-medium lg:text-base xl:text-base 2xl:text-lg 3xl:text-lg">
+            (Don't forget to visit them)
+          </p>
+        </div>
+        <div className="flex flex-wrap justify-between gap-8">
+          {friendsDemo?.map((item, index) => (
+            <div
+              key={index}
+              className="min-w-1/5 max-w-0.23 flex flex-col items-center justify-center rounded-lg border-2 border-solid border-gray p-12"
+            >
+              <img src={item.imgLight} alt="" className="w-full" />
+              {/* <span>{item.name}</span> */}
+            </div>
+          ))}
+        </div>
+      </section>
+      <section className="hook px-sect py-sect-default">
+        <p className="font-medium leading-normal lg:text-4xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl">
+          If you are still hesitant, <br />
+          perhaps some of the articles below can help.
+        </p>
+      </section>
+      <section className="blog rounded-3xl bg-main-brown py-sect-semi"></section>
+      <section className="quote px-sect flex flex-col gap-4 py-sect-medium">
+        <div className="h-0.5svh flex flex-row items-end justify-between">
+          <h1 className="uppercase lg:text-5.5xl lg:font-bold lg:leading-tight xl:text-7.5xl xl:leading-tight 2xl:text-8xl 2xl:leading-snug 3xl:text-9xl 3xl:leading-snug">
+            " To <i className="ri-footprint-fill"></i> <span className="uppercase text-main-green">travel</span> <br />
+            is to <span className="uppercase text-main-brown">live</span> <i className="ri-sun-line"></i> "
+          </h1>
+          <span className="font-medium uppercase lg:text-xl xl:text-xl 2xl:text-2xl 3xl:text-3xl">
+            - Hans Christian Andersen
+          </span>
+        </div>
+        <div className="flex flex-row justify-end">
+          <button className="btn btn-primary">Ready to start?</button>
+        </div>
       </section>
     </main>
   );

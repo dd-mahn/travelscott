@@ -146,6 +146,6 @@
   canvas {
     width: 100svw !important;
     height: 100svh !important;
-    transform: scale(2);
+    transform: scale(1.8);
   }
 }
