@@ -33,14 +33,14 @@ module.exports = {
       },
       fontSize: {
         "7.5xl": "5.5rem",
-        "6.5xl": "4.25rem",
+        "6.5xl": "4.5rem",
         "5.5xl": "4rem",
         "4.5xl": "2.75rem",
       },
       spacing: {
-        "sect-default": "10rem",
-        "sect-medium": "20rem",
-        "sect-semi": "30rem",
+        "sect-default": "20rem",
+        "sect-medium": "30rem",
+        "sect-semi": "40rem",
         "sect-long": "50rem",
       },
       inset: {
@@ -59,6 +59,7 @@ module.exports = {
         30: "30deg",
       },
       height: {
+        "0.5svh": "50svh",
         "0.75svh": "75svh",
         "1.25svh": "125svh",
         "1.5svh": "150svh",
@@ -80,14 +81,31 @@ module.exports = {
         "4.5svw": "450svw",
         "5.5svw": "550svw",
       },
-      gridAutoColumns:{
-        "0.35": "35%",
-        "1/4":"25%",
+      gridAutoColumns: {
+        0.35: "35%",
+        "1/4": "25%",
         "1/3": "33.33%",
         "2/5": "40%",
         "1/2": "50%",
         "3/4": "75%",
-      }
+      },
+      minWidth: {
+        "1/5": "20%",
+        "1/4": "25%",
+        "1/3": "33.33%",
+        "2/5": "40%",
+        "1/2": "50%",
+        "3/4": "75%",
+      },
+      maxWidth: {
+        "1/5": "20%",
+        0.23: "23%",
+        "1/4": "25%",
+        "1/3": "33.33%",
+        "2/5": "40%",
+        "1/2": "50%",
+        "3/4": "75%",
+      },
     },
   },
   variants: {
