@@ -77,10 +77,7 @@
 				"baseColorTexture":{
 					"index":0
 				},
-				"metallicFactor":0,
-				"metallicRoughnessTexture":{
-					"index":1
-				}
+				"roughnessFactor":0.5
 			}
 		},
 		{
@@ -88,12 +85,9 @@
 			"name":"lambert1",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":2
+					"index":1
 				},
-				"metallicFactor":0,
-				"metallicRoughnessTexture":{
-					"index":3
-				}
+				"roughnessFactor":0.6028571128845215
 			}
 		}
 	],
@@ -135,14 +129,6 @@
 		{
 			"sampler":0,
 			"source":1
-		},
-		{
-			"sampler":0,
-			"source":2
-		},
-		{
-			"sampler":0,
-			"source":3
 		}
 	],
 	"images":[
@@ -153,18 +139,8 @@
 		},
 		{
 			"mimeType":"image/png",
-			"name":"Image_1",
-			"uri":"textures/Image_1.png"
-		},
-		{
-			"mimeType":"image/png",
 			"name":"Image_2",
 			"uri":"textures/Image_2.png"
-		},
-		{
-			"mimeType":"image/png",
-			"name":"Image_3",
-			"uri":"textures/Image_3.png"
 		}
 	],
 	"accessors":[
