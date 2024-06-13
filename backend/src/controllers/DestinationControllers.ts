@@ -17,6 +17,7 @@ const ALLOWED_UPDATES = [
   "description",
   "types",
   "summary",
+  "featured"
 ];
 const ALLOWED_EXTENSIONS = [".png", ".jpg"];
 
@@ -27,7 +28,14 @@ export const createDestination = async (req: Request, res: Response) => {
     await destination.save();
     res.status(201).json(destination);
   } catch (error) {
-    res.status(400).json({ error: "Invalid request data" });
+    console.error(error);
+    if (error instanceof Error) {
+      res.status(500).json({ message: error.message });
+    } else {
+      res
+        .status(500)
+        .json({ message: "An error occurred while processing your request." });
+    }
   }
 };
 
