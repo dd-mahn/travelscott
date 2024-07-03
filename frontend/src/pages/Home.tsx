@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import "src/styles/home.css";
 import airplane1 from "src/assets/svg/airplane-1.svg";
@@ -16,123 +16,282 @@ import featured8 from "src/assets/images/ui/home/featured-8.jpg";
 import featured9 from "src/assets/images/ui/home/featured-9.jpg";
 import featured10 from "src/assets/images/ui/home/featured-10.jpg";
 import planeIcon from "src/assets/svg/plane-icon.svg";
-import agodaLight from "src/assets/images/ui/home/agoda-light.png";
-import tripadvisorLight from "src/assets/images/ui/home/tripadvisor-light.png";
-import bookingLight from "src/assets/images/ui/home/booking-light.png";
-import skyscannerLight from "src/assets/images/ui/home/skyscanner-light.png";
-import expediaLight from "src/assets/images/ui/home/expedia-light.png";
-import airbnbLight from "src/assets/images/ui/home/airbnb-light.png";
-import kayakLight from "src/assets/images/ui/home/kayak-light.png";
-import uberLight from "src/assets/images/ui/home/uber-light.png";
 
 import { useHorizontalScroll } from "src/utils/useHorizontalScroll";
 import EarthScene from "src/pages/HomeComponents/EarthScene";
+import StarterBlogs from "./HomeComponents/StarterBlog";
+import Blog from "src/types/Blog";
 
 const featuredDemo = [
   {
     img: featured1,
     title: "A destination with culture",
-    location: "Africa",
+    country: "Country",
+    tags: ["Nature&Adventure", "Africa", "SoloTravel"],
   },
   {
     img: featured2,
     title: "A destination with nature",
-    location: "Europe",
+    country: "Country",
+    tags: ["Nature&Adventure", "North America", "SoloTravel"],
   },
   {
     img: featured3,
     title: "A destination with nature",
-    location: "Europe",
+    country: "Country",
+    tags: ["Nature&Adventure", "Europe", "SoloTravel"],
   },
   {
     img: featured4,
     title: "A destination with nature",
-    location: "Europe",
+    country: "Country",
+    tags: ["Nature&Adventure", "Asia", "SoloTravel"],
   },
   {
     img: featured5,
     title: "A destination with nature",
-    location: "Europe",
+    country: "Country",
+    tags: ["Nature&Adventure", "Europe", "SoloTravel"],
   },
   {
     img: featured6,
     title: "A destination with nature",
-    location: "Europe",
+    country: "Country",
+    tags: ["Nature&Adventure", "Europe", "SoloTravel"],
   },
   {
     img: featured7,
     title: "A destination with nature",
-    location: "Europe",
+    country: "Country",
+    tags: ["Nature&Adventure", "Europe", "SoloTravel"],
   },
   {
     img: featured8,
     title: "A destination with nature",
-    location: "Europe",
+    country: "Country",
+    tags: ["Nature&Adventure", "Europe", "SoloTravel"],
   },
   {
     img: featured9,
     title: "A destination with nature",
-    location: "Europe",
+    country: "Country",
+    tags: ["Nature&Adventure", "Europe", "SoloTravel"],
   },
   {
     img: featured10,
     title: "A destination with nature",
-    location: "Europe",
-  },
-];
-const friendsDemo = [
-  {
-    name: "Agoda",
-    imgLight: agodaLight,
-    imgDark: "",
-    link: "agoda.com",
-  },
-  {
-    name: "Trip Advisor",
-    imgLight: tripadvisorLight,
-    imgDark: "",
-    link: "tripadvisor.com",
-  },
-  {
-    name: "SkyScanner",
-    imgLight: skyscannerLight,
-    imgDark: "",
-    link: "skyscanner.com",
-  },
-  {
-    name: "Booking",
-    imgLight: bookingLight,
-    imgDark: "",
-    link: "booking.com",
-  },
-  {
-    name: "AirBnb",
-    imgLight: airbnbLight,
-    imgDark: "",
-    link: "airbnb.com",
-  },
-  {
-    name: "Expedia",
-    imgLight: expediaLight,
-    imgDark: "",
-    link: "expedia.com",
-  },
-  {
-    name: "Kayak",
-    imgLight: kayakLight,
-    imgDark: "",
-    link: "kayak.com",
-  },
-  {
-    name: "Uber",
-    imgLight: uberLight,
-    imgDark: "",
-    link: "uber.com",
+    country: "Country",
+    tags: ["Nature&Adventure", "Europe", "SoloTravel"],
   },
 ];
 
+const blogDemo = [
+  {
+    title: "The 10 Best Destinations for Solo Travelers",
+    author: "Someone",
+    category: "Starter",
+    image:
+      "https://explore.bustickets.com/wp-content/uploads/2019/09/solo-travel-backpack-tips.jpg",
+    content: [
+      {
+        sectionTitle: "Introduction",
+        sectionImages: [],
+        sectionText: [
+          "Traveling alone can be a rewarding experience. It allows you to explore new places at your own pace, meet new people, and learn more about yourself. If you're thinking about taking a solo trip, here are 10 destinations that are perfect for solo travelers.",
+        ],
+      },
+    ],
+    time: new Date().toLocaleDateString("default", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    }),
+    featured: false,
+  },
+  {
+    title: "How to Plan a Budget-Friendly Trip to Europe",
+    author: "Someone",
+    category: "Starter",
+    image:
+      "https://i.pinimg.com/564x/08/59/ac/0859ac1c3569b78bbc0a20239078a557.jpg",
+    content: [
+      {
+        sectionTitle: "Introduction",
+        sectionImages: [],
+        sectionText: [
+          "Traveling to Europe can be expensive, but it doesn't have to break the bank. With a little planning and some budget-friendly tips, you can enjoy a fantastic trip to Europe without spending a fortune. Here are some tips to help you plan a budget-friendly trip to Europe.",
+        ],
+      },
+    ],
+    time: new Date().toLocaleDateString("default", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    }),
+    featured: false,
+  },
+  {
+    title: "The Best Destinations for Food Lovers",
+    author: "Someone",
+    category: "Starter",
+    image:
+      "https://www.mistay.in/travel-blog/content/images/2020/05/cover-12.jpg",
+    content: [
+      {
+        sectionTitle: "Introduction",
+        sectionImages: [],
+        sectionText: [
+          "If you're a food lover, there's no better way to explore the world than through its cuisine. From street food stalls to Michelin-starred restaurants, there's something for every palate. Here are some of the best destinations for food lovers.",
+        ],
+      },
+    ],
+    time: new Date().toLocaleDateString("default", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    }),
+    featured: false,
+  },
+  {
+    title: "The Ultimate Guide to Adventure Travel",
+    author: "Someone",
+    category: "Starter",
+    image:
+      "https://i.pinimg.com/564x/fa/41/d1/fa41d199e9be453fe1f0dc103e4c615f.jpg",
+    content: [
+      {
+        sectionTitle: "Introduction",
+        sectionImages: [],
+        sectionText: [
+          "If you're an adrenaline junkie, adventure travel is the perfect way to get your fix. From hiking and biking to surfing and skydiving, there are endless opportunities for adventure around the world. Here's everything you need to know about adventure travel.",
+        ],
+      },
+    ],
+    time: new Date().toLocaleDateString("default", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    }),
+    featured: false,
+  },
+  {
+    title: "The 10 Best Destinations for Solo Travelers",
+    author: "Someone",
+    category: "SoloTravel",
+    image:
+      "https://explore.bustickets.com/wp-content/uploads/2019/09/solo-travel-backpack-tips.jpg",
+    content: [
+      {
+        sectionTitle: "Introduction",
+        sectionImages: [],
+        sectionText: [
+          "Traveling alone can be a rewarding experience. It allows you to explore new places at your own pace, meet new people, and learn more about yourself. If you're thinking about taking a solo trip, here are 10 destinations that are perfect for solo travelers.",
+        ],
+      },
+    ],
+    time: new Date().toLocaleDateString("default", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    }),
+    featured: true,
+  },
+  {
+    title: "How to Plan a Budget-Friendly Trip to Europe",
+    author: "Someone",
+    category: "Nature&Adventure",
+    image:
+      "https://i.pinimg.com/564x/08/59/ac/0859ac1c3569b78bbc0a20239078a557.jpg",
+    content: [
+      {
+        sectionTitle: "Introduction",
+        sectionImages: [],
+        sectionText: [
+          "Traveling to Europe can be expensive, but it doesn't have to break the bank. With a little planning and some budget-friendly tips, you can enjoy a fantastic trip to Europe without spending a fortune. Here are some tips to help you plan a budget-friendly trip to Europe.",
+        ],
+      },
+    ],
+    time: new Date().toLocaleDateString("default", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    }),
+    featured: false,
+  },
+  {
+    title: "The Best Destinations for Food Lovers",
+    author: "Someone",
+    category: "Trending",
+    image:
+      "https://www.mistay.in/travel-blog/content/images/2020/05/cover-12.jpg",
+    content: [
+      {
+        sectionTitle: "Introduction",
+        sectionImages: [],
+        sectionText: [
+          "If you're a food lover, there's no better way to explore the world than through its cuisine. From street food stalls to Michelin-starred restaurants, there's something for every palate. Here are some of the best destinations for food lovers.",
+        ],
+      },
+    ],
+    time: new Date().toLocaleDateString("default", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    }),
+    featured: false,
+  },
+  {
+    title: "The Ultimate Guide to Adventure Travel",
+    author: "Someone",
+    category: "Culture&Heritage",
+    image:
+      "https://i.pinimg.com/564x/fa/41/d1/fa41d199e9be453fe1f0dc103e4c615f.jpg",
+    content: [
+      {
+        sectionTitle: "Introduction",
+        sectionImages: [],
+        sectionText: [
+          "If you're an adrenaline junkie, adventure travel is the perfect way to get your fix. From hiking and biking to surfing and skydiving, there are endless opportunities for adventure around the world. Here's everything you need to know about adventure travel.",
+        ],
+      },
+    ],
+    time: new Date().toLocaleDateString("default", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    }),
+    featured: false,
+  },
+];
+
+const normalBlogs = blogDemo.filter((blog) => blog.featured === false && blog.category !== "Starter");
+const featuredBlogs = blogDemo.filter((blog) => blog.featured === true && blog.category !== "Starter");
+
+function createBlogChunks(featuredBlogs: Blog[], normalBlogs: Blog[]) {
+  const chunks = [];
+  let featuredIndex = 0;
+  let normalIndex = 0;
+
+  while (
+    featuredIndex < featuredBlogs.length &&
+    normalIndex + 2 < normalBlogs.length
+  ) {
+    const chunk = [
+      featuredBlogs[featuredIndex],
+      ...normalBlogs.slice(normalIndex, normalIndex + 3),
+    ];
+    chunks.push(chunk);
+
+    featuredIndex += 1;
+    normalIndex += 3;
+  }
+
+  return chunks;
+}
+
 const Home: React.FC = () => {
   const scrollRef = useHorizontalScroll();
+  const blogChunks = createBlogChunks(featuredBlogs, normalBlogs);
 
   return (
     <main className="home flex flex-col">
@@ -140,16 +299,15 @@ const Home: React.FC = () => {
         <div className="blob-1 blur-blob h-1/3 w-1/3"></div>
         <div className="blob-2 blur-blob h-3/5 w-3/5"></div>
 
-        <div className="airplane-1 absolute">
-          <img src={airplane1} alt="" />
-          <div className="blob-3 blur-blob z-0 h-1/3"></div>
-        </div>
-        <img src={airplane2} className="airplane-2 absolute" alt="" />
-        <img src={airplane3} className="airplane-3 absolute" alt="" />
-
-        <h1 className="z-15 relative uppercase lg:text-4.5xl lg:font-bold lg:leading-tight xl:text-5.5xl xl:leading-tight 2xl:text-6.5xl 2xl:leading-snug 3xl:text-7.5xl 3xl:leading-snug">
+        <h1 className="z-15 relative font-prima uppercase lg:text-7xl lg:font-bold xl:text-8xl 2xl:text-8.5xl 3xl:text-9xl 3xl:tracking-wide">
+          <div className="airplane-1 absolute">
+            <img src={airplane1} alt="" />
+            <div className="blob-3 blur-blob z-0 h-1/3"></div>
+          </div>
+          <img src={airplane2} className="airplane-2 absolute" alt="" />
+          <img src={airplane3} className="airplane-3 absolute" alt="" />
           <i className="ri-shining-2-fill absolute -top-5p rotate-30 transform text-yellow lg:text-5.5xl xl:text-6xl 2xl:text-6.5xl 3xl:text-7.5xl"></i>{" "}
-          <span className="opacity-0">--</span> From your new <br></br>
+          <span className="opacity-0">---</span> From your new <br></br>
           favorite{" "}
           <span className="uppercase text-main-green">travel guide</span>{" "}
           <br></br>
@@ -173,9 +331,9 @@ const Home: React.FC = () => {
       <section className="brief px-sect flex flex-col lg:gap-36 lg:py-sect-medium xl:gap-48 xl:py-sect-semi 2xl:gap-64 2xl:py-sect-long 3xl:gap-80 3xl:py-sect-long">
         <div className="flex min-h-40 flex-row items-center lg:gap-28 xl:gap-28 2xl:gap-44 3xl:gap-60">
           <img src={airplane1} alt="" className="rotate-30 transform" />
-          <h1 className="font-medium text-text-light lg:text-4xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl">
-            A <span className="text-main-green">Comprehensive Catalogue</span>{" "}
-            of <br />
+          <h1 className="font-medium tracking-tight text-text-light lg:text-4xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl">
+            A <span className="text-main-green">Comprehensive Catalog</span> of{" "}
+            <br />
             Destinations with Tailored Travel Insights.
           </h1>
         </div>
@@ -212,19 +370,16 @@ const Home: React.FC = () => {
         </div>
       </section>
       <section className="featured px-sect flex flex-col items-center lg:gap-28 xl:gap-32 2xl:gap-36 3xl:gap-40">
-        <div className="flex w-fit flex-col gap-2">
-          <h1 className="relative font-medium text-text-light lg:text-4xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl">
-            <span className="opacity-0">--</span>
-            <i className="ri-shining-2-fill absolute -top-5p left-0 rotate-30 transform text-yellow lg:text-4.5xl xl:text-5xl 2xl:text-5.5xl 3xl:text-6.5xl"></i>{" "}
+        <div className="w-fit">
+          <h1 className="relative font-prima font-medium uppercase text-text-light lg:text-6xl xl:text-7xl 2xl:text-8xl 3xl:text-9xl">
+            {/* <span className="opacity-0">--</span> */}
+            <i className="ri-shining-2-fill absolute -left-5p -top-1/3 rotate-30 transform text-yellow lg:text-3xl xl:text-4xl 2xl:text-4xl 3xl:text-5xl"></i>{" "}
             Featured Destinations
           </h1>
-          <span className="self-end font-medium lg:text-base xl:text-base 2xl:text-lg 3xl:text-lg">
-            (Scroll)
-          </span>
         </div>
         <div
           // ref={scrollRef}
-          className="scroller pl-sect grid w-svw grid-flow-col gap-8 overflow-x-auto lg:auto-cols-2/5 2xl:auto-cols-0.35"
+          className="scroller px-sect 2xl:auto-cols-0.4 grid w-svw grid-flow-col gap-8 overflow-x-auto lg:auto-cols-2/5"
         >
           {featuredDemo.map((item, index) => (
             <div key={index} className="card h-svg flex flex-col gap-4 pb-8">
@@ -236,9 +391,23 @@ const Home: React.FC = () => {
                   backgroundPosition: "center",
                 }}
               ></div>
-              <div className="flex flex-col lg:gap-1 xl:gap-1 2xl:gap-1 3xl:gap-1">
-                <h2>{item.title}</h2>
-                <span>({item.location})</span>
+              <div className="flex flex-col lg:gap-0 xl:gap-0 2xl:gap-0 3xl:gap-0">
+                <span className="font-medium text-gray lg:text-base xl:text-base 2xl:text-lg 3xl:text-lg">
+                  {item.country}
+                </span>
+                <h2 className="font-semibold uppercase lg:text-lg xl:text-xl 2xl:text-2xl 3xl:text-2xl">
+                  {item.title}
+                </h2>
+                <div className="mt-4 flex gap-2">
+                  {item.tags.map((tag, index) => (
+                    <span
+                      key={index}
+                      className="rounded-2xl border-2 border-solid border-text-light px-4 font-medium"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           ))}
@@ -261,57 +430,130 @@ const Home: React.FC = () => {
           </div>
         </div>
       </section>
-      <section className="px-sect inspired flex items-center justify-center lg:py-sect-semi 2xl:py-sect-semi">
-        <div className="relative flex w-fit flex-col lg:gap-4 xl:gap-4 2xl:gap-5 3xl:gap-6">
-          <div className="blob blur-blob absolute z-0 h-full w-1/2"></div>
-          <h1 className="text-center font-medium leading-normal lg:text-4xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl">
-            We got inspired by travelers of <br />
-            <span className="text-main-green">20</span>+ countries around the
-            world
-          </h1>
-          <span className="self-end font-medium lg:text-base xl:text-base 2xl:text-lg 3xl:text-lg">
-            (Maybe you are one)
-          </span>
-        </div>
-      </section>
-      <section className="globe grid items-center rounded-3xl lg:py-sect-medium 2xl:py-sect-medium">
-        <EarthScene />
-      </section>
-      <section className="friends px-sect flex flex-col gap-16 py-sect-medium">
-        <div className="flex flex-row items-end justify-between">
-          <span className="font-medium leading-normal lg:text-4xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl">
-            and our friends.
-          </span>
-          <p className="font-medium lg:text-base xl:text-base 2xl:text-lg 3xl:text-lg">
-            (Don't forget to visit them)
-          </p>
-        </div>
-        <div className="flex flex-wrap justify-between gap-8">
-          {friendsDemo?.map((item, index) => (
-            <div
-              key={index}
-              className="min-w-1/5 max-w-0.23 flex flex-col items-center justify-center rounded-lg border-2 border-solid border-gray p-12"
-            >
-              <img src={item.imgLight} alt="" className="w-full" />
-              {/* <span>{item.name}</span> */}
+      <section className="stacked relative lg:py-sect-default 2xl:py-sect-semi">
+        <div className="sticky top-0 z-0">
+          <section className="px-sect inspired flex items-center justify-center lg:pb-sect-semi lg:pt-sect-default 2xl:pb-sect-semi 2xl:pt-sect-medium">
+            <div className="relative flex w-fit flex-col lg:gap-2 xl:gap-2 2xl:gap-4 3xl:gap-4">
+              <div className="blob blur-blob absolute z-0 h-full w-1/2"></div>
+              <h1 className="text-center font-medium leading-normal tracking-tight lg:text-4xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl">
+                We got inspired by travelers of <br />
+                <span className="text-main-green">20</span>+ countries around
+                the world
+              </h1>
+              <span className="self-end font-medium lg:text-base xl:text-base 2xl:text-lg 3xl:text-lg">
+                (Maybe you are one)
+              </span>
             </div>
-          ))}
+          </section>
+        </div>
+        <div className="z-5 sticky -top-5p left-0">
+          <section className="globe relative grid items-center rounded-5xl lg:pb-sect-short lg:pt-sect-short 2xl:pb-sect-short 2xl:pt-sect-short">
+            <span className="px-sect absolute -top-10 right-0 font-semibold uppercase lg:text-lg xl:text-xl 2xl:text-2xl 3xl:text-2xl">
+              And we've covered these countries in our catalog too!
+            </span>
+            <EarthScene />
+          </section>
+        </div>
+        <div className="">
+          <section className="blogs px-sect relative flex flex-col items-center justify-start gap-sect-short lg:pb-sect-default lg:pt-sect-short 2xl:pb-sect-medium 2xl:pt-sect-default">
+            <h1 className="font-prima font-medium uppercase text-text-light lg:text-6xl xl:text-7xl 2xl:text-8xl 3xl:text-9xl">
+              {new Date().toLocaleString("default", {
+                month: "long",
+                year: "numeric",
+              })}
+            </h1>
+            {blogChunks.map((chunk, index) => (
+              <div className="flex h-fit w-full flex-row gap-8" key={index}>
+                <div className="flex h-full w-full flex-col gap-4">
+                  <img
+                    src={chunk[0].image}
+                    alt="featuredBlogImage"
+                    className="h-0.5svh w-full rounded-lg"
+                  />
+                  <div className="flex flex-col">
+                    <span className="font-medium text-gray lg:text-sm 2xl:text-base">
+                      {chunk[0].category}
+                    </span>
+                    <h2 className="font-semibold uppercase lg:text-lg xl:text-xl 2xl:text-2xl 3xl:text-2xl">
+                      {" "}
+                      {chunk[0].title}
+                    </h2>
+                  </div>
+
+                  <p className="2xl:w-3/4 overflow-hidden font-medium lg:text-base xl:text-lg 2xl:text-xl">
+                    {chunk[0].content[0].sectionText[0]}
+                  </p>
+                  <span className="w-3/4 overflow-hidden font-medium lg:text-base xl:text-lg 2xl:text-xl">
+                    <i className="ri-time-line"></i> {chunk[0].time}
+                  </span>
+                </div>
+                <div className="auto-rows-1/3 grid h-0.75svh w-full grid-flow-row gap-4">
+                  {chunk.slice(1).map((blog, index) => (
+                    <div className="flex h-full flex-row gap-4" key={index}>
+                      <img
+                        src={blog.image}
+                        alt="normalBlogImage"
+                        className="w-45p h-full rounded-lg"
+                      />
+                      <div className="flex w-1/2 flex-col gap-4">
+                        <div className="flex flex-col gap-0">
+                          <span className="font-medium text-gray lg:text-sm 2xl:text-base">
+                            {blog.category}
+                          </span>
+                          <h2 className="w-full font-semibold uppercase lg:text-lg xl:text-xl 2xl:text-2xl 3xl:text-2xl">
+                            {" "}
+                            {blog.title}
+                          </h2>
+                        </div>
+
+                        <span className="w-3/4 overflow-hidden font-medium lg:text-base xl:text-lg 2xl:text-xl">
+                          <i className="ri-time-line"></i> {blog.time}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+            <div className="flex w-full justify-between">
+              <button className="underline-btn"><i className="ri-arrow-left-line"></i> Previous</button>
+              <button className="underline-btn">Next<i className="ri-arrow-right-line"></i></button>
+            </div>
+          </section>
+        </div>
+        <div className="sticky left-0 top-0 z-20 bg-background-light">
+          <section className="hook px-sect pb-sect-semi pt-sect-default">
+            <p className="font-medium leading-normal lg:text-4xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl">
+              If you are still hesitant, <br />
+              perhaps some of the articles below can help.
+            </p>
+          </section>
+        </div>
+        <div className="sticky left-0 top-0 z-30">
+          <section className="starter relative rounded-5xl bg-main-brown py-sect-long">
+            <img
+              src={airplane1}
+              alt=""
+              className="absolute -top-5p left-5p z-0 lg:w-44 xl:w-44 2xl:w-44 3xl:w-48"
+            />
+            <div className="h-full w-full overflow-hidden">
+              <StarterBlogs blogs={blogDemo} />
+            </div>
+            <button className="btn btn-secondary absolute -bottom-4 right-0 lg:mr-12 xl:mr-16 2xl:mr-20 3xl:mr-24">
+              Find more <img src={planeIcon} alt="" />
+            </button>
+          </section>
         </div>
       </section>
-      <section className="hook px-sect py-sect-default">
-        <p className="font-medium leading-normal lg:text-4xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl">
-          If you are still hesitant, <br />
-          perhaps some of the articles below can help.
-        </p>
-      </section>
-      <section className="blog rounded-3xl bg-main-brown py-sect-semi"></section>
-      <section className="quote px-sect flex flex-col gap-4 py-sect-medium">
-        <div className="h-0.5svh flex flex-row items-end justify-between">
-          <h1 className="uppercase lg:text-5.5xl lg:font-bold lg:leading-tight xl:text-7.5xl xl:leading-tight 2xl:text-8xl 2xl:leading-snug 3xl:text-9xl 3xl:leading-snug">
-            " To <i className="ri-footprint-fill"></i> <span className="uppercase text-main-green">travel</span> <br />
-            is to <span className="uppercase text-main-brown">live</span> <i className="ri-sun-line"></i> "
+      <section className="quote px-sect flex flex-col gap-4 lg:py-sect-default 2xl:py-sect-medium">
+        <div className="flex h-0.5svh flex-row items-end justify-between">
+          <h1 className="font-prima uppercase lg:text-8xl lg:font-bold lg:leading-tight xl:text-9xl xl:leading-tight 2xl:text-9xl 2xl:leading-snug 3xl:text-10xl 3xl:leading-snug">
+            " To <i className="ri-footprint-fill"></i>{" "}
+            <span className="uppercase text-main-green">travel</span> <br />
+            is to <span className="uppercase text-main-brown">live</span>{" "}
+            <i className="ri-sun-line"></i> "
           </h1>
-          <span className="font-medium uppercase lg:text-xl xl:text-xl 2xl:text-2xl 3xl:text-3xl">
+          <span className="font-medium uppercase lg:text-lg xl:text-xl 2xl:text-1.5xl 3xl:text-2xl">
             - Hans Christian Andersen
           </span>
         </div>
