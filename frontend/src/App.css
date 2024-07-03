@@ -1,18 +1,23 @@
 @import url("https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+@import url("https://fonts.cdnfonts.com/css/md-nichrome-test");
+
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 @import url("http://kenwheeler.github.io/slick/slick/slick-theme.css");
 
-*, html {
+
+/* DEFAULT */
+*,
+html {
   scroll-behavior: smooth !important;
   @apply text-text-light dark:text-text-dark;
 }
 
 html {
-  @apply bg-background-light overflow-x-hidden;
+  @apply overflow-x-hidden bg-background-light;
 }
 
 body {
@@ -35,33 +40,37 @@ p {
   @apply text-start;
 }
 
+/* UI classes  */
 .font-kaushan {
   font-family: "Kaushan Script", cursive;
 }
 
 .btn {
-  @apply flex cursor-pointer items-center justify-center rounded border-none font-medium uppercase tracking-wide shadow-md shadow-gray transition-all lg:gap-2 lg:px-3 lg:py-2 lg:text-base xl:gap-2 xl:px-4 xl:py-2 xl:text-base 2xl:gap-3 2xl:px-5 2xl:py-3 2xl:text-xl 3xl:gap-3 3xl:px-6 3xl:py-3 3xl:text-xl;
+  @apply flex cursor-pointer items-center justify-center rounded-md border-none font-medium uppercase tracking-wide shadow-md shadow-gray transition-all lg:gap-2 lg:px-3 lg:py-2 lg:text-base xl:gap-2 xl:px-4 xl:py-2 xl:text-base 2xl:gap-3 2xl:px-5 2xl:py-3 2xl:text-xl 3xl:gap-3 3xl:px-6 3xl:py-3 3xl:text-xl;
 }
 
 .btn-primary {
   @apply bg-main-brown text-text-dark;
+  box-shadow:
+    -2px 3px 6.2px 0px rgba(0, 0, 0, 0.25),
+    0px 4px 4px 0px rgba(255, 242, 242, 0.25) inset !important;
 }
 
 .btn-secondary {
   @apply border-2 border-solid border-text-light bg-light-green text-text-light;
 }
 
-.underline__btn {
-  @apply relative cursor-pointer font-medium uppercase lg:text-base xl:text-lg 2xl:text-xl 3xl:text-xl;
+.underline-btn {
+  @apply relative cursor-pointer font-semibold uppercase lg:text-base xl:text-lg 2xl:text-xl 3xl:text-xl;
   width: -moz-fit-content;
   width: fit-content;
 }
 
-.underline__btn i {
+.underline-btn i {
   @apply lg:text-xl xl:text-xl 2xl:text-2xl 3xl:text-2xl;
 }
 
-.underline__btn::before {
+.underline-btn::before {
   @apply absolute bottom-0 right-0 w-0 rounded-sm bg-text-light;
   content: "";
   height: 2px;
@@ -71,7 +80,7 @@ p {
     left 0.4s;
 }
 
-.underline__btn:hover::before {
+.underline-btn:hover::before {
   width: 100%;
   left: 0;
 }
