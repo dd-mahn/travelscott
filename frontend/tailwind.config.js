@@ -42,6 +42,11 @@ module.exports = {
         "section": "-5px 5px 30px 10px rgba(51, 51, 51, 0.30)",
       },
       fontSize: {
+        "15xl": "24rem",
+        "14xl": "22rem",
+        "13xl": "16rem",
+        "12xl": "14rem",
+        "11xl": "12rem",
         "10xl": "10rem",
         "9.5xl": "9rem",
         "8.5xl": "7rem",
