@@ -163,6 +163,9 @@
   background: linear-gradient(180deg, #fff3e5 30%, #FBF9F7 100%);
   border-top-left-radius: 2.5rem;
   border-top-right-radius: 2.5rem;
+  p{
+    line-height: 1.2 !important;
+  }
 }
 
 .starter{

@@ -324,7 +324,7 @@ const Home: React.FC = () => {
           <span className="uppercase text-main-brown">experience</span>.
         </h1>
 
-        <p className="x:w-2/5 font-medium lg:w-2/5 lg:text-base xl:text-lg 2xl:w-1/3 2xl:text-xl 3xl:w-1/3 3xl:text-xl">
+        <p className="font-medium lg:w-2/5 lg:text-base xl:w-2/5 xl:text-lg 2xl:w-1/3 2xl:text-xl 3xl:w-1/3 3xl:text-xl">
           From the smallest idea to the most memorable journeys. Join us to
           awaken your traveling spirit and discover the adventurer within you.
         </p>
