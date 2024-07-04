@@ -1,0 +1,75 @@
+.about {
+  .how {
+    .text-stroke {
+      -webkit-text-stroke: 2px;
+      -webkit-text-stroke-color: #333333;
+    }
+  }
+
+  .who {
+    .blob-1 {
+      top: 20%;
+      left: 50%;
+      background: radial-gradient(
+        circle at 50% 50%,
+        #ffddaa,
+        rgba(76, 0, 255, 0)
+      );
+      opacity: 0.3;
+    }
+
+    .blob-2 {
+      top: -20%;
+      left: 5%;
+      background: radial-gradient(
+        circle at 50% 50%,
+        #8ab17c,
+        rgba(76, 0, 255, 0)
+      );
+      opacity: 0.2 !important;
+    }
+
+    .blob-3 {
+      top: 30%;
+      left: 20%;
+      background: radial-gradient(
+        circle at 50% 50%,
+        #ffddaa,
+        rgba(76, 0, 255, 0)
+      );
+      opacity: 0.2;
+    }
+
+    .img-1{
+        width: 10%;
+    }
+
+    .img-2{
+width: 10%;
+    }
+
+    .img-3{
+        width: 10%;
+    }
+
+    .img-4{
+        width: 10%;
+    }
+
+    .img-5{
+        width: 10%;
+    }
+
+    .img-6{
+        width: 10%;
+    }
+
+    .img-7{
+        width: 10%;
+    }
+
+    .img-8{
+        width: 10%;
+    }
+  }
+}
