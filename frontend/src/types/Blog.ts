@@ -8,7 +8,7 @@ interface Blog {
     sectionImages: string[];
     sectionText: string[];
   }>;
-  time: number;
+  time: string;
   featured: boolean;
 }
 
