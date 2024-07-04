@@ -1,26 +1,24 @@
 footer {
-  @apply lg:gap-32 xl:gap-36 2xl:gap-40 3xl:gap-48;
-  margin: 10rem 0 2rem;
-  border-top: 1px solid var(--text-light);
-
+  @apply lg:gap-8 xl:gap-8 2xl:gap-12 3xl:gap-12;
+  
   a {
-    @apply font-medium text-gray lg:text-base xl:text-lg 2xl:text-lg 3xl:text-xl;
+    @apply font-medium text-gray lg:text-sm xl:text-base 2xl:text-base 3xl:text-lg;
   }
 
   p {
     @apply font-medium lg:text-2xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl;
   }
 
-  h1 {
-    @apply lg:text-8xl xl:text-8xl 2xl:text-9xl 3xl:text-9xl;
-  }
-
   button,
   button i {
-    @apply font-medium;
+    @apply font-medium lg:text-base 2xl:text-lg;
   }
 
   ul {
     @apply lg:gap-1 xl:gap-1 2xl:gap-1.5 3xl:gap-2;
+  }
+
+  h1{
+    line-height: 1 !important;
   }
 }
