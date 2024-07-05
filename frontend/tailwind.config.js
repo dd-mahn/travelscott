@@ -81,6 +81,9 @@ module.exports = {
         30: "30deg",
       },
       height: {
+        "0.3svh": "30svh",
+        "0.35svh": "35svh",
+        "0.4svh": "40svh",
         "0.5svh": "50svh",
         "0.75svh": "75svh",
         "1.25svh": "125svh",
