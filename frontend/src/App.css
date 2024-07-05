@@ -8,8 +8,24 @@
 @import "tailwindcss/utilities";
 @import url("http://kenwheeler.github.io/slick/slick/slick-theme.css");
 
-
 /* DEFAULT */
+
+:root {
+  --transparent: transparent;
+  --background-dark: #21272f;
+  --background-light: #fbf9f7;
+  --main-green: #8ab17c;
+  --main-brown: #eb996e;
+  --light-green: #f8fcf3;
+  --light-brown: #fff9f3;
+  --yellow: #f1ba50;
+  --text-light: #333333;
+  --text-dark: #ffffff;
+  --gray: #969696;
+  --aurora-green: #90b37f;
+  --aurora-brown: #ffddaa;
+}
+
 *,
 html {
   scroll-behavior: smooth !important;
@@ -40,6 +56,57 @@ p {
   @apply text-start;
 }
 
+/* TYPO CLASSES */
+.big-heading {
+  @apply font-prima uppercase lg:text-8xl lg:font-bold lg:leading-tight xl:text-9xl xl:leading-tight 2xl:text-10xl 2xl:leading-snug 3xl:text-10xl 3xl:leading-snug;
+}
+
+.h1-md {
+  @apply font-prima uppercase lg:text-7xl lg:font-bold xl:text-8xl 2xl:text-8.5xl 3xl:text-9xl 3xl:tracking-wide;
+}
+
+.h1-md-bold {
+  @apply font-prima font-bold uppercase leading-snug lg:text-8xl 2xl:text-10xl;
+}
+
+.h2-md {
+}
+
+.h2-inter {
+  @apply font-medium tracking-tight lg:text-4xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl;
+}
+
+.h3-md {
+}
+
+.h3-inter {
+  @apply font-medium leading-normal tracking-tight lg:text-3.5xl xl:text-4xl 2xl:text-4.5xl 3xl:text-5xl;
+}
+
+.p-regular {
+  @apply font-normal lg:text-base xl:text-lg 2xl:text-xl;
+}
+
+.p-medium {
+  @apply font-medium lg:text-lg xl:text-lg 2xl:text-xl 3xl:text-1.5xl;
+}
+
+.p-large {
+  @apply font-medium lg:text-xl xl:text-1.5xl 2xl:text-2xl 3xl:text-3xl;
+}
+
+.span-small{
+  @apply font-normal lg:text-sm xl:text-sm 2xl:text-base 3xl:text-base;
+
+}
+
+.span-regular {
+  @apply font-medium lg:text-base xl:text-base 2xl:text-lg 3xl:text-lg;
+}
+
+.span-medium{
+  @apply font-semibold lg:text-lg xl:text-xl 2xl:text-2xl 3xl:text-2xl
+}
 /* UI classes  */
 .font-kaushan {
   font-family: "Kaushan Script", cursive;
