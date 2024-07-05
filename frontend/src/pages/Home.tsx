@@ -305,7 +305,7 @@ const Home: React.FC = () => {
         <div className="blob-1 blur-blob h-1/3 w-1/3"></div>
         <div className="blob-2 blur-blob h-3/5 w-3/5"></div>
 
-        <h1 className="z-15 relative font-prima uppercase lg:text-7xl lg:font-bold xl:text-8xl 2xl:text-8.5xl 3xl:text-9xl 3xl:tracking-wide">
+        <h1 className="z-15 h1-md relative">
           <div className="airplane-1 absolute">
             <img src={airplane1} alt="" />
             <div className="blob-3 blur-blob z-0 h-1/3"></div>
@@ -324,7 +324,7 @@ const Home: React.FC = () => {
           <span className="uppercase text-main-brown">experience</span>.
         </h1>
 
-        <p className="font-medium lg:w-2/5 lg:text-base xl:w-2/5 xl:text-lg 2xl:w-1/3 2xl:text-xl 3xl:w-1/3 3xl:text-xl">
+        <p className="p-medium lg:w-2/5 xl:w-2/5 2xl:w-1/3 3xl:w-1/3">
           From the smallest idea to the most memorable journeys. Join us to
           awaken your traveling spirit and discover the adventurer within you.
         </p>
@@ -340,7 +340,7 @@ const Home: React.FC = () => {
       <section className="brief px-sect flex flex-col lg:gap-36 lg:py-sect-medium xl:gap-48 xl:py-sect-semi 2xl:gap-64 2xl:py-sect-long 3xl:gap-80 3xl:py-sect-long">
         <div className="flex min-h-40 flex-row items-center lg:gap-28 xl:gap-28 2xl:gap-44 3xl:gap-60">
           <img src={airplane1} alt="" className="rotate-30 transform" />
-          <h1 className="font-medium tracking-tight text-text-light lg:text-4xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl">
+          <h1 className="h2-inter">
             A <span className="text-main-green">Comprehensive Catalog</span> of{" "}
             <br />
             Destinations with Tailored Travel Insights.
@@ -353,7 +353,7 @@ const Home: React.FC = () => {
           <div className="relative flex flex-col items-center justify-center lg:w-2/5 lg:gap-16 xl:gap-20 2xl:gap-20 3xl:gap-24 3xl:pt-40">
             <div className="blob-1 blur-blob absolute h-1/3 w-1/3"></div>
             <div className="blob-2 blur-blob absolute h-1/3 w-1/3"></div>
-            <p className="active font-medium opacity-20 lg:w-4/5 lg:text-base xl:text-lg 2xl:text-xl 3xl:w-2/3 3xl:text-xl">
+            <p className="p-medium active opacity-20 lg:w-4/5 3xl:w-2/3">
               Pause the hustle of everyday life and breathe in a moment of
               tranquility. Embark on a journey guided by your emotions with our
               unique, mood-based travel analysis. Our website invites you to
@@ -361,7 +361,7 @@ const Home: React.FC = () => {
               your personal touch.
             </p>
 
-            <p className="font-medium opacity-20 lg:w-4/5 lg:text-base xl:text-lg 2xl:text-xl 3xl:w-2/3 3xl:text-xl">
+            <p className="p-medium opacity-20 lg:w-4/5 3xl:w-2/3">
               Then explore our virtual gallery for a curated selection of global
               destinations, complete with beautiful visuals and key information
               to simplify your travel planning. It’s the ideal resource for
@@ -369,7 +369,7 @@ const Home: React.FC = () => {
               the world’s most rewarding experiences.
             </p>
 
-            <p className="font-medium opacity-20 lg:w-4/5 lg:text-base xl:text-lg 2xl:text-xl 3xl:w-2/3 3xl:text-xl">
+            <p className="p-medium opacity-20 lg:w-4/5 3xl:w-2/3">
               If you find yourself captivated by the myriad ways in which people
               explore the world, then our blog is a must-visit for you. It’s
               packed with engaging travel tales and tips that ignite your desire
@@ -383,7 +383,7 @@ const Home: React.FC = () => {
 
       <section className="featured px-sect flex flex-col items-center lg:gap-28 xl:gap-32 2xl:gap-36 3xl:gap-40">
         <div className="w-fit">
-          <h1 className="relative font-prima font-medium uppercase text-text-light lg:text-6xl xl:text-7xl 2xl:text-8xl 3xl:text-9xl">
+          <h1 className="h1-md relative">
             <i className="ri-shining-2-fill absolute -left-5p -top-1/3 rotate-30 transform text-yellow lg:text-3xl xl:text-4xl 2xl:text-4xl 3xl:text-5xl"></i>{" "}
             Featured Destinations
           </h1>
@@ -403,17 +403,13 @@ const Home: React.FC = () => {
                 }}
               ></div>
               <div className="flex flex-col lg:gap-0 xl:gap-0 2xl:gap-0 3xl:gap-0">
-                <span className="font-medium text-gray lg:text-base xl:text-base 2xl:text-lg 3xl:text-lg">
-                  {item.country}
-                </span>
-                <h2 className="font-semibold uppercase lg:text-lg xl:text-xl 2xl:text-2xl 3xl:text-2xl">
-                  {item.title}
-                </h2>
+                <span className="span-regular text-gray">{item.country}</span>
+                <span className="span-medium">{item.title}</span>
                 <div className="mt-4 flex gap-2">
                   {item.tags.map((tag, index) => (
                     <span
                       key={index}
-                      className="rounded-2xl border-2 border-solid border-text-light px-4 font-medium"
+                      className="span-small rounded-2xl border-2 border-solid border-text-light px-4"
                     >
                       {tag}
                     </span>
@@ -424,7 +420,7 @@ const Home: React.FC = () => {
           ))}
         </div>
         <div className="flex w-full flex-row justify-between">
-          <p className="font-medium lg:text-xl xl:text-xl 2xl:text-2xl 3xl:text-3xl">
+          <p className="p-large">
             They are just so few among the{" "}
             <span className="font-semibold text-main-brown lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl">
               100
@@ -449,14 +445,12 @@ const Home: React.FC = () => {
           <section className="px-sect inspired flex items-center justify-center lg:pb-sect-semi lg:pt-sect-default 2xl:pb-sect-semi 2xl:pt-sect-medium">
             <div className="relative flex w-fit flex-col lg:gap-2 xl:gap-2 2xl:gap-4 3xl:gap-4">
               <div className="blob blur-blob absolute z-0 h-full w-1/2"></div>
-              <h1 className="text-center font-medium leading-normal tracking-tight lg:text-4xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl">
+              <h1 className="h2-inter text-center leading-normal tracking-tight">
                 We got inspired by travelers of <br />
                 <span className="text-main-green">20</span>+ countries around
                 the world
               </h1>
-              <span className="self-end font-medium lg:text-base xl:text-base 2xl:text-lg 3xl:text-lg">
-                (Maybe you are one)
-              </span>
+              <span className="p-medium self-end">(Maybe you are one)</span>
             </div>
           </section>
         </div>
@@ -465,7 +459,7 @@ const Home: React.FC = () => {
 
         <div className="z-5 sticky -top-5p left-0">
           <section className="globe relative grid items-center rounded-5xl lg:pb-sect-short lg:pt-sect-short 2xl:pb-sect-short 2xl:pt-sect-short">
-            <span className="px-sect absolute -top-10 right-0 font-semibold uppercase lg:text-lg xl:text-xl 2xl:text-2xl 3xl:text-2xl">
+            <span className="px-sect p-large absolute -top-10 right-0 uppercase font-semibold">
               And we've covered these countries in our catalog too!
             </span>
             <EarthScene />
@@ -475,11 +469,11 @@ const Home: React.FC = () => {
         {/* FEATURED BLOGS SECTION */}
 
         <div className="relative">
-          <span className="px-sect absolute -top-10 left-0 font-semibold uppercase text-text-dark lg:text-lg xl:text-xl 2xl:text-2xl 3xl:text-2xl">
+          <span className="px-sect absolute -top-10 left-0 font-semibold uppercase text-text-dark p-large">
             Discover the lastest articles in
           </span>
           <section className="blogs px-sect relative flex flex-col items-center justify-start gap-sect-short lg:pb-sect-default lg:pt-sect-short 2xl:pb-sect-medium 2xl:pt-sect-default">
-            <h1 className="font-prima font-medium uppercase text-text-light lg:text-6xl xl:text-7xl 2xl:text-8xl 3xl:text-9xl">
+            <h1 className="h1-md">
               {new Date().toLocaleString("default", {
                 month: "long",
                 year: "numeric",
@@ -494,19 +488,19 @@ const Home: React.FC = () => {
                     className="h-0.5svh w-full rounded-lg"
                   />
                   <div className="flex flex-col">
-                    <span className="font-medium text-gray lg:text-sm 2xl:text-base">
+                    <span className="span-regular text-gray">
                       {chunk[0].category}
                     </span>
-                    <h2 className="font-semibold uppercase lg:text-lg xl:text-xl 2xl:text-2xl 3xl:text-2xl">
+                    <span className="span-medium uppercase">
                       {" "}
                       {chunk[0].title}
-                    </h2>
+                    </span>
                   </div>
 
-                  <p className="overflow-hidden font-normal lg:text-base xl:text-lg 2xl:w-4/5 2xl:text-xl 3xl:w-3/4">
+                  <p className="overflow-hidden p-regular 2xl:w-4/5 3xl:w-3/4">
                     {chunk[0].content[0].sectionText[0]}
                   </p>
-                  <span className="w-3/4 overflow-hidden font-medium lg:text-base xl:text-lg 2xl:text-xl">
+                  <span className="w-3/4 overflow-hidden span-regular">
                     <i className="ri-time-line"></i> {chunk[0].time}
                   </span>
                 </div>
@@ -520,16 +514,16 @@ const Home: React.FC = () => {
                       />
                       <div className="flex w-1/2 flex-col gap-4">
                         <div className="flex flex-col gap-0">
-                          <span className="font-medium text-gray lg:text-sm 2xl:text-base">
+                          <span className="span-regular text-gray">
                             {blog.category}
                           </span>
-                          <h2 className="w-full font-semibold uppercase lg:text-lg xl:text-xl 2xl:text-2xl 3xl:text-2xl">
+                          <span className="w-full span-medium">
                             {" "}
                             {blog.title}
-                          </h2>
+                          </span>
                         </div>
 
-                        <span className="w-3/4 overflow-hidden font-medium lg:text-base xl:text-lg 2xl:text-xl">
+                        <span className="w-3/4 overflow-hidden span-regular">
                           <i className="ri-time-line"></i> {blog.time}
                         </span>
                       </div>
@@ -553,7 +547,7 @@ const Home: React.FC = () => {
 
         <div className="sticky left-0 top-0 z-20 bg-background-light">
           <section className="hook px-sect pb-sect-semi pt-sect-default">
-            <p className="font-medium leading-normal lg:text-4xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl">
+            <p className="h2-inter">
               If you are still hesitant, <br />
               perhaps some of the articles below can help.
             </p>
@@ -583,15 +577,13 @@ const Home: React.FC = () => {
 
       <section className="quote px-sect flex flex-col gap-4 lg:py-sect-default 2xl:py-sect-medium">
         <div className="flex h-0.5svh flex-row items-end justify-between">
-          <h1 className="font-prima uppercase lg:text-8xl lg:font-bold lg:leading-tight xl:text-9xl xl:leading-tight 2xl:text-10xl 2xl:leading-snug 3xl:text-10xl 3xl:leading-snug">
+          <h1 className="big-heading">
             " To <i className="ri-footprint-fill"></i>{" "}
             <span className="uppercase text-main-green">travel</span> <br />
             is to <span className="uppercase text-main-brown">live</span>{" "}
             <i className="ri-sun-line"></i> "
           </h1>
-          <span className="font-medium uppercase lg:text-lg xl:text-xl 2xl:text-xl 3xl:text-1.5xl">
-            - Hans Christian Andersen
-          </span>
+          <span className="p-medium uppercase">- Hans Christian Andersen</span>
         </div>
         <div className="flex flex-row justify-end">
           <button className="btn btn-primary">Ready to start?</button>

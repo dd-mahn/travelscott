@@ -77,15 +77,15 @@ const BlogComponent = ({
         backgroundPosition: "center",
       }}
     >
-      <span className="font-medium text-text-dark lg:text-sm 2xl:text-base">
+      <span className="span-small text-text-dark">
         {blog.author}
       </span>
-      <h2 className="font-semibold uppercase text-text-dark lg:text-lg xl:text-xl 2xl:text-2xl">
+      <span className="uppercase text-text-dark span-medium">
         {blog.title}
-      </h2>
+      </span>
     </div>
     <div className="flex flex-col gap-4 px-8">
-      <p className="w-full overflow-hidden font-normal lg:text-base xl:text-lg 2xl:text-xl">
+      <p className="w-full overflow-hidden p-regular">
         {blog.content[0].sectionText[0]}
       </p>
       <button className="underline-btn uppercase">
