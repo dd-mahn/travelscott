@@ -7,18 +7,13 @@ import Destination from "src/models/Destination";
 import createRegexArray from "src/utils/createRegexArray";
 import s3 from "src/utils/aws";
 
+import destinationPlace from "src/types/destinationPlace";
+import destinationTransportation from "src/types/destinationTransportation";
+import destinationInsight from "src/types/destinationInsight";
+
 // Default
 const DEFAULT_PAGE = "1";
 const DEFAULT_LIMIT = "20";
-const ALLOWED_UPDATES = [
-  "name",
-  "country",
-  "location",
-  "description",
-  "types",
-  "summary",
-  "featured"
-];
 const ALLOWED_EXTENSIONS = [".png", ".jpg"];
 
 // Create destination
@@ -40,9 +35,9 @@ export const createDestination = async (req: Request, res: Response) => {
 };
 
 // Get all destinations with pagination
-interface GetDestinationsRequest {
+type GetDestinationsRequest = {
   countries?: string;
-  types?: string;
+  tags?: string;
   page?: string;
   limit?: string;
 }
@@ -51,7 +46,7 @@ export const getDestinations = async (req: Request, res: Response) => {
   try {
     const {
       countries,
-      types,
+      tags,
       page = DEFAULT_PAGE,
       limit = DEFAULT_LIMIT,
     }: GetDestinationsRequest = req.query;
@@ -61,7 +56,7 @@ export const getDestinations = async (req: Request, res: Response) => {
 
     type Filter = {
       countries?: { $all: RegExp[] };
-      types?: { $all: RegExp[] };
+      tags?: { $all: RegExp[] };
     };
 
     const filter: Filter = {};
@@ -70,8 +65,8 @@ export const getDestinations = async (req: Request, res: Response) => {
       filter.countries = { $all: createRegexArray(countries) };
     }
 
-    if (types) {
-      filter.types = { $all: createRegexArray(types) };
+    if (tags) {
+      filter.tags = { $all: createRegexArray(tags) };
     }
 
     const skip = (pageNumber - 1) * limitNumber;
@@ -120,47 +115,54 @@ export const getSingleDestination = async (req: Request, res: Response) => {
   }
 };
 
-// Get countries
-export const getCountries = async (req: Request, res: Response) => {
-  try {
-    const countries = await Destination.distinct("country");
-    const count = countries.length;
-    res.json({ result: countries, count: count });
-  } catch (error) {
-    console.error(error)
-    if (error instanceof Error) {
-      res.status(500).json({ message: error.message });
-    } else {
-      res
-        .status(500)
-        .json({ message: "An error occurred while processing your request." });
-    }
-  }
+// Update destination
+type updateData = {
+  name?: string;
+  country?: string;
+  location?: string;
+  description?: string;
+  tags?: string[];
+  summary?: string;
+  featured?: boolean;
 };
 
-// Update destination
 export const updateDestination = async (req: Request, res: Response) => {
-  const updates = Object.keys(req.body);
-  const isValidOperation = updates.every((update) =>
-    ALLOWED_UPDATES.includes(update)
-  );
-
-  if (!isValidOperation) {
-    return res.status(400).json({ error: "Invalid updates!" });
-  }
-
   try {
-    const destination = await Destination.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true, runValidators: true }
-    );
+    const { id } = req.params;
+    const updateData: updateData = {};
+
+    // Dynamically add fields to updateData if they are provided in the request body
+    const fieldsToUpdate = [
+      "name",
+      "country",
+      "location",
+      "description",
+      "tags",
+      "summary",
+      "featured",
+    ];
+    fieldsToUpdate.forEach((field) => {
+      if (req.body[field] !== undefined) {
+        updateData[field] = req.body[field];
+      }
+    });
+
+    if (Object.keys(updateData).length === 0) {
+      return res
+        .status(400)
+        .json({ message: "No valid fields provided for update." });
+    }
+
+    const destination = await Destination.findByIdAndUpdate(id, updateData, {
+      new: true,
+      runValidators: true,
+    });
     if (!destination) {
       return res.status(404).json({ message: "Destination not found." });
     }
     res.json(destination);
   } catch (error) {
-    console.error(error)
+    console.error(error);
     if (error instanceof Error) {
       res.status(500).json({ message: error.message });
     } else {
@@ -176,11 +178,11 @@ export const deleteDestination = async (req: Request, res: Response) => {
   try {
     const destination = await Destination.findByIdAndDelete(req.params.id);
     if (!destination) {
-      return res.status(404).json({message: "Destination not found."});
+      return res.status(404).json({ message: "Destination not found." });
     }
     res.json({ message: "Destination deleted successfully." });
   } catch (error) {
-    console.error(error)
+    console.error(error);
     if (error instanceof Error) {
       res.status(500).json({ message: error.message });
     } else {
@@ -197,7 +199,7 @@ export const deleteAllDestinations = async (req: Request, res: Response) => {
     await Destination.deleteMany({});
     res.json({ message: "All destinations deleted successfully" });
   } catch (error) {
-    console.error(error)
+    console.error(error);
     if (error instanceof Error) {
       res.status(500).json({ message: error.message });
     } else {
@@ -213,13 +215,14 @@ export const updateDestinationPlaces = async (req: Request, res: Response) => {
   try {
     const destination = await Destination.findById(req.params.id);
     if (!destination) {
-      return res.status(404).json({ message: "Destination not found."});
+      return res.status(404).json({ message: "Destination not found." });
     }
-    destination.places = req.body;
+    const places: destinationPlace = req.body;
+    destination.places = places;
     await destination.save();
     res.json(destination.places);
   } catch (error) {
-    console.error(error)
+    console.error(error);
     if (error instanceof Error) {
       res.status(500).json({ message: error.message });
     } else {
@@ -231,17 +234,22 @@ export const updateDestinationPlaces = async (req: Request, res: Response) => {
 };
 
 // Update destination transportation
-export const updateDestinationTransportation = async (req: Request, res: Response) => {
+export const updateDestinationTransportation = async (
+  req: Request,
+  res: Response
+) => {
   try {
     const destination = await Destination.findById(req.params.id);
     if (!destination) {
-      return res.status(404).json({ message: "Destination not found."});
+      return res.status(404).json({ message: "Destination not found." });
     }
-    destination.transportation = req.body;
+
+    const transportation: destinationTransportation = req.body;
+    destination.transportation = transportation;
     await destination.save();
     res.json(destination.transportation);
   } catch (error) {
-    console.error(error)
+    console.error(error);
     if (error instanceof Error) {
       res.status(500).json({ message: error.message });
     } else {
@@ -252,18 +260,20 @@ export const updateDestinationTransportation = async (req: Request, res: Respons
   }
 };
 
-// Update destination reviews
-export const updateDestinationReviews = async (req: Request, res: Response) => {
+// Update destination insight
+export const updateDestinationInsight = async (req: Request, res: Response) => {
   try {
     const destination = await Destination.findById(req.params.id);
     if (!destination) {
-      return res.status(404).json({ message: "Destination not found."});
+      return res.status(404).json({ message: "Destination not found." });
     }
-    destination.reviews = req.body;
+
+    const insight: destinationInsight = req.body;
+    destination.insight = insight;
     await destination.save();
-    res.json(destination.reviews);
+    res.json(destination.insight);
   } catch (error) {
-    console.error(error)
+    console.error(error);
     if (error instanceof Error) {
       res.status(500).json({ message: error.message });
     } else {
@@ -290,7 +300,7 @@ export const updateDestinationImages = async (req: Request, res: Response) => {
 
     // Get the directory of the current module
     // const dirname = path.dirname(fileURLToPath(import.meta.url));
-    const dirname = __dirname
+    const dirname = __dirname;
 
     // Get all image files from the specified folder
     const imageDir = path.join(
@@ -301,7 +311,7 @@ export const updateDestinationImages = async (req: Request, res: Response) => {
 
     const imageFiles = fs
       .readdirSync(imageDir)
-      .filter((file) => ALLOWED_EXTENSIONS.some(ext => file.endsWith(ext)));
+      .filter((file) => ALLOWED_EXTENSIONS.some((ext) => file.endsWith(ext)));
     console.log("Image files:", imageFiles);
 
     // Upload the images to S3 and replace the existing images
@@ -344,9 +354,9 @@ export const updateDestinationImages = async (req: Request, res: Response) => {
 // Get destination by search
 export const getDestinationBySearch = async (req: Request, res: Response) => {
   try {
-    const { name, country } : {name?: string, country?: string} = req.query;
+    const { name, country }: { name?: string; country?: string } = req.query;
 
-    let query: { name?: unknown, country?: unknown } = {};
+    let query: { name?: unknown; country?: unknown } = {};
 
     if (name) {
       query.name = { $regex: new RegExp(name, "i") };
