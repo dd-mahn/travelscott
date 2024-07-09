@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import destinationRoutes from 'src/routes/destination';
 import feedbackRoutes from 'src/routes/feedback';
 import blogRoutes from 'src/routes/blog';
+import countryRoutes from 'src/routes/country';
 
 export const corsOptions = {
   origin: true,
@@ -17,6 +18,7 @@ export const setupMiddleware = (app) => {
   app.use('/api/destinations', destinationRoutes);
   app.use('/api/feedback', feedbackRoutes);
   app.use('/api/blogs', blogRoutes);
+  app.use('/api/countries', countryRoutes);
 
   // Error handling middleware
   app.use((err, req, res, next) => {
