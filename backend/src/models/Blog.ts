@@ -10,6 +10,12 @@ const blogSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  category:{
+    type: String,
+    default: "",
+    required: true,
+    enum: ["Wilderness", "Culture&Heritage", "Food&Drink", "SoloJourneys", "CityScape", "Season&Festival", "Relaxation", "FirstTimeAbroad"]
+  },
   image: {
     type: String,
     default: "" 
@@ -17,6 +23,19 @@ const blogSchema = new mongoose.Schema({
   content: {
     type: Array,
     default: [],
+  },
+  time: {
+    type: Date,
+    default: Date.now
+  },
+  tags: {
+    type: [String],
+    default: [],
+    enum: ["Asia", "Europe", "Africa", "North America", "South America", "Australia", "Antarctica"]
+  },
+  relatedDestination: {
+    type: String,
+    default: ""
   },
   featured: {
     type: Boolean,
