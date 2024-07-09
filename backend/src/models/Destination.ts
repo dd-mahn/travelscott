@@ -32,11 +32,11 @@ const destinationSchema = new mongoose.Schema({
         type: Object,
         default: { _dummy: null },
     },
-    types: {
+    tags: {
         type: [String],
         default: [],
     },
-    reviews: {
+    insight: {
         type: Object,
         default: { _dummy: null },
     },
