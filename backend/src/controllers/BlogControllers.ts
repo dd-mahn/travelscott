@@ -13,9 +13,8 @@ function isValidContent(content: any): content is contentType {
   return content.every((item) => {
     return (
       typeof item.sectionTitle === "string" &&
-      (!item.sectionImage ||
-        (item.sectionImage && Array.isArray(item.sectionImages))) &&
-        Array.isArray(item.sectionText)
+      Array.isArray(item.sectionImages) &&
+      Array.isArray(item.sectionText)
     );
   });
 }
@@ -23,8 +22,10 @@ function isValidContent(content: any): content is contentType {
 interface updateData {
   title?: string;
   author?: string;
+  category?: string;
   image?: string;
   content?: contentType;
+  tags?: string[];
   featured?: boolean;
 }
 
@@ -130,12 +131,26 @@ export const updateBlog = async (req: Request, res: Response) => {
     const updateData: updateData = {};
 
     // Dynamically add fields to updateData if they are provided in the request body
-    const fieldsToUpdate = ["title", "author", "image", "content", "featured"];
+    const fieldsToUpdate = [
+      "title",
+      "author",
+      "category",
+      "image",
+      "content",
+      "tags",
+      "featured",
+    ];
     fieldsToUpdate.forEach((field) => {
       if (req.body[field] !== undefined) {
         updateData[field] = req.body[field];
       }
     });
+
+    if (Object.keys(updateData).length === 0) {
+      return res
+        .status(400)
+        .json({ message: "No valid fields provided for update." });
+    }
 
     // Validate content type if content is being updated
     if (updateData.content && !isValidContent(updateData.content)) {
