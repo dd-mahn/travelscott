@@ -1,0 +1,38 @@
+.contact {
+  .blob-1 {
+    width: 30%;
+    height: 40%;
+    top: 5%;
+    left: -10%;
+    background: radial-gradient(
+      circle at 50% 50%,
+      #eb996e,
+      rgba(76, 0, 255, 0)
+    );
+  }
+
+  .blob-2 {
+    width: 30%;
+    height: 40%;
+    bottom: 20%;
+    right: -10%;
+    background: radial-gradient(
+      circle at 50% 50%,
+      #8ab17c,
+      rgba(76, 0, 255, 0)
+    );
+    opacity: 0.4 !important;
+  }
+
+  .emailing {
+    button {
+      text-transform: none !important;
+    }
+  }
+
+  .feedback {
+    input {
+      @apply w-full border-b border-text-light bg-transparent pl-1 outline-none;
+    }
+  }
+}
