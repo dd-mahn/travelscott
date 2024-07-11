@@ -1,4 +1,4 @@
-interface countryAdditionalInfo {
+type countryAdditionalInfo = {
   whenToVisit?: string;
   transportation?: string;
   healthSafety?: string;

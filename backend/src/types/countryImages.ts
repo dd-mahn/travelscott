@@ -1,4 +1,4 @@
-interface countryImages {
+type countryImages = {
   flagImage?: string;
   mapImage?: string;
   additionalImages?: string[];
