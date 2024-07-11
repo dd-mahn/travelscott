@@ -2,7 +2,7 @@ import React from "react";
 import planeIcon from "src/assets/svg/plane-icon.svg";
 import "src/styles/contact.css";
 
-const Contact = () => {
+const Contact: React.FC = () => {
   return (
     <main className="contact px-sect relative flex flex-col items-center gap-8 py-sect-short">
       
