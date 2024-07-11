@@ -1,13 +1,20 @@
+type sectionImage = {
+  url: string;
+  description?: string;
+};
+
+interface blogContent {
+  sectionTitle: string;
+  sectionImages: sectionImage[];
+  sectionText: string[];
+}
+
 interface Blog {
   title: string;
   author: string;
   category: string;
   image: string;
-  content: Array<{
-    sectionTitle: string;
-    sectionImages: string[];
-    sectionText: string[];
-  }>;
+  content: blogContent[];
   time: string;
   featured: boolean;
 }
