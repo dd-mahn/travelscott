@@ -3,7 +3,7 @@ import { FetchCountriesType, FetchDestinationType, FetchBlogsType } from "src/ty
 
 type DataType = FetchCountriesType | FetchDestinationType | FetchBlogsType;
 
-const useFetch = (url: string) => {
+const useFetch = (url: string, deps: any[] = []) => {
   const [data, setData] = useState<DataType>();
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
@@ -28,7 +28,7 @@ const useFetch = (url: string) => {
     } finally {
       setLoading(false);
     }
-  }, [url]);
+  }, [url, ...deps]);
 
   // Fetch data when the component mounts or when the URL changes
   useEffect(() => {
