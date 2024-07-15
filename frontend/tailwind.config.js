@@ -40,6 +40,7 @@ module.exports = {
       },
       boxShadow:{
         "section": "-5px 5px 30px 10px rgba(51, 51, 51, 0.30)",
+        "component": "-5px 5px 30px 0px rgba(51, 51, 51, 0.30)"
       },
       fontSize: {
         "15xl": "24rem",
@@ -105,6 +106,7 @@ module.exports = {
         "3.5svw": "350svw",
         "4.5svw": "450svw",
         "5.5svw": "550svw",
+        "3/10": "30%",
         "45p": "45%",
       },
       gridAutoColumns: {
@@ -122,6 +124,20 @@ module.exports = {
         "2/5": "40%",
         "1/2": "50%",
         "3/4": "75%",
+      },
+      minHeight:{
+        "0.3svh": "30svh",
+        "0.35svh": "35svh",
+        "0.4svh": "40svh",
+        "0.5svh": "50svh",
+        "0.75svh": "75svh",
+      },
+      maxHeight:{
+        "0.3svh": "30svh",
+        "0.35svh": "35svh",
+        "0.4svh": "40svh",
+        "0.5svh": "50svh",
+        "0.75svh": "75svh",
       },
       minWidth: {
         "1/5": "20%",
