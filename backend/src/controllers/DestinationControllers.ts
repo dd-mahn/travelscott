@@ -13,7 +13,7 @@ import destinationInsight from "src/types/destinationInsight";
 
 // Default
 const DEFAULT_PAGE = "1";
-const DEFAULT_LIMIT = "20";
+const DEFAULT_LIMIT = "18";
 const ALLOWED_EXTENSIONS = [".png", ".jpg"];
 
 // Create destination
@@ -119,6 +119,7 @@ export const getSingleDestination = async (req: Request, res: Response) => {
 type updateData = {
   name?: string;
   country?: string;
+  continent?: string;
   location?: string;
   description?: string;
   tags?: string[];
@@ -135,6 +136,7 @@ export const updateDestination = async (req: Request, res: Response) => {
     const fieldsToUpdate = [
       "name",
       "country",
+      "continent",
       "location",
       "description",
       "tags",
