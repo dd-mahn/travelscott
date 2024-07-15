@@ -404,12 +404,12 @@ const Home: React.FC = () => {
               ></div>
               <div className="flex flex-col lg:gap-0 xl:gap-0 2xl:gap-0 3xl:gap-0">
                 <span className="span-regular text-gray">{item.country}</span>
-                <span className="span-medium">{item.title}</span>
+                <span className="span-medium uppercase">{item.title}</span>
                 <div className="mt-4 flex gap-2">
                   {item.tags.map((tag, index) => (
                     <span
                       key={index}
-                      className="span-small rounded-2xl border-2 border-solid border-text-light px-4"
+                      className="span-small rounded-2xl lg:border 2xl:border-2 border-solid border-text-light px-4"
                     >
                       {tag}
                     </span>
@@ -458,7 +458,7 @@ const Home: React.FC = () => {
         {/* GLOBE SECTION */}
 
         <div className="z-5 sticky -top-5p left-0">
-          <section className="globe relative grid items-center rounded-5xl lg:pb-sect-short lg:pt-sect-short 2xl:pb-sect-short 2xl:pt-sect-short">
+          <section className="globe relative grid items-center rounded-5xl lg:pb-sect-long lg:pt-sect-short 2xl:pb-sect-long 2xl:pt-sect-short">
             <span className="px-sect p-large absolute -top-10 right-0 uppercase font-semibold">
               And we've covered these countries in our catalog too!
             </span>
@@ -468,7 +468,7 @@ const Home: React.FC = () => {
 
         {/* FEATURED BLOGS SECTION */}
 
-        <div className="relative">
+        <div className="relative mt-sect-long">
           <span className="px-sect absolute -top-10 left-0 font-semibold uppercase text-text-dark p-large">
             Discover the lastest articles in
           </span>
@@ -576,7 +576,7 @@ const Home: React.FC = () => {
       {/* QUOTE SECTION */}
 
       <section className="quote px-sect flex flex-col gap-4 lg:py-sect-default 2xl:py-sect-medium">
-        <div className="flex h-0.5svh flex-row items-end justify-between">
+        <div className="flex h-fit flex-row items-end justify-between">
           <h1 className="big-heading">
             " To <i className="ri-footprint-fill"></i>{" "}
             <span className="uppercase text-main-green">travel</span> <br />

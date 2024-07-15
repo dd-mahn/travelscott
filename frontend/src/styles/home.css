@@ -1,8 +1,4 @@
 .hero {
-  h1{
-    /* width: fit-content; */
-  }
-
   p{
     line-height: 1.2 !important;
   }
