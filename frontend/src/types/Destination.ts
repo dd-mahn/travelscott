@@ -102,6 +102,7 @@ export default interface Destination {
   name: string;
   images: string[];
   country: string;
+  continent: string;
   description: string;
   places: destinationPlace;
   transportation: destinationTransportation;
