@@ -14,11 +14,11 @@ const sitemap = [
     display: "About",
   },
   {
-    path: "/destinations",
+    path: "/discover",
     display: "Discover",
   },
   {
-    path: "/inspo",
+    path: "/inspiration",
     display: "Inspiration",
   },
   {
