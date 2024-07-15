@@ -31,7 +31,6 @@ const blogSchema = new mongoose.Schema({
   tags: {
     type: [String],
     default: [],
-    enum: ["Asia", "Europe", "Africa", "North America", "South America", "Australia", "Antarctica"]
   },
   relatedDestination: {
     type: String,
