@@ -58,11 +58,11 @@ p {
 
 /* TYPO CLASSES */
 .big-heading {
-  @apply font-prima uppercase lg:text-8xl lg:font-bold lg:leading-tight xl:text-9xl xl:leading-tight 2xl:text-10xl 2xl:leading-snug 3xl:text-10xl 3xl:leading-snug;
+  @apply font-prima font-bold uppercase lg:text-10xl lg:leading-tight xl:text-11xl xl:leading-tight 2xl:text-12xl 2xl:leading-snug 3xl:text-13xl 3xl:leading-snug;
 }
 
 .h1-md {
-  @apply font-prima uppercase lg:text-7xl lg:font-bold xl:text-8xl 2xl:text-8.5xl 3xl:text-9xl 3xl:tracking-wide;
+  @apply font-prima font-semibold uppercase lg:text-7xl xl:text-8xl 2xl:text-8.5xl 3xl:text-9xl 3xl:tracking-wide;
 }
 
 .h1-md-bold {
@@ -70,6 +70,7 @@ p {
 }
 
 .h2-md {
+  @apply font-prima font-medium tracking-normal lg:text-4xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl;
 }
 
 .h2-inter {
@@ -77,10 +78,11 @@ p {
 }
 
 .h3-md {
+  @apply font-prima font-medium leading-normal tracking-tight lg:text-3xl xl:text-3.5xl 2xl:text-4xl 3xl:text-4.5xl;
 }
 
 .h3-inter {
-  @apply font-medium leading-normal tracking-tight lg:text-3.5xl xl:text-4xl 2xl:text-4.5xl 3xl:text-5xl;
+  @apply font-medium leading-normal tracking-tight lg:text-3xl xl:text-3.5xl 2xl:text-4xl 3xl:text-4.5xl;
 }
 
 .p-regular {
@@ -95,17 +97,20 @@ p {
   @apply font-medium lg:text-xl xl:text-1.5xl 2xl:text-2xl 3xl:text-3xl;
 }
 
-.span-small{
+.span-small {
   @apply font-normal lg:text-sm xl:text-sm 2xl:text-base 3xl:text-base;
-
 }
 
 .span-regular {
   @apply font-medium lg:text-base xl:text-base 2xl:text-lg 3xl:text-lg;
 }
 
-.span-medium{
-  @apply font-semibold lg:text-lg xl:text-xl 2xl:text-2xl 3xl:text-2xl
+.span-medium {
+  @apply font-semibold lg:text-lg xl:text-xl 2xl:text-2xl 3xl:text-2xl;
+}
+
+.span-large {
+  @apply font-extrabold lg:text-lg xl:text-xl 2xl:text-2xl 3xl:text-2xl;
 }
 /* UI classes  */
 .font-kaushan {
@@ -113,7 +118,15 @@ p {
 }
 
 .btn {
-  @apply flex cursor-pointer items-center justify-center rounded-md border-none font-medium uppercase tracking-wide shadow-md shadow-gray transition-all lg:gap-2 lg:px-3 lg:py-2 lg:text-base xl:gap-2 xl:px-4 xl:py-2 xl:text-base 2xl:gap-3 2xl:px-5 2xl:py-3 2xl:text-xl 3xl:gap-3 3xl:px-6 3xl:py-3 3xl:text-xl;
+  @apply flex w-fit cursor-pointer items-center justify-center rounded-md border-none font-medium uppercase tracking-wide shadow-md shadow-gray transition-all lg:gap-2 lg:px-3 lg:py-2 lg:text-base xl:gap-2 xl:px-4 xl:py-2 xl:text-base 2xl:gap-3 2xl:px-5 2xl:py-3 2xl:text-xl 3xl:gap-3 3xl:px-6 3xl:py-3 3xl:text-xl;
+}
+
+.page-btn {
+  @apply text-center font-medium lg:h-8 lg:w-8 lg:rounded-lg lg:border lg:text-base xl:text-base 2xl:h-8 2xl:w-8 2xl:rounded-lg 2xl:border-2 2xl:text-lg 3xl:text-lg;
+}
+
+.page-btn.active{
+  @apply bg-background-dark text-text-dark;
 }
 
 .btn-primary {
