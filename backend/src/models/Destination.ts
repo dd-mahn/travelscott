@@ -17,6 +17,10 @@ const destinationSchema = new mongoose.Schema({
         type: String,
         default: ""
     },
+    continent: {
+        type: String,
+        default: "",
+    },
     location: {
         type: String,
         default: '',
@@ -36,6 +40,7 @@ const destinationSchema = new mongoose.Schema({
     tags: {
         type: [String],
         default: [],
+        enum: ["Wilderness", "Culture&Heritage", "Food&Drink", "SoloJourneys", "CityScape", "Season&Festival", "Relaxation", "FirstTimeAbroad"]
     },
     insight: {
         type: Object,
