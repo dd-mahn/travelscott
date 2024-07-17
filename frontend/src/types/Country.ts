@@ -7,7 +7,7 @@ type countryImages = {
 type countryAdditionalInfo = {
   whenToVisit?: string;
   transportation?: string;
-  healthSafety?: string;
+  healthAndSafety?: string;
 }
 
 interface Country{
