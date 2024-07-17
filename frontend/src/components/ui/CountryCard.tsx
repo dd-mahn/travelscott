@@ -17,7 +17,7 @@ const CountryCard: React.FC<CountryCardProps> = ({ country }) => {
         }}
       >
         <img
-          src={country?.images?.flagImage}
+          src={country?.images?.flagImages?.[0]}
           alt={country.name}
           className="h-full w-full rounded-xl"
         />
