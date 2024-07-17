@@ -2,7 +2,7 @@ import Destination from "src/types/Destination";
 import Country from "./Country";
 import Blog from "./Blog";
 
-export interface FetchData<T> {
+interface FetchData<T> {
     result: T[];
     count?: number;
     page?: string;
