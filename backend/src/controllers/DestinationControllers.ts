@@ -40,7 +40,7 @@ type GetDestinationsRequest = {
   tags?: string;
   page?: string;
   limit?: string;
-}
+};
 
 export const getDestinations = async (req: Request, res: Response) => {
   try {
@@ -55,14 +55,16 @@ export const getDestinations = async (req: Request, res: Response) => {
     const limitNumber = parseInt(limit);
 
     type Filter = {
-      countries?: { $all: RegExp[] };
+      country?: { $in: RegExp[] };
       tags?: { $all: RegExp[] };
     };
 
     const filter: Filter = {};
 
     if (countries) {
-      filter.countries = { $all: createRegexArray(countries) };
+      const countriesArray =
+        typeof countries === "string" ? [countries] : countries;
+      filter.country = { $in: createRegexArray(countriesArray) };
     }
 
     if (tags) {
