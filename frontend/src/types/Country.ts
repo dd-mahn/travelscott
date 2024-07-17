@@ -1,7 +1,7 @@
 type countryImages = {
-  flagImage?: string;
-  mapImage?: string;
-  additionalImages?: string[];
+  flagImages?: string[];
+  mapImages?: string[];
+  otherImages?: string[];
 }
 
 type countryAdditionalInfo = {
@@ -14,7 +14,7 @@ interface Country{
     _id: string;
     name: string;
     images: countryImages;
-    description: string;
+    description: string[];
     capital: string;
     continent: string;
     currency: string;
