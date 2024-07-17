@@ -63,8 +63,10 @@ const About: React.FC = () => {
     <main className="about">
       {/* HERO SECTION */}
 
-      <section className="hero px-sect flex flex-col items-center gap-12 py-sect-short">
-        <h1 className="pt-sect-short text-center h1-md text-main-green">
+      <section className="hero px-sect relative flex flex-col items-center gap-12 py-sect-short">
+        <div className="blur-blob blob-1"></div>
+        <div className="blur-blob blob-2"></div>
+        <h1 className="h1-md z-10 pt-sect-short text-center text-main-green">
           Travel
           <span className="font-logo font-medium normal-case text-text-light">
             Scott,
@@ -72,12 +74,12 @@ const About: React.FC = () => {
           <span className="text-text-light">your</span> guide
         </h1>
 
-        <p className="text-center p-medium lg:w-2/5 xl:w-2/5 2xl:w-1/3 3xl:w-1/3">
+        <p className="p-medium z-10 text-center lg:w-2/5 xl:w-2/5 2xl:w-1/3 3xl:w-1/3">
           We simply want to awaken the passion for <br />
           travel within you.
         </p>
 
-        <p className="text-center p-medium lg:w-2/5 xl:w-2/5 2xl:w-1/3 3xl:w-1/3">
+        <p className="p-medium z-10 text-center lg:w-2/5 xl:w-2/5 2xl:w-1/3 3xl:w-1/3">
           We simplify your travel experience.
         </p>
 
@@ -86,26 +88,20 @@ const About: React.FC = () => {
           autoPlay
           loop
           muted
-          className="mt-sect-default w-full rounded-xl shadow-section"
+          className="w-full rounded-xl shadow-section lg:mt-40 2xl:mt-sect-default"
         ></video>
       </section>
 
       {/* STACKED SECTION */}
       <section className="flex flex-col items-center justify-start py-sect-semi">
         {/* HOW SECTION */}
-        <h2 className="text-center h3-inter">
-          How?
-        </h2>
+        <h2 className="h3-inter text-center">How?</h2>
         <div className="how relative">
-          <div className="sticky lg:top-24 2xl:top-48 z-0 mx-auto mt-sect-medium mb-24 flex h-0.5svh lg:w-2/3 2xl:w-3/4 flex-row items-start justify-between rounded-xl bg-background-light px-8 pb-sect-short pt-4 shadow-section">
+          <div className="sticky z-0 mx-auto mb-24 mt-sect-medium flex h-0.5svh flex-row items-start justify-between rounded-xl bg-background-light px-8 pb-sect-short pt-4 shadow-section lg:top-24 lg:w-2/3 2xl:top-48 2xl:w-3/4">
             <div className="flex flex-col items-start justify-start gap-12">
               <div className="flex flex-col justify-start gap-0">
-                <h1 className="h1-md-bold">
-                  Optimal
-                </h1>
-                <span className="span-medium uppercase">
-                  Information
-                </span>
+                <h1 className="h1-md-bold">Optimal</h1>
+                <span className="span-medium uppercase">Information</span>
               </div>
 
               <p className="p-medium lg:w-3/4 xl:w-3/4 2xl:w-2/5 3xl:w-2/3">
@@ -117,22 +113,16 @@ const About: React.FC = () => {
               </p>
             </div>
 
-            <h1 className="text-stroke h1-md-bold text-transparent">
-              01
-            </h1>
+            <h1 className="text-stroke h1-md-bold text-transparent">01</h1>
           </div>
 
-          <div className="sticky lg:top-48 2xl:top-72 z-0 mx-auto mt-sect-medium mb-24 flex h-0.5svh lg:w-2/3 2xl:w-3/4 flex-row items-start justify-between rounded-xl bg-light-brown px-8 pb-sect-short pt-4 shadow-section">
-            <h1 className="text-stroke h1-md-bold text-transparent">
-              02
-            </h1>
+          <div className="sticky z-0 mx-auto mb-24 mt-sect-medium flex h-0.5svh flex-row items-start justify-between rounded-xl bg-light-brown px-8 pb-sect-short pt-4 shadow-section lg:top-48 lg:w-2/3 2xl:top-72 2xl:w-3/4">
+            <h1 className="text-stroke h1-md-bold text-transparent">02</h1>
 
             <div className="flex flex-col items-end justify-start gap-12">
               <div className="flex flex-col justify-end gap-0">
-                <h1 className="h1-md-bold">
-                  Vibrant
-                </h1>
-                <h2 className="text-end font-sans span-medium uppercase">
+                <h1 className="h1-md-bold">Vibrant</h1>
+                <h2 className="span-medium text-end font-sans uppercase">
                   Experience
                 </h2>
               </div>
@@ -148,13 +138,11 @@ const About: React.FC = () => {
             </div>
           </div>
 
-          <div className="sticky lg:top-72 2xl:top-96 z-0 mx-auto mt-sect-medium mb-24 flex h-0.5svh lg:w-2/3 2xl:w-3/4 flex-row items-start justify-between rounded-xl bg-light-green px-8 pb-sect-short pt-4 shadow-section">
+          <div className="sticky z-0 mx-auto mb-24 mt-sect-medium flex h-0.5svh flex-row items-start justify-between rounded-xl bg-light-green px-8 pb-sect-short pt-4 shadow-section lg:top-72 lg:w-2/3 2xl:top-96 2xl:w-3/4">
             <div className="flex flex-col items-start justify-start gap-12">
               <div className="flex flex-col justify-start gap-0">
-                <h1 className="h1-md-bold">
-                  Verified
-                </h1>
-                <span className="font-sans span-medium uppercase ">
+                <h1 className="h1-md-bold">Verified</h1>
+                <span className="span-medium font-sans uppercase">
                   Resources
                 </span>
               </div>
@@ -168,21 +156,17 @@ const About: React.FC = () => {
               </p>
             </div>
 
-            <h1 className="text-stroke h1-md-bold text-transparent">
-              03
-            </h1>
+            <h1 className="text-stroke h1-md-bold text-transparent">03</h1>
           </div>
 
           <div className="py-sect-default"></div>
 
           {/* WHO SECTION */}
-          <section className="who px-sect sticky top-0 z-10 rounded-5xl bg-background-dark lg:py-sect-default shadow-section">
+          <section className="who px-sect sticky top-0 z-10 rounded-5xl bg-background-dark shadow-section lg:py-sect-default">
             <div className="relative flex flex-col gap-sect-default">
               <div className="blob-1 blur-blob z-0 h-1/4 w-1/4"></div>
               <div className="blob-2 blur-blob z-0 h-3/5 w-3/5"></div>
-              <h2 className="text-center text-text-dark h3-inter">
-                Who?
-              </h2>
+              <h2 className="h3-inter text-center text-text-dark">Who?</h2>
               <div className="z-10 flex flex-wrap justify-center gap-12">
                 {people.map((person, index) => (
                   <div
@@ -198,10 +182,10 @@ const About: React.FC = () => {
                       }}
                     ></div>
                     <div className="flex flex-col gap-2">
-                      <h3 className="text-center span-regular text-text-dark">
+                      <h3 className="span-regular text-center text-text-dark">
                         {person.name}
                       </h3>
-                      <p className="text-center span-small text-text-dark">
+                      <p className="span-small text-center text-text-dark">
                         {person.role}
                       </p>
                     </div>
@@ -237,9 +221,7 @@ const About: React.FC = () => {
         <img src={airplane1} alt="" className="plane-1 absolute" />
         <img src={airplane2} alt="" className="plane-2 absolute" />
         <img src={airplane3} alt="" className="plane-3 absolute" />
-        <h2 className="text-center h3-inter">
-          Why?
-        </h2>
+        <h2 className="h3-inter text-center">Why?</h2>
         <p className="p-large">
           “A paper plane’s journey, however brief, reminds us that <br /> even
           the simplest dreams can take flight.”

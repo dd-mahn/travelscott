@@ -18,95 +18,97 @@ import { getCountryByContinent } from "src/utils/getCountryByContinent";
 import Pagination from "src/components/ui/Pagination";
 import DestinationCard from "src/components/ui/DestinationCard";
 import CountryCard from "src/components/ui/CountryCard";
+import { FetchCountriesType, FetchDestinationType } from "src/types/FetchData";
 
 const Discover: React.FC = () => {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const [destinations, setDestinations] = useState<Destination[]>([]);
   const [countries, setCountries] = useState<Country[]>([]);
-  const [selectedContinent, setSelectedContinent] = useState("Asia");
+  const [selectedContinent, setSelectedContinent] = useState<string>("Asia");
 
   // Fetch data from API
   const {
     data: destinationData,
     loading: destinationLoading,
     error: destinationError,
-  } = useFetch(`${BASE_URL}/destinations?page=${currentPage}`, [currentPage]);
+  } = useFetch<FetchDestinationType>(`${BASE_URL}/destinations?page=${currentPage}`, [currentPage]);
 
   const {
     data: countryData,
     loading: countryLoading,
     error: countryError,
-  } = useFetch(`${BASE_URL}/countries`);
+  } = useFetch<FetchCountriesType>(`${BASE_URL}/countries`);
 
   // Handle fetched data for rendering
   const totalDestinations = destinationData?.count as number;
   useEffect(() => {
     if (destinationData?.result) {
-      setDestinations(destinationData?.result as Destination[]);
+      setDestinations(destinationData.result);
     }
 
     if (countryData?.result) {
-      setCountries(countryData?.result as Country[]);
+      setCountries(countryData.result);
     }
   }, [destinationData, countryData]);
 
-  const continents = useMemo(
-    () =>
-      countryData?.result
-        ? [
-            {
-              name: "Asia",
-              countries: getCountryByContinent(countries, "Asia"),
-              count: getCountryByContinent(countries, "Asia").length,
-              image: asiaMap,
-            },
-            {
-              name: "Africa",
-              countries: getCountryByContinent(countries, "Africa"),
-              count: getCountryByContinent(countries, "Africa").length,
-              image: africaMap,
-            },
-            {
-              name: "Europe",
-              countries: getCountryByContinent(countries, "Europe"),
-              count: getCountryByContinent(countries, "Europe").length,
-              image: europeMap,
-            },
-            {
-              name: "North America",
-              countries: getCountryByContinent(countries, "North America"),
-              count: getCountryByContinent(countries, "North America").length,
-              image: northAmericaMap,
-            },
-            {
-              name: "South America",
-              countries: getCountryByContinent(countries, "South America"),
-              count: getCountryByContinent(countries, "South America").length,
-              image: southAmericaMap,
-            },
-            {
-              name: "Oceania",
-              countries: getCountryByContinent(countries, "Oceania"),
-              count: getCountryByContinent(countries, "Oceania").length,
-              image: oceaniaMap,
-            },
-          ]
-        : [],
-    [countryData],
-  );
+  const continents = useMemo(() => {
+    if (countryData?.result) {
+      return [
+        {
+          name: "Asia",
+          countries: getCountryByContinent(countries, "Asia"),
+          count: getCountryByContinent(countries, "Asia").length,
+          image: asiaMap,
+        },
+        {
+          name: "Africa",
+          countries: getCountryByContinent(countries, "Africa"),
+          count: getCountryByContinent(countries, "Africa").length,
+          image: africaMap,
+        },
+        {
+          name: "Europe",
+          countries: getCountryByContinent(countries, "Europe"),
+          count: getCountryByContinent(countries, "Europe").length,
+          image: europeMap,
+        },
+        {
+          name: "North America",
+          countries: getCountryByContinent(countries, "North America"),
+          count: getCountryByContinent(countries, "North America").length,
+          image: northAmericaMap,
+        },
+        {
+          name: "South America",
+          countries: getCountryByContinent(countries, "South America"),
+          count: getCountryByContinent(countries, "South America").length,
+          image: southAmericaMap,
+        },
+        {
+          name: "Oceania",
+          countries: getCountryByContinent(countries, "Oceania"),
+          count: getCountryByContinent(countries, "Oceania").length,
+          image: oceaniaMap,
+        },
+      ];
+    } else {
+      return [];
+    }
+  }, [countryData]);
 
-  const featuredDestinations = useMemo(
-    () => (destinations ? getFeaturedDestinations(destinations) : []),
-    [destinations],
-  );
+  const featuredDestinations = useMemo(() => {
+    if (destinations) {
+      return getFeaturedDestinations(destinations);
+    } else {
+      return [];
+    }
+  }, [destinations]);
 
   // Handle select state
 
-  function handleSelectContinent(): React.ReactEventHandler<HTMLSelectElement> {
-    return (event) => {
-      setSelectedContinent(event.currentTarget.value);
-    };
-  }
+  const handleSelectContinent: React.ChangeEventHandler<HTMLSelectElement> = (event) => {
+    setSelectedContinent(event.currentTarget.value);
+  };
 
   // Handle destination filter
   const filter = {
@@ -115,7 +117,7 @@ const Discover: React.FC = () => {
   };
 
   const countryNames = Array.isArray(countryData?.result)
-    ? (countryData.result as Country[]).map((country) => country?.name)
+    ? countryData.result.map((country) => country?.name)
     : [];
   const continentNames = Array.isArray(continents)
     ? continents.map((continent) => continent.name)
@@ -189,7 +191,7 @@ const Discover: React.FC = () => {
             title="continent"
             id="continentSelect"
             className="p-regular w-full rounded-md border bg-transparent px-2 py-1 outline-none"
-            onChange={handleSelectContinent()}
+            onChange={handleSelectContinent}
           >
             <option value="Asia">Asia</option>
             <option value="Europe">Europe</option>
