@@ -52,7 +52,11 @@ const countrySchema = new mongoose.Schema({
   },
   additionalInfo: {
     type: Object,
-    default: { _dummy: null },
+    default: { 
+      whenToVisit: [],
+      transportation: [],
+      healthAndSafety: [],
+     },
   },
   totalDestinations: {
     type: Number,
