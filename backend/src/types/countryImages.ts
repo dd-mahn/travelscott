@@ -1,7 +1,7 @@
 type countryImages = {
-  flagImage?: string;
-  mapImage?: string;
-  additionalImages?: string[];
+  flagImages?: string[];
+  mapImages?: string[];
+  otherImages?: string[];
 }
 
 export default countryImages;
