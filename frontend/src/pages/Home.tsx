@@ -470,7 +470,7 @@ const Home: React.FC = () => {
 
         <div className="relative mt-sect-long">
           <span className="px-sect absolute -top-10 left-0 font-semibold uppercase text-text-dark p-large">
-            Discover the lastest articles in
+            Discover the latest articles in
           </span>
           <section className="blogs px-sect relative flex flex-col items-center justify-start gap-sect-short lg:pb-sect-default lg:pt-sect-short 2xl:pb-sect-medium 2xl:pt-sect-default">
             <h1 className="h1-md">
