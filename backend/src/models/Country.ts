@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { setFlagsFromString } from "v8";
 
 const countrySchema = new mongoose.Schema({
   name: {
@@ -8,11 +7,11 @@ const countrySchema = new mongoose.Schema({
   },
   images: {
     type: Object,
-    default: { _dummy: null },
+    default: { flagImages: [], mapImages: [], otherImages: [] },
   },
   description: {
-    type: String,
-    default: "",
+    type: Array,
+    default: [],
   },
   capital: {
     type: String,
