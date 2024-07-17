@@ -307,7 +307,7 @@ export const updateDestinationImages = async (req: Request, res: Response) => {
     // Get all image files from the specified folder
     const imageDir = path.join(
       dirname,
-      `../../../frontend/src/assets/images/${folderName}`
+      `../../../frontend/src/assets/images/destinations/${folderName}`
     );
     console.log("Image directory:", imageDir);
 
