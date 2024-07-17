@@ -1,7 +1,7 @@
 type countryAdditionalInfo = {
   whenToVisit?: string;
   transportation?: string;
-  healthSafety?: string;
+  healthAndSafety?: string;
 }
 
 export default countryAdditionalInfo;
