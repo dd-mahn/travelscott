@@ -1,6 +1,11 @@
 type fromUs = {
-  title?: string;
-  id?: string;
+  tips: string[];
+  article: [
+    {
+      title?: string;
+      id?: string;
+    }
+  ];
 };
 
 type fromOthers = {
@@ -9,7 +14,7 @@ type fromOthers = {
 };
 
 interface destinationInsight {
-  from_us?: fromUs[];
+  from_us?: fromUs;
   from_others?: fromOthers[];
 }
 
