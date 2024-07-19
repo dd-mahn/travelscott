@@ -10,6 +10,7 @@ import s3 from "src/utils/aws";
 import destinationPlace from "src/types/destinationPlace";
 import destinationTransportation from "src/types/destinationTransportation";
 import destinationInsight from "src/types/destinationInsight";
+import { destinationAdditionalInfo } from "src/types/destinationAdditionalInfo";
 
 // Default
 const DEFAULT_PAGE = "1";
@@ -124,6 +125,7 @@ type updateData = {
   continent?: string;
   location?: string;
   description?: string;
+  additionalInfo?: destinationAdditionalInfo;
   tags?: string[];
   summary?: string;
   featured?: boolean;
@@ -141,6 +143,7 @@ export const updateDestination = async (req: Request, res: Response) => {
       "continent",
       "location",
       "description",
+      "additionalInfo",
       "tags",
       "summary",
       "featured",
