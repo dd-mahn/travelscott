@@ -167,7 +167,7 @@ const Discover: React.FC = () => {
             >
               <div className="blur-blob blob-1 absolute z-0"></div>
               <div className="z-10 w-fit pt-sect-short">
-                <h1 className="big-heading uppercase text-text-dark">
+                <h1 className="big-heading text-text-dark">
                   {featuredDestinations[0].name}
                 </h1>
                 <div className="flex w-full justify-between">
