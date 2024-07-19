@@ -1,6 +1,7 @@
 type transportationType = {
   name: string;
   description?: string;
+  image?: string;
   options?: [
     {
       name?: string;
