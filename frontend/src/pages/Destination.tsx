@@ -1,9 +1,12 @@
-import { divide } from "lodash";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useFetch from "src/hooks/useFetch";
 import type Destination from "src/types/Destination";
 import { BASE_URL } from "src/utils/config";
+
+// Material Tailwind
+import { Carousel } from "@material-tailwind/react";
+import PlaceDialog from "./DestinationComponents/placeDialog";
 
 const DestinationPage: React.FC = () => {
   // Handle destination data
@@ -14,21 +17,13 @@ const DestinationPage: React.FC = () => {
     error: destinationError,
   } = useFetch<Destination>(`${BASE_URL}/destinations/${id}`);
 
-  // Handle hero image
-  const [imageIndex, setImageIndex] = useState(0);
-  const handleImageChange = () => {
-    const maxIndex =
-      destination !== undefined ? destination.images?.length - 1 : 0;
-    setImageIndex(imageIndex === maxIndex ? 0 : imageIndex + 1);
-  };
-
   // Handle menu board
   const openMenuBoard = () => {
-    const filterBoard = document.querySelector(".menu-board");
-    if (filterBoard) {
+    const menuBoard = document.querySelector(".menu-board");
+    if (menuBoard) {
       return () => {
-        filterBoard.classList.toggle("hidden");
-        filterBoard.classList.toggle("flex");
+        menuBoard.classList.toggle("hidden");
+        menuBoard.classList.toggle("flex");
       };
     }
   };
@@ -45,31 +40,77 @@ const DestinationPage: React.FC = () => {
     setPlaceCategory(category);
   };
 
+  // Handle sticky sections top value
+  const stackedSection: NodeListOf<HTMLElement> =
+    document.querySelectorAll(".stacked-section");
+  stackedSection.forEach((section) => {
+    section.style.top = window.innerHeight - section.offsetHeight + "px";
+  });
+
+  // Handle place catalog
+  const dialogs: NodeListOf<HTMLDialogElement> =
+    document.querySelectorAll("dialog");
+  dialogs.forEach((dialog) => {
+    dialog.addEventListener("click", (e) => {
+      const dialogContent = dialog.querySelector(".dialog-content");
+      if (dialogContent && !dialogContent.contains(e.target as Node)) {
+        dialog.close();
+      }
+    });
+  });
+
+  const openPlaceDialog = (name: string) => {
+    const placeDialog = document.querySelector(`dialog[data-name="${name}"]`);
+
+    console.log(placeDialog);
+
+    if (placeDialog instanceof HTMLDialogElement) {
+      placeDialog.removeAttribute("hidden");
+      placeDialog.showModal();
+    }
+  };
+
   if (destination !== undefined) {
+    const selectedCategoryPlaces =
+      placeCategory === "to_stay"
+        ? destination.places?.to_stay
+        : placeCategory === "to_visit"
+          ? destination.places?.to_visit
+          : destination.places?.to_eat;
+
     return (
       <main className="destination">
-        <section className="hero h-screen">
-          <div
-            className="grid h-9/10 w-full place-items-center"
-            style={{
-              backgroundImage: `url(${destination.images?.[imageIndex]})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-            onClick={handleImageChange}
-          >
-            <div className="flex flex-col items-start gap-0">
-              <span className="span-medium text-text-dark">
+        <section className="hero relative h-screen">
+          <div className="absolute top-0 z-10 grid h-9/10 w-full place-items-center bg-background-dark bg-opacity-30">
+            <div className="flex flex-col items-start gap-0 px-8 py-4">
+              <span className="span-medium ml-2 text-text-dark">
                 {destination.country}
               </span>
-              <h1 className="big-heading leading-normal text-text-dark">
-                {destination.name}
-              </h1>
+              <h1 className="big-heading text-text-dark">{destination.name}</h1>
             </div>
           </div>
+          <Carousel
+            className=""
+            autoplay
+            autoplayDelay={4000}
+            transition={{ duration: 2 }}
+            loop
+          >
+            {destination.images?.map((image, index) => (
+              <div
+                className="grid h-9/10 w-svw place-items-center"
+                style={{
+                  backgroundImage: `url(${image})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+                key={index}
+              ></div>
+            ))}
+          </Carousel>
         </section>
 
-        <section className="brief px-sect py-sect-short">
+        <section id="overview" className="overview px-sect py-sect-short">
           <div className="flex justify-between">
             <div className="flex w-1/2 flex-col gap-4">
               <h2 className="h2-md">{destination.location}</h2>
@@ -93,8 +134,29 @@ const DestinationPage: React.FC = () => {
               >
                 <i className="ri-menu-5-line p-large m-auto text-text-dark"></i>
               </button>
-              <div className="menu-board absolute right-0 top-1/5 z-10 hidden w-1/2 flex-col items-center gap-8 rounded-xl bg-background-light px-4 pb-20 pt-4 shadow-section">
+              <div className="menu-board absolute right-0 top-1/5 z-10 hidden w-2/5 flex-col items-center gap-2 rounded-xl bg-background-light px-8 pb-12 pt-4 shadow-section">
                 <p className="p-large font-prima uppercase">Table of content</p>
+                <span className="span-small">If this is your first time, don't use this!</span>
+                <div className="w-full flex flex-col gap-4 mt-6">
+                  <a href="#overview" className="p-medium">
+                    1. Overview
+                  </a>
+                  <a href="#additional" className="p-medium">
+                    2. Needy information
+                  </a>
+                  <a href="#transportation" className="p-medium">
+                    3. Transportation
+                  </a>
+                  <a href="#places" className="p-medium">
+                    4. Places
+                  </a>
+                  <a href="#insight" className="p-medium">
+                    5. Insight
+                  </a>
+                  <a href="#summary" className="p-medium">
+                    6. Summary
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -110,8 +172,8 @@ const DestinationPage: React.FC = () => {
           </div>
         </section>
 
-        <section className="stacked relative">
-          <section className="additional px-sect sticky top-0 grid grid-cols-2 grid-rows-2 gap-x-4 gap-y-16 py-sect-default">
+        <section className="relative">
+          <section id="additional" className="additional px-sect sticky top-0 grid grid-cols-2 grid-rows-2 gap-x-4 gap-y-16 py-sect-default">
             {Object.entries(destination.additionalInfo).map(([key, value]) => (
               <div key={key} className="flex flex-col gap-4">
                 <h2 className="h2-md">
@@ -130,7 +192,7 @@ const DestinationPage: React.FC = () => {
             ))}
           </section>
 
-          <section className="transportation px-sect sticky -top-sect-default rounded-3xl bg-light-brown pb-sect-default pt-sect-short shadow-section">
+          <section id="transportation" className="stacked-section transportation px-sect sticky rounded-3xl bg-light-brown pb-sect-short pt-sect-short shadow-section">
             <div className="mt-sect-short flex flex-col gap-8">
               <h1 className="h1-md">
                 <i className="ri-car-fill"></i> Transportation
@@ -209,7 +271,7 @@ const DestinationPage: React.FC = () => {
             </div>
           </section>
 
-          <section className="places px-sect sticky -top-sect-default rounded-3xl bg-light-green pb-sect-default pt-sect-short shadow-section">
+          <section id="places" className="stacked-section places px-sect sticky rounded-3xl bg-light-green pb-sect-short pt-sect-short shadow-section">
             <div className="mt-sect-short flex flex-col gap-20">
               <h1 className="h1-md">
                 <i className="ri-map-pin-fill"></i> Places
@@ -293,43 +355,30 @@ const DestinationPage: React.FC = () => {
               )}
             </div>
 
-            <div className="mt-20 grid grid-cols-4 gap-x-4 gap-y-8">
-              {placeCategory === "to_stay"
-                ? destination.places?.to_stay?.map((place, index) => (
-                    <div className="flex flex-col gap-4">
-                      <img
-                        className="h-0.35svh w-full rounded-xl"
-                        src={place?.image_url}
-                        alt="place image"
-                      />
-                      <span className="span-medium">{place?.name}</span>
-                    </div>
-                  ))
-                : placeCategory === "to_visit"
-                  ? destination.places?.to_visit?.map((place, index) => (
-                      <div className="flex flex-col gap-4">
-                        <img
-                          className="h-0.35svh w-full rounded-xl"
-                          src={place?.image_url}
-                          alt="place image"
-                        />
-                        <span className="span-medium">{place?.name}</span>
-                      </div>
-                    ))
-                  : destination.places?.to_eat?.map((place, index) => (
-                      <div className="flex flex-col gap-4">
-                        <img
-                          className="h-0.35svh w-full rounded-xl"
-                          src={place?.image_url}
-                          alt="place image"
-                        />
-                        <span className="span-medium">{place?.name}</span>
-                      </div>
-                    ))}
+            <div className="mt-20 grid grid-cols-3 gap-x-8 gap-y-16">
+              {selectedCategoryPlaces?.map((place, index) => (
+                <>
+                  <div
+                    key={index}
+                    className="flex cursor-pointer flex-col gap-4"
+                    onClick={() => {
+                      openPlaceDialog(place.name);
+                    }}
+                  >
+                    <img
+                      className="h-0.5svh rounded-xl"
+                      src={place?.image_url}
+                      alt="place image"
+                    />
+                    <span className="span-medium">{place?.name}</span>
+                  </div>
+                  <PlaceDialog place={place} category={placeCategory} />
+                </>
+              ))}
             </div>
           </section>
 
-          <section className="insight px-sect sticky -top-sect-default flex flex-col gap-20 rounded-3xl bg-background-light pb-sect-default pt-sect-short shadow-section">
+          <section id="insight" className="stacked-section insight px-sect sticky flex flex-col gap-20 rounded-3xl bg-light-brown pb-sect-default pt-sect-short shadow-section">
             <h1 className="h1-md">
               <i className="ri-eye-fill"></i>Insight
             </h1>
@@ -339,7 +388,7 @@ const DestinationPage: React.FC = () => {
               <div className="grid grid-cols-3 gap-x-4 gap-y-8">
                 {destination.insight?.from_us?.tips.map((tip, index) => (
                   <div
-                    className="rounded-xl px-6 py-4 shadow-component"
+                    className="rounded-xl bg-background-light bg-opacity-70 px-6 py-4 shadow-component"
                     key={index}
                   >
                     <p className="p-medium text-text-light">{tip}</p>
@@ -361,7 +410,7 @@ const DestinationPage: React.FC = () => {
               <div className="mt-8 flex flex-wrap gap-4">
                 {destination.insight?.from_others?.map((article, index) => (
                   <div
-                    className="rounded-xl px-6 py-2 shadow-component"
+                    className="rounded-xl bg-background-light bg-opacity-70 px-6 py-2 shadow-component"
                     key={index}
                   >
                     <a
@@ -380,18 +429,20 @@ const DestinationPage: React.FC = () => {
           </section>
         </section>
 
-        <section className="summary px-sect flex flex-col gap-sect-default rounded-3xl bg-background-light py-sect-medium">
+        <section id="summary" className="summary px-sect flex flex-col gap-sect-default rounded-3xl bg-background-light py-sect-medium">
           <h1 className="h1-md">
             <i className="ri-shining-2-fill"></i> Summary
           </h1>
           <div className="grid place-items-center">
-            <p className="p-medium w-2/5">{destination.summary} <br /> <br /> Have a good trip!</p>
-
+            <p className="p-medium w-2/5">
+              {destination.summary} <br /> <br />{" "}
+              <p className="p-medium">Have a good trip!</p>
+            </p>
           </div>
         </section>
 
         <section className="related px-sect py-sect-short">
-            <h2 className="h2-md">Related destination</h2>
+          <h2 className="h2-md">Related destination</h2>
         </section>
       </main>
     );
