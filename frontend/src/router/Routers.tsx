@@ -7,6 +7,7 @@ import Test from "src/pages/Test";
 import Home from "src/pages/Home";
 import Discover from "src/pages/Discover";
 import Country from "src/pages/Country";
+import DestinationPage from "src/pages/Destination";
 
 
 const Routers = () => {
@@ -17,7 +18,7 @@ const Routers = () => {
       <Route path="/contact" element={<Contact />} />
       <Route path="/discover" element={<Discover />} />
       <Route path="/discover/countries/:id" element={<Country />} />
-      
+      <Route path="/discover/destinations/:id" element={<DestinationPage/>}/>
     </Routes>
   );
 };
