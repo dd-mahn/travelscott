@@ -1,5 +1,7 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+const withMT = require("@material-tailwind/react/utils/withMT");
+
+module.exports = withMT({
   purge: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   darkMode: "selector", // or 'media' or 'class'
   theme: {
@@ -82,6 +84,7 @@ module.exports = {
         30: "30deg",
       },
       height: {
+        "9/10": "90%",
         "0.3svh": "30svh",
         "0.35svh": "35svh",
         "0.4svh": "40svh",
@@ -94,6 +97,7 @@ module.exports = {
         "2.25svh": "225svh",
       },
       width: {
+        "0.2svw": "20svw",
         "0.3svw": "30svw",
         "0.35svw": "35svw",
         "0.4svw": "40svw",
@@ -152,6 +156,7 @@ module.exports = {
         0.23: "23%",
         "1/4": "25%",
         "1/3": "33.33%",
+        "2/3": "66.66%",
         "2/5": "40%",
         "1/2": "50%",
         "3/4": "75%",
@@ -164,4 +169,4 @@ module.exports = {
     },
   },
   plugins: [],
-};
+});
