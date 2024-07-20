@@ -265,8 +265,7 @@ const CountryPage: React.FC = () => {
   const [visibleSection, setVisibleSection] = useState("");
 
   const toggleInfo = (sectionId: string) => {
-    setVisibleSection(sectionId);
-    console.log(sectionId + " " + visibleSection);
+    setVisibleSection(prevSection => prevSection === sectionId ? '' : sectionId);
   };
 
   if (country !== undefined)
