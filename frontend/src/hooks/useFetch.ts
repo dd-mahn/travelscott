@@ -14,7 +14,6 @@ const useFetch = <T,>(url: string, deps: any[] = []) => {
   // Function to fetch data from the provided URL
   const fetchData = useCallback(async () => {
     setLoading(true);
-
     try {
       const res = await fetch(url);
       if (!res.ok) {
