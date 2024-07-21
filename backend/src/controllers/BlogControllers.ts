@@ -25,6 +25,7 @@ interface updateData {
   category?: string;
   image?: string;
   content?: contentType;
+  related_destination?: string;
   tags?: string[];
   featured?: boolean;
 }
@@ -75,11 +76,11 @@ export const getBlogs = async (req: Request, res: Response) => {
   try {
     const {
       page = DEFAULT_PAGE,
-      pageSize = DEFAULT_LIMIT,
-    }: { page?: string; pageSize?: string } = req.query;
+      limit = DEFAULT_LIMIT,
+    }: { page?: string; limit?: string } = req.query;
 
     const pageNumber = parseInt(page);
-    const limitNumber = parseInt(pageSize);
+    const limitNumber = parseInt(limit);
 
     const skip = (pageNumber - 1) * limitNumber;
 
@@ -138,6 +139,7 @@ export const updateBlog = async (req: Request, res: Response) => {
       "image",
       "content",
       "tags",
+      "related_destination",
       "featured",
     ];
     fieldsToUpdate.forEach((field) => {
