@@ -19,6 +19,7 @@ import Pagination from "src/components/ui/Pagination";
 import DestinationCard from "src/components/ui/DestinationCard";
 import CountryCard from "src/components/ui/CountryCard";
 import { FetchCountriesType, FetchDestinationType } from "src/types/FetchData";
+import RelatedSections from "src/components/ui/RelatedSections";
 
 const Discover: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -245,6 +246,7 @@ const Discover: React.FC = () => {
       {/* RELATED ARTICLES SECTION */}
       <section className="related px-sect flex flex-col">
         <h2 className="h2-md">Related articles</h2>
+        <RelatedSections type={"blogs"} data={selectedContinent} />
       </section>
 
       {/* DESTINATION SECTION */}
