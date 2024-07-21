@@ -78,7 +78,7 @@ const Footer = () => {
       </div>
 
       <div className="px-sect flex items-end justify-between">
-        <div className="flex lg:gap-8 xl:gap-10 2xl:gap-12 3xl:gap-12">
+        <div className="z-10 flex lg:gap-8 xl:gap-10 2xl:gap-12 3xl:gap-12">
           <nav className="flex flex-col lg:gap-2 2xl:gap-4">
             <span className="font-medium text-text-light lg:text-lg 2xl:text-xl">
               Sitemap
@@ -119,7 +119,9 @@ const Footer = () => {
           src={footerVideo}
           className="absolute left-0 top-0 h-full w-full object-cover"
         ></video> */}
-        <h1 className="font-kaushan select-none text-text-light lg:mr-16 2xl:mr-32 lg:text-8xl xl:text-13xl 2xl:text-14xl 3xl:text-15xl">TravelScott</h1>
+        <h1 className="font-kaushan select-none text-text-light lg:mr-16 lg:text-8xl xl:text-13xl 2xl:mr-32 2xl:text-14xl 3xl:text-15xl">
+          TravelScott
+        </h1>
       </div>
 
       <div className="px-sect flex flex-row items-center justify-between border-t border-solid border-gray lg:h-8 2xl:h-10">

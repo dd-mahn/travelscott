@@ -13,8 +13,8 @@ const navs = [
     display: "Discover",
   },
   {
-    path: "/insight",
-    display: "Insight",
+    path: "/inspiration",
+    display: "Inspiration",
   },
   {
     path: "/contact",
