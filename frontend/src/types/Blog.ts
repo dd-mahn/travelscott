@@ -16,6 +16,8 @@ interface Blog {
   image: string;
   content: blogContent[];
   time: string;
+  tags: string[];
+  related_destination: string;
   featured: boolean;
 }
 
