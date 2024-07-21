@@ -170,7 +170,7 @@ const StarterBlogs: React.FC<StarterBlogsProps> = ({ blogs }) => {
 
   // Displaying starter blogs
   const starterBlogs = useMemo(
-    () => blogs.filter((blog) => blog.category === "Starter" && blog.image),
+    () => blogs.filter((blog) => blog.category === "FirstTimeAbroad" && blog.image),
     [blogs],
   );
 
