@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import DestinationCard from "src/components/ui/DestinationCard";
 import Pagination from "src/components/ui/Pagination";
+import RelatedSections from "src/components/ui/RelatedSections";
 import useFetch from "src/hooks/useFetch";
 import type Country from "src/types/Country";
 import Destination from "src/types/Destination";
-import { FetchDestinationType } from "src/types/FetchData";
+import { FetchBlogsType, FetchDestinationType } from "src/types/FetchData";
 import { BASE_URL } from "src/utils/config";
 
 const blogDemo = [
@@ -192,7 +193,6 @@ const CountryPage: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [destinations, setDestinations] = useState<Destination[]>([]);
   const [currentBlogIndex, setCurrentBlogIndex] = useState(0);
-  const [currentBlog, setCurrentBlog] = useState(blogDemo[currentBlogIndex]);
 
   // Handle fetching country data
   const { id } = useParams();
@@ -204,14 +204,24 @@ const CountryPage: React.FC = () => {
 
   const country = countryData;
 
+  // Handle blog data
+  const {
+    data: blogData,
+    loading: blogLoading,
+    error: blogError,
+  } = useFetch<FetchBlogsType>(`${BASE_URL}/blogs?limit=20`);
+
+  const blogs = blogData?.result !== undefined ? blogData.result.filter((blog) => blog.tags.includes(country?.name as string) ) : blogDemo;
+
   // Handle blog display
+  const [currentBlog, setCurrentBlog] = useState(blogs[currentBlogIndex]);
 
   useEffect(() => {
-    setCurrentBlog(blogDemo[currentBlogIndex]);
+    setCurrentBlog(blogs[currentBlogIndex]);
   }, [currentBlogIndex]);
 
   const handleNextBlog = () => {
-    if (currentBlogIndex < blogDemo.length - 1) {
+    if (currentBlogIndex < blogs.length - 1) {
       setCurrentBlogIndex(currentBlogIndex + 1);
     }
   };
@@ -265,8 +275,17 @@ const CountryPage: React.FC = () => {
   const [visibleSection, setVisibleSection] = useState("");
 
   const toggleInfo = (sectionId: string) => {
-    setVisibleSection(prevSection => prevSection === sectionId ? '' : sectionId);
+    setVisibleSection((prevSection) =>
+      prevSection === sectionId ? "" : sectionId,
+    );
   };
+
+  // Handle stacked section top value
+  const stackedSection: NodeListOf<HTMLElement> =
+    document.querySelectorAll(".stacked-section");
+  stackedSection.forEach((section) => {
+    section.style.top = window.innerHeight - section.offsetHeight + "px";
+  });
 
   if (country !== undefined)
     return (
@@ -303,47 +322,47 @@ const CountryPage: React.FC = () => {
             ))}
           </div>
 
-          <div className="grid w-2/5 grid-cols-2 grid-rows-3">
+          <div className="grid w-2/5 grid-cols-2 grid-rows-3 gap-y-4">
             <div className="flex flex-col gap-2">
               <span className="span-medium uppercase">
                 <i className="ri-global-line"></i> Language
               </span>
-              <p className="p-medium">{country.language}</p>
+              <p className="p-regular">{country.language}</p>
             </div>
 
             <div className="flex flex-col gap-2">
               <span className="span-medium uppercase">
                 <i className="ri-money-dollar-circle-line"></i> Currency
               </span>
-              <p className="p-medium">{country.currency}</p>
+              <p className="p-regular">{country.currency}</p>
             </div>
 
             <div className="flex flex-col gap-2">
               <span className="span-medium uppercase">
                 <i className="ri-government-line"></i> Capital
               </span>
-              <p className="p-medium">{country.capital}</p>
+              <p className="p-regular">{country.capital}</p>
             </div>
 
             <div className="flex flex-col gap-2">
               <span className="span-medium uppercase">
                 <i className="ri-visa-fill"></i> Visa requirement
               </span>
-              <p className="p-medium">{country.visaRequirement}</p>
+              <p className="p-regular">{country.visaRequirement}</p>
             </div>
 
             <div className="flex flex-col gap-2">
               <span className="span-medium uppercase">
                 <i className="ri-phone-line"></i> Dial-in code
               </span>
-              <p className="p-medium">{country.dialInCode}</p>
+              <p className="p-regular">{country.dialInCode}</p>
             </div>
 
             <div className="flex flex-col gap-2">
               <span className="span-medium uppercase">
                 <i className="ri-time-line"></i> Time zone
               </span>
-              <p className="p-medium">{country.timeZone}</p>
+              <p className="p-regular">{country.timeZone}</p>
             </div>
           </div>
         </section>
@@ -364,7 +383,7 @@ const CountryPage: React.FC = () => {
               <div className="flex flex-row items-center justify-between border-b pb-8">
                 <h2 className="h2-md">When to visit?</h2>
                 <button
-                  className="rounded-full border lg:h-20 lg:w-20 xl:h-24 xl:w-24 2xl:h-28 2xl:w-28 3xl:h-28 3xl:w-28"
+                  className={`${visibleSection === "whenToVisit" ? "rotate-180" : ""} rounded-full border lg:h-20 lg:w-20 xl:h-24 xl:w-24 2xl:h-28 2xl:w-28 3xl:h-28 3xl:w-28`}
                   title="open btn"
                   onClick={() => toggleInfo("whenToVisit")}
                 >
@@ -384,7 +403,7 @@ const CountryPage: React.FC = () => {
               <div className="flex flex-row items-center justify-between border-b pb-8">
                 <h2 className="h2-md">Transportation</h2>
                 <button
-                  className="rounded-full border lg:h-20 lg:w-20 xl:h-24 xl:w-24 2xl:h-28 2xl:w-28 3xl:h-28 3xl:w-28"
+                  className={`${visibleSection === "transportation" ? "rotate-180" : ""} rounded-full border lg:h-20 lg:w-20 xl:h-24 xl:w-24 2xl:h-28 2xl:w-28 3xl:h-28 3xl:w-28`}
                   title="open btn"
                   onClick={() => toggleInfo("transportation")}
                 >
@@ -404,7 +423,7 @@ const CountryPage: React.FC = () => {
               <div className="flex flex-row items-center justify-between border-b pb-8">
                 <h2 className="h2-md">Health & Safety</h2>
                 <button
-                  className="rounded-full border lg:h-20 lg:w-20 xl:h-24 xl:w-24 2xl:h-28 2xl:w-28 3xl:h-28 3xl:w-28"
+                  className={`${visibleSection === "healthAndSafety" ? "rotate-180" : ""} rounded-full border lg:h-20 lg:w-20 xl:h-24 xl:w-24 2xl:h-28 2xl:w-28 3xl:h-28 3xl:w-28`}
                   title="open btn"
                   onClick={() => toggleInfo("healthAndSafety")}
                 >
@@ -421,7 +440,7 @@ const CountryPage: React.FC = () => {
             </div>
           </div>
           {/*BLOG SECTION  */}
-          <section className="blogs sticky -top-sect-semi z-20 flex flex-col items-start gap-16 rounded-3xl bg-light-brown pt-sect-short shadow-section">
+          <section className="stacked-section blogs sticky -top-sect-semi z-20 flex flex-col items-start gap-16 rounded-3xl bg-light-brown pt-sect-short shadow-section">
             <h1 className="h1-md mt-sect-short w-full text-center">
               Latest article
             </h1>
@@ -457,7 +476,7 @@ const CountryPage: React.FC = () => {
                   : { justifyContent: "flex-end" }
               }
             >
-              {blogDemo.length > 1 && currentBlogIndex > 0 && (
+              {blogs.length > 1 && currentBlogIndex > 0 && (
                 <button
                   className="underline-btn uppercase"
                   onClick={handlePrevBlog}
@@ -467,20 +486,19 @@ const CountryPage: React.FC = () => {
                 </button>
               )}
 
-              {blogDemo.length > 1 &&
-                currentBlogIndex < blogDemo.length - 1 && (
-                  <button
-                    className="underline-btn uppercase"
-                    onClick={handleNextBlog}
-                  >
-                    Next
-                    <i className="ri-arrow-right-line"></i>
-                  </button>
-                )}
+              {blogs.length > 1 && currentBlogIndex < blogs.length - 1 && (
+                <button
+                  className="underline-btn uppercase"
+                  onClick={handleNextBlog}
+                >
+                  Next
+                  <i className="ri-arrow-right-line"></i>
+                </button>
+              )}
             </div>
           </section>
           {/* DESTINATION SECTION */}
-          <section className="destinations px-sect sticky -top-4 z-30 flex flex-col items-center gap-8 rounded-3xl bg-light-green py-sect-short shadow-section">
+          <section className="stacked-section destinations px-sect sticky -top-4 z-30 flex flex-col items-center gap-8 rounded-3xl bg-light-green py-sect-short shadow-section">
             <h1 className="h1-md m-sect-short uppercase">
               Country's destinations
             </h1>
@@ -552,8 +570,9 @@ const CountryPage: React.FC = () => {
         </section>
 
         {/* MORE COUNTRIES SECTION */}
-        <section className="more px-sect py-sect-default">
-          <h2 className="h2-md">More countries</h2>
+        <section className="more py-sect-default">
+          <h2 className="h2-md px-sect">More countries</h2>
+          <RelatedSections type="country" data={country} />
         </section>
       </main>
     );
