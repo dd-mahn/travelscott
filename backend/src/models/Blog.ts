@@ -1,40 +1,50 @@
 import mongoose from "mongoose";
 import blogContent from "src/types/blogContent";
+import { getCurrentDate } from "src/utils/getCurrentDate";
 
 const blogSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true
+    required: true,
   },
   author: {
     type: String,
     required: true,
   },
-  category:{
+  category: {
     type: String,
     default: "",
     required: true,
-    enum: ["Wilderness", "Culture&Heritage", "Food&Drink", "SoloJourneys", "CityScape", "Season&Festival", "Relaxation", "FirstTimeAbroad"]
+    enum: [
+      "Wilderness",
+      "Culture&Heritage",
+      "Food&Drink",
+      "SoloJourneys",
+      "CityScape",
+      "Season&Festival",
+      "Relaxation",
+      "FirstTimeAbroad",
+    ],
   },
   image: {
     type: String,
-    default: "" 
+    default: "",
   },
   content: {
     type: Array,
     default: [],
   },
   time: {
-    type: Date,
-    default: Date.now
+    type: String,
+    default: getCurrentDate(),
   },
   tags: {
     type: [String],
     default: [],
   },
-  relatedDestination: {
+  related_destination: {
     type: String,
-    default: ""
+    default: "",
   },
   featured: {
     type: Boolean,
