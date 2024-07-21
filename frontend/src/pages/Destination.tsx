@@ -81,7 +81,7 @@ const DestinationPage: React.FC = () => {
     return (
       <main className="destination">
         <section className="hero relative h-screen">
-          <div className="absolute top-0 z-10 grid h-9/10 w-full place-items-center bg-background-dark bg-opacity-30">
+          <div className="absolute top-0 z-10 grid h-9/10 w-full place-items-center bg-background-dark bg-opacity-20">
             <div className="flex flex-col items-start gap-0 px-8 py-4">
               <span className="span-medium ml-2 text-text-dark">
                 {destination.country}
@@ -231,8 +231,8 @@ const DestinationPage: React.FC = () => {
                       <div className="flex flex-row gap-8">
                         <i className="ri-information-2-line p-large mt-4"></i>
                         <div className="flex flex-col">
-                          <p className="p-medium">{type.description}</p>
-                          <ul className="mt-2">
+                          <p className="p-regular">{type.description}</p>
+                          <ul className="">
                             {type.options?.map((option, index) => (
                               <li
                                 key={index}
@@ -246,7 +246,7 @@ const DestinationPage: React.FC = () => {
                       </div>
                       <div className="flex flex-row items-center gap-8">
                         <i className="ri-price-tag-3-line p-large"></i>
-                        <p className="p-medium">
+                        <p className="p-regular">
                           {type.price_range?.currency &&
                           type.price_range?.min_price &&
                           type.price_range?.max_price
@@ -261,7 +261,7 @@ const DestinationPage: React.FC = () => {
                       {type.quick_review && (
                         <div className="flex items-start gap-8">
                           <i className="ri-arrow-right-line p-large"></i>
-                          <p className="p-medium">{type.quick_review}</p>
+                          <p className="p-regular">{type.quick_review}</p>
                         </div>
                       )}
                     </div>
@@ -429,11 +429,11 @@ const DestinationPage: React.FC = () => {
           </section>
         </section>
 
-        <section id="summary" className="summary px-sect flex flex-col gap-sect-default rounded-3xl bg-background-light py-sect-medium">
+        <section id="summary" className="summary px-sect flex flex-col gap-sect-short rounded-3xl bg-background-light py-sect-medium">
           <h1 className="h1-md">
             <i className="ri-shining-2-fill"></i> Summary
           </h1>
-          <div className="grid place-items-center">
+          <div className="grid place-items-center mt-sect-short">
             <p className="p-medium w-2/5">
               {destination.summary} <br /> <br />{" "}
               <p className="p-medium">Have a good trip!</p>
