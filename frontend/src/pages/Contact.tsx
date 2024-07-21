@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import planeIcon from "src/assets/svg/plane-icon.svg";
 import "src/styles/contact.css";
 
 const Contact: React.FC = () => {
+  const [visibleSection, setVisibleSection] = useState("");
+
+  const toggleInfo = (sectionId: string) => {
+    setVisibleSection((prevSection) =>
+      prevSection === sectionId ? "" : sectionId,
+    );
+  };
+
   return (
-    <main className="contact px-sect relative flex flex-col items-center gap-8 py-sect-short">
-      
+    <main className="contact px-sect relative mt-sect-short flex flex-col items-center pb-sect-default pt-sect-short">
       <section className="emailing z-20 w-full rounded-3xl bg-background-light px-12 py-8 shadow-section">
         <div className="flex flex-row items-center justify-between border-b pb-8">
           <h2 className="h2-md">
@@ -13,13 +20,18 @@ const Contact: React.FC = () => {
             Looking to collaborate with us commercially?
           </h2>
           <button
-            className="rounded-full border lg:h-20 lg:w-20 xl:h-24 xl:w-24 2xl:h-28 2xl:w-28 3xl:h-28 3xl:w-28"
+            className={`${visibleSection === "emailing" ? "rotate-180" : ""} rounded-full border lg:h-20 lg:w-20 xl:h-24 xl:w-24 2xl:h-28 2xl:w-28 3xl:h-28 3xl:w-28`}
             title="open btn"
+            onClick={() => {
+              toggleInfo("emailing");
+            }}
           >
             <i className="ri-arrow-up-line p-large"></i>
           </button>
         </div>
-        <div className="flex flex-col gap-2 py-8">
+        <div
+          className={`${visibleSection === "emailing" ? "flex" : "hidden"} flex-col gap-2 py-8`}
+        >
           <p className="p-regular">Reach out to us via:</p>
           <div className="flex flex-row gap-24">
             <div className="span-medium flex items-center">
@@ -36,17 +48,49 @@ const Contact: React.FC = () => {
         </div>
       </section>
 
-      <section className="feedback z-20 w-full rounded-3xl bg-background-light px-12 py-8 shadow-section">
+      <section className="contribute z-20 w-full rounded-3xl bg-background-light px-12 py-8 shadow-section">
         <div className="flex flex-row items-center justify-between border-b pb-8">
-          <h2 className="h2-md">Want to give us a feedback?</h2>
+          <h2 className="h2-md">Want to share your experience as resource?</h2>
           <button
-            className="rounded-full border lg:h-20 lg:w-20 xl:h-24 xl:w-24 2xl:h-28 2xl:w-28 3xl:h-28 3xl:w-28"
+            className={`${visibleSection === "contribute" ? "rotate-180" : ""} rounded-full border lg:h-20 lg:w-20 xl:h-24 xl:w-24 2xl:h-28 2xl:w-28 3xl:h-28 3xl:w-28`}
             title="open btn"
+            onClick={() => {
+              toggleInfo("contribute");
+            }}
           >
             <i className="ri-arrow-up-line p-large"></i>
           </button>
         </div>
-        <div className="flex flex-row justify-between py-8">
+        <div
+          className={`${visibleSection === "contribute" ? "flex" : "hidden"} flex flex-row items-center justify-between py-8`}
+        >
+          <p className="p-regular">
+            We love seeing your cherished memories and believe others will too!{" "}
+            <br />
+            Let us help you share them with the world.
+          </p>
+          <button className="underline-btn">
+            Follow this link <i className="ri-arrow-right-up-line"></i>
+          </button>
+        </div>
+      </section>
+
+      <section className="feedback z-20 w-full rounded-3xl bg-background-light px-12 py-8 shadow-section">
+        <div className="flex flex-row items-center justify-between border-b pb-8">
+          <h2 className="h2-md">Want to give us a feedback?</h2>
+          <button
+            className={`${visibleSection === "feedback" ? "rotate-180" : ""} rounded-full border lg:h-20 lg:w-20 xl:h-24 xl:w-24 2xl:h-28 2xl:w-28 3xl:h-28 3xl:w-28`}
+            title="open btn"
+            onClick={() => {
+              toggleInfo("feedback");
+            }}
+          >
+            <i className="ri-arrow-up-line p-large"></i>
+          </button>
+        </div>
+        <div
+          className={`${visibleSection === "feedback" ? "flex" : "hidden"} flex flex-row justify-between py-8`}
+        >
           <p className="p-regular lg:w-1/2 xl:w-1/2 2xl:w-1/2 3xl:w-1/2">
             We’re seeking input from global users to enhance its functionality.
             We believe that collective insights and resources can propel our
@@ -116,28 +160,6 @@ const Contact: React.FC = () => {
               Send it <img src={planeIcon} alt="" />
             </button>
           </form>
-        </div>
-      </section>
-
-      <section className="contribute z-20 w-full rounded-3xl bg-background-light px-12 py-8 shadow-section">
-        <div className="flex flex-row items-center justify-between border-b pb-8">
-          <h2 className="h2-md">Want to share your experience as resource?</h2>
-          <button
-            className="rounded-full border lg:h-20 lg:w-20 xl:h-24 xl:w-24 2xl:h-28 2xl:w-28 3xl:h-28 3xl:w-28"
-            title="open btn"
-          >
-            <i className="ri-arrow-up-line p-large"></i>
-          </button>
-        </div>
-        <div className="flex flex-row items-center justify-between py-8">
-          <p className="p-regular">
-            We love seeing your cherished memories and believe others will too!{" "}
-            <br />
-            Let us help you share them with the world.
-          </p>
-          <button className="underline-btn">
-            Follow this link <i className="ri-arrow-right-up-line"></i>
-          </button>
         </div>
       </section>
 
