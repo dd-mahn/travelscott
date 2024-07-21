@@ -16,7 +16,7 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ destination }) => {
       <div
         className="relative flex h-0.5svh items-center justify-center rounded-xl bg-gray"
         onClick={() => {
-          navigate(`destinations/${destination._id}`);
+          navigate(`/discover/destinations/${destination._id}`);
         }}
       >
         <img
