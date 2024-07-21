@@ -21,6 +21,10 @@ import { useHorizontalScroll } from "src/utils/useHorizontalScroll";
 import EarthScene from "src/pages/HomeComponents/EarthScene";
 import StarterBlogs from "./HomeComponents/StarterBlog";
 import Blog from "src/types/Blog";
+import useFetch from "src/hooks/useFetch";
+import { FetchBlogsType } from "src/types/FetchData";
+import { BASE_URL } from "src/utils/config";
+import { createBlogChunks } from "src/utils/createBlogChunks";
 
 const featuredDemo = [
   {
@@ -85,217 +89,32 @@ const featuredDemo = [
   },
 ];
 
-const blogDemo = [
-  {
-    title: "The 10 Best Destinations for Solo Travelers",
-    author: "Someone",
-    category: "Starter",
-    image:
-      "https://explore.bustickets.com/wp-content/uploads/2019/09/solo-travel-backpack-tips.jpg",
-    content: [
-      {
-        sectionTitle: "Introduction",
-        sectionImages: [],
-        sectionText: [
-          "Traveling alone can be a rewarding experience. It allows you to explore new places at your own pace, meet new people, and learn more about yourself. If you're thinking about taking a solo trip, here are 10 destinations that are perfect for solo travelers.",
-        ],
-      },
-    ],
-    time: new Date().toLocaleDateString("default", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    }),
-    featured: false,
-  },
-  {
-    title: "How to Plan a Budget-Friendly Trip to Europe",
-    author: "Someone",
-    category: "Starter",
-    image:
-      "https://i.pinimg.com/564x/08/59/ac/0859ac1c3569b78bbc0a20239078a557.jpg",
-    content: [
-      {
-        sectionTitle: "Introduction",
-        sectionImages: [],
-        sectionText: [
-          "Traveling to Europe can be expensive, but it doesn't have to break the bank. With a little planning and some budget-friendly tips, you can enjoy a fantastic trip to Europe without spending a fortune. Here are some tips to help you plan a budget-friendly trip to Europe.",
-        ],
-      },
-    ],
-    time: new Date().toLocaleDateString("default", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    }),
-    featured: false,
-  },
-  {
-    title: "The Best Destinations for Food Lovers",
-    author: "Someone",
-    category: "Starter",
-    image:
-      "https://www.mistay.in/travel-blog/content/images/2020/05/cover-12.jpg",
-    content: [
-      {
-        sectionTitle: "Introduction",
-        sectionImages: [],
-        sectionText: [
-          "If you're a food lover, there's no better way to explore the world than through its cuisine. From street food stalls to Michelin-starred restaurants, there's something for every palate. Here are some of the best destinations for food lovers.",
-        ],
-      },
-    ],
-    time: new Date().toLocaleDateString("default", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    }),
-    featured: false,
-  },
-  {
-    title: "The Ultimate Guide to Adventure Travel",
-    author: "Someone",
-    category: "Starter",
-    image:
-      "https://i.pinimg.com/564x/fa/41/d1/fa41d199e9be453fe1f0dc103e4c615f.jpg",
-    content: [
-      {
-        sectionTitle: "Introduction",
-        sectionImages: [],
-        sectionText: [
-          "If you're an adrenaline junkie, adventure travel is the perfect way to get your fix. From hiking and biking to surfing and skydiving, there are endless opportunities for adventure around the world. Here's everything you need to know about adventure travel.",
-        ],
-      },
-    ],
-    time: new Date().toLocaleDateString("default", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    }),
-    featured: false,
-  },
-  {
-    title: "The 10 Best Destinations for Solo Travelers",
-    author: "Someone",
-    category: "SoloTravel",
-    image:
-      "https://explore.bustickets.com/wp-content/uploads/2019/09/solo-travel-backpack-tips.jpg",
-    content: [
-      {
-        sectionTitle: "Introduction",
-        sectionImages: [],
-        sectionText: [
-          "Traveling alone can be a rewarding experience. It allows you to explore new places at your own pace, meet new people, and learn more about yourself. If you're thinking about taking a solo trip, here are 10 destinations that are perfect for solo travelers.",
-        ],
-      },
-    ],
-    time: new Date().toLocaleDateString("default", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    }),
-    featured: true,
-  },
-  {
-    title: "How to Plan a Budget-Friendly Trip to Europe",
-    author: "Someone",
-    category: "Nature&Adventure",
-    image:
-      "https://i.pinimg.com/564x/08/59/ac/0859ac1c3569b78bbc0a20239078a557.jpg",
-    content: [
-      {
-        sectionTitle: "Introduction",
-        sectionImages: [],
-        sectionText: [
-          "Traveling to Europe can be expensive, but it doesn't have to break the bank. With a little planning and some budget-friendly tips, you can enjoy a fantastic trip to Europe without spending a fortune. Here are some tips to help you plan a budget-friendly trip to Europe.",
-        ],
-      },
-    ],
-    time: new Date().toLocaleDateString("default", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    }),
-    featured: false,
-  },
-  {
-    title: "The Best Destinations for Food Lovers",
-    author: "Someone",
-    category: "Trending",
-    image:
-      "https://www.mistay.in/travel-blog/content/images/2020/05/cover-12.jpg",
-    content: [
-      {
-        sectionTitle: "Introduction",
-        sectionImages: [],
-        sectionText: [
-          "If you're a food lover, there's no better way to explore the world than through its cuisine. From street food stalls to Michelin-starred restaurants, there's something for every palate. Here are some of the best destinations for food lovers.",
-        ],
-      },
-    ],
-    time: new Date().toLocaleDateString("default", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    }),
-    featured: false,
-  },
-  {
-    title: "The Ultimate Guide to Adventure Travel",
-    author: "Someone",
-    category: "Culture&Heritage",
-    image:
-      "https://i.pinimg.com/564x/fa/41/d1/fa41d199e9be453fe1f0dc103e4c615f.jpg",
-    content: [
-      {
-        sectionTitle: "Introduction",
-        sectionImages: [],
-        sectionText: [
-          "If you're an adrenaline junkie, adventure travel is the perfect way to get your fix. From hiking and biking to surfing and skydiving, there are endless opportunities for adventure around the world. Here's everything you need to know about adventure travel.",
-        ],
-      },
-    ],
-    time: new Date().toLocaleDateString("default", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    }),
-    featured: false,
-  },
-];
-
-const normalBlogs = blogDemo.filter(
-  (blog) => blog.featured === false && blog.category !== "Starter",
-);
-const featuredBlogs = blogDemo.filter(
-  (blog) => blog.featured === true && blog.category !== "Starter",
-);
-
-function createBlogChunks(featuredBlogs: Blog[], normalBlogs: Blog[]) {
-  const chunks = [];
-  let featuredIndex = 0;
-  let normalIndex = 0;
-
-  while (
-    featuredIndex < featuredBlogs.length &&
-    normalIndex + 2 < normalBlogs.length
-  ) {
-    const chunk = [
-      featuredBlogs[featuredIndex],
-      ...normalBlogs.slice(normalIndex, normalIndex + 3),
-    ];
-    chunks.push(chunk);
-
-    featuredIndex += 1;
-    normalIndex += 3;
-  }
-
-  return chunks;
-}
-
 const Home: React.FC = () => {
   const scrollRef = useHorizontalScroll();
-  const blogChunks = createBlogChunks(featuredBlogs, normalBlogs);
+
+  // Handle blog data
+  const {
+    data: blogsData,
+    loading: blogsLoading,
+    error: blogsError,
+  } = useFetch<FetchBlogsType>(`${BASE_URL}/blogs?limit=100`);
+
+  const blogs = blogsData?.result !== undefined ? blogsData.result : [];
+  const blogChunks = createBlogChunks(blogs);
+  console.log(blogChunks);
+
+  // Handle chunks display
+  const [chunkIndex, setChunkIndex] = useState(0);
+  const handleNextChunk = () => {
+    if (chunkIndex < blogChunks.length - 1) {
+      setChunkIndex(chunkIndex + 1);
+    }
+  };
+  const handlePrevChunk = () => {
+    if (chunkIndex > 0) {
+      setChunkIndex(chunkIndex - 1);
+    }
+  };
 
   return (
     <main className="home flex flex-col">
@@ -409,7 +228,7 @@ const Home: React.FC = () => {
                   {item.tags.map((tag, index) => (
                     <span
                       key={index}
-                      className="span-small rounded-2xl lg:border 2xl:border-2 border-solid border-text-light px-4"
+                      className="span-small rounded-2xl border-solid border-text-light px-4 lg:border 2xl:border-2"
                     >
                       {tag}
                     </span>
@@ -459,7 +278,7 @@ const Home: React.FC = () => {
 
         <div className="z-5 sticky -top-5p left-0">
           <section className="globe relative grid items-center rounded-5xl lg:pb-sect-long lg:pt-sect-short 2xl:pb-sect-long 2xl:pt-sect-short">
-            <span className="px-sect p-large absolute -top-10 right-0 uppercase font-semibold">
+            <span className="px-sect p-large absolute -top-10 right-0 font-semibold uppercase">
               And we've covered these countries in our catalog too!
             </span>
             <EarthScene />
@@ -469,7 +288,7 @@ const Home: React.FC = () => {
         {/* FEATURED BLOGS SECTION */}
 
         <div className="relative mt-sect-long">
-          <span className="px-sect absolute -top-10 left-0 font-semibold uppercase text-text-dark p-large">
+          <span className="px-sect p-large absolute -top-10 left-0 font-semibold uppercase text-text-dark">
             Discover the latest articles in
           </span>
           <section className="blogs px-sect relative flex flex-col items-center justify-start gap-sect-short lg:pb-sect-default lg:pt-sect-short 2xl:pb-sect-medium 2xl:pt-sect-default">
@@ -479,66 +298,85 @@ const Home: React.FC = () => {
                 year: "numeric",
               })}
             </h1>
-            {blogChunks.map((chunk, index) => (
-              <div className="flex h-fit w-full flex-row gap-8" key={index}>
-                <div className="flex h-full w-full flex-col gap-4">
-                  <img
-                    src={chunk[0].image}
-                    alt="featuredBlogImage"
-                    className="h-0.5svh w-full rounded-lg"
-                  />
-                  <div className="flex flex-col">
-                    <span className="span-regular text-gray">
-                      {chunk[0].category}
-                    </span>
-                    <span className="span-medium uppercase">
-                      {" "}
-                      {chunk[0].title}
-                    </span>
-                  </div>
-
-                  <p className="overflow-hidden p-regular 2xl:w-4/5 3xl:w-3/4">
-                    {chunk[0].content[0].sectionText[0]}
-                  </p>
-                  <span className="w-3/4 overflow-hidden span-regular">
-                    <i className="ri-time-line"></i> {chunk[0].time}
+            <div className="flex h-fit w-full flex-row gap-8">
+              <div className="flex h-full w-full flex-col gap-4">
+                <img
+                  src={blogChunks[chunkIndex][0].image}
+                  alt="featuredBlogImage"
+                  className="h-0.5svh w-full rounded-lg"
+                />
+                <div className="flex flex-col">
+                  <span className="span-regular text-gray">
+                    {blogChunks[chunkIndex][0].category}
+                  </span>
+                  <span className="span-medium uppercase">
+                    {" "}
+                    {blogChunks[chunkIndex][0].title}
                   </span>
                 </div>
-                <div className="grid h-0.75svh w-full grid-flow-row auto-rows-1/3 gap-4">
-                  {chunk.slice(1).map((blog, index) => (
-                    <div className="flex h-full flex-row gap-4" key={index}>
-                      <img
-                        src={blog.image}
-                        alt="normalBlogImage"
-                        className="h-full w-45p rounded-lg"
-                      />
-                      <div className="flex w-1/2 flex-col gap-4">
-                        <div className="flex flex-col gap-0">
-                          <span className="span-regular text-gray">
-                            {blog.category}
-                          </span>
-                          <span className="w-full span-medium">
-                            {" "}
-                            {blog.title}
-                          </span>
-                        </div>
 
-                        <span className="w-3/4 overflow-hidden span-regular">
-                          <i className="ri-time-line"></i> {blog.time}
+                <p className="p-regular overflow-hidden 2xl:w-4/5 3xl:w-3/4">
+                  {blogChunks[chunkIndex][0].content[0].sectionText[0]}
+                </p>
+                <span className="span-regular w-3/4 overflow-hidden">
+                  <i className="ri-time-line"></i>{" "}
+                  {blogChunks[chunkIndex][0].time}
+                </span>
+              </div>
+              <div className="grid h-0.75svh w-full grid-flow-row auto-rows-1/3 gap-4">
+                {blogChunks[chunkIndex].slice(1).map((blog, index) => (
+                  <div className="flex h-full flex-row gap-4" key={index}>
+                    <img
+                      src={blog.image}
+                      alt="normalBlogImage"
+                      className="h-full w-45p rounded-lg"
+                    />
+                    <div className="flex w-1/2 flex-col gap-4">
+                      <div className="flex flex-col gap-0">
+                        <span className="span-regular text-gray">
+                          {blog.category}
+                        </span>
+                        <span className="span-medium w-full">
+                          {" "}
+                          {blog.title}
                         </span>
                       </div>
+
+                      <span className="span-regular w-3/4 overflow-hidden">
+                        <i className="ri-time-line"></i> {blog.time}
+                      </span>
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
               </div>
-            ))}
-            <div className="flex w-full justify-between">
-              <button className="underline-btn">
-                <i className="ri-arrow-left-line"></i> Previous
-              </button>
-              <button className="underline-btn">
-                Next<i className="ri-arrow-right-line"></i>
-              </button>
+            </div>
+            <div
+              className="flex w-full items-center py-2"
+              style={
+                chunkIndex > 0
+                  ? { justifyContent: "space-between" }
+                  : { justifyContent: "flex-end" }
+              }
+            >
+              {blogChunks.length > 1 && chunkIndex > 0 && (
+                <button
+                  className="underline-btn uppercase"
+                  onClick={handlePrevChunk}
+                >
+                  <i className="ri-arrow-left-line"></i>
+                  Previous
+                </button>
+              )}
+
+              {blogChunks.length > 1 && chunkIndex < blogChunks.length - 1 && (
+                <button
+                  className="underline-btn uppercase"
+                  onClick={handleNextChunk}
+                >
+                  Next
+                  <i className="ri-arrow-right-line"></i>
+                </button>
+              )}
             </div>
           </section>
         </div>
@@ -564,7 +402,7 @@ const Home: React.FC = () => {
               className="absolute -top-5p left-5p z-0 lg:w-44 xl:w-44 2xl:w-44 3xl:w-48"
             />
             <div className="h-full w-full overflow-hidden">
-              <StarterBlogs blogs={blogDemo} />
+              <StarterBlogs blogs={blogs} />
             </div>
             <button className="btn btn-secondary absolute -bottom-4 right-0 lg:mr-12 xl:mr-16 2xl:mr-20 3xl:mr-24">
               Find more <img src={planeIcon} alt="" />
