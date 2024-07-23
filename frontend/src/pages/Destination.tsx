@@ -7,6 +7,7 @@ import { BASE_URL } from "src/utils/config";
 // Material Tailwind
 import { Carousel } from "@material-tailwind/react";
 import PlaceDialog from "./DestinationComponents/placeDialog";
+import RelatedSections from "src/components/ui/RelatedSections";
 
 const DestinationPage: React.FC = () => {
   // Handle destination data
@@ -18,14 +19,9 @@ const DestinationPage: React.FC = () => {
   } = useFetch<Destination>(`${BASE_URL}/destinations/${id}`);
 
   // Handle menu board
-  const openMenuBoard = () => {
-    const menuBoard = document.querySelector(".menu-board");
-    if (menuBoard) {
-      return () => {
-        menuBoard.classList.toggle("hidden");
-        menuBoard.classList.toggle("flex");
-      };
-    }
+  const [menuBoardOpen, setMenuBoardOpen] = useState(false);
+  const toggleMenuBoard = () => {
+    setMenuBoardOpen(!menuBoardOpen);
   };
 
   // Handle transportation display
@@ -110,7 +106,13 @@ const DestinationPage: React.FC = () => {
           </Carousel>
         </section>
 
-        <section id="overview" className="overview px-sect py-sect-short">
+        <section id="overview" className="overview px-sect py-sect-short" 
+        onClick={(e) => {
+          const menuBoard = document.querySelector(".menu-board");
+          if(menuBoard?.classList.contains("flex") && !menuBoard?.contains(e.target as Node)) {
+            setMenuBoardOpen(false);
+          }
+        }}>
           <div className="flex justify-between">
             <div className="flex w-1/2 flex-col gap-4">
               <h2 className="h2-md">{destination.location}</h2>
@@ -129,15 +131,17 @@ const DestinationPage: React.FC = () => {
             <div className="relative flex w-1/2 justify-end">
               <button
                 title="open-menu"
-                onClick={openMenuBoard()}
+                onClick={() => toggleMenuBoard()}
                 className="rounded-full bg-background-dark shadow-component lg:h-12 lg:w-12 xl:h-12 xl:w-12 2xl:h-16 2xl:w-16 3xl:h-16 3xl:w-16"
               >
                 <i className="ri-menu-5-line p-large m-auto text-text-dark"></i>
               </button>
-              <div className="menu-board absolute right-0 top-1/5 z-10 hidden w-2/5 flex-col items-center gap-2 rounded-xl bg-background-light px-8 pb-12 pt-4 shadow-section">
+              <div className={`${menuBoardOpen ? "flex" : "hidden"} menu-board absolute right-0 top-1/5 z-10 w-2/5 flex-col items-center gap-2 rounded-xl bg-background-light px-8 pb-12 pt-4 shadow-section`}>
                 <p className="p-large font-prima uppercase">Table of content</p>
-                <span className="span-small">If this is your first time, don't use this!</span>
-                <div className="w-full flex flex-col gap-4 mt-6">
+                <span className="span-small">
+                  If this is your first time, don't use this!
+                </span>
+                <div className="mt-6 flex w-full flex-col gap-4">
                   <a href="#overview" className="p-medium">
                     1. Overview
                   </a>
@@ -173,7 +177,10 @@ const DestinationPage: React.FC = () => {
         </section>
 
         <section className="relative">
-          <section id="additional" className="additional px-sect sticky top-0 grid grid-cols-2 grid-rows-2 gap-x-4 gap-y-16 py-sect-default">
+          <section
+            id="additional"
+            className="additional px-sect sticky top-0 grid grid-cols-2 grid-rows-2 gap-x-4 gap-y-16 py-sect-default"
+          >
             {Object.entries(destination.additionalInfo).map(([key, value]) => (
               <div key={key} className="flex flex-col gap-4">
                 <h2 className="h2-md">
@@ -192,7 +199,10 @@ const DestinationPage: React.FC = () => {
             ))}
           </section>
 
-          <section id="transportation" className="stacked-section transportation px-sect sticky rounded-3xl bg-light-brown pb-sect-short pt-sect-short shadow-section">
+          <section
+            id="transportation"
+            className="stacked-section transportation px-sect sticky rounded-3xl bg-light-brown pb-sect-short pt-sect-short shadow-section"
+          >
             <div className="mt-sect-short flex flex-col gap-8">
               <h1 className="h1-md">
                 <i className="ri-car-fill"></i> Transportation
@@ -271,7 +281,10 @@ const DestinationPage: React.FC = () => {
             </div>
           </section>
 
-          <section id="places" className="stacked-section places px-sect sticky rounded-3xl bg-light-green pb-sect-short pt-sect-short shadow-section">
+          <section
+            id="places"
+            className="stacked-section places px-sect sticky rounded-3xl bg-light-green pb-sect-short pt-sect-short shadow-section"
+          >
             <div className="mt-sect-short flex flex-col gap-20">
               <h1 className="h1-md">
                 <i className="ri-map-pin-fill"></i> Places
@@ -378,7 +391,10 @@ const DestinationPage: React.FC = () => {
             </div>
           </section>
 
-          <section id="insight" className="stacked-section insight px-sect sticky flex flex-col gap-20 rounded-3xl bg-light-brown pb-sect-default pt-sect-short shadow-section">
+          <section
+            id="insight"
+            className="stacked-section insight px-sect sticky flex flex-col gap-20 rounded-3xl bg-light-brown pb-sect-default pt-sect-short shadow-section"
+          >
             <h1 className="h1-md">
               <i className="ri-eye-fill"></i>Insight
             </h1>
@@ -395,6 +411,7 @@ const DestinationPage: React.FC = () => {
                   </div>
                 ))}
               </div>
+              <RelatedSections type={"blog"} data={destination} />
             </div>
 
             <div className="mt-20 flex flex-col gap-8">
@@ -429,11 +446,14 @@ const DestinationPage: React.FC = () => {
           </section>
         </section>
 
-        <section id="summary" className="summary px-sect flex flex-col gap-sect-short rounded-3xl bg-background-light py-sect-medium">
+        <section
+          id="summary"
+          className="summary px-sect flex flex-col gap-sect-short rounded-3xl bg-background-light py-sect-medium"
+        >
           <h1 className="h1-md">
             <i className="ri-shining-2-fill"></i> Summary
           </h1>
-          <div className="grid place-items-center mt-sect-short">
+          <div className="mt-sect-short grid place-items-center">
             <p className="p-medium w-2/5">
               {destination.summary} <br /> <br />{" "}
               <p className="p-medium">Have a good trip!</p>
@@ -441,8 +461,11 @@ const DestinationPage: React.FC = () => {
           </div>
         </section>
 
-        <section className="related px-sect py-sect-short">
-          <h2 className="h2-md">Related destination</h2>
+        <section className="related py-sect-short">
+          <h2 className="h2-md px-sect w-full text-center">
+            Related destination
+          </h2>
+          <RelatedSections type={"destination"} data={destination} />
         </section>
       </main>
     );
