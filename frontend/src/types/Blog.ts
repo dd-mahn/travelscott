@@ -10,6 +10,7 @@ interface blogContent {
 }
 
 interface Blog {
+  _id: string;
   title: string;
   author: string;
   category: string;
