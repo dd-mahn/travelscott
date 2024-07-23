@@ -15,11 +15,12 @@ import southAmericaMap from "src/assets/images/ui/maps/SouthAmerica.png";
 import oceaniaMap from "src/assets/images/ui/maps/Oceania.png";
 import { getFeaturedDestinations } from "src/utils/getFeaturedDestinations";
 import { getCountryByContinent } from "src/utils/getCountryByContinent";
-import Pagination from "src/components/ui/Pagination";
+import { CatalogPagination } from "src/components/ui/Pagination";
 import DestinationCard from "src/components/ui/DestinationCard";
 import CountryCard from "src/components/ui/CountryCard";
 import { FetchCountriesType, FetchDestinationType } from "src/types/FetchData";
 import RelatedSections from "src/components/ui/RelatedSections";
+import { set } from "lodash";
 
 const Discover: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -32,7 +33,10 @@ const Discover: React.FC = () => {
     data: destinationData,
     loading: destinationLoading,
     error: destinationError,
-  } = useFetch<FetchDestinationType>(`${BASE_URL}/destinations?page=${currentPage}`, [currentPage]);
+  } = useFetch<FetchDestinationType>(
+    `${BASE_URL}/destinations?page=${currentPage}`,
+    [currentPage],
+  );
 
   const {
     data: countryData,
@@ -107,11 +111,14 @@ const Discover: React.FC = () => {
 
   // Handle select state
 
-  const handleSelectContinent: React.ChangeEventHandler<HTMLSelectElement> = (event) => {
+  const handleSelectContinent: React.ChangeEventHandler<HTMLSelectElement> = (
+    event,
+  ) => {
     setSelectedContinent(event.currentTarget.value);
   };
 
   // Handle destination filter
+  const [isFilterBoardOpen, setIsFilterBoardOpen] = useState<boolean>(false);
   const filter = {
     locations: [],
     tags: [],
@@ -135,14 +142,8 @@ const Discover: React.FC = () => {
     "Relaxation",
   ];
 
-  const openFilterBoard = () => {
-    const filterBoard = document.querySelector(".filter-board");
-    if (filterBoard) {
-      return () => {
-        filterBoard.classList.toggle("hidden");
-        filterBoard.classList.toggle("flex");
-      };
-    }
+  const toggleFilterBoard = () => {
+    setIsFilterBoardOpen(!isFilterBoardOpen);
   };
 
   // Handle navigating
@@ -244,13 +245,26 @@ const Discover: React.FC = () => {
       </section>
 
       {/* RELATED ARTICLES SECTION */}
-      <section className="related px-sect flex flex-col">
-        <h2 className="h2-md">Related articles</h2>
-        <RelatedSections type={"blogs"} data={selectedContinent} />
+      <section className="related flex flex-col">
+        <h2 className="h2-md px-sect">Related articles</h2>
+        <RelatedSections type={"blog"} data={selectedContinent} />
       </section>
 
       {/* DESTINATION SECTION */}
-      <section className="destinations px-sect flex flex-col items-center py-sect-default">
+      <section
+        className="destinations px-sect flex flex-col items-center py-sect-default"
+        onClick={(e) => {
+          const filterBoard = document.querySelector(".filter-board");
+
+          if (
+            filterBoard &&
+            filterBoard.classList.contains("flex") &&
+            !filterBoard.contains(e.target as Node)
+          ) {
+            setIsFilterBoardOpen(false);
+          }
+        }}
+      >
         <h1 className="h1-md">Discover destinations</h1>
         <div className="flex w-full flex-row justify-between py-sect-short">
           <p className="p-medium">
@@ -260,14 +274,16 @@ const Discover: React.FC = () => {
           <div className="relative">
             <button
               title="filter"
-              className="rounded-full bg-background-dark shadow-component lg:h-12 lg:w-12 xl:h-12 xl:w-12 2xl:h-16 2xl:w-16 3xl:h-16 3xl:w-16"
-              onClick={openFilterBoard()}
+              className={`${isFilterBoardOpen ? "rotate-180" : ""} rounded-full bg-background-dark shadow-component lg:h-12 lg:w-12 xl:h-12 xl:w-12 2xl:h-16 2xl:w-16 3xl:h-16 3xl:w-16`}
+              onClick={() => toggleFilterBoard()}
             >
               <i className="ri-filter-3-line p-large m-auto text-text-dark"></i>
             </button>
-            <div className="filter-board absolute right-5p top-2/3 z-10 hidden w-0.4svw flex-col items-center gap-8 rounded-xl bg-background-light px-4 pb-20 pt-4 shadow-section">
+            <div
+              className={`${isFilterBoardOpen ? "flex" : "hidden"} filter-board absolute right-5p top-2/3 z-10 w-0.4svw flex-col items-center gap-8 rounded-xl bg-background-light px-4 pb-20 pt-4 shadow-section`}
+            >
               <div className="flex w-full flex-row items-end gap-4">
-                <div className="flex h-fit items-center justify-between rounded-md px-2 py-1 lg:border 2xl:border-2">
+                <div className="flex h-fit items-center justify-between rounded-md border border-gray px-2 py-1">
                   <input
                     type="text"
                     placeholder="Search..."
@@ -278,13 +294,14 @@ const Discover: React.FC = () => {
                   </button>
                 </div>
               </div>
+
               <div className="flex w-full flex-col items-start gap-2">
                 <span className="span-regular uppercase">Location</span>
                 <div className="flex flex-wrap gap-2">
                   {filterLocations.map((location) => (
                     <span
                       key={location}
-                      className="span-small rounded-2xl border-solid border-text-light px-4 lg:border 2xl:border-2"
+                      className="span-small rounded-2xl border border-gray px-4"
                     >
                       {location}
                     </span>
@@ -298,7 +315,7 @@ const Discover: React.FC = () => {
                   {filterTags.map((tag) => (
                     <span
                       key={tag}
-                      className="span-small rounded-2xl border-solid border-text-light px-4 lg:border 2xl:border-2"
+                      className="span-small rounded-2xl border border-gray px-4"
                     >
                       {tag}
                     </span>
@@ -324,7 +341,7 @@ const Discover: React.FC = () => {
             ))}
         </div>
         {destinations && (
-          <Pagination
+          <CatalogPagination
             count={totalDestinations}
             page={currentPage}
             limit={18}
