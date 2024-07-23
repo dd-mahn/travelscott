@@ -1,198 +1,21 @@
+import { set } from "lodash";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import DestinationCard from "src/components/ui/DestinationCard";
-import Pagination from "src/components/ui/Pagination";
+import FeaturedBlogs from "src/components/ui/featuredBlogs";
+import { CatalogPagination } from "src/components/ui/Pagination";
 import RelatedSections from "src/components/ui/RelatedSections";
 import useFetch from "src/hooks/useFetch";
+import Blog from "src/types/Blog";
 import type Country from "src/types/Country";
 import Destination from "src/types/Destination";
 import { FetchBlogsType, FetchDestinationType } from "src/types/FetchData";
 import { BASE_URL } from "src/utils/config";
 
-const blogDemo = [
-  {
-    title: "The 10 Best Destinations for Solo Travelers",
-    author: "Someone",
-    category: "Starter",
-    image:
-      "https://images.pexels.com/photos/20638882/pexels-photo-20638882/free-photo-of-bi-n-b-bi-n-m-c-toa-nha.jpeg",
-    content: [
-      {
-        sectionTitle: "Introduction",
-        sectionImages: [],
-        sectionText: [
-          "Traveling alone can be a rewarding experience. It allows you to explore new places at your own pace, meet new people, and learn more about yourself. If you're thinking about taking a solo trip, here are 10 destinations that are perfect for solo travelers.",
-        ],
-      },
-    ],
-    time: new Date().toLocaleDateString("default", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    }),
-    featured: false,
-  },
-  {
-    title: "How to Plan a Budget-Friendly Trip to Europe",
-    author: "Someone",
-    category: "Starter",
-    image:
-      "https://i.pinimg.com/564x/08/59/ac/0859ac1c3569b78bbc0a20239078a557.jpg",
-    content: [
-      {
-        sectionTitle: "Introduction",
-        sectionImages: [],
-        sectionText: [
-          "Traveling to Europe can be expensive, but it doesn't have to break the bank. With a little planning and some budget-friendly tips, you can enjoy a fantastic trip to Europe without spending a fortune. Here are some tips to help you plan a budget-friendly trip to Europe.",
-        ],
-      },
-    ],
-    time: new Date().toLocaleDateString("default", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    }),
-    featured: false,
-  },
-  {
-    title: "The Best Destinations for Food Lovers",
-    author: "Someone",
-    category: "Starter",
-    image:
-      "https://www.mistay.in/travel-blog/content/images/2020/05/cover-12.jpg",
-    content: [
-      {
-        sectionTitle: "Introduction",
-        sectionImages: [],
-        sectionText: [
-          "If you're a food lover, there's no better way to explore the world than through its cuisine. From street food stalls to Michelin-starred restaurants, there's something for every palate. Here are some of the best destinations for food lovers.",
-        ],
-      },
-    ],
-    time: new Date().toLocaleDateString("default", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    }),
-    featured: false,
-  },
-  {
-    title: "The Ultimate Guide to Adventure Travel",
-    author: "Someone",
-    category: "Starter",
-    image:
-      "https://i.pinimg.com/564x/fa/41/d1/fa41d199e9be453fe1f0dc103e4c615f.jpg",
-    content: [
-      {
-        sectionTitle: "Introduction",
-        sectionImages: [],
-        sectionText: [
-          "If you're an adrenaline junkie, adventure travel is the perfect way to get your fix. From hiking and biking to surfing and skydiving, there are endless opportunities for adve  const [destinations, setDestinations] = useState<Destination[]>([]);ture travel.",
-        ],
-      },
-    ],
-    time: new Date().toLocaleDateString("default", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    }),
-    featured: false,
-  },
-  {
-    title: "The 10 Best Destinations for Solo Travelers",
-    author: "Someone",
-    category: "SoloTravel",
-    image:
-      "https://explore.bustickets.com/wp-content/uploads/2019/09/solo-travel-backpack-tips.jpg",
-    content: [
-      {
-        sectionTitle: "Introduction",
-        sectionImages: [],
-        sectionText: [
-          "Traveling alone can be a rewarding experience. It allows you to explore new places at your own pace, meet new people, and learn more about yourself. If you're thinking about taking a solo trip, here are 10 destinations that are perfect for solo travelers.",
-        ],
-      },
-    ],
-    time: new Date().toLocaleDateString("default", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    }),
-    featured: true,
-  },
-  {
-    title: "How to Plan a Budget-Friendly Trip to Europe",
-    author: "Someone",
-    category: "Nature&Adventure",
-    image:
-      "https://i.pinimg.com/564x/08/59/ac/0859ac1c3569b78bbc0a20239078a557.jpg",
-    content: [
-      {
-        sectionTitle: "Introduction",
-        sectionImages: [],
-        sectionText: [
-          "Traveling to Europe can be expensive, but it doesn't have to break the bank. With a little planning and some budget-friendly tips, you can enjoy a fantastic trip to Europe without spending a fortune. Here are some tips to help you plan a budget-friendly trip to Europe.",
-        ],
-      },
-    ],
-    time: new Date().toLocaleDateString("default", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    }),
-    featured: false,
-  },
-  {
-    title: "The Best Destinations for Food Lovers",
-    author: "Someone",
-    category: "Trending",
-    image:
-      "https://www.mistay.in/travel-blog/content/images/2020/05/cover-12.jpg",
-    content: [
-      {
-        sectionTitle: "Introduction",
-        sectionImages: [],
-        sectionText: [
-          "If you're a food lover, there's no better way to explore the world than through its cuisine. From street food stalls to Michelin-starred restaurants, there's something for every palate. Here are some of the best destinations for food lovers.",
-        ],
-      },
-    ],
-    time: new Date().toLocaleDateString("default", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    }),
-    featured: false,
-  },
-  {
-    title: "The Ultimate Guide to Adventure Travel",
-    author: "Someone",
-    category: "Culture&Heritage",
-    image:
-      "https://i.pinimg.com/564x/fa/41/d1/fa41d199e9be453fe1f0dc103e4c615f.jpg",
-    content: [
-      {
-        sectionTitle: "Introduction",
-        sectionImages: [],
-        sectionText: [
-          "If you're an adrenaline junkie, adventure travel is the perfect way to get your fix. From hiking and biking to surfing and skydiving, there are endless opportunities for adventure around the world. Here's everything you need to know about adventure travel.",
-        ],
-      },
-    ],
-    time: new Date().toLocaleDateString("default", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    }),
-    featured: false,
-  },
-];
-
 const CountryPage: React.FC = () => {
   // Define states
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [destinations, setDestinations] = useState<Destination[]>([]);
-  const [currentBlogIndex, setCurrentBlogIndex] = useState(0);
 
   // Handle fetching country data
   const { id } = useParams();
@@ -211,26 +34,12 @@ const CountryPage: React.FC = () => {
     error: blogError,
   } = useFetch<FetchBlogsType>(`${BASE_URL}/blogs?limit=20`);
 
-  const blogs = blogData?.result !== undefined ? blogData.result.filter((blog) => blog.tags.includes(country?.name as string) ) : blogDemo;
-
-  // Handle blog display
-  const [currentBlog, setCurrentBlog] = useState(blogs[currentBlogIndex]);
-
-  useEffect(() => {
-    setCurrentBlog(blogs[currentBlogIndex]);
-  }, [currentBlogIndex]);
-
-  const handleNextBlog = () => {
-    if (currentBlogIndex < blogs.length - 1) {
-      setCurrentBlogIndex(currentBlogIndex + 1);
-    }
-  };
-
-  const handlePrevBlog = () => {
-    if (currentBlogIndex > 0) {
-      setCurrentBlogIndex(currentBlogIndex - 1);
-    }
-  };
+  const blogs: Blog[] =
+    blogData?.result !== undefined
+      ? blogData.result.filter((blog) =>
+          blog.tags.includes(country?.name as string),
+        )
+      : [];
 
   // Handle destination data
   const {
@@ -251,6 +60,7 @@ const CountryPage: React.FC = () => {
   }, [destinationData]);
 
   // Handle filter
+  const [isFilterBoardOpen, setIsFilterBoardOpen] = useState<boolean>(false);
   const filterTags = [
     "Wilderness",
     "Culture&Heritage",
@@ -261,14 +71,8 @@ const CountryPage: React.FC = () => {
     "Relaxation",
   ];
 
-  const openFilterBoard = () => {
-    const filterBoard = document.querySelector(".filter-board");
-    if (filterBoard) {
-      return () => {
-        filterBoard.classList.toggle("hidden");
-        filterBoard.classList.toggle("flex");
-      };
-    }
+  const toggleFilterBoard = () => {
+    setIsFilterBoardOpen(!isFilterBoardOpen);
   };
 
   // Handle additional info
@@ -444,61 +248,23 @@ const CountryPage: React.FC = () => {
             <h1 className="h1-md mt-sect-short w-full text-center">
               Latest article
             </h1>
-            <div className="px-sect flex w-svw flex-col items-center gap-8">
-              <div
-                className="h-0.75svh w-full rounded-xl"
-                style={{
-                  backgroundImage: `url(${currentBlog.image})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  backgroundRepeat: "no-repeat",
-                }}
-              ></div>
-              <div className="flex flex-col items-center gap-2">
-                <span className="span-regular text-gray">
-                  {currentBlog.category}
-                </span>
-                <h3 className="h3-inter"> {currentBlog.title}</h3>
-              </div>
-              <p className="p-regular w-1/2 text-center">
-                {" "}
-                {currentBlog.content?.[0]?.sectionText?.[0]}
-              </p>
-              <span className="span-regular">
-                <i className="ri-time-line"></i> {currentBlog.time}
-              </span>
-            </div>
-            <div
-              className="px-sect flex w-full items-center pb-sect-default"
-              style={
-                currentBlogIndex > 0
-                  ? { justifyContent: "space-between" }
-                  : { justifyContent: "flex-end" }
-              }
-            >
-              {blogs.length > 1 && currentBlogIndex > 0 && (
-                <button
-                  className="underline-btn uppercase"
-                  onClick={handlePrevBlog}
-                >
-                  <i className="ri-arrow-left-line"></i>
-                  Previous
-                </button>
-              )}
-
-              {blogs.length > 1 && currentBlogIndex < blogs.length - 1 && (
-                <button
-                  className="underline-btn uppercase"
-                  onClick={handleNextBlog}
-                >
-                  Next
-                  <i className="ri-arrow-right-line"></i>
-                </button>
-              )}
-            </div>
+            <FeaturedBlogs blogs={blogs} />
           </section>
           {/* DESTINATION SECTION */}
-          <section className="stacked-section destinations px-sect sticky -top-4 z-30 flex flex-col items-center gap-8 rounded-3xl bg-light-green py-sect-short shadow-section">
+          <section
+            className="stacked-section destinations px-sect sticky -top-4 z-30 flex flex-col items-center gap-8 rounded-3xl bg-light-green py-sect-short shadow-section"
+            onClick={(e) => {
+              const filterBoard = document.querySelector(".filter-board");
+
+              if (
+                filterBoard &&
+                filterBoard.classList.contains("flex") &&
+                !filterBoard.contains(e.target as Node)
+              ) {
+                setIsFilterBoardOpen(false);
+              }
+            }}
+          >
             <h1 className="h1-md m-sect-short uppercase">
               Country's destinations
             </h1>
@@ -511,14 +277,16 @@ const CountryPage: React.FC = () => {
               <div className="relative">
                 <button
                   title="filter"
-                  className="rounded-full bg-background-dark shadow-component lg:h-12 lg:w-12 xl:h-12 xl:w-12 2xl:h-16 2xl:w-16 3xl:h-16 3xl:w-16"
-                  onClick={openFilterBoard()}
+                  className={`${isFilterBoardOpen ? "rotate-180" : ""} rounded-full bg-background-dark shadow-component lg:h-12 lg:w-12 xl:h-12 xl:w-12 2xl:h-16 2xl:w-16 3xl:h-16 3xl:w-16`}
+                  onClick={() => toggleFilterBoard()}
                 >
                   <i className="ri-filter-3-line p-large m-auto text-text-dark"></i>
                 </button>
-                <div className="filter-board absolute right-5p top-2/3 z-10 hidden w-0.3svw flex-col items-center gap-8 rounded-xl bg-background-light px-4 pb-20 pt-4 shadow-section">
+                <div
+                  className={`${isFilterBoardOpen ? "flex" : "hidden"} filter-board absolute right-5p top-2/3 z-10 w-0.3svw flex-col items-center gap-8 rounded-xl bg-background-light px-4 pb-20 pt-4 shadow-section`}
+                >
                   <div className="flex w-full flex-row items-end gap-4">
-                    <div className="flex h-fit items-center justify-between rounded-md px-2 py-1 lg:border 2xl:border-2">
+                    <div className="flex h-fit items-center justify-between rounded-md border border-gray px-2 py-1">
                       <input
                         type="text"
                         placeholder="Search..."
@@ -536,7 +304,7 @@ const CountryPage: React.FC = () => {
                       {filterTags.map((tag) => (
                         <span
                           key={tag}
-                          className="span-small rounded-2xl border-solid border-text-light px-4 lg:border 2xl:border-2"
+                          className="span-small rounded-2xl border border-solid border-gray px-4"
                         >
                           {tag}
                         </span>
@@ -553,7 +321,7 @@ const CountryPage: React.FC = () => {
                 ))}
             </div>
 
-            <Pagination
+            <CatalogPagination
               count={totalDestinations}
               page={currentPage}
               limit={18}
