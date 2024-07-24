@@ -5,6 +5,7 @@ import React, {
   useMemo,
   useState,
 } from "react";
+import { useNavigate } from "react-router-dom";
 import BlogType from "src/types/Blog";
 
 // Interfaces and types
@@ -58,47 +59,48 @@ const BlogComponent = ({
   blog: BlogType;
   onDragStart: (event: React.MouseEvent<HTMLDivElement>) => void;
   position: Position;
-}) => (
-  <div
-    key={blog.title}
-    className="blog absolute flex h-0.5svh w-1/3 flex-col justify-between gap-4 overflow-hidden rounded-xl bg-background-light pb-8 shadow-xl"
-    style={{
-      left: `${position.x}px`,
-      top: `${position.y}px`,
-      zIndex: position.zIndex,
-    }}
-    onMouseDown={onDragStart}
-  >
+}) => {
+  const navigate = useNavigate();
+  return (
     <div
-      className="flex h-3/4 flex-col items-start justify-end gap-0 px-8 pb-4"
+      key={blog.title}
+      className="blog absolute flex h-0.5svh w-1/3 flex-col justify-between gap-4 overflow-hidden rounded-xl bg-background-light pb-8 shadow-xl"
       style={{
-        backgroundImage: `url(${blog.image})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
+        left: `${position.x}px`,
+        top: `${position.y}px`,
+        zIndex: position.zIndex,
       }}
+      onMouseDown={onDragStart}
     >
-      <span className="span-small text-text-dark">
-        {blog.author}
-      </span>
-      <span className="uppercase text-text-dark span-medium">
-        {blog.title}
-      </span>
+      <div
+        className="flex h-3/4 flex-col items-start justify-end gap-0 px-8 pb-4 relative"
+        style={{
+          backgroundImage: `url(${blog.image})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div className="h-full w-full absolute top-0 right-0 bg-background-dark bg-opacity-30 z-0"></div>
+        <span className="z-10 span-small text-text-dark">{blog.author}</span>
+        <span className="z-10 span-medium uppercase text-text-dark">
+          {blog.title}
+        </span>
+      </div>
+      <div className="flex flex-col gap-4 px-8">
+        <p className="p-regular w-full overflow-hidden">
+          {blog.content[0].sectionText[0]}
+        </p>
+        <button className="underline-btn uppercase" onClick={() => navigate(`/inspiration/${blog._id}`)}>
+          View<i className="ri-arrow-right-up-line"></i>
+        </button>
+      </div>
     </div>
-    <div className="flex flex-col gap-4 px-8">
-      <p className="w-full overflow-hidden p-regular">
-        {blog.content[0].sectionText[0]}
-      </p>
-      <button className="underline-btn uppercase">
-        View<i className="ri-arrow-right-up-line"></i>
-      </button>
-    </div>
-  </div>
-);
+  );
+};
 
 // Main component
 const StarterBlogs: React.FC<StarterBlogsProps> = ({ blogs }) => {
-
-  // Handling move and drag behavior 
+  // Handling move and drag behavior
   const [positions, dispatch] = useReducer(positionReducer, {});
   const [maxZIndex, setMaxZIndex] = useState(1);
 
@@ -170,7 +172,8 @@ const StarterBlogs: React.FC<StarterBlogsProps> = ({ blogs }) => {
 
   // Displaying starter blogs
   const starterBlogs = useMemo(
-    () => blogs.filter((blog) => blog.category === "FirstTimeAbroad" && blog.image),
+    () =>
+      blogs.filter((blog) => blog.category === "FirstTimeAbroad" && blog.image),
     [blogs],
   );
 
