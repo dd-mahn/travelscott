@@ -414,7 +414,7 @@ const DestinationPage: React.FC = () => {
               <RelatedSections type={"blog"} data={destination} />
             </div>
 
-            <div className="mt-20 flex flex-col gap-8">
+            <div className="flex flex-col gap-8">
               <h2 className="h2-md">From others</h2>
               <p className="p-regular w-2/5">
                 Leveraging others’ travel experiences and insights can save you
