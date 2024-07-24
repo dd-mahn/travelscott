@@ -23,20 +23,33 @@ import RelatedSections from "src/components/ui/RelatedSections";
 import { set } from "lodash";
 
 const Discover: React.FC = () => {
+  // State hooks for current page, destinations, countries, selected continent, filter tags, filter countries, filter continents
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [destinations, setDestinations] = useState<Destination[]>([]);
   const [countries, setCountries] = useState<Country[]>([]);
   const [selectedContinent, setSelectedContinent] = useState<string>("Asia");
+  const [filterTags, setFilterTags] = useState<string[]>([]);
+  const [filterCountries, setFilterCountries] = useState<string[]>([]);
+  const [filterContinents, setFilterContinents] = useState<string[]>([]);
 
-  // Fetch data from API
+  // Handle url for fetching destination data
+  let url = `${BASE_URL}/destinations?page=${currentPage}`;
+  if (filterTags.length > 0) {
+    url += `&tags=${filterTags.join(",")}`;
+  }
+  if (filterCountries.length > 0) {
+    url += `&countries=${filterCountries.join(",")}`;
+  }
+  if (filterContinents.length > 0) {
+    url += `&continents=${filterContinents.join(",")}`;
+  }
+
+  // Fetch destination and country data
   const {
     data: destinationData,
     loading: destinationLoading,
     error: destinationError,
-  } = useFetch<FetchDestinationType>(
-    `${BASE_URL}/destinations?page=${currentPage}`,
-    [currentPage],
-  );
+  } = useFetch<FetchDestinationType>(url, [currentPage]);
 
   const {
     data: countryData,
@@ -56,6 +69,7 @@ const Discover: React.FC = () => {
     }
   }, [destinationData, countryData]);
 
+  // Handle continent data
   const continents = useMemo(() => {
     if (countryData?.result) {
       return [
@@ -101,6 +115,7 @@ const Discover: React.FC = () => {
     }
   }, [countryData]);
 
+  // Handle featured destinations
   const featuredDestinations = useMemo(() => {
     if (destinations) {
       return getFeaturedDestinations(destinations);
@@ -109,30 +124,28 @@ const Discover: React.FC = () => {
     }
   }, [destinations]);
 
-  // Handle select state
-
+  // Handle select state for continent
   const handleSelectContinent: React.ChangeEventHandler<HTMLSelectElement> = (
     event,
   ) => {
     setSelectedContinent(event.currentTarget.value);
   };
 
-  // Handle destination filter
+  // Handle filter board state
   const [isFilterBoardOpen, setIsFilterBoardOpen] = useState<boolean>(false);
-  const filter = {
-    locations: [],
-    tags: [],
+  const toggleFilterBoard = () => {
+    setIsFilterBoardOpen(!isFilterBoardOpen);
   };
-
+  // Handle country and continent names
   const countryNames = Array.isArray(countryData?.result)
     ? countryData.result.map((country) => country?.name)
     : [];
   const continentNames = Array.isArray(continents)
     ? continents.map((continent) => continent.name)
     : [];
-  const filterLocations = [...countryNames, ...continentNames];
 
-  const filterTags = [
+  // Static tags
+  const tags = [
     "Wilderness",
     "Culture&Heritage",
     "Food&Drink",
@@ -141,10 +154,6 @@ const Discover: React.FC = () => {
     "Season&Festival",
     "Relaxation",
   ];
-
-  const toggleFilterBoard = () => {
-    setIsFilterBoardOpen(!isFilterBoardOpen);
-  };
 
   // Handle navigating
   const navigate = useNavigate();
@@ -167,7 +176,7 @@ const Discover: React.FC = () => {
                 navigate(`destinations/${featuredDestinations[0]._id}`);
               }}
             >
-              <div className="blur-blob blob-1 absolute z-0"></div>
+              <div className="absolute right-0 top-0 h-full w-full bg-background-dark bg-opacity-30"></div>
               <div className="z-10 w-fit pt-sect-short">
                 <h1 className="big-heading text-text-dark">
                   {featuredDestinations[0].name}
@@ -245,13 +254,14 @@ const Discover: React.FC = () => {
       </section>
 
       {/* RELATED ARTICLES SECTION */}
-      <section className="related flex flex-col">
-        <h2 className="h2-md px-sect">Related articles</h2>
+      <section className="related px-sect flex flex-col">
+        <h2 className="h2-md">Related articles</h2>
         <RelatedSections type={"blog"} data={selectedContinent} />
       </section>
 
       {/* DESTINATION SECTION */}
       <section
+        id="destinations"
         className="destinations px-sect flex flex-col items-center py-sect-default"
         onClick={(e) => {
           const filterBoard = document.querySelector(".filter-board");
@@ -298,12 +308,40 @@ const Discover: React.FC = () => {
               <div className="flex w-full flex-col items-start gap-2">
                 <span className="span-regular uppercase">Location</span>
                 <div className="flex flex-wrap gap-2">
-                  {filterLocations.map((location) => (
+                  {continentNames.map((continent) => (
                     <span
-                      key={location}
-                      className="span-small rounded-2xl border border-gray px-4"
+                      key={continent}
+                      className={`${filterContinents.includes(continent) ? "bg-background-dark text-text-dark" : "bg-background-light text-text-light"} span-small cursor-pointer rounded-2xl border border-gray px-4`}
+                      onClick={() => {
+                        if (filterContinents.includes(continent)) {
+                          setFilterContinents(
+                            filterContinents.filter(
+                              (item) => item !== continent,
+                            ),
+                          );
+                        } else {
+                          setFilterContinents([...filterContinents, continent]);
+                        }
+                      }}
                     >
-                      {location}
+                      {continent}
+                    </span>
+                  ))}
+                  {countryNames.map((country) => (
+                    <span
+                      key={country}
+                      className={`${filterCountries.includes(country) ? "bg-background-dark text-text-dark" : "bg-background-light text-text-light"}span-small cursor-pointer rounded-2xl border border-gray px-4`}
+                      onClick={() => {
+                        if (filterCountries.includes(country)) {
+                          setFilterCountries(
+                            filterCountries.filter((item) => item !== country),
+                          );
+                        } else {
+                          setFilterCountries([...filterCountries, country]);
+                        }
+                      }}
+                    >
+                      {country}
                     </span>
                   ))}
                 </div>
@@ -312,10 +350,19 @@ const Discover: React.FC = () => {
               <div className="flex w-full flex-col items-start gap-2">
                 <span className="span-regular uppercase">Tags</span>
                 <div className="flex flex-wrap gap-2">
-                  {filterTags.map((tag) => (
+                  {tags.map((tag) => (
                     <span
                       key={tag}
-                      className="span-small rounded-2xl border border-gray px-4"
+                      className={`${filterTags.includes(tag) ? "bg-background-dark text-text-dark" : "bg-background-light text-text-light"} span-small cursor-pointer rounded-2xl border border-gray px-4`}
+                      onClick={() => {
+                        if (filterTags.includes(tag)) {
+                          setFilterTags(
+                            filterTags.filter((item) => item !== tag),
+                          );
+                        } else {
+                          setFilterTags([...filterTags, tag]);
+                        }
+                      }}
                     >
                       {tag}
                     </span>
@@ -340,7 +387,7 @@ const Discover: React.FC = () => {
               />
             ))}
         </div>
-        {destinations && (
+        {destinations.length > 0 && (
           <CatalogPagination
             count={totalDestinations}
             page={currentPage}
