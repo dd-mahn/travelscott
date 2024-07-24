@@ -2,13 +2,15 @@
 }
 
 .inspiration[data-filter="All"] {
-    .hero-background {
-      background: linear-gradient(
-        180deg,
-        rgb(10.02, 10.23, 10.38) 0%,
-        rgb(70.95, 96.12, 114.35) 38.9%,
-        rgb(251, 249, 247) 100%
-      );
-      background-color: rgba(255, 255, 255, 1);
-    }
+  .hero-background {
+    background: linear-gradient(
+      180deg,
+      rgb(10.02, 10.23, 10.38) 0%,
+      rgb(70.95, 96.12, 114.35) 38.9%,
+      rgb(251, 249, 247) 100%
+    );
+    background-color: rgba(255, 255, 255, 1);
   }
+}
+
+
