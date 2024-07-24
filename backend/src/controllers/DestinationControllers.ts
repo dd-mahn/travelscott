@@ -39,6 +39,7 @@ export const createDestination = async (req: Request, res: Response) => {
 type GetDestinationsRequest = {
   countries?: string;
   tags?: string;
+  continents?:string;
   page?: string;
   limit?: string;
 };
@@ -48,6 +49,7 @@ export const getDestinations = async (req: Request, res: Response) => {
     const {
       countries,
       tags,
+      continents,
       page = DEFAULT_PAGE,
       limit = DEFAULT_LIMIT,
     }: GetDestinationsRequest = req.query;
@@ -57,7 +59,8 @@ export const getDestinations = async (req: Request, res: Response) => {
 
     type Filter = {
       country?: { $in: RegExp[] };
-      tags?: { $all: RegExp[] };
+      continent?: { $in: RegExp[] };
+      tags?: { $in: RegExp[] };
     };
 
     const filter: Filter = {};
@@ -69,7 +72,13 @@ export const getDestinations = async (req: Request, res: Response) => {
     }
 
     if (tags) {
-      filter.tags = { $all: createRegexArray(tags) };
+      filter.tags = { $in: createRegexArray(tags) };
+    }
+
+    if (continents) {
+      const continentsArray =
+        typeof continents === "string" ? [continents] : continents;
+      filter.continent = { $in: createRegexArray(continentsArray) };
     }
 
     const skip = (pageNumber - 1) * limitNumber;
