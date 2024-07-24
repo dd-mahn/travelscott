@@ -70,7 +70,7 @@ const Article: React.FC = () => {
         </div>
       </div>
 
-      <div className="flex flex-col items-center mt-sect-default">
+      <div className="px-sect flex flex-col items-center mt-sect-default">
         <h2 className="h2-md">Related articles</h2>
         <RelatedSections type={"blog"} data={blogData} />
       </div>
