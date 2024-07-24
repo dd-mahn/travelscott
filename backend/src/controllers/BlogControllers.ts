@@ -77,15 +77,25 @@ export const getBlogs = async (req: Request, res: Response) => {
     const {
       page = DEFAULT_PAGE,
       limit = DEFAULT_LIMIT,
-    }: { page?: string; limit?: string } = req.query;
+      category, // Extract category from query parameters
+      tags, // Extract tags from query parameters
+    }: { page?: string; limit?: string; category?: string; tags?: string } = req.query;
 
     const pageNumber = parseInt(page);
     const limitNumber = parseInt(limit);
 
     const skip = (pageNumber - 1) * limitNumber;
 
-    const blogsPromise = Blog.find().skip(skip).limit(limitNumber);
-    const countPromise = Blog.countDocuments();
+    // Build the query conditionally based on whether a category and/or tags are provided
+    let queryCondition: { category?: string; tags?: { $in: string[] } } = category ? { category } : {};
+    
+    if (tags) {
+      const tagsArray = tags.split(','); // Convert tags string to array
+      queryCondition = { ...queryCondition, tags: { $in: tagsArray } };
+    }
+
+    const blogsPromise = Blog.find(queryCondition).skip(skip).limit(limitNumber);
+    const countPromise = Blog.countDocuments(queryCondition); // Use the same condition for counting
 
     const [blogs, count] = await Promise.all([blogsPromise, countPromise]);
     const totalPages = Math.ceil(count / limitNumber);
