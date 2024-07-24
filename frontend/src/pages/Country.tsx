@@ -16,6 +16,7 @@ const CountryPage: React.FC = () => {
   // Define states
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [destinations, setDestinations] = useState<Destination[]>([]);
+  const [tags, setTags] = useState<string[]>([]);
 
   // Handle fetching country data
   const { id } = useParams();
@@ -42,14 +43,19 @@ const CountryPage: React.FC = () => {
       : [];
 
   // Handle destination data
+  let url = `${BASE_URL}/destinations?page=${currentPage}`;
+  if (country !== undefined) {
+    url += `&countries=${country.name}`;
+  }
+  if (tags.length > 0) {
+    url += `&tags=${tags.join(",")}`;
+  }
+
   const {
     data: destinationData,
     loading: destinationLoading,
     error: destinationError,
-  } = useFetch<FetchDestinationType>(
-    `${BASE_URL}/destinations?page=${currentPage}&countries=${country?.name}`,
-    [currentPage],
-  );
+  } = useFetch<FetchDestinationType>(url, [currentPage]);
 
   // Handle pagination
   const totalDestinations = destinationData?.count as number;
@@ -246,7 +252,7 @@ const CountryPage: React.FC = () => {
           {/*BLOG SECTION  */}
           <section className="stacked-section blogs sticky -top-sect-semi z-20 flex flex-col items-start gap-16 rounded-3xl bg-light-brown pt-sect-short shadow-section">
             <h1 className="h1-md mt-sect-short w-full text-center">
-              Latest article
+              Latest articles about {country.name}
             </h1>
             <FeaturedBlogs blogs={blogs} />
           </section>
@@ -266,7 +272,7 @@ const CountryPage: React.FC = () => {
             }}
           >
             <h1 className="h1-md m-sect-short uppercase">
-              Country's destinations
+             {country.name}'s destinations
             </h1>
 
             <div className="flex w-full flex-row justify-between py-sect-short">
@@ -304,7 +310,14 @@ const CountryPage: React.FC = () => {
                       {filterTags.map((tag) => (
                         <span
                           key={tag}
-                          className="span-small rounded-2xl border border-solid border-gray px-4"
+                          className={`cursor-pointer span-small rounded-2xl border border-solid border-gray px-4 ${tags.includes(tag) ? "bg-background-dark text-text-dark" : "bg-transparent text-text-light"}`}
+                          onClick={() => {
+                            if (tags.includes(tag)) {
+                              setTags(tags.filter((t) => t !== tag));
+                            } else {
+                              setTags([...tags, tag]);
+                            }
+                          }}
                         >
                           {tag}
                         </span>
