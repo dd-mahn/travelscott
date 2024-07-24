@@ -25,6 +25,8 @@ import useFetch from "src/hooks/useFetch";
 import { FetchBlogsType } from "src/types/FetchData";
 import { BASE_URL } from "src/utils/config";
 import { createBlogChunks } from "src/utils/createBlogChunks";
+import { useNavigate } from "react-router-dom";
+import { DotPagination } from "src/components/ui/Pagination";
 
 const featuredDemo = [
   {
@@ -90,6 +92,7 @@ const featuredDemo = [
 ];
 
 const Home: React.FC = () => {
+  const navigate = useNavigate();
   const scrollRef = useHorizontalScroll();
 
   // Handle blog data
@@ -100,8 +103,9 @@ const Home: React.FC = () => {
   } = useFetch<FetchBlogsType>(`${BASE_URL}/blogs?limit=100`);
 
   const blogs = blogsData?.result !== undefined ? blogsData.result : [];
-  const blogChunks = createBlogChunks(blogs);
-  console.log(blogChunks);
+  let blogChunks: Blog[][] = [];
+
+  if (blogs.length !== 0) blogChunks = createBlogChunks(blogs);
 
   // Handle chunks display
   const [chunkIndex, setChunkIndex] = useState(0);
@@ -149,8 +153,18 @@ const Home: React.FC = () => {
         </p>
 
         <div className="flex flex-row lg:gap-4 xl:gap-4 2xl:gap-6 3xl:gap-8">
-          <button className="btn btn-primary">Get started</button>
-          <button className="btn btn-secondary">Learn more</button>
+          <button
+            className="btn btn-primary"
+            onClick={() => navigate("/discover")}
+          >
+            Get started
+          </button>
+          <button
+            className="btn btn-secondary"
+            onClick={() => navigate("/about")}
+          >
+            Learn more
+          </button>
         </div>
       </section>
 
@@ -249,7 +263,13 @@ const Home: React.FC = () => {
           </p>
           <div className="relative flex items-end">
             <div className="blob blur-blob absolute z-0 h-full w-1/3"></div>
-            <button title="navigate" className="btn btn-secondary z-5">
+            <button
+              title="navigate"
+              className="btn btn-secondary z-5"
+              onClick={() => {
+                navigate("/discover");
+              }}
+            >
               discover them <img src={planeIcon} alt="" />
             </button>
           </div>
@@ -291,94 +311,88 @@ const Home: React.FC = () => {
           <span className="px-sect p-large absolute -top-10 left-0 font-semibold uppercase text-text-dark">
             Discover the latest articles in
           </span>
-          <section className="blogs px-sect relative flex flex-col items-center justify-start gap-sect-short lg:pb-sect-default lg:pt-sect-short 2xl:pb-sect-medium 2xl:pt-sect-default">
-            <h1 className="h1-md">
-              {new Date().toLocaleString("default", {
-                month: "long",
-                year: "numeric",
-              })}
-            </h1>
-            <div className="flex h-fit w-full flex-row gap-8">
-              <div className="flex h-full w-full flex-col gap-4">
-                <img
-                  src={blogChunks[chunkIndex][0].image}
-                  alt="featuredBlogImage"
-                  className="h-0.5svh w-full rounded-lg"
-                />
-                <div className="flex flex-col">
-                  <span className="span-regular text-gray">
-                    {blogChunks[chunkIndex][0].category}
-                  </span>
-                  <span className="span-medium uppercase">
-                    {" "}
-                    {blogChunks[chunkIndex][0].title}
+          {blogChunks !== undefined && blogChunks.length !== 0 && (
+            <section className="blogs px-sect relative flex flex-col items-center justify-start gap-sect-short lg:pb-sect-default lg:pt-sect-short 2xl:pb-sect-medium 2xl:pt-sect-default">
+              <h1 className="h1-md">
+                {new Date().toLocaleString("default", {
+                  month: "long",
+                  year: "numeric",
+                })}
+              </h1>
+              <div className="flex h-fit w-full flex-row gap-8">
+                <div
+                  className="flex h-full w-full cursor-pointer flex-col gap-4"
+                  onClick={() => {
+                    navigate(`/inspiration/${blogChunks[chunkIndex][0]._id}`);
+                  }}
+                >
+                  <img
+                    src={blogChunks[chunkIndex][0].image}
+                    alt="featuredBlogImage"
+                    className="h-0.5svh w-full rounded-lg"
+                  />
+                  <div className="flex flex-col">
+                    <span className="span-regular text-gray">
+                      {blogChunks[chunkIndex][0].category}
+                    </span>
+                    <span className="span-medium uppercase">
+                      {" "}
+                      {blogChunks[chunkIndex][0].title}
+                    </span>
+                  </div>
+
+                  <p className="p-regular overflow-hidden 2xl:w-4/5 3xl:w-3/4">
+                    {blogChunks[chunkIndex][0].content[0].sectionText[0]}
+                  </p>
+                  <span className="span-regular w-3/4 overflow-hidden">
+                    <i className="ri-time-line"></i>{" "}
+                    {blogChunks[chunkIndex][0].time}
                   </span>
                 </div>
+                <div className="grid h-0.75svh w-full grid-flow-row auto-rows-1/3 gap-4">
+                  {blogChunks[chunkIndex].slice(1).map((blog, index) => (
+                    <div
+                      className="flex h-full cursor-pointer flex-row gap-4"
+                      key={index}
+                      onClick={() => {
+                        navigate(`/inspiration/${blog._id}`);
+                      }}
+                    >
+                      <img
+                        src={blog.image}
+                        alt="normalBlogImage"
+                        className="h-full w-45p rounded-lg"
+                      />
+                      <div className="flex w-1/2 flex-col gap-4">
+                        <div className="flex flex-col gap-0">
+                          <span className="span-regular text-gray">
+                            {blog.category}
+                          </span>
+                          <span className="span-medium w-full">
+                            {" "}
+                            {blog.title}
+                          </span>
+                        </div>
 
-                <p className="p-regular overflow-hidden 2xl:w-4/5 3xl:w-3/4">
-                  {blogChunks[chunkIndex][0].content[0].sectionText[0]}
-                </p>
-                <span className="span-regular w-3/4 overflow-hidden">
-                  <i className="ri-time-line"></i>{" "}
-                  {blogChunks[chunkIndex][0].time}
-                </span>
-              </div>
-              <div className="grid h-0.75svh w-full grid-flow-row auto-rows-1/3 gap-4">
-                {blogChunks[chunkIndex].slice(1).map((blog, index) => (
-                  <div className="flex h-full flex-row gap-4" key={index}>
-                    <img
-                      src={blog.image}
-                      alt="normalBlogImage"
-                      className="h-full w-45p rounded-lg"
-                    />
-                    <div className="flex w-1/2 flex-col gap-4">
-                      <div className="flex flex-col gap-0">
-                        <span className="span-regular text-gray">
-                          {blog.category}
-                        </span>
-                        <span className="span-medium w-full">
-                          {" "}
-                          {blog.title}
+                        <span className="span-regular w-3/4 overflow-hidden">
+                          <i className="ri-time-line"></i> {blog.time}
                         </span>
                       </div>
-
-                      <span className="span-regular w-3/4 overflow-hidden">
-                        <i className="ri-time-line"></i> {blog.time}
-                      </span>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
-            <div
-              className="flex w-full items-center py-2"
-              style={
-                chunkIndex > 0
-                  ? { justifyContent: "space-between" }
-                  : { justifyContent: "flex-end" }
-              }
-            >
-              {blogChunks.length > 1 && chunkIndex > 0 && (
-                <button
-                  className="underline-btn uppercase"
-                  onClick={handlePrevChunk}
-                >
-                  <i className="ri-arrow-left-line"></i>
-                  Previous
-                </button>
-              )}
 
-              {blogChunks.length > 1 && chunkIndex < blogChunks.length - 1 && (
-                <button
-                  className="underline-btn uppercase"
-                  onClick={handleNextChunk}
-                >
-                  Next
-                  <i className="ri-arrow-right-line"></i>
-                </button>
-              )}
-            </div>
-          </section>
+              <div className="flex w-full justify-center">
+                <DotPagination
+                  count={blogChunks.length}
+                  index={chunkIndex}
+                  handleNextClick={handleNextChunk}
+                  handlePreviousClick={handlePrevChunk}
+                />
+              </div>
+            </section>
+          )}
         </div>
 
         {/* STARTER HOOK SECTION */}
@@ -404,7 +418,10 @@ const Home: React.FC = () => {
             <div className="h-full w-full overflow-hidden">
               <StarterBlogs blogs={blogs} />
             </div>
-            <button className="btn btn-secondary absolute -bottom-4 right-0 lg:mr-12 xl:mr-16 2xl:mr-20 3xl:mr-24">
+            <button
+              className="btn btn-secondary absolute -bottom-4 right-0 lg:mr-12 xl:mr-16 2xl:mr-20 3xl:mr-24"
+              onClick={() => navigate("/inspiration")}
+            >
               Find more <img src={planeIcon} alt="" />
             </button>
           </section>
@@ -424,7 +441,12 @@ const Home: React.FC = () => {
           <span className="p-medium uppercase">- Hans Christian Andersen</span>
         </div>
         <div className="flex flex-row justify-end">
-          <button className="btn btn-primary">Ready to start?</button>
+          <button
+            className="btn btn-primary"
+            onClick={() => navigate("/contact")}
+          >
+            Have any questions?
+          </button>
         </div>
       </section>
     </main>
