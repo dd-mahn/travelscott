@@ -236,7 +236,7 @@ const Discover: React.FC = () => {
                     {countryLoading && <p className="p-regular">Loading...</p>}
                     {countryError && (
                       <p className="p-regular">
-                        Please reload the page or <br /> try again later.
+                        Please reload the page or try again later.
                       </p>
                     )}
                     {!countryLoading &&
@@ -373,11 +373,17 @@ const Discover: React.FC = () => {
           </div>
         </div>
         <div className="grid w-full auto-cols-1/3 grid-flow-col gap-8">
-          {destinationLoading && <p>Loading...</p>}
+          {destinationLoading && (
+            <div className="grid w-full place-items-center py-sect-short">
+              <h3 className="h3-md">Loading...</h3>
+            </div>
+          )}
           {destinationError && (
-            <p>
-              Please reload the page or <br /> try again later.
-            </p>
+            <div className="grid w-full place-items-center py-sect-short">
+              <h3 className="h3-md">
+                Error... Please reload the page or try again later.
+              </h3>
+            </div>
           )}
           {destinations &&
             (destinations as Destination[])?.map((destination) => (
