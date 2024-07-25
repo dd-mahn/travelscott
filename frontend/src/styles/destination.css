@@ -1,0 +1,8 @@
+.destination{
+    dialog::backdrop{
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+    dialog::-webkit-scrollbar {
+        display: none;
+      }
+}
