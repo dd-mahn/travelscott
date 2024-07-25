@@ -42,6 +42,7 @@ type BlogProps = {
 };
 
 const RelatedCountries: React.FC<CountryProps> = ({ country }) => {
+  const navigate = useNavigate();
   const continent = country.continent;
 
   const {
@@ -68,16 +69,17 @@ const RelatedCountries: React.FC<CountryProps> = ({ country }) => {
     );
 
   return (
-    <div className="related-countries min-w-screen flex flex-nowrap gap-0 py-sect-short">
+    <div className="related-countries min-w-screen flex flex-nowrap gap-2 py-sect-short">
       {relatedCountries.map((country) => (
         <div
           key={country.name}
-          className="grid h-0.3svh w-0.2svw place-items-center bg-background-dark bg-opacity-20"
+          className="cursor-pointer grid h-0.3svh w-0.2svw place-items-center bg-background-dark bg-opacity-20"
           style={{
             backgroundImage: `linear-gradient(rgba(0,0,0,0.4) , rgba(0,0,0,0.4)), url(${country.images.otherImages?.[0]})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
+          onClick={() => navigate(`/discover/countries/${country._id}`)}
         >
           <p className="p-large text-center font-prima text-text-dark">
             {country.name}
