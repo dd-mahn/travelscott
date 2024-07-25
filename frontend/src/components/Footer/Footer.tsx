@@ -61,14 +61,31 @@ const Footer = () => {
           Made and curated by people with <br />
           passion in travel, Travel, and TRAVEL.
         </p>
-        <div className="border-b border-solid border-text-light">
-          <label htmlFor="subscribe-email" className="uppercase">
-            Email address
+        <div className="styled-input flex w-fit items-center justify-between border-b border-solid border-text-light">
+          <label
+            htmlFor="subscribe-email"
+            className="label span-regular uppercase"
+          >
+            Subscribe with email
           </label>
           <input
             type="email"
             id="subscribe-email"
-            className="border-0 bg-transparent focus:outline-none"
+            className="input p-regular border-0 bg-transparent focus:outline-none"
+            onFocus={() => {
+              const input = document.getElementById("subscribe-email");
+              if (input) {
+                const styledInput = input.closest(".styled-input");
+                if (styledInput) styledInput.classList.add("active");
+              }
+            }}
+            onBlur={() => {
+              const input = document.getElementById("subscribe-email");
+              if (input) {
+                const styledInput = input.closest(".styled-input");
+                if (styledInput) styledInput.classList.remove("active");
+              }
+            }}
           />
           <button title="subscribe">
             {" "}

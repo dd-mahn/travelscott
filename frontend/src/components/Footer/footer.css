@@ -1,6 +1,6 @@
 footer {
   @apply lg:gap-8 xl:gap-8 2xl:gap-12 3xl:gap-12;
-  
+
   a {
     @apply font-medium text-gray lg:text-sm xl:text-base 2xl:text-base 3xl:text-lg;
   }
@@ -18,7 +18,30 @@ footer {
     @apply lg:gap-1 xl:gap-1 2xl:gap-1.5 3xl:gap-2;
   }
 
-  h1{
+  h1 {
     line-height: 1 !important;
+  }
+
+  .styled-input {
+    position: relative;
+
+    label {
+      padding-left: 0.25rem;
+      z-index: 0;
+      position: absolute;
+      top: 0%;
+      transition: 0.3s;
+      pointer-events: none;
+    }
+
+    input {
+      z-index: 10;
+    }
+  }
+
+  .styled-input.active label {
+    padding: 0;
+    transform: translateY(-100%);
+    transition: 0.3s;
   }
 }
