@@ -21,11 +21,11 @@ const placeToStayDialog = (place: placeToStay) => {
     <dialog
       hidden
       data-name={name}
-      className="place-dialog h-0.75svh w-0.6svw overflow-y-scroll rounded-xl pb-8"
+      className="place-dialog h-0.75svh w-0.6svw overflow-y-scroll rounded-xl pb-sect-short"
     >
       <div className="dialog-content h-full w-full">
         <div
-          className="h-1/3"
+          className="h-1/2"
           style={{
             backgroundImage: `url(${image_url})`,
             backgroundSize: "cover",
@@ -39,7 +39,7 @@ const placeToStayDialog = (place: placeToStay) => {
               <span className="span-small uppercase text-gray">{type}</span>
               <h3 className="h3-md">{name}</h3>
             </div>
-            <div className="grid w-1/3 grid-cols-2 items-center justify-end gap-x-2 gap-y-4">
+            <div className="grid lg:w-2/5 2xl:w-1/3 grid-cols-2 items-center justify-end gap-x-2 gap-y-4">
               {Object.entries(rating).map(([website, rating]) => (
                 <div
                   key={website}
@@ -82,7 +82,7 @@ const placeToStayDialog = (place: placeToStay) => {
             </span>
           </div>
 
-          <p className="p-regular mt-4">{description}</p>
+          <p className="p-regular mt-4 pb-sect-short">{description}</p>
         </div>
       </div>
     </dialog>
