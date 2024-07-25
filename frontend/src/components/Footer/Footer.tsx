@@ -86,6 +86,7 @@ const Footer = () => {
                 if (styledInput) styledInput.classList.remove("active");
               }
             }}
+            
           />
           <button title="subscribe">
             {" "}
