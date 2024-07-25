@@ -1,13 +1,28 @@
 import mongoose from "mongoose";
 
+const imageSchema = new mongoose.Schema({
+  flagImages: {
+    type: [String],
+    default: [],
+  },
+  mapImages: {
+    type: [String],
+    default: [],
+  },
+  otherImages: {
+    type: [String],
+    default: [],
+  },
+});
+
 const countrySchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
   },
   images: {
-    type: Object,
-    default: { flagImages: [], mapImages: [], otherImages: [] },
+    type: imageSchema,
+    default: () => ({}),
   },
   description: {
     type: Array,
