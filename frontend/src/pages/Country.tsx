@@ -12,6 +12,7 @@ import Destination from "src/types/Destination";
 import { FetchBlogsType, FetchDestinationType } from "src/types/FetchData";
 import { BASE_URL } from "src/utils/config";
 import NotFoundPage from "./404";
+import { Carousel } from "@material-tailwind/react";
 
 const CountryPage: React.FC = () => {
   // Define states
@@ -109,7 +110,9 @@ const CountryPage: React.FC = () => {
   if (countryError) {
     return (
       <div className="grid h-screen w-full place-items-center">
-        <h3 className="h3-md">Error... Please reload the page or try again later.</h3>
+        <h3 className="h3-md">
+          Error... Please reload the page or try again later.
+        </h3>
       </div>
     );
   }
@@ -120,15 +123,25 @@ const CountryPage: React.FC = () => {
     <main className="country">
       {/* HERO SECTION */}
       <section className="hero flex h-screen flex-col gap-8">
-        <div
-          className="h-5/6"
-          style={{
-            backgroundImage: `url(${country.images.otherImages?.[0]})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-          }}
-        ></div>
+        <Carousel
+          className=""
+          autoplay
+          autoplayDelay={4000}
+          transition={{ duration: 2 }}
+          loop
+        >
+          {country.images.otherImages?.map((image, index) => (
+            <div
+              className="h-full w-svw"
+              style={{
+                backgroundImage: `url(${image})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+              key={index}
+            ></div>
+          ))}
+        </Carousel>
 
         <div className="px-sect flex items-center gap-8">
           <img
@@ -279,7 +292,9 @@ const CountryPage: React.FC = () => {
           )}
           {blogError && (
             <div className="grid w-full place-items-center py-sect-short">
-              <h3 className="h3-md">Error... Please reload the page or try again later.</h3>
+              <h3 className="h3-md">
+                Error... Please reload the page or try again later.
+              </h3>
             </div>
           )}
           {!blogLoading && !blogError && blogs && blogs.length > 0 && (
@@ -301,11 +316,11 @@ const CountryPage: React.FC = () => {
             }
           }}
         >
-          <h1 className="h1-md m-sect-short uppercase">
+          <h1 className="h1-md mt-sect-short uppercase">
             {country.name}'s destinations
           </h1>
 
-          <div className="flex w-full flex-row justify-between py-sect-short">
+          <div className="flex w-full flex-row justify-between pb-8 pt-sect-short">
             <p className="p-medium">
               Each destination we’ve covered here is fully filled <br />
               with significant information you will need
@@ -396,8 +411,8 @@ const CountryPage: React.FC = () => {
       </section>
 
       {/* MORE COUNTRIES SECTION */}
-      <section className="more py-sect-default">
-        <h2 className="h2-md px-sect">More countries</h2>
+      <section className="more px-sect lg:py-40 2xl:py-60">
+        <h2 className="h2-md">More countries</h2>
         <RelatedSections type="country" data={country} />
       </section>
     </main>
