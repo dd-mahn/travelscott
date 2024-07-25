@@ -13,7 +13,7 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <main className="contact px-sect relative mt-sect-short flex flex-col items-center pb-sect-default pt-sect-short">
+    <main className="contact px-sect relative flex flex-col items-center pb-sect-default lg:pt-20 2xl:pt-60">
       <section className="emailing z-20 w-full rounded-3xl bg-background-light px-12 py-8 shadow-section">
         <div className="flex flex-row items-center justify-between border-b pb-8">
           <h2 className="h2-md">
