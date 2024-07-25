@@ -409,7 +409,7 @@ const Home: React.FC = () => {
         {/* STARTER SECTION */}
 
         <div className="sticky left-0 top-0 z-30">
-          <section className="starter relative rounded-5xl bg-main-brown py-sect-long">
+          <section className="starter relative rounded-5xl bg-main-brown lg:py-sect-medium 2xl:py-sect-semi">
             <img
               src={airplane1}
               alt=""
