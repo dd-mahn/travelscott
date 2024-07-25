@@ -93,11 +93,11 @@ const About: React.FC = () => {
       </section>
 
       {/* STACKED SECTION */}
-      <section className="flex flex-col items-center justify-start py-sect-semi">
+      <section className="flex flex-col items-center justify-start lg:py-sect-default 2xl:py-sect-semi">
         {/* HOW SECTION */}
         <h2 className="h3-inter text-center">How?</h2>
         <div className="how relative">
-          <div className="sticky z-0 mx-auto mb-24 mt-sect-medium flex h-0.5svh flex-row items-start justify-between rounded-xl bg-background-light px-8 pb-sect-short pt-4 shadow-section lg:top-24 lg:w-2/3 2xl:top-48 2xl:w-3/4">
+          <div className="sticky z-0 mx-auto mb-24 lg:mt-40 2xl:mt-sect-medium flex h-0.5svh flex-row items-start justify-between rounded-xl bg-background-light px-8 pb-sect-short pt-4 shadow-section lg:top-24 lg:w-2/3 2xl:top-48 2xl:w-3/4">
             <div className="flex flex-col items-start justify-start gap-12">
               <div className="flex flex-col justify-start gap-0">
                 <h1 className="h1-md-bold">Optimal</h1>
@@ -162,11 +162,11 @@ const About: React.FC = () => {
           <div className="py-sect-default"></div>
 
           {/* WHO SECTION */}
-          <section className="who px-sect sticky top-0 z-10 rounded-5xl bg-background-dark shadow-section lg:py-sect-default">
-            <div className="relative flex flex-col gap-sect-default">
+          <section className="who px-sect sticky top-0 z-10 rounded-5xl bg-background-dark shadow-section lg:pt-40 lg:pb-sect-default 2xl:py-sect-default">
+            <div className="relative flex flex-col">
               <div className="blob-1 blur-blob z-0 h-1/4 w-1/4"></div>
               <div className="blob-2 blur-blob z-0 h-3/5 w-3/5"></div>
-              <h2 className="h3-inter text-center text-text-dark">Who?</h2>
+              <h2 className="h3-inter text-center text-text-dark 2xl:py-sect-default lg:py-40">Who?</h2>
               <div className="z-10 flex flex-wrap justify-center gap-12">
                 {people.map((person, index) => (
                   <div
@@ -217,7 +217,7 @@ const About: React.FC = () => {
       </section>
 
       {/* WHY SECTION */}
-      <section className="why px-sect relative flex flex-col items-center pb-sect-semi pt-sect-default lg:gap-48 2xl:gap-64">
+      <section className="why px-sect relative flex flex-col items-center 2xl:my-sect-default lg:mt-40 lg:mb-sect-default h-0.5svh lg:gap-48 2xl:gap-64">
         <img src={airplane1} alt="" className="plane-1 absolute" />
         <img src={airplane2} alt="" className="plane-2 absolute" />
         <img src={airplane3} alt="" className="plane-3 absolute" />

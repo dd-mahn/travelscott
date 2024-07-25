@@ -306,7 +306,7 @@
   .why {
     @media screen and (min-width: 1920px) {
       .plane-1 {
-        top: 60%;
+        bottom: 10%;
         left: 60%;
         width: 5%;
       }
@@ -326,7 +326,7 @@
     }
     @media screen and (min-width: 1536px) and (max-width: 1919px) {
       .plane-1 {
-        top: 60%;
+        bottom: 5%;
         left: 60%;
         width: 5%;
       }
@@ -347,7 +347,7 @@
 
     @media screen and (min-width:1280px) and (max-width: 1525px){
       .plane-1 {
-        top: 60%;
+        bottom: 0%;
         left: 60%;
         width: 5%;
       }
@@ -368,7 +368,7 @@
 
     @media screen and (min-width:1024px) and (max-width:1279px){
       .plane-1 {
-        top: 55%;
+        bottom: 0%;
         left: 60%;
         width: 5%;
       }
