@@ -1,26 +1,13 @@
 .discover {
   .posters {
-    .poster{
-        height: 95%;
-        ;
-
-        .big-heading{
-            line-height: 0.8;
-        }
-
-        .blob-1 {
-            width: 70%;
-            height: 100%;
-            top: 0;
-            left: -5%;
-            background: radial-gradient(circle at 50% 50%, #3c3c3c, rgba(76, 0, 255, 0));
-            opacity: 0.5;
-        }
+    .poster {
+      height: 95%;
+      .big-heading {
+        line-height: 0.8;
+      }
     }
-    
   }
 
-  .destinations{
-    
+  .destinations {
   }
 }
