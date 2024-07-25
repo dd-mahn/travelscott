@@ -302,6 +302,8 @@ export const updateCountryImages = async (req: Request, res: Response) => {
     country.images.mapImages = mapImages;
     country.images.otherImages = otherImages;
 
+    console.log("Updated country object:", country);
+
     await country.save();
     console.log("Country images saved successfully");
 
@@ -309,7 +311,7 @@ export const updateCountryImages = async (req: Request, res: Response) => {
       message: `Country images updated successfully for ${folderName}`,
       flagImages,
       mapImages,
-      otherImages,
+      otherImages
     });
   } catch (error) {
     console.error(error); // log the error details on the server
