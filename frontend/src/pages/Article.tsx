@@ -4,6 +4,7 @@ import RelatedSections from "src/components/ui/RelatedSections";
 import useFetch from "src/hooks/useFetch";
 import Blog from "src/types/Blog";
 import { BASE_URL } from "src/utils/config";
+import NotFoundPage from "./404";
 
 const Article: React.FC = () => {
   const { id } = useParams();
@@ -15,9 +16,19 @@ const Article: React.FC = () => {
     error: blogError,
   } = useFetch<Blog>(`${BASE_URL}/blogs/${id}`);
 
-  if (blogLoading) return <div>Loading...</div>;
-  if (blogError) return <div>Error...</div>;
-  if (!blogData) return <div>No data...</div>;
+  if (blogLoading)
+    return (
+      <div className="grid h-screen w-full place-items-center">
+        <h3 className="h3-md">Loading...</h3>
+      </div>
+    );
+  if (blogError)
+    return (
+      <div className="grid h-screen w-full place-items-center">
+        <h3 className="h3-md">Error... Please reload the page or try again later.</h3>
+      </div>
+    );
+  if (!blogData) return <NotFoundPage />;
 
   return (
     <main className="pb-sect-default">
@@ -65,12 +76,12 @@ const Article: React.FC = () => {
           </div>
         ))}
 
-        <div className="flex w-2/3 justify-end pt-2 border-t">
+        <div className="flex w-2/3 justify-end border-t pt-2">
           <span className="span-large w-fit">By {" " + blogData.author}</span>
         </div>
       </div>
 
-      <div className="px-sect flex flex-col items-center mt-sect-default">
+      <div className="px-sect mt-sect-default flex flex-col items-center">
         <h2 className="h2-md">Related articles</h2>
         <RelatedSections type={"blog"} data={blogData} />
       </div>
