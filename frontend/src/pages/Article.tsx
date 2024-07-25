@@ -31,7 +31,7 @@ const Article: React.FC = () => {
   if (!blogData) return <NotFoundPage />;
 
   return (
-    <main className="pb-sect-default">
+    <main className="">
       <div
         className="h-0.75svh"
         style={{
