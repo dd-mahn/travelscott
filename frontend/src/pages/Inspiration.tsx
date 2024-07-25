@@ -67,7 +67,7 @@ const Inspiration: React.FC = () => {
     data: blogsData,
     loading: blogsLoading,
     error: blogsError,
-  } = useFetch<FetchBlogsType>(url);
+  } = useFetch<FetchBlogsType>(url, [currentCategory]);
 
   // Fetching all blogs for the selected category to find featured blogs
   const {
@@ -75,12 +75,16 @@ const Inspiration: React.FC = () => {
     loading: allBlogsLoading,
     error: allBlogsError,
   } = useFetch<FetchBlogsType>(
-    `${BASE_URL}/blogs?limit=1000&category=${currentCategory === "All" ? "" : encodeURIComponent(currentCategory)}`,
+    `${BASE_URL}/blogs?limit=1000&category=${currentCategory === "All" ? "" : encodeURIComponent(currentCategory)}`, [currentCategory]
   );
 
   // Handling loading state
   if (!blogsData) {
-    return <div>Loading...</div>;
+    return (
+      <div className="grid h-screen w-full place-items-center">
+        <h3 className="h3-md">Loading...</h3>
+      </div>
+    );
   }
 
   // Extracting blogs and featured blogs from fetched data
@@ -152,7 +156,7 @@ const Inspiration: React.FC = () => {
         )}
       </div>
       <h1 className="big-heading z-10 mt-sect-short text-text-dark">
-        {currentCategory === "All" ? "Trending articles" : currentCategory}
+        {currentCategory === "All" ? "Trending articles" : currentCategory === "Wilderness" ? "Wilderness" : currentCategory === "Culture&Heritage" ? "Culture & Heritage" : currentCategory === "Food&Drink" ? "Food & Drink" : currentCategory === "SoloJourneys" ? "Solo Journeys" : currentCategory === "CityScape" ? "City Scape" : currentCategory === "Season&Festival" ? "Season & Festival" : currentCategory === "Relaxation" ? "Relaxation" : currentCategory === "FirstTimeAbroad" ? "First Time Abroad" : "Trending articles"}
       </h1>
       <div className="z-10 flex w-2/3 flex-row flex-wrap justify-center gap-x-4 gap-y-4 filter">
         {categories
@@ -191,7 +195,7 @@ const Inspiration: React.FC = () => {
 
       {/* Featured Blogs Section */}
       {featuredBlogs !== undefined && featuredBlogs.length > 0 ? (
-        <div className="z-10 mt-sect-default">
+        <div className="z-10 lg:mt-sect-short 2xl:mt-sect-default">
           <FeaturedBlogs blogs={featuredBlogs} />
         </div>
       ) : (
