@@ -20,7 +20,6 @@ import DestinationCard from "src/components/ui/DestinationCard";
 import CountryCard from "src/components/ui/CountryCard";
 import { FetchCountriesType, FetchDestinationType } from "src/types/FetchData";
 import RelatedSections from "src/components/ui/RelatedSections";
-import { set } from "lodash";
 
 const Discover: React.FC = () => {
   // State hooks for current page, destinations, countries, selected continent, filter tags, filter countries, filter continents
@@ -195,7 +194,7 @@ const Discover: React.FC = () => {
         )}
 
       {/* COUNTRY SECTION */}
-      <section className="countries px-sect flex w-full flex-col items-center gap-4 py-sect-default">
+      <section className="countries px-sect flex w-full flex-col items-center gap-4 lg:pt-sect-default lg:pb-40 2xl:py-sect-default">
         <h1 className="h1-md">Discover countries</h1>
         <form action="" className="w-1/6">
           <select
