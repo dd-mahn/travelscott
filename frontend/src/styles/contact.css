@@ -29,10 +29,4 @@
       text-transform: none !important;
     }
   }
-
-  .feedback {
-    input {
-      @apply w-full border-b border-text-light bg-transparent pl-1 outline-none;
-    }
-  }
 }
