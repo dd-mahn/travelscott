@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import useFetch from "src/hooks/useFetch";
 import type Destination from "src/types/Destination";
 import { BASE_URL } from "src/utils/config";
+import "src/styles/destination.css"
 
 // Material Tailwind
 import { Carousel } from "@material-tailwind/react";
@@ -206,7 +207,7 @@ const DestinationPage: React.FC = () => {
       <section className="relative">
         <section
           id="additional"
-          className="additional px-sect sticky top-0 grid grid-cols-2 grid-rows-2 gap-x-4 gap-y-16 py-sect-default"
+          className="additional px-sect sticky top-0 grid grid-cols-2 grid-rows-2 gap-x-4 gap-y-16 lg:py-40 2xl:py-sect-default"
         >
           {Object.entries(destination.additionalInfo).map(([key, value]) => (
             <div key={key} className="flex flex-col gap-4">
@@ -228,7 +229,7 @@ const DestinationPage: React.FC = () => {
 
         <section
           id="transportation"
-          className="stacked-section transportation px-sect sticky rounded-3xl bg-light-brown pb-sect-short pt-sect-short shadow-section"
+          className="stacked-section transportation px-sect sticky rounded-3xl bg-light-brown lg:pb-40 2xl:pb-sect-short pt-sect-short shadow-section"
         >
           <div className="mt-sect-short flex flex-col gap-8">
             <h1 className="h1-md">
@@ -473,7 +474,7 @@ const DestinationPage: React.FC = () => {
 
       <section
         id="summary"
-        className="summary px-sect flex flex-col gap-sect-short rounded-3xl bg-background-light py-sect-medium"
+        className="summary px-sect flex flex-col gap-sect-short rounded-3xl bg-background-light lg:py-60 2xl:py-sect-medium"
       >
         <h1 className="h1-md">
           <i className="ri-shining-2-fill"></i> Summary
