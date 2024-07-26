@@ -8,6 +8,7 @@ interface StyledInputProps {
 }
 
 const StyledInput: React.FC<StyledInputProps> = ({ type, id, label }) => {
+
   return (
     <div className="styled-input flex w-full items-center border-b border-text-light">
       <label htmlFor={id} className="label span-regular">
@@ -26,7 +27,7 @@ const StyledInput: React.FC<StyledInputProps> = ({ type, id, label }) => {
         }}
         onBlur={() => {
           const input = document.getElementById(id);
-          if (input) {
+          if (input && ( input as HTMLInputElement).value === "") {
             const styledInput = input.closest(".styled-input");
             if (styledInput) styledInput.classList.remove("active");
           }

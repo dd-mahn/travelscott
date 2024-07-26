@@ -20,3 +20,7 @@
   transform: translateY(-100%);
   transition: 0.3s;
 }
+
+.styled-input.active input:invalid {
+  color: rgb(255, 64, 0)
+}
