@@ -487,7 +487,7 @@ const DestinationPage: React.FC = () => {
         </div>
       </section>
 
-      <section className="related py-sect-short">
+      <section className="related lg:py-sect-short 2xl:py-40">
         <h2 className="h2-md px-sect w-full text-center">
           Related destination
         </h2>
