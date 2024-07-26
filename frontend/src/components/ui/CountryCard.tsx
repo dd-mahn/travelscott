@@ -24,7 +24,7 @@ const CountryCard: React.FC<CountryCardProps> = ({ country }) => {
       </div>
       <div className="flex h-fit flex-col justify-start gap-0">
         <span className="span-medium">{country.name}</span>
-        <span className="span-regular">
+        <span className="span-regular whitespace-nowrap">
           {country.totalDestinations} destinations
         </span>
       </div>
