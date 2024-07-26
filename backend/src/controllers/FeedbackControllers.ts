@@ -4,14 +4,14 @@ import Feedback from "src/models/Feedback";
 // Create feedback
 export const createFeedback = async (req: Request, res: Response) => {
   try {
-    const { name, email, message } = req.body;
+    const { firstName, lastName, email, age, country, message } = req.body;
 
     // Validate input
-    if (!name || !email || !message) {
+    if (!firstName || !lastName || !age || !country || !email || !message) {
       return res.status(400).json({ message: "All fields are required." });
     }
 
-    const feedback = new Feedback({ name, email, message });
+    const feedback = new Feedback({ firstName, lastName, email, age, country, message });
     await feedback.save();
     res.status(201).json(feedback);
   } catch (error) {
