@@ -81,7 +81,7 @@ const Footer = () => {
             }}
             onBlur={() => {
               const input = document.getElementById("subscribe-email");
-              if (input) {
+              if (input && (input as HTMLInputElement).value === "") {
                 const styledInput = input.closest(".styled-input");
                 if (styledInput) styledInput.classList.remove("active");
               }
