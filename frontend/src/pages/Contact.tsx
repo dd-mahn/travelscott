@@ -2,14 +2,92 @@ import React, { useState } from "react";
 import planeIcon from "src/assets/svg/plane-icon.svg";
 import StyledInput from "src/components/ui/StyledInput";
 import "src/styles/contact.css";
+import { BASE_URL } from "src/utils/config";
 
 const Contact: React.FC = () => {
   const [visibleSection, setVisibleSection] = useState("");
+  const [formValid, setFormValid] = useState(false);
 
   const toggleInfo = (sectionId: string) => {
     setVisibleSection((prevSection) =>
       prevSection === sectionId ? "" : sectionId,
     );
+  };
+
+  const resetForm = () => {
+    const firstName = document.getElementById("firstName") as HTMLInputElement;
+    const lastName = document.getElementById("lastName") as HTMLInputElement;
+    const email = document.getElementById("email") as HTMLInputElement;
+    const age = document.getElementById("age") as HTMLInputElement;
+    const country = document.getElementById("country") as HTMLInputElement;
+    const message = document.getElementById("message") as HTMLTextAreaElement;
+
+    firstName.value = "";
+    lastName.value = "";
+    email.value = "";
+    age.value = "";
+    country.value = "";
+    message.value = "";
+  }
+
+  const handleFeedbackSend = async () => {
+    // handle feedback form submission
+    const firstName = document.getElementById("firstName") as HTMLInputElement;
+    const lastName = document.getElementById("lastName") as HTMLInputElement;
+    const email = document.getElementById("email") as HTMLInputElement;
+    const age = document.getElementById("age") as HTMLInputElement;
+    const country = document.getElementById("country") as HTMLInputElement;
+    const message = document.getElementById("message") as HTMLTextAreaElement;
+
+    if (
+      firstName.value === "" ||
+      lastName.value === "" ||
+      email.value === "" ||
+      age.value === "" ||
+      country.value === "" ||
+      message.value === ""
+    ) {
+      setFormValid(false);
+      alert("All fields are required.");
+      return
+    } else {
+      setFormValid(true);
+    }
+
+    // send feedback data to backend
+    if (formValid) {
+      try {
+        const feedbackData = {
+          firstName: firstName.value,
+          lastName: lastName.value,
+          email: email.value,
+          age: age.value,
+          country: country.value,
+          message: message.value,
+        };
+
+        const res = await fetch(`${BASE_URL}/feedback`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(feedbackData),
+        });
+
+        if (res.ok) {
+          alert("Feedback sent successfully!");
+          resetForm();
+        } else {
+          alert("Failed to send feedback. Please try again later.");
+        }
+      } catch (error) {
+        if (error instanceof Error) {
+          console.error(error.message);
+        } else {
+          console.error("An error occurred while processing your request.");
+        }
+      }
+    }
   };
 
   return (
@@ -21,7 +99,7 @@ const Contact: React.FC = () => {
             Looking to collaborate with us commercially?
           </h2>
           <button
-            className={`${visibleSection === "emailing" ? "rotate-180" : ""} transition-all rounded-full border lg:h-20 lg:w-20 xl:h-24 xl:w-24 2xl:h-28 2xl:w-28 3xl:h-28 3xl:w-28`}
+            className={`${visibleSection === "emailing" ? "rotate-180" : ""} rounded-full border transition-all lg:h-20 lg:w-20 xl:h-24 xl:w-24 2xl:h-28 2xl:w-28 3xl:h-28 3xl:w-28`}
             title="open btn"
             onClick={() => {
               toggleInfo("emailing");
@@ -53,7 +131,7 @@ const Contact: React.FC = () => {
         <div className="flex flex-row items-center justify-between border-b pb-8">
           <h2 className="h2-md">Want to share your experience as resource?</h2>
           <button
-            className={`${visibleSection === "contribute" ? "rotate-180" : ""} transition-all rounded-full border lg:h-20 lg:w-20 xl:h-24 xl:w-24 2xl:h-28 2xl:w-28 3xl:h-28 3xl:w-28`}
+            className={`${visibleSection === "contribute" ? "rotate-180" : ""} rounded-full border transition-all lg:h-20 lg:w-20 xl:h-24 xl:w-24 2xl:h-28 2xl:w-28 3xl:h-28 3xl:w-28`}
             title="open btn"
             onClick={() => {
               toggleInfo("contribute");
@@ -80,7 +158,7 @@ const Contact: React.FC = () => {
         <div className="flex flex-row items-center justify-between border-b pb-8">
           <h2 className="h2-md">Want to give us a feedback?</h2>
           <button
-            className={`${visibleSection === "feedback" ? "rotate-180" : ""} transition-all rounded-full border lg:h-20 lg:w-20 xl:h-24 xl:w-24 2xl:h-28 2xl:w-28 3xl:h-28 3xl:w-28`}
+            className={`${visibleSection === "feedback" ? "rotate-180" : ""} rounded-full border transition-all lg:h-20 lg:w-20 xl:h-24 xl:w-24 2xl:h-28 2xl:w-28 3xl:h-28 3xl:w-28`}
             title="open btn"
             onClick={() => {
               toggleInfo("feedback");
@@ -102,8 +180,8 @@ const Contact: React.FC = () => {
           </p>
 
           <form action="" className="flex w-2/5 flex-col gap-12 pt-8">
-            <StyledInput type="text" id="first-name" label="First name" />
-            <StyledInput type="text" id="last-name" label="Last name" />
+            <StyledInput type="text" id="firstName" label="First name" />
+            <StyledInput type="text" id="lastName" label="Last name" />
             <StyledInput type="email" id="email" label="Email address" />
             <StyledInput type="text" id="age" label="Age" />
             <StyledInput type="text" id="country" label="Country" />
@@ -119,7 +197,7 @@ const Contact: React.FC = () => {
               ></textarea>
             </div>
 
-            <button className="btn btn-secondary">
+            <button type="button" className="btn btn-secondary" onClick={handleFeedbackSend}>
               Send it <img src={planeIcon} alt="" />
             </button>
           </form>
