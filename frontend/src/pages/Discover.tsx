@@ -231,13 +231,14 @@ const Discover: React.FC = () => {
                     </h2>
                   </div>
 
-                  <div className="flex flex-wrap justify-between gap-12">
+                  
                     {countryLoading && <p className="p-regular">Loading...</p>}
                     {countryError && (
                       <p className="p-regular">
                         Please reload the page or try again later.
                       </p>
                     )}
+                  <div className="grid lg:grid-cols-3 2xl:grid-cols-4 justify-between gap-12">
                     {!countryLoading &&
                       !countryError &&
                       continent.countries.map((country) => (
@@ -253,8 +254,8 @@ const Discover: React.FC = () => {
       </section>
 
       {/* RELATED ARTICLES SECTION */}
-      <section className="related px-sect flex flex-col">
-        <h2 className="h2-md">Related articles</h2>
+      <section className="related flex flex-col">
+        <h2 className="h2-md px-sect lg:pb-8 2xl:pb-12">Related articles</h2>
         <RelatedSections type={"blog"} data={selectedContinent} />
       </section>
 
