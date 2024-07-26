@@ -81,8 +81,8 @@ const Article: React.FC = () => {
         </div>
       </div>
 
-      <div className="px-sect mt-sect-default flex flex-col items-center">
-        <h2 className="h2-md">Related articles</h2>
+      <div className="lg:py-40 2xl:py-sect-default">
+        <h2 className="h2-md px-sect 2xl:pb-12 lg:pb-8 w-full text-center">Related articles</h2>
         <RelatedSections type={"blog"} data={blogData} />
       </div>
     </main>
