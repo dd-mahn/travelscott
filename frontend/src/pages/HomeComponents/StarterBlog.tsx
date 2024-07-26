@@ -64,7 +64,7 @@ const BlogComponent = ({
   return (
     <div
       key={blog.title}
-      className="blog absolute flex h-0.5svh w-1/3 flex-col justify-between gap-4 overflow-hidden rounded-xl bg-background-light pb-8 shadow-xl"
+      className="blog absolute flex h-0.5svh w-1/3 flex-col justify-between gap-4 overflow-hidden rounded-xl bg-background-light pb-8 shadow-component"
       style={{
         left: `${position.x}px`,
         top: `${position.y}px`,
