@@ -1,5 +1,6 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import Slider from "react-slick";
+import { Navigate, useNavigate } from "react-router-dom";
 import useFetch from "src/hooks/useFetch";
 import Blog from "src/types/Blog";
 import Country from "src/types/Country";
@@ -10,12 +11,29 @@ import {
   FetchDestinationType,
 } from "src/types/FetchData";
 import { BASE_URL } from "src/utils/config";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
+// Slider settings
+const settings = {
+  dots: false,
+  infinite: true,
+  autoplay: true,
+  speed: 3000,
+  autoplaySpeed: 3000,
+  slidesToShow: 5,
+  slidesToScroll: 1,
+  cssEase: "linear",
+  pauseOnHover: true,
+};
+
+// Related sections types
 type RelatedSectionsProps = {
   type: string;
   data: Blog | Country | Destination | string;
 };
 
+// Related sections component
 const RelatedSections: React.FC<RelatedSectionsProps> = ({ type, data }) => {
   return type === "country" ? (
     <RelatedCountries country={data as Country} />
@@ -41,6 +59,7 @@ type BlogProps = {
   data: Blog | Destination | Country | string;
 };
 
+// Related countries component
 const RelatedCountries: React.FC<CountryProps> = ({ country }) => {
   const navigate = useNavigate();
   const continent = country.continent;
@@ -69,30 +88,55 @@ const RelatedCountries: React.FC<CountryProps> = ({ country }) => {
     );
 
   return (
-    <div className="related-countries min-w-screen flex flex-nowrap gap-2 py-sect-short">
-      {relatedCountries.map((country) => (
+    <>
+      {relatedCountries.length < 5 && (
         <div
-          key={country.name}
-          className="cursor-pointer grid h-0.3svh w-0.2svw place-items-center bg-background-dark bg-opacity-20"
-          style={{
-            backgroundImage: `linear-gradient(rgba(0,0,0,0.4) , rgba(0,0,0,0.4)), url(${country.images.otherImages?.[0]})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
+          className="related-countries min-w-screen flex cursor-pointer flex-nowrap gap-2 py-sect-short"
           onClick={() => navigate(`/discover/countries/${country._id}`)}
         >
-          <p className="p-large text-center font-prima text-text-dark">
-            {country.name}
-          </p>
+          {relatedCountries.map((country) => (
+            <div key={country.name} className="relative h-0.3svh w-0.2svw">
+              <img
+                src={country.images.otherImages?.[0]}
+                alt={country.name}
+                className="absolute right-0 top-0 z-0 h-full w-full brightness-75 transition-all duration-300 hover:brightness-50"
+              />
+              <p className="p-large absolute left-0 right-0 top-2/5 z-10 px-8 text-center font-prima text-text-dark">
+                {country.name}
+              </p>
+            </div>
+          ))}
         </div>
-      ))}
-    </div>
+      )}
+      {relatedCountries.length >= 5 && (
+        <Slider {...settings}>
+          {relatedCountries.map((country) => (
+            <div
+              key={country.name}
+              className="relative h-0.3svh w-0.2svw cursor-pointer"
+              onClick={() => navigate(`/discover/countries/${country._id}`)}
+            >
+              <img
+                src={country.images.otherImages?.[0]}
+                alt={country.name}
+                className="absolute right-0 top-0 z-0 h-full w-full brightness-75 transition-all duration-300 hover:brightness-50"
+              />
+              <p className="p-large absolute left-0 right-0 top-2/5 z-10 px-8 text-center font-prima text-text-dark">
+                {country.name}
+              </p>
+            </div>
+          ))}
+        </Slider>
+      )}
+    </>
   );
 };
 
+// Related destinations component
 const RelatedDestinations: React.FC<DestinationProps> = ({ destination }) => {
   const continent = destination.continent;
   const tags = destination.tags;
+  const navigate = useNavigate();
 
   const {
     data: destinationsData,
@@ -125,26 +169,57 @@ const RelatedDestinations: React.FC<DestinationProps> = ({ destination }) => {
       </div>
     );
   return (
-    <div className="related-destinations min-w-screen flex flex-nowrap gap-2 py-sect-short">
-      {relatedDestinations.map((destination) => (
-        <div
-          key={destination.name}
-          className="grid h-0.3svh w-0.2svw place-items-center bg-background-dark bg-opacity-20"
-          style={{
-            backgroundImage: `linear-gradient(rgba(0,0,0,0.4) , rgba(0,0,0,0.4)), url(${destination.images?.[0]})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        >
-          <p className="p-large text-center font-prima text-text-dark">
-            {destination.name}
-          </p>
+    <>
+      {relatedDestinations.length < 5 && (
+        <div className="related-destinations min-w-screen flex flex-nowrap gap-2 py-sect-short">
+          {relatedDestinations.map((destination) => (
+            <div
+              key={destination.name}
+              className="relative h-0.3svh w-0.2svw"
+              onClick={() =>
+                navigate(`/discover/destinations/${destination._id}`)
+              }
+            >
+              <img
+                src={destination.images?.[0]}
+                alt={destination.name}
+                className="absolute right-0 top-0 z-0 h-full w-full brightness-75 transition-all duration-300 hover:brightness-50"
+              />
+              <p className="p-large absolute left-0 right-0 top-2/5 z-10 px-8 text-center font-prima text-text-dark">
+                {destination.name}
+              </p>
+            </div>
+          ))}
         </div>
-      ))}
-    </div>
+      )}
+
+      {relatedDestinations.length >= 5 && (
+        <Slider {...settings}>
+          {relatedDestinations.map((destination) => (
+            <div
+              key={destination.name}
+              className="relative h-0.3svh w-0.2svw"
+              onClick={() =>
+                navigate(`/discover/destinations/${destination._id}`)
+              }
+            >
+              <img
+                src={destination.images?.[0]}
+                alt={destination.name}
+                className="absolute right-0 top-0 z-0 h-full w-full brightness-75 transition-all duration-300 hover:brightness-50"
+              />
+              <p className="p-large absolute left-0 right-0 top-2/5 z-10 px-8 text-center font-prima text-text-dark">
+                {destination.name}
+              </p>
+            </div>
+          ))}
+        </Slider>
+      )}
+    </>
   );
 };
 
+// Related articles component
 const RelatedArticles: React.FC<BlogProps> = ({ data }) => {
   const navigate = useNavigate();
 
@@ -229,24 +304,58 @@ const RelatedArticles: React.FC<BlogProps> = ({ data }) => {
   }
 
   return (
-    <div className="related-blogs min-w-full flex flex-nowrap gap-2 py-sect-short">
-      {relatedBlogs.map((blog) => (
-        <div
-          key={blog.title}
-          className="grid h-0.3svh w-0.2svw cursor-pointer place-items-center"
-          style={{
-            backgroundImage: `linear-gradient(rgba(0,0,0,0.4) , rgba(0,0,0,0.4)), url(${blog.image})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-          onClick={() => navigate(`/inspiration/${blog._id}`)}
-        >
-          <p className="p-large text-center font-prima text-text-dark">
-            {blog.title}
-          </p>
+    <>
+      {relatedBlogs.length < 5 && (
+        <div className="related-blogs flex min-w-full flex-nowrap gap-2 py-sect-short">
+          {relatedBlogs.map((blog) => (
+            <div
+              key={blog.title}
+              className="relative h-0.3svh w-0.2svw cursor-pointer border-background-light"
+              style={{
+                backgroundImage: `url(${blog.image})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+              onClick={() => navigate(`/inspiration/${blog._id}`)}
+            >
+              <img
+                src={blog.image}
+                alt={blog.title}
+                className="absolute left-0 top-0 z-0 h-full w-full brightness-75 transition-all duration-300 hover:brightness-50"
+              />
+              <p className="p-large absolute left-0 right-0 top-2/5 z-10 px-8 text-center font-prima text-text-dark">
+                {blog.title}
+              </p>
+            </div>
+          ))}
         </div>
-      ))}
-    </div>
+      )}
+      {relatedBlogs.length >= 5 && (
+        <Slider {...settings}>
+          {relatedBlogs.map((blog) => (
+            <div
+              key={blog.title}
+              className="relative h-0.3svh w-0.2svw cursor-pointer border-r-8 border-background-light"
+              style={{
+                backgroundImage: `url(${blog.image})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+              onClick={() => navigate(`/inspiration/${blog._id}`)}
+            >
+              <img
+                src={blog.image}
+                alt={blog.title}
+                className="absolute left-0 top-0 z-0 h-full w-full brightness-75 transition-all duration-300 hover:brightness-50"
+              />
+              <p className="p-large absolute left-0 right-0 top-2/5 z-10 px-8 text-center font-prima text-text-dark">
+                {blog.title}
+              </p>
+            </div>
+          ))}
+        </Slider>
+      )}
+    </>
   );
 };
 
