@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "remixicon/fonts/remixicon.css";
 import "src/components/Header/header.css";
 import { NavLink } from "react-router-dom";
@@ -15,6 +15,7 @@ import Blog from "src/types/Blog";
 import SearchResult from "../ui/SearchResult";
 import ReactDOM from "react-dom";
 
+// Navigation items
 const navs = [
   {
     path: "/about",
@@ -115,9 +116,36 @@ const Header = () => {
   // Handle close search result
   const closeSearchResult = () => {
     setSearchResultOpen(false);
-    setInputDisplay(false);
+    if (inputDisplay) setInputDisplay(false);
     searchRef.current!.value = "";
   };
+
+  const handleClickOutside = (e: Event) => {
+    const searchResult = document.querySelector(".search-result");
+
+    if (
+      searchRef.current &&
+      !searchRef.current.contains(e.target as HTMLElement) &&
+      searchResult &&
+      !searchResult.contains(e.target as HTMLElement)
+    ) {
+      closeSearchResult();
+    }
+  };
+
+  useEffect(() => {
+    if (searchResultOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [searchResultOpen]);
+
+  // Render logic
 
   return (
     <header className="px-sect fixed top-0 z-50 min-h-16 w-svw bg-transparent py-4 mix-blend-difference">
@@ -138,12 +166,13 @@ const Header = () => {
         </nav>
         <div className="lg:flex lg:gap-2 xl:gap-3 2xl:gap-3 3xl:gap-4">
           <div
-            className={`search-bar relative rounded-2xl transition-all duration-500 ${inputDisplay ? "border-white px-2 lg:border-2" : ""} flex items-center`}
+            className={`search-bar relative transition-all duration-300 ${inputDisplay ? "border-white px-2 lg:border-b-2" : ""} flex items-center`}
           >
             <input
               type="text"
               placeholder="Search"
               id="search"
+              autoComplete="off"
               ref={searchRef}
               className={`${inputDisplay ? "" : "hidden"} p-small bg-transparent text-text-dark outline-none`}
               onChange={() => {
@@ -161,6 +190,7 @@ const Header = () => {
               onClick={() => {
                 if (!inputDisplay) {
                   setInputDisplay(true);
+                  console.log(inputDisplay);
                   setTimeout(() => {
                     searchRef.current?.focus();
                     if (searchRef.current?.value !== "") handleSearch();
