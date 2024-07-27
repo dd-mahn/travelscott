@@ -166,7 +166,7 @@ const About: React.FC = () => {
             <div className="relative flex flex-col">
               <div className="blob-1 blur-blob z-0 h-1/4 w-1/4"></div>
               <div className="blob-2 blur-blob z-0 h-3/5 w-3/5"></div>
-              <h2 className="h3-inter text-center text-text-dark 2xl:py-sect-default lg:py-40">Who?</h2>
+              <h2 className="h3-inter text-center text-text-dark 2xl:pb-sect-default lg:py-40">Who?</h2>
               <div className="z-10 flex flex-wrap justify-center gap-12">
                 {people.map((person, index) => (
                   <div
@@ -192,7 +192,7 @@ const About: React.FC = () => {
                   </div>
                 ))}
               </div>
-              <div className="px-sect relative pb-sect-default pt-sect-long">
+              <div className="px-sect relative pb-sect-default pt-sect-long 2xl:mt-sect-default">
                 <div className="blob-3 blur-blob z-0 h-3/5 w-3/5"></div>
                 <img src={who1} alt="" className="img-1 absolute rounded-lg" />
                 <img src={who2} alt="" className="img-2 absolute rounded-lg" />
