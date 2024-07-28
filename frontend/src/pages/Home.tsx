@@ -27,65 +27,176 @@ import { BASE_URL } from "src/utils/config";
 import { createBlogChunks } from "src/utils/createBlogChunks";
 import { useNavigate } from "react-router-dom";
 import { DotPagination } from "src/components/ui/Pagination";
+import HorizontalScrollCarousel from "./HomeComponents/FeaturedHorizontalScroller";
 
 const featuredDemo = [
   {
-    img: featured1,
-    title: "A destination with culture",
+    _id: "1",
+    places: {},
+    insight: {},
+    continent: "",
+    description: "",
+    transportation: {},
+    additionalInfo: {},
+    summary: "",
+    location: "",
+    video: "",
+    featured: true,
+    images: [featured1],
+    name: "A destination with culture",
     country: "Country",
     tags: ["Nature&Adventure", "Africa", "SoloTravel"],
   },
   {
-    img: featured2,
-    title: "A destination with nature",
+    _id: "2",
+    places: {},
+    insight: {},
+    continent: "",
+    description: "",
+    transportation: {},
+    additionalInfo: {},
+    summary: "",
+    location: "",
+    video: "",
+    featured: true,
+    images: [featured2],
+    name: "A destination with nature",
     country: "Country",
     tags: ["Nature&Adventure", "North America", "SoloTravel"],
   },
   {
-    img: featured3,
-    title: "A destination with nature",
+    _id: "3",
+    places: {},
+    insight: {},
+    continent: "",
+    description: "",
+    transportation: {},
+    additionalInfo: {},
+    summary: "",
+    location: "",
+    video: "",
+    featured: true,
+    images: [featured3],
+    name: "A destination with nature",
     country: "Country",
     tags: ["Nature&Adventure", "Europe", "SoloTravel"],
   },
   {
-    img: featured4,
-    title: "A destination with nature",
+    _id: "4",
+    places: {},
+    insight: {},
+    continent: "",
+    description: "",
+    transportation: {},
+    additionalInfo: {},
+    summary: "",
+    location: "",
+    video: "",
+    featured: true,
+    images: [featured4],
+    name: "A destination with nature",
     country: "Country",
     tags: ["Nature&Adventure", "Asia", "SoloTravel"],
   },
   {
-    img: featured5,
-    title: "A destination with nature",
+    _id: "5",
+    places: {},
+    insight: {},
+    continent: "",
+    description: "",
+    transportation: {},
+    additionalInfo: {},
+    summary: "",
+    location: "",
+    video: "",
+    featured: true,
+    images: [featured5],
+    name: "A destination with nature",
     country: "Country",
     tags: ["Nature&Adventure", "Europe", "SoloTravel"],
   },
   {
-    img: featured6,
-    title: "A destination with nature",
+    _id: "6",
+    places: {},
+    insight: {},
+    continent: "",
+    description: "",
+    transportation: {},
+    additionalInfo: {},
+    summary: "",
+    location: "",
+    video: "",
+    featured: true,
+    images: [featured6],
+    name: "A destination with nature",
     country: "Country",
     tags: ["Nature&Adventure", "Europe", "SoloTravel"],
   },
   {
-    img: featured7,
-    title: "A destination with nature",
+    _id: "7",
+    places: {},
+    insight: {},
+    continent: "",
+    description: "",
+    transportation: {},
+    additionalInfo: {},
+    summary: "",
+    location: "",
+    video: "",
+    featured: true,
+    images: [featured7],
+    name: "A destination with nature",
     country: "Country",
     tags: ["Nature&Adventure", "Europe", "SoloTravel"],
   },
   {
-    img: featured8,
-    title: "A destination with nature",
+    _id: "8",
+    places: {},
+    insight: {},
+    continent: "",
+    description: "",
+    transportation: {},
+    additionalInfo: {},
+    summary: "",
+    location: "",
+    video: "",
+    featured: true,
+    images: [featured8],
+    name: "A destination with nature",
     country: "Country",
     tags: ["Nature&Adventure", "Europe", "SoloTravel"],
   },
   {
-    img: featured9,
-    title: "A destination with nature",
+    _id: "9",
+    places: {},
+    insight: {},
+    continent: "",
+    description: "",
+    transportation: {},
+    additionalInfo: {},
+    summary: "",
+    location: "",
+    video: "",
+    featured: true,
+    images: [featured9],
+    name: "A destination with nature",
     country: "Country",
     tags: ["Nature&Adventure", "Europe", "SoloTravel"],
   },
   {
-    img: featured10,
-    title: "A destination with nature",
+    _id: "10",
+    places: {},
+    insight: {},
+    continent: "",
+    description: "",
+    transportation: {},
+    additionalInfo: {},
+    summary: "",
+    location: "",
+    video: "",
+    featured: true,
+    images: [featured10],
+    name: "A destination with nature",
     country: "Country",
     tags: ["Nature&Adventure", "Europe", "SoloTravel"],
   },
@@ -93,7 +204,6 @@ const featuredDemo = [
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
-  const scrollRef = useHorizontalScroll();
 
   // Handle blog data
   const {
@@ -120,6 +230,7 @@ const Home: React.FC = () => {
     }
   };
 
+  // Handle featured section horizontal scroll
   return (
     <main className="home flex flex-col">
       {/* HERO SECTION */}
@@ -129,13 +240,13 @@ const Home: React.FC = () => {
         <div className="blob-2 blur-blob h-3/5 w-3/5"></div>
 
         <h1 className="z-15 h1-md relative">
-          <div className="airplane-1 absolute">
-            <img src={airplane1} alt="" />
+          <div className="airplane-1 absolute z-10 transform lg:-bottom-full lg:-right-[10%] lg:scale-[60] xl:-bottom-full xl:right-0 xl:scale-90 2xl:-bottom-full 2xl:-right-[5%] 2xl:scale-90 3xl:-bottom-full 3xl:right-[5%] 3xl:scale-125">
+            <img src={airplane1} alt="Airplane" />
             <div className="blob-3 blur-blob z-0 h-1/3"></div>
           </div>
-          <img src={airplane2} className="airplane-2 absolute" alt="" />
-          <img src={airplane3} className="airplane-3 absolute" alt="" />
-          <i className="ri-shining-2-fill absolute -top-5p rotate-30 transform text-yellow lg:text-5.5xl xl:text-6xl 2xl:text-6.5xl 3xl:text-7.5xl"></i>{" "}
+          <img src={airplane2} className="airplane-2 absolute z-10 transform lg:-top-1/2 lg:right-[5%] lg:scale-[40] xl:-top-1/3 xl:right-[5%] xl:scale-[70] 2xl:-top-1/3 2xl:right-0 2xl:scale-75 3xl:-top-1/3 3xl:right-[5%] 3xl:scale-100" alt="Airplane"/>
+          <img src={airplane3} className="airplane-3 absolute z-10 transform lg:-top-2/3 lg:right-[40%] lg:scale-[40] xl:-top-1/2 xl:right-1/3 xl:scale-[60] 2xl:-top-1/2 2xl:right-[40%] 2xl:scale-75 3xl:-top-1/2 3xl:right-1/2 3xl:scale-100" alt="Airplane"  />
+          <i className="ri-shining-2-fill absolute -top-[5%] rotate-[30deg] transform text-yellow lg:text-5.5xl xl:text-6xl 2xl:text-6.5xl 3xl:text-7.5xl"></i>{" "}
           <span className="opacity-0">---</span> From your new <br></br>
           favorite{" "}
           <span className="uppercase text-main-green">travel guide</span>{" "}
@@ -172,16 +283,16 @@ const Home: React.FC = () => {
 
       <section className="brief px-sect flex flex-col lg:gap-36 lg:py-sect-medium xl:gap-48 xl:py-sect-semi 2xl:gap-64 2xl:py-sect-long 3xl:gap-80 3xl:py-sect-long">
         <div className="flex min-h-40 flex-row items-center lg:gap-28 xl:gap-28 2xl:gap-44 3xl:gap-60">
-          <img src={airplane1} alt="" className="rotate-30 transform" />
+          <img src={airplane1} alt="" className="rotate-[30deg] lg:w-20 xl:w-24 2xl:w-28 3xl:w-32 transform" />
           <h1 className="h2-inter">
             A <span className="text-main-green">Comprehensive Catalog</span> of{" "}
             <br />
             Destinations with Tailored Travel Insights.
           </h1>
         </div>
-        <div className="relative flex lg:h-2.25svh lg:flex-row lg:gap-20 xl:h-1.75svh xl:gap-28 2xl:h-2svh 2xl:gap-32 3xl:h-2svh 3xl:gap-40">
+        <div className="relative flex lg:h-[225svh] lg:flex-row lg:gap-20 xl:h-[175svh] xl:gap-28 2xl:h-[200svh] 2xl:gap-32 3xl:h-[200svh] 3xl:gap-40">
           <div className="sticky top-0 z-0 h-svh rounded-lg py-4">
-            <video src={briefVideo} autoPlay muted loop></video>
+            <video src={briefVideo} autoPlay muted loop className="h-full rounded-lg"></video>
           </div>
           <div className="relative flex flex-col items-center justify-center lg:w-2/5 lg:gap-16 xl:gap-20 2xl:gap-20 3xl:gap-24 3xl:pt-40">
             <div className="blob-1 blur-blob absolute h-1/3 w-1/3"></div>
@@ -214,45 +325,15 @@ const Home: React.FC = () => {
 
       {/* FEATURED DESTINATION SECTION */}
 
-      <section className="featured px-sect flex flex-col items-center lg:gap-28 xl:gap-32 2xl:gap-36 3xl:gap-40">
-        <div className="w-fit">
+      <section className="featured flex flex-col lg:gap-28 xl:gap-32 2xl:gap-36 3xl:gap-40">
+        <div className="px-sect grid w-full place-items-center">
           <h1 className="h1-md relative">
-            <i className="ri-shining-2-fill absolute -left-5p -top-1/3 rotate-30 transform text-yellow lg:text-3xl xl:text-4xl 2xl:text-4xl 3xl:text-5xl"></i>{" "}
+            <i className="ri-shining-2-fill absolute -left-[5%] -top-1/3 rotate-30 transform text-yellow lg:text-3xl xl:text-4xl 2xl:text-4xl 3xl:text-5xl"></i>{" "}
             Featured Destinations
           </h1>
         </div>
-        <div
-          // ref={scrollRef}
-          className="scroller px-sect 2xl:auto-cols-0.4 grid w-svw grid-flow-col gap-8 overflow-x-auto lg:auto-cols-2/5"
-        >
-          {featuredDemo.map((item, index) => (
-            <div key={index} className="card h-svg flex flex-col gap-4 pb-8">
-              <div
-                className="h-0.75svh w-full rounded-lg"
-                style={{
-                  backgroundImage: `url(${item.img})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
-              ></div>
-              <div className="flex flex-col lg:gap-0 xl:gap-0 2xl:gap-0 3xl:gap-0">
-                <span className="span-regular text-gray">{item.country}</span>
-                <span className="span-medium uppercase">{item.title}</span>
-                <div className="mt-4 flex gap-2">
-                  {item.tags.map((tag, index) => (
-                    <span
-                      key={index}
-                      className="span-small rounded-2xl border-solid border-text-light px-4 lg:border 2xl:border-2"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="flex w-full flex-row justify-between">
+        <HorizontalScrollCarousel data={featuredDemo} />
+        <div className="px-sect flex w-full flex-row justify-between">
           <p className="p-large">
             They are just so few among the{" "}
             <span className="font-semibold text-main-brown lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl">
@@ -296,7 +377,7 @@ const Home: React.FC = () => {
 
         {/* GLOBE SECTION */}
 
-        <div className="z-5 sticky -top-5p left-0">
+        <div className="z-5 sticky -top-[5%] left-0">
           <section className="globe relative grid items-center rounded-5xl lg:pb-sect-long lg:pt-sect-short 2xl:pb-sect-long 2xl:pt-sect-short">
             <span className="px-sect p-large absolute -top-10 right-0 font-semibold uppercase">
               And we've covered these countries in our catalog too!
@@ -329,7 +410,7 @@ const Home: React.FC = () => {
                   <img
                     src={blogChunks[chunkIndex][0].image}
                     alt="featuredBlogImage"
-                    className="h-0.5svh w-full rounded-lg"
+                    className="h-[50svh] w-full rounded-lg"
                   />
                   <div className="flex flex-col">
                     <span className="span-regular text-gray">
@@ -349,7 +430,7 @@ const Home: React.FC = () => {
                     {blogChunks[chunkIndex][0].time}
                   </span>
                 </div>
-                <div className="grid h-0.75svh w-full grid-flow-row auto-rows-1/3 gap-4">
+                <div className="grid h-[75svh] w-full grid-flow-row auto-rows-1/3 gap-4">
                   {blogChunks[chunkIndex].slice(1).map((blog, index) => (
                     <div
                       className="flex h-full cursor-pointer flex-row gap-4"
@@ -361,7 +442,7 @@ const Home: React.FC = () => {
                       <img
                         src={blog.image}
                         alt="normalBlogImage"
-                        className="h-full w-45p rounded-lg"
+                        className="w-4[5%] h-full rounded-lg"
                       />
                       <div className="flex w-1/2 flex-col gap-4">
                         <div className="flex flex-col gap-0">
@@ -413,7 +494,7 @@ const Home: React.FC = () => {
             <img
               src={airplane1}
               alt=""
-              className="absolute -top-5p left-5p z-0 lg:w-44 xl:w-44 2xl:w-44 3xl:w-48"
+              className="absolute -top-[5%] left-[5%] z-0 lg:w-44 xl:w-44 2xl:w-44 3xl:w-48"
             />
             <div className="h-full w-full overflow-hidden">
               <StarterBlogs blogs={blogs} />
