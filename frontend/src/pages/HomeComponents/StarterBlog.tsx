@@ -64,7 +64,7 @@ const BlogComponent = ({
   return (
     <div
       key={blog.title}
-      className="blog absolute flex h-0.5svh w-1/3 flex-col justify-between gap-4 overflow-hidden rounded-xl bg-background-light pb-8 shadow-component"
+      className="blog absolute flex h-[50svh] w-1/3 flex-col justify-between gap-4 overflow-hidden rounded-xl bg-background-light pb-8 shadow-component"
       style={{
         left: `${position.x}px`,
         top: `${position.y}px`,
@@ -73,16 +73,16 @@ const BlogComponent = ({
       onMouseDown={onDragStart}
     >
       <div
-        className="flex h-3/4 flex-col items-start justify-end gap-0 px-8 pb-4 relative"
+        className="relative flex h-3/4 flex-col items-start justify-end gap-0 px-8 pb-4"
         style={{
           backgroundImage: `url(${blog.image})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       >
-        <div className="h-full w-full absolute top-0 right-0 bg-background-dark bg-opacity-30 z-0"></div>
-        <span className="z-10 span-small text-text-dark">{blog.author}</span>
-        <span className="z-10 span-medium uppercase text-text-dark">
+        <div className="absolute right-0 top-0 z-0 h-full w-full bg-background-dark bg-opacity-30"></div>
+        <span className="span-small z-10 text-text-dark">{blog.author}</span>
+        <span className="span-medium z-10 uppercase text-text-dark">
           {blog.title}
         </span>
       </div>
@@ -90,7 +90,10 @@ const BlogComponent = ({
         <p className="p-regular w-full overflow-hidden">
           {blog.content[0].sectionText[0]}
         </p>
-        <button className="underline-btn uppercase" onClick={() => navigate(`/inspiration/${blog._id}`)}>
+        <button
+          className="underline-btn uppercase"
+          onClick={() => navigate(`/inspiration/${blog._id}`)}
+        >
           View<i className="ri-arrow-right-up-line"></i>
         </button>
       </div>

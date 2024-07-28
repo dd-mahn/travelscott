@@ -23,7 +23,7 @@ const SearchResult: React.FC<SearchResultProps> = ({
   const navigate = useNavigate();
   return (
     <div
-      className={`${open ? "fixed top-20 z-50 lg:right-12 xl:right-16 2xl:right-20 3xl:right-24" : "hidden"} search-result flex h-0.5svh w-0.3svw flex-col overflow-y-scroll rounded-2xl bg-background-light px-8 pb-8 pt-4 shadow-component`}
+      className={`${open ? "fixed top-20 z-50 lg:right-12 xl:right-16 2xl:right-20 3xl:right-24" : "hidden"} search-result flex h-[50svh] w-[30svw] flex-col overflow-y-scroll rounded-2xl bg-background-light px-8 pb-8 pt-4 shadow-component`}
     >
       <div className="sticky top-0 flex w-full justify-end">
         <button title="Close" onClick={closeFunc}>

@@ -14,7 +14,7 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ destination }) => {
       className="destination-card flex w-full cursor-pointer flex-col gap-2"
     >
       <div
-        className="relative flex h-0.5svh items-center justify-center rounded-xl bg-gray"
+        className="relative flex h-[50svh] items-center justify-center rounded-xl bg-gray"
         onClick={() => {
           navigate(`/discover/destinations/${destination._id}`);
         }}

@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import useFetch from "src/hooks/useFetch";
 import type Destination from "src/types/Destination";
 import { BASE_URL } from "src/utils/config";
-import "src/styles/destination.css"
+import "src/styles/destination.css";
 
 // Material Tailwind
 import { Carousel } from "@material-tailwind/react";
@@ -86,7 +86,7 @@ const DestinationPage: React.FC = () => {
   if (!destination) {
     return <NotFoundPage />;
   }
-  
+
   const selectedCategoryPlaces =
     placeCategory === "to_stay"
       ? destination.places?.to_stay
@@ -97,7 +97,7 @@ const DestinationPage: React.FC = () => {
   return (
     <main className="destination">
       <section className="hero relative h-screen">
-        <div className="absolute top-0 z-10 grid h-9/10 w-full place-items-center bg-background-dark bg-opacity-20">
+        <div className="absolute top-0 z-10 grid h-[90%] w-full place-items-center bg-background-dark bg-opacity-20">
           <div className="flex flex-col items-start gap-0 px-8 py-4">
             <span className="span-medium ml-2 text-text-dark">
               {destination.country}
@@ -114,7 +114,7 @@ const DestinationPage: React.FC = () => {
         >
           {destination.images?.map((image, index) => (
             <div
-              className="grid h-9/10 w-svw place-items-center"
+              className="grid h-[90%] w-svw place-items-center"
               style={{
                 backgroundImage: `url(${image})`,
                 backgroundSize: "cover",
@@ -163,7 +163,7 @@ const DestinationPage: React.FC = () => {
               <i className="ri-menu-5-line p-large m-auto text-text-dark"></i>
             </button>
             <div
-              className={`${menuBoardOpen ? "flex" : "hidden"} menu-board absolute right-0 top-1/5 z-10 w-2/5 flex-col items-center gap-2 rounded-xl bg-background-light px-8 pb-12 pt-4 shadow-section`}
+              className={`${menuBoardOpen ? "flex" : "hidden"} menu-board absolute right-0 top-[20%] z-10 w-2/5 flex-col items-center gap-2 rounded-xl bg-background-light px-8 pb-12 pt-4 shadow-section`}
             >
               <p className="p-large font-prima uppercase">Table of content</p>
               <span className="span-small">
@@ -229,7 +229,7 @@ const DestinationPage: React.FC = () => {
 
         <section
           id="transportation"
-          className="stacked-section transportation px-sect sticky rounded-3xl bg-light-brown lg:pb-40 2xl:pb-sect-short pt-sect-short shadow-section"
+          className="stacked-section transportation px-sect sticky rounded-3xl bg-light-brown pt-sect-short shadow-section lg:pb-40 2xl:pb-sect-short"
         >
           <div className="mt-sect-short flex flex-col gap-8">
             <h1 className="h1-md">
@@ -249,7 +249,7 @@ const DestinationPage: React.FC = () => {
               alt=""
             />
             \
-            <div className="absolute right-0 top-1/5 w-1/2">
+            <div className="absolute right-0 top-[20%] w-1/2">
               {destination.transportation.types?.map((type, index) => (
                 <div
                   key={index}
@@ -405,7 +405,7 @@ const DestinationPage: React.FC = () => {
                   }}
                 >
                   <img
-                    className="h-0.5svh rounded-xl"
+                    className="h-[50svh] rounded-xl"
                     src={place?.image_url}
                     alt="place image"
                   />

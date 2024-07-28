@@ -21,7 +21,7 @@ const placeToStayDialog = (place: placeToStay) => {
     <dialog
       hidden
       data-name={name}
-      className="place-dialog h-0.75svh w-0.6svw overflow-y-scroll rounded-xl pb-sect-short"
+      className="place-dialog h-[75svh] w-[60svw] overflow-y-scroll rounded-xl pb-sect-short"
     >
       <div className="dialog-content h-full w-full">
         <div
@@ -39,11 +39,11 @@ const placeToStayDialog = (place: placeToStay) => {
               <span className="span-small uppercase text-gray">{type}</span>
               <h3 className="h3-md">{name}</h3>
             </div>
-            <div className="grid lg:w-2/5 2xl:w-1/3 grid-cols-2 items-center justify-end gap-x-2 gap-y-4">
+            <div className="grid grid-cols-2 items-center justify-end gap-x-2 gap-y-4 lg:w-2/5 2xl:w-1/3">
               {Object.entries(rating).map(([website, rating]) => (
                 <div
                   key={website}
-                  className="flex only:col-start-2 h-12 flex-row items-center gap-4 rounded-xl bg-background-light px-4 py-2 shadow-component"
+                  className="flex h-12 flex-row items-center gap-4 rounded-xl bg-background-light px-4 py-2 shadow-component only:col-start-2"
                 >
                   <img
                     src={
@@ -53,7 +53,7 @@ const placeToStayDialog = (place: placeToStay) => {
                           ? agodaImg
                           : tripadvisorImg
                     }
-                    className="max-w-2/3 max-h-full"
+                    className="max-h-full max-w-2/3"
                     alt=""
                   />
                   <span className="span-regular flex items-center gap-2">
@@ -95,7 +95,7 @@ const placeToVisitDialog = (place: placeToVisit) => {
     <dialog
       hidden
       data-name={name}
-      className="place-dialog h-0.75svh w-0.6svw overflow-y-scroll rounded-xl pb-8"
+      className="place-dialog h-[75svh] w-[60svw] overflow-y-scroll rounded-xl pb-8"
     >
       <div className="dialog-content h-full w-full">
         <div
@@ -107,7 +107,7 @@ const placeToVisitDialog = (place: placeToVisit) => {
           }}
         ></div>
 
-        <div className="flex flex-col gap-4 px-8 mt-4">
+        <div className="mt-4 flex flex-col gap-4 px-8">
           <div className="flex flex-col gap-2">
             <span className="span-small uppercase text-gray">{type}</span>
             <h3 className="h3-md">{name}</h3>
@@ -145,7 +145,7 @@ const placeToEatDialog = (place: placeToEat) => {
     <dialog
       hidden
       data-name={name}
-      className="place-dialog h-0.75svh w-0.6svw overflow-y-scroll rounded-xl pb-8"
+      className="place-dialog h-[75svh] w-[60svw] overflow-y-scroll rounded-xl pb-8"
     >
       <div className="dialog-content h-full w-full">
         <div
@@ -163,11 +163,11 @@ const placeToEatDialog = (place: placeToEat) => {
               <span className="span-small uppercase text-gray">{type}</span>
               <h3 className="h3-md">{name}</h3>
             </div>
-            <div className="grid justify-content-end items-center w-1/3 grid-cols-2 gap-x-2 gap-y-4">
+            <div className="justify-content-end grid w-1/3 grid-cols-2 items-center gap-x-2 gap-y-4">
               {Object.entries(rating).map(([website, rating]) => (
                 <div
                   key={website}
-                  className="flex only:col-start-2 h-12 flex-row items-center gap-4 rounded-xl bg-background-light px-4 py-2 shadow-component"
+                  className="flex h-12 flex-row items-center gap-4 rounded-xl bg-background-light px-4 py-2 shadow-component only:col-start-2"
                 >
                   <img
                     src={
@@ -177,7 +177,7 @@ const placeToEatDialog = (place: placeToEat) => {
                           ? agodaImg
                           : tripadvisorImg
                     }
-                    className="max-w-2/3 max-h-full"
+                    className="max-h-full max-w-2/3"
                     alt=""
                   />
                   <span className="span-regular flex items-center gap-2">

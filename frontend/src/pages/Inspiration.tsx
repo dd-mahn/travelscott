@@ -75,7 +75,8 @@ const Inspiration: React.FC = () => {
     loading: allBlogsLoading,
     error: allBlogsError,
   } = useFetch<FetchBlogsType>(
-    `${BASE_URL}/blogs?limit=1000&category=${currentCategory === "All" ? "" : encodeURIComponent(currentCategory)}`, [currentCategory]
+    `${BASE_URL}/blogs?limit=1000&category=${currentCategory === "All" ? "" : encodeURIComponent(currentCategory)}`,
+    [currentCategory],
   );
 
   // Handling loading state
@@ -156,7 +157,25 @@ const Inspiration: React.FC = () => {
         )}
       </div>
       <h1 className="big-heading z-10 mt-sect-short text-text-dark">
-        {currentCategory === "All" ? "Trending articles" : currentCategory === "Wilderness" ? "Wilderness" : currentCategory === "Culture&Heritage" ? "Culture & Heritage" : currentCategory === "Food&Drink" ? "Food & Drink" : currentCategory === "SoloJourneys" ? "Solo Journeys" : currentCategory === "CityScape" ? "City Scape" : currentCategory === "Season&Festival" ? "Season & Festival" : currentCategory === "Relaxation" ? "Relaxation" : currentCategory === "FirstTimeAbroad" ? "First Time Abroad" : "Trending articles"}
+        {currentCategory === "All"
+          ? "Trending articles"
+          : currentCategory === "Wilderness"
+            ? "Wilderness"
+            : currentCategory === "Culture&Heritage"
+              ? "Culture & Heritage"
+              : currentCategory === "Food&Drink"
+                ? "Food & Drink"
+                : currentCategory === "SoloJourneys"
+                  ? "Solo Journeys"
+                  : currentCategory === "CityScape"
+                    ? "City Scape"
+                    : currentCategory === "Season&Festival"
+                      ? "Season & Festival"
+                      : currentCategory === "Relaxation"
+                        ? "Relaxation"
+                        : currentCategory === "FirstTimeAbroad"
+                          ? "First Time Abroad"
+                          : "Trending articles"}
       </h1>
       <div className="z-10 flex w-2/3 flex-row flex-wrap justify-center gap-x-4 gap-y-4 filter">
         {categories
@@ -199,7 +218,7 @@ const Inspiration: React.FC = () => {
           <FeaturedBlogs blogs={featuredBlogs} />
         </div>
       ) : (
-        <div className="h-0.75svh"></div>
+        <div className="h-[75svh]"></div>
       )}
 
       {/* Catalog Section */}
@@ -238,7 +257,7 @@ const Inspiration: React.FC = () => {
                 onClick={() => navigate(`/inspiration/${blog._id}`)}
               >
                 <div
-                  className="h-0.5svh w-full rounded-xl shadow-section"
+                  className="h-[50svh] w-full rounded-xl shadow-section"
                   style={{
                     backgroundImage: `url(${blog.image})`,
                     backgroundSize: "cover",

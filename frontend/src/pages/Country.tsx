@@ -334,7 +334,7 @@ const CountryPage: React.FC = () => {
                 <i className="ri-filter-3-line p-large m-auto text-text-dark"></i>
               </button>
               <div
-                className={`${isFilterBoardOpen ? "flex" : "hidden"} filter-board absolute right-5p top-2/3 z-10 w-0.3svw flex-col items-center gap-8 rounded-xl bg-background-light px-4 pb-20 pt-4 shadow-section`}
+                className={`${isFilterBoardOpen ? "flex" : "hidden"} filter-board absolute right-[5%] top-2/3 z-10 w-[30svw] flex-col items-center gap-8 rounded-xl bg-background-light px-4 pb-20 pt-4 shadow-section`}
               >
                 <div className="flex w-full flex-row items-end gap-4">
                   <div className="flex h-fit items-center justify-between rounded-md border border-gray px-2 py-1">
@@ -372,7 +372,7 @@ const CountryPage: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className="grid w-full auto-cols-1/3 grid-flow-col gap-8">
+          <div className="grid w-full grid-cols-3 gap-x-8 gap-y-12">
             {destinationLoading && (
               <div className="grid w-full place-items-center py-sect-short">
                 <h3 className="h3-md">Loading...</h3>

@@ -95,13 +95,13 @@ const RelatedCountries: React.FC<CountryProps> = ({ country }) => {
           onClick={() => navigate(`/discover/countries/${country._id}`)}
         >
           {relatedCountries.map((country) => (
-            <div key={country.name} className="relative h-0.3svh w-0.2svw">
+            <div key={country.name} className="relative h-[30svh] w-[20svw]">
               <img
                 src={country.images.otherImages?.[0]}
                 alt={country.name}
                 className="absolute right-0 top-0 z-0 h-full w-full brightness-75 transition-all duration-300 hover:brightness-50"
               />
-              <p className="p-large absolute left-0 right-0 top-2/5 z-10 px-8 text-center font-prima text-text-dark">
+              <p className="p-large absolute left-0 right-0 top-[40%] z-10 px-8 text-center font-prima text-text-dark">
                 {country.name}
               </p>
             </div>
@@ -113,7 +113,7 @@ const RelatedCountries: React.FC<CountryProps> = ({ country }) => {
           {relatedCountries.map((country) => (
             <div
               key={country.name}
-              className="relative h-0.3svh w-0.2svw cursor-pointer"
+              className="relative h-[30svh] w-[20svw] cursor-pointer"
               onClick={() => navigate(`/discover/countries/${country._id}`)}
             >
               <img
@@ -121,7 +121,7 @@ const RelatedCountries: React.FC<CountryProps> = ({ country }) => {
                 alt={country.name}
                 className="absolute right-0 top-0 z-0 h-full w-full brightness-75 transition-all duration-300 hover:brightness-50"
               />
-              <p className="p-large absolute left-0 right-0 top-2/5 z-10 px-8 text-center font-prima text-text-dark">
+              <p className="p-large absolute left-0 right-0 top-[40%] z-10 px-8 text-center font-prima text-text-dark">
                 {country.name}
               </p>
             </div>
@@ -175,7 +175,7 @@ const RelatedDestinations: React.FC<DestinationProps> = ({ destination }) => {
           {relatedDestinations.map((destination) => (
             <div
               key={destination.name}
-              className="relative h-0.3svh w-0.2svw"
+              className="relative h-[30svh] w-[20svw]"
               onClick={() =>
                 navigate(`/discover/destinations/${destination._id}`)
               }
@@ -185,7 +185,7 @@ const RelatedDestinations: React.FC<DestinationProps> = ({ destination }) => {
                 alt={destination.name}
                 className="absolute right-0 top-0 z-0 h-full w-full brightness-75 transition-all duration-300 hover:brightness-50"
               />
-              <p className="p-large absolute left-0 right-0 top-2/5 z-10 px-8 text-center font-prima text-text-dark">
+              <p className="p-large absolute left-0 right-0 top-[40%] z-10 px-8 text-center font-prima text-text-dark">
                 {destination.name}
               </p>
             </div>
@@ -198,7 +198,7 @@ const RelatedDestinations: React.FC<DestinationProps> = ({ destination }) => {
           {relatedDestinations.map((destination) => (
             <div
               key={destination.name}
-              className="relative h-0.3svh w-0.2svw"
+              className="relative h-[30svh] w-[20svw]"
               onClick={() =>
                 navigate(`/discover/destinations/${destination._id}`)
               }
@@ -208,7 +208,7 @@ const RelatedDestinations: React.FC<DestinationProps> = ({ destination }) => {
                 alt={destination.name}
                 className="absolute right-0 top-0 z-0 h-full w-full brightness-75 transition-all duration-300 hover:brightness-50"
               />
-              <p className="p-large absolute left-0 right-0 top-2/5 z-10 px-8 text-center font-prima text-text-dark">
+              <p className="p-large absolute left-0 right-0 top-[40%] z-10 px-8 text-center font-prima text-text-dark">
                 {destination.name}
               </p>
             </div>
@@ -310,7 +310,7 @@ const RelatedArticles: React.FC<BlogProps> = ({ data }) => {
           {relatedBlogs.map((blog) => (
             <div
               key={blog.title}
-              className="relative h-0.3svh w-0.2svw cursor-pointer border-background-light"
+              className="relative h-[30svh] w-[20svw] cursor-pointer border-background-light"
               style={{
                 backgroundImage: `url(${blog.image})`,
                 backgroundSize: "cover",
@@ -323,7 +323,7 @@ const RelatedArticles: React.FC<BlogProps> = ({ data }) => {
                 alt={blog.title}
                 className="absolute left-0 top-0 z-0 h-full w-full brightness-75 transition-all duration-300 hover:brightness-50"
               />
-              <p className="p-large absolute left-0 right-0 top-2/5 z-10 px-8 text-center font-prima text-text-dark">
+              <p className="p-large absolute left-0 right-0 top-[40%] z-10 px-8 text-center font-prima text-text-dark">
                 {blog.title}
               </p>
             </div>
@@ -335,7 +335,7 @@ const RelatedArticles: React.FC<BlogProps> = ({ data }) => {
           {relatedBlogs.map((blog) => (
             <div
               key={blog.title}
-              className="relative h-0.3svh w-0.2svw cursor-pointer border-r-8 border-background-light"
+              className="relative h-[30svh] w-[20svw] cursor-pointer border-r-8 border-background-light"
               style={{
                 backgroundImage: `url(${blog.image})`,
                 backgroundSize: "cover",
@@ -348,7 +348,7 @@ const RelatedArticles: React.FC<BlogProps> = ({ data }) => {
                 alt={blog.title}
                 className="absolute left-0 top-0 z-0 h-full w-full brightness-75 transition-all duration-300 hover:brightness-50"
               />
-              <p className="p-large absolute left-0 right-0 top-2/5 z-10 px-8 text-center font-prima text-text-dark">
+              <p className="p-large absolute left-0 right-0 top-[40%] z-10 px-8 text-center font-prima text-text-dark">
                 {blog.title}
               </p>
             </div>

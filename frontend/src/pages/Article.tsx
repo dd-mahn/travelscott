@@ -33,7 +33,7 @@ const Article: React.FC = () => {
   return (
     <main className="">
       <div
-        className="h-0.75svh"
+        className="h-[75svh]"
         style={{
           backgroundImage: `url(${blogData.image})`,
           backgroundSize: "cover",
@@ -41,7 +41,7 @@ const Article: React.FC = () => {
         }}
       ></div>
 
-      <div className="mt-20 flex h-0.35svh flex-col items-center gap-4">
+      <div className="mt-20 flex h-[35svh] flex-col items-center gap-4">
         <span className="span-medium text-gray">{blogData.category}</span>
         <h2 className="h2-md">{blogData.title}</h2>
         <span className="span-regular">{blogData.author}</span>

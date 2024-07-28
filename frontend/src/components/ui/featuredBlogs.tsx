@@ -34,7 +34,7 @@ const FeaturedBlogs: React.FC<featuredBlogsProps> = ({ blogs }) => {
     <div className="flex flex-col items-center gap-8 pb-sect-default">
       <div className="px-sect flex w-svw flex-col items-center gap-8 cursor-pointer" onClick={() => navigate(`/inspiration/${currentBlog._id}`)}>
         <div
-          className="h-0.75svh w-full rounded-xl shadow-section"
+          className="h-[75svh] w-full rounded-xl shadow-section"
           style={{
             backgroundImage: `url(${currentBlog?.image})`,
             backgroundSize: "cover",

@@ -194,7 +194,7 @@ const Discover: React.FC = () => {
         )}
 
       {/* COUNTRY SECTION */}
-      <section className="countries px-sect flex w-full flex-col items-center gap-4 lg:pt-sect-default lg:pb-40 2xl:py-sect-default">
+      <section className="countries px-sect flex w-full flex-col items-center gap-4 lg:pb-40 lg:pt-sect-default 2xl:py-sect-default">
         <h1 className="h1-md">Discover countries</h1>
         <form action="" className="w-1/6">
           <select
@@ -224,21 +224,20 @@ const Discover: React.FC = () => {
                     <img
                       src={continent.image}
                       alt="map"
-                      className="w-0.4svw rounded-xl"
+                      className="w-[40svw] rounded-xl"
                     />
                     <h2 className="h2-md absolute m-auto uppercase text-main-brown">
                       {continent.name}
                     </h2>
                   </div>
 
-                  
-                    {countryLoading && <p className="p-regular">Loading...</p>}
-                    {countryError && (
-                      <p className="p-regular">
-                        Please reload the page or try again later.
-                      </p>
-                    )}
-                  <div className="grid lg:grid-cols-3 2xl:grid-cols-4 justify-between gap-12">
+                  {countryLoading && <p className="p-regular">Loading...</p>}
+                  {countryError && (
+                    <p className="p-regular">
+                      Please reload the page or try again later.
+                    </p>
+                  )}
+                  <div className="grid justify-between gap-12 lg:grid-cols-3 2xl:grid-cols-4">
                     {!countryLoading &&
                       !countryError &&
                       continent.countries.map((country) => (
@@ -290,7 +289,7 @@ const Discover: React.FC = () => {
               <i className="ri-filter-3-line p-large m-auto text-text-dark"></i>
             </button>
             <div
-              className={`${isFilterBoardOpen ? "flex" : "hidden"} filter-board absolute right-5p top-2/3 z-10 w-0.4svw flex-col items-center gap-8 rounded-xl bg-background-light px-4 pb-20 pt-4 shadow-section`}
+              className={`${isFilterBoardOpen ? "flex" : "hidden"} filter-board absolute right-[5%] top-2/3 z-10 w-[40svw] flex-col items-center gap-8 rounded-xl bg-background-light px-4 pb-20 pt-4 shadow-section`}
             >
               <div className="flex w-full flex-row items-end gap-4">
                 <div className="flex h-fit items-center justify-between rounded-md border border-gray px-2 py-1">
@@ -372,7 +371,7 @@ const Discover: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="grid w-full auto-cols-1/3 grid-flow-col gap-8">
+        <div className="grid w-full grid-cols-3 gap-x-8 gap-y-12">
           {destinationLoading && (
             <div className="grid w-full place-items-center py-sect-short">
               <h3 className="h3-md">Loading...</h3>

@@ -97,7 +97,7 @@ const About: React.FC = () => {
         {/* HOW SECTION */}
         <h2 className="h3-inter text-center">How?</h2>
         <div className="how relative">
-          <div className="sticky z-0 mx-auto mb-24 lg:mt-40 2xl:mt-sect-medium flex h-0.5svh flex-row items-start justify-between rounded-xl bg-background-light px-8 pb-sect-short pt-4 shadow-section lg:top-24 lg:w-2/3 2xl:top-48 2xl:w-3/4">
+          <div className="sticky z-0 mx-auto mb-24 flex h-[50svh] flex-row items-start justify-between rounded-xl bg-background-light px-8 pb-sect-short pt-4 shadow-section lg:top-24 lg:mt-40 lg:w-2/3 2xl:top-48 2xl:mt-sect-medium 2xl:w-3/4">
             <div className="flex flex-col items-start justify-start gap-12">
               <div className="flex flex-col justify-start gap-0">
                 <h1 className="h1-md-bold">Optimal</h1>
@@ -116,7 +116,7 @@ const About: React.FC = () => {
             <h1 className="text-stroke h1-md-bold text-transparent">01</h1>
           </div>
 
-          <div className="sticky z-0 mx-auto mb-24 mt-sect-medium flex h-0.5svh flex-row items-start justify-between rounded-xl bg-light-brown px-8 pb-sect-short pt-4 shadow-section lg:top-48 lg:w-2/3 2xl:top-72 2xl:w-3/4">
+          <div className="sticky z-0 mx-auto mb-24 mt-sect-medium flex h-[50svh] flex-row items-start justify-between rounded-xl bg-light-brown px-8 pb-sect-short pt-4 shadow-section lg:top-48 lg:w-2/3 2xl:top-72 2xl:w-3/4">
             <h1 className="text-stroke h1-md-bold text-transparent">02</h1>
 
             <div className="flex flex-col items-end justify-start gap-12">
@@ -138,7 +138,7 @@ const About: React.FC = () => {
             </div>
           </div>
 
-          <div className="sticky z-0 mx-auto mb-24 mt-sect-medium flex h-0.5svh flex-row items-start justify-between rounded-xl bg-light-green px-8 pb-sect-short pt-4 shadow-section lg:top-72 lg:w-2/3 2xl:top-96 2xl:w-3/4">
+          <div className="sticky z-0 mx-auto mb-24 mt-sect-medium flex h-[50svh] flex-row items-start justify-between rounded-xl bg-light-green px-8 pb-sect-short pt-4 shadow-section lg:top-72 lg:w-2/3 2xl:top-96 2xl:w-3/4">
             <div className="flex flex-col items-start justify-start gap-12">
               <div className="flex flex-col justify-start gap-0">
                 <h1 className="h1-md-bold">Verified</h1>
@@ -162,11 +162,13 @@ const About: React.FC = () => {
           <div className="py-sect-default"></div>
 
           {/* WHO SECTION */}
-          <section className="who px-sect sticky top-0 z-10 rounded-5xl bg-background-dark shadow-section lg:pt-40 lg:pb-sect-default 2xl:py-sect-default">
+          <section className="who px-sect sticky top-0 z-10 rounded-5xl bg-background-dark shadow-section lg:pb-sect-default lg:pt-40 2xl:py-sect-default">
             <div className="relative flex flex-col">
               <div className="blob-1 blur-blob z-0 h-1/4 w-1/4"></div>
               <div className="blob-2 blur-blob z-0 h-3/5 w-3/5"></div>
-              <h2 className="h3-inter text-center text-text-dark 2xl:pb-sect-default lg:py-40">Who?</h2>
+              <h2 className="h3-inter text-center text-text-dark lg:py-40 2xl:pb-sect-default">
+                Who?
+              </h2>
               <div className="z-10 flex flex-wrap justify-center gap-12">
                 {people.map((person, index) => (
                   <div
@@ -174,7 +176,7 @@ const About: React.FC = () => {
                     key={index}
                   >
                     <div
-                      className="h-0.3svh w-full rounded-xl bg-gray shadow-lg saturate-0"
+                      className="h-[30svh] w-full rounded-xl bg-gray shadow-lg saturate-0"
                       style={{
                         backgroundImage: `url(${person.img})`,
                         backgroundSize: "cover",
@@ -217,7 +219,7 @@ const About: React.FC = () => {
       </section>
 
       {/* WHY SECTION */}
-      <section className="why px-sect relative flex flex-col items-center 2xl:my-sect-default lg:mt-40 lg:mb-sect-default h-0.5svh lg:gap-48 2xl:gap-64">
+      <section className="why px-sect relative flex h-[50svh] flex-col items-center lg:mb-sect-default lg:mt-40 lg:gap-48 2xl:my-sect-default 2xl:gap-64">
         <img src={airplane1} alt="" className="plane-1 absolute" />
         <img src={airplane2} alt="" className="plane-2 absolute" />
         <img src={airplane3} alt="" className="plane-3 absolute" />
