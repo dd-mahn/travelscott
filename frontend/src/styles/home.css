@@ -1,5 +1,5 @@
 .hero {
-  p{
+  p {
     line-height: 1.2 !important;
   }
 
@@ -8,7 +8,7 @@
     left: -10%;
     background: radial-gradient(
       circle at 50% 50%,
-      #eb996e,
+      var(--main-brown),
       rgba(76, 0, 255, 0)
     );
   }
@@ -18,7 +18,7 @@
     right: -30%;
     background: radial-gradient(
       circle at 50% 50%,
-      #8ab17c,
+      var(--main-green),
       rgba(76, 0, 255, 0)
     );
     opacity: 0.4 !important;
@@ -34,41 +34,9 @@
     );
     opacity: 0.6;
   }
-
-  .airplane-1 {
-    @apply z-10 transform 
-    lg:-right-1/10 lg:-bottom-full lg:scale-60 
-    xl:-bottom-full xl:right-0 xl:scale-90 
-    2xl:-bottom-full 2xl:-right-5p 2xl:scale-90 
-    3xl:-bottom-full 3xl:right-5p 3xl:scale-125;
-  }
-
-  .airplane-2 {
-    @apply z-10 transform 
-    lg:right-5p lg:-top-1/2 lg:scale-40 
-    xl:right-5p xl:-top-1/3 xl:scale-70 
-    2xl:right-0 2xl:-top-1/3 2xl:scale-75 
-    3xl:right-5p 3xl:-top-1/3 3xl:scale-100;
-  }
-
-  .airplane-3 {
-    @apply z-10 transform 
-    lg:-top-2/3 lg:right-2/5 lg:scale-40 
-    xl:right-1/3 xl:-top-1/2 xl:scale-60 
-    2xl:right-2/5 2xl:-top-1/2 2xl:scale-75 
-    3xl:right-1/2 3xl:-top-1/2 3xl:scale-100;
-  }
 }
 
 .brief {
-  img {
-    @apply lg:w-20 xl:w-24 2xl:w-28 3xl:w-32;
-  }
-
-  video {
-    @apply h-full rounded-lg;
-  }
-
   h1 {
     line-height: 1.2 !important;
   }
@@ -78,7 +46,7 @@
   }
 
   p.active {
-    @apply opacity-100;
+    opacity: 100 !important;
   }
 
   .blob-1 {
@@ -86,7 +54,7 @@
     left: 0;
     background: radial-gradient(
       circle at 50% 50%,
-      #8ab17c,
+      var(--main-green),
       rgba(76, 0, 255, 0)
     );
     opacity: 0.4 !important;
@@ -97,7 +65,7 @@
     right: 0;
     background: radial-gradient(
       circle at 50% 50%,
-      #eb996e,
+      var(--main-brown),
       rgba(76, 0, 255, 0)
     );
     opacity: 0.2 !important;
@@ -105,22 +73,12 @@
 }
 
 .featured {
-  .scroller {
-    scroll-behavior: smooth !important;
-    scroll-snap-type: inline mandatory;
-    scrollbar-color: transparent transparent;
-  }
-
-  .scroller > div {
-    /* scroll-snap-align: start; */
-  }
-
   .blob {
     top: -40%;
     right: -10%;
     background: radial-gradient(
       circle at 50% 50%,
-      #8ab17c,
+      var(--main-green),
       rgba(76, 0, 255, 0)
     );
     filter: blur(25px);
@@ -138,15 +96,19 @@
     left: -30%;
     background: radial-gradient(
       circle at 50% 50%,
-      #eb996e,
+      var(--main-brown),
       rgba(76, 0, 255, 0)
     );
     opacity: 0.3 !important;
   }
 }
 
-.globe{
-  background: linear-gradient(180deg, rgb(0, 0, 0) 0%, rgb(62.05, 75.92, 102.85) 100%);
+.globe {
+  background: linear-gradient(
+    180deg,
+    rgb(0, 0, 0) 0%,
+    rgb(62.05, 75.92, 102.85) 100%
+  );
 
   canvas {
     width: 100svw !important;
@@ -155,15 +117,19 @@
   }
 }
 
-.blogs{
-  background: linear-gradient(180deg, #fff3e5 30%, #FBF9F7 100%);
+.blogs {
+  background: linear-gradient(180deg, #fff3e5 30%, #fbf9f7 100%);
   border-top-left-radius: 2.5rem;
   border-top-right-radius: 2.5rem;
-  p{
+  p {
     line-height: 1.2 !important;
   }
 }
 
-.starter{
-  background: linear-gradient(180deg, rgb(235, 153, 110) 0%, rgb(158.95, 105.42, 77.36) 100%);
+.starter {
+  background: linear-gradient(
+    180deg,
+    rgb(235, 153, 110) 0%,
+    rgb(158.95, 105.42, 77.36) 100%
+  );
 }
