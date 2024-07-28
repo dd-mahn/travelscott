@@ -6,7 +6,7 @@
     left: -10%;
     background: radial-gradient(
       circle at 50% 50%,
-      #eb996e,
+      var(--main-brown),
       rgba(76, 0, 255, 0)
     );
   }
@@ -18,7 +18,7 @@
     right: -10%;
     background: radial-gradient(
       circle at 50% 50%,
-      #8ab17c,
+      var(--main-green),
       rgba(76, 0, 255, 0)
     );
     opacity: 0.4 !important;
