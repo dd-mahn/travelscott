@@ -53,7 +53,7 @@ const placeToStayDialog = (place: placeToStay) => {
                           ? agodaImg
                           : tripadvisorImg
                     }
-                    className="max-h-full max-w-2/3"
+                    className="max-h-full max-w-[66.66%]"
                     alt=""
                   />
                   <span className="span-regular flex items-center gap-2">
@@ -177,7 +177,7 @@ const placeToEatDialog = (place: placeToEat) => {
                           ? agodaImg
                           : tripadvisorImg
                     }
-                    className="max-h-full max-w-2/3"
+                    className="max-h-full max-w-[66.66%]"
                     alt=""
                   />
                   <span className="span-regular flex items-center gap-2">

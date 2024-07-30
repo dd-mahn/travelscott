@@ -396,9 +396,8 @@ const DestinationPage: React.FC = () => {
 
           <div className="mt-20 grid grid-cols-3 gap-x-8 gap-y-16">
             {selectedCategoryPlaces?.map((place, index) => (
-              <>
+              <div key={index}>
                 <div
-                  key={index}
                   className="flex cursor-pointer flex-col gap-4"
                   onClick={() => {
                     openPlaceDialog(place.name);
@@ -412,7 +411,7 @@ const DestinationPage: React.FC = () => {
                   <span className="span-medium">{place?.name}</span>
                 </div>
                 <PlaceDialog place={place} category={placeCategory} />
-              </>
+              </div>
             ))}
           </div>
         </section>

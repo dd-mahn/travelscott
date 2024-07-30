@@ -255,6 +255,7 @@ const Inspiration: React.FC = () => {
               <div
                 className="flex cursor-pointer flex-col gap-4"
                 onClick={() => navigate(`/inspiration/${blog._id}`)}
+                key={blog._id}
               >
                 <div
                   className="h-[50svh] w-full rounded-xl shadow-section"
