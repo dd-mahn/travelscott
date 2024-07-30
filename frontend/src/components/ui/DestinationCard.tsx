@@ -34,7 +34,7 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ destination }) => {
           {destination.tags.map((tag) => (
             <span
               key={tag}
-              className="span-small rounded-2xl border-solid border-gray px-4 lg:border 2xl:border-2"
+              className="span-small rounded-2xl border-solid border-gray px-4 lg:border"
             >
               {tag}
             </span>
