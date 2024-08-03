@@ -1,7 +1,40 @@
-import React, { useRef } from "react";
-import { motion, useAnimation, useScroll, useTransform } from "framer-motion";
+import React, { useEffect, useRef } from "react";
+import {
+  motion,
+  useAnimation,
+  useInView,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import airplane1 from "src/assets/svg/airplane-1.svg";
 import briefVideo from "src/assets/videos/brief.mp4";
+
+const variants = {
+  hidden: {
+    opacity: 0,
+    y: 20,
+  },
+  hiddenY:{
+    y: 100,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+  },
+  airplaneStart: {
+    opacity: 0,
+    x: -100,
+    y: 30,
+  },
+  airplaneEnd: {
+    opacity: 1,
+    x: 0,
+    y: 0,
+    transition: {
+      duration: 0.5,
+    },
+  },
+};
 
 const Brief: React.FC = () => {
   const paragraphRefs = [useRef(null), useRef(null), useRef(null)];
@@ -17,60 +50,69 @@ const Brief: React.FC = () => {
     useTransform(scrollYProgress, [0, 1], [0.1, 1]),
   );
 
-  const briefVariants = {
-    initial: {
-      opacity: 0,
-      y: 20,
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-    },
-    airplaneStart: {
-      opacity: 0,
-      x: -100,
-      y: 30,
-    },
-    airplaneEnd: {
-      opacity: 1,
-      x: 0,
-      y: 0,
-      transition: {
-        delay: 0.2,
-        duration: 1,
-        type: "spring",
-      },
-    },
-  };
+  const h2ContainersRef = [useRef(null), useRef(null)];
+  const container1InView = useInView(h2ContainersRef[0]);
+  const container2InView = useInView(h2ContainersRef[1]);
+
+  const h21Controls = useAnimation();
+  const h22Controls = useAnimation();
+
+  useEffect(() => {
+    if (container1InView) {
+      h21Controls.start("visible");
+    }
+
+    if (container2InView) {
+      h22Controls.start("visible");
+    }
+  }, [container1InView, container2InView]);
+
   return (
     <section className="brief px-sect flex flex-col lg:gap-36 lg:py-sect-medium xl:gap-48 xl:py-sect-semi 2xl:gap-64 2xl:py-sect-long 3xl:gap-80 3xl:py-sect-long">
       <div className="flex min-h-40 flex-row items-center lg:gap-28 xl:gap-28 2xl:gap-44 3xl:gap-60">
         <motion.img
-          variants={briefVariants}
+          variants={variants}
           initial="airplaneStart"
           whileInView="airplaneEnd"
           viewport={{ once: true }}
           src={airplane1}
           alt=""
-          className="rotate-[30deg] transform lg:w-20 xl:w-24 2xl:w-28 3xl:w-32"
+          className="rotate-[45deg] transform lg:w-20 xl:w-24 2xl:w-28 3xl:w-32"
         />
-        <motion.h1
-          variants={briefVariants}
-          initial="initial"
-          whileInView="visible"
-          viewport={{ once: true }}
-          transition={{ delay: 0.4, duration: 0.8 }}
-          className="h2-inter"
-        >
-          A <span className="text-main-green">Comprehensive Catalog</span> of{" "}
-          <br />
-          Destinations with Tailored Travel Insights.
-        </motion.h1>
+        <div>
+          <div
+            ref={h2ContainersRef[0]}
+            className="h2-inter overflow-hidden pb-2"
+          >
+            <motion.div
+              variants={variants}
+              initial="hiddenY"
+              animate={h21Controls}
+              transition={{ delay: 0.45, duration: 0.5, ease: "easeInOut" }}
+            >
+              A <span className="text-main-green">Comprehensive Catalog</span>{" "}
+              of
+            </motion.div>
+          </div>
+          <div
+            ref={h2ContainersRef[1]}
+            className="h2-inter overflow-hidden pb-2"
+          >
+            <motion.div
+              variants={variants}
+              initial="hiddenY"
+              animate={h22Controls}
+              transition={{ delay: 0.4, duration: 0.5, ease: "easeInOut" }}
+            >
+              Destinations with Tailored Travel Insights.
+            </motion.div>
+          </div>
+        </div>
       </div>
-      <div className="relative flex lg:h-[225svh] lg:flex-row lg:gap-20 xl:h-[175svh] xl:gap-28 2xl:h-[200svh] 2xl:gap-32 3xl:h-[200svh] 3xl:gap-40">
+      <div className="flex lg:h-[225svh] lg:flex-row lg:gap-20 xl:h-[175svh] xl:gap-28 2xl:h-[200svh] 2xl:gap-32 3xl:h-[200svh] 3xl:gap-40">
         <motion.div
-          variants={briefVariants}
-          initial="initial"
+          variants={variants}
+          initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
@@ -92,7 +134,7 @@ const Brief: React.FC = () => {
               x: [0, 300, 0],
               zIndex: [0, 0, 0],
             }}
-            transition={{ duration: 10, repeat: Infinity }}
+            transition={{ duration: 5, repeat: Infinity }}
             className="blob-1 blur-blob absolute h-1/3 w-1/3"
           ></motion.div>
           <motion.div
@@ -102,7 +144,7 @@ const Brief: React.FC = () => {
               y: [0, -200, 0],
               zIndex: [0, 0, 0],
             }}
-            transition={{ duration: 10, repeat: Infinity }}
+            transition={{ duration: 5, repeat: Infinity }}
             className="blob-2 blur-blob absolute h-1/3 w-1/3"
           ></motion.div>
           <motion.p

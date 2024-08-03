@@ -188,39 +188,46 @@ const featuredDemo = [
     tags: ["Nature&Adventure", "Europe", "SoloTravel"],
   },
 ];
+
+const variants = {
+  hiddenShort: {
+    opacity: 0,
+    y: 20,
+  },
+  hidden: {
+    opacity: 0,
+    y: 100,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+  },
+};
+
 const Featured: React.FC = () => {
   const navigate = useNavigate();
-  const variants = {
-    hidden: {
-      opacity: 0,
-      y: 20,
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-    },
-  };
+
   return (
     <section className="featured flex flex-col lg:gap-28 xl:gap-32 2xl:gap-36 3xl:gap-40">
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        variants={variants}
-        className="px-sect grid w-full place-items-center"
-      >
-        <h1 className="h1-md relative">
-          <i className="ri-shining-2-fill rotate-30 absolute -left-[5%] -top-1/3 transform text-yellow lg:text-3xl xl:text-4xl 2xl:text-4xl 3xl:text-5xl"></i>{" "}
+      <div className="px-sect grid w-full place-items-center overflow-hidden">
+        <motion.h1
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.4 }}
+          variants={variants}
+          className="h1-md relative"
+        >
+          <i className="ri-shining-2-fill rotate-30 absolute -left-[5%] -top-0 transform text-yellow lg:text-3xl xl:text-4xl 2xl:text-4xl 3xl:text-5xl"></i>{" "}
           Featured Destinations
-        </h1>
-      </motion.div>
+        </motion.h1>
+      </div>
       <HorizontalScrollCarousel data={featuredDemo} />
       <div className="px-sect flex w-full flex-row justify-between">
         <motion.p
-          initial="hidden"
+          initial="hiddenShort"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-300px" }}
           transition={{ duration: 0.5 }}
           variants={variants}
           className="p-large"
@@ -233,9 +240,9 @@ const Featured: React.FC = () => {
           destinations that we have covered in our Catalogue.
         </motion.p>
         <motion.div
-          initial="hidden"
+          initial="hiddenShort"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-300px" }}
           transition={{ delay: 0.3, duration: 0.5 }}
           variants={variants}
           className="relative flex items-end"

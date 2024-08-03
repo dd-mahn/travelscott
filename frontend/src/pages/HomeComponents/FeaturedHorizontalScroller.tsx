@@ -1,10 +1,16 @@
 import { motion, useTransform, useScroll } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
-import useLazyBackgroundImage from "src/hooks/useLazyBackgroundImage";
 import Destination from "src/types/Destination";
+import { preloadImage } from "src/utils/preloadImage";
 
 type HorizontalScrollCarouselProps = {
   data: Destination[];
+};
+const variants = {
+  hidden: { opacity: 0, y: 20 },
+  hiddenScale: { opacity: 0.8, scale: 0.8 },
+  hiddenX: { opacity: 0, x: 50 },
+  visible: { opacity: 1, y: 0, x: 0, scale: 1 },
 };
 
 const HorizontalScrollCarousel: React.FC<HorizontalScrollCarouselProps> = ({
@@ -52,22 +58,24 @@ const HorizontalScrollCarousel: React.FC<HorizontalScrollCarouselProps> = ({
   });
   const x = useTransform(scrollYProgress, [0, 1], [0, -scrollPixels]);
 
-  // Other animation variants
-  const variants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
-  };
-
+  // Image handling
+  useEffect(() => {
+    data.forEach((destination) => {
+      if (destination.images?.[0]) {
+        preloadImage(destination.images[0]);
+      }
+    });
+  }, [data]);
   // Render logic
   return (
     <motion.section
-      initial="hidden"
+      initial="hiddenScale"
       whileInView="visible"
       viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
+      transition={{ delay:0.2, duration: 0.5, ease: "easeInOut" }}
       variants={variants}
       ref={targetRef}
-      className="relative h-[300svh]"
+      className="relative h-[400svh]"
     >
       <div className="sticky top-0 h-screen overflow-hidden">
         <motion.div
@@ -78,7 +86,16 @@ const HorizontalScrollCarousel: React.FC<HorizontalScrollCarouselProps> = ({
           {data &&
             data.length > 0 &&
             data.map((destination: Destination) => {
-              const bgRef = useLazyBackgroundImage(destination.images?.[0]);
+              const [bgImage, setBgImage] = useState("");
+
+              useEffect(() => {
+                const highResImage = new Image();
+                highResImage.src = destination.images?.[0] || "";
+                highResImage.onload = () => {
+                  setBgImage(highResImage.src);
+                };
+              }, [destination.images]);
+
               return (
                 <motion.div
                   variants={variants}
@@ -89,15 +106,11 @@ const HorizontalScrollCarousel: React.FC<HorizontalScrollCarouselProps> = ({
                   key={destination._id}
                   className="destination-card flex h-full flex-col gap-4 pb-8"
                 >
-                  <div
-                    ref={bgRef}
-                    className="h-[70svh] w-full rounded-lg"
-                    style={{
-                      // backgroundImage: `url(${destination.images?.[0]})`,
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                    }}
-                  ></div>
+                  <img
+                    src={bgImage}
+                    alt={destination.name}
+                    className="h-[70svh] w-full rounded-lg object-cover"
+                  />
                   <div className="flex flex-col lg:gap-0 xl:gap-0 2xl:gap-0 3xl:gap-0">
                     <span className="span-regular text-gray">
                       {destination.country}
