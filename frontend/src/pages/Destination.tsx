@@ -41,9 +41,13 @@ const DestinationPage: React.FC = () => {
   // Handle sticky sections top value
   const stackedSection: NodeListOf<HTMLElement> =
     document.querySelectorAll(".stacked-section");
-  stackedSection.forEach((section) => {
-    section.style.top = window.innerHeight - section.offsetHeight + "px";
-  });
+  useEffect(() => {
+    if (stackedSection.length > 0) {
+      stackedSection.forEach((section) => {
+        section.style.top = window.innerHeight - section.offsetHeight + "px";
+      });
+    }
+  }, [stackedSection]);
 
   // Handle place catalog
   const dialogs: NodeListOf<HTMLDialogElement> =

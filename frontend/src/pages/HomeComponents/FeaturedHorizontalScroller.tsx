@@ -69,11 +69,11 @@ const HorizontalScrollCarousel: React.FC<HorizontalScrollCarouselProps> = ({
   // Render logic
   return (
     <motion.section
-      initial="hiddenScale"
-      whileInView="visible"
-      viewport={{ once: true }}
-      transition={{ delay:0.2, duration: 0.5, ease: "easeInOut" }}
-      variants={variants}
+      // initial="hiddenScale"
+      // whileInView="visible"
+      // viewport={{ once: true }}
+      // transition={{ delay:0.2, duration: 0.5, ease: "easeInOut" }}
+      // variants={variants}
       ref={targetRef}
       className="relative h-[400svh]"
     >
@@ -98,11 +98,11 @@ const HorizontalScrollCarousel: React.FC<HorizontalScrollCarouselProps> = ({
 
               return (
                 <motion.div
-                  variants={variants}
-                  initial="hidden"
-                  whileInView="visible"
-                  transition={{ duration: 0.5 }}
-                  viewport={{ once: true }}
+                  // variants={variants}
+                  // initial="hidden"
+                  // whileInView="visible"
+                  // transition={{ duration: 0.5 }}
+                  // viewport={{ once: true }}
                   key={destination._id}
                   className="destination-card flex h-full flex-col gap-4 pb-8"
                 >

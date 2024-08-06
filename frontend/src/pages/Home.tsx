@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { motion, useAnimation } from "framer-motion";
+import React, { useEffect, useRef} from "react";
+import { motion} from "framer-motion";
 import "src/styles/home.css";
 
 // Components
@@ -15,12 +14,25 @@ import Quote from "./HomeComponents/Quote";
 
 const variants = {
   hidden: { opacity: 0, y: 75 },
-  hiddenY: { y: 75 },
+  hiddenY: (y: string) => {
+    return {
+      y: y,
+    };
+  },
   visible: { opacity: 1, y: 0 },
 };
 const Home: React.FC = () => {
-  const navigate = useNavigate();
+  useEffect(() => {
+    const stackedSection: NodeListOf<HTMLElement> =
+      document.querySelectorAll(".stacked-section");
+    if (stackedSection.length > 0) {
+      stackedSection.forEach((section) => {
+        section.style.top = window.innerHeight - section.offsetHeight + "px";
+      });
+    }
+  }, []);
 
+  const articlesHookRef = useRef<HTMLSpanElement>(null);
   // Handle featured section horizontal scroll
   return (
     <main className="home flex flex-col">
@@ -34,43 +46,46 @@ const Home: React.FC = () => {
       <Featured />
 
       {/* STACKED SECTIONS CONTAINER, CONTAINING: INSPIRED, GLOBE, BLOGS, STARTER BLOGS */}
-      <section className="stacked relative lg:pt-sect-default 2xl:pt-sect-semi">
+      <section className="stacked lg:pt-sect-default 2xl:pt-sect-semi">
         {/* INSPIRED SECTION */}
         <div className="sticky top-0 z-0">
           <Inspired />
         </div>
 
         {/* GLOBE SECTION */}
-        <div className="z-5 sticky -top-[5%] left-0">
-          <Globe />
+        <div className="stacked-section z-5 sticky">
+          <Globe articlesHookRef={articlesHookRef} />
         </div>
 
         {/* FEATURED BLOGS SECTION */}
-        <Articles />
-
+        <Articles articlesHookRef={articlesHookRef} />
         {/* STARTER HOOK SECTION */}
-        <div className="sticky left-0 top-0 z-20 bg-background-light">
+        <div className="sticky top-0 z-20 bg-background-light">
           <section className="hook px-sect pb-sect-semi pt-sect-default">
             <div className="overflow-hidden pb-4">
               <motion.h2
-                initial="hiddenY"
+                initial={{
+                  y: "var(--y-from)",
+                }}
                 whileInView="visible"
-                viewport={{ once: true, margin: "-200px" }}
+                viewport={{ once: true }}
                 variants={variants}
                 transition={{ duration: 0.4 }}
-                className="h2-inter"
+                className="h2-inter lg:[--y-from:50px] 2xl:[--y-from:75px]"
               >
                 If you are still hesitant,
               </motion.h2>
             </div>
             <div className="overflow-hidden pb-4">
               <motion.h2
-                initial="hiddenY"
+                initial={{
+                  y: "var(--y-from)",
+                }}
                 whileInView="visible"
-                viewport={{ once: true, margin: "-200px" }}
+                viewport={{ once: true }}
                 variants={variants}
                 transition={{ duration: 0.4 }}
-                className="h2-inter"
+                className="h2-inter lg:[--y-from:50px] 2xl:[--y-from:75px]"
               >
                 perhaps some of the articles below can help.
               </motion.h2>
@@ -79,7 +94,7 @@ const Home: React.FC = () => {
         </div>
 
         {/* STARTER SECTION */}
-        <div className="sticky left-0 top-0 z-30">
+        <div className="sticky top-0 z-30">
           <Starter />
         </div>
       </section>

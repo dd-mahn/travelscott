@@ -4,7 +4,9 @@ import { motion, useAnimation, useInView } from "framer-motion";
 
 const variants = {
   hidden: { opacity: 0, y: 20 },
-  hiddenY: { y: 250 },
+  hiddenY: (y: string) => {
+    return { y: y };
+  },
   hiddenWidth: { opacity: 0, x: -50 },
   visibleWidth: { opacity: 1, x: 0 },
   visible: { opacity: 1, y: 0, x: 0 },
@@ -64,11 +66,12 @@ const Quote = () => {
           <div className="relative flex items-center">
             <div className="inline-block overflow-hidden">
               <motion.h1
-                initial="hiddenY"
+                initial={variants.hiddenY("var(--y-from)")}
                 whileInView="visible"
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
                 variants={variants}
+                className="lg:[--y-from:100px] 2xl:[--y-from:150px]"
               >
                 " To{" "}
               </motion.h1>
@@ -91,13 +94,13 @@ const Quote = () => {
             <div className={`inline-block overflow-hidden pl-4`}>
               <motion.h1
                 ref={iconSiblingRefs[0]}
-                initial="hiddenY"
+                initial={variants.hiddenY("var(--y-from)")}
                 animate={iconSiblingControls[0]}
                 // whileInView="visible"
                 // viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
                 variants={variants}
-                className="w-fit uppercase text-main-green"
+                className="w-fit uppercase text-main-green lg:[--y-from:100px] 2xl:[--y-from:150px]"
               >
                 travel
               </motion.h1>
@@ -107,11 +110,12 @@ const Quote = () => {
           <div className="relative flex w-fit items-center">
             <div className="inline-block overflow-hidden">
               <motion.h1
-                initial="hiddenY"
+                initial={variants.hiddenY("var(--y-from)")}
                 whileInView="visible"
                 viewport={{ once: true }}
                 variants={variants}
                 transition={{ duration: 0.5 }}
+                className="lg:[--y-from:100px] 2xl:[--y-from:150px]"
               >
                 is to <span className="uppercase text-main-brown">live</span>{" "}
               </motion.h1>
@@ -134,13 +138,13 @@ const Quote = () => {
             <div className="inline-block overflow-hidden">
               <motion.h1
                 ref={iconSiblingRefs[1]}
-                initial="hiddenY"
+                initial={variants.hiddenY("var(--y-from)")}
                 animate={iconSiblingControls[1]}
                 // whileInView="visible"
                 // viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
                 variants={variants}
-                className="w-fit"
+                className="w-fit lg:[--y-from:100px] 2xl:[--y-from:150px]"
               >
                 "
               </motion.h1>

@@ -14,7 +14,7 @@ const variants = {
     opacity: 0,
     y: 20,
   },
-  hiddenScale: {
+  hiddenPlane: {
     opacity: 0,
     scale: 0.8,
     y: 30,
@@ -38,7 +38,7 @@ const Starter: React.FC = () => {
   return (
     <section className="starter relative rounded-5xl bg-main-brown lg:py-sect-medium 2xl:py-sect-semi">
       <motion.img
-        initial="hiddenScale"
+        initial="hiddenPlane"
         whileInView="visible"
         variants={variants}
         transition={{ duration: 0.8 }}
@@ -56,7 +56,7 @@ const Starter: React.FC = () => {
         initial="hidden"
         whileInView="visible"
         variants={variants}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.4, ease: "easeInOut" }}
         viewport={{ once: true }}
         className="btn btn-secondary absolute -bottom-4 right-0 lg:mr-12 xl:mr-16 2xl:mr-20 3xl:mr-24"
         onClick={() => navigate("/inspiration")}

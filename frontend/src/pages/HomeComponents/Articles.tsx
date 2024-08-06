@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { DotPagination } from "src/components/ui/Pagination";
 import useFetch from "src/hooks/useFetch";
@@ -19,9 +19,8 @@ const variants = {
     y: 20,
   },
 
-  hiddenY: {
-    y: 100,
-    opacity:0,
+  hiddenY: (y: string) => {
+    return { y: y };
   },
 
   hiddenScale: {
@@ -58,7 +57,11 @@ const variants = {
   },
 };
 
-const Articles: React.FC = () => {
+type ArticlesProps = {
+  articlesHookRef: React.RefObject<HTMLSpanElement>;
+};
+
+const Articles: React.FC<ArticlesProps> = ({ articlesHookRef }) => {
   const navigate = useNavigate();
   // Handle blog data
   const {
@@ -89,33 +92,32 @@ const Articles: React.FC = () => {
   };
 
   // Handle scroll animation
-  const spanRef = React.useRef(null);
   const { scrollYProgress } = useScroll({
-    target: spanRef,
+    target: articlesHookRef,
     offset: ["end end", "start start"],
   });
 
   const x = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
 
   return (
-    <div className="relative mt-sect-long">
+    <div className="relative">
       <motion.span
-        ref={spanRef}
+        ref={articlesHookRef}
         style={{ x }}
         className="px-sect p-large absolute -top-10 left-0 font-semibold uppercase text-text-dark"
       >
         Discover the latest articles in
       </motion.span>
       {blogChunks !== undefined && blogChunks.length !== 0 && (
-        <section className="blogs flex flex-col items-center justify-start gap-sect-short lg:pb-sect-default lg:pt-sect-short 2xl:pb-sect-medium 2xl:pt-sect-default">
+        <section className="blogs flex flex-col items-center justify-start gap-sect-short lg:pb-sect-default lg:pt-sect-short 2xl:pb-sect-medium 2xl:pt-60">
           <div className="overflow-hidden">
             <motion.h1
-              initial="hiddenY"
+              initial={variants.hiddenY("var(--y-from)")}
               whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
+              viewport={{ once: true }}
               transition={{ duration: 0.4 }}
               variants={variants}
-              className="h1-md"
+              className="h1-md lg:[--y-from:75px] 2xl:[--y-from:100px]"
             >
               {new Date().toLocaleString("default", {
                 month: "long",

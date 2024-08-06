@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, memo } from "react";
 import { motion, useAnimation } from "framer-motion";
 
 import airplane1 from "src/assets/svg/airplane-1.svg";

@@ -194,9 +194,8 @@ const variants = {
     opacity: 0,
     y: 20,
   },
-  hidden: {
-    opacity: 0,
-    y: 100,
+  hiddenY: (y: string) => {
+    return { y: y };
   },
   visible: {
     opacity: 1,
@@ -211,12 +210,12 @@ const Featured: React.FC = () => {
     <section className="featured flex flex-col lg:gap-28 xl:gap-32 2xl:gap-36 3xl:gap-40">
       <div className="px-sect grid w-full place-items-center overflow-hidden">
         <motion.h1
-          initial="hidden"
+          initial={variants.hiddenY("var(--y-from)")}
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: "0% 0% -10% 0%" }}
           transition={{ duration: 0.4 }}
           variants={variants}
-          className="h1-md relative"
+          className="h1-md relative lg:[--y-from:75px] 2xl:[--y-from:100px]"
         >
           <i className="ri-shining-2-fill rotate-30 absolute -left-[5%] -top-0 transform text-yellow lg:text-3xl xl:text-4xl 2xl:text-4xl 3xl:text-5xl"></i>{" "}
           Featured Destinations
@@ -239,16 +238,21 @@ const Featured: React.FC = () => {
           + <br />
           destinations that we have covered in our Catalogue.
         </motion.p>
-        <motion.div
-          initial="hiddenShort"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-300px" }}
-          transition={{ delay: 0.3, duration: 0.5 }}
-          variants={variants}
-          className="relative flex items-end"
-        >
-          <div className="blob blur-blob absolute z-0 h-full w-1/3"></div>
-          <button
+        <div className="relative flex items-end">
+          <motion.div
+            initial="hiddenShort"
+            whileInView="visible"
+            viewport={{ once: true, margin: "0% 0% -10% 0%" }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+            variants={variants}
+            className="blob blur-blob absolute z-0 h-full w-1/3"
+          ></motion.div>
+          <motion.button
+            initial="hiddenShort"
+            whileInView="visible"
+            viewport={{ once: true, margin: "0% 0% -10% 0%" }}
+            transition={{ delay: 0.3, duration: 0.5, ease: "easeInOut" }}
+            variants={variants}
             title="navigate"
             className="btn btn-secondary z-5"
             onClick={() => {
@@ -256,8 +260,8 @@ const Featured: React.FC = () => {
             }}
           >
             discover them <img src={planeIcon} alt="" />
-          </button>
-        </motion.div>
+          </motion.button>
+        </div>
       </div>
     </section>
   );
