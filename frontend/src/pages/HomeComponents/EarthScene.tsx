@@ -1,144 +1,117 @@
-import React, { Suspense, useRef } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import React, { Suspense, useEffect, useRef, useState } from "react";
+import { Canvas } from "@react-three/fiber";
 import { Environment, OrbitControls, useHelper } from "@react-three/drei";
-import { useControls } from "leva";
 import * as THREE from "three";
+import Earth from "src/../public/Earth";
+import {
+  Bloom,
+  DepthOfField,
+  EffectComposer,
+  Scanline,
+  ToneMapping,
+  Vignette,
+} from "@react-three/postprocessing";
+import { BlendFunction } from "postprocessing";
+import { useInView, AnimatePresence } from "framer-motion";
+import { motion, MotionCanvas } from "framer-motion-3d";
+import { LeftCountryCarousel, RightCountryCarousel } from "./CountryCarousel";
 
-import Earth from "src/../public/Earth"
+type SceneProps = {
+  articlesHookRef: React.RefObject<HTMLSpanElement>;
+};
 
-
-function Lights() {
-  const ambientRef = useRef<THREE.AmbientLight>(null);
-  const directionalRef = useRef<THREE.DirectionalLight>(null);
-  const pointRef = useRef<THREE.PointLight>(null);
-  const spotRef = useRef<THREE.SpotLight>(null);
-
-  useControls("Ambient Light", {
-    visible: {
-      value: false,
-      onChange: (v) => {
-        if (ambientRef.current) {
-          ambientRef.current.visible = v;
-        }
-      },
-    },
-    color: {
-      value: "white",
-      onChange: (v) => {
-        if (ambientRef.current) {
-          ambientRef.current.color = new THREE.Color(v);
-        }
-      },
-    },
+const EarthScene: React.FC<SceneProps> = ({ articlesHookRef }) => {
+  // Handle when to trigger the scene
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasInView = useInView(canvasRef, {
+    margin: "0% 0% -10% 0%",
   });
-  useControls("Directional Light", {
-    visible: {
-      value: true,
-      onChange: (v) => {
-        if (directionalRef.current) {
-          directionalRef.current.visible = v;
-        }
-      },
-    },
-    position: {
-      value: { x: 10, y: 10, z: 15 },
-      onChange: (v) => {
-        if (directionalRef.current) {
-          directionalRef.current.position.set(v.x, v.y, v.z);
-        }
-      },
-    },
-    color: {
-      value: "white",
-      onChange: (v) => {
-        if (directionalRef.current) {
-          directionalRef.current.color = new THREE.Color(v);
-        }
-      },
-    },
+  const articlesHookInView = useInView(articlesHookRef, {
+    margin: "0% 0% -50% 0%",
   });
 
-  useControls("Point Light", {
-    visible: {
-      value: false,
-      onChange: (v) => {
-        if (pointRef.current) {
-          pointRef.current.visible = v;
-        }
-      },
-    },
-    position: {
-      value: { x: 2, y: 0, z: 0 },
-      onChange: (v) => {
-        if (pointRef.current) {
-          pointRef.current.position.set(v.x, v.y, v.z);
-        }
-      },
-    },
-    color: {
-      value: "white",
-      onChange: (v) => {
-        if (pointRef.current) {
-          pointRef.current.color = new THREE.Color(v);
-        }
-      },
-    },
-  });
-
-  useControls("Spot Light", {
-    visible: {
-      value: false,
-      onChange: (v) => {
-        if (spotRef.current) {
-          spotRef.current.visible = v;
-        }
-      },
-    },
-    position: {
-      value: { x: 3, y: 2.5, z: 1 },
-      onChange: (v) => {
-        if (spotRef.current) {
-          spotRef.current.position.set(v.x, v.y, v.z);
-        }
-      },
-    },
-    color: {
-      value: "white",
-      onChange: (v) => {
-        if (spotRef.current) {
-          spotRef.current.color = new THREE.Color(v);
-        }
-      },
-    },
-  });
-
-  return (
-    <>
-      <ambientLight ref={ambientRef} />
-      <directionalLight ref={directionalRef} />
-      <pointLight ref={pointRef} />
-      <spotLight ref={spotRef} />
-    </>
+  const [frameLoopValue, setFrameLoopValue] = useState<"always" | "demand">(
+    "demand",
   );
-}
+  const [isHookAboveViewport, setIsHookAboveViewport] = useState(false);
 
-const EarthScene: React.FC = () => {
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsHookAboveViewport(entry.boundingClientRect.top < 0);
+      },
+      { threshold: [0] },
+    );
+
+    if (articlesHookRef.current) {
+      observer.observe(articlesHookRef.current);
+    }
+
+    return () => {
+      if (articlesHookRef.current) {
+        observer.unobserve(articlesHookRef.current);
+      }
+    };
+  }, [articlesHookRef]);
+
+  useEffect(() => {
+    if (canvasInView && !articlesHookInView && !isHookAboveViewport) {
+      setFrameLoopValue("always");
+    } else if (articlesHookInView || isHookAboveViewport || !canvasInView) {
+      setFrameLoopValue("demand");
+    }
+  }, [canvasInView, articlesHookInView]);
+
   return (
-    <Canvas shadows={"basic"} camera={{ position: [15, 10, 15] }}>
-      <ambientLight color={"orange"} position={[20, 10, 10]} intensity={0.5} />
-      <directionalLight
-        color={"white"}
-        position={[50, 40, 7.5]}
-        intensity={5}
-        castShadow
-      />
-      {/* <Lights /> */}
-      <Suspense fallback={null}>
-        <Earth/>
-      </Suspense>
-      <OrbitControls enableZoom={false} />
-      <Environment preset="lobby" />
-    </Canvas>
+    <motion.div className="relative">
+      <div className="absolute left-[10%] top-1/3 flex flex-col gap-20">
+        <RightCountryCarousel />
+        <LeftCountryCarousel />
+        <RightCountryCarousel />
+      </div>
+      <Canvas
+        ref={canvasRef}
+        frameloop={frameLoopValue}
+        className="lg:pb-60 lg:pt-sect-short 2xl:pb-sect-default 2xl:pt-sect-short"
+        shadows
+        camera={{ position: [15, 10, 15] }}
+        dpr={[1, 1.5]}
+      >
+        <ambientLight color={"white"} position={[20, 10, 10]} intensity={0.3} />
+        <directionalLight
+          color={"white"}
+          position={[-20, 20, 20]}
+          intensity={10}
+          castShadow
+        />
+
+        <Suspense fallback={null}>
+          <Earth />
+        </Suspense>
+        {/* <Suspense fallback={null}>
+            <EffectComposer>
+              <Bloom
+                luminanceThreshold={2}
+                luminanceSmoothing={1}
+                mipmapBlur
+                intensity={2}
+              />
+              <Vignette eskil={false} offset={0.5} darkness={1} />
+              <ToneMapping
+                blendFunction={BlendFunction.NORMAL}
+                adaptive={true}
+                resolution={256}
+                middleGrey={0.6}
+                maxLuminance={16.0}
+                averageLuminance={1.0}
+                adaptationRate={1.0}
+              />
+            </EffectComposer>
+          </Suspense> */}
+        <OrbitControls enableZoom={false} />
+        <Environment preset="lobby" />
+      </Canvas>
+    </motion.div>
   );
 };
 
