@@ -1,6 +1,13 @@
-import React, { Suspense, useEffect, useRef, useState } from "react";
+import React, {
+  memo,
+  Suspense,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { Canvas } from "@react-three/fiber";
-import { Environment, OrbitControls, useHelper } from "@react-three/drei";
+import { Environment, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 import Earth from "src/../public/Earth";
 import {
@@ -13,11 +20,16 @@ import {
 } from "@react-three/postprocessing";
 import { BlendFunction } from "postprocessing";
 import { useInView, AnimatePresence } from "framer-motion";
-import { motion, MotionCanvas } from "framer-motion-3d";
+import { motion } from "framer-motion";
 import { LeftCountryCarousel, RightCountryCarousel } from "./CountryCarousel";
 
 type SceneProps = {
   articlesHookRef: React.RefObject<HTMLSpanElement>;
+};
+
+const variants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
 };
 
 const EarthScene: React.FC<SceneProps> = ({ articlesHookRef }) => {
@@ -36,6 +48,8 @@ const EarthScene: React.FC<SceneProps> = ({ articlesHookRef }) => {
   const [isHookAboveViewport, setIsHookAboveViewport] = useState(false);
 
   useEffect(() => {
+    if (!articlesHookInView) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         setIsHookAboveViewport(entry.boundingClientRect.top < 0);
@@ -62,20 +76,42 @@ const EarthScene: React.FC<SceneProps> = ({ articlesHookRef }) => {
     }
   }, [canvasInView, articlesHookInView]);
 
-  return (
-    <motion.div className="relative">
-      <div className="absolute left-[10%] top-1/3 flex flex-col gap-20">
+  // Memoize the carousels to prevent re-rendering
+  const memoizedCarousels = useMemo(
+    () => (
+      <>
         <RightCountryCarousel />
         <LeftCountryCarousel />
         <RightCountryCarousel />
-      </div>
+      </>
+    ),
+    [],
+  );
+
+  return (
+    <div className="relative">
+      {!isHookAboveViewport && (
+        <AnimatePresence>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            exit="hidden"
+            transition={{ duration: 0.5 }}
+            variants={variants}
+            className="absolute left-[10%] top-1/3 flex flex-col gap-20"
+          >
+            {memoizedCarousels}
+          </motion.div>
+        </AnimatePresence>
+      )}
+
       <Canvas
         ref={canvasRef}
         frameloop={frameLoopValue}
         className="lg:pb-60 lg:pt-sect-short 2xl:pb-sect-default 2xl:pt-sect-short"
         shadows
         camera={{ position: [15, 10, 15] }}
-        dpr={[1, 1.5]}
+        dpr={[1, 2]}
       >
         <ambientLight color={"white"} position={[20, 10, 10]} intensity={0.3} />
         <directionalLight
@@ -88,7 +124,17 @@ const EarthScene: React.FC<SceneProps> = ({ articlesHookRef }) => {
         <Suspense fallback={null}>
           <Earth />
         </Suspense>
-        {/* <Suspense fallback={null}>
+        <OrbitControls enableZoom={false} />
+        <Environment preset="lobby" />
+      </Canvas>
+    </div>
+  );
+};
+
+export default memo(EarthScene);
+
+{
+  /* <Suspense fallback={null}>
             <EffectComposer>
               <Bloom
                 luminanceThreshold={2}
@@ -107,12 +153,5 @@ const EarthScene: React.FC<SceneProps> = ({ articlesHookRef }) => {
                 adaptationRate={1.0}
               />
             </EffectComposer>
-          </Suspense> */}
-        <OrbitControls enableZoom={false} />
-        <Environment preset="lobby" />
-      </Canvas>
-    </motion.div>
-  );
-};
-
-export default EarthScene;
+          </Suspense> */
+}
