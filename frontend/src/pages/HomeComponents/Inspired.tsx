@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { memo, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 const variants = {
@@ -18,13 +18,13 @@ const variants = {
 }
 
 const Inspired: React.FC = () => {
-  const targetRef = useRef<HTMLHeadingElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: targetRef,
-    offset: ["start end", "start center"],
-  });
+  // const targetRef = useRef<HTMLHeadingElement>(null);
+  // const { scrollYProgress } = useScroll({
+  //   target: targetRef,
+  //   offset: ["start end", "start center"],
+  // });
 
-  const opacity = useTransform(scrollYProgress, [0, 1], [0.05, 1]);
+  // const opacity = useTransform(scrollYProgress, [0, 1], [0.05, 1]);
   return (
     <section className="px-sect inspired flex items-center justify-center lg:pb-sect-semi lg:pt-sect-default 2xl:pb-sect-semi 2xl:pt-sect-medium">
       <div className="relative flex w-fit flex-col lg:gap-2 xl:gap-2 2xl:gap-4 3xl:gap-4">
@@ -58,4 +58,4 @@ const Inspired: React.FC = () => {
   );
 };
 
-export default Inspired;
+export default memo(Inspired);
