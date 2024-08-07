@@ -1,14 +1,15 @@
-import { motion, useTransform, useScroll } from "framer-motion";
-import React, { useEffect, useRef, useState } from "react";
+import { motion, useTransform, useScroll, useInView } from "framer-motion";
+import React, { memo, useEffect, useMemo, useRef, useState } from "react";
 import Destination from "src/types/Destination";
 import { preloadImage } from "src/utils/preloadImage";
+import { optimizeImage } from "src/utils/optimizeImage";
 
 type HorizontalScrollCarouselProps = {
   data: Destination[];
 };
 const variants = {
   hidden: { opacity: 0, y: 20 },
-  hiddenScale: { opacity: 0.8, scale: 0.8 },
+  hiddenScale: { opacity: 0.9, scale: 0.95 },
   hiddenX: { opacity: 0, x: 50 },
   visible: { opacity: 1, y: 0, x: 0, scale: 1 },
 };
@@ -19,6 +20,7 @@ const HorizontalScrollCarousel: React.FC<HorizontalScrollCarouselProps> = ({
   // Set up the animation prerequisites
   const [scrollPixels, setScrollPixels] = useState(0);
   const scrollElementRef = useRef<HTMLDivElement>(null);
+  const scrollElementInView = useInView(scrollElementRef, { once: true })
 
   useEffect(() => {
     const calculateScrollPixels = () => {
@@ -37,6 +39,7 @@ const HorizontalScrollCarousel: React.FC<HorizontalScrollCarouselProps> = ({
 
     const handleResize = () => {
       setScrollPixels(calculateScrollPixels());
+      console.log("Scroll pixels changed - Featured section");
     };
 
     // Initial calculation
@@ -66,14 +69,24 @@ const HorizontalScrollCarousel: React.FC<HorizontalScrollCarouselProps> = ({
       }
     });
   }, [data]);
+
+  // Memoize the optimized images
+  const optimizedImages = useMemo(() => {
+    return data.map((destination) => {
+      const highResImage = new Image();
+      highResImage.src = destination.images?.[0] || "";
+      return optimizeImage(highResImage.src);
+    });
+  }, [data]);
+
   // Render logic
   return (
     <motion.section
-      // initial="hiddenScale"
-      // whileInView="visible"
-      // viewport={{ once: true }}
-      // transition={{ delay:0.2, duration: 0.5, ease: "easeInOut" }}
-      // variants={variants}
+      initial="hiddenScale"
+      whileInView="visible"
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
+      variants={variants}
       ref={targetRef}
       className="relative h-[400svh]"
     >
@@ -85,29 +98,18 @@ const HorizontalScrollCarousel: React.FC<HorizontalScrollCarouselProps> = ({
         >
           {data &&
             data.length > 0 &&
-            data.map((destination: Destination) => {
-              const [bgImage, setBgImage] = useState("");
-
-              useEffect(() => {
-                const highResImage = new Image();
-                highResImage.src = destination.images?.[0] || "";
-                highResImage.onload = () => {
-                  setBgImage(highResImage.src);
-                };
-              }, [destination.images]);
+            data.map((destination: Destination, index) => {
+              const { src, srcSet } = optimizedImages[index];
 
               return (
-                <motion.div
-                  // variants={variants}
-                  // initial="hidden"
-                  // whileInView="visible"
-                  // transition={{ duration: 0.5 }}
-                  // viewport={{ once: true }}
+                <div
                   key={destination._id}
                   className="destination-card flex h-full flex-col gap-4 pb-8"
                 >
                   <img
-                    src={bgImage}
+                    loading="lazy"
+                    src={src}
+                    srcSet={srcSet}
                     alt={destination.name}
                     className="h-[70svh] w-full rounded-lg object-cover"
                   />
@@ -129,7 +131,7 @@ const HorizontalScrollCarousel: React.FC<HorizontalScrollCarouselProps> = ({
                       ))}
                     </div>
                   </div>
-                </motion.div>
+                </div>
               );
             })}
         </motion.div>
@@ -138,4 +140,4 @@ const HorizontalScrollCarousel: React.FC<HorizontalScrollCarouselProps> = ({
   );
 };
 
-export default HorizontalScrollCarousel;
+export default memo(HorizontalScrollCarousel);
