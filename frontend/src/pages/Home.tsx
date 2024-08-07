@@ -1,5 +1,5 @@
-import React, { useEffect, useRef} from "react";
-import { motion} from "framer-motion";
+import React, { memo, useEffect, useMemo, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import "src/styles/home.css";
 
 // Components
@@ -11,6 +11,11 @@ import Articles from "./HomeComponents/Articles";
 import Inspired from "./HomeComponents/Inspired";
 import Globe from "./HomeComponents/Globe";
 import Quote from "./HomeComponents/Quote";
+import useFetch from "src/hooks/useFetch";
+import { FetchBlogsType } from "src/types/FetchData";
+import { BASE_URL } from "src/utils/config";
+import Blog from "src/types/Blog";
+import { createBlogChunks } from "src/utils/createBlogChunks";
 
 const variants = {
   hidden: { opacity: 0, y: 75 },
@@ -22,6 +27,24 @@ const variants = {
   visible: { opacity: 1, y: 0 },
 };
 const Home: React.FC = () => {
+  // Handle fetch blogs data for Articles, Starter section
+  const {
+    data: blogsData,
+    loading: blogsLoading,
+    error: blogsError,
+  } = useFetch<FetchBlogsType>(`${BASE_URL}/blogs?limit=100`);
+
+  const blogs = useMemo(
+    () => (blogsData?.result !== undefined ? blogsData.result : []),
+    [blogsData],
+  );
+
+  const blogChunks: Blog[][] = useMemo(
+    () => (blogs.length !== 0 ? createBlogChunks(blogs) : []),
+    [blogs],
+  );
+
+  // Handle sticky sections top value
   useEffect(() => {
     const stackedSection: NodeListOf<HTMLElement> =
       document.querySelectorAll(".stacked-section");
@@ -32,8 +55,19 @@ const Home: React.FC = () => {
     }
   }, []);
 
-  const articlesHookRef = useRef<HTMLSpanElement>(null);
-  // Handle featured section horizontal scroll
+  useEffect(() => {
+    console.log("Home mounted");
+    return () => {
+      console.log("Home unmounted");
+    };
+  }, []);
+
+  // Handle common ref to pass between components
+  const articlesHookRef = useMemo(() => {
+    console.log("Creating articlesHookRef");
+    return React.createRef<HTMLSpanElement>();
+  }, []);
+
   return (
     <main className="home flex flex-col">
       {/* HERO SECTION */}
@@ -58,7 +92,7 @@ const Home: React.FC = () => {
         </div>
 
         {/* FEATURED BLOGS SECTION */}
-        <Articles articlesHookRef={articlesHookRef} />
+        <Articles articlesHookRef={articlesHookRef} blogChunks={blogChunks} />
         {/* STARTER HOOK SECTION */}
         <div className="sticky top-0 z-20 bg-background-light">
           <section className="hook px-sect pb-sect-semi pt-sect-default">
@@ -95,7 +129,7 @@ const Home: React.FC = () => {
 
         {/* STARTER SECTION */}
         <div className="sticky top-0 z-30">
-          <Starter />
+          <Starter blogs={blogs} />
         </div>
       </section>
 
@@ -105,4 +139,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default memo(Home);
