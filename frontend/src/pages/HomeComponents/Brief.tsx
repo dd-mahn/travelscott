@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { memo, useEffect, useRef } from "react";
 import {
   motion,
   useAnimation,
@@ -14,8 +14,8 @@ const variants = {
     opacity: 0,
     y: 20,
   },
-  hiddenY:{
-    y: 100,
+  hiddenY: (y: string) => {
+    return { y: y };
   },
   visible: {
     opacity: 1,
@@ -37,6 +37,7 @@ const variants = {
 };
 
 const Brief: React.FC = () => {
+  // Handle animations
   const paragraphRefs = [useRef(null), useRef(null), useRef(null)];
   const scrollYProgresses = paragraphRefs.map(
     (ref) =>
@@ -86,9 +87,10 @@ const Brief: React.FC = () => {
           >
             <motion.div
               variants={variants}
-              initial="hiddenY"
+              initial={variants.hiddenY("var(--y-from)")}
               animate={h21Controls}
               transition={{ delay: 0.45, duration: 0.5, ease: "easeInOut" }}
+              className="lg:[--y-from:75px] 2xl:[--y-from:100px]"
             >
               A <span className="text-main-green">Comprehensive Catalog</span>{" "}
               of
@@ -100,9 +102,10 @@ const Brief: React.FC = () => {
           >
             <motion.div
               variants={variants}
-              initial="hiddenY"
+              initial={variants.hiddenY("var(--y-from)")}
               animate={h22Controls}
               transition={{ delay: 0.4, duration: 0.5, ease: "easeInOut" }}
+              className="lg:[--y-from:75px] 2xl:[--y-from:100px]"
             >
               Destinations with Tailored Travel Insights.
             </motion.div>
@@ -187,4 +190,4 @@ const Brief: React.FC = () => {
   );
 };
 
-export default Brief;
+export default memo(Brief);
