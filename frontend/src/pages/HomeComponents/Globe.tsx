@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { memo, useRef } from "react";
 import EarthScene from "./EarthScene";
 import { motion, useScroll, useTransform } from "framer-motion";
 
@@ -27,4 +27,4 @@ const Globe: React.FC<GlobeProps> = ({articlesHookRef}) => {
   );
 };
 
-export default Globe;
+export default memo(Globe);
