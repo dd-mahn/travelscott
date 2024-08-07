@@ -13,8 +13,8 @@ const variants = {
     y: 20,
   },
 
-  hiddenY: {
-    y: 150,
+  hiddenY: (y: string) => {
+    return { y: y };
   },
 
   visible: {
@@ -51,13 +51,13 @@ const variants = {
     opacity: 0,
     x: -50,
     y: 50,
-    width: "30vw",
+    // width: "30vw",
   },
   airPlane1End: {
     opacity: 1,
     x: 0,
     y: 0,
-    width: "30vw",
+    // width: "30vw",
     transition: {
       delay: 2.5,
       duration: 0.5,
@@ -69,12 +69,12 @@ const variants = {
 
   airplane2Start: {
     opacity: 0,
-    width: "15vw",
+    // width: "15vw",
     x: 100,
     y: 100,
   },
   airPlane2End: {
-    width: "15vw",
+    // width: "15vw",
     opacity: 1,
     x: 0,
     y: 0,
@@ -87,12 +87,12 @@ const variants = {
 
   airplane3Start: {
     opacity: 0,
-    width: "8vw",
+    // width: "8vw",
     x: 100,
     y: -10,
   },
   airPlane3End: {
-    width: "8vw",
+    // width: "8vw",
     opacity: 1,
     x: 0,
     y: 0,
@@ -107,6 +107,7 @@ const variants = {
 const Hero: React.FC = () => {
   const navigate = useNavigate();
 
+  // Animation controls
   const starRef = useRef<HTMLElement>(null);
   const starSiblingControls = useAnimation();
 
@@ -136,30 +137,32 @@ const Hero: React.FC = () => {
         animate={{
           scale: [1, 1.5, 1],
           opacity: [0.5, 0.8, 0.5],
-          x: [0, 50, 0],
+          // x: [0, 50, 0],
           zIndex: [0, 0, 0],
         }}
         transition={{ duration: 5, repeat: Infinity }}
         className="blob-1 blur-blob z-0 h-1/3 w-1/3"
       ></motion.div>
+
       <motion.div
         animate={{
           scale: [1, 1.5, 1],
           opacity: [0.5, 1, 0.5],
-          x: [0, -50, 0],
+          // x: [0, -50, 0],
           zIndex: [0, 0, 0],
         }}
         transition={{ duration: 5, repeat: Infinity }}
         className="blob-2 blur-blob z-0 h-3/5 w-3/5"
       ></motion.div>
 
-      <div className="z-15 h1-md relative">
+      <div className="z-15 relative">
         {/* Airplanes */}
         <motion.div
           variants={variants}
           initial="airplane1Start"
-          animate="airPlane1End"
-          className="airplane-1 absolute transform lg:-bottom-full lg:right-[0%] xl:-bottom-full xl:right-0 2xl:-bottom-full 2xl:-right-[5%] 3xl:-bottom-full 3xl:right-0"
+          whileInView="airPlane1End"
+          viewport={{ once: true }}
+          className="airplane-1 absolute w-[30vw] transform lg:-bottom-full lg:right-[0%] xl:-bottom-full xl:right-0 2xl:-bottom-full 2xl:-right-[5%] 3xl:-bottom-full 3xl:right-0"
         >
           <motion.img
             whileHover={{
@@ -176,7 +179,7 @@ const Hero: React.FC = () => {
             src={airplane1}
             alt="Airplane"
           />
-          <div className="blob-3 blur-blob z-0 h-1/3"></div>
+          <div className="blob-3 blur-blob z-0 h-1/3 w-2/3"></div>
         </motion.div>
         <motion.img
           whileHover={{
@@ -185,7 +188,8 @@ const Hero: React.FC = () => {
           }}
           variants={variants}
           initial="airplane2Start"
-          animate="airPlane2End"
+          whileInView="airPlane2End"
+          viewport={{ once: true }}
           drag
           dragConstraints={{
             top: 0,
@@ -194,13 +198,14 @@ const Hero: React.FC = () => {
             bottom: 0,
           }}
           src={airplane2}
-          className="airplane-2 absolute transform lg:-top-1/2 lg:right-[5%] xl:-top-1/3 xl:right-[5%] 2xl:-top-1/3 2xl:right-0 3xl:-top-1/3 3xl:right-[5%]"
+          className="airplane-2 w-15vw absolute transform lg:-top-1/2 lg:right-[5%] xl:-top-1/3 xl:right-[5%] 2xl:-top-1/3 2xl:right-0 3xl:-top-1/3 3xl:right-[5%]"
           alt="Airplane"
         />
         <motion.img
           variants={variants}
           initial="airplane3Start"
-          animate="airPlane3End"
+          whileInView="airPlane3End"
+          viewport={{ once: true }}
           whileHover={{
             scale: 1.05,
             transition: { duration: 0.2, ease: "linear" },
@@ -213,7 +218,7 @@ const Hero: React.FC = () => {
             bottom: 0,
           }}
           src={airplane3}
-          className="airplane-3 absolute transform lg:-top-1/3 lg:right-[40%] xl:-top-[40%] xl:right-1/3 2xl:-top-1/2 2xl:right-[40%] 3xl:-top-1/2 3xl:right-[40%]"
+          className="airplane-3 w-8vw absolute transform lg:-top-1/3 lg:right-[40%] xl:-top-[40%] xl:right-1/3 2xl:-top-1/2 2xl:right-[40%] 3xl:-top-1/2 3xl:right-[40%]"
           alt="Airplane"
         />
         {/* Star */}
@@ -221,7 +226,8 @@ const Hero: React.FC = () => {
           ref={starRef}
           variants={variants}
           initial="initialScale"
-          animate={["visibleScale", "rotate"]}
+          whileInView={["visibleScale", "rotate"]}
+          viewport={{ once: true }}
           whileHover={{
             scale: [1, 0.5, 1.2, 1],
             rotate: [30, 30, 330, 360],
@@ -237,7 +243,7 @@ const Hero: React.FC = () => {
             initial="hiddenY"
             animate={starSiblingControls}
             transition={{ duration: 0.4 }}
-            className="inline-block"
+            className="h1-md inline-block"
           >
             From your new
           </motion.h1>
@@ -246,10 +252,10 @@ const Hero: React.FC = () => {
         <div className="overflow-hidden">
           <motion.h1
             variants={variants}
-            initial="hiddenY"
+            initial={variants.hiddenY("var(--y-from)")}
             animate="visible"
             transition={{ duration: 0.4, delay: 0.05 }}
-            className=""
+            className="h1-md lg:[--y-from:50px] 2xl:[--y-from:75px]"
           >
             favorite{" "}
             <span className="uppercase text-main-green">travel guide</span>
@@ -259,10 +265,10 @@ const Hero: React.FC = () => {
         <div className="overflow-hidden pb-2">
           <motion.h1
             variants={variants}
-            initial="hiddenY"
+            initial={variants.hiddenY("var(--y-from)")}
             animate="visible"
             transition={{ duration: 0.4, delay: 0.1 }}
-            className=""
+            className="h1-md lg:[--y-from:50px] 2xl:[--y-from:75px]"
           >
             to{" "}
             <motion.span className="border-b-4 border-solid border-text-light dark:border-text-dark">
@@ -276,7 +282,8 @@ const Hero: React.FC = () => {
       <motion.p
         variants={variants}
         initial="hidden"
-        animate="visible"
+        whileInView="visible"
+        viewport={{ once: true }}
         transition={{ duration: 0.5 }}
         className="p-medium lg:w-2/5 xl:w-2/5 2xl:w-1/3 3xl:w-1/3"
       >
@@ -287,7 +294,8 @@ const Hero: React.FC = () => {
       <motion.div
         variants={variants}
         initial="hidden"
-        animate="visible"
+        whileInView="visible"
+        viewport={{ once: true }}
         transition={{ duration: 0.5 }}
         className="mt-8 flex flex-row lg:gap-4 xl:gap-4 2xl:gap-6 3xl:gap-8"
       >
@@ -308,4 +316,4 @@ const Hero: React.FC = () => {
   );
 };
 
-export default Hero;
+export default memo(Hero);
