@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { memo, useCallback, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, useAnimation, useInView } from "framer-motion";
 
@@ -58,6 +58,10 @@ const Quote = () => {
       }
     }
   }, [iconContainerRefs, iconSiblingRefs]);
+
+  const handleButtonClick = useCallback(() => {
+    navigate("/contact");
+  }, []);
 
   return (
     <section className="quote px-sect flex flex-col gap-4 lg:py-sect-default 2xl:py-sect-medium">
@@ -169,10 +173,7 @@ const Quote = () => {
         variants={variants}
         className="flex flex-row justify-end"
       >
-        <button
-          className="btn btn-primary"
-          onClick={() => navigate("/contact")}
-        >
+        <button className="btn btn-primary" onClick={handleButtonClick}>
           Have any questions?
         </button>
       </motion.div>
@@ -180,4 +181,4 @@ const Quote = () => {
   );
 };
 
-export default Quote;
+export default memo(Quote);
