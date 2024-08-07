@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo, useCallback, useMemo } from "react";
 import useFetch from "src/hooks/useFetch";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -8,11 +8,11 @@ import { FetchBlogsType } from "src/types/FetchData";
 import { BASE_URL } from "src/utils/config";
 import airplane1 from "src/assets/svg/airplane-1.svg";
 import planeIcon from "src/assets/svg/plane-icon.svg";
+import Blog from "src/types/Blog";
 
 const variants = {
   hidden: {
     opacity: 0,
-    y: 20,
   },
   hiddenPlane: {
     opacity: 0,
@@ -26,15 +26,13 @@ const variants = {
   },
 };
 
-const Starter: React.FC = () => {
+const Starter: React.FC<{blogs: Blog[]}> = ({blogs}) => {
   const navigate = useNavigate();
-  const {
-    data: blogsData,
-    loading: blogsLoading,
-    error: blogsError,
-  } = useFetch<FetchBlogsType>(`${BASE_URL}/blogs?limit=100`);
 
-  const blogs = blogsData?.result !== undefined ? blogsData.result : [];
+  const handleButtonClick = useCallback(() => {
+    navigate("/inspiration");
+  }, [])
+
   return (
     <section className="starter relative rounded-5xl bg-main-brown lg:py-sect-medium 2xl:py-sect-semi">
       <motion.img
@@ -59,7 +57,7 @@ const Starter: React.FC = () => {
         transition={{ duration: 0.4, ease: "easeInOut" }}
         viewport={{ once: true }}
         className="btn btn-secondary absolute -bottom-4 right-0 lg:mr-12 xl:mr-16 2xl:mr-20 3xl:mr-24"
-        onClick={() => navigate("/inspiration")}
+        onClick={handleButtonClick}
       >
         Find more <img src={planeIcon} alt="" />
       </motion.button>
@@ -67,4 +65,4 @@ const Starter: React.FC = () => {
   );
 };
 
-export default Starter;
+export default memo(Starter);
