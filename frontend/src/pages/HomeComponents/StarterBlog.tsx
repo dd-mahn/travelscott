@@ -4,6 +4,7 @@ import React, {
   useReducer,
   useMemo,
   useState,
+  memo,
 } from "react";
 import { useNavigate } from "react-router-dom";
 import BlogType from "src/types/Blog";
@@ -72,17 +73,16 @@ const BlogComponent = ({
       }}
       onMouseDown={onDragStart}
     >
-      <div
-        className="relative flex h-3/4 flex-col items-start justify-end gap-0 px-8 pb-4"
-        style={{
-          backgroundImage: `url(${blog.image})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div className="absolute right-0 top-0 z-0 h-full w-full bg-background-dark bg-opacity-30"></div>
-        <span className="span-small z-10 text-text-dark">{blog.author}</span>
-        <span className="span-medium z-10 uppercase text-text-dark">
+      <div className="relative flex h-3/4 flex-col items-start justify-end gap-0 px-8 pb-4">
+        <img
+          loading="lazy"
+          className="absolute right-0 top-0 h-full w-full object-cover"
+          src={blog.image}
+          alt={blog.title}
+        />
+        <div className="absolute right-0 top-0 z-10 h-full w-full bg-background-dark bg-opacity-30"></div>
+        <span className="span-small z-20 text-text-dark">{blog.author}</span>
+        <span className="span-medium z-20 uppercase text-text-dark">
           {blog.title}
         </span>
       </div>
@@ -136,6 +136,7 @@ const StarterBlogs: React.FC<StarterBlogsProps> = ({ blogs }) => {
     (title: string) => {
       const newPosZIndex = maxZIndex + 1;
       setMaxZIndex(newPosZIndex);
+      console.log("Start - Z index changed")
       dispatch({
         type: "INCREMENT_Z_INDEX",
         payload: { title, zIndex: newPosZIndex },
@@ -196,4 +197,4 @@ const StarterBlogs: React.FC<StarterBlogsProps> = ({ blogs }) => {
   );
 };
 
-export default StarterBlogs;
+export default memo(StarterBlogs);
