@@ -2,11 +2,21 @@ import { useState, useEffect, useCallback } from "react";
 import Blog from "src/types/Blog";
 import Country from "src/types/Country";
 import Destination from "src/types/Destination";
-import { FetchCountriesType, FetchDestinationType, FetchBlogsType } from "src/types/FetchData";
+import {
+  FetchCountriesType,
+  FetchDestinationType,
+  FetchBlogsType,
+} from "src/types/FetchData";
 
-type DataType = FetchCountriesType | FetchDestinationType | FetchBlogsType | Destination | Country | Blog;
+type DataType =
+  | FetchCountriesType
+  | FetchDestinationType
+  | FetchBlogsType
+  | Destination
+  | Country
+  | Blog;
 
-const useFetch = <T,>(url: string, deps: any[] = []) => {
+const useFetch = <T>(url: string, deps: any[] = []) => {
   const [data, setData] = useState<T>();
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
@@ -20,15 +30,23 @@ const useFetch = <T,>(url: string, deps: any[] = []) => {
         throw new Error("Maybe something went wrong, please try again later.");
       }
       const result: T = await res.json();
-      setData(result);
+      setData((prevData) => (prevData !== result ? result : prevData));
     } catch (err) {
       if (err instanceof Error) {
-        setError(err.message);
+        setError((prevError) =>
+          prevError !== err.message ? err.message : prevError,
+        );
       } else {
-        setError("An error occurred while fetching data.");
+        setError((prevError) =>
+          prevError !== "An error occurred while fetching data."
+            ? "An error occurred while fetching data."
+            : prevError,
+        );
       }
     } finally {
-      setLoading(false);
+      setLoading((prevLoading) =>
+        prevLoading !== false ? false : prevLoading,
+      );
     }
   }, [url, ...deps]);
 
