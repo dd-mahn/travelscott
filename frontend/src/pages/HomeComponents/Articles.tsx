@@ -1,4 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, {
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import { DotPagination } from "src/components/ui/Pagination";
 import useFetch from "src/hooks/useFetch";
@@ -6,6 +13,8 @@ import Blog from "src/types/Blog";
 import { FetchBlogsType } from "src/types/FetchData";
 import { BASE_URL } from "src/utils/config";
 import { createBlogChunks } from "src/utils/createBlogChunks";
+import { preloadImage } from "src/utils/preloadImage";
+import { optimizeImage } from "src/utils/optimizeImage";
 import {
   motion,
   useTransform,
@@ -59,37 +68,29 @@ const variants = {
 
 type ArticlesProps = {
   articlesHookRef: React.RefObject<HTMLSpanElement>;
+  blogChunks: Blog[][];
 };
 
-const Articles: React.FC<ArticlesProps> = ({ articlesHookRef }) => {
+const Articles: React.FC<ArticlesProps> = ({ articlesHookRef, blogChunks }) => {
   const navigate = useNavigate();
-  // Handle blog data
-  const {
-    data: blogsData,
-    loading: blogsLoading,
-    error: blogsError,
-  } = useFetch<FetchBlogsType>(`${BASE_URL}/blogs?limit=100`);
-
-  const blogs = blogsData?.result !== undefined ? blogsData.result : [];
-  let blogChunks: Blog[][] = [];
-
-  if (blogs.length !== 0) blogChunks = createBlogChunks(blogs);
 
   // Handle chunks display
   const [direction, setDirection] = useState(1);
   const [chunkIndex, setChunkIndex] = useState(0);
-  const handleNextChunk = () => {
+
+  const handleNextChunk = useCallback(() => {
     if (chunkIndex < blogChunks.length - 1) {
       setDirection(1);
       setChunkIndex(chunkIndex + 1);
     }
-  };
-  const handlePrevChunk = () => {
+  }, [chunkIndex, blogChunks.length]);
+
+  const handlePrevChunk = useCallback(() => {
     if (chunkIndex > 0) {
       setDirection(-1);
       setChunkIndex(chunkIndex - 1);
     }
-  };
+  }, [chunkIndex]);
 
   // Handle scroll animation
   const { scrollYProgress } = useScroll({
@@ -99,12 +100,14 @@ const Articles: React.FC<ArticlesProps> = ({ articlesHookRef }) => {
 
   const x = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
 
+  // optimize images
+
   return (
     <div className="relative">
       <motion.span
         ref={articlesHookRef}
         style={{ x }}
-        className="px-sect p-large absolute -top-10 left-0 font-semibold uppercase text-text-dark"
+        className="article-hook px-sect p-large absolute -top-10 left-0 font-semibold uppercase text-text-dark"
       >
         Discover the latest articles in
       </motion.span>
@@ -148,6 +151,11 @@ const Articles: React.FC<ArticlesProps> = ({ articlesHookRef }) => {
                   }}
                 >
                   <img
+                    loading="lazy"
+                    // src={optimizeImage(blogChunks[chunkIndex][0].image).src}
+                    // srcSet={
+                    //   optimizeImage(blogChunks[chunkIndex][0].image).srcSet
+                    // }
                     src={blogChunks[chunkIndex][0].image}
                     alt="featuredBlogImage"
                     className="h-[50svh] w-full rounded-lg"
@@ -171,15 +179,18 @@ const Articles: React.FC<ArticlesProps> = ({ articlesHookRef }) => {
                   </span>
                 </div>
                 <div className="grid h-[75svh] w-full grid-flow-row auto-rows-[30%] gap-4">
-                  {blogChunks[chunkIndex].slice(1).map((blog, index) => (
+                  {blogChunks[chunkIndex].slice(1).map((blog) => (
                     <div
                       className="flex h-full cursor-pointer flex-row gap-4"
-                      key={index}
+                      key={blog._id}
                       onClick={() => {
                         navigate(`/inspiration/${blog._id}`);
                       }}
                     >
                       <img
+                        // src={optimizeImage(blog.image).src}
+                        // srcSet={optimizeImage(blog.image).srcSet}
+                        loading="lazy"
                         src={blog.image}
                         alt="normalBlogImage"
                         className="h-full w-[45%] rounded-lg"
@@ -227,4 +238,4 @@ const Articles: React.FC<ArticlesProps> = ({ articlesHookRef }) => {
   );
 };
 
-export default Articles;
+export default memo(Articles);
