@@ -19,6 +19,8 @@ import icelandFlag from "src/assets/images/ui/countryFlags/iceland-flag-medium.j
 import canadaFlag from "src/assets/images/ui/countryFlags/canada-flag-medium.jpg";
 import australiaFlag from "src/assets/images/ui/countryFlags/australia-flag-medium.jpg";
 import argentinaFlag from "src/assets/images/ui/countryFlags/argentina-flag-medium.jpg";
+import { shuffleArray } from "src/utils/shuffleArray";
+import { optimizeImage } from "src/utils/optimizeImage";
 
 const flags = [
   vietnamFlag,
@@ -37,15 +39,6 @@ const flags = [
   australiaFlag,
   argentinaFlag,
 ];
-
-const shuffleArray = (array: Array<string>) => {
-  const shuffledArray = [...array];
-  for (let i = shuffledArray.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
-  }
-  return shuffledArray;
-};
 
 const rightSettings = {
   dots: false,
@@ -74,40 +67,37 @@ const leftSettings = {
   rtl: true,
 };
 
-export const RightCountryCarousel: React.FC = () => {
-  const [shuffledFlags] = useState(shuffleArray(flags));
+const CountryCarousel = ({ settings }: { settings: any }) => {
+  const [shuffledFlags] = useState(() => shuffleArray(flags));
+
   return (
     <div className="w-[60svw]">
-      <Slider {...rightSettings}>
-        {shuffledFlags.map((flag, index) => (
-          <div className="2xl:h-[15svh] 2xl:w-[20svw] lg:h-[12svh] lg:w-[18svh] pr-4" key={index}>
-            <img
-              src={flag}
-              className="h-full rounded-lg object-cover"
-              alt="country flag"
-            />
-          </div>
-        ))}
+      <Slider {...settings}>
+        {shuffledFlags.map((flag, index) => {
+          const { src, srcSet } = optimizeImage(flag);
+          return (
+            <div
+              className="pr-4 lg:h-[12svh] lg:w-[18svh] 2xl:h-[15svh] 2xl:w-[20svw]"
+              key={index}
+            >
+              <img
+                loading="lazy"
+                src={src}
+                srcSet={srcSet}
+                className="h-full rounded-lg object-cover"
+                alt="country flag"
+              />
+            </div>
+          );
+        })}
       </Slider>
     </div>
   );
 };
 
-export const LeftCountryCarousel: React.FC = () => {
-  const [shuffledFlags] = useState(shuffleArray(flags));
-  return (
-    <div className="w-[60svw]">
-      <Slider {...leftSettings}>
-        {shuffledFlags.map((flag, index) => (
-          <div className="2xl:h-[15svh] 2xl:w-[20svw] lg:h-[12svh] lg:w-[18svh] pr-4" key={index}>
-            <img
-              src={flag}
-              className="h-full rounded-lg object-cover"
-              alt="country flag"
-            />
-          </div>
-        ))}
-      </Slider>
-    </div>
-  );
-};
+export const RightCountryCarousel = React.memo(() => (
+  <CountryCarousel settings={rightSettings} />
+));
+export const LeftCountryCarousel = React.memo(() => (
+  <CountryCarousel settings={leftSettings} />
+));
