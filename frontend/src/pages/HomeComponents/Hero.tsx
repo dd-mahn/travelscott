@@ -162,7 +162,7 @@ const Hero: React.FC = () => {
           initial="airplane1Start"
           whileInView="airPlane1End"
           viewport={{ once: true }}
-          className="airplane-1 absolute w-[30vw] transform lg:-bottom-full lg:right-[0%] xl:-bottom-full xl:right-0 2xl:-bottom-full 2xl:-right-[5%] 3xl:-bottom-full 3xl:right-0"
+          className="airplane-1 absolute lg:w-[25vw] 2xl:w-[30vw] transform lg:-bottom-full lg:right-[0%] xl:-bottom-full xl:right-0 2xl:-bottom-full 2xl:-right-[5%] 3xl:-bottom-full 3xl:right-0"
         >
           <motion.img
             whileHover={{
@@ -198,7 +198,7 @@ const Hero: React.FC = () => {
             bottom: 0,
           }}
           src={airplane2}
-          className="airplane-2 w-15vw absolute transform lg:-top-1/2 lg:right-[5%] xl:-top-1/3 xl:right-[5%] 2xl:-top-1/3 2xl:right-0 3xl:-top-1/3 3xl:right-[5%]"
+          className="airplane-2 w-[15vw] absolute transform lg:-top-1/2 lg:right-[5%] xl:-top-1/3 xl:right-[5%] 2xl:-top-1/3 2xl:right-0 3xl:-top-1/3 3xl:right-[5%]"
           alt="Airplane"
         />
         <motion.img
@@ -218,7 +218,7 @@ const Hero: React.FC = () => {
             bottom: 0,
           }}
           src={airplane3}
-          className="airplane-3 w-8vw absolute transform lg:-top-1/3 lg:right-[40%] xl:-top-[40%] xl:right-1/3 2xl:-top-1/2 2xl:right-[40%] 3xl:-top-1/2 3xl:right-[40%]"
+          className="airplane-3 w-[8vw] absolute transform lg:-top-1/3 lg:right-[40%] xl:-top-[40%] xl:right-1/3 2xl:-top-1/2 2xl:right-[40%] 3xl:-top-1/2 3xl:right-[40%]"
           alt="Airplane"
         />
         {/* Star */}
