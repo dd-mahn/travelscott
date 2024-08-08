@@ -38,7 +38,7 @@ module.exports = withMT({
     fontFamily: {
       logo: ["Kaushan Script", "cursive"],
       sans: ["Inter", "sans-serif"],
-      prima: ["MD Nichrome Test", "sans-serif"],
+      prima: ["MD Nichrome", "sans-serif"],
     },
     extend: {
       screens: {
