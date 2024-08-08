@@ -2,7 +2,7 @@ footer {
   @apply lg:gap-8 xl:gap-8 2xl:gap-12 3xl:gap-12;
 
   a {
-    @apply font-medium text-gray lg:text-sm xl:text-base 2xl:text-base 3xl:text-lg;
+    @apply font-medium lg:text-sm xl:text-base 2xl:text-base 3xl:text-lg;
   }
 
   p {
