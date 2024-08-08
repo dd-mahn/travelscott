@@ -90,12 +90,13 @@ const RelatedCountries: React.FC<CountryProps> = ({ country }) => {
   return (
     <>
       {relatedCountries.length < 5 && (
-        <div
-          className="related-countries min-w-screen flex cursor-pointer flex-nowrap gap-2 py-sect-short"
-          onClick={() => navigate(`/discover/countries/${country._id}`)}
-        >
+        <div className="related-countries min-w-screen flex cursor-pointer flex-nowrap gap-2 py-sect-short">
           {relatedCountries.map((country) => (
-            <div key={country.name} className="relative h-[30svh] w-[20svw]">
+            <div
+              key={country.name}
+              className="relative h-[30svh] w-[20svw]"
+              onClick={() => navigate(`/discover/countries/${country._id}`)}
+            >
               <img
                 src={country.images.otherImages?.[0]}
                 alt={country.name}
