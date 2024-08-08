@@ -8,13 +8,7 @@ import React, {
 } from "react";
 import { useNavigate } from "react-router-dom";
 import { DotPagination } from "src/components/ui/Pagination";
-import useFetch from "src/hooks/useFetch";
 import Blog from "src/types/Blog";
-import { FetchBlogsType } from "src/types/FetchData";
-import { BASE_URL } from "src/utils/config";
-import { createBlogChunks } from "src/utils/createBlogChunks";
-import { preloadImage } from "src/utils/preloadImage";
-import { optimizeImage } from "src/utils/optimizeImage";
 import {
   motion,
   useTransform,
