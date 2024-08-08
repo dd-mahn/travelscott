@@ -39,7 +39,7 @@ export const createDestination = async (req: Request, res: Response) => {
 type GetDestinationsRequest = {
   countries?: string;
   tags?: string;
-  continents?:string;
+  continents?: string;
   page?: string;
   limit?: string;
 };
@@ -344,7 +344,13 @@ export const updateDestinationImages = async (req: Request, res: Response) => {
         };
 
         const { Location } = await s3.upload(params).promise();
-        return Location;
+        // Replace the S3 URL with the ImageKit URL
+        const imageKitUrl = Location.replace(
+          "https://travelscott.s3.amazonaws.com/",
+          "https://ik.imagekit.io/godsadeser/travelscott/"
+        );
+
+        return imageKitUrl;
       })
     );
 

@@ -255,7 +255,12 @@ export const updateCountryImages = async (req: Request, res: Response) => {
         ACL: "public-read",
       };
       const { Location } = await s3.upload(params).promise();
-      return Location;
+      const imageKitUrl = Location.replace(
+        "https://travelscott.s3.amazonaws.com/",
+        "https://ik.imagekit.io/godsadeser/travelscott/"
+      );
+
+      return imageKitUrl
     };
 
     // Process and upload flag images
