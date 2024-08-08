@@ -113,37 +113,27 @@ const EarthScene: React.FC<SceneProps> = ({ articlesHookRef }) => {
         camera={{ position: [15, 10, 15] }}
         dpr={[1, 2]}
       >
-        <ambientLight color={"white"} position={[20, 10, 10]} intensity={0.3} />
+        <ambientLight color={"white"} position={[20, 10, 10]} intensity={2} />
         <directionalLight
           color={"white"}
           position={[-20, 20, 20]}
           intensity={10}
           castShadow
         />
-
         <Suspense fallback={null}>
           <Earth />
         </Suspense>
-        <OrbitControls enableZoom={false} />
-        <Environment preset="lobby" />
-      </Canvas>
-    </div>
-  );
-};
 
-export default memo(EarthScene);
-
-{
-  /* <Suspense fallback={null}>
-            <EffectComposer>
-              <Bloom
-                luminanceThreshold={2}
-                luminanceSmoothing={1}
-                mipmapBlur
-                intensity={2}
-              />
-              <Vignette eskil={false} offset={0.5} darkness={1} />
-              <ToneMapping
+        <Suspense fallback={null}>
+          <EffectComposer>
+            <Bloom
+              luminanceThreshold={2}
+              luminanceSmoothing={1}
+              mipmapBlur
+              intensity={2}
+            />
+            {/* <Vignette eskil={false} offset={0.5} darkness={1} /> */}
+            {/* <ToneMapping
                 blendFunction={BlendFunction.NORMAL}
                 adaptive={true}
                 resolution={256}
@@ -151,7 +141,14 @@ export default memo(EarthScene);
                 maxLuminance={16.0}
                 averageLuminance={1.0}
                 adaptationRate={1.0}
-              />
-            </EffectComposer>
-          </Suspense> */
-}
+              /> */}
+          </EffectComposer>
+        </Suspense>
+        <OrbitControls enableZoom={false} />
+        {/* <Environment preset="lobby" /> */}
+      </Canvas>
+    </div>
+  );
+};
+
+export default memo(EarthScene);
