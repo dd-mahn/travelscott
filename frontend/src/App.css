@@ -8,6 +8,15 @@
 @import "tailwindcss/utilities";
 @import url("http://kenwheeler.github.io/slick/slick/slick-theme.css");
 
+/* CUSTOM FONTS FACE */
+@font-face {
+  font-family: "MD Nichrome";
+  src: url("./fonts/md-nichrome/MDNichromeTest-Bold.otf")
+    format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
 /* DEFAULT */
 
 :root {
@@ -23,7 +32,7 @@
   --text-dark: #ffffff;
   --gray: #969696;
   --aurora-green: #90b37f;
-  --aurora-brown: #ffddaa;
+  --aurora-brown: #ffddaab2;
 }
 
 *,
@@ -58,7 +67,8 @@ p {
 
 /* TYPO CLASSES */
 .big-heading {
-  @apply font-prima font-bold uppercase lg:text-10xl lg:leading-tight xl:text-11xl xl:leading-tight 2xl:text-12xl 2xl:leading-snug 3xl:text-13xl 3xl:leading-snug;
+  @apply font-prima font-bold uppercase lg:text-10xl xl:text-11xl 2xl:text-12xl 2xl:leading-snug 3xl:text-13xl 3xl:leading-snug;
+  line-height: 1 !important;
 }
 
 .h1-md {
@@ -125,7 +135,7 @@ p {
   @apply text-center font-medium lg:h-8 lg:w-8 lg:rounded-lg lg:border lg:text-base xl:text-base 2xl:h-8 2xl:w-8 2xl:rounded-lg 2xl:border-2 2xl:text-lg 3xl:text-lg;
 }
 
-.page-btn.active{
+.page-btn.active {
   @apply bg-background-dark text-text-dark;
 }
 
@@ -141,7 +151,7 @@ p {
 }
 
 .underline-btn {
-  @apply relative cursor-pointer font-semibold uppercase lg:text-base xl:text-lg 2xl:text-xl 3xl:text-xl;
+  @apply relative cursor-pointer lg:font-medium 2xl:font-semibold uppercase lg:text-base xl:text-lg 2xl:text-xl 3xl:text-xl;
   width: -moz-fit-content;
   width: fit-content;
 }
@@ -151,9 +161,8 @@ p {
 }
 
 .underline-btn::before {
-  @apply absolute bottom-0 right-0 w-0 rounded-sm bg-text-light;
+  @apply absolute bottom-0 right-0 w-0 rounded-sm bg-text-light lg:h-[1.5px] 2xl:h-[2px];
   content: "";
-  height: 2px;
   transition:
     right 0.4s,
     width 0.4s,
@@ -171,6 +180,22 @@ p {
 
 .pl-sect {
   @apply sm:pl-6 md:pl-8 lg:pl-12 xl:pl-16 2xl:pl-20 3xl:pl-24;
+}
+
+.pr-sect {
+  @apply sm:pr-6 md:pr-8 lg:pr-12 xl:pr-16 2xl:pr-20 3xl:pr-24;
+}
+
+.mx-sect {
+  @apply sm:mx-6 md:mx-8 lg:mx-12 xl:mx-16 2xl:mx-20 3xl:mx-24;
+}
+
+.ml-sect {
+  @apply sm:ml-6 md:ml-8 lg:ml-12 xl:ml-16 2xl:ml-20 3xl:ml-24;
+}
+
+.mr-sect {
+  @apply sm:mr-6 md:mr-8 lg:mr-12 xl:mr-16 2xl:mr-20 3xl:mr-24;
 }
 
 .blur-blob {
