@@ -1,7 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
-import "remixicon/fonts/remixicon.css";
-import "src/components/Header/header.css";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
+import "remixicon/fonts/remixicon.css";
+import ReactDOM from "react-dom";
+import { motion } from "framer-motion";
+
+// Styles and components
+import "src/components/Header/header.css";
 import useFetch from "src/hooks/useFetch";
 import {
   FetchBlogsType,
@@ -13,7 +17,8 @@ import Destination from "src/types/Destination";
 import Country from "src/types/Country";
 import Blog from "src/types/Blog";
 import SearchResult from "../ui/SearchResult";
-import ReactDOM from "react-dom";
+import { input } from "@material-tailwind/react";
+import { search } from "src/utils/handleSearch";
 
 // Navigation items
 const navs = [
@@ -34,7 +39,47 @@ const navs = [
     display: "Contact",
   },
 ];
+// Handle motions
+const HeaderVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
 
+  inputVisible: {
+    width: "100%",
+    transition: { duration: 0.3 },
+  },
+  inputHidden: {
+    width: 0,
+    transition: { duration: 0.3 },
+    transitionEnd: {
+      display: "none",
+    },
+  },
+};
+
+const HoverVariants = {
+  lineHover: (size: string) => {
+    return {
+      borderBottom: `${size} solid #fff`,
+    };
+  },
+  scaleHover: {
+    scale: 1.1,
+    transition: {
+      duration: 0.2,
+      type: "tween",
+    },
+  },
+  rotateHover: {
+    rotate: [0, 360, 360, 0],
+    transition: {
+      duration: 0.8,
+      ease: "linear",
+    },
+  },
+};
+
+// Header component
 const Header = () => {
   const [inputDisplay, setInputDisplay] = useState(false);
   const [searchResultOpen, setSearchResultOpen] = useState(false);
@@ -71,47 +116,18 @@ const Header = () => {
   // Handle search
   const searchRef = useRef<HTMLInputElement>(null);
 
-  const handleSearch = () => {
-    const searchValue = searchRef.current?.value;
-    if (searchValue && searchValue !== "") {
-      const filteredDestinations = destinations.filter(
-        (destination) =>
-          destination.name.toLowerCase().includes(searchValue.toLowerCase()) ||
-          destination.country
-            .toLowerCase()
-            .includes(searchValue.toLowerCase()) ||
-          destination.continent
-            .toLowerCase()
-            .includes(searchValue.toLowerCase()) ||
-          destination.tags.some((tag) =>
-            tag.toLowerCase().includes(searchValue.toLowerCase()),
-          ),
-      );
-      const filteredCountries = countries.filter(
-        (country) =>
-          country.name.toLowerCase().includes(searchValue.toLowerCase()) ||
-          country.continent.toLowerCase().includes(searchValue.toLowerCase()),
-      );
-      const filteredBlogs = blogs.filter(
-        (blog) =>
-          blog.title.toLowerCase().includes(searchValue.toLowerCase()) ||
-          blog.tags.some((tag) =>
-            tag.toLowerCase().includes(searchValue.toLowerCase()),
-          ),
-      );
-
-      if (
-        filteredDestinations.length > 0 ||
-        filteredCountries.length > 0 ||
-        filteredBlogs.length > 0
-      ) {
-        setDestinationResults(filteredDestinations);
-        setCountryResults(filteredCountries);
-        setBlogResults(filteredBlogs);
-        setSearchResultOpen(true);
-      }
-    }
-  };
+  const handleSearch = useCallback(() => {
+    search(
+      searchRef,
+      destinations,
+      countries,
+      blogs,
+      setDestinationResults,
+      setCountryResults,
+      setBlogResults,
+      setSearchResultOpen,
+    );
+  }, [destinations, countries, blogs]);
 
   // Handle close search result
   const closeSearchResult = () => {
@@ -120,7 +136,7 @@ const Header = () => {
     searchRef.current!.value = "";
   };
 
-  const handleClickOutside = (e: Event) => {
+  const handleSearchResultClickOutside = (e: Event) => {
     const searchResult = document.querySelector(".search-result");
 
     if (
@@ -135,40 +151,63 @@ const Header = () => {
 
   useEffect(() => {
     if (searchResultOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("mousedown", handleSearchResultClickOutside);
     } else {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("mousedown", handleSearchResultClickOutside);
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("mousedown", handleSearchResultClickOutside);
     };
   }, [searchResultOpen]);
 
   // Render logic
-
   return (
-    <header className="px-sect fixed top-0 z-50 min-h-16 w-svw bg-transparent py-4 mix-blend-difference">
+    <motion.header
+      variants={HeaderVariants}
+      initial="hidden"
+      animate="visible"
+      transition={{
+        duration: 0.3,
+      }}
+      className="px-sect fixed top-0 z-50 min-h-16 w-svw bg-transparent py-4 mix-blend-difference"
+    >
       <div className="lg:flex lg:items-center lg:justify-between">
         <NavLink to={"/"}>
-          <h1 className="font-kaushan p-large">TravelScott</h1>
+          <motion.h1
+            variants={HoverVariants}
+            whileHover="scaleHover"
+            whileTap={{ scale: 1 }}
+            className="font-kaushan p-large"
+          >
+            TravelScott
+          </motion.h1>
         </NavLink>
         <nav>
           <ul className="lg:flex lg:flex-row lg:justify-between lg:gap-4 xl:gap-6 2xl:gap-8 3xl:gap-8">
             {navs.map((item, index) => (
-              <li className="nav__item" key={index}>
+              <motion.li
+                variants={HoverVariants}
+                whileHover="scaleHover"
+                whileTap={{ scale: 1 }}
+                // whileHover={HoverVariants.lineHover("var(--size)")}
+                // transition={{ duration: 0.3, ease: "linear" }}
+                className="nav__item lg:[--size:1px] 2xl:[--size:1.5px]"
+                key={index}
+                layout
+              >
                 <NavLink to={item.path} className={"p-regular transition-all"}>
                   {item.display}
                 </NavLink>
-              </li>
+              </motion.li>
             ))}
           </ul>
         </nav>
         <div className="lg:flex lg:gap-2 xl:gap-3 2xl:gap-3 3xl:gap-4">
           <div
-            className={`search-bar relative transition-all duration-300 ${inputDisplay ? "border-white px-2 lg:border-b-2" : ""} flex items-center`}
+            className={`search-bar relative transition-all duration-300 ${inputDisplay ? "border-white px-2 lg:border-b-[1px] 2xl:border-b-[1.5px]" : ""} flex items-center`}
           >
-            <input
+            <motion.input
               type="text"
               placeholder="Search"
               id="search"
@@ -181,10 +220,12 @@ const Header = () => {
               }}
               onBlur={() => {
                 if (searchRef.current?.value === "") setInputDisplay(false);
-                // if (searchResultOpen) setSearchResultOpen(false);
               }}
             />
-            <button
+            <motion.button
+              variants={HoverVariants}
+              whileHover="scaleHover"
+              whileTap={{ scale: 1 }}
               title="Search"
               className="p-large px-1"
               onClick={() => {
@@ -201,7 +242,7 @@ const Header = () => {
               }}
             >
               <i className="ri-search-2-line"></i>
-            </button>
+            </motion.button>
             {ReactDOM.createPortal(
               <SearchResult
                 open={searchResultOpen}
@@ -214,12 +255,18 @@ const Header = () => {
             )}
           </div>
 
-          <button title="Toggle Contrast" className="p-large">
+          <motion.button
+            variants={HoverVariants}
+            whileHover="scaleHover"
+            whileTap={{ scale: 1 }}
+            title="Toggle Contrast"
+            className="p-large"
+          >
             <i className="ri-contrast-2-fill"></i>
-          </button>
+          </motion.button>
         </div>
       </div>
-    </header>
+    </motion.header>
   );
 };
 
