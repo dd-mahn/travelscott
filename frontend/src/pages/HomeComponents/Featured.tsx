@@ -36,10 +36,10 @@ const Featured: React.FC = () => {
         <motion.h1
           initial={variants.hiddenY("var(--y-from)")}
           whileInView="visible"
-          viewport={{ once: true, margin: "0% 0% -10% 0%" }}
+          viewport={{ once: true }}
           transition={{ duration: 0.4 }}
           variants={variants}
-          className="h1-md relative lg:[--y-from:75px] 2xl:[--y-from:100px]"
+          className="h1-md relative lg:[--y-from:75px] 2xl:[--y-from:100px] 3xl:[--y-from:120px]"
         >
           <i className="ri-shining-2-fill rotate-30 absolute -left-[5%] -top-0 transform text-yellow lg:text-3xl xl:text-4xl 2xl:text-4xl 3xl:text-5xl"></i>{" "}
           Featured Destinations
