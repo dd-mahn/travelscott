@@ -48,8 +48,6 @@ const EarthScene: React.FC<SceneProps> = ({ articlesHookRef }) => {
   const [isHookAboveViewport, setIsHookAboveViewport] = useState(false);
 
   useEffect(() => {
-    if (!articlesHookInView) return;
-
     const observer = new IntersectionObserver(
       ([entry]) => {
         setIsHookAboveViewport(entry.boundingClientRect.top < 0);
