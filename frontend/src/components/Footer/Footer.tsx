@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import "src/components/Footer/footer.css";
 import { NavLink } from "react-router-dom";
 import planeIcon from "src/assets/svg/plane-icon.svg";
@@ -186,7 +186,7 @@ const Footer = () => {
             whileInView="visible"
             viewport={{ once: true }}
             variants={variants}
-            transition={{ duration: 0.6, delay: 0 }}
+            transition={{ duration: 1, type: "spring", bounce: 0.4, delay: 0 }}
             className="inline-block lg:[--y-from:250px] 2xl:[--y-from:300px]"
           >
             T
@@ -196,7 +196,12 @@ const Footer = () => {
             whileInView="visible"
             viewport={{ once: true }}
             variants={variants}
-            transition={{ duration: 0.4, delay: 0.05 }}
+            transition={{
+              duration: 1,
+              type: "spring",
+              bounce: 0.4,
+              delay: 0.05,
+            }}
             className="inline-block lg:[--y-from:250px] 2xl:[--y-from:300px]"
           >
             r
@@ -206,7 +211,12 @@ const Footer = () => {
             whileInView="visible"
             viewport={{ once: true }}
             variants={variants}
-            transition={{ duration: 0.4, delay: 0.1 }}
+            transition={{
+              duration: 1,
+              type: "spring",
+              bounce: 0.4,
+              delay: 0.1,
+            }}
             className="inline-block lg:[--y-from:250px] 2xl:[--y-from:300px]"
           >
             a
@@ -216,7 +226,12 @@ const Footer = () => {
             whileInView="visible"
             viewport={{ once: true }}
             variants={variants}
-            transition={{ duration: 0.4, delay: 0.15 }}
+            transition={{
+              duration: 1,
+              type: "spring",
+              bounce: 0.4,
+              delay: 0.15,
+            }}
             className="inline-block lg:[--y-from:250px] 2xl:[--y-from:300px]"
           >
             v
@@ -226,7 +241,12 @@ const Footer = () => {
             whileInView="visible"
             viewport={{ once: true }}
             variants={variants}
-            transition={{ duration: 0.4, delay: 0.2 }}
+            transition={{
+              duration: 1,
+              type: "spring",
+              bounce: 0.4,
+              delay: 0.2,
+            }}
             className="inline-block lg:[--y-from:250px] 2xl:[--y-from:300px]"
           >
             e
@@ -236,7 +256,12 @@ const Footer = () => {
             whileInView="visible"
             viewport={{ once: true }}
             variants={variants}
-            transition={{ duration: 0.4, delay: 0.25 }}
+            transition={{
+              duration: 1,
+              type: "spring",
+              bounce: 0.4,
+              delay: 0.25,
+            }}
             className="inline-block lg:[--y-from:250px] 2xl:[--y-from:300px]"
           >
             l
@@ -246,7 +271,12 @@ const Footer = () => {
             whileInView="visible"
             viewport={{ once: true }}
             variants={variants}
-            transition={{ duration: 0.4, delay: 0.3 }}
+            transition={{
+              duration: 1,
+              type: "spring",
+              bounce: 0.4,
+              delay: 0.3,
+            }}
             className="inline-block lg:[--y-from:250px] 2xl:[--y-from:300px]"
           >
             S
@@ -256,7 +286,12 @@ const Footer = () => {
             whileInView="visible"
             viewport={{ once: true }}
             variants={variants}
-            transition={{ duration: 0.4, delay: 0.35 }}
+            transition={{
+              duration: 1,
+              type: "spring",
+              bounce: 0.4,
+              delay: 0.35,
+            }}
             className="inline-block lg:[--y-from:250px] 2xl:[--y-from:300px]"
           >
             c
@@ -266,7 +301,12 @@ const Footer = () => {
             whileInView="visible"
             viewport={{ once: true }}
             variants={variants}
-            transition={{ duration: 0.4, delay: 0.4 }}
+            transition={{
+              duration: 1,
+              type: "spring",
+              bounce: 0.4,
+              delay: 0.4,
+            }}
             className="inline-block lg:[--y-from:250px] 2xl:[--y-from:300px]"
           >
             o
@@ -276,7 +316,12 @@ const Footer = () => {
             whileInView="visible"
             viewport={{ once: true }}
             variants={variants}
-            transition={{ duration: 0.4, delay: 0.45 }}
+            transition={{
+              duration: 1,
+              type: "spring",
+              bounce: 0.4,
+              delay: 0.45,
+            }}
             className="inline-block lg:[--y-from:250px] 2xl:[--y-from:300px]"
           >
             t
@@ -286,7 +331,12 @@ const Footer = () => {
             whileInView="visible"
             viewport={{ once: true }}
             variants={variants}
-            transition={{ duration: 0.4, delay: 0.5 }}
+            transition={{
+              duration: 1,
+              type: "spring",
+              bounce: 0.4,
+              delay: 0.5,
+            }}
             className="inline-block lg:[--y-from:250px] 2xl:[--y-from:300px]"
           >
             t
@@ -318,4 +368,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default memo(Footer);
