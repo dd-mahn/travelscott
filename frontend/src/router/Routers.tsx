@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Loading from "src/pages/Loading";
 
@@ -13,7 +13,7 @@ const Article = lazy(() => import("src/pages/Article"));
 
 const Routers = () => {
   return (
-    <Suspense fallback={<Loading />}>
+    <Suspense fallback={<div className="h-screen w-screen"></div>}>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
