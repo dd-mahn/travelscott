@@ -1,5 +1,6 @@
-import React, { memo, useEffect, useMemo, useRef, useState } from "react";
+import React, { memo, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
+
 import "src/styles/home.css";
 
 // Components
@@ -53,13 +54,6 @@ const Home: React.FC = () => {
         section.style.top = window.innerHeight - section.offsetHeight + "px";
       });
     }
-  }, []);
-
-  useEffect(() => {
-    console.log("Home mounted");
-    return () => {
-      console.log("Home unmounted");
-    };
   }, []);
 
   // Handle common ref to pass between components
