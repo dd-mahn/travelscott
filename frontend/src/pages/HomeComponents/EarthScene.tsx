@@ -122,7 +122,7 @@ const EarthScene: React.FC<SceneProps> = ({ articlesHookRef }) => {
           <Earth />
         </Suspense>
 
-        <Suspense fallback={null}>
+        {/* <Suspense fallback={null}>
           <EffectComposer>
             <Bloom
               luminanceThreshold={2}
@@ -130,8 +130,8 @@ const EarthScene: React.FC<SceneProps> = ({ articlesHookRef }) => {
               mipmapBlur
               intensity={2}
             />
-            {/* <Vignette eskil={false} offset={0.5} darkness={1} /> */}
-            {/* <ToneMapping
+            <Vignette eskil={false} offset={0.5} darkness={1} />
+            <ToneMapping
                 blendFunction={BlendFunction.NORMAL}
                 adaptive={true}
                 resolution={256}
@@ -139,9 +139,9 @@ const EarthScene: React.FC<SceneProps> = ({ articlesHookRef }) => {
                 maxLuminance={16.0}
                 averageLuminance={1.0}
                 adaptationRate={1.0}
-              /> */}
+              />
           </EffectComposer>
-        </Suspense>
+        </Suspense> */}
         <OrbitControls enableZoom={false} />
         {/* <Environment preset="lobby" /> */}
       </Canvas>
