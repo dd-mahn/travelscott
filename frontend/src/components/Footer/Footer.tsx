@@ -1,9 +1,12 @@
-import React, { memo } from "react";
+import React, { memo, useEffect, useRef } from "react";
 import "src/components/Footer/footer.css";
 import { NavLink } from "react-router-dom";
 import planeIcon from "src/assets/svg/plane-icon.svg";
 import footerVideo from "src/assets/videos/footer.mp4";
 import { motion } from "framer-motion";
+import Lenis from "lenis";
+import { scrollToTop } from "src/utils/scrollToTop";
+import StaggerLogo from "../ui/staggerLogo";
 
 const sitemap = [
   {
@@ -166,183 +169,15 @@ const Footer = () => {
           </nav>
         </div>
 
-        <button className="underline-btn" onClick={() => window.scrollTo(0, 0)}>
+        <button className="underline-btn" onClick={scrollToTop}>
           Back to top <i className="ri-arrow-up-line"></i>
         </button>
       </motion.div>
 
       <div className="flex justify-center border-t border-solid border-gray">
-        {/* <video
-          autoPlay
-          muted
-          loop
-          src={footerVideo}
-          className="absolute left-0 top-0 h-full w-full object-cover"
-        ></video> */}
-        {/* <div className="overflow-hidden"> */}
-        <div className="font-kaushan 230:mr-32 w-screen select-none overflow-hidden text-center text-text-light lg:mr-16 lg:text-8xl lg:[--y-from:250px] xl:text-13xl 2xl:text-14xl 2xl:[--y-from:200px] 3xl:text-15xl">
-          <motion.div
-            initial={variants.hiddenY("var(--y-from)")}
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={variants}
-            transition={{ duration: 1, type: "spring", bounce: 0.4, delay: 0 }}
-            className="inline-block lg:[--y-from:250px] 2xl:[--y-from:300px]"
-          >
-            T
-          </motion.div>
-          <motion.div
-            initial={variants.hiddenY("var(--y-from)")}
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={variants}
-            transition={{
-              duration: 1,
-              type: "spring",
-              bounce: 0.4,
-              delay: 0.05,
-            }}
-            className="inline-block lg:[--y-from:250px] 2xl:[--y-from:300px]"
-          >
-            r
-          </motion.div>
-          <motion.div
-            initial={variants.hiddenY("var(--y-from)")}
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={variants}
-            transition={{
-              duration: 1,
-              type: "spring",
-              bounce: 0.4,
-              delay: 0.1,
-            }}
-            className="inline-block lg:[--y-from:250px] 2xl:[--y-from:300px]"
-          >
-            a
-          </motion.div>
-          <motion.div
-            initial={variants.hiddenY("var(--y-from)")}
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={variants}
-            transition={{
-              duration: 1,
-              type: "spring",
-              bounce: 0.4,
-              delay: 0.15,
-            }}
-            className="inline-block lg:[--y-from:250px] 2xl:[--y-from:300px]"
-          >
-            v
-          </motion.div>
-          <motion.div
-            initial={variants.hiddenY("var(--y-from)")}
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={variants}
-            transition={{
-              duration: 1,
-              type: "spring",
-              bounce: 0.4,
-              delay: 0.2,
-            }}
-            className="inline-block lg:[--y-from:250px] 2xl:[--y-from:300px]"
-          >
-            e
-          </motion.div>
-          <motion.div
-            initial={variants.hiddenY("var(--y-from)")}
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={variants}
-            transition={{
-              duration: 1,
-              type: "spring",
-              bounce: 0.4,
-              delay: 0.25,
-            }}
-            className="inline-block lg:[--y-from:250px] 2xl:[--y-from:300px]"
-          >
-            l
-          </motion.div>
-          <motion.div
-            initial={variants.hiddenY("var(--y-from)")}
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={variants}
-            transition={{
-              duration: 1,
-              type: "spring",
-              bounce: 0.4,
-              delay: 0.3,
-            }}
-            className="inline-block lg:[--y-from:250px] 2xl:[--y-from:300px]"
-          >
-            S
-          </motion.div>
-          <motion.div
-            initial={variants.hiddenY("var(--y-from)")}
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={variants}
-            transition={{
-              duration: 1,
-              type: "spring",
-              bounce: 0.4,
-              delay: 0.35,
-            }}
-            className="inline-block lg:[--y-from:250px] 2xl:[--y-from:300px]"
-          >
-            c
-          </motion.div>
-          <motion.div
-            initial={variants.hiddenY("var(--y-from)")}
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={variants}
-            transition={{
-              duration: 1,
-              type: "spring",
-              bounce: 0.4,
-              delay: 0.4,
-            }}
-            className="inline-block lg:[--y-from:250px] 2xl:[--y-from:300px]"
-          >
-            o
-          </motion.div>
-          <motion.div
-            initial={variants.hiddenY("var(--y-from)")}
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={variants}
-            transition={{
-              duration: 1,
-              type: "spring",
-              bounce: 0.4,
-              delay: 0.45,
-            }}
-            className="inline-block lg:[--y-from:250px] 2xl:[--y-from:300px]"
-          >
-            t
-          </motion.div>
-          <motion.div
-            initial={variants.hiddenY("var(--y-from)")}
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={variants}
-            transition={{
-              duration: 1,
-              type: "spring",
-              bounce: 0.4,
-              delay: 0.5,
-            }}
-            className="inline-block lg:[--y-from:250px] 2xl:[--y-from:300px]"
-          >
-            t
-          </motion.div>
+        <div className="w-screen select-none overflow-hidden text-center font-logo text-text-light lg:mr-16 lg:text-8xl lg:[--y-from:250px] xl:text-13xl 2xl:text-14xl 2xl:[--y-from:200px] 3xl:text-15xl">
+          <StaggerLogo />
         </div>
-        {/* </div> */}
       </div>
 
       <div className="px-sect flex flex-row items-center justify-between border-t border-solid border-gray lg:h-8 2xl:h-10">
