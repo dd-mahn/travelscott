@@ -3,14 +3,14 @@
         z-index: 0;
       width: 20%;
       height: 30%;
-      top: 0%;
-      left: 10%;
+      bottom: 0;
+      left: 30%;
       background: radial-gradient(
         circle at 50% 50%,
         var(--aurora-brown),
         rgba(76, 0, 255, 0)
       );
-      opacity: 0.3;
+      opacity: 1;
     }
 
     .blob-2{
@@ -24,6 +24,6 @@
         var(--main-green),
         rgba(76, 0, 255, 0)
       );
-      opacity: 0.4 !important;
+      opacity: 0.6 !important;
     }
 }
