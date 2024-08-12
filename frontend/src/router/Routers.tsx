@@ -1,6 +1,5 @@
-import React, { lazy, Suspense, useEffect, useState } from "react";
+import React, { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
-import Loading from "src/pages/Loading";
 
 const About = lazy(() => import("src/pages/About"));
 const Contact = lazy(() => import("src/pages/Contact"));
