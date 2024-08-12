@@ -1,10 +1,8 @@
-import React, { memo, useEffect, useRef } from "react";
+import React, { memo } from "react";
 import "src/components/Footer/footer.css";
 import { NavLink } from "react-router-dom";
 import planeIcon from "src/assets/svg/plane-icon.svg";
-import footerVideo from "src/assets/videos/footer.mp4";
 import { motion } from "framer-motion";
-import Lenis from "lenis";
 import { scrollToTop } from "src/utils/scrollToTop";
 import StaggerLogo from "../ui/staggerLogo";
 
