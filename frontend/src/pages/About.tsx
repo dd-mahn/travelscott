@@ -1,8 +1,8 @@
-import React from "react";
+import React, { memo, Suspense, useEffect, useRef, useState } from "react";
+import { motion, useAnimation } from "framer-motion";
 
 import "src/styles/about.css";
 import heroVideo from "src/assets/videos/about-hero.mp4";
-import manhDo from "src/assets/images/ui/about/manhdo.jpg";
 import who1 from "src/assets/images/ui/about/about-1.jpg";
 import who2 from "src/assets/images/ui/about/about-2.jpg";
 import who3 from "src/assets/images/ui/about/about-3.jpg";
@@ -14,51 +14,108 @@ import who8 from "src/assets/images/ui/about/about-8.jpg";
 import airplane1 from "src/assets/svg/airplane-1.svg";
 import airplane2 from "src/assets/svg/airplane-2.svg";
 import airplane3 from "src/assets/svg/airplane-3.svg";
+import { people } from "src/data/about-people";
 
-const people = [
-  {
-    name: "Manh Do",
-    role: "Founder",
-    img: manhDo,
+const variants = {
+  hidden: {
+    opacity: 0,
+    y: 40,
   },
-  {
-    name: "Scott",
-    role: "Frontend Developer",
-    img: "",
-  },
-  {
-    name: "Scott",
-    role: "Backend Developer",
-    img: "",
-  },
-  {
-    name: "Scott",
-    role: "UI/UX Designer",
-    img: "",
-  },
-  {
-    name: "Scott",
-    role: "Product Manager",
-    img: "",
-  },
-  {
-    name: "Scott",
-    role: "Lead Travel Guide",
-    img: "",
-  },
-  {
-    name: "Scott",
-    role: "Cultural Experience Coordinator",
-    img: "",
-  },
-  {
-    name: "Scott",
-    role: "Adventure & Activities Specialist",
-    img: "",
-  },
-];
 
+  stayHidden: {
+    opacity: 0,
+  },
+
+  hiddenY: (y: string) => {
+    return {
+      opacity: 0,
+      y: y,
+    };
+  },
+
+  visible: {
+    opacity: 1,
+    y: 0,
+  },
+
+  imgVisible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.4,
+      ease: "easeInOut",
+    },
+  },
+
+  imgFloat: {
+    y: [0, 10, -10, 0],
+    scale: [1, 0.98, 1.02, 1],
+    transition: {
+      duration: 5,
+      repeat: Infinity,
+    },
+  },
+};
+
+const whoImages = [who1, who2, who3, who4, who5, who6, who7, who8];
 const About: React.FC = () => {
+  // Handle about hero animation
+  const sideBlockRefs = [
+    useRef<HTMLDivElement>(null),
+    useRef<HTMLDivElement>(null),
+  ];
+  const sideBlockControls = [useAnimation(), useAnimation()];
+
+  const blockRef = useRef<HTMLDivElement>(null);
+  const blockControls = useAnimation();
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [leftValue, setLeftValue] = useState(0);
+
+  useEffect(() => {
+    if (blockRef.current) {
+      const blockWidth = blockRef.current.offsetWidth;
+      if (containerRef.current) {
+        setLeftValue(containerRef.current.offsetWidth / 2 - blockWidth / 2);
+      }
+
+      sideBlockControls[0].start({
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.4, ease: "easeInOut" },
+      });
+      sideBlockControls[1].start({
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.4, ease: "easeInOut" },
+      });
+
+      sideBlockControls[0].start({
+        x: -blockWidth / 2,
+        transition: {
+          delay: 0.9,
+          duration: 0.6,
+          ease: "circInOut",
+        },
+      });
+
+      sideBlockControls[1].start({
+        x: blockWidth / 2,
+        transition: {
+          delay: 0.9,
+          duration: 0.6,
+          ease: "circInOut",
+        },
+      });
+
+      blockControls.start({
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.5, delay: 1, ease: "easeInOut" },
+      });
+    }
+  }, [blockRef]);
+
   return (
     <main className="about">
       {/* HERO SECTION */}
@@ -66,45 +123,131 @@ const About: React.FC = () => {
       <section className="hero px-sect relative flex flex-col items-center gap-12 py-sect-short">
         <div className="blur-blob blob-1"></div>
         <div className="blur-blob blob-2"></div>
-        <h1 className="h1-md z-10 pt-sect-short text-center text-main-green">
-          Travel
-          <span className="font-logo font-medium normal-case text-text-light">
-            Scott,
-          </span>{" "}
-          <span className="text-text-light">your</span> guide
-        </h1>
+        <motion.div
+          ref={containerRef}
+          className="h1-md-bold relative z-10 w-screen overflow-hidden pt-sect-short text-center"
+        >
+          <motion.div
+            initial={variants.hiddenY("var(--y-from)")}
+            ref={sideBlockRefs[0]}
+            animate={sideBlockControls[0]}
+            variants={variants}
+            className="inline-block text-main-green lg:[--y-from:100px] 2xl:[--y-from:150px]"
+          >
+            Travel
+          </motion.div>
+          <motion.div
+            ref={blockRef}
+            initial={{
+              opacity: 0,
+              y: "var(--y-from)",
+            }}
+            animate={blockControls}
+            variants={variants}
+            className={`bot-0 absolute inline-block w-fit lg:[--y-from:100px] 2xl:[--y-from:150px]`}
+            style={{
+              left: leftValue ? leftValue : "50%",
+            }}
+          >
+            <span className="font-logo font-medium normal-case text-text-light">
+              Scott,
+            </span>{" "}
+            <span className="text-text-light">your</span>
+          </motion.div>{" "}
+          <motion.div
+            ref={sideBlockRefs[1]}
+            initial={variants.hiddenY("var(--y-from)")}
+            animate={sideBlockControls[1]}
+            variants={variants}
+            className="inline-block text-main-green lg:[--y-from:100px] 2xl:[--y-from:150px]"
+          >
+            guide
+          </motion.div>
+        </motion.div>
 
-        <p className="p-medium z-10 text-center lg:w-2/5 xl:w-2/5 2xl:w-1/3 3xl:w-1/3">
+        <motion.p
+          initial="hidden"
+          animate="visible"
+          variants={variants}
+          transition={{ duration: 0.5, delay: 1 }}
+          className="p-medium z-10 text-center lg:w-2/5 xl:w-2/5 2xl:w-1/3 3xl:w-1/3"
+        >
           We simply want to awaken the passion for <br />
           travel within you.
-        </p>
+        </motion.p>
 
-        <p className="p-medium z-10 text-center lg:w-2/5 xl:w-2/5 2xl:w-1/3 3xl:w-1/3">
+        <motion.p
+          initial="hidden"
+          animate="visible"
+          variants={variants}
+          transition={{ duration: 0.5, delay: 1.2 }}
+          className="p-medium z-10 text-center lg:w-2/5 xl:w-2/5 2xl:w-1/3 3xl:w-1/3"
+        >
           We simplify your travel experience.
-        </p>
+        </motion.p>
 
-        <video
+        <motion.video
+          initial={{
+            opacity: 0,
+            y: "var(--y-from)",
+          }}
+          animate="visible"
+          transition={{ duration: 0.4, delay: 1.4 }}
+          variants={variants}
           src={heroVideo}
           autoPlay
           loop
           muted
           className="w-full rounded-xl shadow-section lg:mt-40 2xl:mt-sect-default"
-        ></video>
+        ></motion.video>
       </section>
 
       {/* STACKED SECTION */}
       <section className="flex flex-col items-center justify-start lg:py-sect-default 2xl:py-sect-semi">
         {/* HOW SECTION */}
-        <h2 className="h3-inter text-center">How?</h2>
+        <motion.h2
+          initial="hidden"
+          whileInView="visible"
+          variants={variants}
+          viewport={{ once: true, margin: "0% 0% -30% 0%" }}
+          transition={{ duration: 0.5 }}
+          className="h3-inter text-center"
+        >
+          How?
+        </motion.h2>
+
         <div className="how relative">
-          <div className="sticky z-0 mx-auto mb-24 flex h-[50svh] flex-row items-start justify-between rounded-xl bg-background-light px-8 pb-sect-short pt-4 shadow-section lg:top-24 lg:mt-40 lg:w-2/3 2xl:top-48 2xl:mt-sect-medium 2xl:w-3/4">
-            <div className="flex flex-col items-start justify-start gap-12">
+          <div
+            className={`sticky z-0 mx-auto mb-24 flex h-[50svh] flex-row items-start justify-between rounded-xl bg-background-light px-8 pb-sect-short pt-4 shadow-section lg:top-24 lg:mt-40 lg:w-3/4 2xl:top-48 2xl:mt-sect-medium 2xl:w-3/4`}
+          >
+            <div className="flex w-2/3 flex-col items-start justify-start gap-12">
               <div className="flex flex-col justify-start gap-0">
-                <h1 className="h1-md-bold">Optimal</h1>
-                <span className="span-medium uppercase">Information</span>
+                <div className="overflow-hidden">
+                  <motion.h1
+                    initial={variants.hiddenY("var(--y-from)")}
+                    whileInView="visible"
+                    transition={{ duration: 0.4 }}
+                    viewport={{ once: true, margin: "0% 0% -10% 0%" }}
+                    variants={variants}
+                    className="h1-md-bold lg:[--y-from:75px] 2xl:[--y-from:150px]"
+                  >
+                    Optimal
+                  </motion.h1>
+                </div>
+
+                <motion.span
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: "0% 0% -10% 0%" }}
+                  transition={{ duration: 0.4, delay: 0.4 }}
+                  variants={variants}
+                  className="span-medium uppercase"
+                >
+                  Information
+                </motion.span>
               </div>
 
-              <p className="p-medium lg:w-3/4 xl:w-3/4 2xl:w-2/5 3xl:w-2/3">
+              <p className="p-medium lg:w-full 2xl:w-3/4 3xl:w-3/4">
                 From the must-see landmarks to the hidden gems, our guides are
                 designed to ensure you’re well-informed. Whether it’s an
                 upcoming journey or a place you’re curious about, our resources
@@ -113,21 +256,84 @@ const About: React.FC = () => {
               </p>
             </div>
 
-            <h1 className="text-stroke h1-md-bold text-transparent">01</h1>
+            <div className="w-fit overflow-hidden">
+              <motion.div
+                initial={variants.hiddenY("var(--y-from)")}
+                whileInView="visible"
+                transition={{ duration: 0.4, delay: 0.6 }}
+                viewport={{ once: true, margin: "0% 0% -10% 0%" }}
+                variants={variants}
+                className="text-stroke h1-md-bold inline-block text-transparent lg:[--y-from:75px] 2xl:[--y-from:150px]"
+              >
+                0
+              </motion.div>
+              <motion.div
+                initial={variants.hiddenY("var(--y-from)")}
+                whileInView="visible"
+                transition={{ duration: 0.4, delay: 0.8 }}
+                viewport={{ once: true, margin: "0% 0% -10% 0%" }}
+                variants={variants}
+                className="text-stroke h1-md-bold inline-block text-transparent lg:[--y-from:75px] 2xl:[--y-from:150px]"
+              >
+                1
+              </motion.div>
+            </div>
           </div>
 
-          <div className="sticky z-0 mx-auto mb-24 mt-sect-medium flex h-[50svh] flex-row items-start justify-between rounded-xl bg-light-brown px-8 pb-sect-short pt-4 shadow-section lg:top-48 lg:w-2/3 2xl:top-72 2xl:w-3/4">
-            <h1 className="text-stroke h1-md-bold text-transparent">02</h1>
+          <div
+            className={`sticky z-0 mx-auto mb-24 mt-sect-medium flex h-[50svh] flex-row items-start justify-between rounded-xl bg-light-brown px-8 pb-sect-short pt-4 shadow-section lg:top-48 lg:w-3/4 2xl:top-72 2xl:w-3/4`}
+          >
+            <div className="w-2/3 overflow-hidden">
+              <motion.div
+                initial={variants.hiddenY("var(--y-from)")}
+                whileInView="visible"
+                transition={{ duration: 0.4, delay: 0.6 }}
+                viewport={{ once: true, margin: "0% 0% -10% 0%" }}
+                variants={variants}
+                className="text-stroke h1-md-bold inline-block text-transparent lg:[--y-from:75px] 2xl:[--y-from:150px]"
+              >
+                0
+              </motion.div>
+              <motion.div
+                initial={variants.hiddenY("var(--y-from)")}
+                whileInView="visible"
+                transition={{ duration: 0.4, delay: 0.8 }}
+                viewport={{ once: true, margin: "0% 0% -10% 0%" }}
+                variants={variants}
+                className="text-stroke h1-md-bold inline-block text-transparent lg:[--y-from:75px] 2xl:[--y-from:150px]"
+              >
+                2
+              </motion.div>
+            </div>
 
             <div className="flex flex-col items-end justify-start gap-12">
-              <div className="flex flex-col justify-end gap-0">
-                <h1 className="h1-md-bold">Vibrant</h1>
-                <h2 className="span-medium text-end font-sans uppercase">
+              <div className="flex w-2/3 flex-col justify-end gap-0">
+                <div className="overflow-hidden">
+                  <motion.h1
+                    initial={variants.hiddenY("var(--y-from)")}
+                    whileInView="visible"
+                    transition={{ duration: 0.4 }}
+                    viewport={{ once: true, margin: "0% 0% -10% 0%" }}
+                    variants={variants}
+                    className="h1-md-bold text-end lg:[--y-from:75px] 2xl:[--y-from:150px]"
+                  >
+                    Vibrant
+                  </motion.h1>
+                </div>
+
+                <motion.span
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: "0% 0% -10% 0%" }}
+                  transition={{ duration: 0.4, delay: 0.4 }}
+                  variants={variants}
+                  className="span-medium text-end uppercase"
+                >
                   Experience
-                </h2>
+                </motion.span>
               </div>
 
-              <p className="p-medium lg:w-3/4 xl:w-3/4 2xl:w-2/5 3xl:w-2/3">
+              <p className="p-medium lg:w-full 2xl:w-3/4 3xl:w-3/4">
                 We provide a streamlined research experience with high-quality
                 visual content that aims to inspire your travel plans. Each
                 search is an opportunity for discovery, and our vivid imagery
@@ -138,16 +344,37 @@ const About: React.FC = () => {
             </div>
           </div>
 
-          <div className="sticky z-0 mx-auto mb-24 mt-sect-medium flex h-[50svh] flex-row items-start justify-between rounded-xl bg-light-green px-8 pb-sect-short pt-4 shadow-section lg:top-72 lg:w-2/3 2xl:top-96 2xl:w-3/4">
-            <div className="flex flex-col items-start justify-start gap-12">
+          <div
+            className={`sticky z-0 mx-auto mb-24 mt-sect-medium flex h-[50svh] flex-row items-start justify-between rounded-xl bg-light-green px-8 pb-sect-short pt-4 shadow-section lg:top-72 lg:w-3/4 2xl:top-96 2xl:w-3/4`}
+          >
+            <div className="flex w-2/3 flex-col items-start justify-start gap-12">
               <div className="flex flex-col justify-start gap-0">
-                <h1 className="h1-md-bold">Verified</h1>
-                <span className="span-medium font-sans uppercase">
-                  Resources
-                </span>
+                <div className="overflow-hidden">
+                  <motion.h1
+                    initial={variants.hiddenY("var(--y-from)")}
+                    whileInView="visible"
+                    transition={{ duration: 0.4 }}
+                    viewport={{ once: true, margin: "0% 0% -10% 0%" }}
+                    variants={variants}
+                    className="h1-md-bold lg:[--y-from:75px] 2xl:[--y-from:150px]"
+                  >
+                    Verified
+                  </motion.h1>
+                </div>
+
+                <motion.span
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: "0% 0% -10% 0%" }}
+                  transition={{ duration: 0.4, delay: 0.4 }}
+                  variants={variants}
+                  className="span-medium uppercase"
+                >
+                  Resource
+                </motion.span>
               </div>
 
-              <p className="p-medium lg:w-3/4 xl:w-3/4 2xl:w-2/5 3xl:w-2/3">
+              <p className="p-medium lg:w-full 2xl:w-3/4 3xl:w-3/4">
                 Our platform curates content from renowned travel
                 websites and authentic traveler reviews to create a
                 comprehensive travel resource. Rest assured, the credibility of
@@ -156,20 +383,54 @@ const About: React.FC = () => {
               </p>
             </div>
 
-            <h1 className="text-stroke h1-md-bold text-transparent">03</h1>
+            <div className="w-fit overflow-hidden">
+              <motion.div
+                initial={variants.hiddenY("var(--y-from)")}
+                whileInView="visible"
+                transition={{ duration: 0.4, delay: 0.6 }}
+                viewport={{ once: true, margin: "0% 0% -10% 0%" }}
+                variants={variants}
+                className="text-stroke h1-md-bold inline-block text-transparent lg:[--y-from:75px] 2xl:[--y-from:150px]"
+              >
+                0
+              </motion.div>
+              <motion.div
+                initial={variants.hiddenY("var(--y-from)")}
+                whileInView="visible"
+                transition={{ duration: 0.4, delay: 0.8 }}
+                viewport={{ once: true, margin: "0% 0% -10% 0%" }}
+                variants={variants}
+                className="text-stroke h1-md-bold inline-block text-transparent lg:[--y-from:75px] 2xl:[--y-from:150px]"
+              >
+                3
+              </motion.div>
+            </div>
           </div>
-
           <div className="py-sect-default"></div>
 
           {/* WHO SECTION */}
-          <section className="who px-sect sticky top-0 z-10 rounded-5xl bg-background-dark shadow-section lg:pb-sect-default lg:pt-40 2xl:py-sect-default">
+          <section className="who px-sect sticky top-0 z-20 rounded-5xl bg-background-dark shadow-section lg:pb-sect-default lg:pt-40 2xl:py-sect-default">
             <div className="relative flex flex-col">
               <div className="blob-1 blur-blob z-0 h-1/4 w-1/4"></div>
               <div className="blob-2 blur-blob z-0 h-3/5 w-3/5"></div>
-              <h2 className="h3-inter text-center text-text-dark lg:py-40 2xl:pb-sect-default">
-                Who?
-              </h2>
-              <div className="z-10 flex flex-wrap justify-center gap-12">
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                variants={variants}
+                viewport={{ once: true, margin: "0% 0% -20% 0%" }}
+                transition={{ duration: 0.5 }}
+                className="h3-inter text-center lg:py-40 2xl:pb-sect-default"
+              >
+                <h1 className="text-text-dark">Who?</h1>
+              </motion.div>
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                variants={variants}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="z-10 flex flex-wrap justify-center gap-12"
+              >
                 {people.map((person, index) => (
                   <div
                     className="person flex w-1/5 flex-col items-center gap-4"
@@ -193,25 +454,40 @@ const About: React.FC = () => {
                     </div>
                   </div>
                 ))}
-              </div>
+              </motion.div>
               <div className="px-sect relative pb-sect-default pt-sect-long 2xl:mt-sect-default">
                 <div className="blob-3 blur-blob z-0 h-3/5 w-3/5"></div>
-                <img src={who1} alt="" className="img-1 absolute rounded-lg" />
-                <img src={who2} alt="" className="img-2 absolute rounded-lg" />
-                <img src={who3} alt="" className="img-3 absolute rounded-lg" />
-                <img src={who4} alt="" className="img-4 absolute rounded-lg" />
-                <img src={who5} alt="" className="img-5 absolute rounded-lg" />
-                <img src={who6} alt="" className="img-6 absolute rounded-lg" />
-                <img src={who7} alt="" className="img-7 absolute rounded-lg" />
-                <img src={who8} alt="" className="img-8 absolute rounded-lg" />
-                <p className="p-regular text-text-dark lg:w-2/3 xl:w-2/3 2xl:w-1/2 3xl:w-2/5">
+
+                {whoImages.map((img, index) => (
+                  <Suspense key={"whoImg-" + index} fallback={null}>
+                    <motion.img
+                      initial="hidden"
+                      whileInView={["visible", "imgFloat"]}
+                      variants={variants}
+                      viewport={{ once: true }}
+                      transition={{ delay: 1 + index * 0.4 }}
+                      src={img}
+                      loading="lazy"
+                      className={`img-${index + 1} absolute rounded-lg`}
+                    />
+                  </Suspense>
+                ))}
+
+                <motion.p
+                  initial="hidden"
+                  whileInView="visible"
+                  variants={variants}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1 }}
+                  className="p-regular text-text-dark lg:w-2/3 xl:w-2/3 2xl:w-1/2 3xl:w-2/5"
+                >
                   In 2024, we came together, fueled by an unwavering passion for
                   adventure and a deep-seated commitment to unveiling the
                   splendor of our planet. Our aspiration is to witness the joy
                   of discovery on the faces of those who traverse the globe, and
                   we take pride in extending a helping hand to make each journey
                   unforgettable.
-                </p>
+                </motion.p>
               </div>
             </div>
           </section>
@@ -223,14 +499,30 @@ const About: React.FC = () => {
         <img src={airplane1} alt="" className="plane-1 absolute" />
         <img src={airplane2} alt="" className="plane-2 absolute" />
         <img src={airplane3} alt="" className="plane-3 absolute" />
-        <h2 className="h3-inter text-center">Why?</h2>
-        <p className="p-large">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          variants={variants}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true, margin: "0% 0% -30% 0%" }}
+          className="h3-inter text-center"
+        >
+          <h2>Why?</h2>
+        </motion.div>
+        <motion.p
+          initial="hidden"
+          whileInView="visible"
+          variants={variants}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true, margin: "0% 0% -30% 0%" }}
+          className="p-large"
+        >
           “A paper plane’s journey, however brief, reminds us that <br /> even
           the simplest dreams can take flight.”
-        </p>
+        </motion.p>
       </section>
     </main>
   );
 };
 
-export default About;
+export default memo(About);
