@@ -178,7 +178,7 @@ const Header = () => {
             variants={HoverVariants}
             whileHover="scaleHover"
             whileTap={{ scale: 1 }}
-            className="font-kaushan p-large"
+            className="font-logo p-large"
           >
             TravelScott
           </motion.h1>
