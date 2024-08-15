@@ -23,16 +23,16 @@ const variants = {
   },
   airplaneStart: {
     opacity: 0,
-    x: -100,
-    y: 30,
+    x: -80,
+    y: 50,
   },
   airplaneEnd: {
-    opacity: [0, 1, 0, 0, 1],
-    y: [30, 0, -30, 30, 0],
-    x: [-100, 0, 100, -100, 0],
-    time: [0.4, 0.6, 0.8, 0.9, 1],
+    opacity: [0, 1, 0, 0, 0, 1],
+    y: [50, 0, -50, 50, 50, 0],
+    x: [-80, 0, 80, -80, -80, 0],
+    time: [0.4, 0.6, 0.7, 0.8, 0.9, 1],
     transition: {
-      duration: 3,
+      duration: 2,
     },
   },
 };
@@ -90,7 +90,7 @@ const Brief: React.FC = () => {
               variants={variants}
               initial={variants.hiddenY("var(--y-from)")}
               animate={h21Controls}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
+              transition={{ duration: 0.5 }}
               className="lg:[--y-from:75px] 2xl:[--y-from:100px]"
             >
               A <span className="text-main-green">Comprehensive Catalog</span>{" "}
@@ -105,7 +105,7 @@ const Brief: React.FC = () => {
               variants={variants}
               initial={variants.hiddenY("var(--y-from)")}
               animate={h22Controls}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
+              transition={{ delay: 0.1, duration: 0.5 }}
               className="lg:[--y-from:75px] 2xl:[--y-from:100px]"
             >
               Destinations with Tailored Travel Insights.
