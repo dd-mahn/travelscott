@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import planeIcon from "src/assets/svg/plane-icon.svg";
 import HorizontalScrollCarousel from "./FeaturedHorizontalScroller";
 import { featuredDemo } from "src/data/featuredDemo";
+import { SecondaryButton } from "src/components/ui/Button";
 
 const variants = {
   hidden: {
@@ -50,7 +51,7 @@ const Featured: React.FC = () => {
         <motion.p
           initial="hiddenShort"
           whileInView="visible"
-          viewport={{ once: true, margin: "-300px" }}
+          viewport={{ once: true, margin: "0% 0% -10% 0%" }}
           transition={{ duration: 0.5 }}
           variants={variants}
           className="p-large"
@@ -62,28 +63,17 @@ const Featured: React.FC = () => {
           + <br />
           destinations that we have covered in our Catalogue.
         </motion.p>
-        <div className="relative flex items-end">
-          <motion.div
-            initial="hiddenShort"
-            whileInView="visible"
-            viewport={{ once: true, margin: "0% 0% -10% 0%" }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-            variants={variants}
-            className="blob blur-blob absolute z-0 h-full w-1/3"
-          ></motion.div>
-          <motion.button
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "0% 0% -10% 0%" }}
-            transition={{ delay: 0.3, duration: 0.5, ease: "easeInOut" }}
-            variants={variants}
-            title="navigate"
-            className="btn btn-secondary z-5"
-            onClick={handleButtonClick}
-          >
-            discover them <img src={planeIcon} alt="" />
-          </motion.button>
-        </div>
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "0% 0% -10% 0%" }}
+          transition={{ delay: 0.3, duration: 0.5, staggerChildren: 0.1 }}
+          variants={variants}
+          className="relative flex items-end"
+        >
+          <div className="blob blur-blob absolute z-0 h-full w-1/3"></div>
+          <SecondaryButton text="Discover More" onClick={handleButtonClick} />
+        </motion.div>
       </div>
     </section>
   );
