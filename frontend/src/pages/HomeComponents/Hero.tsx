@@ -5,6 +5,8 @@ import airplane1 from "src/assets/svg/airplane-1.svg";
 import airplane2 from "src/assets/svg/airplane-2.svg";
 import airplane3 from "src/assets/svg/airplane-3.svg";
 import { useNavigate } from "react-router-dom";
+import { hoverVariants } from "src/utils/hoverVariants";
+import { PrimaryButton, SecondaryButton } from "src/components/ui/Button";
 
 const variants = {
   // default
@@ -162,7 +164,7 @@ const Hero: React.FC = () => {
           initial="airplane1Start"
           whileInView="airPlane1End"
           viewport={{ once: true }}
-          className="airplane-1 absolute lg:w-[25vw] 2xl:w-[30vw] transform lg:-bottom-full lg:right-[0%] xl:-bottom-full xl:right-0 2xl:-bottom-full 2xl:-right-[5%] 3xl:-bottom-full 3xl:right-0"
+          className="airplane-1 absolute transform lg:-bottom-full lg:right-[0%] lg:w-[25vw] xl:-bottom-full xl:right-0 2xl:-bottom-full 2xl:-right-[5%] 2xl:w-[30vw] 3xl:-bottom-full 3xl:right-0"
         >
           <motion.img
             whileHover={{
@@ -198,7 +200,7 @@ const Hero: React.FC = () => {
             bottom: 0,
           }}
           src={airplane2}
-          className="airplane-2 w-[15vw] absolute transform lg:-top-1/2 lg:right-[5%] xl:-top-1/3 xl:right-[5%] 2xl:-top-1/3 2xl:right-0 3xl:-top-1/3 3xl:right-[5%]"
+          className="airplane-2 absolute w-[15vw] transform lg:-top-1/2 lg:right-[5%] xl:-top-1/3 xl:right-[5%] 2xl:-top-1/3 2xl:right-0 3xl:-top-1/3 3xl:right-[5%]"
           alt="Airplane"
         />
         <motion.img
@@ -218,7 +220,7 @@ const Hero: React.FC = () => {
             bottom: 0,
           }}
           src={airplane3}
-          className="airplane-3 w-[8vw] absolute transform lg:-top-1/3 lg:right-[40%] xl:-top-[40%] xl:right-1/3 2xl:-top-1/2 2xl:right-[40%] 3xl:-top-1/2 3xl:right-[40%]"
+          className="airplane-3 absolute w-[8vw] transform lg:-top-1/3 lg:right-[40%] xl:-top-[40%] xl:right-1/3 2xl:-top-1/2 2xl:right-[40%] 3xl:-top-1/2 3xl:right-[40%]"
           alt="Airplane"
         />
         {/* Star */}
@@ -242,7 +244,7 @@ const Hero: React.FC = () => {
             variants={variants}
             initial="hiddenY"
             animate={starSiblingControls}
-            transition={{ duration: 0.4 }}
+            transition={{ duration: 0.5 }}
             className="h1-md inline-block"
           >
             From your new
@@ -254,7 +256,7 @@ const Hero: React.FC = () => {
             variants={variants}
             initial={variants.hiddenY("var(--y-from)")}
             animate="visible"
-            transition={{ duration: 0.4, delay: 0.05 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
             className="h1-md lg:[--y-from:50px] 2xl:[--y-from:75px]"
           >
             favorite{" "}
@@ -267,7 +269,7 @@ const Hero: React.FC = () => {
             variants={variants}
             initial={variants.hiddenY("var(--y-from)")}
             animate="visible"
-            transition={{ duration: 0.4, delay: 0.1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
             className="h1-md lg:[--y-from:50px] 2xl:[--y-from:75px]"
           >
             to{" "}
@@ -299,18 +301,11 @@ const Hero: React.FC = () => {
         transition={{ duration: 0.5 }}
         className="mt-8 flex flex-row lg:gap-4 xl:gap-4 2xl:gap-6 3xl:gap-8"
       >
-        <button
-          className="btn btn-primary"
+        <PrimaryButton
+          text="Get started"
           onClick={() => navigate("/discover")}
-        >
-          Get started
-        </button>
-        <button
-          className="btn btn-secondary"
-          onClick={() => navigate("/about")}
-        >
-          Learn more
-        </button>
+        />
+        <SecondaryButton text="Learn more" onClick={() => navigate("/about")} />
       </motion.div>
     </section>
   );
