@@ -1,27 +1,10 @@
 .contact {
   .blob-1 {
-    width: 30%;
-    height: 40%;
-    top: 5%;
-    left: -10%;
-    background: radial-gradient(
-      circle at 50% 50%,
-      var(--main-brown),
-      rgba(76, 0, 255, 0)
-    );
+    background: var(--aurora-brown-gradient);
   }
 
   .blob-2 {
-    width: 30%;
-    height: 40%;
-    bottom: 20%;
-    right: -10%;
-    background: radial-gradient(
-      circle at 50% 50%,
-      var(--main-green),
-      rgba(76, 0, 255, 0)
-    );
-    opacity: 0.4 !important;
+    background: var(--aurora-green-gradient);
   }
 
   .emailing {

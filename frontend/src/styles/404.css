@@ -1,29 +1,9 @@
-.not-found{
-    .blob-1{
-        z-index: 0;
-      width: 20%;
-      height: 30%;
-      bottom: 0;
-      left: 30%;
-      background: radial-gradient(
-        circle at 50% 50%,
-        var(--aurora-brown),
-        rgba(76, 0, 255, 0)
-      );
-      opacity: 1;
-    }
+.not-found {
+  .blob-1 {
+    background: var(--aurora-brown-gradient);
+  }
 
-    .blob-2{
-        z-index: 0;
-      width: 30%;
-      height: 20%;
-      top: 10%;
-      right: 30%;
-      background: radial-gradient(
-        circle at 50% 50%,
-        var(--main-green),
-        rgba(76, 0, 255, 0)
-      );
-      opacity: 0.6 !important;
-    }
+  .blob-2 {
+    background: var(--aurora-green-gradient)
+  }
 }
