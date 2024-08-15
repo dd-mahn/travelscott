@@ -1,4 +1,4 @@
-import { motion, useTransform, useScroll, useInView } from "framer-motion";
+import { motion, useTransform, useScroll } from "framer-motion";
 import React, { memo, useEffect, useMemo, useRef, useState } from "react";
 import Destination from "src/types/Destination";
 import { preloadImage } from "src/utils/preloadImage";
@@ -19,18 +19,18 @@ const HorizontalScrollCarousel: React.FC<HorizontalScrollCarouselProps> = ({
 }) => {
   // Set up the animation prerequisites
   const [scrollPixels, setScrollPixels] = useState(0);
-  const scrollElementRef = useRef<HTMLDivElement>(null);
-  const scrollElementInView = useInView(scrollElementRef, { once: true })
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const calculateScrollPixels = () => {
-      const scrollElement = scrollElementRef.current;
-      if (scrollElement) {
+      const scrollContainer = scrollContainerRef.current;
+      if (scrollContainer) {
         const x = window.innerWidth; // Viewport width
-        const x1 = parseFloat(getComputedStyle(scrollElement).paddingLeft) || 0; // Padding of the container
-        const initialVisiblePart = x - x1; // Initial visible part of the scrollElement
-        const y = scrollElement.scrollWidth; // Full width of the scrollElement
-        const hiddenPart = y - initialVisiblePart; // Hidden part of the scrollElement
+        const x1 =
+          parseFloat(getComputedStyle(scrollContainer).paddingLeft) || 0; // Padding of the container
+        const initialVisiblePart = x - x1; // Initial visible part of the scrollContainer
+        const y = scrollContainer.scrollWidth; // Full width of the scrollContainer
+        const hiddenPart = y - initialVisiblePart; // Hidden part of the scrollContainer
         return hiddenPart; // Total width to be translated in pixels
       } else {
         return 0;
@@ -54,7 +54,7 @@ const HorizontalScrollCarousel: React.FC<HorizontalScrollCarouselProps> = ({
     };
   }, [data]);
 
-  // Handle the animation
+  // Handle horizontal scroll animation
   const targetRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
@@ -92,7 +92,7 @@ const HorizontalScrollCarousel: React.FC<HorizontalScrollCarouselProps> = ({
     >
       <div className="sticky top-0 h-screen overflow-hidden">
         <motion.div
-          ref={scrollElementRef}
+          ref={scrollContainerRef}
           style={{ x }}
           className="px-sect mt-20 grid auto-cols-[35%] grid-flow-col gap-8"
         >
@@ -106,20 +106,33 @@ const HorizontalScrollCarousel: React.FC<HorizontalScrollCarouselProps> = ({
                   key={destination._id}
                   className="destination-card flex h-full flex-col gap-4 pb-8"
                 >
-                  <img
-                    loading="lazy"
-                    src={src}
-                    srcSet={srcSet}
-                    alt={destination.name}
-                    className="h-[70svh] w-full rounded-lg object-cover"
-                  />
+                  <div className="h-[70svh] w-full overflow-hidden rounded-xl">
+                    <motion.img
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ duration: 0.4 }}
+                      loading="lazy"
+                      src={src}
+                      srcSet={srcSet}
+                      alt={destination.name}
+                      className="h-full w-full cursor-pointer rounded-xl object-cover"
+                    />
+                  </div>
+
                   <div className="flex flex-col lg:gap-0 xl:gap-0 2xl:gap-0 3xl:gap-0">
                     <span className="span-regular text-gray">
                       {destination.country}
                     </span>
-                    <span className="span-medium uppercase">
+                    <motion.span
+                      whileHover={{ x: 5 }}
+                      transition={{
+                        duration: 1,
+                        type: "spring",
+                        bounce: 0.5,
+                      }}
+                      className="span-medium w-fit cursor-pointer uppercase"
+                    >
                       {destination.name}
-                    </span>
+                    </motion.span>
                     <div className="mt-4 flex gap-2">
                       {destination.tags.map((tag, index) => (
                         <span
