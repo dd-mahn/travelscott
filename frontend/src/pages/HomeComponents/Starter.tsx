@@ -9,6 +9,7 @@ import { BASE_URL } from "src/utils/config";
 import airplane1 from "src/assets/svg/airplane-1.svg";
 import planeIcon from "src/assets/svg/plane-icon.svg";
 import Blog from "src/types/Blog";
+import { SecondaryButton } from "src/components/ui/Button";
 
 const variants = {
   hidden: {
@@ -26,12 +27,12 @@ const variants = {
   },
 };
 
-const Starter: React.FC<{blogs: Blog[]}> = ({blogs}) => {
+const Starter: React.FC<{ blogs: Blog[] }> = ({ blogs }) => {
   const navigate = useNavigate();
 
   const handleButtonClick = useCallback(() => {
     navigate("/inspiration");
-  }, [])
+  }, []);
 
   return (
     <section className="starter relative rounded-5xl bg-main-brown lg:py-sect-medium 2xl:py-sect-semi">
@@ -50,17 +51,16 @@ const Starter: React.FC<{blogs: Blog[]}> = ({blogs}) => {
       <div className="h-full w-full overflow-hidden">
         <StarterBlogs blogs={blogs} />
       </div>
-      <motion.button
+      <motion.div
         initial="hidden"
         whileInView="visible"
         variants={variants}
-        transition={{ duration: 0.4, ease: "easeInOut" }}
         viewport={{ once: true }}
-        className="btn btn-secondary absolute -bottom-4 right-0 lg:mr-12 xl:mr-16 2xl:mr-20 3xl:mr-24"
-        onClick={handleButtonClick}
+        transition={{ duration: 0.5 }}
+        className="absolute -bottom-4 right-0 lg:mr-12 xl:mr-16 2xl:mr-20 3xl:mr-24"
       >
-        Find more <img src={planeIcon} alt="" />
-      </motion.button>
+        <SecondaryButton text="Find More" onClick={handleButtonClick} />
+      </motion.div>
     </section>
   );
 };
