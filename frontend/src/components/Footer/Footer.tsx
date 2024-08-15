@@ -111,7 +111,7 @@ const Footer = () => {
             whileInView={{ x: 0, opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.3, delay: 0.1 }}
-            whileHover={{ scale: 1.05, x: 10 }}
+            whileHover={{ scale: 1.05, x: 5, transition: { duration: 0.2 } }}
             whileTap={{ scale: 0.95, x: 0 }}
             title="subscribe"
           >
