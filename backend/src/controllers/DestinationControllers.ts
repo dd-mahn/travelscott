@@ -66,9 +66,9 @@ export const getDestinations = async (req: Request, res: Response) => {
     const filter: Filter = {};
 
     if (countries) {
-      const countriesArray =
-        typeof countries === "string" ? [countries] : countries;
-      filter.country = { $in: createRegexArray(countriesArray) };
+      // const countriesArray =
+      //   typeof countries === "string" ? [countries] : countries;
+      filter.country = { $in: createRegexArray(countries) };
     }
 
     if (tags) {
@@ -76,9 +76,9 @@ export const getDestinations = async (req: Request, res: Response) => {
     }
 
     if (continents) {
-      const continentsArray =
-        typeof continents === "string" ? [continents] : continents;
-      filter.continent = { $in: createRegexArray(continentsArray) };
+      // const continentsArray =
+      //   typeof continents === "string" ? [continents] : continents;
+      filter.continent = { $in: createRegexArray(continents) };
     }
 
     const skip = (pageNumber - 1) * limitNumber;
