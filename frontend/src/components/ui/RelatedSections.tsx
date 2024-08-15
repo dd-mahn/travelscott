@@ -22,7 +22,7 @@ const settings = {
   speed: 3000,
   autoplaySpeed: 3000,
   slidesToShow: 5,
-  slidesToScroll: 1,
+  // slidesToScroll: 1,
   cssEase: "linear",
   pauseOnHover: true,
 };
@@ -271,7 +271,6 @@ const RelatedArticles: React.FC<BlogProps> = ({ data }) => {
   let relatedBlogs = blogs;
 
   if (isBlog(data) && checkDataType(data) === "Blog") {
-    console.log("isBlog");
     relatedBlogs = relatedBlogs.filter(
       (blog) =>
         blog._id !== data._id &&
@@ -280,17 +279,14 @@ const RelatedArticles: React.FC<BlogProps> = ({ data }) => {
     );
   }
   if (isDestination(data) && checkDataType(data) === "Destination") {
-    console.log("isDestination");
     relatedBlogs = relatedBlogs.filter(
       (blog) => blog.related_destination === data._id,
     );
   }
   if (isCountry(data) && checkDataType(data) === "Country") {
-    console.log("isCountry");
     relatedBlogs = relatedBlogs.filter((blog) => blog.tags.includes(data.name));
   }
   if (isContinent(data) && checkDataType(data) === "Continent") {
-    console.log("isContinent");
     relatedBlogs = relatedBlogs.filter((blog) => blog.tags.includes(data));
   }
 
