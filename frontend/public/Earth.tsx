@@ -56,7 +56,7 @@ export default function Model(props: GroupProps) {
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      const newSpeed = 0.004; // Adjust the multiplier as needed
+      const newSpeed = 0.003; // Adjust the multiplier as needed
       setRotationSpeed(newSpeed);
 
       // Clear the previous timeout if it exists
