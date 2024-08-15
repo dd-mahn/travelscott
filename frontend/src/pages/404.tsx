@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import "src/styles/404.css";
+import { NoirButton } from "src/components/ui/Button";
 
 const variants = {
   hiddenOpacity: { opacity: 0 },
@@ -12,21 +13,46 @@ const variants = {
     };
   },
   visible: { opacity: 1, y: 0 },
+  auroraHover: {
+    opacity: 1,
+    scale: 1.2,
+    transition: { duration: 0.3 },
+  },
+  buttonHover: {
+    y: -3,
+    scale: 1.02,
+    rotate: -5,
+    transition: { duration: 0.4, type: "spring", bounce: 0.5 },
+  },
+  buttonTap: {
+    y: 3,
+    scale: 0.98,
+    rotate: 5,
+    transition: { duration: 0.4, type: "spring", bounce: 0.5 },
+  },
 };
 
 const NotFoundPage: React.FC = () => {
   const navigate = useNavigate();
   return (
     <main className="not-found relative flex h-screen w-full flex-col items-center justify-center gap-8">
-      <div className="blur-blob blob-1"></div>
-      <div className="blur-blob blob-2"></div>
-      <div className="big-heading overflow-hidden">
+      <motion.div
+        whileHover="auroraHover"
+        variants={variants}
+        className="blur-blob blob-1 bottom-0 left-[30%] h-[30%] w-1/5 opacity-80"
+      ></motion.div>
+      <motion.div
+        whileHover="auroraHover"
+        variants={variants}
+        className="blur-blob blob-2 right-[30%] top-[10%] h-1/5 w-[30%] opacity-80"
+      ></motion.div>
+      <div className="big-heading z-20 overflow-hidden">
         <motion.div
           initial={variants.hiddenY("var(--y-from)")}
           animate="visible"
           variants={variants}
           transition={{ duration: 1, type: "spring", bounce: 0.5 }}
-          className="inline-block text-text-light lg:[--y-from:100px] 2xl:[--y-from:150px] dark:text-text-dark"
+          className="pointer-events-none inline-block text-text-light lg:[--y-from:100px] 2xl:[--y-from:150px] dark:text-text-dark"
         >
           4
         </motion.div>
@@ -35,7 +61,7 @@ const NotFoundPage: React.FC = () => {
           animate="visible"
           variants={variants}
           transition={{ duration: 1, type: "spring", bounce: 0.5, delay: 0.2 }}
-          className="inline-block text-text-light lg:[--y-from:100px] 2xl:[--y-from:150px] dark:text-text-dark"
+          className="pointer-events-none inline-block text-text-light lg:[--y-from:100px] 2xl:[--y-from:150px] dark:text-text-dark"
         >
           0
         </motion.div>
@@ -44,7 +70,7 @@ const NotFoundPage: React.FC = () => {
           animate="visible"
           variants={variants}
           transition={{ duration: 1, type: "spring", bounce: 0.5, delay: 0.4 }}
-          className="inline-block text-text-light lg:[--y-from:100px] 2xl:[--y-from:150px] dark:text-text-dark"
+          className="pointer-events-none inline-block text-text-light lg:[--y-from:100px] 2xl:[--y-from:150px] dark:text-text-dark"
         >
           4
         </motion.div>
@@ -53,22 +79,30 @@ const NotFoundPage: React.FC = () => {
         initial="hidden"
         animate="visible"
         variants={variants}
-        transition={{ duration: 0.4, delay: 0.6 }}
-        className="p-medium text-center"
+        transition={{ duration: 0.4, delay: 0.4 }}
+        className="p-medium z-20 text-center"
       >
         The page you are looking for might have been removed <br /> had its name
         changed or is temporarily unavailable.
       </motion.p>
-      <motion.button
+      <motion.div
         initial="hiddenOpacity"
         animate="visible"
         variants={variants}
         transition={{ duration: 0.4, delay: 0.8 }}
-        className="btn bg-background-dark uppercase text-text-dark"
-        onClick={() => navigate("/")}
+        className="z-20"
       >
-        Back to home
-      </motion.button>
+        {/* <motion.button
+          whileHover="buttonHover"
+          whileTap="buttonTap"
+          variants={variants}
+          className="btn bg-background-dark uppercase text-text-dark"
+          onClick={() => navigate("/")}
+        >
+          Back to home
+        </motion.button> */}
+        <NoirButton text="Back to home" onClick={() => navigate("/")} />
+      </motion.div>
     </main>
   );
 };
