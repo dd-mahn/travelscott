@@ -94,7 +94,7 @@ const Contact: React.FC = () => {
 
   return (
     <ReactLenis root options={{ lerp: 0.05 }}>
-      <main className="contact px-sect relative flex flex-col items-center pb-sect-default lg:pt-20 2xl:pt-60">
+      <main className="contact px-sect relative flex flex-col items-center pb-sect-default lg:pt-20 2xl:pt-40">
         <motion.section
           initial="hidden"
           animate="visible"
@@ -283,11 +283,11 @@ const Contact: React.FC = () => {
 
         <motion.div
           layout
-          className="blur-blob blob-1 absolute z-0"
+          className="blur-blob blob-1 w-[30%] h-[40%] top-[5%] -left-[10%] opacity-100"
         ></motion.div>
         <motion.div
           layout
-          className="blur-blob blob-2 absolute z-0"
+          className="blur-blob blob-2 w-[30%] h-[40%] bottom-[20%] -right-[10%] opacity-60"
         ></motion.div>
       </main>
     </ReactLenis>
