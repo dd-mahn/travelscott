@@ -1,8 +1,9 @@
-/** @type {import('tailwindcss').Config} */
-const withMT = require("@material-tailwind/react/utils/withMT");
+import type { Config } from "tailwindcss";
+import withMT from "@material-tailwind/react/utils/withMT";
+// const withMT = require("@material-tailwind/react/utils/withMT");
 
-module.exports = withMT({
-  purge: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
+const config: Config = {
+  content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   darkMode: "selector", // or 'media' or 'class'
   theme: {
     screens: {
@@ -84,4 +85,8 @@ module.exports = withMT({
     },
   },
   plugins: [],
-});
+};
+
+const withMTConfig = withMT(config);
+
+export default withMTConfig;
