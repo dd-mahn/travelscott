@@ -1,6 +1,7 @@
 import React, { memo, useCallback, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, useAnimation, useInView } from "framer-motion";
+import { PrimaryButton } from "src/components/ui/Button";
 
 const variants = {
   hidden: { opacity: 0, y: 20 },
@@ -173,9 +174,7 @@ const Quote = () => {
         variants={variants}
         className="flex flex-row justify-end"
       >
-        <button className="btn btn-primary" onClick={handleButtonClick}>
-          Have any questions?
-        </button>
+        <PrimaryButton text="Have any question?" onClick={handleButtonClick} />
       </motion.div>
     </section>
   );
