@@ -2,11 +2,12 @@ import React, { memo, useCallback } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
-import planeIcon from "src/assets/svg/plane-icon.svg";
+// Component imports
 import HorizontalScrollCarousel from "./FeaturedHorizontalScroller";
 import { featuredDemo } from "src/data/featuredDemo";
 import { SecondaryButton } from "src/components/ui/Button";
 
+// Framer motion variants
 const variants = {
   hidden: {
     opacity: 0,
@@ -21,12 +22,18 @@ const variants = {
   visible: {
     opacity: 1,
     y: 0,
+    transition: {
+      duration: 0.4,
+    },
   },
 };
 
+// Featured component
 const Featured: React.FC = () => {
+  // Navigate hook
   const navigate = useNavigate();
 
+  // Handle button 
   const handleButtonClick = useCallback(() => {
     navigate("/discover");
   }, []);
@@ -38,7 +45,6 @@ const Featured: React.FC = () => {
           initial={variants.hiddenY("var(--y-from)")}
           whileInView="visible"
           viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
           variants={variants}
           className="h1-md relative lg:[--y-from:75px] 2xl:[--y-from:100px] 3xl:[--y-from:120px]"
         >
@@ -52,7 +58,6 @@ const Featured: React.FC = () => {
           initial="hiddenShort"
           whileInView="visible"
           viewport={{ once: true, margin: "0% 0% -10% 0%" }}
-          transition={{ duration: 0.5 }}
           variants={variants}
           className="p-large"
         >
@@ -67,7 +72,7 @@ const Featured: React.FC = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "0% 0% -10% 0%" }}
-          transition={{ delay: 0.3, duration: 0.5, staggerChildren: 0.1 }}
+          transition={{ delay: 0.3, staggerChildren: 0.1 }}
           variants={variants}
           className="relative flex items-end"
         >
