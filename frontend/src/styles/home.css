@@ -1,74 +1,17 @@
 .hero {
-  p {
-    line-height: 1.2 !important;
-  }
-
-  .blob-1 {
-    top: 5%;
-    left: -10%;
-    background: radial-gradient(
-      circle at 50% 50%,
-      var(--aurora-brown),
-      rgba(76, 0, 255, 0)
-    );
-  }
-
-  .blob-2 {
-    bottom: 20%;
-    right: -30%;
-    background: radial-gradient(
-      circle at 50% 50%,
-      var(--main-green),
-      rgba(76, 0, 255, 0)
-    );
-    opacity: 0.4 !important;
-  }
-
-  .blob-3 {
-    width: 100%;
-    bottom: -20%;
+  .blob-shadow {
     background: radial-gradient(
       circle at 50% 50%,
       #595959,
       rgba(76, 0, 255, 0)
     );
-    opacity: 0.6;
   }
 }
 
 .brief {
-  h1 {
-    line-height: 1.2 !important;
-  }
-
-  p {
-    line-height: 1.2 !important;
-  }
 
   p.active {
     opacity: 100 !important;
-  }
-
-  .blob-1 {
-    top: 15%;
-    left: 0;
-    background: radial-gradient(
-      circle at 50% 50%,
-      var(--main-green),
-      rgba(76, 0, 255, 0)
-    );
-    opacity: 0.4 !important;
-  }
-
-  .blob-2 {
-    bottom: 15%;
-    right: 0;
-    background: radial-gradient(
-      circle at 50% 50%,
-      var(--main-brown),
-      rgba(76, 0, 255, 0)
-    );
-    opacity: 0.2 !important;
   }
 }
 
@@ -87,48 +30,22 @@
 }
 
 .inspired {
-  h1 {
-    line-height: 1.2 !important;
-  }
-
-  .blob {
-    top: -10%;
-    left: -30%;
-    background: radial-gradient(
-      circle at 50% 50%,
-      var(--main-brown),
-      rgba(76, 0, 255, 0)
-    );
-    opacity: 0.3 !important;
-  }
 }
 
 .globe {
-  background: linear-gradient(
-    180deg,
-    rgb(0, 0, 0) 0%,
-    rgb(62.05, 75.92, 102.85) 100%
-  );
+  background: var(--space-gradient);
 
-  canvas {
-    /* background: linear-gradient(
-      180deg,
-      rgb(0, 0, 0) 0%,
-      rgb(62.05, 75.92, 102.85) 100%
-    ); */
+  canvas{
     width: 100svw !important;
     height: 100svh !important;
     transform: scale(2) translateX(16%) translateY(10%);
-  }
+  };
 }
 
 .blogs {
   background: linear-gradient(180deg, #fff1e7 10%, #fbf9f7 40%);
   border-top-left-radius: 2.5rem;
   border-top-right-radius: 2.5rem;
-  p {
-    line-height: 1.2 !important;
-  }
 }
 
 .starter {
