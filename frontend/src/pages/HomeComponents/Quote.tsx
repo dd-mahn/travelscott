@@ -1,7 +1,7 @@
 import React, { memo, useCallback, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, useAnimation, useInView } from "framer-motion";
-import { PrimaryButton } from "src/components/ui/Button";
+import { PrimaryButton } from "src/components/common/Button";
 
 const variants = {
   hidden: { opacity: 0, y: 20 },

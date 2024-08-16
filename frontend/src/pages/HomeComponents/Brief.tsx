@@ -6,26 +6,36 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
+
+// Asset imports
 import airplane1 from "src/assets/svg/airplane-1.svg";
 import briefVideo from "src/assets/videos/brief.mp4";
 
+// Framer motion variants
 const variants = {
   hidden: {
     opacity: 0,
     y: 20,
   },
+
   hiddenY: (y: string) => {
     return { y: y };
   },
+
   visible: {
     opacity: 1,
     y: 0,
+    transition: {
+      duration: 0.5,
+    },
   },
+
   airplaneStart: {
     opacity: 0,
     x: -80,
     y: 50,
   },
+
   airplaneEnd: {
     opacity: [0, 1, 0, 0, 0, 1],
     y: [50, 0, -50, 50, 50, 0],
@@ -35,11 +45,51 @@ const variants = {
       duration: 2,
     },
   },
+
+  blob1Animation: {
+    scale: [1, 1.5, 1],
+    opacity: [0.5, 0.8, 0.5],
+    x: [0, 300, 0],
+    zIndex: [0, 0, 0],
+    transition: {
+      duration: 5,
+      repeat: Infinity,
+    },
+  },
+
+  blob2Animation: {
+    scale: [1, 1.5, 1],
+    opacity: [0.5, 1, 0.5],
+    y: [0, -200, 0],
+    zIndex: [0, 0, 0],
+    transition: {
+      duration: 5,
+      repeat: Infinity,
+    },
+  },
 };
 
+// Animation control function
+const useAnimatedInView = (ref: React.RefObject<HTMLDivElement>) => {
+  const inView = useInView(ref);
+  const controls = useAnimation();
+
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible");
+    }
+  }, [inView, controls]);
+
+  return controls;
+};
+
+// Brief component
 const Brief: React.FC = () => {
-  // Handle animations
+  // Add refs for animations
   const paragraphRefs = [useRef(null), useRef(null), useRef(null)];
+  const h2ContainersRef = [useRef(null), useRef(null)];
+
+  // Handle animations
   const scrollYProgresses = paragraphRefs.map(
     (ref) =>
       useScroll({
@@ -52,22 +102,8 @@ const Brief: React.FC = () => {
     useTransform(scrollYProgress, [0, 1], [0.1, 1]),
   );
 
-  const h2ContainersRef = [useRef(null), useRef(null)];
-  const container1InView = useInView(h2ContainersRef[0]);
-  const container2InView = useInView(h2ContainersRef[1]);
-
-  const h21Controls = useAnimation();
-  const h22Controls = useAnimation();
-
-  useEffect(() => {
-    if (container1InView) {
-      h21Controls.start("visible");
-    }
-
-    if (container2InView) {
-      h22Controls.start("visible");
-    }
-  }, [container1InView, container2InView]);
+  const h21Controls = useAnimatedInView(h2ContainersRef[0]);
+  const h22Controls = useAnimatedInView(h2ContainersRef[1]);
 
   return (
     <section className="brief px-sect flex flex-col lg:gap-36 lg:py-sect-medium xl:gap-48 xl:py-sect-semi 2xl:gap-64 2xl:py-sect-long 3xl:gap-80 3xl:py-sect-long">
@@ -132,24 +168,14 @@ const Brief: React.FC = () => {
         </motion.div>
         <div className="relative flex flex-col items-center justify-center lg:w-2/5 lg:gap-16 xl:gap-20 2xl:gap-20 3xl:gap-24 3xl:pt-48">
           <motion.div
-            animate={{
-              scale: [1, 1.5, 1],
-              opacity: [0.5, 0.8, 0.5],
-              x: [0, 300, 0],
-              zIndex: [0, 0, 0],
-            }}
-            transition={{ duration: 5, repeat: Infinity }}
-            className="blob-1 blur-blob absolute h-1/3 w-1/3"
+            animate="blob1Animation"
+            variants={variants}
+            className="blob-green blur-blob absolute left-0 top-[15%] h-1/3 w-1/3 opacity-60"
           ></motion.div>
           <motion.div
-            animate={{
-              scale: [1, 1.5, 1],
-              opacity: [0.5, 1, 0.5],
-              y: [0, -200, 0],
-              zIndex: [0, 0, 0],
-            }}
-            transition={{ duration: 5, repeat: Infinity }}
-            className="blob-2 blur-blob absolute h-1/3 w-1/3"
+            animate="blob2Animation"
+            variants={variants}
+            className="blob-brown blur-blob absolute bottom-[15%] right-0 h-1/3 w-1/3 opacity-60"
           ></motion.div>
           <motion.p
             ref={paragraphRefs[0]}

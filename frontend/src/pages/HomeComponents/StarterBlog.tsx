@@ -7,6 +7,9 @@ import React, {
   memo,
 } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+
+// Component imports
 import BlogType from "src/types/Blog";
 
 // Interfaces and types
@@ -29,8 +32,23 @@ type Action =
   | { type: "UPDATE_POSITION"; payload: { title: string; position: Position } }
   | { type: "INCREMENT_Z_INDEX"; payload: { title: string; zIndex: number } };
 
-// Reducer function
+// Framer motion variants
+const variants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.5 } },
+  hoverScale: {
+    scale: 1.05,
+    transition: {
+      duration: 0.3,
+    },
+  },
+  hoverX: {
+    x: 5,
+    transition: { duration: 1, type: "spring", bounce: 0.5 },
+  },
+};
 
+// Reducer function
 const positionReducer = (state: Positions, action: Action): Positions => {
   switch (action.type) {
     case "SET_INITIAL_POSITIONS":
@@ -62,6 +80,14 @@ const BlogComponent = ({
   position: Position;
 }) => {
   const navigate = useNavigate();
+
+  const handleViewClick = useCallback(
+    (id: string) => {
+      navigate(`/inspiration/${id}`);
+    },
+    [navigate],
+  );
+
   return (
     <div
       key={blog.title}
@@ -74,17 +100,26 @@ const BlogComponent = ({
       onMouseDown={onDragStart}
     >
       <div className="relative flex h-3/4 flex-col items-start justify-end gap-0 px-8 pb-4">
-        <img
-          loading="lazy"
-          className="absolute right-0 top-0 h-full w-full object-cover"
-          src={blog.image}
-          alt={blog.title}
-        />
+        <div className="absolute right-0 top-0 h-full w-full overflow-hidden">
+          <motion.img
+            whileHover="hoverScale"
+            variants={variants}
+            loading="lazy"
+            className="h-full w-full object-cover brightness-75"
+            src={blog.image}
+            alt={blog.title}
+          />
+        </div>
+
         <div className="absolute right-0 top-0 z-10 h-full w-full bg-background-dark bg-opacity-30"></div>
         <span className="span-small z-20 text-text-dark">{blog.author}</span>
-        <span className="span-medium z-20 uppercase text-text-dark">
+        <motion.span
+          whileHover="hoverX"
+          variants={variants}
+          className="span-medium z-20 uppercase text-text-dark"
+        >
           {blog.title}
-        </span>
+        </motion.span>
       </div>
       <div className="flex flex-col gap-4 px-8">
         <p className="p-regular w-full overflow-hidden">
@@ -92,7 +127,7 @@ const BlogComponent = ({
         </p>
         <button
           className="underline-btn uppercase"
-          onClick={() => navigate(`/inspiration/${blog._id}`)}
+          onClick={() => handleViewClick(blog._id)}
         >
           View<i className="ri-arrow-right-up-line"></i>
         </button>
@@ -136,7 +171,7 @@ const StarterBlogs: React.FC<StarterBlogsProps> = ({ blogs }) => {
     (title: string) => {
       const newPosZIndex = maxZIndex + 1;
       setMaxZIndex(newPosZIndex);
-      console.log("Start - Z index changed")
+      console.log("Start - Z index changed");
       dispatch({
         type: "INCREMENT_Z_INDEX",
         payload: { title, zIndex: newPosZIndex },
@@ -183,16 +218,23 @@ const StarterBlogs: React.FC<StarterBlogsProps> = ({ blogs }) => {
 
   return (
     <>
-      {starterBlogs.map((blog) => (
-        <BlogComponent
-          key={blog.title}
-          blog={blog}
-          onDragStart={(event: React.MouseEvent<HTMLDivElement>) =>
-            handleDragStart(event, blog.title)
-          }
-          position={positions[blog.title] || { x: 0, y: 0, zIndex: 1 }}
-        />
-      ))}
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        variants={variants}
+        transition={{ staggerChildren: 0.2 }}
+      >
+        {starterBlogs.map((blog) => (
+          <BlogComponent
+            key={blog.title}
+            blog={blog}
+            onDragStart={(event: React.MouseEvent<HTMLDivElement>) =>
+              handleDragStart(event, blog.title)
+            }
+            position={positions[blog.title] || { x: 0, y: 0, zIndex: 1 }}
+          />
+        ))}
+      </motion.div>
     </>
   );
 };

@@ -8,20 +8,24 @@ import React, {
   useRef,
   useState,
 } from "react";
+
+// Components imports
 import Destination from "src/types/Destination";
-import { preloadImage } from "src/utils/preloadImage";
 import { optimizeImage } from "src/utils/optimizeImage";
 import { debounce } from "lodash";
-import Loading from "src/components/ui/Loading";
+import Loading from "src/components/common/Loading";
 
+// Component props
 type HorizontalScrollCarouselProps = {
   data: Destination[];
 };
+
+// Framer motion variants
 const variants = {
   hidden: { opacity: 0, y: 20 },
   hiddenScale: { opacity: 0.9, scale: 0.95 },
   hiddenX: { opacity: 0, x: 50 },
-  visible: { opacity: 1, y: 0, x: 0, scale: 1, transition: { duration: 0.4 } },
+  visible: { opacity: 1, y: 0, x: 0, scale: 1, transition: { duration: 0.5 } },
   hoverScale: {
     scale: 1.05,
     transition: { duration: 0.5 },
@@ -36,13 +40,15 @@ const variants = {
   },
 };
 
+// HorizontalScrollCarousel component
 const HorizontalScrollCarousel: React.FC<HorizontalScrollCarouselProps> = ({
   data,
 }) => {
-  // Set up the animation prerequisites
+  // Add refs for scroll container and target
   const [scrollPixels, setScrollPixels] = useState(0);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
+  // Calculate scroll pixels based on container width and padding
   const calculateScrollPixels = useCallback(() => {
     const scrollContainer = scrollContainerRef.current;
     if (scrollContainer) {
@@ -57,6 +63,7 @@ const HorizontalScrollCarousel: React.FC<HorizontalScrollCarouselProps> = ({
     }
   }, []);
 
+  // Debounce the resize event to optimize performance
   const handleResize = useCallback(
     debounce(() => {
       setScrollPixels(calculateScrollPixels());
@@ -64,6 +71,7 @@ const HorizontalScrollCarousel: React.FC<HorizontalScrollCarouselProps> = ({
     [calculateScrollPixels],
   );
 
+  // Update scroll pixels on component mount and window resize
   useEffect(() => {
     handleResize();
     window.addEventListener("resize", handleResize);
@@ -78,15 +86,6 @@ const HorizontalScrollCarousel: React.FC<HorizontalScrollCarouselProps> = ({
     target: targetRef,
   });
   const x = useTransform(scrollYProgress, [0, 1], [0, -scrollPixels]);
-
-  // Image handling
-  useEffect(() => {
-    data.forEach((destination) => {
-      if (destination.images?.[0]) {
-        preloadImage(destination.images[0]);
-      }
-    });
-  }, [data]);
 
   // Memoize the optimized images
   const optimizedImages = useMemo(() => {

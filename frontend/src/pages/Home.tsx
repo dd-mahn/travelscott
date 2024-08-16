@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 import "src/styles/home.css";
 
-// Components
+// Component imports
 import Hero from "./HomeComponents/Hero";
 import Brief from "./HomeComponents/Brief";
 import Featured from "./HomeComponents/Featured";
@@ -18,6 +18,7 @@ import { BASE_URL } from "src/utils/config";
 import Blog from "src/types/Blog";
 import { createBlogChunks } from "src/utils/createBlogChunks";
 
+// Framer motion variants
 const variants = {
   hidden: { opacity: 0, y: 75 },
   hiddenY: (y: string) => {
@@ -25,8 +26,10 @@ const variants = {
       y: y,
     };
   },
-  visible: { opacity: 1, y: 0 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
+
+// Home component
 const Home: React.FC = () => {
   // Handle fetch blogs data for Articles, Starter section
   const {
@@ -98,7 +101,6 @@ const Home: React.FC = () => {
                 whileInView="visible"
                 viewport={{ once: true }}
                 variants={variants}
-                transition={{ duration: 0.5 }}
                 className="h2-inter lg:[--y-from:50px] 2xl:[--y-from:75px]"
               >
                 If you are still hesitant,
@@ -112,7 +114,7 @@ const Home: React.FC = () => {
                 whileInView="visible"
                 viewport={{ once: true }}
                 variants={variants}
-                transition={{ duration: 0.5, delay: 0.1 }}
+                transition={{ delay: 0.1 }}
                 className="h2-inter lg:[--y-from:50px] 2xl:[--y-from:75px]"
               >
                 perhaps some of the articles below can help.

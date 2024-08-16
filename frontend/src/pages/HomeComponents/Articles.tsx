@@ -1,14 +1,5 @@
-import React, {
-  memo,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { memo, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { DotPagination } from "src/components/ui/Pagination";
-import Blog from "src/types/Blog";
 import {
   motion,
   useTransform,
@@ -16,6 +7,11 @@ import {
   AnimatePresence,
 } from "framer-motion";
 
+// Component imports
+import { DotPagination } from "src/components/common/Pagination";
+import Blog from "src/types/Blog";
+
+// Framer motion variants
 const variants = {
   hidden: {
     opacity: 0,
@@ -36,6 +32,9 @@ const variants = {
     opacity: 1,
     y: 0,
     scale: 1,
+    transition: {
+      duration: 0.5,
+    },
   },
 
   enter: (direction: number) => {
@@ -60,18 +59,22 @@ const variants = {
   },
 };
 
+// Component props
 type ArticlesProps = {
   articlesHookRef: React.RefObject<HTMLSpanElement>;
   blogChunks: Blog[][];
 };
 
+// Articles component
 const Articles: React.FC<ArticlesProps> = ({ articlesHookRef, blogChunks }) => {
+  // Navigate hook
   const navigate = useNavigate();
 
-  // Handle chunks display
+  // Set up states for chunk display
   const [direction, setDirection] = useState(1);
   const [chunkIndex, setChunkIndex] = useState(0);
 
+  // Handle pagination
   const handleNextChunk = useCallback(() => {
     if (chunkIndex < blogChunks.length - 1) {
       setDirection(1);
@@ -94,8 +97,15 @@ const Articles: React.FC<ArticlesProps> = ({ articlesHookRef, blogChunks }) => {
 
   const x = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
 
-  // optimize images
+  // Handle navigate
+  const handleNavigate = useCallback(
+    (id: string) => {
+      navigate(`/inspiration/${id}`);
+    },
+    [navigate],
+  );
 
+  // Render logic
   return (
     <div className="relative">
       <motion.span
@@ -112,7 +122,6 @@ const Articles: React.FC<ArticlesProps> = ({ articlesHookRef, blogChunks }) => {
               initial={variants.hiddenY("var(--y-from)")}
               whileInView="visible"
               viewport={{ once: true }}
-              transition={{ duration: 0.4 }}
               variants={variants}
               className="h1-md lg:[--y-from:75px] 2xl:[--y-from:100px]"
             >
@@ -140,16 +149,10 @@ const Articles: React.FC<ArticlesProps> = ({ articlesHookRef, blogChunks }) => {
               >
                 <div
                   className="flex h-full w-full cursor-pointer flex-col gap-4"
-                  onClick={() => {
-                    navigate(`/inspiration/${blogChunks[chunkIndex][0]._id}`);
-                  }}
+                  onClick={() => handleNavigate(blogChunks[chunkIndex][0]._id)}
                 >
                   <img
                     loading="lazy"
-                    // src={optimizeImage(blogChunks[chunkIndex][0].image).src}
-                    // srcSet={
-                    //   optimizeImage(blogChunks[chunkIndex][0].image).srcSet
-                    // }
                     src={blogChunks[chunkIndex][0].image}
                     alt="featuredBlogImage"
                     className="h-[50svh] w-full rounded-lg"
@@ -177,13 +180,9 @@ const Articles: React.FC<ArticlesProps> = ({ articlesHookRef, blogChunks }) => {
                     <div
                       className="flex h-full cursor-pointer flex-row gap-4"
                       key={blog._id}
-                      onClick={() => {
-                        navigate(`/inspiration/${blog._id}`);
-                      }}
+                      onClick={() => handleNavigate(blog._id)}
                     >
                       <img
-                        // src={optimizeImage(blog.image).src}
-                        // srcSet={optimizeImage(blog.image).srcSet}
                         loading="lazy"
                         src={blog.image}
                         alt="normalBlogImage"
@@ -215,7 +214,6 @@ const Articles: React.FC<ArticlesProps> = ({ articlesHookRef, blogChunks }) => {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.5 }}
             variants={variants}
             className="flex w-full justify-center"
           >

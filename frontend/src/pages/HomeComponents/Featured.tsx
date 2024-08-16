@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 // Component imports
 import HorizontalScrollCarousel from "./FeaturedHorizontalScroller";
 import { featuredDemo } from "src/data/featuredDemo";
-import { SecondaryButton } from "src/components/ui/Button";
+import { SecondaryButton } from "src/components/common/Button";
 
 // Framer motion variants
 const variants = {
@@ -23,7 +23,7 @@ const variants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.4,
+      duration: 0.5,
     },
   },
 };

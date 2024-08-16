@@ -1,13 +1,14 @@
-import React, { useEffect, useRef, memo } from "react";
+import React, { useEffect, useRef, memo, useCallback } from "react";
 import { motion, useAnimation } from "framer-motion";
 
+// Component imports
 import airplane1 from "src/assets/svg/airplane-1.svg";
 import airplane2 from "src/assets/svg/airplane-2.svg";
 import airplane3 from "src/assets/svg/airplane-3.svg";
 import { useNavigate } from "react-router-dom";
-import { hoverVariants } from "src/utils/hoverVariants";
-import { PrimaryButton, SecondaryButton } from "src/components/ui/Button";
+import { PrimaryButton, SecondaryButton } from "src/components/common/Button";
 
+// Framer motion variants
 const variants = {
   // default
   hidden: {
@@ -22,6 +23,9 @@ const variants = {
   visible: {
     opacity: 1,
     y: 0,
+    transition: {
+      duration: 0.5,
+    },
   },
 
   // rotate
@@ -45,6 +49,12 @@ const variants = {
       delay: 1,
       duration: 0.5,
       ease: "easeInOut",
+    },
+  },
+  hoverScale: {
+    scale: 1.05,
+    transition: {
+      duration: 0.3,
     },
   },
 
@@ -104,9 +114,39 @@ const variants = {
       type: "spring",
     },
   },
+
+  // Star animation
+  hoverStar: {
+    scale: [1, 0.5, 1.2, 1],
+    rotate: [30, 30, 330, 360],
+    transition: { duration: 3 },
+  },
+
+  // Blobs
+  blob1Animation: {
+    scale: [1, 1.5, 1],
+    opacity: [0.5, 0.8, 0.5],
+    zIndex: [0, 0, 0],
+    transition: {
+      duration: 5,
+      repeat: Infinity,
+    },
+  },
+
+  blob2Animation: {
+    scale: [1, 1.5, 1],
+    opacity: [0.5, 1, 0.5],
+    zIndex: [0, 0, 0],
+    transition: {
+      duration: 5,
+      repeat: Infinity,
+    },
+  },
 };
 
+// Hero Component
 const Hero: React.FC = () => {
+  // Navigate hook
   const navigate = useNavigate();
 
   // Animation controls
@@ -133,28 +173,26 @@ const Hero: React.FC = () => {
     }
   }, [starRef, starSiblingControls]);
 
+  // Handle button click
+  const handleStartClick = useCallback(() => {
+    navigate("/discover");
+  }, []);
+
+  const handleLearnClick = useCallback(() => {
+    navigate("/about");
+  }, []);
+
   return (
     <section className="hero px-sect relative flex h-screen flex-col justify-center lg:gap-6 xl:gap-8 2xl:gap-8 3xl:gap-8">
       <motion.div
-        animate={{
-          scale: [1, 1.5, 1],
-          opacity: [0.5, 0.8, 0.5],
-          // x: [0, 50, 0],
-          zIndex: [0, 0, 0],
-        }}
-        transition={{ duration: 5, repeat: Infinity }}
-        className="blob-1 blur-blob z-0 h-1/3 w-1/3"
+        animate="blob1Animation"
+        variants={variants}
+        className="blob-brown blur-blob -left-[10%] top-[5%] z-0 h-1/3 w-1/3 opacity-60"
       ></motion.div>
 
       <motion.div
-        animate={{
-          scale: [1, 1.5, 1],
-          opacity: [0.5, 1, 0.5],
-          // x: [0, -50, 0],
-          zIndex: [0, 0, 0],
-        }}
-        transition={{ duration: 5, repeat: Infinity }}
-        className="blob-2 blur-blob z-0 h-3/5 w-3/5"
+        animate="blob2Animation"
+        className="blob-green blur-blob -right-1/3 bottom-[20%] z-0 h-3/5 w-3/5 opacity-60"
       ></motion.div>
 
       <div className="z-15 relative">
@@ -167,10 +205,8 @@ const Hero: React.FC = () => {
           className="airplane-1 absolute transform lg:-bottom-full lg:right-[0%] lg:w-[25vw] xl:-bottom-full xl:right-0 2xl:-bottom-full 2xl:-right-[5%] 2xl:w-[30vw] 3xl:-bottom-full 3xl:right-0"
         >
           <motion.img
-            whileHover={{
-              scale: 1.05,
-              transition: { duration: 0.2, ease: "linear" },
-            }}
+            whileHover="hoverScale"
+            variants={variants}
             drag
             dragConstraints={{
               top: 0,
@@ -181,13 +217,10 @@ const Hero: React.FC = () => {
             src={airplane1}
             alt="Airplane"
           />
-          <div className="blob-3 blur-blob z-0 h-1/3 w-2/3"></div>
+          <div className="blob-shadow blur-blob -bottom-[20%] h-1/3 w-full opacity-60"></div>
         </motion.div>
         <motion.img
-          whileHover={{
-            scale: 1.05,
-            transition: { duration: 0.2, ease: "linear" },
-          }}
+          whileHover="hoverScale"
           variants={variants}
           initial="airplane2Start"
           whileInView="airPlane2End"
@@ -208,10 +241,7 @@ const Hero: React.FC = () => {
           initial="airplane3Start"
           whileInView="airPlane3End"
           viewport={{ once: true }}
-          whileHover={{
-            scale: 1.05,
-            transition: { duration: 0.2, ease: "linear" },
-          }}
+          whileHover="hoverScale"
           drag
           dragConstraints={{
             top: 0,
@@ -230,11 +260,7 @@ const Hero: React.FC = () => {
           initial="initialScale"
           whileInView={["visibleScale", "rotate"]}
           viewport={{ once: true }}
-          whileHover={{
-            scale: [1, 0.5, 1.2, 1],
-            rotate: [30, 30, 330, 360],
-            transition: { duration: 3 },
-          }}
+          whileHover="hoverStar"
           transition={{ delay: 1, duration: 0.4 }}
           className="star ri-shining-2-fill absolute -top-[5%] rotate-[30deg] transform text-yellow lg:text-5.5xl xl:text-6xl 2xl:text-6.5xl 3xl:text-7.5xl"
         ></motion.i>
@@ -256,7 +282,7 @@ const Hero: React.FC = () => {
             variants={variants}
             initial={variants.hiddenY("var(--y-from)")}
             animate="visible"
-            transition={{ duration: 0.5, delay: 0.1 }}
+            transition={{ delay: 0.1 }}
             className="h1-md lg:[--y-from:50px] 2xl:[--y-from:75px]"
           >
             favorite{" "}
@@ -269,7 +295,7 @@ const Hero: React.FC = () => {
             variants={variants}
             initial={variants.hiddenY("var(--y-from)")}
             animate="visible"
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={{ delay: 0.2 }}
             className="h1-md lg:[--y-from:50px] 2xl:[--y-from:75px]"
           >
             to{" "}
@@ -286,7 +312,6 @@ const Hero: React.FC = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
         className="p-medium lg:w-2/5 xl:w-2/5 2xl:w-1/3 3xl:w-1/3"
       >
         From the smallest idea to the most memorable journeys. Join us to awaken
@@ -298,14 +323,10 @@ const Hero: React.FC = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
         className="mt-8 flex flex-row lg:gap-4 xl:gap-4 2xl:gap-6 3xl:gap-8"
       >
-        <PrimaryButton
-          text="Get started"
-          onClick={() => navigate("/discover")}
-        />
-        <SecondaryButton text="Learn more" onClick={() => navigate("/about")} />
+        <PrimaryButton text="Get started" onClick={handleStartClick} />
+        <SecondaryButton text="Learn more" onClick={handleLearnClick} />
       </motion.div>
     </section>
   );

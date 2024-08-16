@@ -1,16 +1,14 @@
 import React, { memo, useCallback, useMemo } from "react";
-import useFetch from "src/hooks/useFetch";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
+// Component imports
 import StarterBlogs from "./StarterBlog";
-import { FetchBlogsType } from "src/types/FetchData";
-import { BASE_URL } from "src/utils/config";
 import airplane1 from "src/assets/svg/airplane-1.svg";
-import planeIcon from "src/assets/svg/plane-icon.svg";
 import Blog from "src/types/Blog";
-import { SecondaryButton } from "src/components/ui/Button";
+import { SecondaryButton } from "src/components/common/Button";
 
+// Framer motion variants
 const variants = {
   hidden: {
     opacity: 0,
@@ -24,12 +22,18 @@ const variants = {
     opacity: 1,
     y: 0,
     scale: 1,
+    transition:{
+      duration: 0.5
+    }
   },
 };
 
+// Start component
 const Starter: React.FC<{ blogs: Blog[] }> = ({ blogs }) => {
+  // Navigation hook
   const navigate = useNavigate();
 
+  // Handle navigate
   const handleButtonClick = useCallback(() => {
     navigate("/inspiration");
   }, []);
@@ -45,7 +49,7 @@ const Starter: React.FC<{ blogs: Blog[] }> = ({ blogs }) => {
         drag
         dragConstraints={{ top: 0, left: 0, right: 0, bottom: 0 }}
         src={airplane1}
-        alt=""
+        alt="Plane"
         className="absolute -top-[5%] left-[5%] z-0 lg:w-44 xl:w-44 2xl:w-44 3xl:w-48"
       />
       <div className="h-full w-full overflow-hidden">
@@ -56,7 +60,6 @@ const Starter: React.FC<{ blogs: Blog[] }> = ({ blogs }) => {
         whileInView="visible"
         variants={variants}
         viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
         className="absolute -bottom-4 right-0 lg:mr-12 xl:mr-16 2xl:mr-20 3xl:mr-24"
       >
         <SecondaryButton text="Find More" onClick={handleButtonClick} />
