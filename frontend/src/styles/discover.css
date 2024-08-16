@@ -1,10 +1,12 @@
 .discover {
   .posters {
     .poster {
-      height: 95%;
       .big-heading {
         line-height: 0.8;
       }
     }
+  }
+  label{
+    @apply font-sans 
   }
 }
