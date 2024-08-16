@@ -26,12 +26,9 @@ const variants = {
       y: y,
     };
   },
-  visible: ({ delay = 0, duration = 0.5 }) => {
-    return {
-      opacity: 1,
-      y: 0,
-      transition: { duration, delay },
-    };
+  visible: {
+    opacity: 1,
+    y: 0,
   },
 };
 
@@ -104,7 +101,8 @@ const Home: React.FC = () => {
                 initial={{
                   y: "var(--y-from)",
                 }}
-                whileInView={variants.visible({})}
+                whileInView="visible"
+                transition={{ duration: 0.5 }}
                 viewport={{ once: true }}
                 variants={variants}
                 className="h2-inter lg:[--y-from:50px] 2xl:[--y-from:75px]"
@@ -117,7 +115,8 @@ const Home: React.FC = () => {
                 initial={{
                   y: "var(--y-from)",
                 }}
-                whileInView={variants.visible({ delay: 0.1 })}
+                whileInView="visible"
+                transition={{ duration: 0.5, delay: 0.1 }}
                 viewport={{ once: true }}
                 variants={variants}
                 className="h2-inter lg:[--y-from:50px] 2xl:[--y-from:75px]"

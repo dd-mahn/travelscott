@@ -221,6 +221,7 @@ const StarterBlogs: React.FC<StarterBlogsProps> = ({ blogs }) => {
       <motion.div
         initial="hidden"
         whileInView="visible"
+        viewport={{ once: true }}
         variants={variants}
         transition={{ staggerChildren: 0.2 }}
       >

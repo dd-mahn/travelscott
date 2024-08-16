@@ -20,15 +20,9 @@ const variants = {
     return { y: y };
   },
 
-  visible: ({ delay = 0, duration = 0.5 }) => {
-    return {
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay,
-        duration,
-      },
-    };
+  visible: {
+    opacity: 1,
+    y: 0,
   },
 
   // rotate
@@ -286,7 +280,8 @@ const Hero: React.FC = () => {
           <motion.h1
             variants={variants}
             initial={variants.hiddenY("var(--y-from)")}
-            animate={variants.visible({ delay: 0.1 })}
+            animate="visible"
+            transition={{ duration: 0.5, delay: 0.1 }}
             className="h1-md lg:[--y-from:50px] 2xl:[--y-from:75px]"
           >
             favorite{" "}
@@ -298,7 +293,8 @@ const Hero: React.FC = () => {
           <motion.h1
             variants={variants}
             initial={variants.hiddenY("var(--y-from)")}
-            animate={variants.visible({ delay: 0.2 })}
+            animate="visible"
+            transition={{ duration: 0.5, delay: 0.2 }}
             className="h1-md lg:[--y-from:50px] 2xl:[--y-from:75px]"
           >
             to{" "}
@@ -313,7 +309,8 @@ const Hero: React.FC = () => {
       <motion.p
         variants={variants}
         initial="hidden"
-        whileInView={variants.visible({delay: 0.3})}
+        whileInView="visible"
+        transition={{ duration: 0.5, delay: 0.3 }}
         viewport={{ once: true }}
         className="p-medium lg:w-2/5 xl:w-2/5 2xl:w-1/3 3xl:w-1/3"
       >
@@ -324,7 +321,8 @@ const Hero: React.FC = () => {
       <motion.div
         variants={variants}
         initial="hidden"
-        whileInView={variants.visible({delay: 0.4})}
+        whileInView="visible"
+        transition={{ duration: 0.5, delay: 0.4 }}
         viewport={{ once: true }}
         className="mt-8 flex flex-row lg:gap-4 xl:gap-4 2xl:gap-6 3xl:gap-8"
       >

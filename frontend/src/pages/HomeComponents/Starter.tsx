@@ -22,15 +22,9 @@ const variants = {
     scale: 0.8,
     y: 30,
   },
-  visible: ({ delay = 0, duration = 0.5 }) => {
-    return {
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay,
-        duration,
-      },
-    };
+  visible: {
+    opacity: 1,
+    y: 0,
   },
 };
 
@@ -48,7 +42,8 @@ const Starter: React.FC<{ blogs: Blog[] }> = ({ blogs }) => {
     <section className="starter relative rounded-5xl bg-main-brown lg:py-sect-medium 2xl:py-sect-semi">
       <motion.img
         initial="hiddenPlane"
-        whileInView={variants.visible({ duration: 0.8 })}
+        whileInView="visible"
+        transition={{ duration: 0.5 }}
         variants={variants}
         viewport={{ once: true }}
         drag
@@ -62,7 +57,8 @@ const Starter: React.FC<{ blogs: Blog[] }> = ({ blogs }) => {
       </div>
       <motion.div
         initial="hiddenShort"
-        whileInView={variants.visible({})}
+        whileInView="visible"
+        transition={{ duration: 0.5 }}
         variants={variants}
         viewport={{ once: true }}
         className="absolute -bottom-4 right-0 lg:mr-12 xl:mr-16 2xl:mr-20 3xl:mr-24"

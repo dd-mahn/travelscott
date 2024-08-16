@@ -19,15 +19,9 @@ const variants = {
   hiddenY: (y: string) => {
     return { y: y };
   },
-  visible: ({ delay = 0, duration = 0.5 }) => {
-    return {
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay,
-        duration,
-      },
-    };
+  visible: {
+    opacity: 1,
+    y: 0,
   },
 };
 
@@ -46,7 +40,8 @@ const Featured: React.FC = () => {
       <div className="px-sect grid w-full place-items-center overflow-hidden">
         <motion.h1
           initial={variants.hiddenY("var(--y-from)")}
-          whileInView={variants.visible({ delay: 0 })}
+          whileInView="visible"
+          transition={{ duration: 0.5 }}
           viewport={{ once: true }}
           variants={variants}
           className="h1-md relative lg:[--y-from:75px] 2xl:[--y-from:100px] 3xl:[--y-from:120px]"
@@ -59,7 +54,8 @@ const Featured: React.FC = () => {
       <div className="px-sect flex w-full flex-row justify-between">
         <motion.p
           initial="hiddenShort"
-          whileInView={variants.visible({ delay: 0 })}
+          whileInView="visible"
+          transition={{ duration: 0.5 }}
           viewport={{ once: true, margin: "0% 0% -10% 0%" }}
           variants={variants}
           className="p-large"
@@ -73,7 +69,8 @@ const Featured: React.FC = () => {
         </motion.p>
         <motion.div
           initial="hiddenShort"
-          whileInView={variants.visible({ delay: 0.5 })}
+          whileInView="visible"
+          transition={{ duration: 0.5, delay: 0.3 }}
           viewport={{ once: true, margin: "0% 0% -10% 0%" }}
           variants={variants}
           className="relative flex items-end"

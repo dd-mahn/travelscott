@@ -10,16 +10,7 @@ const variants = {
   },
   hiddenWidth: { opacity: 0, x: -50 },
   visibleWidth: { opacity: 1, x: 0 },
-  visible: ({ delay = 0, duration = 0.5 }) => {
-    return {
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay,
-        duration,
-      },
-    };
-  },
+  visible: { opacity: 1, y: 0, x: 0 },
 };
 
 const Quote = () => {
@@ -45,7 +36,7 @@ const Quote = () => {
       iconContainerRefs[0].current.style.right = `${iconSiblingRefs[0].current.parentElement.offsetWidth - iconContainerRefs[0].current.offsetWidth}px`;
       iconSiblingRefs[0].current.parentElement.style.width = `${iconSiblingRefs[0].current.offsetWidth + iconContainerRefs[0].current.offsetWidth}px`;
       if (iconSiblingInView[0] && iconContainerInView[0]) {
-        iconSiblingControls[0].start(variants.visible({}));
+        iconSiblingControls[0].start("visible");
         iconSiblingControls[0].start({
           x: iconContainerRefs[0].current.offsetWidth,
           transition: { delay: 1, duration: 0.5, ease: "circInOut" },
@@ -60,7 +51,7 @@ const Quote = () => {
       iconContainerRefs[1].current.style.right = `${iconSiblingRefs[1].current.parentElement.offsetWidth - iconContainerRefs[1].current.offsetWidth}px`;
       iconSiblingRefs[1].current.parentElement.style.width = `${iconSiblingRefs[1].current.offsetWidth + iconContainerRefs[1].current.offsetWidth}px`;
       if (iconSiblingInView[1] && iconContainerInView[1]) {
-        iconSiblingControls[1].start(variants.visible({}));
+        iconSiblingControls[1].start("visible");
         iconSiblingControls[1].start({
           x: iconContainerRefs[1].current.offsetWidth,
           transition: { delay: 1.5, duration: 0.5, ease: "circInOut" },
@@ -81,8 +72,9 @@ const Quote = () => {
             <div className="inline-block overflow-hidden">
               <motion.h1
                 initial={variants.hiddenY("var(--y-from)")}
-                whileInView={variants.visible({})}
+                whileInView="visible"
                 viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
                 variants={variants}
                 className="lg:[--y-from:100px] 2xl:[--y-from:150px]"
               >
@@ -109,6 +101,8 @@ const Quote = () => {
                 ref={iconSiblingRefs[0]}
                 initial={variants.hiddenY("var(--y-from)")}
                 animate={iconSiblingControls[0]}
+                // whileInView="visible"
+                // viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
                 variants={variants}
                 className="w-fit uppercase text-main-green lg:[--y-from:100px] 2xl:[--y-from:150px]"
@@ -122,9 +116,10 @@ const Quote = () => {
             <div className="inline-block overflow-hidden">
               <motion.h1
                 initial={variants.hiddenY("var(--y-from)")}
-                whileInView={variants.visible({})}
+                whileInView="visible"
                 viewport={{ once: true }}
                 variants={variants}
+                transition={{ duration: 0.5 }}
                 className="lg:[--y-from:100px] 2xl:[--y-from:150px]"
               >
                 is to <span className="uppercase text-main-brown">live</span>{" "}
@@ -161,7 +156,7 @@ const Quote = () => {
         </div>
         <motion.span
           initial="hidden"
-          whileInView={variants.visible({})}
+          whileInView="visible"
           viewport={{ once: true }}
           variants={variants}
           className="p-medium uppercase"
@@ -171,7 +166,8 @@ const Quote = () => {
       </div>
       <motion.div
         initial="hidden"
-        whileInView={variants.visible({})}
+        whileInView="visible"
+        transition={{ duration: 0.5 }}
         viewport={{ once: true }}
         variants={variants}
         className="flex flex-row justify-end"

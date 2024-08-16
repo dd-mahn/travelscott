@@ -11,15 +11,10 @@ const variants = {
     opacity: 0,
     y: 100,
   },
-  visible: ({ delay = 0, duration = 0.5 }) => {
-    return {
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay,
-        duration,
-      },
-    };
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
   },
 };
 
@@ -32,8 +27,9 @@ const Inspired: React.FC = () => {
         <motion.h1
           variants={variants}
           initial="hiddenY"
-          whileInView={variants.visible({ duration: 0.8 })}
+          whileInView="visible"
           viewport={{ once: true, margin: "-300px" }}
+          transition={{ duration: 0.8 }}
           className="h2-inter text-center leading-normal tracking-tight"
         >
           We got inspired by travelers of <br />
@@ -42,7 +38,8 @@ const Inspired: React.FC = () => {
         </motion.h1>
         <motion.span
           initial="hidden"
-          whileInView={variants.visible({ delay: 1 })}
+          whileInView="visible"
+          transition={{ duration: 0.5, delay: 1 }}
           variants={variants}
           viewport={{ once: true, margin: "-300px" }}
           className="p-medium self-end"

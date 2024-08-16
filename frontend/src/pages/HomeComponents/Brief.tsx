@@ -22,15 +22,9 @@ const variants = {
     return { y: y };
   },
 
-  visible: ({ delay = 0, duration = 0.5 }) => {
-    return {
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay,
-        duration,
-      },
-    };
+  visible: {
+    opacity: 1,
+    y: 0,
   },
 
   airplaneStart: {
@@ -82,7 +76,7 @@ const useAnimatedInView = (
 
   useEffect(() => {
     if (inView) {
-      controls.start(variants.visible({ delay: delay }));
+      controls.start("visible");
     }
   }, [inView, controls]);
 
@@ -109,7 +103,7 @@ const Brief: React.FC = () => {
   );
 
   const h21Controls = useAnimatedInView(h2ContainersRef[0]);
-  const h22Controls = useAnimatedInView(h2ContainersRef[1], 0.1);
+  const h22Controls = useAnimatedInView(h2ContainersRef[1]);
 
   return (
     <section className="brief px-sect flex flex-col lg:gap-36 lg:py-sect-medium xl:gap-48 xl:py-sect-semi 2xl:gap-64 2xl:py-sect-long 3xl:gap-80 3xl:py-sect-long">
@@ -132,6 +126,7 @@ const Brief: React.FC = () => {
               variants={variants}
               initial={variants.hiddenY("var(--y-from)")}
               animate={h21Controls}
+              transition={{ duration: 0.5 }}
               className="lg:[--y-from:75px] 2xl:[--y-from:100px]"
             >
               A <span className="text-main-green">Comprehensive Catalog</span>{" "}
@@ -146,6 +141,7 @@ const Brief: React.FC = () => {
               variants={variants}
               initial={variants.hiddenY("var(--y-from)")}
               animate={h22Controls}
+              transition={{ duration: 0.5, delay: 0.1 }}
               className="lg:[--y-from:75px] 2xl:[--y-from:100px]"
             >
               Destinations with Tailored Travel Insights.
@@ -157,7 +153,8 @@ const Brief: React.FC = () => {
         <motion.div
           variants={variants}
           initial="hidden"
-          whileInView={variants.visible({ duration: 0.8 })}
+          whileInView="visible"
+          transition={{ duration: 0.8 }}
           viewport={{ once: true }}
           className="sticky top-0 z-0 h-svh rounded-lg py-4"
         >

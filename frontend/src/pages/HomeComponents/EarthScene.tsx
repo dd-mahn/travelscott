@@ -32,9 +32,6 @@ const variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: {
-      duration: 0.5,
-    },
   },
 };
 
@@ -103,6 +100,7 @@ const EarthScene: React.FC<SceneProps> = ({ articlesHookRef }) => {
           <motion.div
             initial="hidden"
             whileInView="visible"
+            transition={{ duration: 0.5 }}
             exit="hidden"
             variants={variants}
             className="absolute left-[10%] top-1/3 flex flex-col gap-20"

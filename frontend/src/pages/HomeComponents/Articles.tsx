@@ -32,9 +32,6 @@ const variants = {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: {
-      duration: 0.5,
-    },
   },
 
   enter: (direction: number) => {
@@ -121,6 +118,7 @@ const Articles: React.FC<ArticlesProps> = ({ articlesHookRef, blogChunks }) => {
             <motion.h1
               initial={variants.hiddenY("var(--y-from)")}
               whileInView="visible"
+              transition={{ duration: 0.5 }}
               viewport={{ once: true }}
               variants={variants}
               className="h1-md lg:[--y-from:75px] 2xl:[--y-from:100px]"
@@ -213,6 +211,7 @@ const Articles: React.FC<ArticlesProps> = ({ articlesHookRef, blogChunks }) => {
           <motion.div
             initial="hidden"
             whileInView="visible"
+            transition={{ duration: 0.5 }}
             viewport={{ once: true, margin: "-100px" }}
             variants={variants}
             className="flex w-full justify-center"
