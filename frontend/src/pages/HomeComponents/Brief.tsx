@@ -22,12 +22,15 @@ const variants = {
     return { y: y };
   },
 
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-    },
+  visible: ({ delay = 0, duration = 0.5 }) => {
+    return {
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay,
+        duration,
+      },
+    };
   },
 
   airplaneStart: {
@@ -48,7 +51,7 @@ const variants = {
 
   blob1Animation: {
     scale: [1, 1.5, 1],
-    opacity: [0.5, 0.8, 0.5],
+    opacity: [0.5, 0.7, 0.5],
     x: [0, 300, 0],
     zIndex: [0, 0, 0],
     transition: {
@@ -59,7 +62,7 @@ const variants = {
 
   blob2Animation: {
     scale: [1, 1.5, 1],
-    opacity: [0.5, 1, 0.5],
+    opacity: [0.5, 0.7, 0.5],
     y: [0, -200, 0],
     zIndex: [0, 0, 0],
     transition: {
@@ -70,13 +73,16 @@ const variants = {
 };
 
 // Animation control function
-const useAnimatedInView = (ref: React.RefObject<HTMLDivElement>) => {
+const useAnimatedInView = (
+  ref: React.RefObject<HTMLDivElement>,
+  delay?: number,
+) => {
   const inView = useInView(ref);
   const controls = useAnimation();
 
   useEffect(() => {
     if (inView) {
-      controls.start("visible");
+      controls.start(variants.visible({ delay: delay }));
     }
   }, [inView, controls]);
 
@@ -103,7 +109,7 @@ const Brief: React.FC = () => {
   );
 
   const h21Controls = useAnimatedInView(h2ContainersRef[0]);
-  const h22Controls = useAnimatedInView(h2ContainersRef[1]);
+  const h22Controls = useAnimatedInView(h2ContainersRef[1], 0.1);
 
   return (
     <section className="brief px-sect flex flex-col lg:gap-36 lg:py-sect-medium xl:gap-48 xl:py-sect-semi 2xl:gap-64 2xl:py-sect-long 3xl:gap-80 3xl:py-sect-long">
@@ -126,7 +132,6 @@ const Brief: React.FC = () => {
               variants={variants}
               initial={variants.hiddenY("var(--y-from)")}
               animate={h21Controls}
-              transition={{ duration: 0.5 }}
               className="lg:[--y-from:75px] 2xl:[--y-from:100px]"
             >
               A <span className="text-main-green">Comprehensive Catalog</span>{" "}
@@ -141,7 +146,6 @@ const Brief: React.FC = () => {
               variants={variants}
               initial={variants.hiddenY("var(--y-from)")}
               animate={h22Controls}
-              transition={{ delay: 0.1, duration: 0.5 }}
               className="lg:[--y-from:75px] 2xl:[--y-from:100px]"
             >
               Destinations with Tailored Travel Insights.
@@ -153,9 +157,8 @@ const Brief: React.FC = () => {
         <motion.div
           variants={variants}
           initial="hidden"
-          whileInView="visible"
+          whileInView={variants.visible({ duration: 0.8 })}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
           className="sticky top-0 z-0 h-svh rounded-lg py-4"
         >
           <video
@@ -180,7 +183,7 @@ const Brief: React.FC = () => {
           <motion.p
             ref={paragraphRefs[0]}
             style={{ opacity: opacities[0] }}
-            className="p-medium lg:w-4/5 3xl:w-2/3"
+            className="p-medium z-10 lg:w-4/5 3xl:w-2/3"
           >
             Pause the hustle of everyday life and breathe in a moment of
             tranquility. Embark on a journey guided by your emotions with our
@@ -192,7 +195,7 @@ const Brief: React.FC = () => {
           <motion.p
             ref={paragraphRefs[1]}
             style={{ opacity: opacities[1] }}
-            className="p-medium lg:w-4/5 3xl:w-2/3"
+            className="p-medium z-10 lg:w-4/5 3xl:w-2/3"
           >
             Then explore our virtual gallery for a curated selection of global
             destinations, complete with beautiful visuals and key information to
@@ -204,7 +207,7 @@ const Brief: React.FC = () => {
           <motion.p
             ref={paragraphRefs[2]}
             style={{ opacity: opacities[2] }}
-            className="p-medium lg:w-4/5 3xl:w-2/3"
+            className="p-medium z-10 lg:w-4/5 3xl:w-2/3"
           >
             If you find yourself captivated by the myriad ways in which people
             explore the world, then our blog is a must-visit for you. It’s

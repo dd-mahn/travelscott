@@ -13,18 +13,24 @@ const variants = {
   hidden: {
     opacity: 0,
   },
+  hiddenShort: {
+    opacity: 0,
+    y: 40,
+  },
   hiddenPlane: {
     opacity: 0,
     scale: 0.8,
     y: 30,
   },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition:{
-      duration: 0.5
-    }
+  visible: ({ delay = 0, duration = 0.5 }) => {
+    return {
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay,
+        duration,
+      },
+    };
   },
 };
 
@@ -42,9 +48,8 @@ const Starter: React.FC<{ blogs: Blog[] }> = ({ blogs }) => {
     <section className="starter relative rounded-5xl bg-main-brown lg:py-sect-medium 2xl:py-sect-semi">
       <motion.img
         initial="hiddenPlane"
-        whileInView="visible"
+        whileInView={variants.visible({ duration: 0.8 })}
         variants={variants}
-        transition={{ duration: 0.8 }}
         viewport={{ once: true }}
         drag
         dragConstraints={{ top: 0, left: 0, right: 0, bottom: 0 }}
@@ -56,8 +61,8 @@ const Starter: React.FC<{ blogs: Blog[] }> = ({ blogs }) => {
         <StarterBlogs blogs={blogs} />
       </div>
       <motion.div
-        initial="hidden"
-        whileInView="visible"
+        initial="hiddenShort"
+        whileInView={variants.visible({})}
         variants={variants}
         viewport={{ once: true }}
         className="absolute -bottom-4 right-0 lg:mr-12 xl:mr-16 2xl:mr-20 3xl:mr-24"

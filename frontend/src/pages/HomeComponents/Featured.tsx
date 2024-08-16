@@ -14,17 +14,20 @@ const variants = {
   },
   hiddenShort: {
     opacity: 0,
-    y: 20,
+    y: 40,
   },
   hiddenY: (y: string) => {
     return { y: y };
   },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-    },
+  visible: ({ delay = 0, duration = 0.5 }) => {
+    return {
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay,
+        duration,
+      },
+    };
   },
 };
 
@@ -33,7 +36,7 @@ const Featured: React.FC = () => {
   // Navigate hook
   const navigate = useNavigate();
 
-  // Handle button 
+  // Handle button
   const handleButtonClick = useCallback(() => {
     navigate("/discover");
   }, []);
@@ -43,7 +46,7 @@ const Featured: React.FC = () => {
       <div className="px-sect grid w-full place-items-center overflow-hidden">
         <motion.h1
           initial={variants.hiddenY("var(--y-from)")}
-          whileInView="visible"
+          whileInView={variants.visible({ delay: 0 })}
           viewport={{ once: true }}
           variants={variants}
           className="h1-md relative lg:[--y-from:75px] 2xl:[--y-from:100px] 3xl:[--y-from:120px]"
@@ -56,7 +59,7 @@ const Featured: React.FC = () => {
       <div className="px-sect flex w-full flex-row justify-between">
         <motion.p
           initial="hiddenShort"
-          whileInView="visible"
+          whileInView={variants.visible({ delay: 0 })}
           viewport={{ once: true, margin: "0% 0% -10% 0%" }}
           variants={variants}
           className="p-large"
@@ -69,10 +72,9 @@ const Featured: React.FC = () => {
           destinations that we have covered in our Catalogue.
         </motion.p>
         <motion.div
-          initial="hidden"
-          whileInView="visible"
+          initial="hiddenShort"
+          whileInView={variants.visible({ delay: 0.5 })}
           viewport={{ once: true, margin: "0% 0% -10% 0%" }}
-          transition={{ delay: 0.3, staggerChildren: 0.1 }}
           variants={variants}
           className="relative flex items-end"
         >

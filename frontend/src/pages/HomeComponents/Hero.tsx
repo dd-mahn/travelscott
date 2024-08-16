@@ -20,12 +20,15 @@ const variants = {
     return { y: y };
   },
 
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-    },
+  visible: ({ delay = 0, duration = 0.5 }) => {
+    return {
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay,
+        duration,
+      },
+    };
   },
 
   // rotate
@@ -125,7 +128,7 @@ const variants = {
   // Blobs
   blob1Animation: {
     scale: [1, 1.5, 1],
-    opacity: [0.5, 0.8, 0.5],
+    opacity: [0.6, 0.7, 0.6],
     zIndex: [0, 0, 0],
     transition: {
       duration: 5,
@@ -135,7 +138,7 @@ const variants = {
 
   blob2Animation: {
     scale: [1, 1.5, 1],
-    opacity: [0.5, 1, 0.5],
+    opacity: [0.5, 0.7, 0.5],
     zIndex: [0, 0, 0],
     transition: {
       duration: 5,
@@ -192,7 +195,8 @@ const Hero: React.FC = () => {
 
       <motion.div
         animate="blob2Animation"
-        className="blob-green blur-blob -right-1/3 bottom-[20%] z-0 h-3/5 w-3/5 opacity-60"
+        variants={variants}
+        className="blob-green blur-blob -right-1/3 bottom-[20%] z-0 h-3/5 w-3/5 opacity-40"
       ></motion.div>
 
       <div className="z-15 relative">
@@ -202,7 +206,7 @@ const Hero: React.FC = () => {
           initial="airplane1Start"
           whileInView="airPlane1End"
           viewport={{ once: true }}
-          className="airplane-1 absolute transform lg:-bottom-full lg:right-[0%] lg:w-[25vw] xl:-bottom-full xl:right-0 2xl:-bottom-full 2xl:-right-[5%] 2xl:w-[30vw] 3xl:-bottom-full 3xl:right-0"
+          className="airplane-1 absolute transform lg:-bottom-full lg:right-[0%] lg:w-[25vw] xl:-bottom-full xl:right-0 2xl:-bottom-full 2xl:-right-[5%] 2xl:w-[25vw] 3xl:-bottom-full 3xl:right-[5%]"
         >
           <motion.img
             whileHover="hoverScale"
@@ -216,6 +220,7 @@ const Hero: React.FC = () => {
             }}
             src={airplane1}
             alt="Airplane"
+            className="w-full"
           />
           <div className="blob-shadow blur-blob -bottom-[20%] h-1/3 w-full opacity-60"></div>
         </motion.div>
@@ -281,8 +286,7 @@ const Hero: React.FC = () => {
           <motion.h1
             variants={variants}
             initial={variants.hiddenY("var(--y-from)")}
-            animate="visible"
-            transition={{ delay: 0.1 }}
+            animate={variants.visible({ delay: 0.1 })}
             className="h1-md lg:[--y-from:50px] 2xl:[--y-from:75px]"
           >
             favorite{" "}
@@ -294,8 +298,7 @@ const Hero: React.FC = () => {
           <motion.h1
             variants={variants}
             initial={variants.hiddenY("var(--y-from)")}
-            animate="visible"
-            transition={{ delay: 0.2 }}
+            animate={variants.visible({ delay: 0.2 })}
             className="h1-md lg:[--y-from:50px] 2xl:[--y-from:75px]"
           >
             to{" "}
@@ -310,7 +313,7 @@ const Hero: React.FC = () => {
       <motion.p
         variants={variants}
         initial="hidden"
-        whileInView="visible"
+        whileInView={variants.visible({delay: 0.3})}
         viewport={{ once: true }}
         className="p-medium lg:w-2/5 xl:w-2/5 2xl:w-1/3 3xl:w-1/3"
       >
@@ -321,7 +324,7 @@ const Hero: React.FC = () => {
       <motion.div
         variants={variants}
         initial="hidden"
-        whileInView="visible"
+        whileInView={variants.visible({delay: 0.4})}
         viewport={{ once: true }}
         className="mt-8 flex flex-row lg:gap-4 xl:gap-4 2xl:gap-6 3xl:gap-8"
       >

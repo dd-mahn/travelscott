@@ -26,7 +26,13 @@ const variants = {
       y: y,
     };
   },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  visible: ({ delay = 0, duration = 0.5 }) => {
+    return {
+      opacity: 1,
+      y: 0,
+      transition: { duration, delay },
+    };
+  },
 };
 
 // Home component
@@ -98,7 +104,7 @@ const Home: React.FC = () => {
                 initial={{
                   y: "var(--y-from)",
                 }}
-                whileInView="visible"
+                whileInView={variants.visible({})}
                 viewport={{ once: true }}
                 variants={variants}
                 className="h2-inter lg:[--y-from:50px] 2xl:[--y-from:75px]"
@@ -111,10 +117,9 @@ const Home: React.FC = () => {
                 initial={{
                   y: "var(--y-from)",
                 }}
-                whileInView="visible"
+                whileInView={variants.visible({ delay: 0.1 })}
                 viewport={{ once: true }}
                 variants={variants}
-                transition={{ delay: 0.1 }}
                 className="h2-inter lg:[--y-from:50px] 2xl:[--y-from:75px]"
               >
                 perhaps some of the articles below can help.
