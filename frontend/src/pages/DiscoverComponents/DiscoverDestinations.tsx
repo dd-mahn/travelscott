@@ -9,11 +9,11 @@ import React, {
 import { AnimatePresence, motion } from "framer-motion";
 
 // Component imports
-import DestinationCard from "src/components/ui/DestinationCard";
-import { CatalogPagination } from "src/components/ui/Pagination";
+import DestinationCard from "src/components/common/DestinationCard";
+import { CatalogPagination } from "src/components/common/Pagination";
 import Destination from "src/types/Destination";
 import { FetchDestinationType } from "src/types/FetchData";
-import { FullFilterBoard } from "src/components/ui/FIlterBoard";
+import { FullFilterBoard } from "src/components/common/FIlterBoard";
 import { BASE_URL } from "src/utils/config";
 import useFetch from "src/hooks/useFetch";
 
@@ -33,7 +33,7 @@ const variants = {
   },
   hiddenYScale: { scale: 0.95, y: 100 },
   exitScale: { scale: 0, opacity: 0, y: 200, originX: 0 },
-  visible: { opacity: 1, scale: 1, y: 0, x: 0, transition: { duration: 0.4 } },
+  visible: { opacity: 1, scale: 1, y: 0, x: 0 },
   scaleHover: {
     scale: 1.05,
   },
@@ -177,38 +177,38 @@ const DiscoverDestinations: React.FC<DiscoverDestinationsProps> = ({
         whileInView="visible"
         viewport={{ once: true }}
         variants={variants}
-        transition={{ staggerChildren: 0.2 }}
+        transition={{ duration: 0.5, staggerChildren: 0.2 }}
         className="grid min-h-[50svh] w-full place-items-center"
       >
-        {destinationLoading && (
-          <div className="grid w-full place-items-center py-sect-short">
-            <h3 className="h3-md">Loading...</h3>
-          </div>
-        )}
-        {destinationError && (
-          <div className="grid w-full place-items-center py-sect-short">
-            <h3 className="h3-md">
-              Error... Please reload the page or try again later.
-            </h3>
-          </div>
-        )}
-        {destinations.length === 0 && (
-          <div className="grid w-full place-items-center py-sect-short">
-            <h3 className="h3-md">No destinations found.</h3>
-          </div>
-        )}
-
         <AnimatePresence mode="wait">
+          {destinationLoading && (
+            <div className="grid w-full place-items-center py-sect-short">
+              <h3 className="h3-md">Loading...</h3>
+            </div>
+          )}
+          {destinationError && (
+            <div className="grid w-full place-items-center py-sect-short">
+              <h3 className="h3-md">
+                Error... Please reload the page or try again later.
+              </h3>
+            </div>
+          )}
+          {destinations.length === 0 && (
+            <div className="grid w-full place-items-center py-sect-short">
+              <h3 className="h3-md">No destinations found.</h3>
+            </div>
+          )}
           {destinations && (
             <motion.div
-              initial="hiddenYScale"
+              key={"destinationCatalog"}
+              initial="hidden"
               animate="visible"
               exit="exitScale"
               variants={variants}
               transition={{
                 duration: 0.5,
                 ease: "easeInOut",
-                staggerChildren: 0.2,
+                staggerChildren: 0.1,
               }}
               className="grid grid-cols-3 gap-x-8 gap-y-12"
             >
@@ -225,6 +225,7 @@ const DiscoverDestinations: React.FC<DiscoverDestinationsProps> = ({
         <motion.div
           initial="hidden"
           whileInView="visible"
+          transition={{ duration: 0.5 }}
           viewport={{ once: true }}
           variants={variants}
           className="w-full"

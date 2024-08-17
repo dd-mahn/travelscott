@@ -5,8 +5,8 @@ import type { SelectProps, SelectOptionProps } from "@material-tailwind/react";
 
 // Component imports
 import Country from "src/types/Country";
-import CountryCard from "src/components/ui/CountryCard";
-import RelatedSections from "src/components/ui/RelatedSections";
+import CountryCard from "src/components/common/CountryCard";
+import RelatedSections from "src/components/common/RelatedSections";
 
 // Component props type
 type DiscoverCountriesProps = {
@@ -32,7 +32,7 @@ const variants = {
   exitScale: { scale: 0, opacity: 0, y: 200, originX: 0 },
   hiddenX: { x: 1000, opacity: 0 },
   exitX: { x: -1000, opacity: 0 },
-  visible: { opacity: 1, scale: 1, y: 0, x: 0, transition: { duration: 0.4 } },
+  visible: { opacity: 1, scale: 1, y: 0, x: 0 },
   hoverScale: {
     scale: 1.05,
     transition: { duration: 0.4 },
@@ -96,6 +96,7 @@ const DiscoverCountries: React.FC<DiscoverCountriesProps> = ({
           <motion.h1
             initial={variants.hiddenY("var(--y-from)")}
             whileInView="visible"
+            transition={{ duration: 0.5 }}
             viewport={{ once: true }}
             variants={variants}
             className="h1-md-bold lg:[--y-from:75px] 2xl:[--y-from:120px]"
@@ -108,6 +109,7 @@ const DiscoverCountries: React.FC<DiscoverCountriesProps> = ({
         <motion.div
           initial="hidden"
           whileInView="visible"
+          transition={{ duration: 0.5 }}
           variants={variants}
           viewport={{ once: true }}
           className="grid w-1/6 place-items-center"
@@ -183,6 +185,7 @@ const DiscoverCountries: React.FC<DiscoverCountriesProps> = ({
                     variants={variants}
                     viewport={{ once: true }}
                     transition={{
+                      duration: 0.5,
                       delay: 0.2,
                       staggerChildren: 0.2,
                     }}
@@ -206,6 +209,7 @@ const DiscoverCountries: React.FC<DiscoverCountriesProps> = ({
           <motion.h2
             initial={variants.hiddenY("var(--y-from)")}
             whileInView="visible"
+            transition={{ duration: 0.5 }}
             viewport={{ once: true }}
             variants={variants}
             className="h2-md lg:[--y-from:50px] 2xl:[--y-from:60px]"

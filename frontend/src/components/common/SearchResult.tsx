@@ -2,7 +2,7 @@ import React from "react";
 import Blog from "src/types/Blog";
 import Country from "src/types/Country";
 import Destination from "src/types/Destination";
-import "src/components/ui/style/search-result.css";
+import "src/components/common/style/search-result.css";
 import { useNavigate } from "react-router-dom";
 
 type SearchResultProps = {

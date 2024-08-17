@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 import Header from "src/components/Header/Header";
 import Footer from "src/components/Footer/Footer";
 import Routers from "src/router/Routers";
-import Loading from "src/components/ui/Loading";
+import AnimatedLogoScreen from "../common/AnimatedLogoScreen";
 
 const Layout = () => {
   const location = useLocation();
@@ -26,13 +26,15 @@ const Layout = () => {
   }, [location]);
 
   useEffect(() => {
-    window.scrollTo({top: 0});
+    setTimeout(() => {
+      window.scrollTo({ top: 0 });
+    }, 100);
   }, [location.pathname]);
 
   return (
     <>
       {loading && !loadingShown ? (
-        <Loading />
+        <AnimatedLogoScreen />
       ) : (
         <>
           <ReactLenis root options={{ lerp: 0.08 }}>

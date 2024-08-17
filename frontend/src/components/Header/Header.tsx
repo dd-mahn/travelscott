@@ -16,7 +16,7 @@ import { BASE_URL } from "src/utils/config";
 import Destination from "src/types/Destination";
 import Country from "src/types/Country";
 import Blog from "src/types/Blog";
-import SearchResult from "../ui/SearchResult";
+import SearchResult from "../common/SearchResult";
 import { input } from "@material-tailwind/react";
 import { search } from "src/utils/handleSearch";
 
@@ -178,13 +178,17 @@ const Header = () => {
             variants={HoverVariants}
             whileHover="scaleHover"
             whileTap={{ scale: 1 }}
-            className="font-logo p-large"
+            className="p-large font-logo"
           >
             TravelScott
           </motion.h1>
         </NavLink>
         <nav>
-          <ul className="lg:flex lg:flex-row lg:justify-between lg:gap-4 xl:gap-6 2xl:gap-8 3xl:gap-8">
+          <motion.ul
+            layout
+            layoutRoot
+            className="lg:flex lg:flex-row lg:justify-between lg:gap-4 xl:gap-6 2xl:gap-8 3xl:gap-8"
+          >
             {navs.map((item, index) => (
               <motion.li
                 variants={HoverVariants}
@@ -201,7 +205,7 @@ const Header = () => {
                 </NavLink>
               </motion.li>
             ))}
-          </ul>
+          </motion.ul>
         </nav>
         <div className="lg:flex lg:gap-2 xl:gap-3 2xl:gap-3 3xl:gap-4">
           <div

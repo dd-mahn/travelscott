@@ -3,8 +3,8 @@ import useFetch from "src/hooks/useFetch";
 import { BASE_URL } from "src/utils/config";
 import "src/styles/inspiration.css";
 import { FetchBlogsType } from "src/types/FetchData";
-import FeaturedBlogs from "src/components/ui/featuredBlogs";
-import { CatalogPagination } from "src/components/ui/Pagination";
+import FeaturedBlogs from "src/components/common/featuredBlogs";
+import { CatalogPagination } from "src/components/common/Pagination";
 import { useNavigate } from "react-router-dom";
 
 // Images
@@ -79,23 +79,12 @@ const Inspiration: React.FC = () => {
     [currentCategory],
   );
 
-  // Handling loading state
-  if (!blogsData) {
-    return (
-      <div className="grid h-screen w-full place-items-center">
-        <h3 className="h3-md">Loading...</h3>
-      </div>
-    );
-  }
-
   // Extracting blogs and featured blogs from fetched data
   const blogs = blogsData?.result;
   const allBlogs = allBlogsData?.result;
   const featuredBlogs = allBlogs?.filter((blog) => blog.featured);
   const totalBlogs = blogsData?.count !== undefined ? blogsData.count : 0;
 
-  console.log(currentCategory + ": " + url);
-  console.log(blogs);
   // Pagination scroll handler
   const scrollToCatalog = () => {
     const catalogSection = document.querySelector(".catalog");
@@ -112,20 +101,11 @@ const Inspiration: React.FC = () => {
   if (blogsLoading) {
     return (
       <div className="grid h-screen w-full place-items-center">
-        <h3 className="h3-md">Loading...</h3>
+        <h1 className="h1-md">Loading...</h1>
       </div>
     );
   }
-  if (blogsError) {
-    return (
-      <div className="grid h-screen w-full place-items-center">
-        <h3 className="h3-md">
-          Error... Please reload the page or try again later.
-        </h3>
-      </div>
-    );
-  }
-  if (!blogs) {
+  if (blogsError || allBlogsError) {
     return <NotFoundPage />;
   }
   return (
@@ -249,7 +229,7 @@ const Inspiration: React.FC = () => {
             <i className="ri-filter-2-line"></i>
           </button>
         </div>
-        {blogs.length > 0 ? (
+        {blogs && blogs.length > 0 ? (
           <div className="grid grid-cols-2 justify-between gap-x-8 gap-y-20">
             {blogs.map((blog) => (
               <div
@@ -290,7 +270,7 @@ const Inspiration: React.FC = () => {
           </div>
         )}
 
-        {blogs.length > 0 && (
+        {blogs && blogs.length > 0 && (
           <CatalogPagination
             count={totalBlogs}
             page={currentPage}

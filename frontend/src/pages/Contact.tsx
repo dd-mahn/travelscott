@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { BASE_URL } from "src/utils/config";
 import { resetForm } from "src/utils/resetForm";
 import planeIcon from "src/assets/svg/plane-icon.svg";
-import StyledInput from "src/components/ui/StyledInput";
+import StyledInput from "src/components/common/StyledInput";
 
 const variants = {
   hidden: { opacity: 0, y: 40 },

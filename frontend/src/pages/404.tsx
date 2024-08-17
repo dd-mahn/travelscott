@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import "src/styles/404.css";
-import { NoirButton } from "src/components/ui/Button";
+import { NoirButton } from "src/components/common/Button";
 
 const variants = {
   hiddenOpacity: { opacity: 0 },

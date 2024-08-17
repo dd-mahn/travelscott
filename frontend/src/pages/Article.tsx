@@ -1,10 +1,11 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import RelatedSections from "src/components/ui/RelatedSections";
+import RelatedSections from "src/components/common/RelatedSections";
 import useFetch from "src/hooks/useFetch";
 import Blog from "src/types/Blog";
 import { BASE_URL } from "src/utils/config";
 import NotFoundPage from "./404";
+import Loading from "src/components/common/Loading";
 
 const Article: React.FC = () => {
   const { id } = useParams();
@@ -16,16 +17,13 @@ const Article: React.FC = () => {
     error: blogError,
   } = useFetch<Blog>(`${BASE_URL}/blogs/${id}`);
 
-  if (blogLoading)
-    return (
-      <div className="grid h-screen w-full place-items-center">
-        <h3 className="h3-md">Loading...</h3>
-      </div>
-    );
+  if (blogLoading) return <Loading />;
   if (blogError)
     return (
       <div className="grid h-screen w-full place-items-center">
-        <h3 className="h3-md">Error... Please reload the page or try again later.</h3>
+        <h3 className="h3-md">
+          Error... Please reload the page or try again later.
+        </h3>
       </div>
     );
   if (!blogData) return <NotFoundPage />;
@@ -82,7 +80,9 @@ const Article: React.FC = () => {
       </div>
 
       <div className="lg:py-40 2xl:py-sect-default">
-        <h2 className="h2-md px-sect 2xl:pb-12 lg:pb-8 w-full text-center">Related articles</h2>
+        <h2 className="h2-md px-sect w-full text-center lg:pb-8 2xl:pb-12">
+          Related articles
+        </h2>
         <RelatedSections type={"blog"} data={blogData} />
       </div>
     </main>

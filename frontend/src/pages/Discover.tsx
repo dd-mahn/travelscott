@@ -18,7 +18,7 @@ import { getFeaturedDestinations } from "src/utils/getFeaturedDestinations";
 import { getCountryByContinent } from "src/utils/getCountryByContinent";
 import { FetchCountriesType, FetchDestinationType } from "src/types/FetchData";
 import NotFoundPage from "./404";
-import Loading from "src/components/ui/Loading";
+import Loading from "src/components/common/Loading";
 import DiscoverDestinations from "./DiscoverComponents/DiscoverDestinations";
 import DiscoverCountries from "./DiscoverComponents/DiscoverCountries";
 import useFetch from "src/hooks/useFetch";
@@ -34,7 +34,7 @@ const variants = {
     };
   },
   hiddenYScale: { scale: 0.95, y: 100 },
-  visible: { opacity: 1, scale: 1, y: 0, x: 0, transition: { duration: 0.4 } },
+  visible: { opacity: 1, scale: 1, y: 0, x: 0 },
   scaleHover: {
     scale: 1.05,
     transition: { duration: 0.4 },
@@ -146,7 +146,7 @@ const Discover: React.FC = () => {
           <motion.section
             initial="hiddenYScale"
             animate="visible"
-            transition={{ delay: 0.1 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
             variants={variants}
             className="posters h-screen w-screen"
           >
@@ -183,7 +183,7 @@ const Discover: React.FC = () => {
                         initial={variants.hiddenY("var(--y-from)")}
                         whileInView="visible"
                         viewport={{ once: true }}
-                        transition={{ delay: 0.5 }}
+                        transition={{ duration: 0.5, delay: 0.5 }}
                         variants={variants}
                         className="big-heading text-text-dark lg:[--y-from:200px] 2xl:[--y-from:250px]"
                       >
@@ -196,6 +196,7 @@ const Discover: React.FC = () => {
                       whileInView="visible"
                       viewport={{ once: true }}
                       transition={{
+                        duration: 0.5,
                         delay: 1,
                         staggerChildren: 0.2,
                       }}

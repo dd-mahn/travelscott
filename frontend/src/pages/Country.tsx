@@ -1,10 +1,10 @@
 import { set } from "lodash";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import DestinationCard from "src/components/ui/DestinationCard";
-import FeaturedBlogs from "src/components/ui/featuredBlogs";
-import { CatalogPagination } from "src/components/ui/Pagination";
-import RelatedSections from "src/components/ui/RelatedSections";
+import DestinationCard from "src/components/common/DestinationCard";
+import FeaturedBlogs from "src/components/common/featuredBlogs";
+import { CatalogPagination } from "src/components/common/Pagination";
+import RelatedSections from "src/components/common/RelatedSections";
 import useFetch from "src/hooks/useFetch";
 import Blog from "src/types/Blog";
 import type Country from "src/types/Country";
@@ -129,6 +129,9 @@ const CountryPage: React.FC = () => {
           autoplayDelay={4000}
           transition={{ duration: 2 }}
           loop
+          placeholder={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
         >
           {country.images.otherImages?.map((image, index) => (
             <div

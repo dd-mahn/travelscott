@@ -8,7 +8,7 @@ import "src/styles/destination.css";
 // Material Tailwind
 import { Carousel } from "@material-tailwind/react";
 import PlaceDialog from "./DestinationComponents/placeDialog";
-import RelatedSections from "src/components/ui/RelatedSections";
+import RelatedSections from "src/components/common/RelatedSections";
 import NotFoundPage from "./404";
 
 const DestinationPage: React.FC = () => {
@@ -115,6 +115,9 @@ const DestinationPage: React.FC = () => {
           autoplayDelay={4000}
           transition={{ duration: 2 }}
           loop
+          placeholder={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
         >
           {destination.images?.map((image, index) => (
             <div
