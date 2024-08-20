@@ -183,30 +183,26 @@ const Header = () => {
             TravelScott
           </motion.h1>
         </NavLink>
-        <nav>
-          <motion.ul
-            layout
-            layoutRoot
-            className="lg:flex lg:flex-row lg:justify-between lg:gap-4 xl:gap-6 2xl:gap-8 3xl:gap-8"
-          >
-            {navs.map((item, index) => (
-              <motion.li
-                variants={HoverVariants}
-                whileHover="scaleHover"
-                whileTap={{ scale: 1 }}
-                // whileHover={HoverVariants.lineHover("var(--size)")}
-                // transition={{ duration: 0.3, ease: "linear" }}
-                className="nav__item lg:[--size:1px] 2xl:[--size:1.5px]"
-                key={index}
-                layout
-              >
-                <NavLink to={item.path} className={"p-regular transition-all"}>
-                  {item.display}
-                </NavLink>
-              </motion.li>
-            ))}
-          </motion.ul>
-        </nav>
+
+        <motion.ul
+          layout
+          className="lg:flex lg:flex-row lg:justify-between lg:gap-4 xl:gap-6 2xl:gap-8 3xl:gap-8"
+        >
+          {navs.map((item, index) => (
+            <motion.li
+              variants={HoverVariants}
+              whileHover="scaleHover"
+              whileTap={{ scale: 1 }}
+              className="nav__item lg:[--size:1px] 2xl:[--size:1.5px]"
+              key={index}
+            >
+              <NavLink to={item.path} target="_top" className={"p-regular transition-all"}>
+                {item.display}
+              </NavLink>
+            </motion.li>
+          ))}
+        </motion.ul>
+
         <div className="lg:flex lg:gap-2 xl:gap-3 2xl:gap-3 3xl:gap-4">
           <div
             className={`search-bar relative transition-all duration-300 ${inputDisplay ? "border-white px-2 lg:border-b-[1px] 2xl:border-b-[1.5px]" : ""} flex items-center`}
