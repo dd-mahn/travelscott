@@ -1,6 +1,6 @@
 import React from "react";
 import Slider from "react-slick";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useFetch from "src/hooks/useFetch";
 import Blog from "src/types/Blog";
 import Country from "src/types/Country";
@@ -11,20 +11,47 @@ import {
   FetchDestinationType,
 } from "src/types/FetchData";
 import { BASE_URL } from "src/utils/config";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
 // Slider settings
 const settings = {
   dots: false,
   infinite: true,
   autoplay: true,
-  speed: 3000,
-  autoplaySpeed: 3000,
+  speed: 4000,
+  autoplaySpeed: 4000,
   slidesToShow: 5,
-  // slidesToScroll: 1,
   cssEase: "linear",
   pauseOnHover: true,
+  responsive: [
+    {
+      breakpoint: 1536,
+      settings: {
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        infinite: true,
+        dots: false,
+      },
+    },
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        infinite: true,
+        dots: false,
+      },
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        initialSlide: 2,
+        infinite: true,
+        dots: false,
+      },
+    },
+  ],
 };
 
 // Related sections types
@@ -94,7 +121,7 @@ const RelatedCountries: React.FC<CountryProps> = ({ country }) => {
           {relatedCountries.map((country) => (
             <div
               key={country.name}
-              className="relative h-[30svh] w-[20svw]"
+              className="relative lg:h-[35svh] 2xl:h-[30svh] w-[20svw]"
               onClick={() => navigate(`/discover/countries/${country._id}`)}
             >
               <img
@@ -114,7 +141,7 @@ const RelatedCountries: React.FC<CountryProps> = ({ country }) => {
           {relatedCountries.map((country) => (
             <div
               key={country.name}
-              className="relative h-[30svh] w-[20svw] cursor-pointer"
+              className="relative lg:h-[35svh] 2xl:h-[30svh] w-[20svw] cursor-pointer"
               onClick={() => navigate(`/discover/countries/${country._id}`)}
             >
               <img
@@ -176,7 +203,7 @@ const RelatedDestinations: React.FC<DestinationProps> = ({ destination }) => {
           {relatedDestinations.map((destination) => (
             <div
               key={destination.name}
-              className="relative h-[30svh] w-[20svw]"
+              className="relative lg:h-[35svh] 2xl:h-[30svh] w-[20svw]"
               onClick={() =>
                 navigate(`/discover/destinations/${destination._id}`)
               }
@@ -199,7 +226,7 @@ const RelatedDestinations: React.FC<DestinationProps> = ({ destination }) => {
           {relatedDestinations.map((destination) => (
             <div
               key={destination.name}
-              className="relative h-[30svh] w-[20svw]"
+              className="relative lg:h-[35svh] 2xl:h-[30svh] w-[20svw]"
               onClick={() =>
                 navigate(`/discover/destinations/${destination._id}`)
               }
@@ -307,7 +334,7 @@ const RelatedArticles: React.FC<BlogProps> = ({ data }) => {
           {relatedBlogs.map((blog) => (
             <div
               key={blog.title}
-              className="relative h-[30svh] w-[20svw] cursor-pointer border-background-light"
+              className="relative lg:h-[35svh] 2xl:h-[30svh] w-[20svw] cursor-pointer border-background-light"
               style={{
                 backgroundImage: `url(${blog.image})`,
                 backgroundSize: "cover",
@@ -332,7 +359,7 @@ const RelatedArticles: React.FC<BlogProps> = ({ data }) => {
           {relatedBlogs.map((blog) => (
             <div
               key={blog.title}
-              className="relative h-[30svh] w-[20svw] cursor-pointer border-r-8 border-background-light"
+              className="relative lg:h-[35svh] 2xl:h-[30svh] 2xl:w-[20svw] cursor-pointer border-r-8 border-background-light"
               style={{
                 backgroundImage: `url(${blog.image})`,
                 backgroundSize: "cover",
