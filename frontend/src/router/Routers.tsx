@@ -1,5 +1,7 @@
 import React, { lazy, Suspense } from "react";
-import { Routes, Route } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
+import App from "src/App";
+import Layout from "src/components/Layout/Layout";
 
 const About = lazy(() => import("src/pages/About"));
 const Contact = lazy(() => import("src/pages/Contact"));
@@ -10,21 +12,78 @@ const Country = lazy(() => import("src/pages/Country"));
 const Destination = lazy(() => import("src/pages/Destination"));
 const Article = lazy(() => import("src/pages/Article"));
 
-const Routers = () => {
-  return (
-    <Suspense fallback={<div className="h-screen w-screen"></div>}>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/discover" element={<Discover />} />
-        <Route path="/discover/countries/:id" element={<Country />} />
-        <Route path="/discover/destinations/:id" element={<Destination />} />
-        <Route path="/inspiration" element={<Inspiration />} />
-        <Route path="/inspiration/:id" element={<Article />} />
-      </Routes>
-    </Suspense>
-  );
-};
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        path: "/",
+        element: (
+          <Suspense fallback={<div className="h-screen w-screen"></div>}>
+            <Home />{" "}
+          </Suspense>
+        ),
+      },
+      {
+        path: "/about",
+        element: (
+          <Suspense fallback={<div className="h-screen w-screen"></div>}>
+            <About />{" "}
+          </Suspense>
+        ),
+      },
+      {
+        path: "/contact",
+        element: (
+          <Suspense fallback={<div className="h-screen w-screen"></div>}>
+            <Contact />{" "}
+          </Suspense>
+        ),
+      },
+      {
+        path: "/discover",
+        element: (
+          <Suspense fallback={<div className="h-screen w-screen"></div>}>
+            <Discover />{" "}
+          </Suspense>
+        ),
+      },
+      {
+        path: "/discover/countries/:id",
+        element: (
+          <Suspense fallback={<div className="h-screen w-screen"></div>}>
+            <Country />{" "}
+          </Suspense>
+        ),
+      },
+      {
+        path: "/discover/destinations/:id",
+        element: (
+          <Suspense fallback={<div className="h-screen w-screen"></div>}>
+            {" "}
+            <Destination />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/inspiration",
+        element: (
+          <Suspense fallback={<div className="h-screen w-screen"></div>}>
+            <Inspiration />{" "}
+          </Suspense>
+        ),
+      },
+      {
+        path: "/inspiration/:id",
+        element: (
+          <Suspense fallback={<div className="h-screen w-screen"></div>}>
+            <Article />{" "}
+          </Suspense>
+        ),
+      },
+    ],
+  },
+]);
 
-export default Routers;
+export { router };
