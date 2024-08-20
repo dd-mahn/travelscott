@@ -1,13 +1,18 @@
-@import url("https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap"); */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
-@import url("https://fonts.cdnfonts.com/css/md-nichrome-test");
 
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
-@import url("http://kenwheeler.github.io/slick/slick/slick-theme.css");
 
 /* CUSTOM FONTS FACE */
+@font-face {
+  font-family: "Kaushan Script";
+  src: url("./fonts/KaushanScript/KaushanScript-Regular.ttf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
 @font-face {
   font-family: "MD Nichrome";
   src: url("./fonts/MD-Nichrome/MDNichromeTest-Infra.otf") format("opentype");
@@ -71,7 +76,22 @@
   --text-dark: #ffffff;
   --gray: #969696;
   --aurora-green: #90b37f;
-  --aurora-brown: #ffddaab2;
+  --aurora-brown: #e7aa75b2;
+  --aurora-brown-gradient: radial-gradient(
+    circle at 50% 50%,
+    var(--aurora-brown),
+    rgba(76, 0, 255, 0)
+  );
+  --aurora-green-gradient: radial-gradient(
+    circle at 50% 50%,
+    var(--aurora-green),
+    rgba(76, 0, 255, 0)
+  );
+  --space-gradient: linear-gradient(
+    180deg,
+    rgb(0, 0, 0) 0%,
+    rgb(62.05, 75.92, 102.85) 100%
+  );
 }
 
 *,
@@ -101,6 +121,45 @@ li {
 
 p {
   @apply text-start;
+  line-height: 1.2 !important;
+}
+
+/* SCROLLBAR */
+body::-webkit-scrollbar-track
+{
+	border-radius: 50px;
+	background-color: transparent;
+}
+
+body::-webkit-scrollbar
+{
+	width: 8px;
+	background-color: transparent;
+}
+
+body::-webkit-scrollbar:hover{
+  width: 10px;
+}
+
+body::-webkit-scrollbar:active{
+  width: 10px;
+}
+
+body::-webkit-scrollbar-thumb
+{
+  @apply bg-gray transition-colors;
+	border-radius: 50px;
+  cursor: pointer;
+}
+
+body::-webkit-scrollbar-thumb:active
+{
+  @apply bg-background-dark dark:bg-background-light;
+}
+
+body::-webkit-scrollbar-thumb:hover
+{
+	@apply bg-background-dark dark:bg-background-light;
 }
 
 /* TYPO CLASSES */
@@ -113,12 +172,20 @@ p {
   @apply font-prima font-bold uppercase lg:text-7xl xl:text-8xl 2xl:text-8.5xl 3xl:text-9xl 3xl:tracking-wide;
 }
 
+.h1-logo {
+  @apply font-logo font-bold uppercase lg:text-6xl xl:text-7xl 2xl:text-8xl 3xl:text-9xl;
+}
+
 .h1-md-bold {
   @apply font-prima font-bold uppercase leading-snug lg:text-8xl 2xl:text-10xl;
 }
 
 .h2-md {
   @apply font-prima font-semibold tracking-normal lg:text-4xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl;
+}
+
+.h2-logo {
+  @apply font-logo font-semibold lg:text-4xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl;
 }
 
 .h2-inter {
@@ -160,9 +227,10 @@ p {
 .span-large {
   @apply font-extrabold lg:text-lg xl:text-xl 2xl:text-2xl 3xl:text-2xl;
 }
-/* UI classes  */
+
+/* BUTTON classes  */
 .btn {
-  @apply flex w-fit cursor-pointer items-center justify-center rounded-md border-none font-medium uppercase tracking-wide shadow-md shadow-gray transition-all lg:gap-2 lg:px-3 lg:py-2 lg:text-base xl:gap-2 xl:px-4 xl:py-2 xl:text-base 2xl:gap-3 2xl:px-5 2xl:py-3 2xl:text-xl 3xl:gap-3 3xl:px-6 3xl:py-3 3xl:text-xl;
+  @apply flex w-fit cursor-pointer items-center justify-center rounded-md border-none font-medium uppercase tracking-wide shadow-md shadow-gray lg:gap-2 lg:px-3 lg:py-2 lg:text-base xl:gap-2 xl:px-4 xl:py-2 xl:text-base 2xl:gap-3 2xl:px-5 2xl:py-3 2xl:text-xl 3xl:gap-3 3xl:px-6 3xl:py-3 3xl:text-xl;
 }
 
 .page-btn {
@@ -208,6 +276,7 @@ p {
   left: 0;
 }
 
+/* LAYOUT classes */
 .px-sect {
   @apply sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 3xl:px-24;
 }
@@ -232,11 +301,18 @@ p {
   @apply sm:mr-6 md:mr-8 lg:mr-12 xl:mr-16 2xl:mr-20 3xl:mr-24;
 }
 
+/* OTHER ELEMENT classes */
 .blur-blob {
   position: absolute;
-  z-index: 5;
-  /* transform: translate(-50%, 0%); */
+  z-index: 0;
   border-radius: 50% 22% 40% 80%;
   filter: blur(80px);
-  opacity: 0.3;
+}
+
+.blob-green {
+  background: var(--aurora-green-gradient);
+}
+
+.blob-brown {
+  background: var(--aurora-brown-gradient);
 }
