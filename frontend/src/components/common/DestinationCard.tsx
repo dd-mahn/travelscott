@@ -9,6 +9,23 @@ interface DestinationCardProps {
   destination: Destination;
 }
 
+const variants = {
+  hoverX: {
+    x: 5,
+    transition: {
+      duration: 1,
+      type: "spring",
+      bounce: 0.5,
+    },
+  },
+  hoverScale: {
+    scale: 1.05,
+    transition: {
+      duration: 0.4,
+    },
+  },
+};
+
 const DestinationCard: React.FC<DestinationCardProps> = ({ destination }) => {
   const navigate = useNavigate();
   return (
@@ -31,8 +48,8 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ destination }) => {
         >
           {destination.images[0] && (
             <motion.img
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.4 }}
+              whileHover="hoverScale"
+              variants={variants}
               loading="lazy"
               src={destination.images[0]}
               alt={destination.name}
@@ -45,12 +62,8 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ destination }) => {
             {destination.country || "Country"}
           </span>
           <motion.span
-            whileHover={{ x: 5 }}
-            transition={{
-              duration: 1,
-              type: "spring",
-              bounce: 0.5,
-            }}
+            whileHover="hoverX"
+            variants={variants}
             className="span-medium w-fit uppercase"
           >
             {destination.name}

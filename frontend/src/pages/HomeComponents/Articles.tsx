@@ -10,6 +10,7 @@ import {
 // Component imports
 import { DotPagination } from "src/components/common/Pagination";
 import Blog from "src/types/Blog";
+import { formatDate } from "src/utils/formatDate";
 
 // Framer motion variants
 const variants = {
@@ -53,6 +54,22 @@ const variants = {
       x: direction < 0 ? 1000 : -1000,
       opacity: 0,
     };
+  },
+
+  hoverScale: {
+    scale: 1.05,
+    transition: {
+      duration: 0.4,
+    },
+  },
+
+  hoverX: {
+    x: 5,
+    transition: {
+      duration: 1,
+      type: "spring",
+      bounce: 0.5,
+    },
   },
 };
 
@@ -149,28 +166,33 @@ const Articles: React.FC<ArticlesProps> = ({ articlesHookRef, blogChunks }) => {
                   className="flex h-full w-full cursor-pointer flex-col gap-4"
                   onClick={() => handleNavigate(blogChunks[chunkIndex][0]._id)}
                 >
-                  <img
-                    loading="lazy"
-                    src={blogChunks[chunkIndex][0].image}
-                    alt="featuredBlogImage"
-                    className="h-[50svh] w-full rounded-lg"
-                  />
+                  <div className="overflow-hidden h-[50svh] w-full rounded-lg">
+                    <motion.img
+                      loading="lazy"
+                      src={blogChunks[chunkIndex][0].image}
+                      alt="featuredBlogImage"
+                      whileHover="hoverScale"
+                      variants={variants}
+                      className="h-full w-full rounded-lg object-cover"
+                    />
+                  </div>
+
                   <div className="flex flex-col">
                     <span className="span-small text-gray">
                       {blogChunks[chunkIndex][0].category}
                     </span>
-                    <p className="span-medium uppercase">
+                    <motion.p whileHover="hoverX" variants={variants} className="span-medium uppercase">
                       {" "}
                       {blogChunks[chunkIndex][0].title}
-                    </p>
+                    </motion.p>
                   </div>
 
                   <p className="p-regular overflow-hidden 2xl:w-4/5 3xl:w-3/4">
                     {blogChunks[chunkIndex][0].content[0].sectionText[0]}
                   </p>
                   <span className="span-regular w-3/4 overflow-hidden">
-                    <i className="ri-time-line"></i>{" "}
-                    {blogChunks[chunkIndex][0].time}
+                    <i className="ri-time-line span-regular"></i>{" "}
+                    {formatDate(blogChunks[chunkIndex][0].time)}
                   </span>
                 </div>
                 <div className="grid h-[75svh] w-full grid-flow-row auto-rows-[30%] gap-4">
@@ -180,25 +202,31 @@ const Articles: React.FC<ArticlesProps> = ({ articlesHookRef, blogChunks }) => {
                       key={blog._id}
                       onClick={() => handleNavigate(blog._id)}
                     >
-                      <img
-                        loading="lazy"
-                        src={blog.image}
-                        alt="normalBlogImage"
-                        className="h-full w-[45%] rounded-lg"
-                      />
+                      <div className="h-full w-[45%] overflow-hidden rounded-lg">
+                        <motion.img
+                          loading="lazy"
+                          src={blog.image}
+                          alt="normalBlogImage"
+                          whileHover="hoverScale"
+                          variants={variants}
+                          className="h-full w-full rounded-lg object-cover"
+                        />
+                      </div>
+
                       <div className="flex w-1/2 flex-col gap-4">
                         <div className="flex flex-col gap-0">
                           <span className="span-small text-gray">
                             {blog.category}
                           </span>
-                          <span className="span-medium w-full">
+                          <motion.span whileHover="hoverX" variants={variants} className="span-medium w-full">
                             {" "}
                             {blog.title}
-                          </span>
+                          </motion.span>
                         </div>
 
                         <span className="span-regular w-3/4 overflow-hidden">
-                          <i className="ri-time-line"></i> {blog.time}
+                          <i className="ri-time-line span-regular"></i>{" "}
+                          {formatDate(blog.time)}
                         </span>
                       </div>
                     </div>

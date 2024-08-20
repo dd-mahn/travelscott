@@ -19,10 +19,11 @@ const variants = {
     },
   },
   hoverRight: {
-    x: 3,
+    x: 5,
     transition: {
-      duration: 0.4,
+      duration: 1,
       type: "spring",
+      bounce: 0.5,
     },
   },
   hoverRotate: {
@@ -53,12 +54,12 @@ const CountryCard: React.FC<CountryCardProps> = ({ country }) => {
         <div className="rounded-xl bg-gradient-to-t from-background-dark to-transparent lg:h-20 lg:w-32" />
       }
     >
-      <div className="flex h-fit flex-row gap-4">
+      <div className="flex h-fit flex-row lg:gap-2 2xl:gap-4">
         <motion.div
           whileHover="hoverRotate"
           whileTap="tapRotate"
           variants={variants}
-          className="flex cursor-pointer items-center justify-center overflow-hidden rounded-xl bg-gradient-to-t from-background-dark to-transparent lg:h-20 lg:w-32"
+          className="flex cursor-pointer items-center justify-center overflow-hidden rounded-xl bg-gradient-to-t from-background-dark to-transparent lg:h-20 lg:w-2/3"
           onClick={() => {
             navigate(`countries/${country._id}`);
           }}
@@ -82,7 +83,7 @@ const CountryCard: React.FC<CountryCardProps> = ({ country }) => {
           >
             {country.name}
           </motion.span>
-          <span className="span-regular whitespace-nowrap">
+          <span className="span-small whitespace-nowrap">
             {country.totalDestinations} destinations
           </span>
         </div>

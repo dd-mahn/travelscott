@@ -167,15 +167,17 @@ const Discover: React.FC = () => {
                   }}
                   key={destination._id}
                 >
-                  <div className="absolute left-0 top-0 h-full w-full overflow-hidden">
-                    <motion.img
-                      whileHover="scaleHover"
-                      variants={variants}
-                      src={destination.images[0]}
-                      className="z-0 h-full w-full brightness-75"
-                      alt="Featured destination"
-                    />
-                  </div>
+                  {destination.images.length > 0 && (
+                    <div className="absolute left-0 top-0 h-full w-full overflow-hidden">
+                      <motion.img
+                        whileHover="scaleHover"
+                        variants={variants}
+                        src={destination.images[0]}
+                        className="z-0 h-full w-full brightness-75"
+                        alt="Featured destination"
+                      />
+                    </div>
+                  )}
 
                   <div className="z-10 w-fit pt-sect-short">
                     <div className="overflow-hidden">
@@ -185,7 +187,7 @@ const Discover: React.FC = () => {
                         viewport={{ once: true }}
                         transition={{ duration: 0.5, delay: 0.5 }}
                         variants={variants}
-                        className="big-heading text-text-dark lg:[--y-from:200px] 2xl:[--y-from:250px]"
+                        className="big-heading text-text-dark lg:[--y-from:180px] 2xl:[--y-from:250px]"
                       >
                         {destination.name}
                       </motion.h1>
@@ -203,12 +205,18 @@ const Discover: React.FC = () => {
                       variants={variants}
                       className="flex w-full justify-between"
                     >
-                      <span className="span-medium text-text-dark">
+                      <motion.span
+                        variants={variants}
+                        className="span-medium text-text-dark"
+                      >
                         {destination.country}
-                      </span>
-                      <span className="span-medium mr-2 text-text-dark">
+                      </motion.span>
+                      <motion.span
+                        variants={variants}
+                        className="span-medium mr-2 text-text-dark"
+                      >
                         {destination.continent}
-                      </span>
+                      </motion.span>
                     </motion.div>
                   </div>
                 </motion.div>

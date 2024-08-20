@@ -28,10 +28,10 @@ const variants = {
       y: y,
     };
   },
-  hiddenYScale: { scale: 0.95, y: 100 },
+  hiddenYScale: { scale: 0.95, y: 100, opacity: 0 },
   exitScale: { scale: 0, opacity: 0, y: 200, originX: 0 },
   hiddenX: { x: 1000, opacity: 0 },
-  exitX: { x: -1000, opacity: 0 },
+  exitX: { x: -1000, opacity: 0, transition: { duration: 0.4 } },
   visible: { opacity: 1, scale: 1, y: 0, x: 0 },
   hoverScale: {
     scale: 1.05,
@@ -67,7 +67,7 @@ const DiscoverCountries: React.FC<DiscoverCountriesProps> = ({
     label: "Select Continent",
     variant: "outlined",
     size: "lg",
-    className: "span-small font-sans shadow-component rounded-lg border-none",
+    className: "span-small font-sans shadow-component rounded-xl border-none",
     children: undefined,
     animate: {
       mount: { y: 0 },
@@ -75,7 +75,7 @@ const DiscoverCountries: React.FC<DiscoverCountriesProps> = ({
     },
     onChange: (value) => handleSelectContinent(value as string),
     menuProps: {
-      className: "bg-background-light shadow-component",
+      className: "bg-background-light shadow-component rounded-xl",
     },
     labelProps: {
       className:
@@ -91,7 +91,7 @@ const DiscoverCountries: React.FC<DiscoverCountriesProps> = ({
   // Render logic
   return (
     <>
-      <section className="countries px-sect flex w-full flex-col items-center gap-4 lg:pb-40 lg:pt-sect-default 2xl:py-sect-default">
+      <section className="countries px-sect flex w-full flex-col items-center gap-4 lg:pb-20 lg:pt-sect-default 2xl:py-sect-default 2xl:pb-40">
         <div className="overflow-hidden">
           <motion.h1
             initial={variants.hiddenY("var(--y-from)")}
@@ -142,7 +142,7 @@ const DiscoverCountries: React.FC<DiscoverCountriesProps> = ({
         </motion.div>
 
         {/* SELECTED COMPONENT AND COUNTRY LIST */}
-        <div className="w-full py-sect-short">
+        <div className="w-full lg:py-10 2xl:py-sect-short">
           <AnimatePresence mode="wait">
             {selectedContinent && (
               <motion.div
@@ -154,16 +154,16 @@ const DiscoverCountries: React.FC<DiscoverCountriesProps> = ({
                 exit="exitX"
                 transition={{ duration: 0.5, ease: "easeInOut" }}
                 variants={variants}
-                className="flex min-h-[70svh] w-full flex-row items-start gap-12"
+                className="flex min-h-[70svh] w-full flex-row items-start lg:gap-6 2xl:gap-12"
               >
                 <div className="relative flex items-center justify-center">
-                  <div className="w-[40svw] overflow-hidden rounded-xl">
+                  <div className="h-[70svh] w-[40svw] overflow-hidden rounded-xl">
                     <motion.img
                       whileHover="hoverScale"
                       variants={variants}
                       src={selectedContinent.image}
                       alt="map"
-                      className="w-full rounded-xl brightness-75"
+                      className="h-full w-full rounded-xl object-cover brightness-75"
                     />
                   </div>
 
@@ -189,11 +189,13 @@ const DiscoverCountries: React.FC<DiscoverCountriesProps> = ({
                       delay: 0.2,
                       staggerChildren: 0.2,
                     }}
-                    className="grid justify-between gap-12 lg:grid-cols-3"
+                    className="grid justify-between lg:grid-cols-3 lg:gap-6 2xl:grid-cols-4 2xl:gap-8"
                     aria-label="Country list"
                   >
                     {selectedContinent.countries.map((country) => (
-                      <CountryCard country={country} key={country._id} />
+                      <motion.div variants={variants} key={country._id}>
+                        <CountryCard country={country} />
+                      </motion.div>
                     ))}
                   </motion.div>
                 )}
@@ -212,7 +214,7 @@ const DiscoverCountries: React.FC<DiscoverCountriesProps> = ({
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
             variants={variants}
-            className="h2-md lg:[--y-from:50px] 2xl:[--y-from:60px]"
+            className="h2-md lg:[--y-from:40px] 2xl:[--y-from:60px]"
           >
             Related articles
           </motion.h2>

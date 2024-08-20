@@ -116,7 +116,8 @@ const BlogComponent = ({
         <motion.span
           whileHover="hoverX"
           variants={variants}
-          className="span-medium z-20 uppercase text-text-dark"
+          className="span-medium z-20 cursor-pointer uppercase text-text-dark"
+          onClick={() => handleViewClick(blog._id)}
         >
           {blog.title}
         </motion.span>

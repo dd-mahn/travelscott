@@ -64,7 +64,6 @@ const Home: React.FC = () => {
 
   // Handle common ref to pass between components
   const articlesHookRef = useMemo(() => {
-    console.log("Creating articlesHookRef");
     return React.createRef<HTMLSpanElement>();
   }, []);
 

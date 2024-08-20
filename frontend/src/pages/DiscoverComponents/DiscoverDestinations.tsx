@@ -13,7 +13,7 @@ import DestinationCard from "src/components/common/DestinationCard";
 import { CatalogPagination } from "src/components/common/Pagination";
 import Destination from "src/types/Destination";
 import { FetchDestinationType } from "src/types/FetchData";
-import { FullFilterBoard } from "src/components/common/FIlterBoard";
+import FullFilterBoard from "src/components/common/FIlterBoard";
 import { BASE_URL } from "src/utils/config";
 import useFetch from "src/hooks/useFetch";
 
@@ -31,11 +31,21 @@ const variants = {
       y: y,
     };
   },
-  hiddenYScale: { scale: 0.95, y: 100 },
+  hiddenYScale: { scale: 0.95, y: 100, opacity: 0 },
   exitScale: { scale: 0, opacity: 0, y: 200, originX: 0 },
   visible: { opacity: 1, scale: 1, y: 0, x: 0 },
-  scaleHover: {
+  exitX: { x: -1000, opacity: 0, transition: { duration: 0.8 } },
+  hoverScale: {
     scale: 1.05,
+    transition: {
+      duration: 0.4,
+    },
+  },
+  tapScale: {
+    scale: 0.95,
+    transition: {
+      duration: 0.4,
+    },
   },
 };
 
@@ -49,6 +59,7 @@ const DiscoverDestinations: React.FC<DiscoverDestinationsProps> = ({
   const [filterTags, setFilterTags] = useState<string[]>([]);
   const [filterCountries, setFilterCountries] = useState<string[]>([]);
   const [filterContinents, setFilterContinents] = useState<string[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   // Handle url for fetching destination data
   const url = useMemo(() => {
@@ -62,8 +73,11 @@ const DiscoverDestinations: React.FC<DiscoverDestinationsProps> = ({
     if (filterContinents.length > 0) {
       url += `&continents=${filterContinents.join(",")}`;
     }
+    if (searchQuery !== "") {
+      url += `&searchQuery=${searchQuery}`;
+    }
     return url;
-  }, [currentPage, filterTags, filterCountries, filterContinents]);
+  }, [currentPage, filterTags, filterCountries, filterContinents, searchQuery]);
 
   // Fetch destination and country data
   const {
@@ -85,18 +99,6 @@ const DiscoverDestinations: React.FC<DiscoverDestinationsProps> = ({
   const toggleFilterBoard = useCallback(() => {
     setIsFilterBoardOpen((prev) => !prev);
   }, []);
-  const tags = useMemo(
-    () => [
-      "Wilderness",
-      "Culture&Heritage",
-      "Food&Drink",
-      "SoloJourneys",
-      "CityScape",
-      "Season&Festival",
-      "Relaxation",
-    ],
-    [],
-  );
 
   // Pagination handler
   const handlePreviousClick = useCallback(() => {
@@ -146,10 +148,9 @@ const DiscoverDestinations: React.FC<DiscoverDestinationsProps> = ({
         </p>
         <div className="relative">
           <motion.button
-            whileHover="scaleHover"
+            whileHover="hoverScale"
             variants={variants}
-            whileTap={{ scale: 0.95 }}
-            transition={{ duration: 0.2 }}
+            whileTap="tapScale"
             title="filter"
             className={`rounded-full bg-background-dark shadow-component lg:h-12 lg:w-12 xl:h-12 xl:w-12 2xl:h-16 2xl:w-16 3xl:h-16 3xl:w-16`}
             onClick={() => toggleFilterBoard()}
@@ -158,88 +159,119 @@ const DiscoverDestinations: React.FC<DiscoverDestinationsProps> = ({
               className={`ri-filter-3-line p-large m-auto text-text-dark transition-all`}
             ></i>
           </motion.button>
-          <FullFilterBoard
-            isFilterBoardOpen={isFilterBoardOpen}
-            tags={tags}
-            countryNames={countryNames}
-            continentNames={continentNames}
-            filterTags={filterTags}
-            filterCountries={filterCountries}
-            filterContinents={filterContinents}
-            setFilterTags={setFilterTags}
-            setFilterCountries={setFilterCountries}
-            setFilterContinents={setFilterContinents}
-          />
+          <AnimatePresence mode="wait">
+            {isFilterBoardOpen && (
+              <FullFilterBoard
+                countryNames={countryNames}
+                continentNames={continentNames}
+                filterTags={filterTags}
+                filterCountries={filterCountries}
+                filterContinents={filterContinents}
+                setFilterTags={setFilterTags}
+                setFilterCountries={setFilterCountries}
+                setFilterContinents={setFilterContinents}
+                setSearchQuery={setSearchQuery}
+              />
+            )}
+          </AnimatePresence>
         </div>
       </div>
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={variants}
-        transition={{ duration: 0.5, staggerChildren: 0.2 }}
-        className="grid min-h-[50svh] w-full place-items-center"
-      >
+      <div className="grid min-h-[50svh] w-full place-items-center">
         <AnimatePresence mode="wait">
           {destinationLoading && (
-            <div className="grid w-full place-items-center py-sect-short">
+            <motion.div
+              key="Loading..."
+              initial="hidden"
+              whileInView="visible"
+              variants={variants}
+              exit="hidden"
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              className="grid h-[50svh] w-full place-items-center py-sect-short"
+            >
               <h3 className="h3-md">Loading...</h3>
-            </div>
+            </motion.div>
           )}
-          {destinationError && (
-            <div className="grid w-full place-items-center py-sect-short">
+          {!destinationLoading && destinationError && (
+            <motion.div
+              key={destinationError}
+              initial="hidden"
+              whileInView="visible"
+              variants={variants}
+              exit="hidden"
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              className="grid h-[50svh] w-full place-items-center py-sect-short"
+            >
               <h3 className="h3-md">
                 Error... Please reload the page or try again later.
               </h3>
-            </div>
-          )}
-          {destinations.length === 0 && (
-            <div className="grid w-full place-items-center py-sect-short">
-              <h3 className="h3-md">No destinations found.</h3>
-            </div>
-          )}
-          {destinations && (
-            <motion.div
-              key={"destinationCatalog"}
-              initial="hidden"
-              animate="visible"
-              exit="exitScale"
-              variants={variants}
-              transition={{
-                duration: 0.5,
-                ease: "easeInOut",
-                staggerChildren: 0.1,
-              }}
-              className="grid grid-cols-3 gap-x-8 gap-y-12"
-            >
-              {(destinations as Destination[])?.map((destination) => (
-                <motion.div variants={variants} key={destination._id}>
-                  <DestinationCard destination={destination} />
-                </motion.div>
-              ))}
             </motion.div>
           )}
+          {!destinationLoading &&
+            !destinationError &&
+            destinations.length === 0 && (
+              <motion.div
+                key={"No destinations"}
+                initial="hidden"
+                whileInView="visible"
+                variants={variants}
+                exit="hidden"
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+                className="grid h-[50svh] w-full place-items-center py-sect-short"
+              >
+                <h3 className="h3-md">No destinations found.</h3>
+              </motion.div>
+            )}
+          {!destinationLoading &&
+            !destinationError &&
+            destinations.length > 0 && (
+              <motion.div
+                key={destinations.length}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                exit="exitX"
+                transition={{
+                  duration: 0.5,
+                  ease: "easeInOut",
+                  // staggerChildren: 0.2,
+                }}
+                variants={variants}
+              >
+                <motion.div
+                  variants={variants}
+                  transition={{
+                    staggerChildren: 0.2,
+                  }}
+                  className="grid w-full grid-cols-3 gap-x-8 gap-y-12"
+                >
+                  {(destinations as Destination[])?.map((destination) => (
+                    <motion.div
+                      variants={variants}
+                      key={destination._id}
+                      transition={{ duration: 0.5 }}
+                    >
+                      <DestinationCard destination={destination} />
+                    </motion.div>
+                  ))}
+                </motion.div>
+                <motion.div
+                  // transition={{ duration: 0.5 }}
+                  variants={variants}
+                  className="w-full"
+                >
+                  <CatalogPagination
+                    count={totalDestinations}
+                    page={currentPage}
+                    limit={18}
+                    handlePreviousClick={handlePreviousClick}
+                    handlePageClick={(page) => handlePageClick(page)}
+                    handleNextClick={handleNextClick}
+                  />
+                </motion.div>
+              </motion.div>
+            )}
         </AnimatePresence>
-      </motion.div>
-      {destinations.length > 0 && (
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          variants={variants}
-          className="w-full"
-        >
-          <CatalogPagination
-            count={totalDestinations}
-            page={currentPage}
-            limit={18}
-            handlePreviousClick={handlePreviousClick}
-            handlePageClick={(page) => handlePageClick(page)}
-            handleNextClick={handleNextClick}
-          />
-        </motion.div>
-      )}
+      </div>
     </section>
   );
 };

@@ -1,6 +1,7 @@
 import React, { memo, Suspense, useEffect, useRef, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 
+// Asset imports
 import "src/styles/about.css";
 import heroVideo from "src/assets/videos/about-hero.mp4";
 import who1 from "src/assets/images/ui/about/about-1.jpg";
@@ -16,6 +17,7 @@ import airplane2 from "src/assets/svg/airplane-2.svg";
 import airplane3 from "src/assets/svg/airplane-3.svg";
 import { people } from "src/data/about-people";
 
+// Framer motion variants
 const variants = {
   hidden: {
     opacity: 0,
@@ -57,21 +59,25 @@ const variants = {
   },
 };
 
+// Images for the who section
 const whoImages = [who1, who2, who3, who4, who5, who6, who7, who8];
+
+// About page component
 const About: React.FC = () => {
-  // Handle about hero animation
+  // Create refs for the side blocks, block and container
+  const [leftValue, setLeftValue] = useState(0);
   const sideBlockRefs = [
     useRef<HTMLDivElement>(null),
     useRef<HTMLDivElement>(null),
   ];
-  const sideBlockControls = [useAnimation(), useAnimation()];
-
   const blockRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Create controls for the side blocks and block
+  const sideBlockControls = [useAnimation(), useAnimation()];
   const blockControls = useAnimation();
 
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [leftValue, setLeftValue] = useState(0);
-
+  // Set the left value for the block when the component mounts and handle animations
   useEffect(() => {
     if (blockRef.current) {
       const blockWidth = blockRef.current.offsetWidth;
@@ -116,13 +122,14 @@ const About: React.FC = () => {
     }
   }, [blockRef]);
 
+  // Render logic
   return (
     <main className="about">
       {/* HERO SECTION */}
 
       <section className="hero px-sect relative flex flex-col items-center gap-12 py-sect-short">
-        <div className="blur-blob blob-1"></div>
-        <div className="blur-blob blob-2"></div>
+        <div className="blur-blob blob-brown left-[10%] top-0 h-1/3 w-1/5 opacity-50"></div>
+        <div className="blur-blob blob-green right-1/3 top-[10%] h-[20%] w-1/3 opacity-50"></div>
         <motion.div
           ref={containerRef}
           className="h1-md-bold relative z-10 w-screen overflow-hidden pt-sect-short text-center"
@@ -411,8 +418,8 @@ const About: React.FC = () => {
           {/* WHO SECTION */}
           <section className="who px-sect sticky top-0 z-20 rounded-5xl bg-background-dark shadow-section lg:pb-sect-default lg:pt-40 2xl:py-sect-default">
             <div className="relative flex flex-col">
-              <div className="blob-1 blur-blob z-0 h-1/4 w-1/4"></div>
-              <div className="blob-2 blur-blob z-0 h-3/5 w-3/5"></div>
+              <div className="blob-brown blur-blob left-1/2 top-[20%] h-1/4 w-1/4 opacity-50"></div>
+              <div className="blob-green blur-blob -top-[20%] left-[5%] h-3/5 w-3/5 opacity-20"></div>
               <motion.div
                 initial="hidden"
                 whileInView="visible"
@@ -456,7 +463,7 @@ const About: React.FC = () => {
                 ))}
               </motion.div>
               <div className="px-sect relative pb-sect-default pt-sect-long 2xl:mt-sect-default">
-                <div className="blob-3 blur-blob z-0 h-3/5 w-3/5"></div>
+                <div className="blob-brown blur-blob left-[20%] top-1/3 h-3/5 w-3/5 opacity-20"></div>
 
                 {whoImages.map((img, index) => (
                   <Suspense key={"whoImg-" + index} fallback={null}>

@@ -17,7 +17,7 @@ const StyledInput: React.FC<StyledInputProps> = ({ type, id, label }) => {
       <input
         type={type}
         id={id}
-        className="input border-0 bg-transparent focus:outline-none p-regular"
+        className="input border-0 bg-transparent focus:outline-none p-regular w-full"
         onFocus={() => {
           const input = document.getElementById(id);
           if (input) {

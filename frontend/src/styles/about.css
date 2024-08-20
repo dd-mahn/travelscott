@@ -1,32 +1,5 @@
 .about {
   .hero{
-    .blob-1 {
-      z-index: 0;
-      width: 20%;
-      height: 30%;
-      top: 0%;
-      left: 10%;
-      background: radial-gradient(
-        circle at 50% 50%,
-        var(--aurora-brown),
-        rgba(76, 0, 255, 0)
-      );
-      opacity: 0.3;
-    }
-
-    .blob-2 {
-      z-index: 0;
-      width: 30%;
-      height: 20%;
-      top: 10%;
-      right: 30%;
-      background: radial-gradient(
-        circle at 50% 50%,
-        var(--main-green),
-        rgba(76, 0, 255, 0)
-      );
-      opacity: 0.4 !important;
-    }
   }
 
   .how {
@@ -37,39 +10,6 @@
   }
 
   .who {
-    .blob-1 {
-      top: 20%;
-      left: 50%;
-      background: radial-gradient(
-        circle at 50% 50%,
-        var(--aurora-brown),
-        rgba(76, 0, 255, 0)
-      );
-      opacity: 0.3;
-    }
-
-    .blob-2 {
-      top: -20%;
-      left: 5%;
-      background: radial-gradient(
-        circle at 50% 50%,
-        var(--main-green),
-        rgba(76, 0, 255, 0)
-      );
-      opacity: 0.2 !important;
-    }
-
-    .blob-3 {
-      top: 30%;
-      left: 20%;
-      background: radial-gradient(
-        circle at 50% 50%,
-        var(--aurora-brown),
-        rgba(76, 0, 255, 0)
-      );
-      opacity: 0.2;
-    }
-
     @media screen and (min-width:1024px) and (max-width:1279px){
       .img-1 {
         box-shadow: 0 0 25px 0px var(--aurora-brown);
