@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import useFetch from "src/hooks/useFetch";
 import { BASE_URL } from "src/utils/config";
 import "src/styles/inspiration.css";
 import { FetchBlogsType } from "src/types/FetchData";
 import FeaturedBlogs from "src/components/common/featuredBlogs";
 import { CatalogPagination } from "src/components/common/Pagination";
-import { useNavigate } from "react-router-dom";
 
 // Images
 import wildernessImage from "src/assets/images/ui/inspiration/wilder-alt.jpg";
@@ -17,12 +16,11 @@ import seasonFestivalImage from "src/assets/images/ui/inspiration/season.jpg";
 import relaxationImage from "src/assets/images/ui/inspiration/relax.jpg";
 import firstTimeAbroadImage from "src/assets/images/ui/inspiration/first.jpg";
 import NotFoundPage from "./404";
+import { Link } from "react-router-dom";
 
 const limit = 10;
 
 const Inspiration: React.FC = () => {
-  const navigate = useNavigate();
-
   // State hooks for pagination, category selection, category image and continent filters
   const [currentPage, setCurrentPage] = useState(1);
   const [currentCategory, setCategory] = useState("All");
@@ -232,9 +230,10 @@ const Inspiration: React.FC = () => {
         {blogs && blogs.length > 0 ? (
           <div className="grid grid-cols-2 justify-between gap-x-8 gap-y-20">
             {blogs.map((blog) => (
-              <div
+              <Link
+                to={`/inspiration/${blog._id}`}
+                target="_top"
                 className="flex cursor-pointer flex-col gap-4"
-                onClick={() => navigate(`/inspiration/${blog._id}`)}
                 key={blog._id}
               >
                 <div
@@ -259,7 +258,7 @@ const Inspiration: React.FC = () => {
                 <span className="span-regular flex items-center gap-3">
                   <i className="ri-time-line p-medium"></i> {blog.time}
                 </span>
-              </div>
+              </Link>
             ))}
           </div>
         ) : (

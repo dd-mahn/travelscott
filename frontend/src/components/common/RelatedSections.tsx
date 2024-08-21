@@ -1,6 +1,5 @@
 import React from "react";
 import Slider from "react-slick";
-import { useNavigate } from "react-router-dom";
 import useFetch from "src/hooks/useFetch";
 import Blog from "src/types/Blog";
 import Country from "src/types/Country";
@@ -11,6 +10,7 @@ import {
   FetchDestinationType,
 } from "src/types/FetchData";
 import { BASE_URL } from "src/utils/config";
+import { Link } from "react-router-dom";
 
 // Slider settings
 const settings = {
@@ -88,7 +88,6 @@ type BlogProps = {
 
 // Related countries component
 const RelatedCountries: React.FC<CountryProps> = ({ country }) => {
-  const navigate = useNavigate();
   const continent = country.continent;
 
   const {
@@ -119,10 +118,11 @@ const RelatedCountries: React.FC<CountryProps> = ({ country }) => {
       {relatedCountries.length < 5 && (
         <div className="related-countries min-w-screen flex cursor-pointer flex-nowrap gap-2 py-sect-short">
           {relatedCountries.map((country) => (
-            <div
+            <Link
+              to={`/discover/countries/${country._id}`}
+              target="_top"
               key={country.name}
-              className="relative lg:h-[35svh] 2xl:h-[30svh] w-[20svw]"
-              onClick={() => navigate(`/discover/countries/${country._id}`)}
+              className="relative w-[20svw] lg:h-[35svh] 2xl:h-[30svh]"
             >
               <img
                 src={country.images.otherImages?.[0]}
@@ -132,17 +132,18 @@ const RelatedCountries: React.FC<CountryProps> = ({ country }) => {
               <p className="p-large absolute left-0 right-0 top-[40%] z-10 px-8 text-center font-prima text-text-dark">
                 {country.name}
               </p>
-            </div>
+            </Link>
           ))}
         </div>
       )}
       {relatedCountries.length >= 5 && (
         <Slider {...settings}>
           {relatedCountries.map((country) => (
-            <div
+            <Link
+              to={`/discover/countries/${country._id}`}
+              target="_top"
               key={country.name}
-              className="relative lg:h-[35svh] 2xl:h-[30svh] w-[20svw] cursor-pointer"
-              onClick={() => navigate(`/discover/countries/${country._id}`)}
+              className="relative w-[20svw] cursor-pointer lg:h-[35svh] 2xl:h-[30svh]"
             >
               <img
                 src={country.images.otherImages?.[0]}
@@ -152,7 +153,7 @@ const RelatedCountries: React.FC<CountryProps> = ({ country }) => {
               <p className="p-large absolute left-0 right-0 top-[40%] z-10 px-8 text-center font-prima text-text-dark">
                 {country.name}
               </p>
-            </div>
+            </Link>
           ))}
         </Slider>
       )}
@@ -164,7 +165,6 @@ const RelatedCountries: React.FC<CountryProps> = ({ country }) => {
 const RelatedDestinations: React.FC<DestinationProps> = ({ destination }) => {
   const continent = destination.continent;
   const tags = destination.tags;
-  const navigate = useNavigate();
 
   const {
     data: destinationsData,
@@ -201,12 +201,11 @@ const RelatedDestinations: React.FC<DestinationProps> = ({ destination }) => {
       {relatedDestinations.length < 5 && (
         <div className="related-destinations min-w-screen flex flex-nowrap gap-2 py-sect-short">
           {relatedDestinations.map((destination) => (
-            <div
+            <Link
+              to={`/discover/destinations/${destination._id}`}
+              target="_top"
               key={destination.name}
-              className="relative lg:h-[35svh] 2xl:h-[30svh] w-[20svw]"
-              onClick={() =>
-                navigate(`/discover/destinations/${destination._id}`)
-              }
+              className="relative w-[20svw] lg:h-[35svh] 2xl:h-[30svh]"
             >
               <img
                 src={destination.images?.[0]}
@@ -216,7 +215,7 @@ const RelatedDestinations: React.FC<DestinationProps> = ({ destination }) => {
               <p className="p-large absolute left-0 right-0 top-[40%] z-10 px-8 text-center font-prima text-text-dark">
                 {destination.name}
               </p>
-            </div>
+            </Link>
           ))}
         </div>
       )}
@@ -224,12 +223,11 @@ const RelatedDestinations: React.FC<DestinationProps> = ({ destination }) => {
       {relatedDestinations.length >= 5 && (
         <Slider {...settings}>
           {relatedDestinations.map((destination) => (
-            <div
+            <Link
+              to={`/discover/destinations/${destination._id}`}
+              target="_top"
               key={destination.name}
-              className="relative lg:h-[35svh] 2xl:h-[30svh] w-[20svw]"
-              onClick={() =>
-                navigate(`/discover/destinations/${destination._id}`)
-              }
+              className="relative w-[20svw] lg:h-[35svh] 2xl:h-[30svh]"
             >
               <img
                 src={destination.images?.[0]}
@@ -239,7 +237,7 @@ const RelatedDestinations: React.FC<DestinationProps> = ({ destination }) => {
               <p className="p-large absolute left-0 right-0 top-[40%] z-10 px-8 text-center font-prima text-text-dark">
                 {destination.name}
               </p>
-            </div>
+            </Link>
           ))}
         </Slider>
       )}
@@ -249,8 +247,6 @@ const RelatedDestinations: React.FC<DestinationProps> = ({ destination }) => {
 
 // Related articles component
 const RelatedArticles: React.FC<BlogProps> = ({ data }) => {
-  const navigate = useNavigate();
-
   const continents = [
     "Africa",
     "Asia",
@@ -332,15 +328,16 @@ const RelatedArticles: React.FC<BlogProps> = ({ data }) => {
       {relatedBlogs.length < 5 && (
         <div className="related-blogs flex min-w-full flex-nowrap gap-2 py-sect-short">
           {relatedBlogs.map((blog) => (
-            <div
+            <Link
+              to={`/inspiration/${blog._id}`}
+              target="_top"
               key={blog.title}
-              className="relative lg:h-[35svh] 2xl:h-[30svh] w-[20svw] cursor-pointer border-background-light"
+              className="relative w-[20svw] cursor-pointer border-background-light lg:h-[35svh] 2xl:h-[30svh]"
               style={{
                 backgroundImage: `url(${blog.image})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}
-              onClick={() => navigate(`/inspiration/${blog._id}`)}
             >
               <img
                 src={blog.image}
@@ -350,22 +347,23 @@ const RelatedArticles: React.FC<BlogProps> = ({ data }) => {
               <p className="p-large absolute left-0 right-0 top-[40%] z-10 px-8 text-center font-prima text-text-dark">
                 {blog.title}
               </p>
-            </div>
+            </Link>
           ))}
         </div>
       )}
       {relatedBlogs.length >= 5 && (
         <Slider {...settings}>
           {relatedBlogs.map((blog) => (
-            <div
+            <Link
+              to={`/inspiration/${blog._id}`}
+              target="_top"
               key={blog.title}
-              className="relative lg:h-[35svh] 2xl:h-[30svh] 2xl:w-[20svw] cursor-pointer border-r-8 border-background-light"
+              className="relative cursor-pointer border-r-8 border-background-light lg:h-[35svh] 2xl:h-[30svh] 2xl:w-[20svw]"
               style={{
                 backgroundImage: `url(${blog.image})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}
-              onClick={() => navigate(`/inspiration/${blog._id}`)}
             >
               <img
                 src={blog.image}
@@ -375,7 +373,7 @@ const RelatedArticles: React.FC<BlogProps> = ({ data }) => {
               <p className="p-large absolute left-0 right-0 top-[40%] z-10 px-8 text-center font-prima text-text-dark">
                 {blog.title}
               </p>
-            </div>
+            </Link>
           ))}
         </Slider>
       )}

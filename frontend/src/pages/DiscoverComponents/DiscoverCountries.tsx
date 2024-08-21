@@ -35,7 +35,7 @@ const variants = {
   visible: { opacity: 1, scale: 1, y: 0, x: 0 },
   hoverScale: {
     scale: 1.05,
-    transition: { duration: 0.4 },
+    transition: { duration: 0.4, ease: "easeInOut" },
   },
 };
 
@@ -160,6 +160,7 @@ const DiscoverCountries: React.FC<DiscoverCountriesProps> = ({
                   <div className="h-[70svh] w-[40svw] overflow-hidden rounded-xl">
                     <motion.img
                       whileHover="hoverScale"
+                      transition={{duration: 0.4}}
                       variants={variants}
                       src={selectedContinent.image}
                       alt="map"

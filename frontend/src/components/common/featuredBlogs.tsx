@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Blog from "src/types/Blog";
 import { DotPagination } from "./Pagination";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 type featuredBlogsProps = {
   blogs: Blog[];
 };
 
-const FeaturedBlogs: React.FC<featuredBlogsProps> = ({ blogs }) => {  
+const FeaturedBlogs: React.FC<featuredBlogsProps> = ({ blogs }) => {
   const [currentBlogIndex, setCurrentBlogIndex] = useState<number>(0);
   const [currentBlog, setCurrentBlog] = useState<Blog>(blogs[currentBlogIndex]);
-
-  const navigate = useNavigate()
 
   useEffect(() => {
     setCurrentBlog(blogs[currentBlogIndex]);
@@ -29,10 +27,13 @@ const FeaturedBlogs: React.FC<featuredBlogsProps> = ({ blogs }) => {
     }
   };
 
-
   return (
     <div className="flex flex-col items-center gap-8 pb-sect-default">
-      <div className="px-sect flex w-svw flex-col items-center gap-8 cursor-pointer" onClick={() => navigate(`/inspiration/${currentBlog._id}`)}>
+      <Link
+        to={`/inspiration/${currentBlog._id}`}
+        target="_top"
+        className="px-sect flex w-svw cursor-pointer flex-col items-center gap-8"
+      >
         <div
           className="h-[75svh] w-full rounded-xl shadow-section"
           style={{
@@ -43,7 +44,9 @@ const FeaturedBlogs: React.FC<featuredBlogsProps> = ({ blogs }) => {
           }}
         ></div>
         <div className="flex flex-col items-center gap-2">
-          <span className="span-regular text-gray">{currentBlog?.category}</span>
+          <span className="span-regular text-gray">
+            {currentBlog?.category}
+          </span>
           <h2 className="h2-md"> {currentBlog?.title}</h2>
         </div>
         <p className="p-regular w-2/5 text-center">
@@ -53,9 +56,14 @@ const FeaturedBlogs: React.FC<featuredBlogsProps> = ({ blogs }) => {
         <span className="span-regular flex items-center gap-3">
           <i className="ri-time-line p-medium"></i> {currentBlog?.time}
         </span>
-      </div>
+      </Link>
 
-      <DotPagination count={blogs.length} index={currentBlogIndex} handlePreviousClick={handlePrevBlog} handleNextClick={handleNextBlog} />
+      <DotPagination
+        count={blogs.length}
+        index={currentBlogIndex}
+        handlePreviousClick={handlePrevBlog}
+        handleNextClick={handleNextBlog}
+      />
     </div>
   );
 };

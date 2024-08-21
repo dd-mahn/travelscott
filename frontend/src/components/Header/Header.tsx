@@ -63,11 +63,12 @@ const HoverVariants = {
       borderBottom: `${size} solid #fff`,
     };
   },
-  scaleHover: {
+  hoverScale: {
     scale: 1.1,
+    opacity: 1,
     transition: {
       duration: 0.2,
-      type: "tween",
+      ease: "easeInOut",
     },
   },
   rotateHover: {
@@ -149,6 +150,19 @@ const Header = () => {
     }
   };
 
+  const handleSearchClick = useCallback(() => {
+    if (!inputDisplay) {
+      setInputDisplay(true);
+      console.log(inputDisplay);
+      setTimeout(() => {
+        searchRef.current?.focus();
+        if (searchRef.current?.value !== "") handleSearch();
+      }, 100);
+    } else if (searchRef.current?.value) {
+      handleSearch();
+    }
+  }, [inputDisplay, handleSearch]);
+
   useEffect(() => {
     if (searchResultOpen) {
       document.addEventListener("mousedown", handleSearchResultClickOutside);
@@ -173,10 +187,11 @@ const Header = () => {
       className="px-sect fixed top-0 z-50 min-h-16 w-svw bg-transparent py-4 mix-blend-difference"
     >
       <div className="lg:flex lg:items-center lg:justify-between">
-        <NavLink to={"/"}>
+        <NavLink to={"/"} target="_top">
           <motion.h1
             variants={HoverVariants}
-            whileHover="scaleHover"
+            whileHover="hoverScale"
+            transition={{ duration: 0.2 }}
             whileTap={{ scale: 1 }}
             className="p-large font-logo"
           >
@@ -191,12 +206,23 @@ const Header = () => {
           {navs.map((item, index) => (
             <motion.li
               variants={HoverVariants}
-              whileHover="scaleHover"
+              whileHover="hoverScale"
+              transition={{ duration: 0.2 }}
               whileTap={{ scale: 1 }}
               className="nav__item lg:[--size:1px] 2xl:[--size:1.5px]"
               key={index}
             >
-              <NavLink to={item.path} target="_top" className={"p-regular transition-all"}>
+              <NavLink
+                to={item.path}
+                target="_top"
+                className={({ isActive, isPending }) =>
+                  isPending
+                    ? "p-regular opacity-40"
+                    : isActive
+                      ? "p-regular"
+                      : "p-regular opacity-40 transition-opacity duration-300 hover:opacity-75"
+                }
+              >
                 {item.display}
               </NavLink>
             </motion.li>
@@ -224,22 +250,12 @@ const Header = () => {
             />
             <motion.button
               variants={HoverVariants}
-              whileHover="scaleHover"
+              whileHover="hoverScale"
+              transition={{ duration: 0.2 }}
               whileTap={{ scale: 1 }}
               title="Search"
               className="p-large px-1"
-              onClick={() => {
-                if (!inputDisplay) {
-                  setInputDisplay(true);
-                  console.log(inputDisplay);
-                  setTimeout(() => {
-                    searchRef.current?.focus();
-                    if (searchRef.current?.value !== "") handleSearch();
-                  }, 100);
-                } else if (searchRef.current?.value) {
-                  handleSearch();
-                }
-              }}
+              onClick={handleSearchClick}
             >
               <i className="ri-search-2-line"></i>
             </motion.button>
@@ -257,7 +273,8 @@ const Header = () => {
 
           <motion.button
             variants={HoverVariants}
-            whileHover="scaleHover"
+            whileHover="hoverScale"
+            transition={{ duration: 0.2 }}
             whileTap={{ scale: 1 }}
             title="Toggle Contrast"
             className="p-large"

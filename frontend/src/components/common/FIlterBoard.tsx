@@ -29,8 +29,9 @@ const variants = {
   },
   hiddenYScale: { scale: 0.95, y: 100 },
   visible: { opacity: 1, scale: 1, y: 0, x: 0 },
-  scaleHover: {
+  hoverScale: {
     scale: 1.05,
+    transition: { duration: 0.4, ease: "easeInOut" },
   },
 };
 

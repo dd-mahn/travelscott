@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Carousel } from "@material-tailwind/react";
 import { motion } from "framer-motion";
 
@@ -24,6 +23,7 @@ import DiscoverCountries from "./DiscoverComponents/DiscoverCountries";
 import useFetch from "src/hooks/useFetch";
 import Country from "src/types/Country";
 import Destination from "src/types/Destination";
+import { Link } from "react-router-dom";
 
 // Framer motion variants
 const variants = {
@@ -35,9 +35,9 @@ const variants = {
   },
   hiddenYScale: { scale: 0.95, y: 100 },
   visible: { opacity: 1, scale: 1, y: 0, x: 0 },
-  scaleHover: {
+  hoverScale: {
     scale: 1.05,
-    transition: { duration: 0.4 },
+    transition: { duration: 0.4, ease: "easeInOut" },
   },
 };
 
@@ -125,9 +125,6 @@ const Discover: React.FC = () => {
     ? continents.map((continent) => continent.name)
     : [];
 
-  // Handle navigating
-  const navigate = useNavigate();
-
   // Handle render
   if (countryLoading || allDestinationLoading) {
     return <Loading />;
@@ -162,21 +159,23 @@ const Discover: React.FC = () => {
               {featuredDestinations.map((destination) => (
                 <motion.div
                   className="poster px-sect relative flex h-[95%] w-screen cursor-pointer flex-col gap-0 bg-gradient-to-t from-background-dark to-transparent py-sect-short"
-                  onClick={() => {
-                    navigate(`destinations/${destination._id}`);
-                  }}
                   key={destination._id}
                 >
                   {destination.images.length > 0 && (
-                    <div className="absolute left-0 top-0 h-full w-full overflow-hidden">
+                    <Link
+                      to={`destinations/${destination._id}`}
+                      target="_top"
+                      className="absolute left-0 top-0 h-full w-full overflow-hidden"
+                    >
                       <motion.img
-                        whileHover="scaleHover"
+                        whileHover="hoverScale"
+                        transition={{ duration: 0.4 }}
                         variants={variants}
                         src={destination.images[0]}
                         className="z-0 h-full w-full brightness-75"
                         alt="Featured destination"
                       />
-                    </div>
+                    </Link>
                   )}
 
                   <div className="z-10 w-fit pt-sect-short">

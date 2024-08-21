@@ -1,5 +1,4 @@
 import React, { memo, useCallback, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import {
   motion,
   useTransform,
@@ -11,6 +10,7 @@ import {
 import { DotPagination } from "src/components/common/Pagination";
 import Blog from "src/types/Blog";
 import { formatDate } from "src/utils/formatDate";
+import { Link } from "react-router-dom";
 
 // Framer motion variants
 const variants = {
@@ -60,6 +60,7 @@ const variants = {
     scale: 1.05,
     transition: {
       duration: 0.4,
+      ease: "easeInOut",
     },
   },
 
@@ -81,9 +82,6 @@ type ArticlesProps = {
 
 // Articles component
 const Articles: React.FC<ArticlesProps> = ({ articlesHookRef, blogChunks }) => {
-  // Navigate hook
-  const navigate = useNavigate();
-
   // Set up states for chunk display
   const [direction, setDirection] = useState(1);
   const [chunkIndex, setChunkIndex] = useState(0);
@@ -110,14 +108,6 @@ const Articles: React.FC<ArticlesProps> = ({ articlesHookRef, blogChunks }) => {
   });
 
   const x = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-
-  // Handle navigate
-  const handleNavigate = useCallback(
-    (id: string) => {
-      navigate(`/inspiration/${id}`);
-    },
-    [navigate],
-  );
 
   // Render logic
   return (
@@ -162,16 +152,18 @@ const Articles: React.FC<ArticlesProps> = ({ articlesHookRef, blogChunks }) => {
                 variants={variants}
                 className="px-sect absolute left-0 top-0 flex h-full w-screen flex-row gap-8"
               >
-                <div
+                <Link
+                  to={`/inspiration/${blogChunks[chunkIndex][0]._id}`}
+                  target="_top"
                   className="flex h-full w-full cursor-pointer flex-col gap-4"
-                  onClick={() => handleNavigate(blogChunks[chunkIndex][0]._id)}
                 >
-                  <div className="overflow-hidden h-[50svh] w-full rounded-lg">
+                  <div className="h-[50svh] w-full overflow-hidden rounded-lg">
                     <motion.img
                       loading="lazy"
                       src={blogChunks[chunkIndex][0].image}
                       alt="featuredBlogImage"
                       whileHover="hoverScale"
+                      transition={{ duration: 0.4 }}
                       variants={variants}
                       className="h-full w-full rounded-lg object-cover"
                     />
@@ -181,7 +173,11 @@ const Articles: React.FC<ArticlesProps> = ({ articlesHookRef, blogChunks }) => {
                     <span className="span-small text-gray">
                       {blogChunks[chunkIndex][0].category}
                     </span>
-                    <motion.p whileHover="hoverX" variants={variants} className="span-medium uppercase">
+                    <motion.p
+                      whileHover="hoverX"
+                      variants={variants}
+                      className="span-medium uppercase"
+                    >
                       {" "}
                       {blogChunks[chunkIndex][0].title}
                     </motion.p>
@@ -194,13 +190,14 @@ const Articles: React.FC<ArticlesProps> = ({ articlesHookRef, blogChunks }) => {
                     <i className="ri-time-line span-regular"></i>{" "}
                     {formatDate(blogChunks[chunkIndex][0].time)}
                   </span>
-                </div>
+                </Link>
                 <div className="grid h-[75svh] w-full grid-flow-row auto-rows-[30%] gap-4">
                   {blogChunks[chunkIndex].slice(1).map((blog) => (
-                    <div
+                    <Link
+                      to={`/inspiration/${blog._id}`}
+                      target="_top"
                       className="flex h-full cursor-pointer flex-row gap-4"
                       key={blog._id}
-                      onClick={() => handleNavigate(blog._id)}
                     >
                       <div className="h-full w-[45%] overflow-hidden rounded-lg">
                         <motion.img
@@ -208,6 +205,7 @@ const Articles: React.FC<ArticlesProps> = ({ articlesHookRef, blogChunks }) => {
                           src={blog.image}
                           alt="normalBlogImage"
                           whileHover="hoverScale"
+                          transition={{ duration: 0.4 }}
                           variants={variants}
                           className="h-full w-full rounded-lg object-cover"
                         />
@@ -218,7 +216,11 @@ const Articles: React.FC<ArticlesProps> = ({ articlesHookRef, blogChunks }) => {
                           <span className="span-small text-gray">
                             {blog.category}
                           </span>
-                          <motion.span whileHover="hoverX" variants={variants} className="span-medium w-full">
+                          <motion.span
+                            whileHover="hoverX"
+                            variants={variants}
+                            className="span-medium w-full"
+                          >
                             {" "}
                             {blog.title}
                           </motion.span>
@@ -229,7 +231,7 @@ const Articles: React.FC<ArticlesProps> = ({ articlesHookRef, blogChunks }) => {
                           {formatDate(blog.time)}
                         </span>
                       </div>
-                    </div>
+                    </Link>
                   ))}
                 </div>
               </motion.div>

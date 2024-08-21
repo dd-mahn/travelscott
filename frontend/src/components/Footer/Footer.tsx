@@ -5,6 +5,7 @@ import planeIcon from "src/assets/svg/plane-icon.svg";
 import { motion } from "framer-motion";
 import { scrollToTop } from "src/utils/scrollToTop";
 import StaggerLogo from "../common/staggerLogo";
+import { Link } from "react-router-dom";
 
 const sitemap = [
   {
@@ -160,7 +161,7 @@ const Footer = () => {
                   key={index}
                   className="text-gray"
                 >
-                  <NavLink to={item.path}>{item.display}</NavLink>
+                  <Link to={item.path}>{item.display}</Link>
                 </motion.li>
               ))}
             </ul>

@@ -1,5 +1,4 @@
 import React, { memo, useCallback, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
 import { motion, useAnimation, useInView } from "framer-motion";
 import { PrimaryButton } from "src/components/common/Button";
 
@@ -14,7 +13,6 @@ const variants = {
 };
 
 const Quote = () => {
-  const navigate = useNavigate();
   const iconContainerRefs = [
     useRef<HTMLDivElement>(null),
     useRef<HTMLDivElement>(null),
@@ -59,10 +57,6 @@ const Quote = () => {
       }
     }
   }, [iconContainerRefs, iconSiblingRefs]);
-
-  const handleButtonClick = useCallback(() => {
-    navigate("/contact");
-  }, []);
 
   return (
     <section className="quote px-sect flex flex-col gap-4 lg:py-sect-default 2xl:py-sect-medium">
@@ -172,7 +166,7 @@ const Quote = () => {
         variants={variants}
         className="flex flex-row justify-end"
       >
-        <PrimaryButton text="Have any question?" onClick={handleButtonClick} />
+        <PrimaryButton text="Have any question?" link="/contact" />
       </motion.div>
     </section>
   );

@@ -1,4 +1,4 @@
-import { motion, useTransform, useScroll } from "framer-motion";
+import { motion, useTransform, useScroll, easeIn } from "framer-motion";
 import React, {
   memo,
   Suspense,
@@ -28,7 +28,7 @@ const variants = {
   visible: { opacity: 1, y: 0, x: 0, scale: 1, transition: { duration: 0.5 } },
   hoverScale: {
     scale: 1.05,
-    transition: { duration: 0.5 },
+    transition: { duration: 0.4, ease: "easeInOut"},
   },
   hoverX: {
     x: 5,
@@ -126,6 +126,7 @@ const HorizontalScrollCarousel: React.FC<HorizontalScrollCarouselProps> = ({
                     <div className="h-[70svh] w-full overflow-hidden rounded-xl">
                       <motion.img
                         whileHover="hoverScale"
+                        transition={{duration: 0.4}}
                         variants={variants}
                         loading="lazy"
                         src={src}

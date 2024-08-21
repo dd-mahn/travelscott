@@ -1,9 +1,9 @@
 import React, { Suspense } from "react";
-import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import { easeIn, motion } from "framer-motion";
 
 import Destination from "src/types/Destination";
 import planeIcon from "src/assets/svg/plane-icon.svg";
+import { Link } from "react-router-dom";
 
 interface DestinationCardProps {
   destination: Destination;
@@ -22,12 +22,12 @@ const variants = {
     scale: 1.05,
     transition: {
       duration: 0.4,
+      ease: "easeInOut",
     },
   },
 };
 
 const DestinationCard: React.FC<DestinationCardProps> = ({ destination }) => {
-  const navigate = useNavigate();
   return (
     <Suspense
       fallback={
@@ -40,15 +40,15 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ destination }) => {
         key={destination.name}
         className="destination-card flex w-full cursor-pointer flex-col gap-2"
       >
-        <div
+        <Link
+          to={`/discover/destinations/${destination._id}`}
+          target="_top"
           className="grid h-[50svh] place-items-center overflow-hidden rounded-xl bg-gradient-to-t from-background-dark to-transparent"
-          onClick={() => {
-            navigate(`/discover/destinations/${destination._id}`);
-          }}
         >
           {destination.images[0] && (
             <motion.img
               whileHover="hoverScale"
+              transition={{duration: 0.4}}
               variants={variants}
               loading="lazy"
               src={destination.images[0]}
@@ -56,7 +56,7 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ destination }) => {
               className="h-full w-full rounded-xl"
             />
           )}
-        </div>
+        </Link>
         <div className="flex h-fit flex-col justify-start gap-0">
           <span className="span-regular text-gray">
             {destination.country || "Country"}

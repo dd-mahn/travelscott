@@ -1,9 +1,9 @@
 import React, { memo, Suspense } from "react";
-import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
 // Component imports
 import Country from "src/types/Country";
+import { Link } from "react-router-dom";
 
 // Component props type
 type CountryCardProps = {
@@ -16,6 +16,7 @@ const variants = {
     scale: 1.05,
     transition: {
       duration: 0.4,
+      ease: "easeInOut"
     },
   },
   hoverRight: {
@@ -44,9 +45,6 @@ const variants = {
 
 // CountryCard component
 const CountryCard: React.FC<CountryCardProps> = ({ country }) => {
-  // Navigate hook
-  const navigate = useNavigate();
-
   // Render logic
   return (
     <Suspense
@@ -60,28 +58,31 @@ const CountryCard: React.FC<CountryCardProps> = ({ country }) => {
           whileTap="tapRotate"
           variants={variants}
           className="flex cursor-pointer items-center justify-center overflow-hidden rounded-xl bg-gradient-to-t from-background-dark to-transparent lg:h-20 lg:w-2/3"
-          onClick={() => {
-            navigate(`countries/${country._id}`);
-          }}
         >
-          <motion.img
-            whileHover="hoverScale"
-            variants={variants}
-            src={country?.images?.flagImages?.[0]}
-            alt={country.name}
-            className="h-full w-full rounded-xl"
-          />
+          <Link
+            to={`countries/${country._id}`}
+            target="_top"
+            className="h-full w-full"
+          >
+            <motion.img
+              whileHover="hoverScale"
+              transition={{duration: 0.4}}
+              variants={variants}
+              src={country?.images?.flagImages?.[0]}
+              alt={country.name}
+              className="h-full w-full rounded-xl"
+            />
+          </Link>
         </motion.div>
         <div className="flex h-fit flex-col justify-start gap-0">
           <motion.span
             whileHover="hoverRight"
             variants={variants}
             className="span-medium cursor-pointer"
-            onClick={() => {
-              navigate(`countries/${country._id}`);
-            }}
           >
-            {country.name}
+            <Link to={`countries/${country._id}`} target="_top">
+              {country.name}
+            </Link>
           </motion.span>
           <span className="span-small whitespace-nowrap">
             {country.totalDestinations} destinations

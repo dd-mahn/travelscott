@@ -2,11 +2,12 @@ import React from "react";
 import { motion } from "framer-motion";
 
 import planeIcon from "src/assets/svg/plane-icon.svg";
-
+import { Link } from "react-router-dom";
 
 interface ButtonProps {
   text: string;
-  onClick: () => void;
+  onClick?: () => void;
+  link?: string;
 }
 export const ButtonVariants = {
   buttonHover: {
@@ -23,38 +24,112 @@ export const ButtonVariants = {
   },
 };
 
-export const PrimaryButton: React.FC<ButtonProps> = ({ text, onClick }) => {
+export const PrimaryButton: React.FC<ButtonProps> = ({
+  text,
+  onClick,
+  link,
+}) => {
   return (
-    <motion.button
-    whileHover="buttonHover"
-    whileTap="buttonTap"
-    variants={ButtonVariants}
-    className="btn btn-primary" onClick={onClick}>
-      {text}
-    </motion.button>
+    <>
+      {link ? (
+        <Link to={link} target="_top">
+          <motion.button
+            whileHover="buttonHover"
+            whileTap="buttonTap"
+            variants={ButtonVariants}
+            className="btn btn-primary"
+            onClick={onClick ? onClick : undefined}
+          >
+            {text}
+          </motion.button>
+        </Link>
+      ) : (
+        <motion.button
+          whileHover="buttonHover"
+          whileTap="buttonTap"
+          variants={ButtonVariants}
+          className="btn btn-primary"
+          onClick={onClick ? onClick : undefined}
+        >
+          {text}
+        </motion.button>
+      )}
+    </>
   );
 };
 
-export const SecondaryButton: React.FC<ButtonProps> = ({ text, onClick }) => {
-    return (
+export const SecondaryButton: React.FC<ButtonProps> = ({
+  text,
+  onClick,
+  link,
+}) => {
+  return (
+    <>
+      {link ? (
+        <Link to={link} target="_top">
+          <motion.button
+            whileHover="buttonHover"
+            whileTap="buttonTap"
+            variants={ButtonVariants}
+            className="btn btn-secondary z-10"
+            onClick={onClick ? onClick : undefined}
+          >
+            {text}
+            <motion.img
+              whileHover={{ x: 3 }}
+              transition={{ duration: 0.3 }}
+              src={planeIcon}
+              alt=""
+            />
+          </motion.button>
+        </Link>
+      ) : (
         <motion.button
-        whileHover="buttonHover"
-        whileTap="buttonTap"
-        variants={ButtonVariants}
-        className="btn btn-secondary z-10" onClick={onClick}>
-        {text} <img src={planeIcon} alt="" />
+          whileHover="buttonHover"
+          whileTap="buttonTap"
+          variants={ButtonVariants}
+          className="btn btn-secondary z-10"
+          onClick={onClick ? onClick : undefined}
+        >
+          {text}{" "}
+          <motion.img
+            whileHover={{ x: 3 }}
+            transition={{ duration: 0.3 }}
+            src={planeIcon}
+            alt=""
+          />
         </motion.button>
-    );
-}
+      )}
+    </>
+  );
+};
 
-export const NoirButton: React.FC<ButtonProps> = ({ text, onClick }) => {
-    return (
+export const NoirButton: React.FC<ButtonProps> = ({ text, onClick, link }) => {
+  return (
+    <>
+      {link ? (
+        <Link to={link} target="_top">
+          <motion.button
+            whileHover="buttonHover"
+            whileTap="buttonTap"
+            variants={ButtonVariants}
+            className="btn bg-background-dark uppercase text-text-dark"
+            onClick={onClick ? onClick : undefined}
+          >
+            {text}
+          </motion.button>
+        </Link>
+      ) : (
         <motion.button
-        whileHover="buttonHover"
-        whileTap="buttonTap"
-        variants={ButtonVariants}
-        className="btn bg-background-dark uppercase text-text-dark" onClick={onClick}>
-        {text} 
+          whileHover="buttonHover"
+          whileTap="buttonTap"
+          variants={ButtonVariants}
+          className="btn bg-background-dark uppercase text-text-dark"
+          onClick={onClick ? onClick : undefined}
+        >
+          {text}
         </motion.button>
-    );
-}
+      )}
+    </>
+  );
+};

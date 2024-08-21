@@ -5,7 +5,6 @@ import { motion, useAnimation } from "framer-motion";
 import airplane1 from "src/assets/svg/airplane-1.svg";
 import airplane2 from "src/assets/svg/airplane-2.svg";
 import airplane3 from "src/assets/svg/airplane-3.svg";
-import { useNavigate } from "react-router-dom";
 import { PrimaryButton, SecondaryButton } from "src/components/common/Button";
 
 // Framer motion variants
@@ -51,7 +50,8 @@ const variants = {
   hoverScale: {
     scale: 1.05,
     transition: {
-      duration: 0.3,
+      duration: 0.4,
+      ease: "easeInOut",
     },
   },
 
@@ -143,9 +143,6 @@ const variants = {
 
 // Hero Component
 const Hero: React.FC = () => {
-  // Navigate hook
-  const navigate = useNavigate();
-
   // Animation controls
   const starRef = useRef<HTMLElement>(null);
   const starSiblingControls = useAnimation();
@@ -169,15 +166,6 @@ const Hero: React.FC = () => {
       });
     }
   }, [starRef, starSiblingControls]);
-
-  // Handle button click
-  const handleStartClick = useCallback(() => {
-    navigate("/discover");
-  }, []);
-
-  const handleLearnClick = useCallback(() => {
-    navigate("/about");
-  }, []);
 
   return (
     <section className="hero px-sect relative flex h-screen flex-col justify-center lg:gap-6 xl:gap-8 2xl:gap-8 3xl:gap-8">
@@ -204,6 +192,7 @@ const Hero: React.FC = () => {
         >
           <motion.img
             whileHover="hoverScale"
+            transition={{ duration: 0.4 }}
             variants={variants}
             drag
             dragConstraints={{
@@ -220,6 +209,7 @@ const Hero: React.FC = () => {
         </motion.div>
         <motion.img
           whileHover="hoverScale"
+          transition={{ duration: 0.4 }}
           variants={variants}
           initial="airplane2Start"
           whileInView="airPlane2End"
@@ -241,6 +231,7 @@ const Hero: React.FC = () => {
           whileInView="airPlane3End"
           viewport={{ once: true }}
           whileHover="hoverScale"
+          transition={{ duration: 0.4 }}
           drag
           dragConstraints={{
             top: 0,
@@ -326,8 +317,8 @@ const Hero: React.FC = () => {
         viewport={{ once: true }}
         className="mt-8 flex flex-row lg:gap-4 xl:gap-4 2xl:gap-6 3xl:gap-8"
       >
-        <PrimaryButton text="Get started" onClick={handleStartClick} />
-        <SecondaryButton text="Learn more" onClick={handleLearnClick} />
+        <PrimaryButton text="Get started" link="/discover" />
+        <SecondaryButton text="Learn more" link="/about" />
       </motion.div>
     </section>
   );

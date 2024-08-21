@@ -1,32 +1,32 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { Outlet, ScrollRestoration } from "react-router-dom";
+import { Outlet, ScrollRestoration, useLocation } from "react-router-dom";
 import { ReactLenis } from "lenis/dist/lenis-react";
 
 import Header from "src/components/Header/Header";
 import Footer from "src/components/Footer/Footer";
 import AnimatedLogoScreen from "../common/AnimatedLogoScreen";
-import useScrollToTop from "src/hooks/useScrollToTop";
 
 const Layout = () => {
+  const location = useLocation();
   const [loading, setLoading] = useState(false);
   const [loadingShown, setLoadingShown] = useState(false);
 
   const handleLoading = useCallback(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setLoadingShown(true);
-    }, 3000);
+    if (location.pathname === "/") {
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+        setLoadingShown(true);
+      }, 3000);
+    }
   }, []);
 
   useEffect(() => {
     handleLoading();
     return () => {
-      setLoading(true);
+      setLoading(false);
     };
   }, [handleLoading]);
-
-  useScrollToTop();
 
   return (
     <>

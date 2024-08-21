@@ -6,11 +6,11 @@ import React, {
   useState,
   memo,
 } from "react";
-import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
 // Component imports
 import BlogType from "src/types/Blog";
+import { Link } from "react-router-dom";
 
 // Interfaces and types
 interface Position {
@@ -39,7 +39,8 @@ const variants = {
   hoverScale: {
     scale: 1.05,
     transition: {
-      duration: 0.3,
+      duration: 0.4,
+      ease: "easeInOut",
     },
   },
   hoverX: {
@@ -79,15 +80,6 @@ const BlogComponent = ({
   onDragStart: (event: React.MouseEvent<HTMLDivElement>) => void;
   position: Position;
 }) => {
-  const navigate = useNavigate();
-
-  const handleViewClick = useCallback(
-    (id: string) => {
-      navigate(`/inspiration/${id}`);
-    },
-    [navigate],
-  );
-
   return (
     <div
       key={blog.title}
@@ -103,6 +95,7 @@ const BlogComponent = ({
         <div className="absolute right-0 top-0 h-full w-full overflow-hidden">
           <motion.img
             whileHover="hoverScale"
+            transition={{ duration: 0.4 }}
             variants={variants}
             loading="lazy"
             className="h-full w-full object-cover brightness-75"
@@ -117,20 +110,20 @@ const BlogComponent = ({
           whileHover="hoverX"
           variants={variants}
           className="span-medium z-20 cursor-pointer uppercase text-text-dark"
-          onClick={() => handleViewClick(blog._id)}
         >
-          {blog.title}
+          <Link to={`/inspiration/${blog._id}`} target="_top">
+            {blog.title}
+          </Link>
         </motion.span>
       </div>
       <div className="flex flex-col gap-4 px-8">
         <p className="p-regular w-full overflow-hidden">
           {blog.content[0].sectionText[0]}
         </p>
-        <button
-          className="underline-btn uppercase"
-          onClick={() => handleViewClick(blog._id)}
-        >
-          View<i className="ri-arrow-right-up-line"></i>
+        <button className="underline-btn uppercase">
+          <Link to={`/inspiration/${blog._id}`} target="_top">
+            View<i className="ri-arrow-right-up-line"></i>
+          </Link>
         </button>
       </div>
     </div>

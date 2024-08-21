@@ -1,6 +1,5 @@
 import React, { memo, useCallback } from "react";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
 
 // Component imports
 import HorizontalScrollCarousel from "./FeaturedHorizontalScroller";
@@ -27,14 +26,6 @@ const variants = {
 
 // Featured component
 const Featured: React.FC = () => {
-  // Navigate hook
-  const navigate = useNavigate();
-
-  // Handle button
-  const handleButtonClick = useCallback(() => {
-    navigate("/discover");
-  }, []);
-
   return (
     <section className="featured flex flex-col lg:gap-28 xl:gap-32 2xl:gap-36 3xl:gap-40">
       <div className="px-sect grid w-full place-items-center overflow-hidden">
@@ -76,7 +67,7 @@ const Featured: React.FC = () => {
           className="relative flex items-end"
         >
           <div className="blob blur-blob absolute z-0 h-full w-1/3"></div>
-          <SecondaryButton text="Discover More" onClick={handleButtonClick} />
+          <SecondaryButton text="Discover More" link="/discover" />
         </motion.div>
       </div>
     </section>

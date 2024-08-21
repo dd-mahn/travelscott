@@ -3,7 +3,7 @@ import Blog from "src/types/Blog";
 import Country from "src/types/Country";
 import Destination from "src/types/Destination";
 import "src/components/common/style/search-result.css";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 type SearchResultProps = {
   open: boolean;
@@ -20,7 +20,6 @@ const SearchResult: React.FC<SearchResultProps> = ({
   destinations,
   closeFunc,
 }) => {
-  const navigate = useNavigate();
   return (
     <div
       className={`${open ? "fixed top-20 z-50 lg:right-12 xl:right-16 2xl:right-20 3xl:right-24" : "hidden"} search-result flex h-[50svh] w-[30svw] flex-col overflow-y-scroll rounded-2xl bg-background-light px-8 pb-8 pt-4 shadow-component`}
@@ -35,10 +34,11 @@ const SearchResult: React.FC<SearchResultProps> = ({
           <p className="p-large mb-2 font-prima">Countries</p>
           <div className="grid gap-x-2 gap-y-4 lg:grid-cols-4">
             {countries.map((country) => (
-              <div
+              <Link
+                to={`/discover/countries/${country._id}`}
+                target="_top"
                 key={country._id}
                 className="flex cursor-pointer flex-col items-center gap-2"
-                onClick={() => navigate(`/discover/countries/${country._id}`)}
               >
                 <img
                   src={country.images.flagImages?.[0]}
@@ -46,7 +46,7 @@ const SearchResult: React.FC<SearchResultProps> = ({
                   className="rounded-xl lg:h-16 2xl:h-20"
                 />
                 <span className="span-regular">{country.name}</span>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -58,12 +58,11 @@ const SearchResult: React.FC<SearchResultProps> = ({
           <p className="p-large mb-2 font-prima">Destinations</p>
           <div className="grid h-fit grid-cols-3 gap-x-2 gap-y-4">
             {destinations.map((destination) => (
-              <div
+              <Link
+                to={`/discover/destinations/${destination._id}`}
+                target="_top"
                 key={destination._id}
-                className="flex flex-col items-center gap-2 rounded-xl cursor-pointer"
-                onClick={() =>
-                  navigate(`/discover/destinations/${destination._id}`)
-                }
+                className="flex cursor-pointer flex-col items-center gap-2 rounded-xl"
               >
                 <img
                   src={destination.images?.[0]}
@@ -71,7 +70,7 @@ const SearchResult: React.FC<SearchResultProps> = ({
                   className="h-full rounded-xl"
                 />
                 <span className="span-regular">{destination.name}</span>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -82,10 +81,11 @@ const SearchResult: React.FC<SearchResultProps> = ({
         >
           <p className="p-large mb-2 font-prima">Articles</p>
           {blogs.map((blog) => (
-            <div
+            <Link
+              to={`/inspiration/${blog._id}`}
+              target="_top"
               key={blog._id}
-              className="flex gap-4 rounded-xl lg:h-24 2xl:h-32 cursor-pointer"
-              onClick={() => navigate(`/inspiration/${blog._id}`)}
+              className="flex cursor-pointer gap-4 rounded-xl lg:h-24 2xl:h-32"
             >
               <img
                 src={blog.image}
@@ -93,7 +93,7 @@ const SearchResult: React.FC<SearchResultProps> = ({
                 className="h-full w-1/3 rounded-xl"
               />
               <span className="span-regular mt-3 w-2/3">{blog.title}</span>
-            </div>
+            </Link>
           ))}
         </div>
       )}

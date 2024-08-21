@@ -1,5 +1,4 @@
 import React, { memo, useCallback, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
 // Component imports
@@ -30,14 +29,6 @@ const variants = {
 
 // Start component
 const Starter: React.FC<{ blogs: Blog[] }> = ({ blogs }) => {
-  // Navigation hook
-  const navigate = useNavigate();
-
-  // Handle navigate
-  const handleButtonClick = useCallback(() => {
-    navigate("/inspiration");
-  }, []);
-
   return (
     <section className="starter relative rounded-5xl bg-main-brown lg:py-sect-medium 2xl:py-sect-semi">
       <motion.img
@@ -63,7 +54,7 @@ const Starter: React.FC<{ blogs: Blog[] }> = ({ blogs }) => {
         viewport={{ once: true }}
         className="absolute -bottom-4 right-0 lg:mr-12 xl:mr-16 2xl:mr-20 3xl:mr-24"
       >
-        <SecondaryButton text="Find More" onClick={handleButtonClick} />
+        <SecondaryButton text="Find More" link="/inspiration" />
       </motion.div>
     </section>
   );

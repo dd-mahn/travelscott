@@ -1,5 +1,4 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import "src/styles/404.css";
 import { NoirButton } from "src/components/common/Button";
@@ -33,7 +32,6 @@ const variants = {
 };
 
 const NotFoundPage: React.FC = () => {
-  const navigate = useNavigate();
   return (
     <main className="not-found relative flex h-screen w-full flex-col items-center justify-center gap-8">
       <motion.div
@@ -101,7 +99,7 @@ const NotFoundPage: React.FC = () => {
         >
           Back to home
         </motion.button> */}
-        <NoirButton text="Back to home" onClick={() => navigate("/")} />
+        <NoirButton text="Back to home" link="/" />
       </motion.div>
     </main>
   );

@@ -6,7 +6,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, easeIn, motion } from "framer-motion";
 
 // Component imports
 import DestinationCard from "src/components/common/DestinationCard";
@@ -39,6 +39,7 @@ const variants = {
     scale: 1.05,
     transition: {
       duration: 0.4,
+      ease: "easeInOut",
     },
   },
   tapScale: {
@@ -149,6 +150,7 @@ const DiscoverDestinations: React.FC<DiscoverDestinationsProps> = ({
         <div className="relative">
           <motion.button
             whileHover="hoverScale"
+            transition={{duration: 0.4}}
             variants={variants}
             whileTap="tapScale"
             title="filter"
