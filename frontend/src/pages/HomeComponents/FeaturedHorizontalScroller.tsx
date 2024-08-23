@@ -1,4 +1,4 @@
-import { motion, useTransform, useScroll, easeIn } from "framer-motion";
+import { motion, useTransform, useScroll } from "framer-motion";
 import React, {
   memo,
   Suspense,
@@ -14,6 +14,7 @@ import Destination from "src/types/Destination";
 import { optimizeImage } from "src/utils/optimizeImage";
 import { debounce } from "lodash";
 import Loading from "src/components/common/Loading";
+import { Link } from "react-router-dom";
 
 // Component props
 type HorizontalScrollCarouselProps = {
@@ -28,7 +29,7 @@ const variants = {
   visible: { opacity: 1, y: 0, x: 0, scale: 1, transition: { duration: 0.5 } },
   hoverScale: {
     scale: 1.05,
-    transition: { duration: 0.4, ease: "easeInOut"},
+    transition: { duration: 0.4, ease: "easeInOut" },
   },
   hoverX: {
     x: 5,
@@ -126,13 +127,13 @@ const HorizontalScrollCarousel: React.FC<HorizontalScrollCarouselProps> = ({
                     <div className="h-[70svh] w-full overflow-hidden rounded-xl">
                       <motion.img
                         whileHover="hoverScale"
-                        transition={{duration: 0.4}}
+                        transition={{ duration: 0.4 }}
                         variants={variants}
                         loading="lazy"
                         src={src}
                         srcSet={srcSet}
                         alt={destination.name}
-                        className="h-full w-full cursor-pointer rounded-xl object-cover"
+                        className="cursor-hover h-full w-full cursor-pointer rounded-xl object-cover"
                       />
                     </div>
 
@@ -140,13 +141,16 @@ const HorizontalScrollCarousel: React.FC<HorizontalScrollCarouselProps> = ({
                       <span className="span-regular text-gray">
                         {destination.country}
                       </span>
-                      <motion.span
-                        whileHover="hoverX"
-                        variants={variants}
-                        className="span-medium w-fit cursor-pointer uppercase"
-                      >
-                        {destination.name}
-                      </motion.span>
+                      <Link to={"/"}>
+                        <motion.span
+                          whileHover="hoverX"
+                          variants={variants}
+                          className="span-medium w-fit cursor-pointer uppercase"
+                        >
+                          {destination.name}
+                        </motion.span>
+                      </Link>
+
                       <div className="mt-4 flex gap-2">
                         {destination.tags.map((tag, index) => (
                           <span

@@ -165,7 +165,7 @@ const Articles: React.FC<ArticlesProps> = ({ articlesHookRef, blogChunks }) => {
                       whileHover="hoverScale"
                       transition={{ duration: 0.4 }}
                       variants={variants}
-                      className="h-full w-full rounded-lg object-cover"
+                      className="cursor-hover h-full w-full rounded-lg object-cover"
                     />
                   </div>
 
@@ -176,7 +176,7 @@ const Articles: React.FC<ArticlesProps> = ({ articlesHookRef, blogChunks }) => {
                     <motion.p
                       whileHover="hoverX"
                       variants={variants}
-                      className="span-medium uppercase"
+                      className="cursor-hover-small span-medium uppercase"
                     >
                       {" "}
                       {blogChunks[chunkIndex][0].title}
@@ -207,7 +207,7 @@ const Articles: React.FC<ArticlesProps> = ({ articlesHookRef, blogChunks }) => {
                           whileHover="hoverScale"
                           transition={{ duration: 0.4 }}
                           variants={variants}
-                          className="h-full w-full rounded-lg object-cover"
+                          className="cursor-hover h-full w-full rounded-lg object-cover"
                         />
                       </div>
 
@@ -219,7 +219,7 @@ const Articles: React.FC<ArticlesProps> = ({ articlesHookRef, blogChunks }) => {
                           <motion.span
                             whileHover="hoverX"
                             variants={variants}
-                            className="span-medium w-full"
+                            className="cursor-hover-small span-medium w-full"
                           >
                             {" "}
                             {blog.title}

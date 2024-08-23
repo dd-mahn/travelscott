@@ -5,6 +5,7 @@ import { ReactLenis } from "lenis/dist/lenis-react";
 import Header from "src/components/Header/Header";
 import Footer from "src/components/Footer/Footer";
 import AnimatedLogoScreen from "../common/AnimatedLogoScreen";
+import Cursor from "../common/Cursors";
 
 const Layout = () => {
   const location = useLocation();
@@ -33,9 +34,10 @@ const Layout = () => {
       {loading && !loadingShown ? (
         <AnimatedLogoScreen />
       ) : (
-        <ReactLenis root options={{ lerp: 0.08 }}>
+        <ReactLenis root options={{ lerp: 0.05 }}>
           <ScrollRestoration />
           <Header />
+          <Cursor />
           <Outlet />
           <Footer />
         </ReactLenis>

@@ -1,5 +1,5 @@
 import React, { memo, Suspense, useEffect, useRef, useState } from "react";
-import { motion, useAnimation } from "framer-motion";
+import { motion, useAnimation, useScroll, useTransform } from "framer-motion";
 
 // Asset imports
 import "src/styles/about.css";
@@ -57,6 +57,13 @@ const variants = {
       repeat: Infinity,
     },
   },
+  hoverScale: {
+    scale: 1.05,
+    transition: {
+      duration: 0.4,
+      ease: "easeInOut",
+    },
+  },
 };
 
 // Images for the who section
@@ -72,6 +79,7 @@ const About: React.FC = () => {
   ];
   const blockRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const aboutVideoRef = useRef<HTMLVideoElement>(null);
 
   // Create controls for the side blocks and block
   const sideBlockControls = [useAnimation(), useAnimation()];
@@ -79,11 +87,30 @@ const About: React.FC = () => {
 
   // Set the left value for the block when the component mounts and handle animations
   useEffect(() => {
-    if (blockRef.current) {
-      const blockWidth = blockRef.current.offsetWidth;
-      if (containerRef.current) {
+    const handleResize = () => {
+      if (blockRef.current && containerRef.current) {
+        const blockWidth = blockRef.current.offsetWidth;
         setLeftValue(containerRef.current.offsetWidth / 2 - blockWidth / 2);
       }
+    };
+
+    const resizeObserver = new ResizeObserver(handleResize);
+    if (blockRef.current) {
+      resizeObserver.observe(blockRef.current);
+    }
+
+    handleResize(); // Initial calculation
+
+    return () => {
+      if (blockRef.current) {
+        resizeObserver.unobserve(blockRef.current);
+      }
+    };
+  }, [blockRef, containerRef]);
+
+  useEffect(() => {
+    if (blockRef.current) {
+      const blockWidth = blockRef.current.offsetWidth;
 
       sideBlockControls[0].start({
         opacity: 1,
@@ -95,23 +122,13 @@ const About: React.FC = () => {
         y: 0,
         transition: { duration: 0.4, ease: "easeInOut" },
       });
-
       sideBlockControls[0].start({
         x: -blockWidth / 2,
-        transition: {
-          delay: 0.9,
-          duration: 0.6,
-          ease: "circInOut",
-        },
+        transition: { delay: 0.9, duration: 0.6, ease: "circInOut" },
       });
-
       sideBlockControls[1].start({
         x: blockWidth / 2,
-        transition: {
-          delay: 0.9,
-          duration: 0.6,
-          ease: "circInOut",
-        },
+        transition: { delay: 0.9, duration: 0.6, ease: "circInOut" },
       });
 
       blockControls.start({
@@ -120,7 +137,16 @@ const About: React.FC = () => {
         transition: { duration: 0.5, delay: 1, ease: "easeInOut" },
       });
     }
-  }, [blockRef]);
+  }, [sideBlockControls, blockRef]);
+
+  // Handle about video scroll animation
+  const { scrollYProgress } = useScroll({
+    target: aboutVideoRef,
+    offset: ["start 30%", "center center"],
+  });
+
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
+  const opacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   // Render logic
   return (
@@ -193,20 +219,34 @@ const About: React.FC = () => {
           We simplify your travel experience.
         </motion.p>
 
-        <motion.video
+        <motion.div
           initial={{
             opacity: 0,
             y: "var(--y-from)",
           }}
           animate="visible"
-          transition={{ duration: 0.4, delay: 1.4 }}
           variants={variants}
-          src={heroVideo}
-          autoPlay
-          loop
-          muted
-          className="w-full rounded-xl shadow-section lg:mt-40 2xl:mt-sect-default"
-        ></motion.video>
+          transition={{ duration: 0.4, delay: 1.4 }}
+          className="relative h-screen w-full lg:mt-40 2xl:mt-sect-default"
+        >
+          <motion.video
+            ref={aboutVideoRef}
+            src={heroVideo}
+            style={{ scale }}
+            autoPlay
+            loop
+            muted
+            className="absolute top-0 z-10 w-full rounded-3xl shadow-section"
+          ></motion.video>
+          <motion.h2
+            style={{ opacity }}
+            className="h2-md absolute top-1/2 z-[15] w-full text-center text-text-dark"
+          >
+            {" "}
+            We want you to travel.
+          </motion.h2>
+          :
+        </motion.div>
       </section>
 
       {/* STACKED SECTION */}
@@ -418,7 +458,7 @@ const About: React.FC = () => {
           {/* WHO SECTION */}
           <section className="who px-sect sticky top-0 z-20 rounded-5xl bg-background-dark shadow-section lg:pb-sect-default lg:pt-40 2xl:py-sect-default">
             <div className="relative flex flex-col">
-              <div className="blob-brown blur-blob left-1/2 top-[20%] h-1/4 w-1/4 opacity-50"></div>
+              <div className="blob-brown blur-blob left-1/2 top-[20%] h-1/4 w-1/4 opacity-30"></div>
               <div className="blob-green blur-blob -top-[20%] left-[5%] h-3/5 w-3/5 opacity-20"></div>
               <motion.div
                 initial="hidden"
@@ -443,14 +483,18 @@ const About: React.FC = () => {
                     className="person flex w-1/5 flex-col items-center gap-4"
                     key={index}
                   >
-                    <div
-                      className="h-[30svh] w-full rounded-xl bg-gray shadow-lg saturate-0"
-                      style={{
-                        backgroundImage: `url(${person.img})`,
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                      }}
-                    ></div>
+                    <div className="h-[35svh] w-full overflow-hidden rounded-xl bg-gradient-to-t from-gray to-blue-gray-800 shadow-component saturate-0 duration-300 hover:saturate-[0.75]">
+                      {person.img && (
+                        <motion.img
+                          whileHover="hoverScale"
+                          variants={variants}
+                          transition={{ duration: 0.4 }}
+                          src={person.img}
+                          alt=""
+                          className="h-full w-full rounded-xl object-cover"
+                        />
+                      )}
+                    </div>
                     <div className="flex flex-col gap-2">
                       <h3 className="span-regular text-center text-text-dark">
                         {person.name}
@@ -463,7 +507,7 @@ const About: React.FC = () => {
                 ))}
               </motion.div>
               <div className="px-sect relative pb-sect-default pt-sect-long 2xl:mt-sect-default">
-                <div className="blob-brown blur-blob left-[20%] top-1/3 h-3/5 w-3/5 opacity-20"></div>
+                <div className="blob-brown blur-blob left-[20%] top-1/3 h-3/5 w-3/5 opacity-30"></div>
 
                 {whoImages.map((img, index) => (
                   <Suspense key={"whoImg-" + index} fallback={null}>

@@ -117,7 +117,7 @@ const Footer = () => {
             title="subscribe"
           >
             {" "}
-            <img src={planeIcon} alt="" />{" "}
+            <img src={planeIcon} alt="" className="cursor-hover-small" />{" "}
           </motion.button>
         </div>
       </div>
@@ -169,7 +169,7 @@ const Footer = () => {
         </div>
 
         <button className="underline-btn" onClick={scrollToTop}>
-          Back to top <i className="ri-arrow-up-line"></i>
+          Back to top <i className="cursor-hover-small ri-arrow-up-line"></i>
         </button>
       </motion.div>
 

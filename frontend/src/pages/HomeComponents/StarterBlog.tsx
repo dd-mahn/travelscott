@@ -109,7 +109,7 @@ const BlogComponent = ({
         <motion.span
           whileHover="hoverX"
           variants={variants}
-          className="span-medium z-20 cursor-pointer uppercase text-text-dark"
+          className="cursor-hover-small span-medium z-20 cursor-pointer uppercase text-text-dark"
         >
           <Link to={`/inspiration/${blog._id}`} target="_top">
             {blog.title}
@@ -122,7 +122,7 @@ const BlogComponent = ({
         </p>
         <button className="underline-btn uppercase">
           <Link to={`/inspiration/${blog._id}`} target="_top">
-            View<i className="ri-arrow-right-up-line"></i>
+            View<i className="cursor-hover-small ri-arrow-right-up-line"></i>
           </Link>
         </button>
       </div>

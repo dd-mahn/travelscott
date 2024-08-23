@@ -17,7 +17,6 @@ import Destination from "src/types/Destination";
 import Country from "src/types/Country";
 import Blog from "src/types/Blog";
 import SearchResult from "../common/SearchResult";
-import { input } from "@material-tailwind/react";
 import { search } from "src/utils/handleSearch";
 
 // Navigation items
@@ -65,9 +64,8 @@ const HoverVariants = {
   },
   hoverScale: {
     scale: 1.1,
-    opacity: 1,
     transition: {
-      duration: 0.2,
+      duration: 0.3,
       ease: "easeInOut",
     },
   },
@@ -193,7 +191,7 @@ const Header = () => {
             whileHover="hoverScale"
             transition={{ duration: 0.2 }}
             whileTap={{ scale: 1 }}
-            className="p-large font-logo"
+            className="cursor-hover-small p-large font-logo"
           >
             TravelScott
           </motion.h1>
@@ -257,7 +255,7 @@ const Header = () => {
               className="p-large px-1"
               onClick={handleSearchClick}
             >
-              <i className="ri-search-2-line"></i>
+              <i className="cursor-hover-small ri-search-2-line"></i>
             </motion.button>
             {ReactDOM.createPortal(
               <SearchResult
@@ -279,7 +277,7 @@ const Header = () => {
             title="Toggle Contrast"
             className="p-large"
           >
-            <i className="ri-contrast-2-fill"></i>
+            <i className="cursor-hover-small ri-contrast-2-fill"></i>
           </motion.button>
         </div>
       </div>

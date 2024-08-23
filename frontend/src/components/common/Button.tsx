@@ -37,7 +37,7 @@ export const PrimaryButton: React.FC<ButtonProps> = ({
             whileHover="buttonHover"
             whileTap="buttonTap"
             variants={ButtonVariants}
-            className="btn btn-primary"
+            className="btn btn-primary z-20"
             onClick={onClick ? onClick : undefined}
           >
             {text}
@@ -48,7 +48,7 @@ export const PrimaryButton: React.FC<ButtonProps> = ({
           whileHover="buttonHover"
           whileTap="buttonTap"
           variants={ButtonVariants}
-          className="btn btn-primary"
+          className="btn btn-primary z-20"
           onClick={onClick ? onClick : undefined}
         >
           {text}
@@ -71,7 +71,7 @@ export const SecondaryButton: React.FC<ButtonProps> = ({
             whileHover="buttonHover"
             whileTap="buttonTap"
             variants={ButtonVariants}
-            className="btn btn-secondary z-10"
+            className="btn btn-secondary z-20"
             onClick={onClick ? onClick : undefined}
           >
             {text}
@@ -80,6 +80,7 @@ export const SecondaryButton: React.FC<ButtonProps> = ({
               transition={{ duration: 0.3 }}
               src={planeIcon}
               alt=""
+              className="cursor-hover-small"
             />
           </motion.button>
         </Link>
@@ -88,7 +89,7 @@ export const SecondaryButton: React.FC<ButtonProps> = ({
           whileHover="buttonHover"
           whileTap="buttonTap"
           variants={ButtonVariants}
-          className="btn btn-secondary z-10"
+          className="btn btn-secondary z-20"
           onClick={onClick ? onClick : undefined}
         >
           {text}{" "}
@@ -97,6 +98,7 @@ export const SecondaryButton: React.FC<ButtonProps> = ({
             transition={{ duration: 0.3 }}
             src={planeIcon}
             alt=""
+            className="cursor-hover-small"
           />
         </motion.button>
       )}
@@ -113,7 +115,7 @@ export const NoirButton: React.FC<ButtonProps> = ({ text, onClick, link }) => {
             whileHover="buttonHover"
             whileTap="buttonTap"
             variants={ButtonVariants}
-            className="btn bg-background-dark uppercase text-text-dark"
+            className="btn z-20 bg-background-dark uppercase text-text-dark"
             onClick={onClick ? onClick : undefined}
           >
             {text}
@@ -124,7 +126,7 @@ export const NoirButton: React.FC<ButtonProps> = ({ text, onClick, link }) => {
           whileHover="buttonHover"
           whileTap="buttonTap"
           variants={ButtonVariants}
-          className="btn bg-background-dark uppercase text-text-dark"
+          className="btn z-20 bg-background-dark uppercase text-text-dark"
           onClick={onClick ? onClick : undefined}
         >
           {text}

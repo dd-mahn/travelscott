@@ -1,12 +1,4 @@
 .contact {
-  .blob-1 {
-    background: var(--aurora-brown-gradient);
-  }
-
-  .blob-2 {
-    background: var(--aurora-green-gradient);
-  }
-
   .emailing {
     button {
       text-transform: none !important;
