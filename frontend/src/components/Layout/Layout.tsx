@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Outlet, ScrollRestoration, useLocation } from "react-router-dom";
 import { ReactLenis } from "lenis/dist/lenis-react";
+import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
 
 import Header from "src/components/Header/Header";
 import Footer from "src/components/Footer/Footer";
@@ -18,7 +19,7 @@ const Layout = () => {
       setTimeout(() => {
         setLoading(false);
         setLoadingShown(true);
-      }, 3000);
+      }, 4000);
     }
   }, []);
 
@@ -30,9 +31,17 @@ const Layout = () => {
   }, [handleLoading]);
 
   return (
-    <>
+    <AnimatePresence mode="wait">
       {loading && !loadingShown ? (
-        <AnimatedLogoScreen />
+        <motion.div
+          key={"logo-loader"}
+          initial={{ y: "100%" }}
+          animate={{ y: 0 }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
+          exit={{ y: "-50%", opacity: 0, transition: { duration: 0.5 } }}
+        >
+          <AnimatedLogoScreen />
+        </motion.div>
       ) : (
         <ReactLenis root options={{ lerp: 0.05 }}>
           <ScrollRestoration />
@@ -42,7 +51,7 @@ const Layout = () => {
           <Footer />
         </ReactLenis>
       )}
-    </>
+    </AnimatePresence>
   );
 };
 
