@@ -5,8 +5,8 @@ import { debounce } from "lodash";
 const Cursor = () => {
   const cursorRef = React.useRef<HTMLDivElement>(null);
   const [cursorPosition, setCursorPosition] = React.useState({
-    x: 0,
-    y: 0,
+    x: -100,
+    y: -100,
   });
   const [cursorState, setCursorState] = React.useState("default");
 
@@ -80,41 +80,41 @@ const Cursor = () => {
     default: {
       x: cursorPosition.x - 16,
       y: cursorPosition.y - 16,
-      width: 30,
-      height: 30,
+      width: "2svw",
+      height: "2svw",
     },
 
     hover: {
-      width: 80,
-      height: 80,
+      width: "5svw",
+      height: "5svw",
       x: cursorPosition.x - 16,
       y: cursorPosition.y - 16,
     },
 
     hoverLink: {
-      width: 80,
-      height: 80,
+      width: "5svw",
+      height: "5svw",
       x: cursorPosition.x - 16,
       y: cursorPosition.y - 16,
     },
 
     hoverSmall: {
-      width: 16,
-      height: 16,
+      width: "1svw",
+      height: "1svw",
       x: cursorPosition.x - 16,
       y: cursorPosition.y - 16,
     },
 
     tap: {
-      width: 12,
-      height: 12,
+      width: "0.75svw",
+      height: "0.75svw",
       x: cursorPosition.x - 16,
       y: cursorPosition.y - 16,
     },
 
     hoverTap: {
-      width: 60,
-      height: 60,
+      width: "3svw",
+      height: "3svw",
       x: cursorPosition.x - 16,
       y: cursorPosition.y - 16,
     },
