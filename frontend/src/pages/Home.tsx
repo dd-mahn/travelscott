@@ -21,10 +21,8 @@ import { createBlogChunks } from "src/utils/createBlogChunks";
 // Framer motion variants
 const variants = {
   hidden: { opacity: 0, y: 75 },
-  hiddenY: (y: string) => {
-    return {
-      y: y,
-    };
+  hiddenFullY: {
+    y: "100%",
   },
   visible: {
     opacity: 1,
@@ -97,28 +95,24 @@ const Home: React.FC = () => {
           <section className="hook px-sect pb-sect-semi pt-sect-default">
             <div className="overflow-hidden pb-4">
               <motion.h2
-                initial={{
-                  y: "var(--y-from)",
-                }}
+                initial="hiddenFullY"
                 whileInView="visible"
                 transition={{ duration: 0.5 }}
                 viewport={{ once: true }}
                 variants={variants}
-                className="h2-inter lg:[--y-from:50px] 2xl:[--y-from:75px]"
+                className="h2-inter"
               >
                 If you are still hesitant,
               </motion.h2>
             </div>
             <div className="overflow-hidden pb-4">
               <motion.h2
-                initial={{
-                  y: "var(--y-from)",
-                }}
+                initial="hiddenFullY"
                 whileInView="visible"
                 transition={{ duration: 0.5, delay: 0.1 }}
                 viewport={{ once: true }}
                 variants={variants}
-                className="h2-inter lg:[--y-from:50px] 2xl:[--y-from:75px]"
+                className="h2-inter"
               >
                 perhaps some of the articles below can help.
               </motion.h2>
