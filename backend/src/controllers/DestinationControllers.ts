@@ -40,6 +40,7 @@ type GetDestinationsRequest = {
   countries?: string;
   tags?: string;
   continents?: string;
+  searchQuery?: string;
   page?: string;
   limit?: string;
 };
@@ -50,6 +51,7 @@ export const getDestinations = async (req: Request, res: Response) => {
       countries,
       tags,
       continents,
+      searchQuery,
       page = DEFAULT_PAGE,
       limit = DEFAULT_LIMIT,
     }: GetDestinationsRequest = req.query;
@@ -61,13 +63,12 @@ export const getDestinations = async (req: Request, res: Response) => {
       country?: { $in: RegExp[] };
       continent?: { $in: RegExp[] };
       tags?: { $in: RegExp[] };
+      $or?: { name?: RegExp; country?: RegExp; continent?: RegExp }[];
     };
 
     const filter: Filter = {};
 
     if (countries) {
-      // const countriesArray =
-      //   typeof countries === "string" ? [countries] : countries;
       filter.country = { $in: createRegexArray(countries) };
     }
 
@@ -76,9 +77,12 @@ export const getDestinations = async (req: Request, res: Response) => {
     }
 
     if (continents) {
-      // const continentsArray =
-      //   typeof continents === "string" ? [continents] : continents;
       filter.continent = { $in: createRegexArray(continents) };
+    }
+
+    if (searchQuery) {
+      const regex = new RegExp(searchQuery, "i"); // 'i' makes it case-insensitive
+      filter.$or = [{ name: regex }, { country: regex }, { continent: regex }];
     }
 
     const skip = (pageNumber - 1) * limitNumber;
