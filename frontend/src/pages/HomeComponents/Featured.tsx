@@ -15,8 +15,8 @@ const variants = {
     opacity: 0,
     y: 40,
   },
-  hiddenY: (y: string) => {
-    return { y: y };
+  hiddenFullY:{
+    y: "100%"
   },
   visible: {
     opacity: 1,
@@ -30,12 +30,12 @@ const Featured: React.FC = () => {
     <section className="featured flex flex-col lg:gap-28 xl:gap-32 2xl:gap-36 3xl:gap-40">
       <div className="px-sect grid w-full place-items-center overflow-hidden">
         <motion.h1
-          initial={variants.hiddenY("var(--y-from)")}
+          initial="hiddenFullY"
           whileInView="visible"
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
           variants={variants}
-          className="h1-md relative lg:[--y-from:75px] 2xl:[--y-from:100px] 3xl:[--y-from:120px]"
+          className="h1-md relative"
         >
           <i className="ri-shining-2-fill rotate-30 absolute -left-[5%] -top-0 transform text-yellow lg:text-3xl xl:text-4xl 2xl:text-4xl 3xl:text-5xl"></i>{" "}
           Featured Destinations
