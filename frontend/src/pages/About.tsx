@@ -4,14 +4,14 @@ import { motion, useAnimation, useScroll, useTransform } from "framer-motion";
 // Asset imports
 import "src/styles/about.css";
 import heroVideo from "src/assets/videos/about-hero.mp4";
-import who1 from "src/assets/images/ui/about/about-1.jpg";
-import who2 from "src/assets/images/ui/about/about-2.jpg";
-import who3 from "src/assets/images/ui/about/about-3.jpg";
-import who4 from "src/assets/images/ui/about/about-4.jpg";
-import who5 from "src/assets/images/ui/about/about-5.jpg";
-import who6 from "src/assets/images/ui/about/about-6.jpg";
-import who7 from "src/assets/images/ui/about/about-7.jpg";
-import who8 from "src/assets/images/ui/about/about-8.jpg";
+import who1 from "src/assets/images/ui/about/about-1.webp";
+import who2 from "src/assets/images/ui/about/about-2.webp";
+import who3 from "src/assets/images/ui/about/about-3.webp";
+import who4 from "src/assets/images/ui/about/about-4.webp";
+import who5 from "src/assets/images/ui/about/about-5.webp";
+import who6 from "src/assets/images/ui/about/about-6.webp";
+import who7 from "src/assets/images/ui/about/about-7.webp";
+import who8 from "src/assets/images/ui/about/about-8.webp";
 import airplane1 from "src/assets/svg/airplane-1.svg";
 import airplane2 from "src/assets/svg/airplane-2.svg";
 import airplane3 from "src/assets/svg/airplane-3.svg";
@@ -24,15 +24,8 @@ const variants = {
     y: 40,
   },
 
-  stayHidden: {
-    opacity: 0,
-  },
-
-  hiddenY: (y: string) => {
-    return {
-      opacity: 0,
-      y: y,
-    };
+  hiddenFullY: {
+    y: "100%"
   },
 
   visible: {
@@ -57,6 +50,7 @@ const variants = {
       repeat: Infinity,
     },
   },
+  
   hoverScale: {
     scale: 1.05,
     transition: {
@@ -161,11 +155,11 @@ const About: React.FC = () => {
           className="h1-md-bold relative z-10 w-screen overflow-hidden pt-sect-short text-center"
         >
           <motion.div
-            initial={variants.hiddenY("var(--y-from)")}
+            initial="hiddenFullY"
             ref={sideBlockRefs[0]}
             animate={sideBlockControls[0]}
             variants={variants}
-            className="inline-block text-main-green lg:[--y-from:100px] 2xl:[--y-from:150px]"
+            className="inline-block text-main-green"
           >
             Travel
           </motion.div>
@@ -173,11 +167,11 @@ const About: React.FC = () => {
             ref={blockRef}
             initial={{
               opacity: 0,
-              y: "var(--y-from)",
+              y: "100%",
             }}
             animate={blockControls}
             variants={variants}
-            className={`bot-0 absolute inline-block w-fit lg:[--y-from:100px] 2xl:[--y-from:150px]`}
+            className={`bot-0 absolute inline-block w-fit`}
             style={{
               left: leftValue ? leftValue : "50%",
             }}
@@ -189,10 +183,10 @@ const About: React.FC = () => {
           </motion.div>{" "}
           <motion.div
             ref={sideBlockRefs[1]}
-            initial={variants.hiddenY("var(--y-from)")}
+            initial="hiddenFullY"
             animate={sideBlockControls[1]}
             variants={variants}
-            className="inline-block text-main-green lg:[--y-from:100px] 2xl:[--y-from:150px]"
+            className="inline-block text-main-green"
           >
             guide
           </motion.div>
@@ -222,7 +216,7 @@ const About: React.FC = () => {
         <motion.div
           initial={{
             opacity: 0,
-            y: "var(--y-from)",
+            y: "100%",
           }}
           animate="visible"
           variants={variants}
@@ -271,12 +265,12 @@ const About: React.FC = () => {
               <div className="flex flex-col justify-start gap-0">
                 <div className="overflow-hidden">
                   <motion.h1
-                    initial={variants.hiddenY("var(--y-from)")}
+                    initial="hiddenFullY"
                     whileInView="visible"
                     transition={{ duration: 0.4 }}
                     viewport={{ once: true, margin: "0% 0% -10% 0%" }}
                     variants={variants}
-                    className="h1-md-bold lg:[--y-from:75px] 2xl:[--y-from:150px]"
+                    className="h1-md-bold"
                   >
                     Optimal
                   </motion.h1>
@@ -305,22 +299,22 @@ const About: React.FC = () => {
 
             <div className="w-fit overflow-hidden">
               <motion.div
-                initial={variants.hiddenY("var(--y-from)")}
+                initial="hiddenFullY"
                 whileInView="visible"
                 transition={{ duration: 0.4, delay: 0.6 }}
                 viewport={{ once: true, margin: "0% 0% -10% 0%" }}
                 variants={variants}
-                className="text-stroke h1-md-bold inline-block text-transparent lg:[--y-from:75px] 2xl:[--y-from:150px]"
+                className="text-stroke h1-md-bold inline-block text-transparent"
               >
                 0
               </motion.div>
               <motion.div
-                initial={variants.hiddenY("var(--y-from)")}
+                initial="hiddenFullY"
                 whileInView="visible"
                 transition={{ duration: 0.4, delay: 0.8 }}
                 viewport={{ once: true, margin: "0% 0% -10% 0%" }}
                 variants={variants}
-                className="text-stroke h1-md-bold inline-block text-transparent lg:[--y-from:75px] 2xl:[--y-from:150px]"
+                className="text-stroke h1-md-bold inline-block text-transparent"
               >
                 1
               </motion.div>
@@ -332,22 +326,22 @@ const About: React.FC = () => {
           >
             <div className="w-2/3 overflow-hidden">
               <motion.div
-                initial={variants.hiddenY("var(--y-from)")}
+                initial="hiddenFullY"
                 whileInView="visible"
                 transition={{ duration: 0.4, delay: 0.6 }}
                 viewport={{ once: true, margin: "0% 0% -10% 0%" }}
                 variants={variants}
-                className="text-stroke h1-md-bold inline-block text-transparent lg:[--y-from:75px] 2xl:[--y-from:150px]"
+                className="text-stroke h1-md-bold inline-block text-transparent"
               >
                 0
               </motion.div>
               <motion.div
-                initial={variants.hiddenY("var(--y-from)")}
+                initial="hiddenFullY"
                 whileInView="visible"
                 transition={{ duration: 0.4, delay: 0.8 }}
                 viewport={{ once: true, margin: "0% 0% -10% 0%" }}
                 variants={variants}
-                className="text-stroke h1-md-bold inline-block text-transparent lg:[--y-from:75px] 2xl:[--y-from:150px]"
+                className="text-stroke h1-md-bold inline-block text-transparent"
               >
                 2
               </motion.div>
@@ -357,12 +351,12 @@ const About: React.FC = () => {
               <div className="flex w-2/3 flex-col justify-end gap-0">
                 <div className="overflow-hidden">
                   <motion.h1
-                    initial={variants.hiddenY("var(--y-from)")}
+                    initial="hiddenFullY"
                     whileInView="visible"
                     transition={{ duration: 0.4 }}
                     viewport={{ once: true, margin: "0% 0% -10% 0%" }}
                     variants={variants}
-                    className="h1-md-bold text-end lg:[--y-from:75px] 2xl:[--y-from:150px]"
+                    className="h1-md-bold text-end"
                   >
                     Vibrant
                   </motion.h1>
@@ -398,12 +392,12 @@ const About: React.FC = () => {
               <div className="flex flex-col justify-start gap-0">
                 <div className="overflow-hidden">
                   <motion.h1
-                    initial={variants.hiddenY("var(--y-from)")}
+                    initial="hiddenFullY"
                     whileInView="visible"
                     transition={{ duration: 0.4 }}
                     viewport={{ once: true, margin: "0% 0% -10% 0%" }}
                     variants={variants}
-                    className="h1-md-bold lg:[--y-from:75px] 2xl:[--y-from:150px]"
+                    className="h1-md-bold"
                   >
                     Verified
                   </motion.h1>
@@ -432,22 +426,22 @@ const About: React.FC = () => {
 
             <div className="w-fit overflow-hidden">
               <motion.div
-                initial={variants.hiddenY("var(--y-from)")}
+                initial="hiddenFullY"
                 whileInView="visible"
                 transition={{ duration: 0.4, delay: 0.6 }}
                 viewport={{ once: true, margin: "0% 0% -10% 0%" }}
                 variants={variants}
-                className="text-stroke h1-md-bold inline-block text-transparent lg:[--y-from:75px] 2xl:[--y-from:150px]"
+                className="text-stroke h1-md-bold inline-block text-transparent"
               >
                 0
               </motion.div>
               <motion.div
-                initial={variants.hiddenY("var(--y-from)")}
+                initial="hiddenFullY"
                 whileInView="visible"
                 transition={{ duration: 0.4, delay: 0.8 }}
                 viewport={{ once: true, margin: "0% 0% -10% 0%" }}
                 variants={variants}
-                className="text-stroke h1-md-bold inline-block text-transparent lg:[--y-from:75px] 2xl:[--y-from:150px]"
+                className="text-stroke h1-md-bold inline-block text-transparent"
               >
                 3
               </motion.div>
