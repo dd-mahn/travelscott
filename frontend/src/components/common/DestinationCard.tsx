@@ -43,7 +43,7 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ destination }) => {
         <Link
           to={`/discover/destinations/${destination._id}`}
           target="_top"
-          className="grid h-[50svh] place-items-center overflow-hidden rounded-xl bg-gradient-to-t from-background-dark to-transparent"
+          className="grid h-[50svh] place-items-center overflow-hidden rounded-xl bg-gradient-to-t from-background-dark to-transparent shadow-component"
         >
           {destination.images[0] && (
             <motion.img
@@ -53,7 +53,7 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ destination }) => {
               loading="lazy"
               src={destination.images[0]}
               alt={destination.name}
-              className="h-full w-full rounded-xl"
+              className="cursor-hover h-full w-full rounded-xl"
             />
           )}
         </Link>
@@ -64,7 +64,7 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ destination }) => {
           <motion.span
             whileHover="hoverX"
             variants={variants}
-            className="span-medium w-fit uppercase"
+            className="cursor-hover-small span-medium w-fit uppercase"
           >
             {destination.name}
           </motion.span>
