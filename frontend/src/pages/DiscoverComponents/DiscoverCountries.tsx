@@ -23,10 +23,8 @@ type DiscoverCountriesProps = {
 // Framer motion variants
 const variants = {
   hidden: { opacity: 0, y: 40 },
-  hiddenY: (y: string) => {
-    return {
-      y: y,
-    };
+  hiddenFullY: {
+    y: "100%",
   },
   hiddenYScale: { scale: 0.95, y: 100, opacity: 0 },
   exitScale: { scale: 0, opacity: 0, y: 200, originX: 0 },
@@ -94,12 +92,12 @@ const DiscoverCountries: React.FC<DiscoverCountriesProps> = ({
       <section className="countries px-sect flex w-full flex-col items-center gap-4 lg:pb-20 lg:pt-sect-default 2xl:py-sect-default 2xl:pb-40">
         <div className="overflow-hidden">
           <motion.h1
-            initial={variants.hiddenY("var(--y-from)")}
+            initial="hiddenFullY"
             whileInView="visible"
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
             variants={variants}
-            className="h1-md-bold lg:[--y-from:75px] 2xl:[--y-from:120px]"
+            className="h1-md-bold"
           >
             Discover countries
           </motion.h1>
@@ -109,7 +107,7 @@ const DiscoverCountries: React.FC<DiscoverCountriesProps> = ({
         <motion.div
           initial="hidden"
           whileInView="visible"
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.5, delay: 1 }}
           variants={variants}
           viewport={{ once: true }}
           className="grid w-1/6 place-items-center"
@@ -157,10 +155,10 @@ const DiscoverCountries: React.FC<DiscoverCountriesProps> = ({
                 className="flex min-h-[70svh] w-full flex-row items-start lg:gap-6 2xl:gap-12"
               >
                 <div className="relative flex items-center justify-center">
-                  <div className="h-[70svh] w-[40svw] overflow-hidden rounded-xl">
+                  <div className="h-[70svh] w-[40svw] overflow-hidden rounded-xl shadow-component">
                     <motion.img
                       whileHover="hoverScale"
-                      transition={{duration: 0.4}}
+                      transition={{ duration: 0.4 }}
                       variants={variants}
                       src={selectedContinent.image}
                       alt="map"
@@ -168,7 +166,7 @@ const DiscoverCountries: React.FC<DiscoverCountriesProps> = ({
                     />
                   </div>
 
-                  <h2 className="h2-logo absolute m-auto uppercase text-text-dark">
+                  <h2 className="h2-logo pointer-events-none absolute m-auto select-none uppercase text-text-dark">
                     {selectedContinent.name}
                   </h2>
                 </div>
@@ -210,12 +208,12 @@ const DiscoverCountries: React.FC<DiscoverCountriesProps> = ({
       <section className="related flex flex-col lg:gap-12 2xl:gap-20">
         <div className="px-sect overflow-hidden">
           <motion.h2
-            initial={variants.hiddenY("var(--y-from)")}
+            initial="hiddenFullY"
             whileInView="visible"
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
             variants={variants}
-            className="h2-md lg:[--y-from:40px] 2xl:[--y-from:60px]"
+            className="h2-md"
           >
             Related articles
           </motion.h2>
