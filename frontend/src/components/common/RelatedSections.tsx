@@ -1,5 +1,8 @@
 import React from "react";
 import Slider from "react-slick";
+import { motion } from "framer-motion";
+
+// Component imports
 import useFetch from "src/hooks/useFetch";
 import Blog from "src/types/Blog";
 import Country from "src/types/Country";
@@ -12,6 +15,15 @@ import {
 import { BASE_URL } from "src/utils/config";
 import { Link } from "react-router-dom";
 
+// Framer motion variants
+const variants = {
+  hoverBrightness: {
+    filter: "brightness(0.5)",
+    transition: {
+      duration: 0.4,
+    },
+  },
+};
 // Slider settings
 const settings = {
   dots: false,
@@ -69,7 +81,9 @@ const RelatedSections: React.FC<RelatedSectionsProps> = ({ type, data }) => {
   ) : type === "blog" ? (
     <RelatedArticles data={data} />
   ) : (
-    <p>No related</p>
+    <div className="px-sect w-full">
+      <p className="p-regular mt-4">Nothing related at the moment.</p>
+    </div>
   );
 };
 
@@ -102,13 +116,13 @@ const RelatedCountries: React.FC<CountryProps> = ({ country }) => {
     (c) => c.name !== country.name,
   );
 
-  if (countriesLoading) return <div>Loading...</div>;
-  if (countriesError) return <div>Error: {countriesError}</div>;
+  if (countriesLoading) return <div></div>;
+  if (countriesError) return <div></div>;
   if (!relatedCountries || relatedCountries.length === 0)
     return (
-      <div className="px-sect">
+      <div className="">
         <p className="p-regular mt-4">
-          There are no related countries at the moment
+          There are no related countries at the moment.
         </p>
       </div>
     );
@@ -122,14 +136,17 @@ const RelatedCountries: React.FC<CountryProps> = ({ country }) => {
               to={`/discover/countries/${country._id}`}
               target="_top"
               key={country.name}
-              className="relative w-[20svw] lg:h-[35svh] 2xl:h-[30svh]"
+              className="relative w-[20svw] rounded-lg lg:h-[35svh] 2xl:h-[30svh]"
             >
-              <img
+              <motion.img
+                variants={variants}
+                whileHover="hoverBrightness"
+                transition={{ duration: 0.4 }}
                 src={country.images.otherImages?.[0]}
                 alt={country.name}
-                className="absolute right-0 top-0 z-0 h-full w-full brightness-75 transition-all duration-300 hover:brightness-50"
+                className="cursor-hover absolute right-0 top-0 z-0 h-full w-full rounded-lg brightness-75"
               />
-              <p className="p-large absolute left-0 right-0 top-[40%] z-10 px-8 text-center font-prima text-text-dark">
+              <p className="cursor-hover-small p-large pointer-events-none absolute left-0 right-0 top-[40%] z-10 px-8 text-center font-prima text-text-dark">
                 {country.name}
               </p>
             </Link>
@@ -143,14 +160,17 @@ const RelatedCountries: React.FC<CountryProps> = ({ country }) => {
               to={`/discover/countries/${country._id}`}
               target="_top"
               key={country.name}
-              className="relative w-[20svw] cursor-pointer lg:h-[35svh] 2xl:h-[30svh]"
+              className="relative w-[20svw] cursor-pointer rounded-lg lg:h-[35svh] 2xl:h-[30svh]"
             >
-              <img
+              <motion.img
+                variants={variants}
+                whileHover="hoverBrightness"
+                transition={{ duration: 0.4 }}
                 src={country.images.otherImages?.[0]}
                 alt={country.name}
-                className="absolute right-0 top-0 z-0 h-full w-full brightness-75 transition-all duration-300 hover:brightness-50"
+                className="cursor-hover absolute right-0 top-0 z-0 h-full w-full rounded-lg brightness-75"
               />
-              <p className="p-large absolute left-0 right-0 top-[40%] z-10 px-8 text-center font-prima text-text-dark">
+              <p className="cursor-hover-small p-large pointer-events-none absolute left-0 right-0 top-[40%] z-10 px-8 text-center font-prima text-text-dark">
                 {country.name}
               </p>
             </Link>
@@ -186,13 +206,13 @@ const RelatedDestinations: React.FC<DestinationProps> = ({ destination }) => {
     ...(tagsRelatedDestinations || []),
   ];
 
-  if (destinationsLoading) return <div>Loading...</div>;
-  if (destinationsError) return <div>Error: {destinationsError}</div>;
+  if (destinationsLoading) return <div></div>;
+  if (destinationsError) return <div></div>;
   if (!relatedDestinations || relatedDestinations.length === 0)
     return (
       <div className="px-sect grid place-items-center">
         <p className="p-regular mt-4">
-          There are no related destinations at the moment
+          There are no related destinations at the moment.
         </p>
       </div>
     );
@@ -205,14 +225,17 @@ const RelatedDestinations: React.FC<DestinationProps> = ({ destination }) => {
               to={`/discover/destinations/${destination._id}`}
               target="_top"
               key={destination.name}
-              className="relative w-[20svw] lg:h-[35svh] 2xl:h-[30svh]"
+              className="relative w-[20svw] rounded-lg lg:h-[35svh] 2xl:h-[30svh]"
             >
-              <img
+              <motion.img
+                variants={variants}
+                whileHover="hoverBrightness"
+                transition={{ duration: 0.4 }}
                 src={destination.images?.[0]}
                 alt={destination.name}
-                className="absolute right-0 top-0 z-0 h-full w-full brightness-75 transition-all duration-300 hover:brightness-50"
+                className="cursor-hover absolute right-0 top-0 z-0 h-full w-full rounded-lg brightness-75"
               />
-              <p className="p-large absolute left-0 right-0 top-[40%] z-10 px-8 text-center font-prima text-text-dark">
+              <p className="cursor-hover-small p-large pointer-events-none absolute left-0 right-0 top-[40%] z-10 px-8 text-center font-prima text-text-dark">
                 {destination.name}
               </p>
             </Link>
@@ -227,14 +250,17 @@ const RelatedDestinations: React.FC<DestinationProps> = ({ destination }) => {
               to={`/discover/destinations/${destination._id}`}
               target="_top"
               key={destination.name}
-              className="relative w-[20svw] lg:h-[35svh] 2xl:h-[30svh]"
+              className="relative w-[20svw] rounded-lg lg:h-[35svh] 2xl:h-[30svh]"
             >
-              <img
+              <motion.img
+                variants={variants}
+                whileHover="hoverBrightness"
+                transition={{ duration: 0.4 }}
                 src={destination.images?.[0]}
                 alt={destination.name}
-                className="absolute right-0 top-0 z-0 h-full w-full brightness-75 transition-all duration-300 hover:brightness-50"
+                className="absolute right-0 top-0 z-0 h-full w-full rounded-lg brightness-75"
               />
-              <p className="p-large absolute left-0 right-0 top-[40%] z-10 px-8 text-center font-prima text-text-dark">
+              <p className="cursor-hover-small p-large pointer-events-none absolute left-0 right-0 top-[40%] z-10 px-8 text-center font-prima text-text-dark">
                 {destination.name}
               </p>
             </Link>
@@ -278,8 +304,8 @@ const RelatedArticles: React.FC<BlogProps> = ({ data }) => {
   };
 
   // Render logic
-  if (blogLoading) return <div>Loading...</div>;
-  if (blogError) return <div>Error: {blogError}</div>;
+  if (blogLoading) return <div></div>;
+  if (blogError) return <div></div>;
   if (!blogs) {
     return (
       <div className="">
@@ -313,16 +339,6 @@ const RelatedArticles: React.FC<BlogProps> = ({ data }) => {
     relatedBlogs = relatedBlogs.filter((blog) => blog.tags.includes(data));
   }
 
-  if (relatedBlogs.length === 0) {
-    return (
-      <div className="">
-        <p className="p-regular mt-4">
-          There are no related articles at the moment
-        </p>
-      </div>
-    );
-  }
-
   return (
     <>
       {relatedBlogs.length < 5 && (
@@ -332,19 +348,22 @@ const RelatedArticles: React.FC<BlogProps> = ({ data }) => {
               to={`/inspiration/${blog._id}`}
               target="_top"
               key={blog.title}
-              className="relative w-[20svw] cursor-pointer border-background-light lg:h-[35svh] 2xl:h-[30svh]"
+              className="relative w-[20svw] cursor-pointer rounded-lg border-background-light lg:h-[35svh] 2xl:h-[30svh]"
               style={{
                 backgroundImage: `url(${blog.image})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}
             >
-              <img
+              <motion.img
+                variants={variants}
+                whileHover="hoverBrightness"
+                transition={{ duration: 0.4 }}
                 src={blog.image}
                 alt={blog.title}
-                className="absolute left-0 top-0 z-0 h-full w-full brightness-75 transition-all duration-300 hover:brightness-50"
+                className="cursor-hover absolute left-0 top-0 z-0 h-full w-full rounded-lg brightness-75"
               />
-              <p className="p-large absolute left-0 right-0 top-[40%] z-10 px-8 text-center font-prima text-text-dark">
+              <p className="cursor-hover-small p-large pointer-events-none absolute left-0 right-0 top-[40%] z-10 px-8 text-center font-prima text-text-dark">
                 {blog.title}
               </p>
             </Link>
@@ -358,19 +377,22 @@ const RelatedArticles: React.FC<BlogProps> = ({ data }) => {
               to={`/inspiration/${blog._id}`}
               target="_top"
               key={blog.title}
-              className="relative cursor-pointer border-r-8 border-background-light lg:h-[35svh] 2xl:h-[30svh] 2xl:w-[20svw]"
+              className="relative cursor-pointer rounded-lg border-r-8 border-background-light lg:h-[35svh] 2xl:h-[30svh] 2xl:w-[20svw]"
               style={{
                 backgroundImage: `url(${blog.image})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}
             >
-              <img
+              <motion.img
+                variants={variants}
+                whileHover="hoverBrightness"
+                transition={{ duration: 0.4 }}
                 src={blog.image}
                 alt={blog.title}
-                className="absolute left-0 top-0 z-0 h-full w-full brightness-75 transition-all duration-300 hover:brightness-50"
+                className="cursor-hover absolute left-0 top-0 z-0 h-full w-full rounded-lg brightness-75"
               />
-              <p className="p-large absolute left-0 right-0 top-[40%] z-10 px-8 text-center font-prima text-text-dark">
+              <p className="cursor-hover-small p-large pointer-events-none absolute left-0 right-0 top-[40%] z-10 px-8 text-center font-prima text-text-dark">
                 {blog.title}
               </p>
             </Link>
