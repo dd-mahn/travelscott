@@ -58,11 +58,6 @@ const otherLinks = [
 
 const variants = {
   hidden: { opacity: 0, y: 50 },
-  hiddenY: (y: string) => {
-    return {
-      y: y,
-    };
-  },
   visible: { opacity: 1, y: 0 },
 };
 
@@ -174,7 +169,7 @@ const Footer = () => {
       </motion.div>
 
       <div className="flex justify-center border-t border-solid border-gray">
-        <div className="w-screen select-none overflow-hidden text-center font-logo text-text-light lg:mr-16 lg:text-8xl lg:[--y-from:250px] xl:text-13xl 2xl:text-14xl 2xl:[--y-from:200px] 3xl:text-15xl">
+        <div className="w-screen select-none overflow-hidden text-center font-logo text-text-light lg:mr-16 lg:text-8xl xl:text-13xl 2xl:text-14xl 3xl:text-15xl">
           <StaggerLogo />
         </div>
       </div>
