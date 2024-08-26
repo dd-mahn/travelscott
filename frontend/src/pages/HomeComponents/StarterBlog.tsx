@@ -122,7 +122,7 @@ const BlogComponent = ({
         </p>
         <button className="underline-btn uppercase">
           <Link to={`/inspiration/${blog._id}`} target="_top">
-            View<i className="cursor-hover-small ri-arrow-right-up-line"></i>
+            View<i className="pointer-events-none ri-arrow-right-up-line"></i>
           </Link>
         </button>
       </div>
