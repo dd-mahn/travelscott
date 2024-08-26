@@ -141,15 +141,16 @@ const HorizontalScrollCarousel: React.FC<HorizontalScrollCarouselProps> = ({
                       <span className="span-regular text-gray">
                         {destination.country}
                       </span>
-                      <Link to={"/"}>
-                        <motion.span
-                          whileHover="hoverX"
-                          variants={variants}
-                          className="span-medium w-fit cursor-pointer uppercase"
-                        >
+
+                      <motion.span
+                        whileHover="hoverX"
+                        variants={variants}
+                        className="cursor-hover-small span-medium w-fit cursor-pointer uppercase"
+                      >
+                        <Link to={"/"}>
                           {destination.name}
-                        </motion.span>
-                      </Link>
+                        </Link>
+                      </motion.span>
 
                       <div className="mt-4 flex gap-2">
                         {destination.tags.map((tag, index) => (
