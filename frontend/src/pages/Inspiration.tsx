@@ -17,6 +17,7 @@ import relaxationImage from "src/assets/images/ui/inspiration/relax.jpg";
 import firstTimeAbroadImage from "src/assets/images/ui/inspiration/first.jpg";
 import NotFoundPage from "./404";
 import { Link } from "react-router-dom";
+import Loading from "src/components/common/Loading";
 
 const limit = 10;
 
@@ -97,11 +98,7 @@ const Inspiration: React.FC = () => {
 
   // Component render logic (simplified for brevity)
   if (blogsLoading) {
-    return (
-      <div className="grid h-screen w-full place-items-center">
-        <h1 className="h1-md">Loading...</h1>
-      </div>
-    );
+    return <Loading />;
   }
   if (blogsError || allBlogsError) {
     return <NotFoundPage />;
