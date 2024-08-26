@@ -18,8 +18,8 @@ const variants = {
     y: 20,
   },
 
-  hiddenY: (y: string) => {
-    return { y: y };
+  hiddenFullY:{
+    y: "100%"
   },
 
   visible: {
@@ -66,28 +66,10 @@ const variants = {
   },
 };
 
-// Animation control function
-const useAnimatedInView = (
-  ref: React.RefObject<HTMLDivElement>,
-  delay?: number,
-) => {
-  const inView = useInView(ref);
-  const controls = useAnimation();
-
-  useEffect(() => {
-    if (inView) {
-      controls.start("visible");
-    }
-  }, [inView, controls]);
-
-  return controls;
-};
-
 // Brief component
 const Brief: React.FC = () => {
   // Add refs for animations
   const paragraphRefs = [useRef(null), useRef(null), useRef(null)];
-  const h2ContainersRef = [useRef(null), useRef(null)];
 
   // Handle animations
   const scrollYProgresses = paragraphRefs.map(
@@ -101,9 +83,6 @@ const Brief: React.FC = () => {
   const opacities = scrollYProgresses.map((scrollYProgress) =>
     useTransform(scrollYProgress, [0, 1], [0.1, 1]),
   );
-
-  const h21Controls = useAnimatedInView(h2ContainersRef[0]);
-  const h22Controls = useAnimatedInView(h2ContainersRef[1]);
 
   return (
     <section className="brief px-sect flex flex-col lg:gap-36 lg:py-sect-medium xl:gap-48 xl:py-sect-semi 2xl:gap-64 2xl:py-sect-long 3xl:gap-80 3xl:py-sect-long">
@@ -119,30 +98,28 @@ const Brief: React.FC = () => {
         />
         <div>
           <div
-            ref={h2ContainersRef[0]}
             className="h2-inter overflow-hidden pb-2"
           >
             <motion.div
               variants={variants}
-              initial={variants.hiddenY("var(--y-from)")}
-              animate={h21Controls}
+              initial="hiddenFullY"
+              whileInView="visible"
               transition={{ duration: 0.5 }}
-              className="lg:[--y-from:75px] 2xl:[--y-from:100px]"
+              className=""
             >
               A <span className="text-main-green">Comprehensive Catalog</span>{" "}
               of
             </motion.div>
           </div>
           <div
-            ref={h2ContainersRef[1]}
             className="h2-inter overflow-hidden pb-2"
           >
             <motion.div
               variants={variants}
-              initial={variants.hiddenY("var(--y-from)")}
-              animate={h22Controls}
+              initial="hiddenFullY"
+              whileInView="visible"
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="lg:[--y-from:75px] 2xl:[--y-from:100px]"
+              className=""
             >
               Destinations with Tailored Travel Insights.
             </motion.div>
