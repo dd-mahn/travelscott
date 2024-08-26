@@ -16,7 +16,7 @@ const variants = {
     scale: 1.05,
     transition: {
       duration: 0.4,
-      ease: "easeInOut"
+      ease: "easeInOut",
     },
   },
   hoverRight: {
@@ -57,7 +57,7 @@ const CountryCard: React.FC<CountryCardProps> = ({ country }) => {
           whileHover="hoverRotate"
           whileTap="tapRotate"
           variants={variants}
-          className="flex cursor-pointer items-center justify-center overflow-hidden rounded-xl bg-gradient-to-t from-background-dark to-transparent lg:h-20 lg:w-2/3"
+          className="flex cursor-pointer items-center justify-center overflow-hidden rounded-xl bg-gradient-to-t from-background-dark to-transparent shadow-component lg:h-20 lg:w-2/3"
         >
           <Link
             to={`countries/${country._id}`}
@@ -66,11 +66,11 @@ const CountryCard: React.FC<CountryCardProps> = ({ country }) => {
           >
             <motion.img
               whileHover="hoverScale"
-              transition={{duration: 0.4}}
+              transition={{ duration: 0.4 }}
               variants={variants}
               src={country?.images?.flagImages?.[0]}
               alt={country.name}
-              className="h-full w-full rounded-xl"
+              className="cursor-hover h-full w-full rounded-xl"
             />
           </Link>
         </motion.div>
@@ -78,7 +78,7 @@ const CountryCard: React.FC<CountryCardProps> = ({ country }) => {
           <motion.span
             whileHover="hoverRight"
             variants={variants}
-            className="span-medium cursor-pointer"
+            className="cursor-hover-small span-medium cursor-pointer"
           >
             <Link to={`countries/${country._id}`} target="_top">
               {country.name}
