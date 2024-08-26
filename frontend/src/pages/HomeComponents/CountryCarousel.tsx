@@ -2,21 +2,21 @@ import React, { useState } from "react";
 import Slider from "react-slick";
 
 // Flags
-import vietnamFlag from "src/assets/images/ui/countryFlags/vietnam-flag-medium.png";
-import japanFlag from "src/assets/images/ui/countryFlags/japan-flag-medium.jpg";
-import brazilFlag from "src/assets/images/ui/countryFlags/brazil-flag-medium.jpg";
-import franceFlag from "src/assets/images/ui/countryFlags/france-flag-medium.jpg";
-import germanyFlag from "src/assets/images/ui/countryFlags/germany-flag-medium.jpg";
-import indiaFlag from "src/assets/images/ui/countryFlags/india-flag-medium.jpg";
-import southKoreaFlag from "src/assets/images/ui/countryFlags/south-korea-flag-medium.jpg";
-import spainFlag from "src/assets/images/ui/countryFlags/spain-flag-medium.jpg";
-import ukFlag from "src/assets/images/ui/countryFlags/united-kingdom-flag-medium.jpg";
-import usaFlag from "src/assets/images/ui/countryFlags/united-states-of-america-flag-medium.jpg";
-import thailandFlag from "src/assets/images/ui/countryFlags/thailand-flag.jpg";
-import icelandFlag from "src/assets/images/ui/countryFlags/iceland-flag-medium.jpg";
-import canadaFlag from "src/assets/images/ui/countryFlags/canada-flag-medium.jpg";
-import australiaFlag from "src/assets/images/ui/countryFlags/australia-flag-medium.jpg";
-import argentinaFlag from "src/assets/images/ui/countryFlags/argentina-flag-medium.jpg";
+import vietnamFlag from "src/assets/images/ui/countryFlags/vietnam-flag-medium.webp";
+import japanFlag from "src/assets/images/ui/countryFlags/japan-flag-medium.webp";
+import brazilFlag from "src/assets/images/ui/countryFlags/brazil-flag-medium.webp";
+import franceFlag from "src/assets/images/ui/countryFlags/france-flag-medium.webp";
+import germanyFlag from "src/assets/images/ui/countryFlags/germany-flag-medium.webp";
+import indiaFlag from "src/assets/images/ui/countryFlags/india-flag-medium.webp";
+import southKoreaFlag from "src/assets/images/ui/countryFlags/south-korea-flag-medium.webp";
+import spainFlag from "src/assets/images/ui/countryFlags/spain-flag-medium.webp";
+import ukFlag from "src/assets/images/ui/countryFlags/united-kingdom-flag-medium.webp";
+import usaFlag from "src/assets/images/ui/countryFlags/united-states-of-america-flag-medium.webp";
+import thailandFlag from "src/assets/images/ui/countryFlags/thailand-flag.webp";
+import icelandFlag from "src/assets/images/ui/countryFlags/iceland-flag-medium.webp";
+import canadaFlag from "src/assets/images/ui/countryFlags/canada-flag-medium.webp";
+import australiaFlag from "src/assets/images/ui/countryFlags/australia-flag-medium.webp";
+import argentinaFlag from "src/assets/images/ui/countryFlags/argentina-flag-medium.webp";
 import { shuffleArray } from "src/utils/shuffleArray";
 import { optimizeImage } from "src/utils/optimizeImage";
 
