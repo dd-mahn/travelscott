@@ -6,10 +6,8 @@ import { NoirButton } from "src/components/common/Button";
 const variants = {
   hiddenOpacity: { opacity: 0 },
   hidden: { opacity: 0, y: 40 },
-  hiddenY: (y: string) => {
-    return {
-      y: y,
-    };
+  hiddenFullY: {
+    y: "100%"
   },
   visible: { opacity: 1, y: 0 },
   auroraHover: {
@@ -46,29 +44,29 @@ const NotFoundPage: React.FC = () => {
       ></motion.div>
       <div className="big-heading z-20 overflow-hidden">
         <motion.div
-          initial={variants.hiddenY("var(--y-from)")}
+          initial="hiddenFullY"
           animate="visible"
           variants={variants}
           transition={{ duration: 1, type: "spring", bounce: 0.5 }}
-          className="pointer-events-none inline-block text-text-light lg:[--y-from:100px] 2xl:[--y-from:150px] dark:text-text-dark"
+          className="pointer-events-none inline-block text-text-light dark:text-text-dark"
         >
           4
         </motion.div>
         <motion.div
-          initial={variants.hiddenY("var(--y-from)")}
+          initial="hiddenFullY"
           animate="visible"
           variants={variants}
           transition={{ duration: 1, type: "spring", bounce: 0.5, delay: 0.2 }}
-          className="pointer-events-none inline-block text-text-light lg:[--y-from:100px] 2xl:[--y-from:150px] dark:text-text-dark"
+          className="pointer-events-none inline-block text-text-light dark:text-text-dark"
         >
           0
         </motion.div>
         <motion.div
-          initial={variants.hiddenY("var(--y-from)")}
+          initial="hiddenFullY"
           animate="visible"
           variants={variants}
           transition={{ duration: 1, type: "spring", bounce: 0.5, delay: 0.4 }}
-          className="pointer-events-none inline-block text-text-light lg:[--y-from:100px] 2xl:[--y-from:150px] dark:text-text-dark"
+          className="pointer-events-none inline-block text-text-light dark:text-text-dark"
         >
           4
         </motion.div>
