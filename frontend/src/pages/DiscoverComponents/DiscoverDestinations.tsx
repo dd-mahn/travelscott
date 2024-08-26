@@ -26,15 +26,13 @@ type DiscoverDestinationsProps = {
 // Framer motion variants
 const variants = {
   hidden: { opacity: 0, y: 40 },
-  hiddenY: (y: string) => {
-    return {
-      y: y,
-    };
+  hiddenFullY: {
+    y: "100%",
   },
   hiddenYScale: { scale: 0.95, y: 100, opacity: 0 },
   exitScale: { scale: 0, opacity: 0, y: 200, originX: 0 },
   visible: { opacity: 1, scale: 1, y: 0, x: 0 },
-  exitX: { x: -1000, opacity: 0, transition: { duration: 0.8 } },
+  exitX: { x: -1000, opacity: 0 },
   hoverScale: {
     scale: 1.05,
     transition: {
@@ -131,26 +129,40 @@ const DiscoverDestinations: React.FC<DiscoverDestinationsProps> = ({
     >
       <div className="overflow-hidden">
         <motion.h1
-          initial={variants.hiddenY("var(--y-from)")}
+          initial="hiddenFullY"
           whileInView="visible"
           viewport={{ once: true }}
           variants={variants}
           transition={{ duration: 0.5 }}
-          className="h1-md lg:[--y-from:75px] 2xl:[--y-from:100px]"
+          className="h1-md"
         >
           Discover destinations
         </motion.h1>
       </div>
 
       <div className="flex w-full flex-row justify-between py-sect-short">
-        <p className="p-medium">
+        <motion.p
+          initial="hidden"
+          whileInView="visible"
+          variants={variants}
+          transition={{ duration: 0.5, delay: 0.5 }}
+          viewport={{ once: true }}
+          className="p-medium"
+        >
           Each destination we’ve covered here is fully filled <br />
-          with significant information you will need
-        </p>
-        <div className="relative">
+          with significant information you will need.
+        </motion.p>
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          variants={variants}
+          transition={{ duration: 0.5, delay: 1 }}
+          viewport={{ once: true }}
+          className="relative"
+        >
           <motion.button
             whileHover="hoverScale"
-            transition={{duration: 0.4}}
+            transition={{ duration: 0.3 }}
             variants={variants}
             whileTap="tapScale"
             title="filter"
@@ -158,7 +170,7 @@ const DiscoverDestinations: React.FC<DiscoverDestinationsProps> = ({
             onClick={() => toggleFilterBoard()}
           >
             <i
-              className={`ri-filter-3-line p-large m-auto text-text-dark transition-all`}
+              className={`pointer-events-none ri-filter-3-line p-large m-auto select-none text-text-dark transition-all`}
             ></i>
           </motion.button>
           <AnimatePresence mode="wait">
@@ -176,7 +188,7 @@ const DiscoverDestinations: React.FC<DiscoverDestinationsProps> = ({
               />
             )}
           </AnimatePresence>
-        </div>
+        </motion.div>
       </div>
       <div className="grid min-h-[50svh] w-full place-items-center">
         <AnimatePresence mode="wait">
@@ -235,7 +247,6 @@ const DiscoverDestinations: React.FC<DiscoverDestinationsProps> = ({
                 transition={{
                   duration: 0.5,
                   ease: "easeInOut",
-                  // staggerChildren: 0.2,
                 }}
                 variants={variants}
               >
