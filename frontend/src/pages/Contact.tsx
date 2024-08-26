@@ -136,7 +136,7 @@ const Contact: React.FC = () => {
               toggleInfo("emailing");
             }}
           >
-            <i className={`cursor-hover-small ri-arrow-up-line p-large`}></i>
+            <i className={`pointer-events-none ri-arrow-up-line p-large`}></i>
           </motion.button>
         </div>
         <AnimatePresence mode="popLayout">
@@ -194,7 +194,7 @@ const Contact: React.FC = () => {
               toggleInfo("contribute");
             }}
           >
-            <i className="cursor-hover-small ri-arrow-up-line p-large"></i>
+            <i className="pointer-events-none ri-arrow-up-line p-large"></i>
           </motion.button>
         </div>
         <AnimatePresence mode="popLayout">
@@ -245,7 +245,7 @@ const Contact: React.FC = () => {
               toggleInfo("feedback");
             }}
           >
-            <i className="cursor-hover-small ri-arrow-up-line p-large"></i>
+            <i className="pointer-events-none ri-arrow-up-line p-large"></i>
           </motion.button>
         </div>
         <AnimatePresence mode="popLayout">
