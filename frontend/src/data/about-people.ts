@@ -1,4 +1,4 @@
-import manhDo from "src/assets/images/ui/about/manhdo.jpg";
+import manhDo from "src/assets/images/ui/about/manhdo.webp";
 
 export const people = [
   {

@@ -1,13 +1,13 @@
-import featured1 from "src/assets/images/ui/home/featured-1.jpg";
-import featured2 from "src/assets/images/ui/home/featured-2.jpg";
-import featured3 from "src/assets/images/ui/home/featured-3.jpg";
-import featured4 from "src/assets/images/ui/home/featured-4.jpg";
-import featured5 from "src/assets/images/ui/home/featured-5.jpg";
-import featured6 from "src/assets/images/ui/home/featured-6.jpg";
-import featured7 from "src/assets/images/ui/home/featured-7.jpg";
-import featured8 from "src/assets/images/ui/home/featured-8.jpg";
-import featured9 from "src/assets/images/ui/home/featured-9.jpg";
-import featured10 from "src/assets/images/ui/home/featured-10.jpg";
+import featured1 from "src/assets/images/ui/home/featured-1.webp";
+import featured2 from "src/assets/images/ui/home/featured-2.webp";
+import featured3 from "src/assets/images/ui/home/featured-3.webp";
+import featured4 from "src/assets/images/ui/home/featured-4.webp";
+import featured5 from "src/assets/images/ui/home/featured-5.webp";
+import featured6 from "src/assets/images/ui/home/featured-6.webp";
+import featured7 from "src/assets/images/ui/home/featured-7.webp";
+import featured8 from "src/assets/images/ui/home/featured-8.webp";
+import featured9 from "src/assets/images/ui/home/featured-9.webp";
+import featured10 from "src/assets/images/ui/home/featured-10.webp";
 
 export const featuredDemo = [
   {
