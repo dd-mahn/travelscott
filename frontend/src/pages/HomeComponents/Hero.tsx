@@ -15,8 +15,8 @@ const variants = {
     y: 20,
   },
 
-  hiddenY: (y: string) => {
-    return { y: y };
+  hiddenFullY:{
+    y: "100%"
   },
 
   visible: {
@@ -192,6 +192,7 @@ const Hero: React.FC = () => {
         >
           <motion.img
             whileHover="hoverScale"
+            loading="lazy"
             transition={{ duration: 0.4 }}
             variants={variants}
             drag
@@ -209,6 +210,7 @@ const Hero: React.FC = () => {
         </motion.div>
         <motion.img
           whileHover="hoverScale"
+          loading="lazy"
           transition={{ duration: 0.4 }}
           variants={variants}
           initial="airplane2Start"
@@ -228,6 +230,7 @@ const Hero: React.FC = () => {
         <motion.img
           variants={variants}
           initial="airplane3Start"
+          loading="lazy"
           whileInView="airPlane3End"
           viewport={{ once: true }}
           whileHover="hoverScale"
@@ -258,7 +261,7 @@ const Hero: React.FC = () => {
         <div className="overflow-hidden">
           <motion.h1
             variants={variants}
-            initial="hiddenY"
+            initial="hiddenFullY"
             animate={starSiblingControls}
             transition={{ duration: 0.5 }}
             className="h1-md inline-block"
@@ -270,10 +273,10 @@ const Hero: React.FC = () => {
         <div className="overflow-hidden">
           <motion.h1
             variants={variants}
-            initial={variants.hiddenY("var(--y-from)")}
+            initial="hiddenFullY"
             animate="visible"
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="h1-md lg:[--y-from:50px] 2xl:[--y-from:75px]"
+            className="h1-md"
           >
             favorite{" "}
             <span className="uppercase text-main-green">travel guide</span>
@@ -283,10 +286,10 @@ const Hero: React.FC = () => {
         <div className="overflow-hidden pb-2">
           <motion.h1
             variants={variants}
-            initial={variants.hiddenY("var(--y-from)")}
+            initial="hiddenFullY"
             animate="visible"
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="h1-md lg:[--y-from:50px] 2xl:[--y-from:75px]"
+            className="h1-md"
           >
             to{" "}
             <motion.span className="border-b-4 border-solid border-text-light dark:border-text-dark">
