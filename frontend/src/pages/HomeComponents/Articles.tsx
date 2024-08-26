@@ -19,8 +19,8 @@ const variants = {
     y: 20,
   },
 
-  hiddenY: (y: string) => {
-    return { y: y };
+  hiddenFullY: {
+    y: "100%",
   },
 
   hiddenScale: {
@@ -121,14 +121,14 @@ const Articles: React.FC<ArticlesProps> = ({ articlesHookRef, blogChunks }) => {
       </motion.span>
       {blogChunks !== undefined && blogChunks.length !== 0 && (
         <section className="blogs flex flex-col items-center justify-start gap-sect-short lg:pb-sect-default lg:pt-sect-short 2xl:pb-sect-medium 2xl:pt-60">
-          <div className="overflow-hidden">
+          <div className="overflow-hidden h-fit">
             <motion.h1
-              initial={variants.hiddenY("var(--y-from)")}
+              initial="hiddenFullY"
               whileInView="visible"
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
               variants={variants}
-              className="h1-md lg:[--y-from:75px] 2xl:[--y-from:100px]"
+              className="big-heading"
             >
               {new Date().toLocaleString("default", {
                 month: "long",
@@ -157,7 +157,7 @@ const Articles: React.FC<ArticlesProps> = ({ articlesHookRef, blogChunks }) => {
                   target="_top"
                   className="flex h-full w-full cursor-pointer flex-col gap-4"
                 >
-                  <div className="h-[50svh] w-full overflow-hidden rounded-lg">
+                  <div className="h-[50svh] w-full overflow-hidden rounded-lg shadow-component">
                     <motion.img
                       loading="lazy"
                       src={blogChunks[chunkIndex][0].image}
@@ -199,7 +199,7 @@ const Articles: React.FC<ArticlesProps> = ({ articlesHookRef, blogChunks }) => {
                       className="flex h-full cursor-pointer flex-row gap-4"
                       key={blog._id}
                     >
-                      <div className="h-full w-[45%] overflow-hidden rounded-lg">
+                      <div className="h-full w-[45%] overflow-hidden rounded-lg shadow-component">
                         <motion.img
                           loading="lazy"
                           src={blog.image}
