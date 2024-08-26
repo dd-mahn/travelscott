@@ -22,12 +22,6 @@ interface FullFilterBoardProps {
 
 const variants = {
   hidden: { opacity: 0, y: 40 },
-  hiddenY: (y: string) => {
-    return {
-      y: y,
-    };
-  },
-  hiddenYScale: { scale: 0.95, y: 100 },
   visible: { opacity: 1, scale: 1, y: 0, x: 0 },
   hoverScale: {
     scale: 1.05,
