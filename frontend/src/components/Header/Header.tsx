@@ -187,6 +187,7 @@ const Header = () => {
       <div className="lg:flex lg:items-center lg:justify-between">
         <NavLink to={"/"} target="_top">
           <motion.h1
+          layoutId="main-logo"
             variants={HoverVariants}
             whileHover="hoverScale"
             transition={{ duration: 0.2 }}
@@ -218,7 +219,7 @@ const Header = () => {
                     ? "p-regular opacity-40"
                     : isActive
                       ? "p-regular"
-                      : "p-regular opacity-40 transition-opacity duration-300 hover:opacity-75"
+                      : "p-regular opacity-40 transition-opacity duration-300 hover:opacity-100"
                 }
               >
                 {item.display}
@@ -255,7 +256,7 @@ const Header = () => {
               className="p-large px-1"
               onClick={handleSearchClick}
             >
-              <i className="cursor-hover-small ri-search-2-line"></i>
+              <i className="pointer-events-none ri-search-2-line"></i>
             </motion.button>
             {ReactDOM.createPortal(
               <SearchResult
@@ -277,7 +278,7 @@ const Header = () => {
             title="Toggle Contrast"
             className="p-large"
           >
-            <i className="cursor-hover-small ri-contrast-2-fill"></i>
+            <i className="pointer-events-none ri-contrast-2-fill"></i>
           </motion.button>
         </div>
       </div>
