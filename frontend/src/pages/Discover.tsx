@@ -3,12 +3,12 @@ import { Carousel } from "@material-tailwind/react";
 import { motion } from "framer-motion";
 
 // Asset imports
-import asiaMap from "src/assets/images/ui/maps/Asia.png";
-import europeMap from "src/assets/images/ui/maps/Europe.png";
-import africaMap from "src/assets/images/ui/maps/Africa.png";
-import northAmericaMap from "src/assets/images/ui/maps/NorthAmerica.png";
-import southAmericaMap from "src/assets/images/ui/maps/SouthAmerica.png";
-import oceaniaMap from "src/assets/images/ui/maps/Oceania.png";
+import asiaMap from "src/assets/images/ui/maps/Asia.webp";
+import europeMap from "src/assets/images/ui/maps/Europe.webp";
+import africaMap from "src/assets/images/ui/maps/Africa.webp";
+import northAmericaMap from "src/assets/images/ui/maps/NorthAmerica.webp";
+import southAmericaMap from "src/assets/images/ui/maps/SouthAmerica.webp";
+import oceaniaMap from "src/assets/images/ui/maps/Oceania.webp";
 
 // Component imports
 import "src/styles/discover.css";
@@ -28,10 +28,8 @@ import { Link } from "react-router-dom";
 // Framer motion variants
 const variants = {
   hidden: { opacity: 0, y: 40 },
-  hiddenY: (y: string) => {
-    return {
-      y: y,
-    };
+  hiddenFullY: {
+    y: "100%",
   },
   hiddenYScale: { scale: 0.95, y: 100 },
   visible: { opacity: 1, scale: 1, y: 0, x: 0 },
@@ -172,7 +170,7 @@ const Discover: React.FC = () => {
                         transition={{ duration: 0.4 }}
                         variants={variants}
                         src={destination.images[0]}
-                        className="z-0 h-full w-full brightness-75"
+                        className="cursor-hover z-0 h-full w-full brightness-75"
                         alt="Featured destination"
                       />
                     </Link>
@@ -181,12 +179,12 @@ const Discover: React.FC = () => {
                   <div className="z-10 w-fit pt-sect-short">
                     <div className="overflow-hidden">
                       <motion.h1
-                        initial={variants.hiddenY("var(--y-from)")}
+                        initial="hiddenFullY"
                         whileInView="visible"
                         viewport={{ once: true }}
                         transition={{ duration: 0.5, delay: 0.5 }}
                         variants={variants}
-                        className="big-heading text-text-dark lg:[--y-from:180px] 2xl:[--y-from:250px]"
+                        className="big-heading pointer-events-none select-none text-text-dark"
                       >
                         {destination.name}
                       </motion.h1>
@@ -202,17 +200,17 @@ const Discover: React.FC = () => {
                         staggerChildren: 0.2,
                       }}
                       variants={variants}
-                      className="flex w-full justify-between"
+                      className="pointer-events-none flex w-full justify-between"
                     >
                       <motion.span
                         variants={variants}
-                        className="span-medium text-text-dark"
+                        className="span-medium text-text-dark select-none" 
                       >
                         {destination.country}
                       </motion.span>
                       <motion.span
                         variants={variants}
-                        className="span-medium mr-2 text-text-dark"
+                        className="span-medium mr-2 text-text-dark select-none"
                       >
                         {destination.continent}
                       </motion.span>
