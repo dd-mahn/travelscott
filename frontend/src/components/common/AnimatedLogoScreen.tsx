@@ -1,23 +1,21 @@
 import React, { memo } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import StaggerLogo from "./staggerLogo";
 
 const AnimatedLogoScreen: React.FC = () => {
   return (
-    <AnimatePresence mode="wait">
+    <motion.div
+      className="grid h-screen w-screen place-items-center bg-background-light"
+    >
       <motion.div
-        key="WaitScreen"
-        initial="visible"
-        animate="visible"
-        exit={{ y: -1000 }}
-        transition={{ duration: 0.5, ease: "easeInOut" }}
-        className="grid h-screen w-screen place-items-center bg-background-light"
+        // layoutId="main-logo"
+        // layoutRoot
+        // transition={{layout: {duration: 1, ease: "easeInOut" }}}
+        className="w-screen select-none overflow-hidden text-center font-logo text-text-light lg:mr-16 lg:pr-12 lg:text-8xl xl:text-13xl 2xl:pr-20 2xl:text-14xl 3xl:text-15xl"
       >
-        <div className="w-screen select-none overflow-hidden text-center font-logo text-text-light lg:mr-16 lg:pr-12 lg:text-8xl xl:text-13xl 2xl:pr-20 2xl:text-14xl 3xl:text-15xl">
-          <StaggerLogo />
-        </div>
+        <StaggerLogo />
       </motion.div>
-    </AnimatePresence>
+    </motion.div>
   );
 };
 
