@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import planeIcon from "src/assets/svg/plane-icon.svg";
 import { motion } from "framer-motion";
 import { scrollToTop } from "src/utils/scrollToTop";
-import StaggerLogo from "../common/staggerLogo";
+import StaggerLogo from "../common/StaggerLogo";
 import { Link } from "react-router-dom";
 
 const sitemap = [
@@ -81,7 +81,7 @@ const Footer = () => {
             htmlFor="subscribe-email"
             className="label span-regular uppercase"
           >
-            Subscribe with email
+            Leave your email
           </label>
           <input
             type="email"
