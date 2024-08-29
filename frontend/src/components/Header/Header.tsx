@@ -208,7 +208,7 @@ const Header = () => {
               whileHover="hoverScale"
               transition={{ duration: 0.2 }}
               whileTap={{ scale: 1 }}
-              className="nav__item lg:[--size:1px] 2xl:[--size:1.5px]"
+              className="nav__item h-fit w-fit"
               key={index}
             >
               <NavLink
