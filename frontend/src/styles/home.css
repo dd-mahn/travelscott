@@ -43,7 +43,7 @@
 }
 
 .blogs {
-  background: linear-gradient(180deg, #fff1e7 10%, #fbf9f7 40%);
+  /* background: linear-gradient(180deg, #e7fff3 10%, #fbf9f7 40%); */
   border-top-left-radius: 2.5rem;
   border-top-right-radius: 2.5rem;
 }
