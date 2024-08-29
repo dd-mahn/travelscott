@@ -1,25 +1,20 @@
-import React, { memo, useEffect, useRef } from "react";
-import {
-  motion,
-  useAnimation,
-  useInView,
-  useScroll,
-  useTransform,
-} from "framer-motion";
+// Import necessary React hooks and Framer Motion components
+import React, { memo, useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
-// Asset imports
+// Import asset files
 import airplane1 from "src/assets/svg/airplane-1.svg";
 import briefVideo from "src/assets/videos/brief.mp4";
 
-// Framer motion variants
+// Define animation variants for Framer Motion
 const variants = {
   hidden: {
     opacity: 0,
     y: 20,
   },
 
-  hiddenFullY:{
-    y: "100%"
+  hiddenFullY: {
+    y: "100%",
   },
 
   visible: {
@@ -66,12 +61,12 @@ const variants = {
   },
 };
 
-// Brief component
+// Brief component definition
 const Brief: React.FC = () => {
-  // Add refs for animations
+  // Create refs for each paragraph to be animated
   const paragraphRefs = [useRef(null), useRef(null), useRef(null)];
 
-  // Handle animations
+  // Create scroll-based animations for each paragraph
   const scrollYProgresses = paragraphRefs.map(
     (ref) =>
       useScroll({
@@ -80,12 +75,14 @@ const Brief: React.FC = () => {
       }).scrollYProgress,
   );
 
+  // Transform scroll progress into opacity values
   const opacities = scrollYProgresses.map((scrollYProgress) =>
     useTransform(scrollYProgress, [0, 1], [0.1, 1]),
   );
 
   return (
     <section className="brief px-sect flex flex-col lg:gap-36 lg:py-sect-medium xl:gap-48 xl:py-sect-semi 2xl:gap-64 2xl:py-sect-long 3xl:gap-80 3xl:py-sect-long">
+      {/* Header section with animated airplane */}
       <div className="flex min-h-40 flex-row items-center lg:gap-28 xl:gap-28 2xl:gap-44 3xl:gap-60">
         <motion.img
           variants={variants}
@@ -97,13 +94,13 @@ const Brief: React.FC = () => {
           className="rotate-[45deg] transform lg:w-20 xl:w-24 2xl:w-28 3xl:w-32"
         />
         <div>
-          <div
-            className="h2-inter overflow-hidden pb-2"
-          >
+          {/* Animated header text */}
+          <div className="h2-inter overflow-hidden pb-2">
             <motion.div
               variants={variants}
               initial="hiddenFullY"
               whileInView="visible"
+              viewport={{ once: true }}
               transition={{ duration: 0.5 }}
               className=""
             >
@@ -111,13 +108,12 @@ const Brief: React.FC = () => {
               of
             </motion.div>
           </div>
-          <div
-            className="h2-inter overflow-hidden pb-2"
-          >
+          <div className="h2-inter overflow-hidden pb-2">
             <motion.div
               variants={variants}
               initial="hiddenFullY"
               whileInView="visible"
+              viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
               className=""
             >
@@ -126,24 +122,28 @@ const Brief: React.FC = () => {
           </div>
         </div>
       </div>
+      {/* Main content section with video and paragraphs */}
       <div className="flex lg:h-[225svh] lg:flex-row lg:gap-20 xl:h-[175svh] xl:gap-28 2xl:h-[200svh] 2xl:gap-32 3xl:h-[200svh] 3xl:gap-40">
+        {/* Video section */}
         <motion.div
           variants={variants}
           initial="hidden"
           whileInView="visible"
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="sticky top-0 z-0 h-svh rounded-lg py-4"
+          className="sticky top-0 z-0 h-svh rounded-2xl py-4"
         >
           <video
             src={briefVideo}
             autoPlay
             muted
             loop
-            className="h-full rounded-lg"
+            className="h-full rounded-2xl"
           ></video>
         </motion.div>
+        {/* Paragraphs section with animated blobs */}
         <div className="relative flex flex-col items-center justify-center lg:w-2/5 lg:gap-16 xl:gap-20 2xl:gap-20 3xl:gap-24 3xl:pt-48">
+          {/* Animated blobs */}
           <motion.div
             animate="blob1Animation"
             variants={variants}
@@ -154,16 +154,16 @@ const Brief: React.FC = () => {
             variants={variants}
             className="blob-brown blur-blob absolute bottom-[15%] right-0 h-1/3 w-1/3 opacity-60"
           ></motion.div>
+          {/* Paragraphs with scroll-based opacity animation */}
           <motion.p
             ref={paragraphRefs[0]}
             style={{ opacity: opacities[0] }}
             className="p-medium z-10 lg:w-4/5 3xl:w-2/3"
           >
-            Pause the hustle of everyday life and breathe in a moment of
-            tranquility. Embark on a journey guided by your emotions with our
-            unique, mood-based travel analysis. Our website invites you to
-            partake in adventures that harmonize with your spirit, awaiting your
-            personal touch.
+            Take a break from your daily routine. When was the last time you
+            explored beyond your city? Discover new places, meet new people, and
+            experience different cultures. It's time to refresh your spirit and
+            broaden your horizons.
           </motion.p>
 
           <motion.p
@@ -171,11 +171,10 @@ const Brief: React.FC = () => {
             style={{ opacity: opacities[1] }}
             className="p-medium z-10 lg:w-4/5 3xl:w-2/3"
           >
-            Then explore our virtual gallery for a curated selection of global
-            destinations, complete with beautiful visuals and key information to
-            simplify your travel planning. It’s the ideal resource for
-            inspiration or booking your next journey, offering a gateway to the
-            world’s most rewarding experiences.
+            To help you get started, explore our virtual gallery. It features a
+            curated selection of global destinations with visuals and key
+            information to simplify your travel planning and inspire your next
+            trip.
           </motion.p>
 
           <motion.p
@@ -183,10 +182,8 @@ const Brief: React.FC = () => {
             style={{ opacity: opacities[2] }}
             className="p-medium z-10 lg:w-4/5 3xl:w-2/3"
           >
-            If you find yourself captivated by the myriad ways in which people
-            explore the world, then our blog is a must-visit for you. It’s
-            packed with engaging travel tales and tips that ignite your desire
-            to explore and help navigate your upcoming escapades.
+            For more insights, visit our blog. Our travel stories and tips will
+            help you plan and make the most of your adventures.
           </motion.p>
         </div>
       </div>
@@ -194,4 +191,5 @@ const Brief: React.FC = () => {
   );
 };
 
+// Export the memoized Brief component
 export default memo(Brief);

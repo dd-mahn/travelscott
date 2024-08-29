@@ -1,18 +1,20 @@
-import React, { memo, useCallback, useEffect, useRef } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
 import { PrimaryButton } from "src/components/common/Button";
 
+// Animation variants for Framer Motion
 const variants = {
   hidden: { opacity: 0, y: 20 },
-  hiddenFullY: {
-    y: "100%",
-  },
-  hiddenWidth: { opacity: 0, x: -50 },
-  visibleWidth: { opacity: 1, x: 0 },
+  hiddenFullY: { y: "100%" },
+  hiddenLeft: { opacity: 0, x: -50 },
   visible: { opacity: 1, y: 0, x: 0 },
 };
 
 const Quote = () => {
+  // State to track if icons have been viewed
+  const [inViewed, setInViewed] = useState([false, false]);
+
+  // Refs for icon containers and their sibling elements
   const iconContainerRefs = [
     useRef<HTMLDivElement>(null),
     useRef<HTMLDivElement>(null),
@@ -21,47 +23,60 @@ const Quote = () => {
     useRef<HTMLHeadingElement>(null),
     useRef<HTMLHeadingElement>(null),
   ];
-  const iconSiblingInView = iconSiblingRefs.map((ref) => useInView(ref));
-  const iconContainerInView = iconContainerRefs.map((ref) => useInView(ref));
+
+  // Animation controls for icon siblings
   const iconSiblingControls = [useAnimation(), useAnimation()];
 
+  // Check if icon siblings are in view
+  const iconSiblingInView = iconSiblingRefs.map((ref, index) => {
+    const inView = useInView(ref, { once: true });
+    useEffect(() => {
+      if (inView) {
+        setInViewed((prev) => {
+          const newInViewed = [...prev];
+          newInViewed[index] = true;
+          return newInViewed;
+        });
+      }
+    }, [inView, index]);
+    return inView;
+  });
+
+  // Effect to handle icon positioning and animations
   useEffect(() => {
-    if (
-      iconContainerRefs[0].current &&
-      iconSiblingRefs[0].current &&
-      iconSiblingRefs[0].current.parentElement
-    ) {
-      iconContainerRefs[0].current.style.right = `${iconSiblingRefs[0].current.parentElement.offsetWidth - iconContainerRefs[0].current.offsetWidth}px`;
-      iconSiblingRefs[0].current.parentElement.style.width = `${iconSiblingRefs[0].current.offsetWidth + iconContainerRefs[0].current.offsetWidth}px`;
-      if (iconSiblingInView[0] && iconContainerInView[0]) {
-        iconSiblingControls[0].start("visible");
-        iconSiblingControls[0].start({
-          x: iconContainerRefs[0].current.offsetWidth,
-          transition: { delay: 1, duration: 0.5, ease: "circInOut" },
-        });
+    iconSiblingRefs.forEach((ref, index) => {
+      const iconContainer = iconContainerRefs[index].current;
+      const iconSibling = ref.current;
+      const parentElement = iconSibling?.parentElement;
+
+      if (iconContainer && iconSibling && parentElement) {
+        // Position the icon container
+        iconContainer.style.right = `${parentElement.offsetWidth - iconContainer.offsetWidth}px`;
+
+        // Adjust parent element width
+        parentElement.style.width = `${iconSibling.offsetWidth + iconContainer.offsetWidth}px`;
+
+        // Trigger animations when in view
+        if (inViewed[index]) {
+          iconSiblingControls[index].start("visible");
+          iconSiblingControls[index].start({
+            x: iconContainer.offsetWidth,
+            transition: {
+              delay: 1 + index * 0.5,
+              duration: 0.5,
+              ease: "circInOut",
+            },
+          });
+        }
       }
-    }
-    if (
-      iconContainerRefs[1].current &&
-      iconSiblingRefs[1].current &&
-      iconSiblingRefs[1].current.parentElement
-    ) {
-      iconContainerRefs[1].current.style.right = `${iconSiblingRefs[1].current.parentElement.offsetWidth - iconContainerRefs[1].current.offsetWidth}px`;
-      iconSiblingRefs[1].current.parentElement.style.width = `${iconSiblingRefs[1].current.offsetWidth + iconContainerRefs[1].current.offsetWidth}px`;
-      if (iconSiblingInView[1] && iconContainerInView[1]) {
-        iconSiblingControls[1].start("visible");
-        iconSiblingControls[1].start({
-          x: iconContainerRefs[1].current.offsetWidth,
-          transition: { delay: 1.5, duration: 0.5, ease: "circInOut" },
-        });
-      }
-    }
-  }, [iconContainerRefs, iconSiblingRefs]);
+    });
+  }, [inViewed, iconContainerRefs, iconSiblingRefs, iconSiblingControls]);
 
   return (
     <section className="quote px-sect flex flex-col gap-4 lg:py-sect-default 2xl:py-sect-medium">
       <div className="flex flex-row items-end justify-between">
         <div className="big-heading">
+          {/* First line of the quote */}
           <div className="relative flex items-center">
             <div className="inline-block overflow-hidden">
               <motion.h1
@@ -81,8 +96,8 @@ const Quote = () => {
               className="absolute inline-block overflow-hidden"
             >
               <motion.i
-                initial="hiddenWidth"
-                whileInView="visibleWidth"
+                initial="hiddenLeft"
+                whileInView="visible"
                 transition={{ delay: 1.8, duration: 0.5 }}
                 viewport={{ once: true }}
                 variants={variants}
@@ -95,8 +110,6 @@ const Quote = () => {
                 ref={iconSiblingRefs[0]}
                 initial="hiddenFullY"
                 animate={iconSiblingControls[0]}
-                // whileInView="visible"
-                // viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
                 variants={variants}
                 className="w-fit uppercase text-main-green"
@@ -106,6 +119,7 @@ const Quote = () => {
             </div>
           </div>
 
+          {/* Second line of the quote */}
           <div className="relative flex w-fit items-center">
             <div className="inline-block overflow-hidden">
               <motion.h1
@@ -125,8 +139,8 @@ const Quote = () => {
               className="absolute inline-block overflow-hidden"
             >
               <motion.i
-                initial="hiddenWidth"
-                whileInView="visibleWidth"
+                initial="hiddenLeft"
+                whileInView="visible"
                 transition={{ delay: 2, duration: 0.5 }}
                 viewport={{ once: true }}
                 variants={variants}
@@ -148,6 +162,7 @@ const Quote = () => {
             </div>
           </div>
         </div>
+        {/* Quote attribution */}
         <motion.span
           initial="hidden"
           whileInView="visible"
@@ -158,6 +173,7 @@ const Quote = () => {
           - Hans Christian Andersen
         </motion.span>
       </div>
+      {/* CTA button */}
       <motion.div
         initial="hidden"
         whileInView="visible"

@@ -10,7 +10,6 @@ import Featured from "./HomeComponents/Featured";
 import Starter from "./HomeComponents/Starter";
 import Articles from "./HomeComponents/Articles";
 import Inspired from "./HomeComponents/Inspired";
-import Globe from "./HomeComponents/Globe";
 import Quote from "./HomeComponents/Quote";
 import useFetch from "src/hooks/useFetch";
 import { FetchBlogsType } from "src/types/FetchData";
@@ -18,79 +17,52 @@ import { BASE_URL } from "src/utils/config";
 import Blog from "src/types/Blog";
 import { createBlogChunks } from "src/utils/createBlogChunks";
 
-// Framer motion variants
+// Framer motion variants for animations
 const variants = {
   hidden: { opacity: 0, y: 75 },
-  hiddenFullY: {
-    y: "100%",
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-  },
+  hiddenFullY: { y: "100%" },
+  visible: { opacity: 1, y: 0 },
 };
 
 // Home component
 const Home: React.FC = () => {
-  // Handle fetch blogs data for Articles, Starter section
-  const {
-    data: blogsData,
-    loading: blogsLoading,
-    error: blogsError,
-  } = useFetch<FetchBlogsType>(`${BASE_URL}/blogs?limit=100`);
+  // Fetch blogs data for Articles and Starter sections
+  const { data: blogsData } = useFetch<FetchBlogsType>(`${BASE_URL}/blogs?limit=100`);
 
-  const blogs = useMemo(
-    () => (blogsData?.result !== undefined ? blogsData.result : []),
-    [blogsData],
-  );
+  // Memoize blogs data to prevent unnecessary recalculations
+  const blogs = useMemo(() => blogsData?.result || [], [blogsData]);
 
-  const blogChunks: Blog[][] = useMemo(
-    () => (blogs.length !== 0 ? createBlogChunks(blogs) : []),
-    [blogs],
+  // Create blog chunks for efficient rendering
+  const blogChunks: Blog[][] = useMemo(() => 
+    blogs.length ? createBlogChunks(blogs) : [], [blogs]
   );
 
   // Handle sticky sections top value
   useEffect(() => {
-    const stackedSection: NodeListOf<HTMLElement> =
-      document.querySelectorAll(".stacked-section");
-    if (stackedSection.length > 0) {
-      stackedSection.forEach((section) => {
-        section.style.top = window.innerHeight - section.offsetHeight + "px";
-      });
-    }
+    const stackedSections = document.querySelectorAll<HTMLElement>(".stacked-section");
+    stackedSections.forEach((section) => {
+      section.style.top = `${window.innerHeight - section.offsetHeight}px`;
+    });
   }, []);
 
-  // Handle common ref to pass between components
-  const articlesHookRef = useMemo(() => {
-    return React.createRef<HTMLSpanElement>();
-  }, []);
+  // Create a ref for the Articles component
+  const articlesHookRef = useMemo(() => React.createRef<HTMLSpanElement>(), []);
 
   return (
     <main className="home flex flex-col">
-      {/* HERO SECTION */}
       <Hero />
-
-      {/* BRIEF SECTION */}
       <Brief />
-
-      {/* FEATURED DESTINATION SECTION */}
       <Featured />
 
-      {/* STACKED SECTIONS CONTAINER, CONTAINING: INSPIRED, GLOBE, BLOGS, STARTER BLOGS */}
+      {/* Stacked sections container */}
       <section className="stacked lg:pt-sect-default 2xl:pt-sect-semi">
-        {/* INSPIRED SECTION */}
         <div className="sticky top-0 z-0">
           <Inspired />
         </div>
 
-        {/* GLOBE SECTION */}
-        <div className="stacked-section z-5 sticky">
-          <Globe articlesHookRef={articlesHookRef} />
-        </div>
-
-        {/* FEATURED BLOGS SECTION */}
         <Articles articlesHookRef={articlesHookRef} blogChunks={blogChunks} />
-        {/* STARTER HOOK SECTION */}
+
+        {/* Starter hook section */}
         <div className="sticky top-0 z-20 bg-background-light">
           <section className="hook px-sect pb-sect-semi pt-sect-default">
             <div className="overflow-hidden pb-4">
@@ -120,16 +92,16 @@ const Home: React.FC = () => {
           </section>
         </div>
 
-        {/* STARTER SECTION */}
+        {/* Starter section */}
         <div className="sticky top-0 z-30">
           <Starter blogs={blogs} />
         </div>
       </section>
 
-      {/* QUOTE SECTION */}
       <Quote />
     </main>
   );
 };
 
+// Memoize the Home component to prevent unnecessary re-renders
 export default memo(Home);
