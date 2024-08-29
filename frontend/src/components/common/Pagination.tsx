@@ -9,14 +9,14 @@ import { motion } from "framer-motion";
 // Framer motion variants
 const variants = {
   hoverScale: {
-    scale: 1.05,
+    scale: 1.1,
     transition: {
       duration: 0.3,
     },
   },
 
   tapScale: {
-    scale: 0.95,
+    scale: 0.9,
     transition: {
       duration: 0.3,
     },
@@ -70,7 +70,7 @@ export const CatalogPagination: React.FC<CatalogPaginationProps> = ({
             onClick={handlePreviousClick}
             aria-label="Go to previous page"
           >
-            <i className="pointer-events-none ri-arrow-left-s-line"></i>
+            <i className="ri-arrow-left-s-line pointer-events-none"></i>
           </motion.button>
         ) : (
           <button
@@ -78,7 +78,7 @@ export const CatalogPagination: React.FC<CatalogPaginationProps> = ({
             title="Previous"
             aria-label="Go to previous page"
           >
-            <i className="pointer-events-none ri-arrow-left-s-line text-gray opacity-50"></i>
+            <i className="ri-arrow-left-s-line pointer-events-none text-gray opacity-50"></i>
           </button>
         )}
         {Array.from({ length: totalPage }, (_, i) => (
@@ -106,7 +106,7 @@ export const CatalogPagination: React.FC<CatalogPaginationProps> = ({
             onClick={handleNextClick}
             aria-label="Go to next page"
           >
-            <i className="pointer-events-none ri-arrow-right-s-line"></i>
+            <i className="ri-arrow-right-s-line pointer-events-none"></i>
           </motion.button>
         ) : (
           <button
@@ -114,7 +114,7 @@ export const CatalogPagination: React.FC<CatalogPaginationProps> = ({
             title="Next"
             aria-label="Go to next page"
           >
-            <i className="pointer-events-none ri-arrow-right-s-line text-gray opacity-50"></i>
+            <i className="ri-arrow-right-s-line pointer-events-none text-gray opacity-50"></i>
           </button>
         )}
       </div>
@@ -154,7 +154,7 @@ export const ButtonPagination: React.FC<ButtonPaginationProps> = ({
           className="underline-btn uppercase"
           onClick={handlePreviousClick}
         >
-          <i className="pointer-events-none ri-arrow-left-line"></i>
+          <i className="ri-arrow-left-line pointer-events-none"></i>
           Previous
         </motion.button>
       )}
@@ -169,7 +169,7 @@ export const ButtonPagination: React.FC<ButtonPaginationProps> = ({
           onClick={handleNextClick}
         >
           Next
-          <i className="pointer-events-none ri-arrow-right-line"></i>
+          <i className="ri-arrow-right-line pointer-events-none"></i>
         </motion.button>
       )}
     </div>
@@ -205,7 +205,10 @@ export const DotPagination: React.FC<DotPaginationProps> = ({
   }, [activeDot]);
 
   return (
-    <div className="pagination-bar flex w-fit flex-row items-center justify-between gap-8 rounded-3xl px-2 py-1 shadow-component">
+    <motion.div
+      layout
+      className="pagination-bar bg-background-light bg-opacity-75 dark:bg-background-dark flex w-fit flex-row items-center justify-between gap-8 rounded-3xl px-2 py-1 shadow-component"
+    >
       {count > 1 && index > 0 ? (
         <motion.button
           whileHover="hoverScale"
@@ -216,23 +219,19 @@ export const DotPagination: React.FC<DotPaginationProps> = ({
           className=""
           onClick={() => extendedHandlePreviousClick()}
         >
-          <i className="pointer-events-none p-large ri-arrow-left-s-line"></i>
+          <i className="p-large ri-arrow-left-s-line pointer-events-none"></i>
         </motion.button>
       ) : (
         <button title="Prev" className="">
-          <i className="pointer-events-none p-large ri-arrow-left-s-line text-gray opacity-70"></i>
+          <i className="p-large ri-arrow-left-s-line pointer-events-none text-gray dark:text-blue-gray-50 opacity-70"></i>
         </button>
       )}
 
       <div className="flex items-center justify-center space-x-2">
         {[1, 2, 3].map((dot) => (
           <motion.span
-            whileHover="hoverScale"
-            whileTap="tapScale"
-            layoutId="pagination-dot"
-            variants={variants}
-            transition={{ duration: 0.3 }}
             key={dot}
+            transition={{ duration: 0.3 }}
             className={`h-2 w-2 rounded-full ${activeDot === dot ? "bg-background-dark dark:bg-background-light" : "bg-gray"}`}
           ></motion.span>
         ))}
@@ -248,13 +247,13 @@ export const DotPagination: React.FC<DotPaginationProps> = ({
           className=""
           onClick={() => extendedHandleNextClick()}
         >
-          <i className="pointer-events-none p-large ri-arrow-right-s-line"></i>
+          <i className="p-large ri-arrow-right-s-line dark:text-blue-gray-50"></i>
         </motion.button>
       ) : (
         <button title="Next" className="">
-          <i className="pointer-events-none p-large ri-arrow-right-s-line text-gray opacity-70"></i>
+          <i className="p-large ri-arrow-right-s-line text-gray opacity-70"></i>
         </button>
       )}
-    </div>
+    </motion.div>
   );
 };
