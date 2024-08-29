@@ -103,7 +103,7 @@ const EarthScene: React.FC<SceneProps> = ({ articlesHookRef }) => {
             transition={{ duration: 0.5 }}
             exit="hidden"
             variants={variants}
-            className="absolute left-[10%] top-1/3 flex flex-col gap-20"
+            className="absolute left-0 top-1/3 pl-sect flex flex-col gap-20"
           >
             {memoizedCarousels}
           </motion.div>
