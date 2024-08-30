@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 const variants = {
   hidden: { opacity: 0, y: 50 },
   hiddenFullY: {
-    y: "100%"
+    y: "100%",
   },
   visible: { opacity: 1, y: 0 },
 };
