@@ -1,65 +1,63 @@
-import React, { memo, useEffect } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { debounce } from "lodash";
 
-const Cursor = () => {
-  const cursorRef = React.useRef<HTMLDivElement>(null);
-  const [cursorPosition, setCursorPosition] = React.useState({
-    x: -100,
-    y: -100,
-  });
-  const [cursorState, setCursorState] = React.useState("default");
+// Define cursor states
+type CursorState =
+  | "default"
+  | "hover"
+  | "hoverLink"
+  | "hoverSmall"
+  | "tap"
+  | "hoverTap";
 
+const Cursor = () => {
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const [cursorPosition, setCursorPosition] = useState({ x: -100, y: -100 });
+  const [cursorState, setCursorState] = useState<CursorState>("default");
+
+  // Handle mouse movement
   useEffect(() => {
     const handleMouseMove = debounce((e: MouseEvent) => {
       setCursorPosition({ x: e.clientX, y: e.clientY });
     }, 10);
 
-    if (cursorRef.current) {
-      document.addEventListener("mousemove", handleMouseMove);
-    }
-
-    return () => {
-      if (cursorRef.current) {
-        document.removeEventListener("mousemove", handleMouseMove);
-      }
-    };
+    document.addEventListener("mousemove", handleMouseMove);
+    return () => document.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
+  // Handle cursor state changes based on mouse events
   useEffect(() => {
     const handleMouseEvents = (e: MouseEvent) => {
-      if (e.type === "mouseover") {
-        if (
-          e.target instanceof HTMLElement &&
-          e.target.classList.contains("cursor-hover")
-        ) {
-          setCursorState("hover");
-        } else if (
-          e.target instanceof HTMLElement &&
-          e.target.classList.contains("cursor-hover-link")
-        ) {
-          setCursorState("hoverLink");
-        } else if (
-          e.target instanceof HTMLAnchorElement ||
-          e.target instanceof HTMLButtonElement ||
-          (e.target instanceof HTMLElement &&
-            e.target.classList.contains("cursor-hover-small")) ||
-          e.target instanceof HTMLInputElement ||
-          e.target instanceof HTMLTextAreaElement ||
-          e.target instanceof HTMLSelectElement
-        ) {
-          setCursorState("hoverSmall");
+      if (e.target instanceof HTMLElement) {
+        const target = e.target;
+        switch (e.type) {
+          case "mouseover":
+            if (target.classList.contains("cursor-hover")) {
+              setCursorState("hover");
+            } else if (target.classList.contains("cursor-hover-link")) {
+              setCursorState("hoverLink");
+            } else if (
+              target instanceof HTMLAnchorElement ||
+              target instanceof HTMLButtonElement ||
+              target.classList.contains("cursor-hover-small") ||
+              target instanceof HTMLInputElement ||
+              target instanceof HTMLTextAreaElement ||
+              target instanceof HTMLSelectElement
+            ) {
+              setCursorState("hoverSmall");
+            }
+            break;
+          case "mouseout":
+            setCursorState("default");
+            break;
+          case "mousedown":
+            setCursorState(cursorState === "hover" ? "hoverTap" : "tap");
+            break;
+          case "mouseup":
+            setCursorState("default");
+            break;
         }
-      } else if (e.type === "mouseout") {
-        setCursorState("default");
-      } else if (e.type === "mousedown") {
-        if (cursorState === "hover") {
-          setCursorState("hoverTap");
-        } else {
-          setCursorState("tap");
-        }
-      } else if (e.type === "mouseup") {
-        setCursorState("default");
       }
     };
 
@@ -68,6 +66,7 @@ const Cursor = () => {
     document.addEventListener("mousedown", handleMouseEvents);
     document.addEventListener("mouseup", handleMouseEvents);
 
+    // Clean up event listeners
     return () => {
       document.removeEventListener("mouseover", handleMouseEvents);
       document.removeEventListener("mouseout", handleMouseEvents);
@@ -76,6 +75,7 @@ const Cursor = () => {
     };
   }, [cursorState]);
 
+  // Define animation variants for different cursor states
   const variants = {
     default: {
       x: cursorPosition.x - 16,
@@ -83,35 +83,30 @@ const Cursor = () => {
       width: "2svw",
       height: "2svw",
     },
-
     hover: {
       width: "5svw",
       height: "5svw",
       x: cursorPosition.x - 16,
       y: cursorPosition.y - 16,
     },
-
     hoverLink: {
       width: "5svw",
       height: "5svw",
       x: cursorPosition.x - 16,
       y: cursorPosition.y - 16,
     },
-
     hoverSmall: {
       width: "1svw",
       height: "1svw",
       x: cursorPosition.x - 16,
       y: cursorPosition.y - 16,
     },
-
     tap: {
       width: "0.75svw",
       height: "0.75svw",
       x: cursorPosition.x - 16,
       y: cursorPosition.y - 16,
     },
-
     hoverTap: {
       width: "3svw",
       height: "3svw",
@@ -130,7 +125,11 @@ const Cursor = () => {
         stiffness: 500,
         damping: 28,
       }}
-      className={`pointer-events-none fixed z-50 grid place-items-center rounded-full ${cursorState === "hover" ? "bg-aurora-brown" : "bg-white mix-blend-difference dark:bg-black"}`}
+      className={`pointer-events-none fixed z-[1000] grid place-items-center rounded-full ${
+        cursorState === "hover"
+          ? "bg-aurora-brown"
+          : "bg-white mix-blend-difference dark:bg-black"
+      }`}
     >
       {cursorState === "hover" && (
         <i className="span-medium ri-arrow-right-line text-text-light dark:text-text-dark"></i>
