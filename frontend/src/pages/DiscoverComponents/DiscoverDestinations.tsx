@@ -48,6 +48,8 @@ const variants = {
   },
 };
 
+const limit = 18;
+
 // DiscoverDestinations component
 const DiscoverDestinations: React.FC<DiscoverDestinationsProps> = ({
   continentNames,
@@ -59,10 +61,11 @@ const DiscoverDestinations: React.FC<DiscoverDestinationsProps> = ({
   const [filterCountries, setFilterCountries] = useState<string[]>([]);
   const [filterContinents, setFilterContinents] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const sectionRef = useRef<HTMLElement>(null);
 
   // Handle url for fetching destination data
   const url = useMemo(() => {
-    let url = `${BASE_URL}/destinations?page=${currentPage}`;
+    let url = `${BASE_URL}/destinations?page=${currentPage}&limit=${limit}`;
     if (filterTags.length > 0) {
       url += `&tags=${filterTags.join(",")}`;
     }
@@ -100,20 +103,16 @@ const DiscoverDestinations: React.FC<DiscoverDestinationsProps> = ({
   }, []);
 
   // Pagination handler
-  const handlePreviousClick = useCallback(() => {
-    setCurrentPage((prevPage) => Math.max(1, prevPage - 1));
-  }, []);
-
-  const handlePageClick = useCallback((page: number) => {
-    setCurrentPage(page);
-  }, []);
-
-  const handleNextClick = useCallback(() => {
-    setCurrentPage((prevPage) => prevPage + 1);
+  const handlePagination = useCallback((newPage: number) => {
+    setCurrentPage(newPage);
+    if (sectionRef.current) {
+      sectionRef.current.scrollIntoView({ behavior: "smooth" });
+    }
   }, []);
 
   return (
     <section
+      ref={sectionRef}
       id="destinations"
       className="destinations px-sect flex flex-col items-center py-sect-default"
       onClick={(e) => {
@@ -149,7 +148,7 @@ const DiscoverDestinations: React.FC<DiscoverDestinationsProps> = ({
           viewport={{ once: true }}
           className="p-medium"
         >
-          Each destination we’ve covered here is fully filled <br />
+          Each destination we've covered here is fully filled <br />
           with significant information you will need.
         </motion.p>
         <motion.div
@@ -243,10 +242,10 @@ const DiscoverDestinations: React.FC<DiscoverDestinationsProps> = ({
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
-                exit="exitX"
+                exit="hidden"
                 transition={{
                   duration: 0.5,
-                  ease: "easeInOut",
+                  ease: "easeInOut"
                 }}
                 variants={variants}
               >
@@ -261,24 +260,24 @@ const DiscoverDestinations: React.FC<DiscoverDestinationsProps> = ({
                     <motion.div
                       variants={variants}
                       key={destination._id}
-                      transition={{ duration: 0.5 }}
                     >
                       <DestinationCard destination={destination} />
                     </motion.div>
                   ))}
                 </motion.div>
                 <motion.div
-                  // transition={{ duration: 0.5 }}
                   variants={variants}
                   className="w-full"
                 >
                   <CatalogPagination
                     count={totalDestinations}
                     page={currentPage}
-                    limit={18}
-                    handlePreviousClick={handlePreviousClick}
-                    handlePageClick={(page) => handlePageClick(page)}
-                    handleNextClick={handleNextClick}
+                    limit={limit}
+                    handlePreviousClick={() =>
+                      handlePagination(Math.max(1, currentPage - 1))
+                    }
+                    handlePageClick={(page) => handlePagination(page)}
+                    handleNextClick={() => handlePagination(currentPage + 1)}
                   />
                 </motion.div>
               </motion.div>
