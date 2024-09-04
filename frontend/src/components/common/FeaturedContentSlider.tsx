@@ -4,6 +4,8 @@ import { DotPagination } from "./Pagination";
 
 // Framer motion variants
 const variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
   enter: (direction: number) => {
     return {
       x: direction > 0 ? 1000 : -1000,
@@ -82,7 +84,7 @@ const FeaturedContentSlider: React.FC<FeaturedContentSliderProps> = ({
         initial="hidden"
         whileInView="visible"
         transition={{ duration: 0.5 }}
-        viewport={{ once: true }}
+        viewport={{ once: true, margin: "-300px" }}
         variants={variants}
         className="flex w-full justify-center"
       >

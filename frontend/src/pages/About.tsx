@@ -19,44 +19,22 @@ import { people } from "src/data/about-people";
 
 // Framer motion variants
 const variants = {
-  hidden: {
-    opacity: 0,
-    y: 40,
-  },
-
-  hiddenFullY: {
-    y: "100%"
-  },
-
-  visible: {
-    opacity: 1,
-    y: 0,
-  },
-
+  hidden: { opacity: 0, y: 40 },
+  hiddenFullY: { y: "100%" },
+  visible: { opacity: 1, y: 0 },
   imgVisible: {
     opacity: 1,
     y: 0,
-    transition: {
-      duration: 0.4,
-      ease: "easeInOut",
-    },
+    transition: { duration: 0.4, ease: "easeInOut" },
   },
-
   imgFloat: {
     y: [0, 10, -10, 0],
     scale: [1, 0.98, 1.02, 1],
-    transition: {
-      duration: 5,
-      repeat: Infinity,
-    },
+    transition: { duration: 5, repeat: Infinity },
   },
-  
   hoverScale: {
     scale: 1.05,
-    transition: {
-      duration: 0.4,
-      ease: "easeInOut",
-    },
+    transition: { duration: 0.4, ease: "easeInOut" },
   },
 };
 
@@ -65,7 +43,7 @@ const whoImages = [who1, who2, who3, who4, who5, who6, who7, who8];
 
 // About page component
 const About: React.FC = () => {
-  // Create refs for the side blocks, block and container
+  // State and refs
   const [leftValue, setLeftValue] = useState(0);
   const sideBlockRefs = [
     useRef<HTMLDivElement>(null),
@@ -75,11 +53,11 @@ const About: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const aboutVideoRef = useRef<HTMLVideoElement>(null);
 
-  // Create controls for the side blocks and block
+  // Animation controls
   const sideBlockControls = [useAnimation(), useAnimation()];
   const blockControls = useAnimation();
 
-  // Set the left value for the block when the component mounts and handle animations
+  // Effect to handle block positioning and animations
   useEffect(() => {
     const handleResize = () => {
       if (blockRef.current && containerRef.current) {
@@ -102,29 +80,25 @@ const About: React.FC = () => {
     };
   }, [blockRef, containerRef]);
 
+  // Effect to trigger animations
   useEffect(() => {
     if (blockRef.current) {
       const blockWidth = blockRef.current.offsetWidth;
 
-      sideBlockControls[0].start({
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.4, ease: "easeInOut" },
-      });
-      sideBlockControls[1].start({
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.4, ease: "easeInOut" },
-      });
-      sideBlockControls[0].start({
-        x: -blockWidth / 2,
-        transition: { delay: 0.9, duration: 0.6, ease: "circInOut" },
-      });
-      sideBlockControls[1].start({
-        x: blockWidth / 2,
-        transition: { delay: 0.9, duration: 0.6, ease: "circInOut" },
+      // Animate side blocks
+      sideBlockControls.forEach((control, index) => {
+        control.start({
+          opacity: 1,
+          y: 0,
+          transition: { duration: 0.4, ease: "easeInOut" },
+        });
+        control.start({
+          x: index === 0 ? -blockWidth / 2 : blockWidth / 2,
+          transition: { delay: 0.9, duration: 0.6, ease: "circInOut" },
+        });
       });
 
+      // Animate main block
       blockControls.start({
         opacity: 1,
         y: 0,
@@ -142,18 +116,20 @@ const About: React.FC = () => {
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
   const opacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
-  // Render logic
   return (
     <main className="about">
-      {/* HERO SECTION */}
-
+      {/* Hero Section */}
       <section className="hero px-sect relative flex flex-col items-center gap-12 py-sect-short">
+        {/* Background blobs */}
         <div className="blur-blob blob-brown left-[10%] top-0 h-1/3 w-1/5 opacity-50"></div>
         <div className="blur-blob blob-green right-1/3 top-[10%] h-[20%] w-1/3 opacity-50"></div>
+
+        {/* Hero Title */}
         <motion.div
           ref={containerRef}
           className="h1-md-bold relative z-10 w-screen overflow-hidden pt-sect-short text-center"
         >
+          {/* Animated title parts */}
           <motion.div
             initial="hiddenFullY"
             ref={sideBlockRefs[0]}
@@ -165,16 +141,11 @@ const About: React.FC = () => {
           </motion.div>
           <motion.div
             ref={blockRef}
-            initial={{
-              opacity: 0,
-              y: "100%",
-            }}
+            initial={{ opacity: 0, y: "100%" }}
             animate={blockControls}
             variants={variants}
             className={`bot-0 absolute inline-block w-fit`}
-            style={{
-              left: leftValue ? leftValue : "50%",
-            }}
+            style={{ left: leftValue ? leftValue : "50%" }}
           >
             <span className="font-logo font-medium normal-case text-text-light">
               Scott,
@@ -192,6 +163,7 @@ const About: React.FC = () => {
           </motion.div>
         </motion.div>
 
+        {/* Hero Paragraphs */}
         <motion.p
           initial="hidden"
           animate="visible"
@@ -213,14 +185,12 @@ const About: React.FC = () => {
           We simplify your travel experience.
         </motion.p>
 
+        {/* Hero Video */}
         <motion.div
-          initial={{
-            opacity: 0,
-            y: "100%",
-          }}
+          initial={{ opacity: 0, y: "20%" }}
           animate="visible"
           variants={variants}
-          transition={{ duration: 0.4, delay: 1.4 }}
+          transition={{ duration: 0.8, delay: 1.4 }}
           className="relative h-screen w-full lg:mt-40 2xl:mt-sect-default"
         >
           <motion.video
@@ -236,16 +206,14 @@ const About: React.FC = () => {
             style={{ opacity }}
             className="h2-md absolute top-1/2 z-[15] w-full text-center text-text-dark"
           >
-            {" "}
             We want you to travel.
           </motion.h2>
-          :
         </motion.div>
       </section>
 
-      {/* STACKED SECTION */}
+      {/* Stacked Section */}
       <section className="flex flex-col items-center justify-start lg:py-sect-default 2xl:py-sect-semi">
-        {/* HOW SECTION */}
+        {/* How Section */}
         <motion.h2
           initial="hidden"
           whileInView="visible"
@@ -258,10 +226,11 @@ const About: React.FC = () => {
         </motion.h2>
 
         <div className="how relative">
-          <div
-            className={`sticky z-0 mx-auto mb-24 flex h-[50svh] flex-row items-start justify-between rounded-xl bg-background-light px-8 pb-sect-short pt-4 shadow-section lg:top-24 lg:mt-40 lg:w-3/4 2xl:top-48 2xl:mt-sect-medium 2xl:w-3/4`}
-          >
+          {/* Optimal Information */}
+          <div className="sticky z-0 mx-auto mb-24 flex h-[50svh] flex-row items-start justify-between rounded-xl bg-background-light px-8 pb-sect-short pt-4 shadow-section lg:top-24 lg:mt-40 lg:w-3/4 2xl:top-48 2xl:mt-sect-medium 2xl:w-3/4">
+            {/* Content */}
             <div className="flex w-2/3 flex-col items-start justify-start gap-12">
+              {/* Title */}
               <div className="flex flex-col justify-start gap-0">
                 <div className="overflow-hidden">
                   <motion.h1
@@ -275,7 +244,6 @@ const About: React.FC = () => {
                     Optimal
                   </motion.h1>
                 </div>
-
                 <motion.span
                   initial="hidden"
                   whileInView="visible"
@@ -287,16 +255,16 @@ const About: React.FC = () => {
                   Information
                 </motion.span>
               </div>
-
+              {/* Description */}
               <p className="p-medium lg:w-full 2xl:w-3/4 3xl:w-3/4">
                 From the must-see landmarks to the hidden gems, our guides are
-                designed to ensure you’re well-informed. Whether it’s an
-                upcoming journey or a place you’re curious about, our resources
-                are tailored to provide just the right insights to fuel your
+                designed to ensure you're well-informed. Whether it's an
+                upcoming journey or a place you're curious about, our resources
+                are tailored to provide just the right insights to fuel your
                 wanderlust and help you travel smarter.
               </p>
             </div>
-
+            {/* Number */}
             <div className="w-fit overflow-hidden">
               <motion.div
                 initial="hiddenFullY"
@@ -321,9 +289,9 @@ const About: React.FC = () => {
             </div>
           </div>
 
-          <div
-            className={`sticky z-0 mx-auto mb-24 mt-sect-medium flex h-[50svh] flex-row items-start justify-between rounded-xl bg-light-brown px-8 pb-sect-short pt-4 shadow-section lg:top-48 lg:w-3/4 2xl:top-72 2xl:w-3/4`}
-          >
+          {/* Vibrant Experience */}
+          <div className="sticky z-0 mx-auto mb-24 mt-sect-medium flex h-[50svh] flex-row items-start justify-between rounded-xl bg-light-brown px-8 pb-sect-short pt-4 shadow-section lg:top-48 lg:w-3/4 2xl:top-72 2xl:w-3/4">
+            {/* Number */}
             <div className="w-2/3 overflow-hidden">
               <motion.div
                 initial="hiddenFullY"
@@ -346,8 +314,9 @@ const About: React.FC = () => {
                 2
               </motion.div>
             </div>
-
+            {/* Content */}
             <div className="flex flex-col items-end justify-start gap-12">
+              {/* Title */}
               <div className="flex w-2/3 flex-col justify-end gap-0">
                 <div className="overflow-hidden">
                   <motion.h1
@@ -361,7 +330,6 @@ const About: React.FC = () => {
                     Vibrant
                   </motion.h1>
                 </div>
-
                 <motion.span
                   initial="hidden"
                   whileInView="visible"
@@ -373,10 +341,10 @@ const About: React.FC = () => {
                   Experience
                 </motion.span>
               </div>
-
+              {/* Description */}
               <p className="p-medium lg:w-full 2xl:w-3/4 3xl:w-3/4">
-                We provide a streamlined research experience with high-quality
-                visual content that aims to inspire your travel plans. Each
+                We provide a streamlined research experience with high-quality
+                visual content that aims to inspire your travel plans. Each
                 search is an opportunity for discovery, and our vivid imagery
                 stirs the urge to see the world. With practical resources that
                 vividly depict your next destination, we empower you to travel
@@ -385,10 +353,11 @@ const About: React.FC = () => {
             </div>
           </div>
 
-          <div
-            className={`sticky z-0 mx-auto mb-24 mt-sect-medium flex h-[50svh] flex-row items-start justify-between rounded-xl bg-light-green px-8 pb-sect-short pt-4 shadow-section lg:top-72 lg:w-3/4 2xl:top-96 2xl:w-3/4`}
-          >
+          {/* Verified Resource */}
+          <div className="sticky z-0 mx-auto mb-24 mt-sect-medium flex h-[50svh] flex-row items-start justify-between rounded-xl bg-light-green px-8 pb-sect-short pt-4 shadow-section lg:top-72 lg:w-3/4 2xl:top-96 2xl:w-3/4">
+            {/* Content */}
             <div className="flex w-2/3 flex-col items-start justify-start gap-12">
+              {/* Title */}
               <div className="flex flex-col justify-start gap-0">
                 <div className="overflow-hidden">
                   <motion.h1

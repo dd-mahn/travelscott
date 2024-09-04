@@ -143,6 +143,7 @@ const BlogComponent: React.FC<{
           <span className="span-small z-20 text-text-dark">{blog.author}</span>
           <motion.span
             whileHover="hoverX"
+            transition={{ duration: 0.3 }}
             variants={variants}
             className="cursor-hover-small span-medium z-20 cursor-pointer uppercase text-text-dark"
           >

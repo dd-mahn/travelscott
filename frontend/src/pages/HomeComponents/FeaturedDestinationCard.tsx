@@ -67,6 +67,7 @@ const FeaturedDestinationCard: React.FC<DestinationCardProps> = memo(
           <span className="span-regular text-gray">{destination.country}</span>
           <motion.span
             whileHover="hoverX"
+            transition={{ duration: 0.3 }}
             variants={variants}
             className="cursor-hover-small span-medium w-fit cursor-pointer uppercase"
           >

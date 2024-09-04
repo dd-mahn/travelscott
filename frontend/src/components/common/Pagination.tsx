@@ -70,7 +70,7 @@ export const CatalogPagination: React.FC<CatalogPaginationProps> = ({
             onClick={handlePreviousClick}
             aria-label="Go to previous page"
           >
-            <i className="ri-arrow-left-s-line pointer-events-none"></i>
+            <i className="cursor-hover-small ri-arrow-left-s-line pointer-events-none"></i>
           </motion.button>
         ) : (
           <button
@@ -78,7 +78,7 @@ export const CatalogPagination: React.FC<CatalogPaginationProps> = ({
             title="Previous"
             aria-label="Go to previous page"
           >
-            <i className="ri-arrow-left-s-line pointer-events-none text-gray opacity-50"></i>
+            <i className="cursor-hover-small ri-arrow-left-s-line pointer-events-none text-gray opacity-50"></i>
           </button>
         )}
         {Array.from({ length: totalPage }, (_, i) => (
@@ -88,7 +88,7 @@ export const CatalogPagination: React.FC<CatalogPaginationProps> = ({
             variants={variants}
             transition={{ duration: 0.3 }}
             key={`page-${i}`}
-            className={page === i + 1 ? "active page-btn" : "page-btn"}
+            className={page === i + 1 ? "active page-btn cursor-hover-small" : "page-btn"}
             onClick={() => handlePageClick(i + 1)}
             aria-label={`Go to page ${i + 1}`}
           >
@@ -106,7 +106,7 @@ export const CatalogPagination: React.FC<CatalogPaginationProps> = ({
             onClick={handleNextClick}
             aria-label="Go to next page"
           >
-            <i className="ri-arrow-right-s-line pointer-events-none"></i>
+            <i className="cursor-hover-small ri-arrow-right-s-line pointer-events-none"></i>
           </motion.button>
         ) : (
           <button
@@ -114,7 +114,7 @@ export const CatalogPagination: React.FC<CatalogPaginationProps> = ({
             title="Next"
             aria-label="Go to next page"
           >
-            <i className="ri-arrow-right-s-line pointer-events-none text-gray opacity-50"></i>
+            <i className="cursor-hover-small ri-arrow-right-s-line pointer-events-none text-gray opacity-50"></i>
           </button>
         )}
       </div>
@@ -154,7 +154,7 @@ export const ButtonPagination: React.FC<ButtonPaginationProps> = ({
           className="underline-btn uppercase"
           onClick={handlePreviousClick}
         >
-          <i className="ri-arrow-left-line pointer-events-none"></i>
+          <i className="cursor-hover-small ri-arrow-left-line pointer-events-none"></i>
           Previous
         </motion.button>
       )}
@@ -169,7 +169,7 @@ export const ButtonPagination: React.FC<ButtonPaginationProps> = ({
           onClick={handleNextClick}
         >
           Next
-          <i className="ri-arrow-right-line pointer-events-none"></i>
+          <i className="cursor-hover-small ri-arrow-right-line pointer-events-none"></i>
         </motion.button>
       )}
     </div>
@@ -190,70 +190,56 @@ export const DotPagination: React.FC<DotPaginationProps> = ({
   handlePreviousClick,
   handleNextClick,
 }) => {
-  const [activeDot, setActiveDot] = useState(1);
+  const buttonVariants = {
+    hover: { scale: 1.1 },
+    tap: { scale: 0.9 },
+  };
 
-  const extendedHandlePreviousClick = useCallback(() => {
-    handlePreviousClick();
-    setActiveDot((prevActiveDot) =>
-      prevActiveDot === 1 ? 3 : prevActiveDot - 1,
-    );
-  }, [activeDot]);
-
-  const extendedHandleNextClick = useCallback(() => {
-    handleNextClick();
-    setActiveDot((prevActiveDot) => (prevActiveDot % 3) + 1);
-  }, [activeDot]);
+  const dotVariants = {
+    inactive: { scale: 1, backgroundColor: "#808080" },
+    active: { scale: 1.2, backgroundColor: "#000000" },
+  };
 
   return (
     <motion.div
       layout
-      className="pagination-bar bg-background-light bg-opacity-75 dark:bg-background-dark flex w-fit flex-row items-center justify-between gap-8 rounded-3xl px-2 py-1 shadow-component"
+      className="pagination-bar flex w-fit flex-row items-center justify-between gap-8 rounded-3xl bg-background-light bg-opacity-75 px-2 py-1 shadow-component dark:bg-background-dark"
     >
-      {count > 1 && index > 0 ? (
-        <motion.button
-          whileHover="hoverScale"
-          whileTap="tapScale"
-          variants={variants}
-          transition={{ duration: 0.3 }}
-          title="Prev"
-          className=""
-          onClick={() => extendedHandlePreviousClick()}
-        >
-          <i className="p-large ri-arrow-left-s-line pointer-events-none"></i>
-        </motion.button>
-      ) : (
-        <button title="Prev" className="">
-          <i className="p-large ri-arrow-left-s-line pointer-events-none text-gray dark:text-blue-gray-50 opacity-70"></i>
-        </button>
-      )}
+      <motion.button
+        variants={buttonVariants}
+        whileHover="hover"
+        whileTap="tap"
+        title="Prev"
+        className="cursor-hover-small"
+        onClick={handlePreviousClick}
+        disabled={index === 0}
+      >
+        <i className={`cursor-hover-small p-large ri-arrow-left-s-line pointer-events-none ${index === 0 ? 'text-gray opacity-70' : ''}`}></i>
+      </motion.button>
 
       <div className="flex items-center justify-center space-x-2">
-        {[1, 2, 3].map((dot) => (
+        {[0, 1, 2].map((i) => (
           <motion.span
-            key={dot}
+            key={i}
+            variants={dotVariants}
+            animate={i === index % 3 ? "active" : "inactive"}
             transition={{ duration: 0.3 }}
-            className={`h-2 w-2 rounded-full ${activeDot === dot ? "bg-background-dark dark:bg-background-light" : "bg-gray"}`}
+            className="h-2 w-2 rounded-full"
           ></motion.span>
         ))}
       </div>
 
-      {count > 1 && index < count - 1 ? (
-        <motion.button
-          whileHover="hoverScale"
-          whileTap="tapScale"
-          variants={variants}
-          transition={{ duration: 0.3 }}
-          title="Next"
-          className=""
-          onClick={() => extendedHandleNextClick()}
-        >
-          <i className="p-large ri-arrow-right-s-line dark:text-blue-gray-50"></i>
-        </motion.button>
-      ) : (
-        <button title="Next" className="">
-          <i className="p-large ri-arrow-right-s-line text-gray opacity-70"></i>
-        </button>
-      )}
+      <motion.button
+        variants={buttonVariants}
+        whileHover="hover"
+        whileTap="tap"
+        title="Next"
+        className="cursor-hover-small"
+        onClick={handleNextClick}
+        disabled={index === count - 1}
+      >
+        <i className={`cursor-hover-small p-large ri-arrow-right-s-line ${index === count - 1 ? 'text-gray opacity-70' : ''}`}></i>
+      </motion.button>
     </motion.div>
   );
 };

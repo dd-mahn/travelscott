@@ -19,7 +19,7 @@ const variants = {
       ease: "easeInOut",
     },
   },
-  hoverRight: {
+  hoverX: {
     x: 5,
     transition: {
       duration: 1,
@@ -76,7 +76,8 @@ const CountryCard: React.FC<CountryCardProps> = ({ country }) => {
         </motion.div>
         <div className="flex h-fit flex-col justify-start gap-0">
           <motion.span
-            whileHover="hoverRight"
+            whileHover="hoverX"
+            transition={{ duration: 0.3 }}
             variants={variants}
             className="cursor-hover-small span-medium cursor-pointer"
           >

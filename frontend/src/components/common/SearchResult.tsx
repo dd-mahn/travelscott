@@ -29,6 +29,14 @@ const SearchResult: React.FC<SearchResultProps> = ({
     hidden: { opacity: 0 },
     visible: { opacity: 1, y: 0 },
     exit: { opacity: 0 },
+    hover: {
+      scale: 1.1,
+      transition: { duration: 0.4 },
+    },
+    tap: {
+      scale: 0.9,
+      transition: { duration: 0.4 },
+    },
   };
 
   // Animation variants for images
@@ -222,9 +230,9 @@ const SearchResult: React.FC<SearchResultProps> = ({
               {destinations.length + countries.length + blogs.length} results
               found
             </span>
-            <button title="Close" onClick={closeFunc}>
-              <i className="p-large ri-close-line"></i>
-            </button>
+            <motion.button variants={variants} whileHover="hover" whileTap="tap" title="Close" onClick={closeFunc}>
+              <i className="cursor-hover-small p-large ri-close-line"></i>
+            </motion.button>
           </div>
           <div
             ref={scrollContainerRef}
