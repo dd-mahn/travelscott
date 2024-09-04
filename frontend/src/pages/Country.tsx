@@ -2,7 +2,7 @@ import { set } from "lodash";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import DestinationCard from "src/components/common/DestinationCard";
-import FeaturedBlogs from "src/components/common/featuredBlogs";
+import FeaturedBlogs from "src/components/common/FeaturedBlogs";
 import { CatalogPagination } from "src/components/common/Pagination";
 import RelatedSections from "src/components/common/RelatedSections";
 import useFetch from "src/hooks/useFetch";
