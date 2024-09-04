@@ -1,5 +1,5 @@
 // Import necessary dependencies and components
-import React, { memo, useCallback } from "react";
+import React, { memo, useCallback, useState, useEffect } from "react";
 import { motion, useTransform, useScroll } from "framer-motion";
 import { Link } from "react-router-dom";
 
@@ -44,8 +44,21 @@ const Articles: React.FC<ArticlesProps> = memo(({ articlesHookRef, blogChunks })
     if (month >= 2 && month <= 4) return "Spring";
     if (month >= 5 && month <= 7) return "Summer";
     if (month >= 8 && month <= 10) return "Fall";
-    return "Winter";
+    if (month === 11 || month === 0 || month === 1) return "Winter";
+    if (month === 1) return "Winter-Spring";
+    if (month === 4) return "Spring-Summer";
+    if (month === 7) return "Summer-Fall";
+    if (month === 10) return "Fall-Winter";
+    return "Unknown Season";
   }, []);
+
+  // Set the background gradient based on the current season
+  const [backgroundGradient, setBackgroundGradient] = useState("");
+
+  useEffect(() => {
+    const season = getSeason();
+    setBackgroundGradient(`var(--${season.toLowerCase().replace(/ /g, "-")}-gradient)`);
+  }, [getSeason]);
 
   // Render the season heading with animated letters
   const renderSeasonHeading = () => (
@@ -101,6 +114,7 @@ const Articles: React.FC<ArticlesProps> = memo(({ articlesHookRef, blogChunks })
         <span className="span-small text-white">{blog.category}</span>
         <motion.p
           whileHover="hoverX"
+          transition={{ duration: 0.3 }}
           variants={variants}
           className="cursor-hover-small span-medium uppercase text-text-dark dark:text-text-light"
         >
@@ -141,6 +155,7 @@ const Articles: React.FC<ArticlesProps> = memo(({ articlesHookRef, blogChunks })
           <span className="span-small text-blue-gray-100">{blog.category}</span>
           <motion.span
             whileHover="hoverX"
+            transition={{ duration: 0.3 }}
             variants={variants}
             className="cursor-hover-small span-medium w-full text-text-dark dark:text-text-light"
           >
@@ -170,7 +185,7 @@ const Articles: React.FC<ArticlesProps> = memo(({ articlesHookRef, blogChunks })
       {blogChunks?.length > 0 && (
         <section 
           className="blogs flex flex-col items-center justify-start gap-sect-short lg:pb-sect-default lg:pt-sect-short 2xl:pb-sect-medium 2xl:pt-60"
-          style={{background: "var(--inspiration-gradient)"}}
+          style={{background: backgroundGradient}}
         >
           {renderSeasonHeading()}
           {/* Featured content slider for blog chunks */}
