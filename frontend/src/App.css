@@ -1,4 +1,3 @@
-/* @import url("https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap"); */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 
 @import "tailwindcss/base";
@@ -13,6 +12,7 @@
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: "MD Nichrome";
   src: url("./fonts/MD-Nichrome/MDNichromeTest-Infra.otf") format("opentype");
@@ -77,21 +77,34 @@
   --gray: #969696;
   --aurora-green: #90b37f;
   --aurora-brown: #e7aa75b2;
-  --aurora-brown-gradient: radial-gradient(
-    circle at 50% 50%,
-    var(--aurora-brown),
-    rgba(76, 0, 255, 0)
-  );
-  --aurora-green-gradient: radial-gradient(
-    circle at 50% 50%,
-    var(--aurora-green),
-    rgba(76, 0, 255, 0)
-  );
-  --space-gradient: linear-gradient(
-    180deg,
-    rgb(0, 0, 0) 0%,
-    rgb(62.05, 75.92, 102.85) 100%
-  );
+  --aurora-brown-gradient: radial-gradient(circle at 50% 50%, var(--aurora-brown), rgba(76, 0, 255, 0));
+  --aurora-green-gradient: radial-gradient(circle at 50% 50%, var(--aurora-green), rgba(76, 0, 255, 0));
+  --space-gradient: linear-gradient(180deg, rgb(0, 0, 0) 0%, rgb(62.05, 75.92, 102.85) 100%);
+  --inspiration-gradient: linear-gradient(180deg, rgb(10.02, 10.23, 10.38) 0%, rgb(70.95, 96.12, 114.35) 50%, rgb(251, 249, 247) 100%);
+  /* Spring */
+  --spring-gradient: linear-gradient(180deg, rgba(239,156,102,1) 0%, rgba(200,207,160,1) 50%, rgba(251,249,247,1) 100%);
+  --spring-summer-gradient: linear-gradient(180deg, rgba(200,207,160,1) 0%, rgba(120,171,168,1) 50%, rgba(251,249,247,1) 100%);
+  
+  /* Summer */
+  --summer-gradient: linear-gradient(180deg, rgba(54,186,152,1) 0%, rgba(233,196,106,1) 50%, rgba(251,249,247,1) 100%);
+  --summer-fall-gradient: linear-gradient(180deg, rgb(0, 0, 51) 0%, rgb(255, 165, 0) 50%, rgb(251, 249, 247) 100%);
+  
+  /* Fall */
+  --fall-gradient: linear-gradient(180deg, rgb(51, 0, 0) 0%, rgb(139, 69, 19) 50%, rgb(251, 249, 247) 100%);
+  --fall-winter-gradient: linear-gradient(180deg, rgb(43, 21, 21) 0%, rgb(184, 134, 11) 50%, rgb(251, 249, 247) 100%);
+  
+  /* Winter */
+  --winter-gradient: linear-gradient(180deg, rgba(38,80,115,1) 0%, rgba(45,149,150,1) 50%, rgba(251,249,247,1) 100%);
+  --winter-spring-gradient: linear-gradient(180deg, rgba(6,70,53,1) 0%, rgba(240,187,98,1) 50%, rgba(251,249,247,1) 100%);
+
+  --wilderness: #8AB17C;
+  --cultureheritage: #97764F;
+  --fooddrink: #B17C8C;
+  --solojourneys: #333333;
+  --cityscape: #B9D1D1;
+  --seasonfestival: #C35757;
+  --relaxation: #A6DBB8;
+  --firsttimeabroad: #EB996E;
 }
 
 *,
@@ -125,41 +138,47 @@ p {
 }
 
 /* SCROLLBAR */
-body::-webkit-scrollbar-track
-{
-	border-radius: 50px;
-	background-color: transparent;
+body::-webkit-scrollbar-track,
+.custom-scrollbar::-webkit-scrollbar-track {
+  border-radius: 50px;
+  background-color: transparent;
 }
 
-body::-webkit-scrollbar
-{
-	width: 8px;
-	background-color: transparent;
+body::-webkit-scrollbar,
+.custom-scrollbar::-webkit-scrollbar {
+  background-color: transparent;
 }
 
-body::-webkit-scrollbar:hover{
+body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+body::-webkit-scrollbar:hover,
+body::-webkit-scrollbar:active {
   width: 10px;
 }
 
-body::-webkit-scrollbar:active{
-  width: 10px;
+.custom-scrollbar::-webkit-scrollbar:hover,
+.custom-scrollbar::-webkit-scrollbar:active {
+  width: 8px;
 }
 
-body::-webkit-scrollbar-thumb
-{
+body::-webkit-scrollbar-thumb,
+.custom-scrollbar::-webkit-scrollbar-thumb {
   @apply bg-gray transition-colors;
-	border-radius: 50px;
+  border-radius: 50px;
   cursor: pointer;
 }
 
-body::-webkit-scrollbar-thumb:active
-{
+body::-webkit-scrollbar-thumb:active,
+.custom-scrollbar::-webkit-scrollbar-thumb:active,
+body::-webkit-scrollbar-thumb:hover,
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
   @apply bg-background-dark dark:bg-background-light;
-}
-
-body::-webkit-scrollbar-thumb:hover
-{
-	@apply bg-background-dark dark:bg-background-light;
 }
 
 /* TYPO CLASSES */
@@ -228,6 +247,22 @@ body::-webkit-scrollbar-thumb:hover
   @apply font-extrabold lg:text-lg xl:text-xl 2xl:text-2xl 3xl:text-2xl;
 }
 
+.text-stroke {
+  -webkit-text-stroke: 2px #333333;
+}
+
+.text-stroke-bold {
+  -webkit-text-stroke: 4px #333333;
+}
+
+.text-stroke-light {
+  -webkit-text-stroke: 2px #ffffff;
+}
+
+.text-stroke-light-bold {
+  -webkit-text-stroke: 4px #ffffff;
+}
+
 /* BUTTON classes  */
 .btn {
   @apply flex w-fit cursor-pointer items-center justify-center rounded-md border-none font-medium uppercase tracking-wide shadow-md shadow-gray lg:gap-2 lg:px-3 lg:py-2 lg:text-base xl:gap-2 xl:px-4 xl:py-2 xl:text-base 2xl:gap-3 2xl:px-5 2xl:py-3 2xl:text-xl 3xl:gap-3 3xl:px-6 3xl:py-3 3xl:text-xl;
@@ -243,9 +278,7 @@ body::-webkit-scrollbar-thumb:hover
 
 .btn-primary {
   @apply bg-main-brown text-text-dark;
-  box-shadow:
-    -2px 3px 6.2px 0px rgba(0, 0, 0, 0.25),
-    0px 4px 4px 0px rgba(255, 242, 242, 0.25) inset !important;
+  box-shadow: -2px 3px 6.2px 0px rgba(0, 0, 0, 0.25), 0px 4px 4px 0px rgba(255, 242, 242, 0.25) inset !important;
 }
 
 .btn-secondary {
@@ -253,9 +286,7 @@ body::-webkit-scrollbar-thumb:hover
 }
 
 .underline-btn {
-  @apply relative cursor-pointer uppercase lg:text-base lg:font-medium xl:text-lg 2xl:text-xl 2xl:font-semibold 3xl:text-xl;
-  width: -moz-fit-content;
-  width: fit-content;
+  @apply relative cursor-pointer w-fit uppercase lg:text-base lg:font-medium xl:text-lg 2xl:text-xl 2xl:font-semibold 3xl:text-xl;
 }
 
 .underline-btn i {
@@ -265,10 +296,7 @@ body::-webkit-scrollbar-thumb:hover
 .underline-btn::before {
   @apply absolute bottom-0 right-0 w-0 rounded-sm bg-text-light lg:h-[1.5px] 2xl:h-[2px];
   content: "";
-  transition:
-    right 0.4s,
-    width 0.4s,
-    left 0.4s;
+  transition: right 0.4s, width 0.4s, left 0.4s;
 }
 
 .underline-btn:hover::before {
