@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 // Component imports
 import Country from "src/types/Country";
 import { Link } from "react-router-dom";
+import { optimizeImage } from "src/utils/optimizeImage";
+import { useViewportWidth, getImageSize } from "src/utils/imageUtils";
 
 // Component props type
 type CountryCardProps = {
@@ -45,6 +47,17 @@ const variants = {
 
 // CountryCard component
 const CountryCard: React.FC<CountryCardProps> = ({ country }) => {
+  const viewportWidth = useViewportWidth();
+  const imageSize = getImageSize(viewportWidth);
+
+  const optimizedImage = country?.images?.flagImages?.[0]
+    ? optimizeImage(country.images.flagImages[0], {
+        width: imageSize,
+        quality: 80,
+        format: "auto",
+      })
+    : null;
+
   // Render logic
   return (
     <Suspense
@@ -52,7 +65,7 @@ const CountryCard: React.FC<CountryCardProps> = ({ country }) => {
         <div className="rounded-xl bg-gradient-to-t from-background-dark to-transparent lg:h-20 lg:w-32" />
       }
     >
-      <div className="flex h-fit flex-row lg:gap-2 2xl:gap-4">
+      <div className="flex h-fit flex-row lg:gap-4 2xl:gap-4">
         <motion.div
           whileHover="hoverRotate"
           whileTap="tapRotate"
@@ -64,14 +77,18 @@ const CountryCard: React.FC<CountryCardProps> = ({ country }) => {
             target="_top"
             className="h-full w-full"
           >
-            <motion.img
-              whileHover="hoverScale"
-              transition={{ duration: 0.4 }}
-              variants={variants}
-              src={country?.images?.flagImages?.[0]}
-              alt={country.name}
-              className="cursor-hover h-full w-full rounded-xl"
-            />
+            {optimizedImage && (
+              <motion.img
+                whileHover="hoverScale"
+                transition={{ duration: 0.4 }}
+                variants={variants}
+                src={optimizedImage.src}
+                srcSet={optimizedImage.srcSet}
+                alt={country.name}
+                className="cursor-hover h-full w-full rounded-xl"
+                loading="lazy"
+              />
+            )}
           </Link>
         </motion.div>
         <div className="flex h-fit flex-col justify-start gap-0">

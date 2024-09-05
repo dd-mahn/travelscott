@@ -1,9 +1,10 @@
-import React, { Suspense } from "react";
-import { easeIn, motion } from "framer-motion";
+import React from "react";
+import { motion } from "framer-motion";
 
 import Destination from "src/types/Destination";
-import planeIcon from "src/assets/svg/plane-icon.svg";
 import { Link } from "react-router-dom";
+import { optimizeImage } from "src/utils/optimizeImage";
+import { useViewportWidth, getImageSize } from "src/utils/imageUtils";
 
 interface DestinationCardProps {
   destination: Destination;
@@ -28,6 +29,17 @@ const variants = {
 };
 
 const DestinationCard: React.FC<DestinationCardProps> = ({ destination }) => {
+  const viewportWidth = useViewportWidth();
+  const imageSize = getImageSize(viewportWidth);
+
+  const optimizedImage = destination.images && destination.images.length > 0
+    ? optimizeImage(destination.images[0], {
+        width: imageSize,
+        quality: 80,
+        format: "auto",
+      })
+    : null;
+
   return (
     <div
       key={destination.name}
@@ -38,13 +50,14 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ destination }) => {
         target="_top"
         className="grid h-[50svh] place-items-center overflow-hidden rounded-2xl bg-gradient-to-t from-background-dark to-transparent shadow-component"
       >
-        {destination.images[0] && (
+        {optimizedImage && (
           <motion.img
             whileHover="hoverScale"
             transition={{ duration: 0.4 }}
             variants={variants}
             loading="lazy"
-            src={destination.images[0]}
+            src={optimizedImage.src}
+            srcSet={optimizedImage.srcSet}
             alt={destination.name}
             className="cursor-hover h-full w-full rounded-xl"
           />
@@ -55,18 +68,18 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ destination }) => {
           {destination.country || "Country"}
         </span>
         
-          <motion.span
-            whileHover="hoverX"
-            variants={variants}
-            transition={{ duration: 0.3 }}
-            className="cursor-hover-small span-medium w-fit uppercase"
-          >
-            <Link to={`/discover/destinations/${destination._id}`} target="_top">
-              {destination.name}
-            </Link>
-          </motion.span>
+        <motion.span
+          whileHover="hoverX"
+          variants={variants}
+          transition={{ duration: 0.3 }}
+          className="cursor-hover-small span-medium w-fit uppercase"
+        >
+          <Link to={`/discover/destinations/${destination._id}`} target="_top">
+            {destination.name}
+          </Link>
+        </motion.span>
         <div className="mt-4 flex flex-row items-start justify-start gap-2">
-          {destination.tags.map((tag) => (
+          {destination.tags && destination.tags.map((tag) => (
             <span
               key={tag}
               className="span-small rounded-2xl border-solid border-gray px-4 lg:border"
