@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useMemo } from "react";
 import Slider from "react-slick";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 // Component imports
 import useFetch from "src/hooks/useFetch";
+import { useViewportWidth } from "src/utils/imageUtils";
+import { optimizeImage } from "src/utils/optimizeImage";
+import { BASE_URL } from "src/utils/config";
+
+// Types
 import Blog from "src/types/Blog";
 import Country from "src/types/Country";
 import Destination from "src/types/Destination";
@@ -12,18 +18,25 @@ import {
   FetchCountriesType,
   FetchDestinationType,
 } from "src/types/FetchData";
-import { BASE_URL } from "src/utils/config";
-import { Link } from "react-router-dom";
+
+// Constants
+const CONTINENTS = [
+  "Africa",
+  "Asia",
+  "Europe",
+  "North America",
+  "Oceania",
+  "South America",
+];
 
 // Framer motion variants
 const variants = {
   hoverBrightness: {
     filter: "brightness(0.5)",
-    transition: {
-      duration: 0.4,
-    },
+    transition: { duration: 0.4 },
   },
 };
+
 // Slider settings
 const settings = {
   dots: false,
@@ -34,146 +47,73 @@ const settings = {
   slidesToShow: 5,
   cssEase: "linear",
   pauseOnHover: true,
+  centerMode: true,
+  centerPadding: "-20px",
   responsive: [
     {
       breakpoint: 1536,
-      settings: {
-        slidesToShow: 4,
-        slidesToScroll: 1,
-        infinite: true,
-        dots: false,
-      },
+      settings: { slidesToShow: 4, slidesToScroll: 1, infinite: true, dots: false },
     },
     {
       breakpoint: 1024,
-      settings: {
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        infinite: true,
-        dots: false,
-      },
+      settings: { slidesToShow: 3, slidesToScroll: 1, infinite: true, dots: false },
     },
     {
       breakpoint: 600,
-      settings: {
-        slidesToShow: 2,
-        slidesToScroll: 1,
-        initialSlide: 2,
-        infinite: true,
-        dots: false,
-      },
+      settings: { slidesToShow: 2, slidesToScroll: 1, initialSlide: 2, infinite: true, dots: false },
     },
   ],
 };
 
-// Related sections types
-type RelatedSectionsProps = {
-  type: string;
-  data: Blog | Country | Destination | string;
+// Helper functions
+const isBlog = (data: any): data is Blog => data && data.category;
+const isDestination = (data: any): data is Destination => data && data._id;
+const isCountry = (data: any): data is Country => data && data.name;
+const isContinent = (data: any): data is string => CONTINENTS.includes(data);
+
+// Components
+const RelatedSections: React.FC<{ type: string; data: Blog | Country | Destination | string }> = ({ type, data }) => {
+  switch (type) {
+    case "country":
+      return <RelatedCountries country={data as Country} />;
+    case "destination":
+      return <RelatedDestinations destination={data as Destination} />;
+    case "blog":
+      return <RelatedArticles data={data} />;
+    default:
+      return (
+        <div className="px-sect w-full">
+          <p className="p-regular mt-4">Nothing related at the moment.</p>
+        </div>
+      );
+  }
 };
 
-// Related sections component
-const RelatedSections: React.FC<RelatedSectionsProps> = ({ type, data }) => {
-  return type === "country" ? (
-    <RelatedCountries country={data as Country} />
-  ) : type === "destination" ? (
-    <RelatedDestinations destination={data as Destination} />
-  ) : type === "blog" ? (
-    <RelatedArticles data={data} />
-  ) : (
-    <div className="px-sect w-full">
-      <p className="p-regular mt-4">Nothing related at the moment.</p>
-    </div>
-  );
-};
-
-// Corrected prop types for each component
-type CountryProps = {
-  country: Country;
-};
-
-type DestinationProps = {
-  destination: Destination;
-};
-
-type BlogProps = {
-  data: Blog | Destination | Country | string;
-};
-
-// Related countries component
-const RelatedCountries: React.FC<CountryProps> = ({ country }) => {
-  const continent = country.continent;
-
-  const {
-    data: countriesData,
-    error: countriesError,
-    loading: countriesLoading,
-  } = useFetch<FetchCountriesType>(
-    `${BASE_URL}/countries?continent=${continent}`,
+const RelatedCountries: React.FC<{ country: Country }> = ({ country }) => {
+  const viewportWidth = useViewportWidth();
+  const { data: countriesData, error: countriesError, loading: countriesLoading } = useFetch<FetchCountriesType>(
+    `${BASE_URL}/countries?continent=${country.continent}`
   );
 
-  const relatedCountries = countriesData?.result.filter(
-    (c) => c.name !== country.name,
-  );
+  const relatedCountries = countriesData?.result.filter((c) => c.name !== country.name);
 
   if (countriesLoading) return <div></div>;
   if (countriesError) return <div></div>;
   if (!relatedCountries || relatedCountries.length === 0)
-    return (
-      <div className="">
-        <p className="p-regular mt-4">
-          There are no related countries at the moment.
-        </p>
-      </div>
-    );
+    return <div className=""><p className="p-regular mt-4">There are no related countries at the moment.</p></div>;
 
   return (
     <>
-      {relatedCountries.length < 5 && (
-        <div className="related-countries min-w-screen flex cursor-pointer flex-nowrap gap-2 py-sect-short">
+      {relatedCountries.length < 5 ? (
+        <div className="related-countries min-w-screen min-h-[20svh] flex cursor-pointer flex-nowrap gap-2 py-sect-short">
           {relatedCountries.map((country) => (
-            <Link
-              to={`/discover/countries/${country._id}`}
-              target="_top"
-              key={country.name}
-              className="relative w-[20svw] rounded-lg lg:h-[35svh] 2xl:h-[30svh]"
-            >
-              <motion.img
-                variants={variants}
-                whileHover="hoverBrightness"
-                transition={{ duration: 0.4 }}
-                src={country.images.otherImages?.[0]}
-                alt={country.name}
-                className="cursor-hover absolute right-0 top-0 z-0 h-full w-full rounded-lg brightness-75"
-              />
-              <p className="cursor-hover-small p-large pointer-events-none absolute left-0 right-0 top-[40%] z-10 px-8 text-center font-prima text-text-dark">
-                {country.name}
-              </p>
-            </Link>
+            <CountryCard key={country._id} country={country} viewportWidth={viewportWidth} />
           ))}
         </div>
-      )}
-      {relatedCountries.length >= 5 && (
+      ) : (
         <Slider {...settings}>
           {relatedCountries.map((country) => (
-            <Link
-              to={`/discover/countries/${country._id}`}
-              target="_top"
-              key={country.name}
-              className="relative w-[20svw] cursor-pointer rounded-lg lg:h-[35svh] 2xl:h-[30svh]"
-            >
-              <motion.img
-                variants={variants}
-                whileHover="hoverBrightness"
-                transition={{ duration: 0.4 }}
-                src={country.images.otherImages?.[0]}
-                alt={country.name}
-                className="cursor-hover absolute right-0 top-0 z-0 h-full w-full rounded-lg brightness-75"
-              />
-              <p className="cursor-hover-small p-large pointer-events-none absolute left-0 right-0 top-[40%] z-10 px-8 text-center font-prima text-text-dark">
-                {country.name}
-              </p>
-            </Link>
+            <CountryCard key={country._id} country={country} viewportWidth={viewportWidth} />
           ))}
         </Slider>
       )}
@@ -181,89 +121,36 @@ const RelatedCountries: React.FC<CountryProps> = ({ country }) => {
   );
 };
 
-// Related destinations component
-const RelatedDestinations: React.FC<DestinationProps> = ({ destination }) => {
-  const continent = destination.continent;
-  const tags = destination.tags;
-
-  const {
-    data: destinationsData,
-    error: destinationsError,
-    loading: destinationsLoading,
-  } = useFetch<FetchDestinationType>(`${BASE_URL}/destinations?limit=100`);
-
-  const continentRelatedDestinations = destinationsData?.result.filter(
-    (d) => d.continent === continent && d._id !== destination._id,
+const RelatedDestinations: React.FC<{ destination: Destination }> = ({ destination }) => {
+  const viewportWidth = useViewportWidth();
+  const { data: destinationsData, error: destinationsError, loading: destinationsLoading } = useFetch<FetchDestinationType>(
+    `${BASE_URL}/destinations?limit=100`
   );
 
-  const tagsRelatedDestinations = destinationsData?.result.filter(
-    (d) =>
-      d._id !== destination._id && d.tags.some((tag) => tags.includes(tag)),
-  );
-
-  const relatedDestinations = [
-    ...(continentRelatedDestinations || []),
-    ...(tagsRelatedDestinations || []),
-  ];
+  const relatedDestinations = useMemo(() => {
+    if (!destinationsData?.result) return [];
+    return destinationsData.result.filter(
+      (d) => (d.continent === destination.continent || d.tags.some((tag) => destination.tags.includes(tag))) && d._id !== destination._id
+    );
+  }, [destinationsData, destination]);
 
   if (destinationsLoading) return <div></div>;
   if (destinationsError) return <div></div>;
   if (!relatedDestinations || relatedDestinations.length === 0)
-    return (
-      <div className="px-sect grid place-items-center">
-        <p className="p-regular mt-4">
-          There are no related destinations at the moment.
-        </p>
-      </div>
-    );
+    return <div className="px-sect grid place-items-center"><p className="p-regular mt-4">There are no related destinations at the moment.</p></div>;
+
   return (
     <>
-      {relatedDestinations.length < 5 && (
-        <div className="related-destinations min-w-screen flex flex-nowrap gap-2 py-sect-short">
+      {relatedDestinations.length < 5 ? (
+        <div className="related-destinations min-w-screen min-h-[20svh] flex flex-nowrap gap-2 py-sect-short">
           {relatedDestinations.map((destination) => (
-            <Link
-              to={`/discover/destinations/${destination._id}`}
-              target="_top"
-              key={destination.name}
-              className="relative w-[20svw] rounded-lg lg:h-[35svh] 2xl:h-[30svh]"
-            >
-              <motion.img
-                variants={variants}
-                whileHover="hoverBrightness"
-                transition={{ duration: 0.4 }}
-                src={destination.images?.[0]}
-                alt={destination.name}
-                className="cursor-hover absolute right-0 top-0 z-0 h-full w-full rounded-lg brightness-75"
-              />
-              <p className="cursor-hover-small p-large pointer-events-none absolute left-0 right-0 top-[40%] z-10 px-8 text-center font-prima text-text-dark">
-                {destination.name}
-              </p>
-            </Link>
+            <DestinationCard key={destination._id} destination={destination} viewportWidth={viewportWidth} />
           ))}
         </div>
-      )}
-
-      {relatedDestinations.length >= 5 && (
+      ) : (
         <Slider {...settings}>
           {relatedDestinations.map((destination) => (
-            <Link
-              to={`/discover/destinations/${destination._id}`}
-              target="_top"
-              key={destination.name}
-              className="relative w-[20svw] rounded-lg lg:h-[35svh] 2xl:h-[30svh]"
-            >
-              <motion.img
-                variants={variants}
-                whileHover="hoverBrightness"
-                transition={{ duration: 0.4 }}
-                src={destination.images?.[0]}
-                alt={destination.name}
-                className="absolute right-0 top-0 z-0 h-full w-full rounded-lg brightness-75"
-              />
-              <p className="cursor-hover-small p-large pointer-events-none absolute left-0 right-0 top-[40%] z-10 px-8 text-center font-prima text-text-dark">
-                {destination.name}
-              </p>
-            </Link>
+            <DestinationCard key={destination._id} destination={destination} viewportWidth={viewportWidth} />
           ))}
         </Slider>
       )}
@@ -271,135 +158,156 @@ const RelatedDestinations: React.FC<DestinationProps> = ({ destination }) => {
   );
 };
 
-// Related articles component
-const RelatedArticles: React.FC<BlogProps> = ({ data }) => {
-  const continents = [
-    "Africa",
-    "Asia",
-    "Europe",
-    "North America",
-    "Oceania",
-    "South America",
-  ];
-  // Fetch related blogs
-  const {
-    data: blogData,
-    error: blogError,
-    loading: blogLoading,
-  } = useFetch<FetchBlogsType>(`${BASE_URL}/blogs?limit=100`);
-  const blogs = blogData?.result;
+const RelatedArticles: React.FC<{ data: Blog | Destination | Country | string }> = ({ data }) => {
+  const viewportWidth = useViewportWidth();
+  const { data: blogData, error: blogError, loading: blogLoading } = useFetch<FetchBlogsType>(`${BASE_URL}/blogs?limit=100`);
 
-  // Handle type checking
-  const isBlog = (data: any): data is Blog => data && data.category;
-  const isDestination = (data: any): data is Destination => data && data._id;
-  const isCountry = (data: any): data is Country => data && data.name;
-  const isContinent = (data: any): data is string => continents.includes(data);
+  const relatedBlogs = useMemo(() => {
+    if (!blogData?.result) return [];
+    let filtered = blogData.result;
 
-  const checkDataType = (data: any): string => {
-    if (isBlog(data)) return "Blog";
-    if (isDestination(data)) return "Destination";
-    if (isCountry(data)) return "Country";
-    if (isContinent(data)) return "Continent";
-    return "Unknown";
-  };
+    if (isBlog(data)) {
+      filtered = filtered.filter(
+        (blog) =>
+          blog._id !== data._id &&
+          (blog.category === data.category || data.tags.some((tag) => blog.tags.includes(tag)))
+      );
+    } else if (isDestination(data)) {
+      filtered = filtered.filter((blog) => blog.related_destination === data._id);
+    } else if (isCountry(data)) {
+      filtered = filtered.filter((blog) => blog.tags.includes(data.name));
+    } else if (isContinent(data)) {
+      filtered = filtered.filter((blog) => blog.tags.includes(data));
+    }
 
-  // Render logic
-  if (blogLoading) return <div></div>;
-  if (blogError) return <div></div>;
-  if (!blogs) {
-    return (
-      <div className="">
-        <p className="p-regular mt-4">
-          There are no related articles at the moment
-        </p>
-      </div>
-    );
-  }
+    return filtered;
+  }, [blogData, data]);
 
-  // Handle cases for rendering
-  let relatedBlogs = blogs;
-
-  if (isBlog(data) && checkDataType(data) === "Blog") {
-    relatedBlogs = relatedBlogs.filter(
-      (blog) =>
-        blog._id !== data._id &&
-        (blog.category === data.category ||
-          data.tags.some((tag) => blog.tags.includes(tag))),
-    );
-  }
-  if (isDestination(data) && checkDataType(data) === "Destination") {
-    relatedBlogs = relatedBlogs.filter(
-      (blog) => blog.related_destination === data._id,
-    );
-  }
-  if (isCountry(data) && checkDataType(data) === "Country") {
-    relatedBlogs = relatedBlogs.filter((blog) => blog.tags.includes(data.name));
-  }
-  if (isContinent(data) && checkDataType(data) === "Continent") {
-    relatedBlogs = relatedBlogs.filter((blog) => blog.tags.includes(data));
-  }
+  if (blogLoading) return <div>Loading...</div>;
+  if (blogError) return <div>Error loading related articles</div>;
+  if (relatedBlogs.length === 0) return <div>No related articles found</div>;
 
   return (
     <>
-      {relatedBlogs.length < 5 && (
-        <div className="related-blogs flex min-w-full flex-nowrap gap-2 py-sect-short">
+      {relatedBlogs.length < 5 ? (
+        <div className="related-blogs flex min-w-screen min-h-[20svh] flex-nowrap gap-2 py-sect-short">
           {relatedBlogs.map((blog) => (
-            <Link
-              to={`/inspiration/${blog._id}`}
-              target="_top"
-              key={blog.title}
-              className="relative w-[20svw] cursor-pointer rounded-lg border-background-light lg:h-[35svh] 2xl:h-[30svh]"
-              style={{
-                backgroundImage: `url(${blog.image})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
-            >
-              <motion.img
-                variants={variants}
-                whileHover="hoverBrightness"
-                transition={{ duration: 0.4 }}
-                src={blog.image}
-                alt={blog.title}
-                className="cursor-hover absolute left-0 top-0 z-0 h-full w-full rounded-lg brightness-75"
-              />
-              <p className="cursor-hover-small p-large pointer-events-none absolute left-0 right-0 top-[40%] z-10 px-8 text-center font-prima text-text-dark">
-                {blog.title}
-              </p>
-            </Link>
+            <BlogCard key={blog._id} blog={blog} viewportWidth={viewportWidth} />
           ))}
         </div>
-      )}
-      {relatedBlogs.length >= 5 && (
+      ) : (
         <Slider {...settings}>
           {relatedBlogs.map((blog) => (
-            <Link
-              to={`/inspiration/${blog._id}`}
-              target="_top"
-              key={blog.title}
-              className="relative cursor-pointer rounded-lg border-r-8 border-background-light lg:h-[35svh] 2xl:h-[30svh] 2xl:w-[20svw]"
-              style={{
-                backgroundImage: `url(${blog.image})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
-            >
-              <motion.img
-                variants={variants}
-                whileHover="hoverBrightness"
-                transition={{ duration: 0.4 }}
-                src={blog.image}
-                alt={blog.title}
-                className="cursor-hover absolute left-0 top-0 z-0 h-full w-full rounded-lg brightness-75"
-              />
-              <p className="cursor-hover-small p-large pointer-events-none absolute left-0 right-0 top-[40%] z-10 px-8 text-center font-prima text-text-dark">
-                {blog.title}
-              </p>
-            </Link>
+            <BlogCard key={blog._id} blog={blog} viewportWidth={viewportWidth} />
           ))}
         </Slider>
       )}
     </>
+  );
+};
+
+// Card components
+const CountryCard: React.FC<{ country: Country; viewportWidth: number }> = ({ country, viewportWidth }) => {
+  const imageProps = useMemo(() => {
+    if (country.images.otherImages && country.images.otherImages[0]) {
+      return optimizeImage(country.images.otherImages[0], {
+        width: Math.min(viewportWidth, 1920),
+        quality: 80,
+        format: "auto",
+      });
+    }
+    return { src: "", srcSet: "" };
+  }, [country.images.otherImages, viewportWidth]);
+
+  return (
+    <Link
+      to={`/discover/countries/${country._id}`}
+      target="_top"
+      className="relative block w-[20svw] rounded-lg lg:h-[35svh] 2xl:h-[30svh]"
+    >
+      <motion.img
+        variants={variants}
+        whileHover="hoverBrightness"
+        transition={{ duration: 0.4 }}
+        {...imageProps}
+        alt={country.name}
+        className="cursor-hover absolute right-0 top-0 z-0 h-full w-full rounded-lg brightness-75"
+      />
+      <p className="cursor-hover-small p-large pointer-events-none absolute left-0 right-0 top-[40%] z-10 px-8 text-center font-prima text-text-dark">
+        {country.name}
+      </p>
+    </Link>
+  );
+};
+
+const DestinationCard: React.FC<{ destination: Destination; viewportWidth: number }> = ({ destination, viewportWidth }) => {
+  const imageProps = useMemo(() => {
+    if (destination.images && destination.images[0]) {
+      return optimizeImage(destination.images[0], {
+        width: Math.min(viewportWidth, 1920),
+        quality: 80,
+        format: "auto",
+      });
+    }
+    return { src: "", srcSet: "" };
+  }, [destination.images, viewportWidth]);
+
+  return (
+    <Link
+      to={`/discover/destinations/${destination._id}`}
+      target="_top"
+      className="relative block w-[20svw] rounded-lg lg:h-[35svh] 2xl:h-[30svh]"
+    >
+      <motion.img
+        variants={variants}
+        whileHover="hoverBrightness"
+        transition={{ duration: 0.4 }}
+        {...imageProps}
+        alt={destination.name}
+        className="absolute right-0 top-0 z-0 h-full w-full rounded-lg brightness-75"
+      />
+      <p className="cursor-hover-small p-large pointer-events-none absolute left-0 right-0 top-[40%] z-10 px-8 text-center font-prima text-text-dark">
+        {destination.name}
+      </p>
+    </Link>
+  );
+};
+
+const BlogCard: React.FC<{ blog: Blog; viewportWidth: number }> = ({ blog, viewportWidth }) => {
+  const imageProps = useMemo(() => {
+    if (blog.image) {
+      return optimizeImage(blog.image, {
+        width: Math.min(viewportWidth, 1920),
+        quality: 80,
+        format: "auto",
+      });
+    }
+    return { src: "", srcSet: "" };
+  }, [blog.image, viewportWidth]);
+
+  return (
+    <Link
+      to={`/inspiration/${blog._id}`}
+      target="_top"
+        className="relative block w-[20svw] cursor-pointer rounded-lg border-background-light lg:h-[35svh] 2xl:h-[30svh]"
+      style={{
+        backgroundImage: `url(${imageProps.src})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <motion.img
+        variants={variants}
+        whileHover="hoverBrightness"
+        transition={{ duration: 0.4 }}
+        {...imageProps}
+        alt={blog.title}
+        className="cursor-hover absolute left-0 top-0 z-0 h-full w-full rounded-lg brightness-75"
+      />
+      <p className="cursor-hover-small p-large pointer-events-none absolute left-0 right-0 top-[40%] z-10 px-8 text-center font-prima text-text-dark">
+        {blog.title}
+      </p>
+    </Link>
   );
 };
 
