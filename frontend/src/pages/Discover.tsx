@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Carousel } from "@material-tailwind/react";
 import { motion } from "framer-motion";
 
 // Asset imports
@@ -23,21 +22,7 @@ import DiscoverCountries from "./DiscoverComponents/DiscoverCountries";
 import useFetch from "src/hooks/useFetch";
 import Country from "src/types/Country";
 import Destination from "src/types/Destination";
-import { Link } from "react-router-dom";
-
-// Framer motion variants
-const variants = {
-  hidden: { opacity: 0, y: 40 },
-  hiddenFullY: {
-    y: "100%",
-  },
-  hiddenYScale: { scale: 0.95, y: 100 },
-  visible: { opacity: 1, scale: 1, y: 0, x: 0 },
-  hoverScale: {
-    scale: 1.05,
-    transition: { duration: 0.4, ease: "easeInOut" },
-  },
-};
+import DiscoverPoster from "./DiscoverComponents/DiscoverPoster";
 
 // Discover component
 const Discover: React.FC = () => {
@@ -138,88 +123,7 @@ const Discover: React.FC = () => {
       {!allDestinationError &&
         !allDestinationLoading &&
         featuredDestinations.length !== 0 && (
-          <motion.section
-            initial="hiddenYScale"
-            animate="visible"
-            transition={{ duration: 0.5, delay: 0.1 }}
-            variants={variants}
-            className="posters h-screen w-screen"
-          >
-            <Carousel
-              autoplay={featuredDestinations.length > 1}
-              autoplayDelay={5000}
-              transition={{ duration: 2 }}
-              loop
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            >
-              {featuredDestinations.map((destination) => (
-                <motion.div
-                  className="poster px-sect relative flex h-[95%] w-screen cursor-pointer flex-col gap-0 bg-gradient-to-t from-background-dark to-transparent py-sect-short"
-                  key={destination._id}
-                >
-                  {destination.images.length > 0 && (
-                    <Link
-                      to={`destinations/${destination._id}`}
-                      target="_top"
-                      className="absolute left-0 top-0 h-full w-full overflow-hidden"
-                    >
-                      <motion.img
-                        whileHover="hoverScale"
-                        transition={{ duration: 0.4 }}
-                        variants={variants}
-                        src={destination.images[0]}
-                        className="cursor-hover z-0 h-full w-full brightness-75"
-                        alt="Featured destination"
-                      />
-                    </Link>
-                  )}
-
-                  <div className="z-10 w-fit pt-sect-short">
-                    <div className="overflow-hidden">
-                      <motion.h1
-                        initial="hiddenFullY"
-                        whileInView="visible"
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.5, delay: 0.5 }}
-                        variants={variants}
-                        className="big-heading pointer-events-none select-none text-text-dark"
-                      >
-                        {destination.name}
-                      </motion.h1>
-                    </div>
-
-                    <motion.div
-                      initial="hidden"
-                      whileInView="visible"
-                      viewport={{ once: true }}
-                      transition={{
-                        duration: 0.5,
-                        delay: 1,
-                        staggerChildren: 0.2,
-                      }}
-                      variants={variants}
-                      className="pointer-events-none flex w-full justify-between"
-                    >
-                      <motion.span
-                        variants={variants}
-                        className="span-medium text-text-dark select-none" 
-                      >
-                        {destination.country}
-                      </motion.span>
-                      <motion.span
-                        variants={variants}
-                        className="span-medium mr-2 text-text-dark select-none"
-                      >
-                        {destination.continent}
-                      </motion.span>
-                    </motion.div>
-                  </div>
-                </motion.div>
-              ))}
-            </Carousel>
-          </motion.section>
+          <DiscoverPoster featuredDestinations={featuredDestinations} />
         )}
 
       {/* COUNTRY SECTION */}
