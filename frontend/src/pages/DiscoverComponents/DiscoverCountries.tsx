@@ -89,7 +89,7 @@ const DiscoverCountries: React.FC<DiscoverCountriesProps> = ({
   // Render logic
   return (
     <>
-      <section className="countries px-sect flex w-full flex-col items-center gap-4 lg:pb-20 lg:pt-sect-default 2xl:py-sect-default 2xl:pb-40">
+      <section className="countries px-sect flex w-full flex-col items-center gap-4 lg:pb-20 lg:pt-sect-default 2xl:pb-40 2xl:pt-sect-default">
         <div className="overflow-hidden">
           <motion.h1
             initial="hiddenFullY"
@@ -107,7 +107,7 @@ const DiscoverCountries: React.FC<DiscoverCountriesProps> = ({
         <motion.div
           initial="hidden"
           whileInView="visible"
-          transition={{ duration: 0.5, delay: 1 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
           variants={variants}
           viewport={{ once: true }}
           className="grid w-1/6 place-items-center"
@@ -146,20 +146,22 @@ const DiscoverCountries: React.FC<DiscoverCountriesProps> = ({
               <motion.div
                 key={selectedContinent.name}
                 id="continent"
-                initial="hiddenYScale"
+                initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
                 exit="exitX"
-                transition={{ duration: 0.5, ease: "easeInOut" }}
+                transition={{ duration: 0.5, delay: 0.8, ease: "easeInOut" }}
                 variants={variants}
-                className="flex min-h-[70svh] w-full flex-row items-start lg:gap-6 2xl:gap-12"
+                className="flex min-h-[70svh] w-full flex-row items-start lg:gap-8 2xl:gap-12"
               >
                 <div className="relative flex items-center justify-center">
                   <div className="h-[70svh] w-[40svw] overflow-hidden rounded-xl shadow-component">
                     <motion.img
                       whileHover="hoverScale"
-                      transition={{ duration: 0.4 }}
                       variants={variants}
+                      transition={{
+                        duration: 0.4,
+                      }}
                       src={selectedContinent.image}
                       alt="map"
                       className="h-full w-full rounded-xl object-cover brightness-75"
@@ -171,12 +173,51 @@ const DiscoverCountries: React.FC<DiscoverCountriesProps> = ({
                   </h2>
                 </div>
 
-                {countryLoading && <h2 className="h2-md">Loading...</h2>}
-                {countryError && (
-                  <h2 className="h2-md">
-                    Please reload the page or try again later.
-                  </h2>
+                {countryLoading && (
+                  <motion.div
+                    key="Loading..."
+                    initial="hidden"
+                    whileInView="visible"
+                    variants={variants}
+                    exit="hidden"
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                    className="grid h-full w-full place-items-center py-4"
+                  >
+                    <h3 className="h3-md">Loading...</h3>
+                  </motion.div>
                 )}
+                {countryError && (
+                  <motion.div
+                    key={countryError}
+                    initial="hidden"
+                    whileInView="visible"
+                    variants={variants}
+                    exit="hidden"
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                    className="grid h-full w-full place-items-center py-4"
+                  >
+                    <h3 className="h3-md">
+                      Error... Please reload the page or try again later.
+                    </h3>
+                  </motion.div>
+                )}
+                {selectedContinent.countries.length === 0 && (
+                  <motion.div
+                    key="no-countries"
+                    initial="hidden"
+                    whileInView="visible"
+                    variants={variants}
+                    exit="hidden"
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                    className="grid h-full w-full place-items-start py-4"
+                  >
+                    <h3 className="h3-md">No countries found.</h3>
+                  </motion.div>
+                )}
+
                 {!countryLoading && !countryError && (
                   <motion.div
                     initial="hidden"
@@ -185,10 +226,11 @@ const DiscoverCountries: React.FC<DiscoverCountriesProps> = ({
                     viewport={{ once: true }}
                     transition={{
                       duration: 0.5,
-                      delay: 0.2,
-                      staggerChildren: 0.2,
+                      delay: 0.8,
+                      delayChildren: 1.2,
+                      staggerChildren: 0.3,
                     }}
-                    className="grid justify-between lg:grid-cols-3 lg:gap-6 2xl:grid-cols-4 2xl:gap-8"
+                    className="grid justify-between lg:grid-cols-3 lg:gap-8 2xl:grid-cols-4 2xl:gap-8"
                     aria-label="Country list"
                   >
                     {selectedContinent.countries.map((country) => (
