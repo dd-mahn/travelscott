@@ -1,23 +1,19 @@
-import React, {
-  memo,
-  SetStateAction,
-  useCallback,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { memo, useCallback, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "src/store/store";
+import {
+  setDestinationContinents,
+  setDestinationCountries,
+  setDestinationTags,
+  setDestinationSearchQuery,
+  setBlogTags,
+  setBlogSearchQuery,
+} from "src/store/slices/filterSlice";
 
 interface FullFilterBoardProps {
   continentNames: string[];
   countryNames: string[];
-  filterContinents: string[];
-  filterCountries: string[];
-  filterTags: string[];
-  setFilterContinents: React.Dispatch<SetStateAction<string[]>>;
-  setFilterCountries: React.Dispatch<SetStateAction<string[]>>;
-  setFilterTags: React.Dispatch<SetStateAction<string[]>>;
-  setSearchQuery: React.Dispatch<SetStateAction<string>>;
 }
 
 const variants = {
@@ -36,18 +32,15 @@ const variants = {
 const FullFilterBoard: React.FC<FullFilterBoardProps> = ({
   continentNames,
   countryNames,
-  filterContinents,
-  filterCountries,
-  filterTags,
-  setFilterContinents,
-  setFilterCountries,
-  setFilterTags,
-  setSearchQuery,
 }) => {
+  const dispatch = useDispatch();
+  const { continents, countries, tags } = useSelector(
+    (state: RootState) => state.filter.destination,
+  );
   const [inputFocus, setInputFocus] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const tags = useMemo(
+  const predefinedTags = useMemo(
     () => [
       "Wilderness",
       "Culture&Heritage",
@@ -60,33 +53,58 @@ const FullFilterBoard: React.FC<FullFilterBoardProps> = ({
     [],
   );
 
-  // Click handlers
-  const continentFilterClick = useCallback((continent: string) => {
-    setFilterContinents((prev) =>
-      prev.includes(continent)
-        ? prev.filter((item) => item !== continent)
-        : [...prev, continent],
-    );
-  }, []);
+  const continentFilterClick = useCallback(
+    (continent: string) => {
+      dispatch(
+        setDestinationContinents(
+          continents.includes(continent)
+            ? continents.filter((item: string) => item !== continent)
+            : [...continents, continent],
+        ),
+      );
+    },
+    [continents, dispatch],
+  );
 
-  const countryFilterClick = useCallback((country: string) => {
-    setFilterCountries((prev) =>
-      prev.includes(country)
-        ? prev.filter((item) => item !== country)
-        : [...prev, country],
-    );
-  }, []);
+  const countryFilterClick = useCallback(
+    (country: string) => {
+      dispatch(
+        setDestinationCountries(
+          countries.includes(country)
+            ? countries.filter((item: string) => item !== country)
+            : [...countries, country],
+        ),
+      );
+    },
+    [countries, dispatch],
+  );
 
-  const tagFilterClick = useCallback((tag: string) => {
-    setFilterTags((prev) =>
-      prev.includes(tag) ? prev.filter((item) => item !== tag) : [...prev, tag],
-    );
-  }, []);
+  const tagFilterClick = useCallback(
+    (tag: string) => {
+      dispatch(
+        setDestinationTags(
+          tags.includes(tag)
+            ? tags.filter((item: string) => item !== tag)
+            : [...tags, tag],
+        ),
+      );
+    },
+    [tags, dispatch],
+  );
 
   const handleSearchClick = useCallback(() => {
     const value = inputRef.current?.value as string;
-    setSearchQuery(value);
-  }, [setSearchQuery]);
+    dispatch(setDestinationSearchQuery(value));
+  }, [dispatch]);
+
+  const handleKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLInputElement>) => {
+      if (event.key === "Enter") {
+        handleSearchClick();
+      }
+    },
+    [handleSearchClick],
+  );
 
   return (
     <motion.div
@@ -100,7 +118,7 @@ const FullFilterBoard: React.FC<FullFilterBoardProps> = ({
     >
       <div className="flex w-full flex-row items-end gap-4">
         <div
-          className={`${inputFocus ? "border-text-light" : "border-gray border-opacity-50"} flex h-fit items-center justify-between rounded-md px-2 py-1 lg:border-[1.5px] 2xl:border-[2px]`}
+          className={`${inputFocus ? "border-text-light shadow-lg" : "border-gray border-opacity-50"} flex h-fit items-center justify-between rounded-2xl px-2 py-1 transition-all duration-300 lg:border-[1.5px] 2xl:border-[2px]`}
         >
           <input
             ref={inputRef}
@@ -109,6 +127,7 @@ const FullFilterBoard: React.FC<FullFilterBoardProps> = ({
             className="span-small w-4/5 bg-transparent outline-none"
             onClick={() => setInputFocus(true)}
             onBlur={() => setInputFocus(false)}
+            onKeyDown={handleKeyDown}
           />
           <motion.button
             whileHover="hoverScale"
@@ -116,7 +135,7 @@ const FullFilterBoard: React.FC<FullFilterBoardProps> = ({
             whileTap="tapScale"
             transition={{ duration: 0.3 }}
             title="search"
-            className="outline-none"
+            className="outline-none transition-none"
             onClick={handleSearchClick}
           >
             <i className="ri-search-line span-regular"></i>
@@ -134,7 +153,7 @@ const FullFilterBoard: React.FC<FullFilterBoardProps> = ({
               transition={{ duration: 0.3 }}
               whileTap="tapScale"
               key={continent}
-              className={`${filterContinents.includes(continent) ? "bg-background-dark text-text-dark" : "bg-background-light text-text-light"} span-small cursor-pointer rounded-2xl border border-gray px-4`}
+              className={`${continents.includes(continent) ? "bg-background-dark text-text-dark" : "bg-background-light text-text-light"} span-small cursor-pointer rounded-2xl border border-gray px-4`}
               onClick={() => continentFilterClick(continent)}
             >
               {continent}
@@ -147,7 +166,7 @@ const FullFilterBoard: React.FC<FullFilterBoardProps> = ({
               transition={{ duration: 0.3 }}
               whileTap="tapScale"
               key={country}
-              className={`${filterCountries.includes(country) ? "bg-background-dark text-text-dark" : "bg-background-light text-text-light"} span-small cursor-pointer rounded-2xl border border-gray px-4`}
+              className={`${countries.includes(country) ? "bg-background-dark text-text-dark" : "bg-background-light text-text-light"} span-small cursor-pointer rounded-2xl border border-gray px-4`}
               onClick={() => countryFilterClick(country)}
             >
               {country}
@@ -159,14 +178,14 @@ const FullFilterBoard: React.FC<FullFilterBoardProps> = ({
       <div className="flex w-full flex-col items-start gap-2">
         <span className="span-medium font-prima uppercase">Tags</span>
         <div className="flex flex-wrap gap-2">
-          {tags.map((tag) => (
+          {predefinedTags.map((tag) => (
             <motion.button
               whileHover="hoverScale"
               variants={variants}
               transition={{ duration: 0.3 }}
               whileTap="tapScale"
               key={tag}
-              className={`${filterTags.includes(tag) ? "bg-background-dark text-text-dark" : "bg-background-light text-text-light"} span-small cursor-pointer rounded-2xl border border-gray px-4`}
+              className={`${tags.includes(tag) ? "bg-background-dark text-text-dark" : "bg-background-light text-text-light"} span-small cursor-pointer rounded-2xl border border-gray px-4`}
               onClick={() => tagFilterClick(tag)}
             >
               {tag}
@@ -180,31 +199,33 @@ const FullFilterBoard: React.FC<FullFilterBoardProps> = ({
 
 export default memo(FullFilterBoard);
 
-interface ContinentFilterProps {
-  continentFilter: string[];
-  setContinentFilter: React.Dispatch<SetStateAction<string[]>>;
-  setCurrentPage: React.Dispatch<SetStateAction<number>>;
-}
+export const ContinentFilter: React.FC<{ continentNames: string[] }> =
+  React.memo(({ continentNames }) => {
+    const dispatch = useDispatch();
+    const { tags } = useSelector((state: RootState) => state.filter.blog);
+    const { searchQuery } = useSelector(
+      (state: RootState) => state.filter.blog,
+    );
+    const [inputFocus, setInputFocus] = useState<boolean>(false);
+    const inputRef = useRef<HTMLInputElement>(null);
 
-const continents = [
-  "Africa",
-  "Asia",
-  "Europe",
-  "North America",
-  "South America",
-  "Oceania",
-];
+    const selectBlogFilterState = useCallback((state: RootState) => ({
+      tags: state.filter.blog.tags,
+      searchQuery: state.filter.blog.searchQuery
+    }), []);
+    const { tags: selectTags, searchQuery: selectSearchQuery } = useSelector(selectBlogFilterState);
 
-export const ContinentFilter: React.FC<ContinentFilterProps> = React.memo(
-  ({ continentFilter, setContinentFilter, setCurrentPage }) => {
     const handleContinentFilter = useCallback((continent: string) => {
-      setContinentFilter((prev) =>
-        prev.includes(continent)
-          ? prev.filter((c) => c !== continent)
-          : [...prev, continent],
-      );
-      setCurrentPage(1);
-    }, [setCurrentPage]);
+      dispatch(setBlogTags(
+        selectTags.includes(continent)
+          ? selectTags.filter((c: string) => c !== continent)
+          : [...selectTags, continent]
+      ));
+    }, [selectTags, dispatch]);
+
+    const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+      dispatch(setBlogSearchQuery(e.target.value));
+    }, [dispatch]);
 
     return (
       <motion.div
@@ -218,9 +239,9 @@ export const ContinentFilter: React.FC<ContinentFilterProps> = React.memo(
           staggerChildren: 0.2,
           delayChildren: 0.5,
         }}
-        className="continent-filter flex flex-row flex-nowrap justify-center lg:gap-3 2xl:gap-4 shadow-component lg:rounded-xl lg:px-8 lg:py-4 2xl:rounded-2xl 2xl:px-sect-short 2xl:py-8"
+        className="continent-filter flex flex-row flex-wrap items-center justify-center shadow-component lg:gap-3 lg:rounded-2xl lg:px-12 lg:py-6 2xl:gap-4 2xl:rounded-3xl 2xl:px-sect-short 2xl:py-8"
       >
-        {continents.map((continent) => (
+        {continentNames.map((continent) => (
           <motion.button
             variants={variants}
             key={continent}
@@ -228,8 +249,8 @@ export const ContinentFilter: React.FC<ContinentFilterProps> = React.memo(
             whileHover="hoverScale"
             whileTap="tapScale"
             transition={{ duration: 0.3 }}
-            className={`continent-btn span-regular rounded-3xl border border-gray lg:px-6 lg:py-1 2xl:px-8 2xl:py-2 ${
-              continentFilter.includes(continent)
+            className={`continent-btn span-regular rounded-3xl border border-gray lg:border-[1.5px] lg:px-6 lg:py-1 2xl:border-[2px] 2xl:px-8 2xl:py-2 ${
+              selectTags.includes(continent)
                 ? "bg-background-dark text-text-dark"
                 : "bg-transparent text-text-light"
             }`}
@@ -237,17 +258,23 @@ export const ContinentFilter: React.FC<ContinentFilterProps> = React.memo(
             {continent}
           </motion.button>
         ))}
-        <motion.button
-          variants={variants}
-          whileHover="hoverScale"
-          whileTap="tapScale"
-          transition={{ duration: 0.3 }}
-          title="filterBtn"
-          className="p-large ml-4"
-        >
-          <i className="cursor-hover-small ri-filter-2-line"></i>
-        </motion.button>
+        <motion.div variants={variants} className="relative">
+          <input
+            ref={inputRef}
+            type="text"
+            placeholder="Search..."
+            value={selectSearchQuery}
+            onChange={handleSearchChange}
+            onFocus={() => setInputFocus(true)}
+            onBlur={() => setInputFocus(false)}
+            className={`w-full rounded-full border border-gray bg-background-light text-text-light transition-all duration-300 focus:outline-none lg:border-[1.5px] lg:px-3 lg:py-1 2xl:border-[2px] 2xl:px-4 2xl:py-2 ${
+              inputFocus ? "border-text-light shadow-lg" : ""
+            }`}
+          />
+          <i
+            className={`ri-search-line cursor-hover-small span-regular absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-text-light transition-all duration-300`}
+          ></i>
+        </motion.div>
       </motion.div>
     );
-  },
-);
+  });
