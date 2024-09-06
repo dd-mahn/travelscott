@@ -1,5 +1,8 @@
-import React, { memo, useEffect, useMemo } from "react";
+import React, { memo, useCallback, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from 'src/store/store';
+import { setHomeBlogs, setBlogChunks } from 'src/store/slices/homeSlice';
 
 import "src/styles/home.css";
 
@@ -26,16 +29,28 @@ const variants = {
 
 // Home component
 const Home: React.FC = () => {
+  const dispatch = useDispatch();
+  const selectHomeState = useCallback((state: RootState) => ({
+    blogs: state.home.blogs,
+    blogChunks: state.home.blogChunks
+  }), []);
+  const { blogs, blogChunks } = useSelector(selectHomeState);
+
   // Fetch blogs data for Articles and Starter sections
   const { data: blogsData } = useFetch<FetchBlogsType>(`${BASE_URL}/blogs?limit=100`);
 
-  // Memoize blogs data to prevent unnecessary recalculations
-  const blogs = useMemo(() => blogsData?.result || [], [blogsData]);
+  useEffect(() => {
+    if (blogsData?.result) {
+      dispatch(setHomeBlogs(blogsData.result));
+    }
+  }, [blogsData, dispatch]);
 
-  // Create blog chunks for efficient rendering
-  const blogChunks: Blog[][] = useMemo(() => 
-    blogs.length ? createBlogChunks(blogs) : [], [blogs]
-  );
+  useEffect(() => {
+    if (blogs.length > 0) {
+      const chunks = createBlogChunks(blogs);
+      dispatch(setBlogChunks(chunks));
+    }
+  }, [blogs, dispatch]);
 
   // Handle sticky sections top value
   useEffect(() => {
