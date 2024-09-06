@@ -64,7 +64,7 @@ const Layout: React.FC = () => {
         </motion.div>
       ) : (
         // Render main layout after loading
-        <ReactLenis root options={{ lerp: 0.02 }}>
+        <ReactLenis root options={{ lerp: 0.05 }}>
           <ScrollRestoration />
           <Header />
           <Cursor />
