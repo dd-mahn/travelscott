@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ContinentFilter } from "src/components/common/FIlterBoard";
+import { InspirationFilter } from "src/components/common/FIlterBoard";
 import { CatalogPagination } from "src/components/common/Pagination";
 import { FetchBlogsType } from "src/types/FetchData";
 import useFetch from "src/hooks/useFetch";
@@ -109,7 +109,7 @@ const InspirationCatalog: React.FC<InspirationCatalogProps> = memo(({ currentCat
       ref={sectionRef}
       className="catalog px-sect mt-sect-short flex w-full flex-col items-center gap-20"
     >
-      <ContinentFilter continentNames={continentNames} />
+      <InspirationFilter continentNames={continentNames} />
       <AnimatePresence mode="wait">
         {blogsLoading && (
           <motion.div

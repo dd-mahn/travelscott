@@ -14,7 +14,7 @@ import DestinationCard from "src/components/common/DestinationCard";
 import { CatalogPagination } from "src/components/common/Pagination";
 import Destination from "src/types/Destination";
 import { FetchDestinationType } from "src/types/FetchData";
-import FullFilterBoard from "src/components/common/FIlterBoard";
+import { DestinationFilter } from "src/components/common/FIlterBoard";
 import { BASE_URL } from "src/utils/config";
 import useFetch from "src/hooks/useFetch";
 import { useViewportWidth } from "src/utils/imageUtils";
@@ -214,7 +214,7 @@ const DiscoverDestinations: React.FC<DiscoverDestinationsProps> = ({
           </motion.button>
           <AnimatePresence mode="wait">
             {isFilterBoardOpen && (
-              <FullFilterBoard
+              <DestinationFilter
                 countryNames={countryNames}
                 continentNames={continentNames}
               />

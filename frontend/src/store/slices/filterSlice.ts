@@ -7,14 +7,14 @@ interface DestinationFilterState {
   searchQuery: string;
 }
 
-interface BlogFilterState {
+interface InspirationFilterState {
   tags: string[];
   searchQuery: string;
 }
 
 interface FilterState {
   destination: DestinationFilterState;
-  blog: BlogFilterState;
+  blog: InspirationFilterState;
 }
 
 const initialState: FilterState = {

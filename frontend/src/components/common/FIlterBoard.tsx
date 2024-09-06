@@ -29,7 +29,7 @@ const variants = {
   },
 };
 
-const FullFilterBoard: React.FC<FullFilterBoardProps> = ({
+export const DestinationFilter: React.FC<FullFilterBoardProps> = React.memo(({
   continentNames,
   countryNames,
 }) => {
@@ -195,17 +195,11 @@ const FullFilterBoard: React.FC<FullFilterBoardProps> = ({
       </div>
     </motion.div>
   );
-};
+});
 
-export default memo(FullFilterBoard);
-
-export const ContinentFilter: React.FC<{ continentNames: string[] }> =
+export const InspirationFilter: React.FC<{ continentNames: string[] }> =
   React.memo(({ continentNames }) => {
     const dispatch = useDispatch();
-    const { tags } = useSelector((state: RootState) => state.filter.blog);
-    const { searchQuery } = useSelector(
-      (state: RootState) => state.filter.blog,
-    );
     const [inputFocus, setInputFocus] = useState<boolean>(false);
     const inputRef = useRef<HTMLInputElement>(null);
 
