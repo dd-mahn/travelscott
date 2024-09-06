@@ -7,6 +7,10 @@ import InspirationCatalog from "./InspiritionComponents/InspirationCatalog";
 import useFetch from "src/hooks/useFetch";
 import { BASE_URL } from "src/utils/config";
 import { FetchBlogsType } from "src/types/FetchData";
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from 'src/store/store';
+import { setCategory, setCategoryImage, setHeading } from 'src/store/slices/inspirationSlice';
+import { setAllBlogs, setFeaturedBlogs } from 'src/store/slices/blogSlice';
 
 // Images
 import wildernessImage from "src/assets/images/ui/inspiration/wilder-alt.webp";
@@ -73,9 +77,9 @@ const categories = [
 ];
 
 const Inspiration: React.FC = () => {
-  const [currentCategory, setCategory] = useState("All");
-  const [currentCategoryImage, setCategoryImage] = useState("");
-  const [heading, setHeading] = useState("");
+  const dispatch = useDispatch();
+  const { currentCategory, currentCategoryImage, heading } = useSelector((state: RootState) => state.inspiration);
+  const { allBlogs, featuredBlogs } = useSelector((state: RootState) => state.blog);
 
   // Get current season
   const getSeason = useCallback(() => {
@@ -110,12 +114,12 @@ const Inspiration: React.FC = () => {
   );
 
   useEffect(() => {
-    setHeading(getHeading(currentCategory));
-  }, [currentCategory, getHeading]);
+    dispatch(setHeading(getHeading(currentCategory)));
+  }, [currentCategory, getHeading, dispatch]);
 
   // Handle category change
   const handleCategoryChange = useCallback((category: string) => {
-    setCategory(category);
+    dispatch(setCategory(category));
     const images: { [key: string]: string } = {
       Wilderness: wildernessImage,
       "Culture&Heritage": cultureHeritageImage,
@@ -126,8 +130,9 @@ const Inspiration: React.FC = () => {
       Relaxation: relaxationImage,
       FirstTimeAbroad: firstTimeAbroadImage,
     };
-    setCategoryImage(images[category] || "");
-  }, []);
+    dispatch(setCategoryImage(images[category] || ""));
+    dispatch(setHeading(getHeading(category)));
+  }, [dispatch, getHeading]);
 
   // Fetch blogs data
   const {
@@ -141,10 +146,12 @@ const Inspiration: React.FC = () => {
     [currentCategory],
   );
 
-  // Memoize filtered featured blogs
-  const featuredBlogs = useMemo(() => {
-    return allBlogsData?.result?.filter((blog) => blog.featured) || [];
-  }, [allBlogsData]);
+  useEffect(() => {
+    if (allBlogsData?.result) {
+      dispatch(setAllBlogs(allBlogsData.result));
+      dispatch(setFeaturedBlogs(allBlogsData.result.filter((blog) => blog.featured)));
+    }
+  }, [allBlogsData, dispatch]);
 
   if (allBlogsLoading) return <Loading />;
   if (allBlogsError) return <NotFoundPage />;

@@ -8,6 +8,9 @@ import React, {
 } from "react";
 import { motion, useDragControls } from "framer-motion";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from 'src/store/store';
+import { setStarterBlogs } from 'src/store/slices/blogSlice';
 
 // Import custom types and utility functions
 import BlogType from "src/types/Blog";
@@ -170,7 +173,9 @@ const BlogComponent: React.FC<{
 
 // StarterBlogs: Main component to render all blog cards
 const StarterBlogs: React.FC<StarterBlogsProps> = React.memo(({ blogs }) => {
-  const [positions, dispatch] = useReducer(positionReducer, {});
+  const dispatch = useDispatch();
+  const { starterBlogs } = useSelector((state: RootState) => state.blog);
+  const [positions, dispatchPositions] = useReducer(positionReducer, {});
   const [maxZIndex, setMaxZIndex] = React.useState(1);
   const viewportWidth = useViewportWidth();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -193,7 +198,7 @@ const StarterBlogs: React.FC<StarterBlogsProps> = React.memo(({ blogs }) => {
         containerRect.height / 2 - blogHeight / 2 + Math.random() * 200 - 100;
       initialPositions[blog.title] = { x, y, zIndex: 1 };
     });
-    dispatch({ type: "SET_INITIAL_POSITIONS", payload: initialPositions });
+    dispatchPositions({ type: "SET_INITIAL_POSITIONS", payload: initialPositions });
     setDragConstraints({
       top: 0,
       left: 0,
@@ -214,7 +219,7 @@ const StarterBlogs: React.FC<StarterBlogsProps> = React.memo(({ blogs }) => {
     (title: string) => {
       const newPosZIndex = maxZIndex + 1;
       setMaxZIndex(newPosZIndex);
-      dispatch({
+      dispatchPositions({
         type: "INCREMENT_Z_INDEX",
         payload: { title, zIndex: newPosZIndex },
       });
@@ -257,7 +262,7 @@ const StarterBlogs: React.FC<StarterBlogsProps> = React.memo(({ blogs }) => {
         ),
       );
 
-      dispatch({
+      dispatchPositions({
         type: "UPDATE_POSITION",
         payload: {
           title,
@@ -272,12 +277,10 @@ const StarterBlogs: React.FC<StarterBlogsProps> = React.memo(({ blogs }) => {
     [positions],
   );
 
-  // Filter blogs for "FirstTimeAbroad" category
-  const starterBlogs = useMemo(
-    () =>
-      blogs.filter((blog) => blog.category === "FirstTimeAbroad" && blog.image),
-    [blogs],
-  );
+  useEffect(() => {
+    const filteredBlogs = blogs.filter((blog) => blog.category === "FirstTimeAbroad" && blog.image);
+    dispatch(setStarterBlogs(filteredBlogs));
+  }, [blogs, dispatch]);
 
   return (
     <motion.div

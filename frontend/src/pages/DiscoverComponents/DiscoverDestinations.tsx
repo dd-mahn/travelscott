@@ -6,7 +6,8 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { AnimatePresence, easeIn, motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import Lenis from 'lenis';
 
 // Component imports
 import DestinationCard from "src/components/common/DestinationCard";
@@ -16,6 +17,10 @@ import { FetchDestinationType } from "src/types/FetchData";
 import FullFilterBoard from "src/components/common/FIlterBoard";
 import { BASE_URL } from "src/utils/config";
 import useFetch from "src/hooks/useFetch";
+import { useViewportWidth } from "src/utils/imageUtils";
+import { optimizeImage } from "src/utils/optimizeImage";
+import { useSelector } from "react-redux";
+import { RootState } from "src/store/store";
 
 // Component props type
 type DiscoverDestinationsProps = {
@@ -57,29 +62,50 @@ const DiscoverDestinations: React.FC<DiscoverDestinationsProps> = ({
 }) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [destinations, setDestinations] = useState<Destination[]>([]);
-  const [filterTags, setFilterTags] = useState<string[]>([]);
-  const [filterCountries, setFilterCountries] = useState<string[]>([]);
-  const [filterContinents, setFilterContinents] = useState<string[]>([]);
-  const [searchQuery, setSearchQuery] = useState<string>("");
   const sectionRef = useRef<HTMLElement>(null);
+  const lenisRef = useRef<Lenis | null>(null);
+  const viewportWidth = useViewportWidth();
+
+  // Initialize Lenis
+  useEffect(() => {
+    lenisRef.current = new Lenis({
+      duration: 2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      touchMultiplier: 2,
+      infinite: false,
+    });
+
+    function raf(time: number) {
+      lenisRef.current?.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenisRef.current?.destroy();
+    };
+  }, []);
 
   // Handle url for fetching destination data
+  const { continents, countries, tags, searchQuery: destinationSearchQuery } = useSelector((state: RootState) => state.filter.destination);
+
   const url = useMemo(() => {
     let url = `${BASE_URL}/destinations?page=${currentPage}&limit=${limit}`;
-    if (filterTags.length > 0) {
-      url += `&tags=${filterTags.join(",")}`;
+    if (tags.length > 0) {
+      url += `&tags=${tags.join(",")}`;
     }
-    if (filterCountries.length > 0) {
-      url += `&countries=${filterCountries.join(",")}`;
+    if (countries.length > 0) {
+      url += `&countries=${countries.join(",")}`;
     }
-    if (filterContinents.length > 0) {
-      url += `&continents=${filterContinents.join(",")}`;
+    if (continents.length > 0) {
+      url += `&continents=${continents.join(",")}`;
     }
-    if (searchQuery !== "") {
-      url += `&searchQuery=${searchQuery}`;
+    if (destinationSearchQuery !== "") {
+      url += `&searchQuery=${destinationSearchQuery}`;
     }
     return url;
-  }, [currentPage, filterTags, filterCountries, filterContinents, searchQuery]);
+  }, [currentPage, tags, countries, continents, destinationSearchQuery]);
 
   // Fetch destination and country data
   const {
@@ -105,10 +131,24 @@ const DiscoverDestinations: React.FC<DiscoverDestinationsProps> = ({
   // Pagination handler
   const handlePagination = useCallback((newPage: number) => {
     setCurrentPage(newPage);
-    if (sectionRef.current) {
-      sectionRef.current.scrollIntoView({ behavior: "smooth" });
+    if (sectionRef.current && lenisRef.current) {
+      lenisRef.current.scrollTo(sectionRef.current, { offset: -100 });
     }
   }, []);
+
+  // Optimize images for destinations
+  const optimizedDestinations = useMemo(() => {
+    return destinations.map(destination => ({
+      ...destination,
+      images: destination.images.map(image => 
+        optimizeImage(image, {
+          width: Math.min(viewportWidth, 1920),
+          quality: 80,
+          format: "auto"
+        })
+      )
+    }));
+  }, [destinations, viewportWidth]);
 
   return (
     <section
@@ -177,19 +217,12 @@ const DiscoverDestinations: React.FC<DiscoverDestinationsProps> = ({
               <FullFilterBoard
                 countryNames={countryNames}
                 continentNames={continentNames}
-                filterTags={filterTags}
-                filterCountries={filterCountries}
-                filterContinents={filterContinents}
-                setFilterTags={setFilterTags}
-                setFilterCountries={setFilterCountries}
-                setFilterContinents={setFilterContinents}
-                setSearchQuery={setSearchQuery}
               />
             )}
           </AnimatePresence>
         </motion.div>
       </div>
-      <div className="grid min-h-[50svh] w-full place-items-center">
+      <div className="min-h-[50svh] w-full">
         <AnimatePresence mode="wait">
           {destinationLoading && (
             <motion.div
@@ -221,7 +254,7 @@ const DiscoverDestinations: React.FC<DiscoverDestinationsProps> = ({
           )}
           {!destinationLoading &&
             !destinationError &&
-            destinations.length === 0 && (
+            optimizedDestinations.length === 0 && (
               <motion.div
                 key={"No destinations"}
                 initial="hidden"
@@ -254,12 +287,13 @@ const DiscoverDestinations: React.FC<DiscoverDestinationsProps> = ({
                   transition={{
                     staggerChildren: 0.2,
                   }}
-                  className="grid w-full grid-cols-3 gap-x-8 gap-y-12"
+                  className="grid w-full grid-cols-3 gap-x-8 gap-y-12 items-start"
                 >
                   {(destinations as Destination[])?.map((destination) => (
                     <motion.div
                       variants={variants}
                       key={destination._id}
+                      className="w-full"
                     >
                       <DestinationCard destination={destination} />
                     </motion.div>

@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useState, useRef } from "react";
+import React, { memo, useCallback, useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ContinentFilter } from "src/components/common/FIlterBoard";
 import { CatalogPagination } from "src/components/common/Pagination";
@@ -6,6 +6,10 @@ import { FetchBlogsType } from "src/types/FetchData";
 import useFetch from "src/hooks/useFetch";
 import { BASE_URL } from "src/utils/config";
 import InspirationCard from "./InspirationCard";
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from 'src/store/store';
+import { setAllBlogs } from 'src/store/slices/blogSlice';
+import Lenis from 'lenis';
 
 const variants = {
   hiddenOpacity: { opacity: 0 },
@@ -39,37 +43,64 @@ interface InspirationCatalogProps {
   currentCategory: string;
 }
 
-const InspirationCatalog: React.FC<InspirationCatalogProps> = ({
-  currentCategory,
-}) => {
+const InspirationCatalog: React.FC<InspirationCatalogProps> = memo(({ currentCategory }) => {
+  const dispatch = useDispatch();
+  const selectBlogState = useCallback((state: RootState) => ({
+    allBlogs: state.blog.allBlogs,
+    blogTags: state.filter.blog.tags,
+    searchQuery: state.filter.blog.searchQuery
+  }), []);
+  const { allBlogs, blogTags, searchQuery } = useSelector(selectBlogState);
   const [currentPage, setCurrentPage] = useState(1);
-  const [continentFilter, setContinentFilter] = useState<string[]>([]);
   const sectionRef = useRef<HTMLElement>(null);
+  const lenisRef = useRef<Lenis | null>(null);
 
-  const constructUrl = useCallback(() => {
-    let url = `${BASE_URL}/blogs?limit=${limit}&page=${currentPage}`;
-    if (currentCategory && currentCategory !== "All") {
-      url += `&category=${encodeURIComponent(currentCategory)}`;
-    }
-    if (continentFilter.length > 0) {
-      url += `&tags=${continentFilter.map(encodeURIComponent).join(",")}`;
-    }
-    return url;
-  }, [currentCategory, currentPage, continentFilter]);
+  const continentNames = ["Africa", "Asia", "Europe", "North America", "South America", "Australia", "Antarctica"];
 
+  // Initialize Lenis
+  useEffect(() => {
+    lenisRef.current = new Lenis({
+      duration: 2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      touchMultiplier: 2,
+      infinite: false,
+    });
+
+    function raf(time: number) {
+      lenisRef.current?.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenisRef.current?.destroy();
+    };
+  }, []);
+
+  // Update fetch logic to handle multiple blogTags and searchQuery
+  const blogTagsQuery = blogTags.length > 0 ? blogTags.join(',') : '';
   const {
     data: blogsData,
     loading: blogsLoading,
     error: blogsError,
-  } = useFetch<FetchBlogsType>(constructUrl(), [currentPage]);
+  } = useFetch<FetchBlogsType>(
+    `${BASE_URL}/blogs?limit=${limit}&page=${currentPage}&category=${
+      currentCategory === "All" ? "" : encodeURIComponent(currentCategory)
+    }&tags=${blogTagsQuery}&searchQuery=${encodeURIComponent(searchQuery)}`,
+    [currentCategory, currentPage, blogTags, searchQuery]
+  );
 
-  const blogs = blogsData?.result;
-  const totalBlogs = blogsData?.count !== undefined ? blogsData.count : 0;
+  useEffect(() => {
+    if (blogsData?.result) {
+      dispatch(setAllBlogs(blogsData.result));
+    }
+  }, [blogsData, dispatch]);
 
   const handlePagination = useCallback((newPage: number) => {
     setCurrentPage(newPage);
-    if (sectionRef.current) {
-      sectionRef.current.scrollIntoView({ behavior: "smooth" });
+    if (sectionRef.current && lenisRef.current) {
+      lenisRef.current.scrollTo(sectionRef.current, { offset: -100 });
     }
   }, []);
 
@@ -78,11 +109,7 @@ const InspirationCatalog: React.FC<InspirationCatalogProps> = ({
       ref={sectionRef}
       className="catalog px-sect mt-sect-short flex w-full flex-col items-center gap-20"
     >
-      <ContinentFilter
-        continentFilter={continentFilter}
-        setContinentFilter={setContinentFilter}
-        setCurrentPage={setCurrentPage}
-      />
+      <ContinentFilter continentNames={continentNames} />
       <AnimatePresence mode="wait">
         {blogsLoading && (
           <motion.div
@@ -112,7 +139,7 @@ const InspirationCatalog: React.FC<InspirationCatalogProps> = ({
             </h3>
           </motion.div>
         )}
-        {blogs && blogs.length === 0 && (
+        {allBlogs && allBlogs.length === 0 && (
           <motion.div
             key="no-articles"
             initial="hidden"
@@ -124,16 +151,18 @@ const InspirationCatalog: React.FC<InspirationCatalogProps> = ({
             <h3 className="h3-md text-center">No articles found.</h3>
           </motion.div>
         )}
-        {blogs && blogs.length > 0 && (
+        {allBlogs && allBlogs.length > 0 && (
           <motion.div
             key={
               "inspiration-catalog" +
               "-" +
-              continentFilter +
+              blogTags +
               "-" +
               currentPage +
               "-" +
-              currentCategory
+              currentCategory +
+              "-" +
+              searchQuery
             }
             initial="hidden"
             whileInView="visible"
@@ -147,7 +176,7 @@ const InspirationCatalog: React.FC<InspirationCatalogProps> = ({
               transition={{ staggerChildren: 0.2 }}
               className="grid grid-cols-2 justify-between gap-x-8 gap-y-20"
             >
-              {blogs.map((blog) => (
+              {allBlogs.map((blog) => (
                 <InspirationCard key={blog._id} blog={blog} />
               ))}
             </motion.div>
@@ -155,9 +184,9 @@ const InspirationCatalog: React.FC<InspirationCatalogProps> = ({
         )}
       </AnimatePresence>
 
-      {blogs && blogs.length > 0 && (
+      {allBlogs && allBlogs.length > 0 && (
         <CatalogPagination
-          count={totalBlogs}
+          count={blogsData?.count || 0}
           page={currentPage}
           limit={limit}
           handlePreviousClick={() =>
@@ -169,6 +198,6 @@ const InspirationCatalog: React.FC<InspirationCatalogProps> = ({
       )}
     </section>
   );
-};
+});
 
-export default memo(InspirationCatalog);
+export default InspirationCatalog;
