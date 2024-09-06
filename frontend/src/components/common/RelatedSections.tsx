@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import Slider from "react-slick";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-
+import "src/components/common/style/related-section.css";
 // Component imports
 import useFetch from "src/hooks/useFetch";
 import { useViewportWidth } from "src/utils/imageUtils";
@@ -47,8 +47,6 @@ const settings = {
   slidesToShow: 5,
   cssEase: "linear",
   pauseOnHover: true,
-  centerMode: true,
-  centerPadding: "-20px",
   responsive: [
     {
       breakpoint: 1536,
@@ -223,7 +221,7 @@ const CountryCard: React.FC<{ country: Country; viewportWidth: number }> = ({ co
     <Link
       to={`/discover/countries/${country._id}`}
       target="_top"
-      className="relative block w-[20svw] rounded-lg lg:h-[35svh] 2xl:h-[30svh]"
+      className="relative block rounded-lg lg:h-[35svh] 2xl:h-[30svh]"
     >
       <motion.img
         variants={variants}
@@ -256,7 +254,7 @@ const DestinationCard: React.FC<{ destination: Destination; viewportWidth: numbe
     <Link
       to={`/discover/destinations/${destination._id}`}
       target="_top"
-      className="relative block w-[20svw] rounded-lg lg:h-[35svh] 2xl:h-[30svh]"
+      className="relative block rounded-lg lg:h-[35svh] 2xl:h-[30svh]"
     >
       <motion.img
         variants={variants}
@@ -289,7 +287,7 @@ const BlogCard: React.FC<{ blog: Blog; viewportWidth: number }> = ({ blog, viewp
     <Link
       to={`/inspiration/${blog._id}`}
       target="_top"
-        className="relative block w-[20svw] cursor-pointer rounded-lg border-background-light lg:h-[35svh] 2xl:h-[30svh]"
+        className="relative block cursor-pointer rounded-lg border-background-light lg:h-[35svh] 2xl:h-[30svh]"
       style={{
         backgroundImage: `url(${imageProps.src})`,
         backgroundSize: "cover",
