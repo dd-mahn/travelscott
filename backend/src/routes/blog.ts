@@ -1,12 +1,14 @@
 import express from "express"
-import { createBlog, deleteBlog, getBlogById, getBlogs, updateBlog } from "src/controllers/BlogControllers"
+import * as blogController from "../controllers/BlogControllers"
+import { validateRequest } from "../utils/validationMiddleware"
+import { blogSchema } from "../utils/validationSchemas"
 
 const router = express.Router()
 
-router.post("/", createBlog)
-router.get("/", getBlogs)
-router.get("/:id", getBlogById)
-router.put("/:id", updateBlog)
-router.delete("/:id", deleteBlog)
+router.post("/", validateRequest(blogSchema), blogController.createBlog)
+router.get("/", blogController.getBlogs)
+router.get("/:id", blogController.getBlogById)
+router.put("/:id", validateRequest(blogSchema), blogController.updateBlog)
+router.delete("/:id", blogController.deleteBlog)
 
 export default router

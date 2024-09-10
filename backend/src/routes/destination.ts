@@ -1,30 +1,20 @@
-import {
-  createDestination,
-  getDestinations,
-  getSingleDestination,
-  updateDestination,
-  deleteDestination,
-  updateDestinationPlaces,
-  updateDestinationTransportation,
-  deleteAllDestinations,
-  updateDestinationImages,
-  getDestinationBySearch,
-  updateDestinationInsight
-} from "src/controllers/DestinationControllers.js";
 import express from "express";
+import * as destinationController from "../controllers/DestinationControllers";
+import { validateRequest } from "../utils/validationMiddleware";
+import { destinationSchema } from "../utils/validationSchemas";
 
 const router = express.Router();
 
-router.post("/", createDestination);
-router.get("/", getDestinations);
-router.get("/search", getDestinationBySearch);
-router.delete("/", deleteAllDestinations);
-router.get("/:id", getSingleDestination);
-router.put("/:id", updateDestination);
-router.delete("/:id", deleteDestination);
-router.put("/:id/places", updateDestinationPlaces);
-router.put("/:id/transportation", updateDestinationTransportation);
-router.put("/:id/insight", updateDestinationInsight);
-router.put("/:id/images", updateDestinationImages);
+router.post("/", validateRequest(destinationSchema), destinationController.createDestination);
+router.get("/", destinationController.getDestinations);
+router.get("/search", destinationController.getDestinationBySearch);
+router.delete("/", destinationController.deleteAllDestinations);
+router.get("/:id", destinationController.getSingleDestination);
+router.put("/:id", validateRequest(destinationSchema), destinationController.updateDestination);
+router.delete("/:id", destinationController.deleteDestination);
+router.put("/:id/places", destinationController.updateDestinationPlaces);
+router.put("/:id/transportation", destinationController.updateDestinationTransportation);
+router.put("/:id/insight", destinationController.updateDestinationInsight);
+router.put("/:id/images", destinationController.updateDestinationImages);
 
 export default router;

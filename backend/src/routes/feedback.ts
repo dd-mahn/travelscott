@@ -1,11 +1,13 @@
 import express from "express";
-import { createFeedback, deleteFeedback, getFeedback, getFeedbackById } from "../controllers/FeedbackControllers";
+import * as feedbackController from "../controllers/FeedbackControllers";
+import { validateRequest } from "../utils/validationMiddleware";
+import { feedbackSchema } from "../utils/validationSchemas";
 
 const router = express.Router();
 
-router.post("/", createFeedback);
-router.get("/", getFeedback);
-router.get("/:id", getFeedbackById);
-router.delete("/:id", deleteFeedback);
+router.post("/", validateRequest(feedbackSchema), feedbackController.createFeedback);
+router.get("/", feedbackController.getFeedback);
+router.get("/:id", feedbackController.getFeedbackById);
+router.delete("/:id", feedbackController.deleteFeedback);
 
 export default router;
