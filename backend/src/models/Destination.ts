@@ -1,50 +1,44 @@
-import mongoose from "mongoose";
+import mongoose, { Schema, Document } from "mongoose";
+import { IDestination as IDestinationBase } from "../types/destination";
 
-const destinationSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  video: {
-    type: String,
-    default: "",
-  },
-  images: {
-    type: [],
-    default: [],
-  },
-  country: {
-    type: String,
-    default: "",
-  },
-  continent: {
-    type: String,
-    default: "",
-  },
-  location: {
-    type: String,
-    default: "",
-  },
-  description: {
-    type: String,
-    default: "",
-  },
+export interface IDestination extends IDestinationBase, Document {}
+
+const destinationSchema: Schema = new Schema({
+  name: { type: String, required: true },
+  video: { type: String, default: "" },
+  images: { type: [String], default: [] },
+  country: { type: String, default: "" },
+  continent: { type: String, default: "" },
+  location: { type: String, default: "" },
+  description: { type: String, default: "" },
   places: {
-    type: Object,
-    default: { to_stay: [], to_visit: [], to_eat: [] },
+    type: {
+      to_stay: [String],
+      to_visit: [String],
+      to_eat: [String]
+    },
+    default: { to_stay: [], to_visit: [], to_eat: [] }
   },
   transportation: {
-    type: Object,
-    default: { overview: "", types: [] },
+    type: {
+      overview: String,
+      types: [String]
+    },
+    default: { overview: "", types: [] }
   },
   additionalInfo: {
-    type: Object,
+    type: {
+      whenToVisit: String,
+      whoToGoWith: String,
+      whatToExpect: String,
+      healthAndSafety: String
+    },
     default: {
       whenToVisit: "",
       whoToGoWith: "",
       whatToExpect: "",
-      healthAndSafety: "",
-    },
+      healthAndSafety: ""
+    }
   },
   tags: {
     type: [String],
@@ -58,22 +52,17 @@ const destinationSchema = new mongoose.Schema({
       "Season&Festival",
       "Relaxation",
       "FirstTimeAbroad",
-    ],
+    ]
   },
   insight: {
-    type: Object,
-    default: { fromUs: [], fromOthers: [] },
+    type: {
+      fromUs: [String],
+      fromOthers: [String]
+    },
+    default: { fromUs: [], fromOthers: [] }
   },
-  summary: {
-    type: String,
-    default: "",
-  },
-  featured: {
-    type: Boolean,
-    default: false,
-  },
+  summary: { type: String, default: "" },
+  featured: { type: Boolean, default: false },
 });
 
-const Destination = mongoose.model("Destination", destinationSchema);
-
-export default Destination;
+export default mongoose.model<IDestination>("Destination", destinationSchema);

@@ -1,19 +1,14 @@
-import mongoose from "mongoose";
-import blogContent from "src/types/blogContent";
-import { getCurrentDate } from "src/utils/getCurrentDate";
+import mongoose, { Schema, Document } from "mongoose";
+import { IBlog as IBlogBase } from "../types/blog";
+import { getCurrentDate } from "../utils/getCurrentDate";
 
-const blogSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
-  },
-  author: {
-    type: String,
-    required: true,
-  },
+export interface IBlog extends IBlogBase, Document {}
+
+const blogSchema: Schema = new Schema({
+  title: { type: String, required: true },
+  author: { type: String, required: true },
   category: {
     type: String,
-    default: "",
     required: true,
     enum: [
       "Wilderness",
@@ -26,32 +21,12 @@ const blogSchema = new mongoose.Schema({
       "FirstTimeAbroad",
     ],
   },
-  image: {
-    type: String,
-    default: "",
-  },
-  content: {
-    type: Array,
-    default: [],
-  },
-  time: {
-    type: String,
-    default: getCurrentDate(),
-  },
-  tags: {
-    type: [String],
-    default: [],
-  },
-  related_destination: {
-    type: String,
-    default: "",
-  },
-  featured: {
-    type: Boolean,
-    default: false,
-  },
+  image: { type: String, default: "" },
+  content: { type: [Object], default: [] },
+  time: { type: String, default: getCurrentDate },
+  tags: { type: [String], default: [] },
+  related_destination: { type: String, default: "" },
+  featured: { type: Boolean, default: false },
 });
 
-const Blog = mongoose.model("Blog", blogSchema);
-
-export default Blog;
+export default mongoose.model<IBlog>("Blog", blogSchema);

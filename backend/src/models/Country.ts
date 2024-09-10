@@ -1,40 +1,22 @@
-import mongoose from "mongoose";
+import mongoose, { Schema, Document } from "mongoose";
+import { ICountry as ICountryBase } from "../types/country";
 
-const imageSchema = new mongoose.Schema({
-  flagImages: {
-    type: [String],
-    default: [],
-  },
-  mapImages: {
-    type: [String],
-    default: [],
-  },
-  otherImages: {
-    type: [String],
-    default: [],
-  },
-});
+export interface ICountry extends ICountryBase, Document {}
 
-const countrySchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
+const countrySchema: Schema = new Schema({
+  name: { type: String, required: true },
   images: {
-    type: imageSchema,
-    default: () => ({}),
+    type: {
+      flagImages: [String],
+      mapImages: [String],
+      otherImages: [String]
+    },
+    default: { flagImages: [], mapImages: [], otherImages: [] }
   },
-  description: {
-    type: Array,
-    default: [],
-  },
-  capital: {
-    type: String,
-    default: "",
-  },
+  description: { type: [String], default: [] },
+  capital: { type: String, default: "" },
   continent: {
     type: String,
-    default: "",
     enum: [
       "Africa",
       "Antarctica",
@@ -44,41 +26,22 @@ const countrySchema = new mongoose.Schema({
       "Oceania",
       "South America",
     ],
+    default: ""
   },
-  currency: {
-    type: String,
-    default: "",
-  },
-  language: {
-    type: String,
-    default: "",
-  },
-  visaRequirement: {
-    type: String,
-    default: "",
-  },
-  dialInCode: {
-    type: String,
-    default: "",
-  },
-  timeZone: {
-    type: String,
-    default: "",
-  },
+  currency: { type: String, default: "" },
+  language: { type: String, default: "" },
+  visaRequirement: { type: String, default: "" },
+  dialInCode: { type: String, default: "" },
+  timeZone: { type: String, default: "" },
   additionalInfo: {
-    type: Object,
-    default: { 
-      whenToVisit: [],
-      transportation: [],
-      healthAndSafety: [],
-     },
+    type: {
+      whenToVisit: [String],
+      transportation: [String],
+      healthAndSafety: [String],
+    },
+    default: { whenToVisit: [], transportation: [], healthAndSafety: [] }
   },
-  totalDestinations: {
-    type: Number,
-    default: 0,
-  },
+  totalDestinations: { type: Number, default: 0 },
 });
 
-const Country = mongoose.model("Country", countrySchema);
-
-export default Country;
+export default mongoose.model<ICountry>("Country", countrySchema);

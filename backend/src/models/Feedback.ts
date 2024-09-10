@@ -1,32 +1,15 @@
-import mongoose from "mongoose";
+import mongoose, { Schema, Document } from "mongoose";
+import { IFeedback as IFeedbackBase } from "../types/feedback";
 
-const feedbackSchema = new mongoose.Schema({
-    firstName: {
-        type: String,
-        required: true
-    },
-    lastName:{
-        type: String,
-        required: true
-    },
-    email:{
-        type: String,
-        required: true
-    },
-    age:{
-        type: Number,
-        required: true
-    },
-    country:{
-        type: String,
-        required: true
-    },
-    message: {
-        type: String,
-        required: true
-    }
+export interface IFeedback extends IFeedbackBase, Document {}
+
+const feedbackSchema: Schema = new Schema({
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
+  email: { type: String, required: true },
+  age: { type: Number, required: true },
+  country: { type: String, required: true },
+  message: { type: String, required: true }
 });
 
-const Feedback = mongoose.model('Feedback', feedbackSchema);
-
-export default Feedback;
+export default mongoose.model<IFeedback>("Feedback", feedbackSchema);
