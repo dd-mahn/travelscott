@@ -1,27 +1,24 @@
 import { Request, Response } from "express";
-import Feedback from "src/models/Feedback";
+import Feedback from "../models/Feedback";
+import { sendSuccessResponse, sendErrorResponse } from "../utils/apiResponse";
 
 // Create feedback
 export const createFeedback = async (req: Request, res: Response) => {
   try {
-    const { firstName, lastName, email, age, country, message } = req.body;
-
-    // Validate input
-    if (!firstName || !lastName || !age || !country || !email || !message) {
-      return res.status(400).json({ message: "All fields are required." });
-    }
-
-    const feedback = new Feedback({ firstName, lastName, email, age, country, message });
+    const feedback = new Feedback(req.body);
     await feedback.save();
-    res.status(201).json(feedback);
+    sendSuccessResponse(res, "Feedback submitted successfully", feedback, 201);
   } catch (error) {
-    console.error(error); // log the error details on the server
+    console.error(error);
     if (error instanceof Error) {
-      res.status(500).json({ message: error.message });
+      sendErrorResponse(res, "Failed to submit feedback", 500, error.message);
     } else {
-      res
-        .status(500)
-        .json({ message: "An error occurred while processing your request." });
+      sendErrorResponse(
+        res,
+        "Failed to submit feedback",
+        500,
+        "An unknown error occurred"
+      );
     }
   }
 };
@@ -30,15 +27,18 @@ export const createFeedback = async (req: Request, res: Response) => {
 export const getFeedback = async (req: Request, res: Response) => {
   try {
     const feedback = await Feedback.find();
-    res.status(200).json(feedback);
+    sendSuccessResponse(res, "Feedback retrieved successfully", feedback);
   } catch (error) {
-    console.error(error); // log the error details on the server
+    console.error(error);
     if (error instanceof Error) {
-      res.status(500).json({ message: error.message });
+      sendErrorResponse(res, "Failed to retrieve feedback", 500, error.message);
     } else {
-      res
-        .status(500)
-        .json({ message: "An error occurred while processing your request." });
+      sendErrorResponse(
+        res,
+        "Failed to retrieve feedback",
+        500,
+        "An unknown error occurred"
+      );
     }
   }
 };
@@ -48,20 +48,21 @@ export const getFeedbackById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const feedback = await Feedback.findById(id);
-
     if (!feedback) {
-      return res.status(404).json({ message: "Feedback not found." });
+      return sendErrorResponse(res, "Feedback not found", 404);
     }
-
-    res.status(200).json(feedback);
+    sendSuccessResponse(res, "Feedback retrieved successfully", feedback);
   } catch (error) {
-    console.error(error); // log the error details on the server
+    console.error(error);
     if (error instanceof Error) {
-      res.status(500).json({ message: error.message });
+      sendErrorResponse(res, "Failed to retrieve feedback", 500, error.message);
     } else {
-      res
-        .status(500)
-        .json({ message: "An error occurred while processing your request." });
+      sendErrorResponse(
+        res,
+        "Failed to retrieve feedback",
+        500,
+        "An unknown error occurred"
+      );
     }
   }
 };
@@ -71,19 +72,21 @@ export const deleteFeedback = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const feedback = await Feedback.findByIdAndDelete(id);
-    if (feedback) {
-      res.status(200).json({ message: "Feedback deleted successfully" });
-    } else {
-      res.status(404).json({ message: "Feedback not found" });
+    if (!feedback) {
+      return sendErrorResponse(res, "Feedback not found", 404);
     }
+    sendSuccessResponse(res, "Feedback deleted successfully");
   } catch (error) {
-    console.error(error); // log the error details on the server
+    console.error(error);
     if (error instanceof Error) {
-      res.status(500).json({ message: error.message });
+      sendErrorResponse(res, "Failed to delete feedback", 500, error.message);
     } else {
-      res
-        .status(500)
-        .json({ message: "An error occurred while processing your request." });
+      sendErrorResponse(
+        res,
+        "Failed to delete feedback",
+        500,
+        "An unknown error occurred"
+      );
     }
   }
 };

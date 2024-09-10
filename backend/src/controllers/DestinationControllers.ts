@@ -1,16 +1,17 @@
 import path from "path";
 import fs from "fs";
-import { fileURLToPath } from "url";
 import { Request, Response } from "express";
 
 import Destination from "src/models/Destination";
 import createRegexArray from "src/utils/createRegexArray";
 import s3 from "src/utils/aws";
 
-import destinationPlace from "src/types/destinationPlace";
-import destinationTransportation from "src/types/destinationTransportation";
-import destinationInsight from "src/types/destinationInsight";
-import { destinationAdditionalInfo } from "src/types/destinationAdditionalInfo";
+import {
+  DestinationAdditionalInfo,
+  DestinationInsight,
+  DestinationPlace,
+  DestinationTransportation,
+} from "src/types/destination";
 
 // Default
 const DEFAULT_PAGE = "1";
@@ -138,7 +139,7 @@ type updateData = {
   continent?: string;
   location?: string;
   description?: string;
-  additionalInfo?: destinationAdditionalInfo;
+  additionalInfo?: DestinationAdditionalInfo;
   tags?: string[];
   summary?: string;
   featured?: boolean;
@@ -147,31 +148,7 @@ type updateData = {
 export const updateDestination = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const updateData: updateData = {};
-
-    // Dynamically add fields to updateData if they are provided in the request body
-    const fieldsToUpdate = [
-      "name",
-      "country",
-      "continent",
-      "location",
-      "description",
-      "additionalInfo",
-      "tags",
-      "summary",
-      "featured",
-    ];
-    fieldsToUpdate.forEach((field) => {
-      if (req.body[field] !== undefined) {
-        updateData[field] = req.body[field];
-      }
-    });
-
-    if (Object.keys(updateData).length === 0) {
-      return res
-        .status(400)
-        .json({ message: "No valid fields provided for update." });
-    }
+    const updateData: updateData = req.body;
 
     const destination = await Destination.findByIdAndUpdate(id, updateData, {
       new: true,
@@ -237,7 +214,7 @@ export const updateDestinationPlaces = async (req: Request, res: Response) => {
     if (!destination) {
       return res.status(404).json({ message: "Destination not found." });
     }
-    const places: destinationPlace = req.body;
+    const places: DestinationPlace = req.body;
     destination.places = places;
     await destination.save();
     res.json(destination.places);
@@ -264,7 +241,7 @@ export const updateDestinationTransportation = async (
       return res.status(404).json({ message: "Destination not found." });
     }
 
-    const transportation: destinationTransportation = req.body;
+    const transportation: DestinationTransportation = req.body;
     destination.transportation = transportation;
     await destination.save();
     res.json(destination.transportation);
@@ -288,7 +265,7 @@ export const updateDestinationInsight = async (req: Request, res: Response) => {
       return res.status(404).json({ message: "Destination not found." });
     }
 
-    const insight: destinationInsight = req.body;
+    const insight: DestinationInsight = req.body;
     destination.insight = insight;
     await destination.save();
     res.json(destination.insight);
