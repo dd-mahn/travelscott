@@ -103,7 +103,7 @@ const RelatedCountries: React.FC<{ country: Country }> = ({ country }) => {
   return (
     <>
       {relatedCountries.length < 5 ? (
-        <div className="related-countries min-w-screen min-h-[20svh] flex cursor-pointer flex-nowrap gap-2 py-sect-short">
+        <div className="related-countries min-w-screen min-h-[20svh] flex cursor-pointer flex-nowrap gap-2 pb-sect-short">
           {relatedCountries.map((country) => (
             <CountryCard key={country._id} country={country} viewportWidth={viewportWidth} />
           ))}
@@ -188,7 +188,7 @@ const RelatedArticles: React.FC<{ data: Blog | Destination | Country | string }>
   return (
     <>
       {relatedBlogs.length < 5 ? (
-        <div className="related-blogs flex min-w-screen min-h-[20svh] flex-nowrap gap-2 py-sect-short">
+        <div className="related-blogs grid min-w-screen min-h-[20svh] gap-2 pb-sect-short pl-sect lg:grid-cols-4 2xl:grid-cols-5">
           {relatedBlogs.map((blog) => (
             <BlogCard key={blog._id} blog={blog} viewportWidth={viewportWidth} />
           ))}
