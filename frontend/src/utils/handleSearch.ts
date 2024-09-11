@@ -40,7 +40,7 @@ const filterBlogs = (searchValue: string, blogs: Blog[]) => {
 };
 
 export const search = (
-  searchRef: React.RefObject<HTMLInputElement>,
+  searchValue: string,
   destinations: Destination[],
   countries: Country[],
   blogs: Blog[],
@@ -49,7 +49,6 @@ export const search = (
   setBlogResults: React.Dispatch<React.SetStateAction<Blog[]>>,
   setSearchResultOpen: React.Dispatch<React.SetStateAction<boolean>>,
 ) => {
-  const searchValue = searchRef.current?.value;
   if (searchValue && searchValue !== "") {
     const filteredDestinations = filterDestinations(searchValue, destinations);
     const filteredCountries = filterCountries(searchValue, countries);

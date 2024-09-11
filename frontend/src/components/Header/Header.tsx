@@ -10,6 +10,7 @@ import { NavLink } from "react-router-dom";
 import "remixicon/fonts/remixicon.css";
 import ReactDOM from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import useDebounce from "src/hooks/useDebounce"; // Import the useDebounce hook
 
 // Styles and components
 import "src/components/Header/header.css";
@@ -128,18 +129,35 @@ const Header: React.FC = () => {
   const searchRef = useRef<HTMLInputElement>(null);
 
   // Handle search functionality
+  const [searchQuery, setSearchQuery] = useState("");
+  const debouncedSearchQuery = useDebounce(searchQuery, 300); // Debounce for 300ms
+
   const handleSearch = useCallback(() => {
-    search(
-      searchRef,
-      destinations,
-      countries,
-      blogs,
-      setDestinationResults,
-      setCountryResults,
-      setBlogResults,
-      setSearchResultOpen,
-    );
-  }, [destinations, countries, blogs]);
+    if (debouncedSearchQuery) {
+      search(
+        debouncedSearchQuery,
+        destinations,
+        countries,
+        blogs,
+        setDestinationResults,
+        setCountryResults,
+        setBlogResults,
+        setSearchResultOpen,
+      );
+    } else {
+      setSearchResultOpen(false);
+    }
+  }, [debouncedSearchQuery, destinations, countries, blogs]);
+
+  // Use effect to trigger search when debounced query changes
+  useEffect(() => {
+    handleSearch();
+  }, [debouncedSearchQuery, handleSearch]);
+
+  // Update the search input change handler
+  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
 
   // Close search result
   const closeSearchResult = useCallback(() => {
@@ -272,14 +290,10 @@ const Header: React.FC = () => {
                     autoComplete="off"
                     ref={searchRef}
                     className="p-small w-40 bg-transparent text-text-dark outline-none"
-                    onChange={() => {
-                      if (searchRef.current?.value) handleSearch();
-                      if (searchRef.current?.value === "")
-                        setSearchResultOpen(false);
-                    }}
+                    value={searchQuery}
+                    onChange={handleSearchInputChange}
                     onBlur={() => {
-                      if (searchRef.current?.value === "")
-                        setInputDisplay(false);
+                      if (searchQuery === "") setInputDisplay(false);
                     }}
                   />
                   <motion.div
