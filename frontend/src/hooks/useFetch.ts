@@ -1,20 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import Blog from "src/types/Blog";
-import Country from "src/types/Country";
-import Destination from "src/types/Destination";
-import {
-  FetchCountriesType,
-  FetchDestinationType,
-  FetchBlogsType,
-} from "src/types/FetchData";
-
-type DataType =
-  | FetchCountriesType
-  | FetchDestinationType
-  | FetchBlogsType
-  | Destination
-  | Country
-  | Blog;
+import { ApiResponse } from "src/types/ApiResponse";
 
 const useFetch = <T>(url: string, deps: any[] = []) => {
   const [data, setData] = useState<T>();
@@ -29,8 +14,10 @@ const useFetch = <T>(url: string, deps: any[] = []) => {
       if (!res.ok) {
         throw new Error("Maybe something went wrong, please try again later.");
       }
-      const result: T = await res.json();
-      setData((prevData) => (prevData !== result ? result : prevData));
+      const responseData: ApiResponse<T> = await res.json();
+      setData((prevData) =>
+        prevData !== responseData.data ? responseData.data : prevData,
+      );
     } catch (err) {
       if (err instanceof Error) {
         setError((prevError) =>
