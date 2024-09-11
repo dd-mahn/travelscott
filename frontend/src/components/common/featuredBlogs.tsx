@@ -28,7 +28,7 @@ const variants = {
 
 const FeaturedBlogs: React.FC<featuredBlogsProps> = ({ blogs }) => {
   return (
-    <div className="flex flex-col items-center gap-8 pb-sect-default">
+    <div className="flex flex-col items-center gap-8 pb-sect-default w-screen">
       <FeaturedContentSlider>
         {blogs.map((blog) => (
           <div

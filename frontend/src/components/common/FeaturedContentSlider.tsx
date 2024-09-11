@@ -84,7 +84,7 @@ const FeaturedContentSlider: React.FC<FeaturedContentSliderProps> = ({
         initial="hidden"
         whileInView="visible"
         transition={{ duration: 0.5 }}
-        viewport={{ once: true, margin: "-300px" }}
+        viewport={{ once: true, margin: "-10%" }}
         variants={variants}
         className="flex w-full justify-center"
       >
