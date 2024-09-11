@@ -11,10 +11,9 @@ import { SecondaryButton } from "src/components/common/Button";
 const variants = {
   hidden: { opacity: 0, y: 40 },
   visible: { opacity: 1, y: 0 },
-  dropInitial: { opacity: 0, y: -30 },
+  dropInitial: { opacity: 0 },
   dropExit: {
     opacity: 0,
-    y: -30,
     transition: {
       duration: 0.2,
       ease: "easeOut",
