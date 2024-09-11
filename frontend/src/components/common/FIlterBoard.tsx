@@ -1,4 +1,11 @@
-import React, { memo, useCallback, useMemo, useRef, useState } from "react";
+import React, {
+  memo,
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+  useEffect,
+} from "react";
 import { motion } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "src/store/store";
@@ -10,8 +17,9 @@ import {
   setBlogTags,
   setBlogSearchQuery,
 } from "src/store/slices/filterSlice";
+import useDebounce from "src/hooks/useDebounce";
 
-interface FullFilterBoardProps {
+interface DestinationFilterProps {
   continentNames: string[];
   countryNames: string[];
 }
@@ -29,16 +37,189 @@ const variants = {
   },
 };
 
-export const DestinationFilter: React.FC<FullFilterBoardProps> = React.memo(({
-  continentNames,
-  countryNames,
-}) => {
+export const DestinationFilter: React.FC<DestinationFilterProps> = memo(
+  ({ continentNames, countryNames }) => {
+    const dispatch = useDispatch();
+    const selectDestinationFilterState = useCallback(
+      (state: RootState) => ({
+        continents: state.filter.destination.continents,
+        countries: state.filter.destination.countries,
+        tags: state.filter.destination.tags,
+        searchQuery: state.filter.destination.searchQuery,
+      }),
+      [],
+    );
+    const { continents, countries, tags, searchQuery } = useSelector(
+      selectDestinationFilterState,
+    );
+    const [inputFocus, setInputFocus] = useState<boolean>(false);
+    const inputRef = useRef<HTMLInputElement>(null);
+    const [localSearchQuery, setLocalSearchQuery] = useState(searchQuery);
+    const debouncedSearchQuery = useDebounce(localSearchQuery, 500);
+
+    const predefinedTags = useMemo(
+      () => [
+        "Wilderness",
+        "Culture&Heritage",
+        "Food&Drink",
+        "SoloJourneys",
+        "CityScape",
+        "Season&Festival",
+        "Relaxation",
+      ],
+      [],
+    );
+
+    const continentFilterClick = useCallback(
+      (continent: string) => {
+        dispatch(
+          setDestinationContinents(
+            continents.includes(continent)
+              ? continents.filter((item: string) => item !== continent)
+              : [...continents, continent],
+          ),
+        );
+      },
+      [continents, dispatch],
+    );
+
+    const countryFilterClick = useCallback(
+      (country: string) => {
+        dispatch(
+          setDestinationCountries(
+            countries.includes(country)
+              ? countries.filter((item: string) => item !== country)
+              : [...countries, country],
+          ),
+        );
+      },
+      [countries, dispatch],
+    );
+
+    const tagFilterClick = useCallback(
+      (tag: string) => {
+        dispatch(
+          setDestinationTags(
+            tags.includes(tag)
+              ? tags.filter((item: string) => item !== tag)
+              : [...tags, tag],
+          ),
+        );
+      },
+      [tags, dispatch],
+    );
+
+    const handleSearchChange = useCallback(
+      (e: React.ChangeEvent<HTMLInputElement>) => {
+        setLocalSearchQuery(e.target.value);
+      },
+      [],
+    );
+
+    useEffect(() => {
+      dispatch(setDestinationSearchQuery(debouncedSearchQuery));
+    }, [debouncedSearchQuery, dispatch]);
+
+    return (
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        variants={variants}
+        viewport={{ once: true }}
+        exit="hidden"
+        transition={{ duration: 0.4, ease: "easeInOut" }}
+        className={`filter-board absolute right-[5%] top-2/3 z-10 flex flex-col items-center gap-8 rounded-2xl bg-background-light px-4 pb-10 pt-6 shadow-section lg:w-[40svw] 2xl:w-[30svw]`}
+      >
+        <motion.div variants={variants} className="relative w-full">
+          <input
+            ref={inputRef}
+            type="text"
+            placeholder="Search..."
+            value={localSearchQuery}
+            onChange={handleSearchChange}
+            onFocus={() => setInputFocus(true)}
+            onBlur={() => setInputFocus(false)}
+            className={`w-full rounded-full border border-gray bg-background-light text-text-light transition-all duration-300 focus:outline-none lg:border-[1px] lg:px-3 lg:py-1 2xl:border-[1.5px] 2xl:px-4 2xl:py-2 ${
+              inputFocus ? "border-text-light shadow-lg" : ""
+            }`}
+          />
+          <i
+            className={`ri-search-line cursor-hover-small span-regular absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-text-light transition-all duration-300`}
+          ></i>
+        </motion.div>
+
+        <div className="flex w-full flex-col items-start gap-2">
+          <span className="span-medium font-prima uppercase">Location</span>
+          <div className="flex flex-wrap gap-2">
+            {continentNames.map((continent) => (
+              <motion.button
+                whileHover="hoverScale"
+                variants={variants}
+                transition={{ duration: 0.3 }}
+                whileTap="tapScale"
+                key={continent}
+                className={`${continents.includes(continent) ? "bg-background-dark text-text-dark" : "bg-background-light text-text-light"} span-small cursor-pointer rounded-2xl border-gray px-4 lg:border-[1px] 2xl:border-[1.5px]`}
+                onClick={() => continentFilterClick(continent)}
+              >
+                {continent}
+              </motion.button>
+            ))}
+            {countryNames.map((country) => (
+              <motion.button
+                whileHover="hoverScale"
+                variants={variants}
+                transition={{ duration: 0.3 }}
+                whileTap="tapScale"
+                key={country}
+                className={`${countries.includes(country) ? "bg-background-dark text-text-dark" : "bg-background-light text-text-light"} span-small cursor-pointer rounded-2xl border-gray px-4 lg:border-[1px] 2xl:border-[1.5px]`}
+                onClick={() => countryFilterClick(country)}
+              >
+                {country}
+              </motion.button>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex w-full flex-col items-start gap-2">
+          <span className="span-medium font-prima uppercase">Tags</span>
+          <div className="flex flex-wrap gap-2">
+            {predefinedTags.map((tag) => (
+              <motion.button
+                whileHover="hoverScale"
+                variants={variants}
+                transition={{ duration: 0.3 }}
+                whileTap="tapScale"
+                key={tag}
+                className={`${tags.includes(tag) ? "bg-background-dark text-text-dark" : "bg-background-light text-text-light"} span-small cursor-pointer rounded-2xl border-gray px-4 lg:border-[1px] 2xl:border-[1.5px]`}
+                onClick={() => tagFilterClick(tag)}
+              >
+                {tag}
+              </motion.button>
+            ))}
+          </div>
+        </div>
+      </motion.div>
+    );
+  },
+);
+
+export const CountryDestinationFilter: React.FC = memo(() => {
   const dispatch = useDispatch();
-  const { continents, countries, tags } = useSelector(
-    (state: RootState) => state.filter.destination,
-  );
   const [inputFocus, setInputFocus] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const selectDestinationFilterState = useCallback(
+    (state: RootState) => ({
+      tags: state.filter.destination.tags,
+      searchQuery: state.filter.destination.searchQuery,
+    }),
+    [],
+  );
+  const { tags: selectTags, searchQuery: selectSearchQuery } = useSelector(
+    selectDestinationFilterState,
+  );
+  const [localSearchQuery, setLocalSearchQuery] = useState(selectSearchQuery);
+  const debouncedSearchQuery = useDebounce(localSearchQuery, 500);
 
   const predefinedTags = useMemo(
     () => [
@@ -53,125 +234,52 @@ export const DestinationFilter: React.FC<FullFilterBoardProps> = React.memo(({
     [],
   );
 
-  const continentFilterClick = useCallback(
-    (continent: string) => {
-      dispatch(
-        setDestinationContinents(
-          continents.includes(continent)
-            ? continents.filter((item: string) => item !== continent)
-            : [...continents, continent],
-        ),
-      );
-    },
-    [continents, dispatch],
-  );
-
-  const countryFilterClick = useCallback(
-    (country: string) => {
-      dispatch(
-        setDestinationCountries(
-          countries.includes(country)
-            ? countries.filter((item: string) => item !== country)
-            : [...countries, country],
-        ),
-      );
-    },
-    [countries, dispatch],
-  );
-
-  const tagFilterClick = useCallback(
+  const handleTagFilter = useCallback(
     (tag: string) => {
       dispatch(
         setDestinationTags(
-          tags.includes(tag)
-            ? tags.filter((item: string) => item !== tag)
-            : [...tags, tag],
+          selectTags.includes(tag)
+            ? selectTags.filter((t: string) => t !== tag)
+            : [...selectTags, tag],
         ),
       );
     },
-    [tags, dispatch],
+    [selectTags, dispatch],
   );
 
-  const handleSearchClick = useCallback(() => {
-    const value = inputRef.current?.value as string;
-    dispatch(setDestinationSearchQuery(value));
-  }, [dispatch]);
-
-  const handleKeyDown = useCallback(
-    (event: React.KeyboardEvent<HTMLInputElement>) => {
-      if (event.key === "Enter") {
-        handleSearchClick();
-      }
+  const handleSearchChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setLocalSearchQuery(e.target.value);
     },
-    [handleSearchClick],
+    [],
   );
+
+  useEffect(() => {
+    dispatch(setDestinationSearchQuery(debouncedSearchQuery));
+  }, [debouncedSearchQuery, dispatch]);
 
   return (
-    <motion.div
-      initial="hidden"
-      animate="visible"
-      exit="hidden"
-      variants={variants}
-      transition={{ duration: 0.3 }}
-      key={"filter-board"}
-      className={`filter-board absolute right-[5%] top-2/3 z-10 flex flex-col items-center gap-8 rounded-xl bg-background-light px-4 pb-20 pt-4 shadow-section lg:w-[40svw] 2xl:w-[30svw]`}
-    >
-      <div className="flex w-full flex-row items-end gap-4">
-        <div
-          className={`${inputFocus ? "border-text-light shadow-lg" : "border-gray border-opacity-50"} flex h-fit items-center justify-between rounded-2xl px-2 py-1 transition-all duration-300 lg:border-[1.5px] 2xl:border-[2px]`}
-        >
+    <div className="flex w-full flex-col items-start gap-8">
+      <div className="flex w-full flex-col items-start gap-2">
+        <span className="span-medium font-prima uppercase">Search</span>
+        <div className="relative flex w-full items-center">
           <input
             ref={inputRef}
             type="text"
-            placeholder="Search..."
-            className="span-small w-4/5 bg-transparent outline-none"
-            onClick={() => setInputFocus(true)}
+            placeholder="Search destinations..."
+            value={localSearchQuery}
+            onChange={handleSearchChange}
+            onFocus={() => setInputFocus(true)}
             onBlur={() => setInputFocus(false)}
-            onKeyDown={handleKeyDown}
+            className="w-full rounded-full border-[1px] border-gray bg-background-light px-4 py-2 text-text-light outline-none transition-all duration-300 focus:border-text-light focus:shadow-lg"
           />
-          <motion.button
-            whileHover="hoverScale"
-            variants={variants}
-            whileTap="tapScale"
-            transition={{ duration: 0.3 }}
-            title="search"
-            className="outline-none transition-none"
-            onClick={handleSearchClick}
-          >
-            <i className="ri-search-line span-regular"></i>
-          </motion.button>
-        </div>
-      </div>
-
-      <div className="flex w-full flex-col items-start gap-2">
-        <span className="span-medium font-prima uppercase">Location</span>
-        <div className="flex flex-wrap gap-2">
-          {continentNames.map((continent) => (
-            <motion.button
-              whileHover="hoverScale"
+          <div className="absolute right-[5%] overflow-hidden">
+            <motion.i
               variants={variants}
-              transition={{ duration: 0.3 }}
-              whileTap="tapScale"
-              key={continent}
-              className={`${continents.includes(continent) ? "bg-background-dark text-text-dark" : "bg-background-light text-text-light"} span-small cursor-pointer rounded-2xl border border-gray px-4`}
-              onClick={() => continentFilterClick(continent)}
-            >
-              {continent}
-            </motion.button>
-          ))}
-          {countryNames.map((country) => (
-            <motion.button
-              whileHover="hoverScale"
-              variants={variants}
-              transition={{ duration: 0.3 }}
-              whileTap="tapScale"
-              key={country}
-              className={`${countries.includes(country) ? "bg-background-dark text-text-dark" : "bg-background-light text-text-light"} span-small cursor-pointer rounded-2xl border border-gray px-4`}
-              onClick={() => countryFilterClick(country)}
-            >
-              {country}
-            </motion.button>
-          ))}
+              animate={inputFocus ? "visible" : "hidden"}
+              className="cursor-hover-small cursor-pointer ri-search-line text-text-light"
+            ></motion.i>
+          </div>
         </div>
       </div>
 
@@ -185,41 +293,64 @@ export const DestinationFilter: React.FC<FullFilterBoardProps> = React.memo(({
               transition={{ duration: 0.3 }}
               whileTap="tapScale"
               key={tag}
-              className={`${tags.includes(tag) ? "bg-background-dark text-text-dark" : "bg-background-light text-text-light"} span-small cursor-pointer rounded-2xl border border-gray px-4`}
-              onClick={() => tagFilterClick(tag)}
+              className={`${
+                selectTags.includes(tag)
+                  ? "bg-background-dark text-text-dark"
+                  : "bg-background-light text-text-light"
+              } span-small cursor-pointer rounded-2xl border-gray px-4 lg:border-[1px] 2xl:border-[1.5px]`}
+              onClick={() => handleTagFilter(tag)}
             >
               {tag}
             </motion.button>
           ))}
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 });
 
-export const InspirationFilter: React.FC<{ continentNames: string[] }> =
-  React.memo(({ continentNames }) => {
+export const InspirationFilter: React.FC<{ continentNames: string[] }> = memo(
+  ({ continentNames }) => {
     const dispatch = useDispatch();
     const [inputFocus, setInputFocus] = useState<boolean>(false);
     const inputRef = useRef<HTMLInputElement>(null);
 
-    const selectBlogFilterState = useCallback((state: RootState) => ({
-      tags: state.filter.blog.tags,
-      searchQuery: state.filter.blog.searchQuery
-    }), []);
-    const { tags: selectTags, searchQuery: selectSearchQuery } = useSelector(selectBlogFilterState);
+    const selectBlogFilterState = useCallback(
+      (state: RootState) => ({
+        tags: state.filter.blog.tags,
+        searchQuery: state.filter.blog.searchQuery,
+      }),
+      [],
+    );
+    const { tags: selectTags, searchQuery: selectSearchQuery } = useSelector(
+      selectBlogFilterState,
+    );
+    const [localSearchQuery, setLocalSearchQuery] = useState(selectSearchQuery);
+    const debouncedSearchQuery = useDebounce(localSearchQuery, 500);
 
-    const handleContinentFilter = useCallback((continent: string) => {
-      dispatch(setBlogTags(
-        selectTags.includes(continent)
-          ? selectTags.filter((c: string) => c !== continent)
-          : [...selectTags, continent]
-      ));
-    }, [selectTags, dispatch]);
+    const handleContinentFilter = useCallback(
+      (continent: string) => {
+        dispatch(
+          setBlogTags(
+            selectTags.includes(continent)
+              ? selectTags.filter((c: string) => c !== continent)
+              : [...selectTags, continent],
+          ),
+        );
+      },
+      [selectTags, dispatch],
+    );
 
-    const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-      dispatch(setBlogSearchQuery(e.target.value));
-    }, [dispatch]);
+    const handleSearchChange = useCallback(
+      (e: React.ChangeEvent<HTMLInputElement>) => {
+        setLocalSearchQuery(e.target.value);
+      },
+      [],
+    );
+
+    useEffect(() => {
+      dispatch(setBlogSearchQuery(debouncedSearchQuery));
+    }, [debouncedSearchQuery, dispatch]);
 
     return (
       <motion.div
@@ -243,7 +374,7 @@ export const InspirationFilter: React.FC<{ continentNames: string[] }> =
             whileHover="hoverScale"
             whileTap="tapScale"
             transition={{ duration: 0.3 }}
-            className={`continent-btn span-regular rounded-3xl border border-gray lg:border-[1.5px] lg:px-6 lg:py-1 2xl:border-[2px] 2xl:px-8 2xl:py-2 ${
+            className={`continent-btn span-regular rounded-3xl border border-gray lg:border-[1px] lg:px-6 lg:py-1 2xl:border-[1.5px] 2xl:px-8 2xl:py-2 ${
               selectTags.includes(continent)
                 ? "bg-background-dark text-text-dark"
                 : "bg-transparent text-text-light"
@@ -257,11 +388,11 @@ export const InspirationFilter: React.FC<{ continentNames: string[] }> =
             ref={inputRef}
             type="text"
             placeholder="Search..."
-            value={selectSearchQuery}
+            value={localSearchQuery}
             onChange={handleSearchChange}
             onFocus={() => setInputFocus(true)}
             onBlur={() => setInputFocus(false)}
-            className={`w-full rounded-full border border-gray bg-background-light text-text-light transition-all duration-300 focus:outline-none lg:border-[1.5px] lg:px-3 lg:py-1 2xl:border-[2px] 2xl:px-4 2xl:py-2 ${
+            className={`w-full rounded-full border border-gray bg-background-light text-text-light transition-all duration-300 focus:outline-none lg:border-[1px] lg:px-3 lg:py-1 2xl:border-[1.5px] 2xl:px-4 2xl:py-2 ${
               inputFocus ? "border-text-light shadow-lg" : ""
             }`}
           />
@@ -271,4 +402,5 @@ export const InspirationFilter: React.FC<{ continentNames: string[] }> =
         </motion.div>
       </motion.div>
     );
-  });
+  },
+);
