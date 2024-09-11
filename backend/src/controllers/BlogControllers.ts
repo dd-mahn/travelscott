@@ -61,7 +61,7 @@ export const getBlogs = async (req: Request, res: Response) => {
     const totalPages = Math.ceil(count / limitNumber);
 
     sendSuccessResponse(res, "Blogs retrieved successfully", {
-      blogs,
+      result: blogs,
       count,
       page: pageNumber,
       totalPages,

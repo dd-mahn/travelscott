@@ -37,7 +37,7 @@ export const getCountries = async (req: Request, res: Response) => {
     const countries = await Country.find(filter);
     const count = await Country.countDocuments(filter);
     sendSuccessResponse(res, "Countries retrieved successfully", {
-      countries,
+      result: countries,
       count,
     });
   } catch (error) {

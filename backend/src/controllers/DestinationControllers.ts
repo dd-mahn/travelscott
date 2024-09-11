@@ -12,6 +12,7 @@ import {
   DestinationPlace,
   DestinationTransportation,
 } from "src/types/destination";
+import { sendSuccessResponse, sendErrorResponse } from "src/utils/apiResponse";
 
 // Default
 const DEFAULT_PAGE = "1";
@@ -23,15 +24,13 @@ export const createDestination = async (req: Request, res: Response) => {
   try {
     const destination = new Destination(req.body);
     await destination.save();
-    res.status(201).json(destination);
+    sendSuccessResponse(res, "Destination created successfully", destination, 201);
   } catch (error) {
     console.error(error);
     if (error instanceof Error) {
-      res.status(500).json({ message: error.message });
+      sendErrorResponse(res, "Failed to create destination", 500, error.message);
     } else {
-      res
-        .status(500)
-        .json({ message: "An error occurred while processing your request." });
+      sendErrorResponse(res, "Failed to create destination", 500, "An unknown error occurred");
     }
   }
 };
@@ -95,20 +94,18 @@ export const getDestinations = async (req: Request, res: Response) => {
 
     const totalPages = Math.ceil(count / limitNumber);
 
-    res.status(200).json({
+    sendSuccessResponse(res, "Destinations retrieved successfully", {
       result: destinations,
       count,
-      page: pageNumber || 1,
+      page: pageNumber,
       totalPages,
     });
   } catch (error) {
     console.error(error);
     if (error instanceof Error) {
-      res.status(500).json({ message: error.message });
+      sendErrorResponse(res, "Failed to retrieve destinations", 500, error.message);
     } else {
-      res
-        .status(500)
-        .json({ message: "An error occurred while processing your request." });
+      sendErrorResponse(res, "Failed to retrieve destinations", 500, "An unknown error occurred");
     }
   }
 };
@@ -118,16 +115,15 @@ export const getSingleDestination = async (req: Request, res: Response) => {
   try {
     const destination = await Destination.findById(req.params.id);
     if (!destination) {
-      return res.status(404).json();
+      return sendErrorResponse(res, "Destination not found", 404);
     }
-    res.json(destination);
+    sendSuccessResponse(res, "Destination retrieved successfully", destination);
   } catch (error) {
+    console.error(error);
     if (error instanceof Error) {
-      res.status(500).json({ message: error.message });
+      sendErrorResponse(res, "Failed to retrieve destination", 500, error.message);
     } else {
-      res
-        .status(500)
-        .json({ message: "An error occurred while processing your request." });
+      sendErrorResponse(res, "Failed to retrieve destination", 500, "An unknown error occurred");
     }
   }
 };
@@ -155,17 +151,15 @@ export const updateDestination = async (req: Request, res: Response) => {
       runValidators: true,
     });
     if (!destination) {
-      return res.status(404).json({ message: "Destination not found." });
+      return sendErrorResponse(res, "Destination not found", 404);
     }
-    res.json(destination);
+    sendSuccessResponse(res, "Destination updated successfully", destination);
   } catch (error) {
     console.error(error);
     if (error instanceof Error) {
-      res.status(500).json({ message: error.message });
+      sendErrorResponse(res, "Failed to update destination", 500, error.message);
     } else {
-      res
-        .status(500)
-        .json({ message: "An error occurred while processing your request." });
+      sendErrorResponse(res, "Failed to update destination", 500, "An unknown error occurred");
     }
   }
 };
@@ -175,17 +169,15 @@ export const deleteDestination = async (req: Request, res: Response) => {
   try {
     const destination = await Destination.findByIdAndDelete(req.params.id);
     if (!destination) {
-      return res.status(404).json({ message: "Destination not found." });
+      return sendErrorResponse(res, "Destination not found", 404);
     }
-    res.json({ message: "Destination deleted successfully." });
+    sendSuccessResponse(res, "Destination deleted successfully");
   } catch (error) {
     console.error(error);
     if (error instanceof Error) {
-      res.status(500).json({ message: error.message });
+      sendErrorResponse(res, "Failed to delete destination", 500, error.message);
     } else {
-      res
-        .status(500)
-        .json({ message: "An error occurred while processing your request." });
+      sendErrorResponse(res, "Failed to delete destination", 500, "An unknown error occurred");
     }
   }
 };
@@ -194,15 +186,13 @@ export const deleteDestination = async (req: Request, res: Response) => {
 export const deleteAllDestinations = async (req: Request, res: Response) => {
   try {
     await Destination.deleteMany({});
-    res.json({ message: "All destinations deleted successfully" });
+    sendSuccessResponse(res, "All destinations deleted successfully");
   } catch (error) {
     console.error(error);
     if (error instanceof Error) {
-      res.status(500).json({ message: error.message });
+      sendErrorResponse(res, "Failed to delete all destinations", 500, error.message);
     } else {
-      res
-        .status(500)
-        .json({ message: "An error occurred while processing your request." });
+      sendErrorResponse(res, "Failed to delete all destinations", 500, "An unknown error occurred");
     }
   }
 };
@@ -212,20 +202,18 @@ export const updateDestinationPlaces = async (req: Request, res: Response) => {
   try {
     const destination = await Destination.findById(req.params.id);
     if (!destination) {
-      return res.status(404).json({ message: "Destination not found." });
+      return sendErrorResponse(res, "Destination not found", 404);
     }
     const places: DestinationPlace = req.body;
     destination.places = places;
     await destination.save();
-    res.json(destination.places);
+    sendSuccessResponse(res, "Destination places updated successfully", destination.places);
   } catch (error) {
     console.error(error);
     if (error instanceof Error) {
-      res.status(500).json({ message: error.message });
+      sendErrorResponse(res, "Failed to update destination places", 500, error.message);
     } else {
-      res
-        .status(500)
-        .json({ message: "An error occurred while processing your request." });
+      sendErrorResponse(res, "Failed to update destination places", 500, "An unknown error occurred");
     }
   }
 };
@@ -238,21 +226,19 @@ export const updateDestinationTransportation = async (
   try {
     const destination = await Destination.findById(req.params.id);
     if (!destination) {
-      return res.status(404).json({ message: "Destination not found." });
+      return sendErrorResponse(res, "Destination not found", 404);
     }
 
     const transportation: DestinationTransportation = req.body;
     destination.transportation = transportation;
     await destination.save();
-    res.json(destination.transportation);
+    sendSuccessResponse(res, "Destination transportation updated successfully", destination.transportation);
   } catch (error) {
     console.error(error);
     if (error instanceof Error) {
-      res.status(500).json({ message: error.message });
+      sendErrorResponse(res, "Failed to update destination transportation", 500, error.message);
     } else {
-      res
-        .status(500)
-        .json({ message: "An error occurred while processing your request." });
+      sendErrorResponse(res, "Failed to update destination transportation", 500, "An unknown error occurred");
     }
   }
 };
@@ -262,21 +248,19 @@ export const updateDestinationInsight = async (req: Request, res: Response) => {
   try {
     const destination = await Destination.findById(req.params.id);
     if (!destination) {
-      return res.status(404).json({ message: "Destination not found." });
+      return sendErrorResponse(res, "Destination not found", 404);
     }
 
     const insight: DestinationInsight = req.body;
     destination.insight = insight;
     await destination.save();
-    res.json(destination.insight);
+    sendSuccessResponse(res, "Destination insight updated successfully", destination.insight);
   } catch (error) {
     console.error(error);
     if (error instanceof Error) {
-      res.status(500).json({ message: error.message });
+      sendErrorResponse(res, "Failed to update destination insight", 500, error.message);
     } else {
-      res
-        .status(500)
-        .json({ message: "An error occurred while processing your request." });
+      sendErrorResponse(res, "Failed to update destination insight", 500, "An unknown error occurred");
     }
   }
 };
@@ -289,14 +273,13 @@ export const updateDestinationImages = async (req: Request, res: Response) => {
     const destination = await Destination.findById(req.params.id);
     if (!destination) {
       console.log("Destination not found");
-      return res.status(404).json({ message: "Destination not found." });
+      return sendErrorResponse(res, "Destination not found", 404);
     }
 
     const { folderName } = req.body;
     console.log("Folder name:", folderName);
 
     // Get the directory of the current module
-    // const dirname = path.dirname(fileURLToPath(import.meta.url));
     const dirname = __dirname;
 
     // Get all image files from the specified folder
@@ -341,15 +324,13 @@ export const updateDestinationImages = async (req: Request, res: Response) => {
     await destination.save();
     console.log("Destination Images saved successfully");
 
-    res.json(destination);
+    sendSuccessResponse(res, "Destination images updated successfully", destination);
   } catch (error) {
     console.error(error); // log the error details on the server
     if (error instanceof Error) {
-      res.status(500).json({ message: error.message });
+      sendErrorResponse(res, "Failed to update destination images", 500, error.message);
     } else {
-      res
-        .status(500)
-        .json({ message: "An error occurred while processing your request." });
+      sendErrorResponse(res, "Failed to update destination images", 500, "An unknown error occurred");
     }
   }
 };
@@ -370,22 +351,22 @@ export const getDestinationBySearch = async (req: Request, res: Response) => {
     }
 
     if (!name && !country) {
-      return res
-        .status(400)
-        .json({ message: "Please provide a name or country to search." });
+      return sendErrorResponse(res, "Please provide a name or country to search", 400);
     }
 
     const destinations = await Destination.find(query);
 
     if (destinations.length === 0) {
-      return res.status(404).json({ message: "No destinations found." });
+      return sendErrorResponse(res, "No destinations found", 404);
     }
 
-    res.json({ result: destinations });
+    sendSuccessResponse(res, "Destinations retrieved successfully", { result: destinations });
   } catch (error) {
     console.error(error);
-    res
-      .status(500)
-      .json({ message: "An error occurred while processing your request." });
+    if (error instanceof Error) {
+      sendErrorResponse(res, "Failed to search destinations", 500, error.message);
+    } else {
+      sendErrorResponse(res, "Failed to search destinations", 500, "An unknown error occurred");
+    }
   }
 };
