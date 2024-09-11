@@ -7,7 +7,7 @@ import React, {
   useState,
 } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import Lenis from 'lenis';
+import Lenis from "lenis";
 
 // Component imports
 import DestinationCard from "src/components/common/DestinationCard";
@@ -31,6 +31,7 @@ type DiscoverDestinationsProps = {
 // Framer motion variants
 const variants = {
   hidden: { opacity: 0, y: 40 },
+  hiddenShort: { opacity: 0, y: 20 },
   hiddenFullY: {
     y: "100%",
   },
@@ -88,7 +89,12 @@ const DiscoverDestinations: React.FC<DiscoverDestinationsProps> = ({
   }, []);
 
   // Handle url for fetching destination data
-  const { continents, countries, tags, searchQuery: destinationSearchQuery } = useSelector((state: RootState) => state.filter.destination);
+  const {
+    continents,
+    countries,
+    tags,
+    searchQuery: destinationSearchQuery,
+  } = useSelector((state: RootState) => state.filter.destination);
 
   const url = useMemo(() => {
     let url = `${BASE_URL}/destinations?page=${currentPage}&limit=${limit}`;
@@ -138,15 +144,15 @@ const DiscoverDestinations: React.FC<DiscoverDestinationsProps> = ({
 
   // Optimize images for destinations
   const optimizedDestinations = useMemo(() => {
-    return destinations.map(destination => ({
+    return destinations.map((destination) => ({
       ...destination,
-      images: destination.images.map(image => 
+      images: destination.images.map((image) =>
         optimizeImage(image, {
           width: Math.min(viewportWidth, 1920),
           quality: 80,
-          format: "auto"
-        })
-      )
+          format: "auto",
+        }),
+      ),
     }));
   }, [destinations, viewportWidth]);
 
@@ -209,12 +215,13 @@ const DiscoverDestinations: React.FC<DiscoverDestinationsProps> = ({
             onClick={() => toggleFilterBoard()}
           >
             <i
-              className={`pointer-events-none ri-filter-3-line p-large m-auto select-none text-text-dark transition-all`}
+              className={`ri-filter-3-line p-large pointer-events-none m-auto select-none text-text-dark transition-all`}
             ></i>
           </motion.button>
           <AnimatePresence mode="wait">
             {isFilterBoardOpen && (
               <DestinationFilter
+                key="destination-filter"
                 countryNames={countryNames}
                 continentNames={continentNames}
               />
@@ -224,26 +231,27 @@ const DiscoverDestinations: React.FC<DiscoverDestinationsProps> = ({
       </div>
       <div className="min-h-[50svh] w-full">
         <AnimatePresence mode="wait">
-          {destinationLoading && (
+          {destinationLoading ? (
             <motion.div
-              key="Loading..."
+              key={`loading-state-${currentPage}-${tags.join(',')}-${countries.join(',')}-${continents.join(',')}-${destinationSearchQuery}`}
               initial="hidden"
               whileInView="visible"
+              viewport={{ once: true }}
               variants={variants}
-              exit="hidden"
+              exit="hiddenShort"
               transition={{ duration: 0.5, ease: "easeInOut" }}
               className="grid h-[50svh] w-full place-items-center py-sect-short"
             >
               <h3 className="h3-md">Loading...</h3>
             </motion.div>
-          )}
-          {!destinationLoading && destinationError && (
+          ) : destinationError ? (
             <motion.div
-              key={destinationError}
+              key={`error-state-${currentPage}-${tags.join(',')}-${countries.join(',')}-${continents.join(',')}-${destinationSearchQuery}`}
               initial="hidden"
               whileInView="visible"
+              viewport={{ once: true }}
               variants={variants}
-              exit="hidden"
+              exit="hiddenShort"
               transition={{ duration: 0.5, ease: "easeInOut" }}
               className="grid h-[50svh] w-full place-items-center py-sect-short"
             >
@@ -251,34 +259,30 @@ const DiscoverDestinations: React.FC<DiscoverDestinationsProps> = ({
                 Error... Please reload the page or try again later.
               </h3>
             </motion.div>
-          )}
-          {!destinationLoading &&
-            !destinationError &&
-            optimizedDestinations.length === 0 && (
+          ) : optimizedDestinations.length === 0 ? (
+            <motion.div
+              key={`no-destinations-state-${currentPage}-${tags.join(',')}-${countries.join(',')}-${continents.join(',')}-${destinationSearchQuery}`}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={variants}
+              exit="hiddenShort"
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              className="grid h-[50svh] w-full place-items-center py-sect-short"
+            >
+              <h3 className="h3-md">No destinations found.</h3>
+            </motion.div>
+          ) : (
+            optimizedDestinations.length > 0 && (
               <motion.div
-                key={"No destinations"}
-                initial="hidden"
-                whileInView="visible"
-                variants={variants}
-                exit="hidden"
-                transition={{ duration: 0.5, ease: "easeInOut" }}
-                className="grid h-[50svh] w-full place-items-center py-sect-short"
-              >
-                <h3 className="h3-md">No destinations found.</h3>
-              </motion.div>
-            )}
-          {!destinationLoading &&
-            !destinationError &&
-            destinations.length > 0 && (
-              <motion.div
-                key={destinations.length}
+                key={`discover-destinations-${currentPage}-${tags.join(',')}-${countries.join(',')}-${continents.join(',')}-${destinationSearchQuery}`}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
-                exit="hidden"
+                exit="hiddenShort"
                 transition={{
                   duration: 0.5,
-                  ease: "easeInOut"
+                  ease: "easeInOut",
                 }}
                 variants={variants}
               >
@@ -287,22 +291,19 @@ const DiscoverDestinations: React.FC<DiscoverDestinationsProps> = ({
                   transition={{
                     staggerChildren: 0.2,
                   }}
-                  className="grid w-full grid-cols-3 gap-x-8 gap-y-12 items-start"
+                  className="grid w-full grid-cols-3 items-start gap-x-8 gap-y-12"
                 >
                   {(destinations as Destination[])?.map((destination) => (
                     <motion.div
                       variants={variants}
-                      key={destination._id}
+                      key={`destination-${destination._id}`}
                       className="w-full"
                     >
                       <DestinationCard destination={destination} />
                     </motion.div>
                   ))}
                 </motion.div>
-                <motion.div
-                  variants={variants}
-                  className="w-full"
-                >
+                <motion.div variants={variants} className="w-full">
                   <CatalogPagination
                     count={totalDestinations}
                     page={currentPage}
@@ -315,7 +316,8 @@ const DiscoverDestinations: React.FC<DiscoverDestinationsProps> = ({
                   />
                 </motion.div>
               </motion.div>
-            )}
+            )
+          )}
         </AnimatePresence>
       </div>
     </section>

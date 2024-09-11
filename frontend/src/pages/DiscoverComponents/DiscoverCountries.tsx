@@ -247,7 +247,7 @@ const DiscoverCountries: React.FC<DiscoverCountriesProps> = ({
       </section>
 
       {/* RELATED SECTION */}
-      <section className="related flex flex-col lg:gap-12 2xl:gap-20">
+      <section className="related flex flex-col lg:gap-4 2xl:gap-8">
         <div className="px-sect overflow-hidden">
           <motion.h2
             initial="hiddenFullY"
