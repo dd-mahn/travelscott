@@ -18,11 +18,8 @@ import CountryArticles from "./CountryComponents/CountryArticles";
 import CountryDestinations from "./CountryComponents/CountryDestinations";
 import { BASE_URL } from "src/utils/config";
 import NotFoundPage from "./404";
-import { Carousel } from "@material-tailwind/react";
 import Country from "src/types/Country";
 import {
-  HoverVariants,
-  TapVariants,
   VisibilityVariants,
 } from "src/utils/variants";
 import CountryOverview from "./CountryComponents/CountryOverview";
