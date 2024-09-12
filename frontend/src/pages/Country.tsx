@@ -13,7 +13,6 @@ import useFetch from "src/hooks/useFetch";
 // Components
 import RelatedSections from "src/components/common/RelatedSections";
 import Loading from "src/components/common/Loading";
-import CountryInfo from "./CountryComponents/CountryInfo";
 import CountryGuide from "./CountryComponents/CountryGuide";
 import CountryArticles from "./CountryComponents/CountryArticles";
 import CountryDestinations from "./CountryComponents/CountryDestinations";
@@ -26,18 +25,14 @@ import {
   TapVariants,
   VisibilityVariants,
 } from "src/utils/variants";
+import CountryOverview from "./CountryComponents/CountryOverview";
+import CountryHero from "./CountryComponents/CountryHero";
 
 // Animation variants
 const variants = {
   hiddenY: VisibilityVariants.hiddenY,
-  hiddenShort: VisibilityVariants.hiddenShortY,
   hiddenFullY: VisibilityVariants.hiddenFullY,
-  hiddenYScale: VisibilityVariants.hiddenYScale,
-  exitScale: VisibilityVariants.exitScale,
   visible: VisibilityVariants.visible,
-  exitX: VisibilityVariants.exitX,
-  hoverScale: HoverVariants.hoverScale,
-  tapScale: TapVariants.tapScale,
 };
 
 const CountryPage: React.FC = () => {
@@ -89,65 +84,10 @@ const CountryPage: React.FC = () => {
   return (
     <main className="country">
       {/* HERO SECTION */}
-      <motion.section
-        initial="hiddenY"
-        animate="visible"
-        variants={variants}
-        transition={{ duration: 0.5, delay: 0.5 }}
-        className="hero flex h-screen flex-col gap-8"
-      >
-        {/* @ts-ignore */}
-        <Carousel
-          autoplay
-          autoplayDelay={4000}
-          transition={{ duration: 2 }}
-          loop
-        >
-          {currentCountry.images.otherImages?.map((image, index) => (
-            <div className="h-full w-svw" key={index}>
-              <img
-                src={image}
-                alt={`${currentCountry.name} image`}
-                className="h-full w-full object-cover"
-              />
-            </div>
-          ))}
-        </Carousel>
+      <CountryHero country={currentCountry} />
 
-        <div className="px-sect flex items-center gap-8">
-          <motion.img
-            initial="hiddenY"
-            animate="visible"
-            variants={variants}
-            transition={{ duration: 0.5, delay: 1 }}
-            src={currentCountry.images.flagImages?.[0]}
-            className="w-1/6 rounded-xl"
-            alt={`${currentCountry.name} flag`}
-          />
-          <div className="big-heading overflow-hidden">
-            {currentCountry.name.split("").map((letter, index) => (
-              <motion.h1
-                key={index}
-                variants={variants}
-                initial="hiddenFullY"
-                animate="visible"
-                transition={{
-                  duration: 0.8,
-                  delay: 1.2 + index * 0.1,
-                  type: "spring",
-                  bounce: 0.5,
-                }}
-                className="inline-block"
-              >
-                {letter}
-              </motion.h1>
-            ))}
-          </div>
-        </div>
-      </motion.section>
-
-      {/* INFORMATION SECTION */}
-      <CountryInfo country={currentCountry} />
+      {/* OVERVIEW SECTION */}
+      <CountryOverview country={currentCountry} />
 
       {/* STACKED SECTIONS */}
       <section className="map 2xl:pt-30 relative lg:pt-sect-short">
