@@ -7,8 +7,8 @@ import {
   VisibilityVariants,
 } from "src/utils/variants";
 
-// Define the props for the CountryInfo component
-interface CountryInfoProps {
+// Define the props for the CountryOverview component
+interface CountryOverviewProps {
   country: Country;
 }
 
@@ -25,8 +25,8 @@ const variants = {
   tapScale: TapVariants.tapScale,
 };
 
-// CountryInfo component to display country information
-const CountryInfo: React.FC<CountryInfoProps> = ({ country }) => {
+// CountryOverview component to display country information
+const CountryOverview: React.FC<CountryOverviewProps> = ({ country }) => {
   return (
     <section className="brief px-sect flex justify-between pb-sect-default pt-sect-short">
       <div className="flex w-1/2 flex-col lg:gap-4 2xl:gap-8">
@@ -115,4 +115,4 @@ const InfoItem: React.FC<InfoItemProps> = ({ icon, label, value }) => (
   </motion.div>
 );
 
-export default memo(CountryInfo);
+export default memo(CountryOverview);
