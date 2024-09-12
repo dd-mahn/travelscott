@@ -4,14 +4,28 @@ import useFetch from "src/hooks/useFetch";
 import type Destination from "src/types/Destination";
 import { BASE_URL } from "src/utils/config";
 import "src/styles/destination.css";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "src/store/store";
+import {
+  setCurrentDestination,
+  setLoading,
+  setError,
+} from "src/store/slices/destinationSlice";
 
 // Material Tailwind
 import { Carousel } from "@material-tailwind/react";
 import PlaceDialog from "./DestinationComponents/placeDialog";
 import RelatedSections from "src/components/common/RelatedSections";
 import NotFoundPage from "./404";
+import Loading from "src/components/common/Loading";
+import useStackedSections from "src/hooks/useStackedSections";
 
 const DestinationPage: React.FC = () => {
+  const dispatch = useDispatch();
+  const { currentDestination, loading, error } = useSelector(
+    (state: RootState) => state.destination,
+  );
+
   // Handle destination data
   const { id } = useParams();
   const {
@@ -19,6 +33,16 @@ const DestinationPage: React.FC = () => {
     loading: destinationLoading,
     error: destinationError,
   } = useFetch<Destination>(`${BASE_URL}/destinations/${id}`);
+
+  useEffect(() => {
+    dispatch(setLoading(destinationLoading));
+    if (destinationError) {
+      dispatch(setError(destinationError));
+    } else {
+      dispatch(setError(null));
+      dispatch(setCurrentDestination(destination as Destination));
+    }
+  }, [dispatch, destinationLoading, destinationError, destination]);
 
   // Handle menu board
   const [menuBoardOpen, setMenuBoardOpen] = useState(false);
@@ -39,15 +63,7 @@ const DestinationPage: React.FC = () => {
   };
 
   // Handle sticky sections top value
-  const stackedSection: NodeListOf<HTMLElement> =
-    document.querySelectorAll(".stacked-section");
-  useEffect(() => {
-    if (stackedSection.length > 0) {
-      stackedSection.forEach((section) => {
-        section.style.top = window.innerHeight - section.offsetHeight + "px";
-      });
-    }
-  }, [stackedSection]);
+  const sectionRefs = useStackedSections();
 
   // Handle place catalog
   const dialogs: NodeListOf<HTMLDialogElement> =
@@ -64,8 +80,6 @@ const DestinationPage: React.FC = () => {
   const openPlaceDialog = (name: string) => {
     const placeDialog = document.querySelector(`dialog[data-name="${name}"]`);
 
-    console.log(placeDialog);
-
     if (placeDialog instanceof HTMLDialogElement) {
       placeDialog.removeAttribute("hidden");
       placeDialog.showModal();
@@ -73,30 +87,19 @@ const DestinationPage: React.FC = () => {
   };
 
   // Render logic
-  if (destinationLoading) {
-    return (
-      <div className="grid h-screen w-full place-items-center">
-        <h3 className="h3-md">Loading...</h3>
-      </div>
-    );
+  if (loading) {
+    return <Loading />;
   }
-  if (destinationError) {
-    return (
-      <div className="grid h-screen w-full place-items-center">
-        <h3 className="h3-md">Error: {destinationError}</h3>
-      </div>
-    );
-  }
-  if (!destination) {
+  if (error || !currentDestination) {
     return <NotFoundPage />;
   }
 
   const selectedCategoryPlaces =
     placeCategory === "to_stay"
-      ? destination.places?.to_stay
+      ? currentDestination.places?.to_stay
       : placeCategory === "to_visit"
-        ? destination.places?.to_visit
-        : destination.places?.to_eat;
+        ? currentDestination.places?.to_visit
+        : currentDestination.places?.to_eat;
 
   return (
     <main className="destination">
@@ -104,9 +107,11 @@ const DestinationPage: React.FC = () => {
         <div className="absolute top-0 z-10 grid h-[90%] w-full place-items-center bg-background-dark bg-opacity-20">
           <div className="flex flex-col items-start gap-0 px-8 py-4">
             <span className="span-medium ml-2 text-text-dark">
-              {destination.country}
+              {currentDestination.country}
             </span>
-            <h1 className="big-heading text-text-dark">{destination.name}</h1>
+            <h1 className="big-heading text-text-dark">
+              {currentDestination.name}
+            </h1>
           </div>
         </div>
         <Carousel
@@ -119,9 +124,9 @@ const DestinationPage: React.FC = () => {
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}
         >
-          {destination.images?.map((image, index) => (
+          {currentDestination.images?.map((image, index) => (
             <div
-              className="grid h-[90%] w-svw place-items-center"
+              className="grid h-[90%] w-svw place-items-center bg-gradient-to-t from-background-dark to-transparent"
               style={{
                 backgroundImage: `url(${image})`,
                 backgroundSize: "cover",
@@ -148,9 +153,9 @@ const DestinationPage: React.FC = () => {
       >
         <div className="flex justify-between">
           <div className="flex w-1/2 flex-col gap-4">
-            <h2 className="h2-md">{destination.location}</h2>
+            <h2 className="h2-md">{currentDestination.location}</h2>
             <div className="flex flex-row items-start justify-start gap-2">
-              {destination.tags.map((tag) => (
+              {currentDestination.tags.map((tag) => (
                 <span
                   key={tag}
                   className="span-small rounded-2xl border-solid border-text-light px-4 lg:border 2xl:border-2"
@@ -159,7 +164,9 @@ const DestinationPage: React.FC = () => {
                 </span>
               ))}
             </div>
-            <p className="p-regular mt-2 w-3/4">{destination.description}</p>
+            <p className="p-regular mt-2 w-3/4">
+              {currentDestination.description}
+            </p>
           </div>
           <div className="relative flex w-1/2 justify-end">
             <button
@@ -205,7 +212,7 @@ const DestinationPage: React.FC = () => {
         <div className="grid h-screen place-items-center">
           <iframe
             title="destination-video"
-            src={`https://www.youtube.com/embed/${destination.video}?controls=0`}
+            src={`https://www.youtube.com/embed/${currentDestination.video}?controls=0`}
             className="h-full w-full"
           ></iframe>
         </div>
@@ -216,34 +223,37 @@ const DestinationPage: React.FC = () => {
           id="additional"
           className="additional px-sect sticky top-0 grid grid-cols-2 grid-rows-2 gap-x-4 gap-y-16 lg:py-40 2xl:py-sect-default"
         >
-          {Object.entries(destination.additionalInfo).map(([key, value]) => (
-            <div key={key} className="flex flex-col gap-4">
-              <h2 className="h2-md">
-                {key === "whenToVisit"
-                  ? "When to visit?"
-                  : key === "whoToGoWith"
-                    ? "Who to go with?"
-                    : key === "whatToExpect"
-                      ? "What to expect?"
-                      : key === "healthAndSafety"
-                        ? "Health and safety"
-                        : ""}
-              </h2>
-              <p className="p-regular w-3/4">{value}</p>
-            </div>
-          ))}
+          {Object.entries(currentDestination.additionalInfo).map(
+            ([key, value]) => (
+              <div key={key} className="flex flex-col gap-4">
+                <h2 className="h2-md">
+                  {key === "whenToVisit"
+                    ? "When to visit?"
+                    : key === "whoToGoWith"
+                      ? "Who to go with?"
+                      : key === "whatToExpect"
+                        ? "What to expect?"
+                        : key === "healthAndSafety"
+                          ? "Health and safety"
+                          : ""}
+                </h2>
+                <p className="p-regular w-3/4">{value}</p>
+              </div>
+            ),
+          )}
         </section>
 
         <section
           id="transportation"
           className="stacked-section transportation px-sect sticky rounded-3xl bg-light-brown pt-sect-short shadow-section lg:pb-40 2xl:pb-sect-short"
+          ref={(el) => (sectionRefs.current[0] = el)}
         >
           <div className="mt-sect-short flex flex-col gap-8">
             <h1 className="h1-md">
               <i className="ri-car-fill"></i> Transportation
             </h1>
             <p className="p-regular w-2/5">
-              {destination.transportation.overview}
+              {currentDestination.transportation.overview}
             </p>
           </div>
 
@@ -251,13 +261,14 @@ const DestinationPage: React.FC = () => {
             <img
               className="w-2/3 rounded-xl"
               src={
-                destination.transportation.types?.[transportationIndex]?.image
+                currentDestination.transportation.types?.[transportationIndex]
+                  ?.image
               }
               alt=""
             />
             \
             <div className="absolute right-0 top-[20%] w-1/2">
-              {destination.transportation.types?.map((type, index) => (
+              {currentDestination.transportation.types?.map((type, index) => (
                 <div
                   key={index}
                   className="flex w-full flex-col gap-8 rounded-xl bg-light-brown px-8 py-4 shadow-component"
@@ -319,6 +330,7 @@ const DestinationPage: React.FC = () => {
         <section
           id="places"
           className="stacked-section places px-sect sticky rounded-3xl bg-light-green pb-sect-short pt-sect-short shadow-section"
+          ref={(el) => (sectionRefs.current[1] = el)}
         >
           <div className="mt-sect-short flex flex-col gap-20">
             <h1 className="h1-md">
@@ -426,6 +438,7 @@ const DestinationPage: React.FC = () => {
         <section
           id="insight"
           className="stacked-section insight px-sect sticky flex flex-col gap-20 rounded-3xl bg-light-brown pb-sect-default pt-sect-short shadow-section"
+          ref={(el) => (sectionRefs.current[2] = el)}
         >
           <h1 className="h1-md">
             <i className="ri-eye-fill"></i>Insight
@@ -434,7 +447,7 @@ const DestinationPage: React.FC = () => {
           <div className="flex flex-col items-center gap-8">
             <h2 className="h2-md">From us</h2>
             <div className="grid grid-cols-3 gap-x-4 gap-y-8">
-              {destination.insight?.from_us?.tips.map((tip, index) => (
+              {currentDestination.insight?.from_us?.tips.map((tip, index) => (
                 <div
                   className="rounded-xl bg-background-light bg-opacity-70 px-6 py-4 shadow-component"
                   key={index}
@@ -443,7 +456,7 @@ const DestinationPage: React.FC = () => {
                 </div>
               ))}
             </div>
-            <RelatedSections type={"blog"} data={destination} />
+            <RelatedSections type={"blog"} data={currentDestination} />
           </div>
 
           <div className="flex flex-col gap-8">
@@ -457,22 +470,24 @@ const DestinationPage: React.FC = () => {
               clearer idea of what to expect.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              {destination.insight?.from_others?.map((article, index) => (
-                <div
-                  className="rounded-xl bg-background-light bg-opacity-70 px-6 py-2 shadow-component"
-                  key={index}
-                >
-                  <a
-                    href={article.link}
-                    className="p-medium text-center"
-                    target="_blank"
-                    rel="noreferrer"
+              {currentDestination.insight?.from_others?.map(
+                (article, index) => (
+                  <div
+                    className="rounded-xl bg-background-light bg-opacity-70 px-6 py-2 shadow-component"
+                    key={index}
                   >
-                    {article.title}{" "}
-                    <i className="ri-arrow-right-up-line p-large"></i>
-                  </a>
-                </div>
-              ))}
+                    <a
+                      href={article.link}
+                      className="p-medium text-center"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {article.title}{" "}
+                      <i className="ri-arrow-right-up-line p-large"></i>
+                    </a>
+                  </div>
+                ),
+              )}
             </div>
           </div>
         </section>
@@ -487,7 +502,7 @@ const DestinationPage: React.FC = () => {
         </h1>
         <div className="mt-sect-short grid place-items-center">
           <p className="p-medium w-2/5">
-            {destination.summary} <br /> <br />{" "}
+            {currentDestination.summary} <br /> <br />{" "}
             <p className="p-medium">Have a good trip!</p>
           </p>
         </div>
@@ -497,7 +512,7 @@ const DestinationPage: React.FC = () => {
         <h2 className="h2-md px-sect w-full text-center">
           Related destination
         </h2>
-        <RelatedSections type={"destination"} data={destination} />
+        <RelatedSections type={"destination"} data={currentDestination} />
       </section>
     </main>
   );
