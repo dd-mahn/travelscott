@@ -122,7 +122,7 @@ const Contact: React.FC = () => {
         </div>
         <AnimatePresence mode="popLayout">
           {visibleSection === "emailing" && (
-            <div className="overflow-hiddenY">
+            <div className="overflow-hidden">
               <motion.div
                 key="emailingDrop"
                 initial="dropHidden"
@@ -180,7 +180,7 @@ const Contact: React.FC = () => {
         </div>
         <AnimatePresence mode="popLayout">
           {visibleSection === "contribute" && (
-            <div className="overflow-hiddenY">
+            <div className="overflow-hidden">
               <motion.div
                 key="contributeDrop"
                 initial="dropHidden"
@@ -231,7 +231,7 @@ const Contact: React.FC = () => {
         </div>
         <AnimatePresence mode="popLayout">
           {visibleSection === "feedback" && (
-            <div className="overflow-hiddenY">
+            <div className="overflow-hidden">
               <motion.div
                 key="feedbackDrop"
                 initial="dropHidden"

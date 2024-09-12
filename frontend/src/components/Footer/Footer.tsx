@@ -170,7 +170,7 @@ const Footer = () => {
       </motion.div>
 
       <div className="flex justify-center border-t border-solid border-gray">
-        <div className="w-screen select-none overflow-hiddenY text-center font-logo text-text-light lg:mr-16 lg:text-8xl xl:text-13xl 2xl:text-14xl 3xl:text-15xl">
+        <div className="w-screen select-none overflow-hidden text-center font-logo text-text-light lg:mr-16 lg:text-8xl xl:text-13xl 2xl:text-14xl 3xl:text-15xl">
           <StaggerLogo />
         </div>
       </div>

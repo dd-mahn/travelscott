@@ -272,7 +272,7 @@ export const CountryDestinationFilter: React.FC = memo(() => {
             onBlur={() => setInputFocus(false)}
             className="w-full rounded-full border-[1px] border-gray bg-background-light px-4 py-2 text-text-light outline-none transition-all duration-300 focus:border-text-light focus:shadow-lg"
           />
-          <div className="overflow-hiddenY absolute right-[5%]">
+          <div className="overflow-hidden absolute right-[5%]">
             <motion.i
               variants={variants}
               animate={inputFocus ? "visible" : "hiddenY"}
