@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "src/store/store";
@@ -107,4 +107,4 @@ const CountryArticles: React.FC<CountryArticlesProps> = ({ country }) => {
   );
 };
 
-export default CountryArticles;
+export default memo(CountryArticles);

@@ -4,6 +4,7 @@ import React, {
   useCallback,
   useMemo,
   useRef,
+  memo,
 } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Lenis from "lenis";
@@ -311,4 +312,4 @@ const CountryDestinations: React.FC<CountryDestinationsProps> = ({
   );
 };
 
-export default CountryDestinations;
+export default memo(CountryDestinations);

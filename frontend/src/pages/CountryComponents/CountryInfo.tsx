@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import Country from "src/types/Country";
 import { motion } from "framer-motion";
 
@@ -82,4 +82,4 @@ const InfoItem: React.FC<InfoItemProps> = ({ icon, label, value }) => (
   </motion.div>
 );
 
-export default CountryInfo;
+export default memo(CountryInfo);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import Country from "src/types/Country";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -127,4 +127,4 @@ const GuideSection: React.FC<GuideSectionProps> = ({
   </motion.div>
 );
 
-export default CountryGuide;
+export default memo(CountryGuide);
