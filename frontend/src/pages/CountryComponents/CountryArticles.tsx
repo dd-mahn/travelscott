@@ -11,6 +11,11 @@ import Blog from "src/types/Blog";
 import { FetchBlogsType } from "src/types/FetchData";
 import useFetch from "src/hooks/useFetch";
 import { BASE_URL } from "src/utils/config";
+import {
+  HoverVariants,
+  TapVariants,
+  VisibilityVariants,
+} from "src/utils/variants";
 
 // Define the props for the CountryArticles component
 interface CountryArticlesProps {
@@ -19,21 +24,15 @@ interface CountryArticlesProps {
 
 // Animation variants for framer-motion
 const variants = {
-  hidden: { opacity: 0, y: 40 },
-  hiddenShort: { opacity: 0, y: 20 },
-  hiddenFullY: { y: "100%" },
-  hiddenYScale: { scale: 0.95, y: 100, opacity: 0 },
-  exitScale: { scale: 0, opacity: 0, y: 200, originX: 0 },
-  visible: { opacity: 1, scale: 1, y: 0, x: 0 },
-  exitX: { x: -1000, opacity: 0 },
-  hoverScale: {
-    scale: 1.05,
-    transition: { duration: 0.4, ease: "easeInOut" },
-  },
-  tapScale: {
-    scale: 0.95,
-    transition: { duration: 0.4 },
-  },
+  hiddenY: VisibilityVariants.hiddenY,
+  hiddenShort: VisibilityVariants.hiddenShortY,
+  hiddenFullY: VisibilityVariants.hiddenFullY,
+  hiddenYScale: VisibilityVariants.hiddenYScale,
+  exitScale: VisibilityVariants.exitScale,
+  visible: VisibilityVariants.visible,
+  exitX: VisibilityVariants.exitX,
+  hoverScale: HoverVariants.hoverScale,
+  tapScale: TapVariants.tapScale,
 };
 
 const CountryArticles: React.FC<CountryArticlesProps> = ({ country }) => {
@@ -80,7 +79,7 @@ const CountryArticles: React.FC<CountryArticlesProps> = ({ country }) => {
           <motion.div
             key={`loading-${country.name}`}
             variants={variants}
-            initial="hidden"
+            initial="hiddenY"
             whileInView="visible"
             viewport={{ once: true, margin: "-10%" }}
             exit="hiddenShort"
@@ -93,7 +92,7 @@ const CountryArticles: React.FC<CountryArticlesProps> = ({ country }) => {
           <motion.div
             key={`articles-${country.name}`}
             variants={variants}
-            initial="hidden"
+            initial="hiddenY"
             whileInView="visible"
             viewport={{ once: true, margin: "-10%" }}
             exit="hiddenShort"

@@ -5,25 +5,15 @@ import { motion } from "framer-motion";
 import Blog from "src/types/Blog";
 import FeaturedContentSlider from "./FeaturedContentSlider";
 import { formatDate } from "src/utils/formatDate";
+import { HoverVariants, TapVariants } from "src/utils/variants";
 
 type featuredBlogsProps = {
   blogs: Blog[];
 };
 
 const variants = {
-  hoverScale: {
-    scale: 1.05,
-    transition: {
-      duration: 0.4,
-    },
-  },
-
-  tapScale: {
-    scale: 0.95,
-    transition: {
-      duration: 0.4,
-    },
-  },
+  hoverScale: HoverVariants.hoverScale,
+  tapScale: TapVariants.tapScale,
 };
 
 const FeaturedBlogs: React.FC<featuredBlogsProps> = ({ blogs }) => {

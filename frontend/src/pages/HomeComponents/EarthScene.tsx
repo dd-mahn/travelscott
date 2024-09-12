@@ -21,6 +21,7 @@ import { motion } from "framer-motion";
 // Component imports
 import Earth from "src/../public/Earth";
 import { LeftCountryCarousel, RightCountryCarousel } from "./CountryCarousel";
+import { VisibilityVariants } from "src/utils/variants";
 
 // Component props
 type SceneProps = {
@@ -29,10 +30,8 @@ type SceneProps = {
 
 // Framer motion variants
 const variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-  },
+  hidden: VisibilityVariants.hidden,
+  visible: VisibilityVariants.visible,
 };
 
 // Scene component

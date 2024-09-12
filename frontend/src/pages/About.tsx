@@ -16,12 +16,15 @@ import airplane1 from "src/assets/svg/airplane-1.svg";
 import airplane2 from "src/assets/svg/airplane-2.svg";
 import airplane3 from "src/assets/svg/airplane-3.svg";
 import { people } from "src/data/about-people";
+import { HoverVariants, VisibilityVariants } from "src/utils/variants";
 
 // Framer motion variants
 const variants = {
-  hidden: { opacity: 0, y: 40 },
-  hiddenFullY: { y: "100%" },
-  visible: { opacity: 1, y: 0 },
+  hiddenY: VisibilityVariants.hiddenY,
+  hiddenFullY: VisibilityVariants.hiddenFullY,
+  visible: VisibilityVariants.visible,
+  hoverScale: HoverVariants.hoverScale,
+
   imgVisible: {
     opacity: 1,
     y: 0,
@@ -31,10 +34,6 @@ const variants = {
     y: [0, 10, -10, 0],
     scale: [1, 0.98, 1.02, 1],
     transition: { duration: 5, repeat: Infinity },
-  },
-  hoverScale: {
-    scale: 1.05,
-    transition: { duration: 0.4, ease: "easeInOut" },
   },
 };
 
@@ -165,7 +164,7 @@ const About: React.FC = () => {
 
         {/* Hero Paragraphs */}
         <motion.p
-          initial="hidden"
+          initial="hiddenY"
           animate="visible"
           variants={variants}
           transition={{ duration: 0.5, delay: 1 }}
@@ -176,7 +175,7 @@ const About: React.FC = () => {
         </motion.p>
 
         <motion.p
-          initial="hidden"
+          initial="hiddenY"
           animate="visible"
           variants={variants}
           transition={{ duration: 0.5, delay: 1.2 }}
@@ -215,7 +214,7 @@ const About: React.FC = () => {
       <section className="flex flex-col items-center justify-start lg:py-sect-default 2xl:py-sect-semi">
         {/* How Section */}
         <motion.h2
-          initial="hidden"
+          initial="hiddenY"
           whileInView="visible"
           variants={variants}
           viewport={{ once: true, margin: "0% 0% -30% 0%" }}
@@ -245,7 +244,7 @@ const About: React.FC = () => {
                   </motion.h1>
                 </div>
                 <motion.span
-                  initial="hidden"
+                  initial="hiddenY"
                   whileInView="visible"
                   viewport={{ once: true, margin: "0% 0% -10% 0%" }}
                   transition={{ duration: 0.4, delay: 0.4 }}
@@ -331,7 +330,7 @@ const About: React.FC = () => {
                   </motion.h1>
                 </div>
                 <motion.span
-                  initial="hidden"
+                  initial="hiddenY"
                   whileInView="visible"
                   viewport={{ once: true, margin: "0% 0% -10% 0%" }}
                   transition={{ duration: 0.4, delay: 0.4 }}
@@ -373,7 +372,7 @@ const About: React.FC = () => {
                 </div>
 
                 <motion.span
-                  initial="hidden"
+                  initial="hiddenY"
                   whileInView="visible"
                   viewport={{ once: true, margin: "0% 0% -10% 0%" }}
                   transition={{ duration: 0.4, delay: 0.4 }}
@@ -424,7 +423,7 @@ const About: React.FC = () => {
               <div className="blob-brown blur-blob left-1/2 top-[20%] h-1/4 w-1/4 opacity-30"></div>
               <div className="blob-green blur-blob -top-[20%] left-[5%] h-3/5 w-3/5 opacity-20"></div>
               <motion.div
-                initial="hidden"
+                initial="hiddenY"
                 whileInView="visible"
                 variants={variants}
                 viewport={{ once: true, margin: "0% 0% -20% 0%" }}
@@ -434,7 +433,7 @@ const About: React.FC = () => {
                 <h1 className="text-text-dark">Who?</h1>
               </motion.div>
               <motion.div
-                initial="hidden"
+                initial="hiddenY"
                 whileInView="visible"
                 variants={variants}
                 viewport={{ once: true }}
@@ -475,7 +474,7 @@ const About: React.FC = () => {
                 {whoImages.map((img, index) => (
                   <Suspense key={"whoImg-" + index} fallback={null}>
                     <motion.img
-                      initial="hidden"
+                      initial="hiddenY"
                       whileInView={["visible", "imgFloat"]}
                       variants={variants}
                       viewport={{ once: true }}
@@ -488,7 +487,7 @@ const About: React.FC = () => {
                 ))}
 
                 <motion.p
-                  initial="hidden"
+                  initial="hiddenY"
                   whileInView="visible"
                   variants={variants}
                   viewport={{ once: true }}
@@ -514,7 +513,7 @@ const About: React.FC = () => {
         <img src={airplane2} alt="" className="plane-2 absolute" />
         <img src={airplane3} alt="" className="plane-3 absolute" />
         <motion.div
-          initial="hidden"
+          initial="hiddenY"
           whileInView="visible"
           variants={variants}
           transition={{ duration: 0.5 }}
@@ -524,7 +523,7 @@ const About: React.FC = () => {
           <h2>Why?</h2>
         </motion.div>
         <motion.p
-          initial="hidden"
+          initial="hiddenY"
           whileInView="visible"
           variants={variants}
           transition={{ duration: 0.5 }}

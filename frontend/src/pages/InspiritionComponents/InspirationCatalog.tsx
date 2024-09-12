@@ -10,31 +10,19 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "src/store/store";
 import { setAllBlogs } from "src/store/slices/blogSlice";
 import Lenis from "lenis";
+import { HoverVariants, TapVariants, VisibilityVariants } from "src/utils/variants";
 
 const variants = {
-  hiddenOpacity: { opacity: 0 },
-  hidden: { opacity: 0, y: 40 },
-  hiddenFullY: { y: "100%" },
-  hiddenYScale: { scale: 0.95, y: 100, opacity: 0 },
-  exitScale: { scale: 0, opacity: 0, y: 200, originX: 0 },
-  exitX: { x: -1000, opacity: 0, transition: { duration: 4 } },
-  visible: { opacity: 1, scale: 1, y: 0, x: 0 },
-  hoverScale: {
-    scale: 1.05,
-    transition: { duration: 0.4, ease: "easeInOut" },
-  },
-  tapScale: {
-    scale: 0.95,
-    transition: { duration: 0.4, ease: "easeInOut" },
-  },
-  hoverX: {
-    x: 5,
-    transition: {
-      duration: 1,
-      type: "spring",
-      bounce: 0.5,
-    },
-  },
+  hiddenOpacity: VisibilityVariants.hidden,
+  hidden: VisibilityVariants.hiddenY,
+  hiddenFullY: VisibilityVariants.hiddenFullY,
+  hiddenYScale: VisibilityVariants.hiddenYScale,
+  exitScale: VisibilityVariants.exitScale,
+  exitX: VisibilityVariants.exitX,
+  visible: VisibilityVariants.visible,
+  hoverScale: HoverVariants.hoverScale,
+  tapScale: TapVariants.tapScale,
+  hoverX: HoverVariants.hoverX,
 };
 
 const limit = 10;

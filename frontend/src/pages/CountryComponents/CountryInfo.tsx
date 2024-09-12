@@ -1,6 +1,11 @@
 import React, { memo } from "react";
 import Country from "src/types/Country";
 import { motion } from "framer-motion";
+import {
+  HoverVariants,
+  TapVariants,
+  VisibilityVariants,
+} from "src/utils/variants";
 
 // Define the props for the CountryInfo component
 interface CountryInfoProps {
@@ -9,21 +14,15 @@ interface CountryInfoProps {
 
 // Animation variants for framer-motion
 const variants = {
-  hidden: { opacity: 0, y: 40 },
-  hiddenShort: { opacity: 0, y: 20 },
-  hiddenFullY: { y: "100%" },
-  hiddenYScale: { scale: 0.95, y: 100, opacity: 0 },
-  exitScale: { scale: 0, opacity: 0, y: 200, originX: 0 },
-  visible: { opacity: 1, scale: 1, y: 0, x: 0 },
-  exitX: { x: -1000, opacity: 0 },
-  hoverScale: {
-    scale: 1.05,
-    transition: { duration: 0.4, ease: "easeInOut" },
-  },
-  tapScale: {
-    scale: 0.95,
-    transition: { duration: 0.4 },
-  },
+  hiddenY: VisibilityVariants.hiddenY,
+  hiddenShort: VisibilityVariants.hiddenShortY,
+  hiddenFullY: VisibilityVariants.hiddenFullY,
+  hiddenYScale: VisibilityVariants.hiddenYScale,
+  exitScale: VisibilityVariants.exitScale,
+  visible: VisibilityVariants.visible,
+  exitX: VisibilityVariants.exitX,
+  hoverScale: HoverVariants.hoverScale,
+  tapScale: TapVariants.tapScale,
 };
 
 // CountryInfo component to display country information
@@ -35,9 +34,13 @@ const CountryInfo: React.FC<CountryInfoProps> = ({ country }) => {
           <motion.p
             key={index}
             variants={variants}
-            initial="hidden"
+            initial="hiddenY"
             whileInView="visible"
-            transition={{ duration: 0.5, delay: 0.1 + index * 0.1, ease: "easeInOut" }}
+            transition={{
+              duration: 0.5,
+              delay: 0.1 + index * 0.1,
+              ease: "easeInOut",
+            }}
             viewport={{ once: true }}
             className="p-regular"
           >
@@ -48,18 +51,48 @@ const CountryInfo: React.FC<CountryInfoProps> = ({ country }) => {
 
       <motion.div
         variants={variants}
-        initial="hidden"
+        initial="hiddenY"
         whileInView="visible"
-        transition={{ duration: 0.5, delay: 0.5, ease: "easeInOut", delayChildren: 0.5, staggerChildren: 0.1 }}
+        transition={{
+          duration: 0.5,
+          delay: 0.5,
+          ease: "easeInOut",
+          delayChildren: 0.5,
+          staggerChildren: 0.1,
+        }}
         viewport={{ once: true }}
         className="grid w-2/5 grid-cols-2 grid-rows-3 gap-y-4"
       >
-        <InfoItem icon="ri-global-line" label="Language" value={country.language} />
-        <InfoItem icon="ri-money-dollar-circle-line" label="Currency" value={country.currency} />
-        <InfoItem icon="ri-government-line" label="Capital" value={country.capital} />
-        <InfoItem icon="ri-visa-fill" label="Visa requirement" value={country.visaRequirement} />
-        <InfoItem icon="ri-phone-line" label="Dial-in code" value={country.dialInCode} />
-        <InfoItem icon="ri-time-line" label="Time zone" value={country.timeZone} />
+        <InfoItem
+          icon="ri-global-line"
+          label="Language"
+          value={country.language}
+        />
+        <InfoItem
+          icon="ri-money-dollar-circle-line"
+          label="Currency"
+          value={country.currency}
+        />
+        <InfoItem
+          icon="ri-government-line"
+          label="Capital"
+          value={country.capital}
+        />
+        <InfoItem
+          icon="ri-visa-fill"
+          label="Visa requirement"
+          value={country.visaRequirement}
+        />
+        <InfoItem
+          icon="ri-phone-line"
+          label="Dial-in code"
+          value={country.dialInCode}
+        />
+        <InfoItem
+          icon="ri-time-line"
+          label="Time zone"
+          value={country.timeZone}
+        />
       </motion.div>
     </section>
   );

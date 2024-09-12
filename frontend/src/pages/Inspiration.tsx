@@ -7,10 +7,14 @@ import InspirationCatalog from "./InspiritionComponents/InspirationCatalog";
 import useFetch from "src/hooks/useFetch";
 import { BASE_URL } from "src/utils/config";
 import { FetchBlogsType } from "src/types/FetchData";
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from 'src/store/store';
-import { setCategory, setCategoryImage, setHeading } from 'src/store/slices/inspirationSlice';
-import { setAllBlogs, setFeaturedBlogs } from 'src/store/slices/blogSlice';
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "src/store/store";
+import {
+  setCategory,
+  setCategoryImage,
+  setHeading,
+} from "src/store/slices/inspirationSlice";
+import { setAllBlogs, setFeaturedBlogs } from "src/store/slices/blogSlice";
 
 // Images
 import wildernessImage from "src/assets/images/ui/inspiration/wilder-alt.webp";
@@ -21,47 +25,25 @@ import cityScapeImage from "src/assets/images/ui/inspiration/city.webp";
 import seasonFestivalImage from "src/assets/images/ui/inspiration/season.webp";
 import relaxationImage from "src/assets/images/ui/inspiration/relax.webp";
 import firstTimeAbroadImage from "src/assets/images/ui/inspiration/first.webp";
+import {
+  ButtonVariants,
+  VisibilityVariants,
+  HoverVariants,
+  TapVariants,
+} from "src/utils/variants";
 
 // Framer motion variants
 const variants = {
-  hiddenOpacity: { opacity: 0 },
-  hidden: { opacity: 0, y: 40 },
-  hiddenFullY: { y: "100%" },
-  hiddenYScale: { scale: 0.95, y: 100, opacity: 0 },
-  exitScale: { scale: 0, opacity: 0, y: 200, originX: 0 },
-  exitX: { x: -1000, opacity: 0, transition: { duration: 4 } },
-  visible: { opacity: 1, scale: 1, y: 0, x: 0 },
-  hoverScale: {
-    scale: 1.05,
-    transition: { duration: 0.4, ease: "easeInOut" },
-  },
-  tapScale: {
-    scale: 0.95,
-    transition: { duration: 0.4, ease: "easeInOut" },
-  },
-  hoverX: {
-    x: 5,
-    transition: {
-      duration: 1,
-      type: "spring",
-      bounce: 0.5,
-    },
-  },
-};
-
-const ButtonVariants = {
-  buttonHover: {
-    y: -3,
-    scale: 1.02,
-    rotate: -5,
-    transition: { duration: 0.4, type: "spring", bounce: 0.5 },
-  },
-  buttonTap: {
-    y: 3,
-    scale: 0.98,
-    rotate: 5,
-    transition: { duration: 0.4, type: "spring", bounce: 0.5 },
-  },
+  hidden: VisibilityVariants.hidden,
+  hiddenY: VisibilityVariants.hiddenY,
+  hiddenFullY: VisibilityVariants.hiddenFullY,
+  hiddenYScale: VisibilityVariants.hiddenYScale,
+  exitScale: VisibilityVariants.exitScale,
+  exitX: VisibilityVariants.exitX,
+  visible: VisibilityVariants.visible,
+  hoverScale: HoverVariants.hoverScale,
+  tapScale: TapVariants.tapScale,
+  hoverX: HoverVariants.hoverX,
 };
 
 const categories = [
@@ -78,8 +60,12 @@ const categories = [
 
 const Inspiration: React.FC = () => {
   const dispatch = useDispatch();
-  const { currentCategory, currentCategoryImage, heading } = useSelector((state: RootState) => state.inspiration);
-  const { allBlogs, featuredBlogs } = useSelector((state: RootState) => state.blog);
+  const { currentCategory, currentCategoryImage, heading } = useSelector(
+    (state: RootState) => state.inspiration,
+  );
+  const { allBlogs, featuredBlogs } = useSelector(
+    (state: RootState) => state.blog,
+  );
 
   // Get current season
   const getSeason = useCallback(() => {
@@ -118,21 +104,24 @@ const Inspiration: React.FC = () => {
   }, [currentCategory, getHeading, dispatch]);
 
   // Handle category change
-  const handleCategoryChange = useCallback((category: string) => {
-    dispatch(setCategory(category));
-    const images: { [key: string]: string } = {
-      Wilderness: wildernessImage,
-      "Culture&Heritage": cultureHeritageImage,
-      "Food&Drink": foodDrinkImage,
-      SoloJourneys: soloJourneyImage,
-      CityScape: cityScapeImage,
-      "Season&Festival": seasonFestivalImage,
-      Relaxation: relaxationImage,
-      FirstTimeAbroad: firstTimeAbroadImage,
-    };
-    dispatch(setCategoryImage(images[category] || ""));
-    dispatch(setHeading(getHeading(category)));
-  }, [dispatch, getHeading]);
+  const handleCategoryChange = useCallback(
+    (category: string) => {
+      dispatch(setCategory(category));
+      const images: { [key: string]: string } = {
+        Wilderness: wildernessImage,
+        "Culture&Heritage": cultureHeritageImage,
+        "Food&Drink": foodDrinkImage,
+        SoloJourneys: soloJourneyImage,
+        CityScape: cityScapeImage,
+        "Season&Festival": seasonFestivalImage,
+        Relaxation: relaxationImage,
+        FirstTimeAbroad: firstTimeAbroadImage,
+      };
+      dispatch(setCategoryImage(images[category] || ""));
+      dispatch(setHeading(getHeading(category)));
+    },
+    [dispatch, getHeading],
+  );
 
   // Fetch blogs data
   const {
@@ -149,7 +138,9 @@ const Inspiration: React.FC = () => {
   useEffect(() => {
     if (allBlogsData?.result) {
       dispatch(setAllBlogs(allBlogsData.result));
-      dispatch(setFeaturedBlogs(allBlogsData.result.filter((blog) => blog.featured)));
+      dispatch(
+        setFeaturedBlogs(allBlogsData.result.filter((blog) => blog.featured)),
+      );
     }
   }, [allBlogsData, dispatch]);
 
@@ -163,7 +154,7 @@ const Inspiration: React.FC = () => {
     >
       {/* Hero Section */}
       <motion.div
-        initial="hiddenOpacity"
+        initial="hidden"
         animate="visible"
         transition={{ duration: 1 }}
         variants={variants}
@@ -186,7 +177,7 @@ const Inspiration: React.FC = () => {
       >
         {currentCategory !== "All" && (
           <motion.div
-            initial="hidden"
+            initial="hiddenY"
             animate="visible"
             transition={{ duration: 1 }}
             className="h-full w-full"
@@ -213,7 +204,7 @@ const Inspiration: React.FC = () => {
 
       {/* Category Filters */}
       <motion.div
-        initial="hidden"
+        initial="hiddenY"
         animate="visible"
         variants={variants}
         transition={{
@@ -264,7 +255,7 @@ const Inspiration: React.FC = () => {
       {/* Featured Blogs Section */}
       {featuredBlogs.length > 0 ? (
         <motion.div
-          initial="hidden"
+          initial="hiddenY"
           animate="visible"
           variants={variants}
           transition={{ duration: 0.5, delay: 2.5 }}

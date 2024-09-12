@@ -2,31 +2,14 @@ import React from "react";
 import { motion } from "framer-motion";
 import "src/styles/404.css";
 import { NoirButton } from "src/components/common/Button";
+import { AuroraVariants, VisibilityVariants } from "src/utils/variants";
 
 const variants = {
-  hiddenOpacity: { opacity: 0 },
-  hidden: { opacity: 0, y: 40 },
-  hiddenFullY: {
-    y: "100%"
-  },
-  visible: { opacity: 1, y: 0 },
-  auroraHover: {
-    opacity: 1,
-    scale: 1.2,
-    transition: { duration: 0.3 },
-  },
-  buttonHover: {
-    y: -3,
-    scale: 1.02,
-    rotate: -5,
-    transition: { duration: 0.4, type: "spring", bounce: 0.5 },
-  },
-  buttonTap: {
-    y: 3,
-    scale: 0.98,
-    rotate: 5,
-    transition: { duration: 0.4, type: "spring", bounce: 0.5 },
-  },
+  hidden: VisibilityVariants.hidden,
+  hiddenY: VisibilityVariants.hiddenY,
+  hiddenFullY: VisibilityVariants.hiddenFullY,
+  visible: VisibilityVariants.visible,
+  auroraHover: AuroraVariants.auroraHover,
 };
 
 const NotFoundPage: React.FC = () => {
@@ -72,7 +55,7 @@ const NotFoundPage: React.FC = () => {
         </motion.div>
       </div>
       <motion.p
-        initial="hidden"
+        initial="hiddenY"
         animate="visible"
         variants={variants}
         transition={{ duration: 0.4, delay: 0.4 }}
@@ -82,21 +65,12 @@ const NotFoundPage: React.FC = () => {
         changed or is temporarily unavailable.
       </motion.p>
       <motion.div
-        initial="hiddenOpacity"
+        initial="hidden"
         animate="visible"
         variants={variants}
         transition={{ duration: 0.4, delay: 0.8 }}
         className="z-20"
       >
-        {/* <motion.button
-          whileHover="buttonHover"
-          whileTap="buttonTap"
-          variants={variants}
-          className="btn bg-background-dark uppercase text-text-dark"
-          onClick={() => navigate("/")}
-        >
-          Back to home
-        </motion.button> */}
         <NoirButton text="Back to home" link="/" />
       </motion.div>
     </main>

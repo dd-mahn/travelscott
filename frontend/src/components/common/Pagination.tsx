@@ -5,22 +5,12 @@ import React, {
   useState,
 } from "react";
 import { motion } from "framer-motion";
+import { HoverVariants, TapVariants } from "src/utils/variants";
 
 // Framer motion variants
 const variants = {
-  hoverScale: {
-    scale: 1.1,
-    transition: {
-      duration: 0.3,
-    },
-  },
-
-  tapScale: {
-    scale: 0.9,
-    transition: {
-      duration: 0.3,
-    },
-  },
+  hoverScale: HoverVariants.hoverScale,
+  tapScale: TapVariants.tapScale,
 };
 
 // Catalog pagination

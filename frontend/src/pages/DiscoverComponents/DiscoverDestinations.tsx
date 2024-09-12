@@ -21,6 +21,7 @@ import { useViewportWidth } from "src/utils/imageUtils";
 import { optimizeImage } from "src/utils/optimizeImage";
 import { useSelector } from "react-redux";
 import { RootState } from "src/store/store";
+import { HoverVariants, TapVariants, VisibilityVariants } from "src/utils/variants";
 
 // Component props type
 type DiscoverDestinationsProps = {
@@ -30,28 +31,15 @@ type DiscoverDestinationsProps = {
 
 // Framer motion variants
 const variants = {
-  hidden: { opacity: 0, y: 40 },
-  hiddenShort: { opacity: 0, y: 20 },
-  hiddenFullY: {
-    y: "100%",
-  },
-  hiddenYScale: { scale: 0.95, y: 100, opacity: 0 },
-  exitScale: { scale: 0, opacity: 0, y: 200, originX: 0 },
-  visible: { opacity: 1, scale: 1, y: 0, x: 0 },
-  exitX: { x: -1000, opacity: 0 },
-  hoverScale: {
-    scale: 1.05,
-    transition: {
-      duration: 0.4,
-      ease: "easeInOut",
-    },
-  },
-  tapScale: {
-    scale: 0.95,
-    transition: {
-      duration: 0.4,
-    },
-  },
+  hiddenY: VisibilityVariants.hiddenY,
+  hiddenShort: VisibilityVariants.hiddenShortY,
+  hiddenFullY: VisibilityVariants.hiddenFullY,
+  hiddenYScale: VisibilityVariants.hiddenYScale,
+  exitScale: VisibilityVariants.exitScale,
+  exitX: VisibilityVariants.exitX,
+  visible: VisibilityVariants.visible,
+  hoverScale: HoverVariants.hoverScale,
+  tapScale: TapVariants.tapScale,
 };
 
 const limit = 18;
@@ -187,7 +175,7 @@ const DiscoverDestinations: React.FC<DiscoverDestinationsProps> = ({
 
       <div className="flex w-full flex-row justify-between py-sect-short">
         <motion.p
-          initial="hidden"
+          initial="hiddenY"
           whileInView="visible"
           variants={variants}
           transition={{ duration: 0.5, delay: 0.5 }}
@@ -198,7 +186,7 @@ const DiscoverDestinations: React.FC<DiscoverDestinationsProps> = ({
           with significant information you will need.
         </motion.p>
         <motion.div
-          initial="hidden"
+          initial="hiddenY"
           whileInView="visible"
           variants={variants}
           transition={{ duration: 0.5, delay: 1 }}
@@ -234,7 +222,7 @@ const DiscoverDestinations: React.FC<DiscoverDestinationsProps> = ({
           {destinationLoading ? (
             <motion.div
               key={`loading-state-${currentPage}-${tags.join(',')}-${countries.join(',')}-${continents.join(',')}-${destinationSearchQuery}`}
-              initial="hidden"
+              initial="hiddenY"
               whileInView="visible"
               viewport={{ once: true }}
               variants={variants}
@@ -247,7 +235,7 @@ const DiscoverDestinations: React.FC<DiscoverDestinationsProps> = ({
           ) : destinationError ? (
             <motion.div
               key={`error-state-${currentPage}-${tags.join(',')}-${countries.join(',')}-${continents.join(',')}-${destinationSearchQuery}`}
-              initial="hidden"
+              initial="hiddenY"
               whileInView="visible"
               viewport={{ once: true }}
               variants={variants}
@@ -262,7 +250,7 @@ const DiscoverDestinations: React.FC<DiscoverDestinationsProps> = ({
           ) : optimizedDestinations.length === 0 ? (
             <motion.div
               key={`no-destinations-state-${currentPage}-${tags.join(',')}-${countries.join(',')}-${continents.join(',')}-${destinationSearchQuery}`}
-              initial="hidden"
+              initial="hiddenY"
               whileInView="visible"
               viewport={{ once: true }}
               variants={variants}
@@ -276,7 +264,7 @@ const DiscoverDestinations: React.FC<DiscoverDestinationsProps> = ({
             optimizedDestinations.length > 0 && (
               <motion.div
                 key={`discover-destinations-${currentPage}-${tags.join(',')}-${countries.join(',')}-${continents.join(',')}-${destinationSearchQuery}`}
-                initial="hidden"
+                initial="hiddenY"
                 whileInView="visible"
                 viewport={{ once: true }}
                 exit="hiddenShort"

@@ -16,6 +16,7 @@ import { setStarterBlogs } from 'src/store/slices/blogSlice';
 import BlogType from "src/types/Blog";
 import { optimizeImage } from "src/utils/optimizeImage";
 import { useViewportWidth } from "src/utils/imageUtils";
+import { HoverVariants, VisibilityVariants } from "src/utils/variants";
 
 // Define interfaces for component props and state
 interface Position {
@@ -67,16 +68,10 @@ const positionReducer = (state: Positions, action: Action): Positions => {
 
 // Animation variants for Framer Motion
 const variants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 0.5 } },
-  hoverScale: {
-    scale: 1.05,
-    transition: { duration: 0.4, ease: "easeInOut" },
-  },
-  hoverX: {
-    x: 5,
-    transition: { duration: 1, type: "spring", bounce: 0.5 },
-  },
+  hidden: VisibilityVariants.hidden,
+  visible: VisibilityVariants.visible,
+  hoverScale: HoverVariants.hoverScale,
+  hoverX: HoverVariants.hoverX,
 };
 
 // BlogComponent: Renders individual blog cards

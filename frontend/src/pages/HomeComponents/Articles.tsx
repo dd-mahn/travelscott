@@ -8,18 +8,16 @@ import Blog from "src/types/Blog";
 import { formatDate } from "src/utils/formatDate";
 import FeaturedContentSlider from "src/components/common/FeaturedContentSlider";
 import { optimizeImage } from "src/utils/optimizeImage";
+import { HoverVariants, VisibilityVariants } from "src/utils/variants";
 
 // Define Framer Motion animation variants
 const variants = {
-  hidden: { opacity: 0, y: 20 },
-  hiddenFullY: { y: "100%" },
-  hiddenScale: { opacity: 0, scale: 0.8, y: 30 },
-  visible: { opacity: 1, y: 0, scale: 1 },
-  enter: (direction: number) => ({ x: direction > 0 ? 1000 : -1000, opacity: 0 }),
-  center: { zIndex: 1, x: 0, opacity: 1 },
-  exit: (direction: number) => ({ zIndex: 0, x: direction < 0 ? 1000 : -1000, opacity: 0 }),
-  hoverScale: { scale: 1.05, transition: { duration: 0.4, ease: "easeInOut" } },
-  hoverX: { x: 5, transition: { duration: 1, type: "spring", bounce: 0.5 } },
+  hiddenY: VisibilityVariants.hiddenY,
+  hiddenFullY: VisibilityVariants.hiddenFullY,
+  hiddenScale: VisibilityVariants.hiddenScale,
+  visible: VisibilityVariants.visible,
+  hoverScale: HoverVariants.hoverScale,
+  hoverX: HoverVariants.hoverX,
 };
 
 // Define prop types for the Articles component

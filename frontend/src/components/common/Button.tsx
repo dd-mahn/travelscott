@@ -3,26 +3,13 @@ import { motion } from "framer-motion";
 
 import planeIcon from "src/assets/svg/plane-icon.svg";
 import { Link } from "react-router-dom";
+import { ButtonVariants } from "src/utils/variants";
 
 interface ButtonProps {
   text: string;
   onClick?: () => void;
   link?: string;
 }
-export const ButtonVariants = {
-  buttonHover: {
-    y: -3,
-    scale: 1.02,
-    rotate: -5,
-    transition: { duration: 0.4, type: "spring", bounce: 0.5 },
-  },
-  buttonTap: {
-    y: 3,
-    scale: 0.98,
-    rotate: 5,
-    transition: { duration: 0.4, type: "spring", bounce: 0.5 },
-  },
-};
 
 export const PrimaryButton: React.FC<ButtonProps> = ({
   text,

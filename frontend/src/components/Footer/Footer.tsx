@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { scrollToTop } from "src/utils/scrollToTop";
 import StaggerLogo from "../common/StaggerLogo";
 import { Link } from "react-router-dom";
+import { VisibilityVariants } from "src/utils/variants";
 
 const sitemap = [
   {
@@ -57,8 +58,8 @@ const otherLinks = [
 ];
 
 const variants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: { opacity: 1, y: 0 },
+  hiddenY: VisibilityVariants.hiddenY,
+  visible: VisibilityVariants.visible,
 };
 
 const Footer = () => {
@@ -66,7 +67,7 @@ const Footer = () => {
     <footer className="flex flex-col self-end border-t border-solid border-gray xl:pt-20 2xl:pt-20">
       <div className="px-sect flex items-end justify-between">
         <motion.p
-          initial="hidden"
+          initial="hiddenY"
           whileInView="visible"
           viewport={{ once: true }}
           variants={variants}
@@ -118,7 +119,7 @@ const Footer = () => {
       </div>
 
       <motion.div
-        initial="hidden"
+        initial="hiddenY"
         whileInView="visible"
         viewport={{ once: true }}
         variants={variants}
@@ -169,7 +170,7 @@ const Footer = () => {
       </motion.div>
 
       <div className="flex justify-center border-t border-solid border-gray">
-        <div className="w-screen select-none overflow-hidden text-center font-logo text-text-light lg:mr-16 lg:text-8xl xl:text-13xl 2xl:text-14xl 3xl:text-15xl">
+        <div className="w-screen select-none overflow-hiddenY text-center font-logo text-text-light lg:mr-16 lg:text-8xl xl:text-13xl 2xl:text-14xl 3xl:text-15xl">
           <StaggerLogo />
         </div>
       </div>

@@ -5,27 +5,15 @@ import Destination from "src/types/Destination";
 import { Link } from "react-router-dom";
 import { optimizeImage } from "src/utils/optimizeImage";
 import { useViewportWidth, getImageSize } from "src/utils/imageUtils";
+import { HoverVariants } from "src/utils/variants";
 
 interface DestinationCardProps {
   destination: Destination;
 }
 
 const variants = {
-  hoverX: {
-    x: 5,
-    transition: {
-      duration: 1,
-      type: "spring",
-      bounce: 0.5,
-    },
-  },
-  hoverScale: {
-    scale: 1.05,
-    transition: {
-      duration: 0.4,
-      ease: "easeInOut",
-    },
-  },
+  hoverX: HoverVariants.hoverX,
+  hoverScale: HoverVariants.hoverScale,
 };
 
 const DestinationCard: React.FC<DestinationCardProps> = ({ destination }) => {

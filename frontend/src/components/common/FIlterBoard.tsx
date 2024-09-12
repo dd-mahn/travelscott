@@ -18,6 +18,11 @@ import {
   setBlogSearchQuery,
 } from "src/store/slices/filterSlice";
 import useDebounce from "src/hooks/useDebounce";
+import {
+  HoverVariants,
+  TapVariants,
+  VisibilityVariants,
+} from "src/utils/variants";
 
 interface DestinationFilterProps {
   continentNames: string[];
@@ -25,16 +30,10 @@ interface DestinationFilterProps {
 }
 
 const variants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, scale: 1, y: 0, x: 0 },
-  hoverScale: {
-    scale: 1.05,
-    transition: { duration: 0.3, ease: "easeInOut" },
-  },
-  tapScale: {
-    scale: 0.95,
-    transition: { duration: 0.3, ease: "easeInOut" },
-  },
+  hiddenY: VisibilityVariants.hiddenY,
+  visible: VisibilityVariants.visible,
+  hoverScale: HoverVariants.hoverScale,
+  tapScale: TapVariants.tapScale,
 };
 
 export const DestinationFilter: React.FC<DestinationFilterProps> = memo(
@@ -122,11 +121,11 @@ export const DestinationFilter: React.FC<DestinationFilterProps> = memo(
 
     return (
       <motion.div
-        initial="hidden"
+        initial="hiddenY"
         whileInView="visible"
         variants={variants}
         viewport={{ once: true }}
-        exit="hidden"
+        exit="hiddenY"
         transition={{ duration: 0.4, ease: "easeInOut" }}
         className={`filter-board absolute right-[5%] top-2/3 z-10 flex flex-col items-center gap-8 rounded-2xl bg-background-light px-4 pb-10 pt-6 shadow-section lg:w-[40svw] 2xl:w-[30svw]`}
       >
@@ -273,11 +272,11 @@ export const CountryDestinationFilter: React.FC = memo(() => {
             onBlur={() => setInputFocus(false)}
             className="w-full rounded-full border-[1px] border-gray bg-background-light px-4 py-2 text-text-light outline-none transition-all duration-300 focus:border-text-light focus:shadow-lg"
           />
-          <div className="absolute right-[5%] overflow-hidden">
+          <div className="overflow-hiddenY absolute right-[5%]">
             <motion.i
               variants={variants}
-              animate={inputFocus ? "visible" : "hidden"}
-              className="cursor-hover-small cursor-pointer ri-search-line text-text-light"
+              animate={inputFocus ? "visible" : "hiddenY"}
+              className="cursor-hover-small ri-search-line cursor-pointer text-text-light"
             ></motion.i>
           </div>
         </div>
@@ -354,7 +353,7 @@ export const InspirationFilter: React.FC<{ continentNames: string[] }> = memo(
 
     return (
       <motion.div
-        initial="hidden"
+        initial="hiddenY"
         whileInView="visible"
         viewport={{ once: true }}
         variants={variants}

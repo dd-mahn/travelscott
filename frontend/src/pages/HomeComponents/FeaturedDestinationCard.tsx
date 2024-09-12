@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Destination from "src/types/Destination";
 import { optimizeImage } from "src/utils/optimizeImage";
 import { getImageSize, useViewportWidth } from "src/utils/imageUtils";
+import { HoverVariants, VisibilityVariants } from "src/utils/variants";
 
 // Define prop types for the component
 type DestinationCardProps = {
@@ -13,22 +14,12 @@ type DestinationCardProps = {
 
 // Define animation variants for Framer Motion
 const variants = {
-  hidden: { opacity: 0, y: 20 },
-  hiddenScale: { opacity: 0.9, scale: 0.95 },
-  hiddenX: { opacity: 0, x: 50 },
-  visible: { opacity: 1, y: 0, x: 0, scale: 1, transition: { duration: 0.5 } },
-  hoverScale: {
-    scale: 1.05,
-    transition: { duration: 0.4, ease: "easeInOut" },
-  },
-  hoverX: {
-    x: 5,
-    transition: {
-      duration: 1,
-      type: "spring",
-      bounce: 0.5,
-    },
-  },
+  hiddenY: VisibilityVariants.hiddenY,
+  hiddenScale: VisibilityVariants.hiddenScale,
+  hiddenX: VisibilityVariants.hiddenX,
+  visible: VisibilityVariants.visible,
+  hoverScale: HoverVariants.hoverScale,
+  hoverX: HoverVariants.hoverX,
 };
 
 // FeaturedDestinationCard component

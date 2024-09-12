@@ -5,22 +5,13 @@ import { motion, useScroll, useTransform } from "framer-motion";
 // Import asset files
 import airplane1 from "src/assets/svg/airplane-1.svg";
 import briefVideo from "src/assets/videos/brief.mp4";
+import { VisibilityVariants } from "src/utils/variants";
 
 // Define animation variants for Framer Motion
 const variants = {
-  hidden: {
-    opacity: 0,
-    y: 20,
-  },
-
-  hiddenFullY: {
-    y: "100%",
-  },
-
-  visible: {
-    opacity: 1,
-    y: 0,
-  },
+  hiddenY: VisibilityVariants.hiddenY,
+  hiddenFullY: VisibilityVariants.hiddenFullY,
+  visible: VisibilityVariants.visible,
 
   airplaneStart: {
     opacity: 0,
@@ -127,7 +118,7 @@ const Brief: React.FC = () => {
         {/* Video section */}
         <motion.div
           variants={variants}
-          initial="hidden"
+          initial="hiddenY"
           whileInView="visible"
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}

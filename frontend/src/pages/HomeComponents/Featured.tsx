@@ -5,13 +5,14 @@ import { motion } from "framer-motion";
 import HorizontalScrollCarousel from "./FeaturedHorizontalScroller";
 import { featuredDemo } from "src/data/featuredDemo";
 import { SecondaryButton } from "src/components/common/Button";
+import { VisibilityVariants } from "src/utils/variants";
 
 // Framer motion variants for animations
 const variants = {
-  hidden: { opacity: 0 },
-  hiddenShort: { opacity: 0, y: 40 },
-  hiddenFullY: { y: "100%" },
-  visible: { opacity: 1, y: 0 },
+  hidden: VisibilityVariants.hidden,
+  hiddenY: VisibilityVariants.hiddenY,
+  hiddenFullY: VisibilityVariants.hiddenFullY,
+  visible: VisibilityVariants.visible,
 };
 
 // Featured component: Displays featured destinations
@@ -41,7 +42,7 @@ const Featured: React.FC = () => {
       <div className="px-sect flex w-full flex-row justify-between">
         {/* Destinations count */}
         <motion.p
-          initial="hiddenShort"
+          initial="hiddenY"
           whileInView="visible"
           transition={{ duration: 0.5 }}
           viewport={{ once: true, margin: "0% 0% -10% 0%" }}
@@ -58,7 +59,7 @@ const Featured: React.FC = () => {
 
         {/* CTA button */}
         <motion.div
-          initial="hiddenShort"
+          initial="hiddenY"
           whileInView="visible"
           transition={{ duration: 0.5, delay: 0.3 }}
           viewport={{ once: true, margin: "0% 0% -10% 0%" }}

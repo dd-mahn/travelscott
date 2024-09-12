@@ -6,24 +6,17 @@ import StarterBlogs from "./StarterBlog";
 import airplane1 from "src/assets/svg/airplane-1.svg";
 import Blog from "src/types/Blog";
 import { SecondaryButton } from "src/components/common/Button";
+import { VisibilityVariants } from "src/utils/variants";
 
 // Framer motion variants for animations
 const variants = {
-  hidden: {
-    opacity: 0,
-  },
-  hiddenShort: {
-    opacity: 0,
-    y: 40,
-  },
+  hidden: VisibilityVariants.hidden,
+  hiddenY: VisibilityVariants.hiddenY,
+  visible: VisibilityVariants.visible,
   hiddenPlane: {
     opacity: 0,
     scale: 0.8,
     y: 30,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
   },
 };
 
@@ -50,7 +43,7 @@ const Starter: React.FC<{ blogs: Blog[] }> = ({ blogs }) => {
       </div>
       {/* "Find More" button */}
       <motion.div
-        initial="hiddenShort"
+        initial="hiddenY"
         whileInView="visible"
         transition={{ duration: 0.5 }}
         variants={variants}

@@ -7,6 +7,7 @@ import type { SelectProps, SelectOptionProps } from "@material-tailwind/react";
 import Country from "src/types/Country";
 import CountryCard from "src/components/common/CountryCard";
 import RelatedSections from "src/components/common/RelatedSections";
+import { HoverVariants, TapVariants, VisibilityVariants } from "src/utils/variants";
 
 // Component props type
 type DiscoverCountriesProps = {
@@ -22,19 +23,15 @@ type DiscoverCountriesProps = {
 
 // Framer motion variants
 const variants = {
-  hidden: { opacity: 0, y: 40 },
-  hiddenFullY: {
-    y: "100%",
-  },
-  hiddenYScale: { scale: 0.95, y: 100, opacity: 0 },
-  exitScale: { scale: 0, opacity: 0, y: 200, originX: 0 },
-  hiddenX: { x: 1000, opacity: 0 },
-  exitX: { x: -1000, opacity: 0, transition: { duration: 0.4 } },
-  visible: { opacity: 1, scale: 1, y: 0, x: 0 },
-  hoverScale: {
-    scale: 1.05,
-    transition: { duration: 0.4, ease: "easeInOut" },
-  },
+  hiddenY: VisibilityVariants.hiddenY,
+  hiddenFullY: VisibilityVariants.hiddenFullY,
+  hiddenYScale: VisibilityVariants.hiddenYScale,
+  hiddenX: VisibilityVariants.hiddenX,
+  exitScale: VisibilityVariants.exitScale,
+  exitX: VisibilityVariants.exitX,
+  visible: VisibilityVariants.visible,
+  hoverScale: HoverVariants.hoverScale,
+  tapScale: TapVariants.tapScale,
 };
 
 // DiscoverCountries component
@@ -105,7 +102,7 @@ const DiscoverCountries: React.FC<DiscoverCountriesProps> = ({
 
         {/* SELECT ELEMENT */}
         <motion.div
-          initial="hidden"
+          initial="hiddenY"
           whileInView="visible"
           transition={{ duration: 0.5, delay: 0.4 }}
           variants={variants}
@@ -146,7 +143,7 @@ const DiscoverCountries: React.FC<DiscoverCountriesProps> = ({
               <motion.div
                 key={selectedContinent.name}
                 id="continent"
-                initial="hidden"
+                initial="hiddenY"
                 whileInView="visible"
                 viewport={{ once: true }}
                 exit="exitX"
@@ -176,10 +173,10 @@ const DiscoverCountries: React.FC<DiscoverCountriesProps> = ({
                 {countryLoading && (
                   <motion.div
                     key="Loading..."
-                    initial="hidden"
+                    initial="hiddenY"
                     whileInView="visible"
                     variants={variants}
-                    exit="hidden"
+                    exit="hiddenY"
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, ease: "easeInOut" }}
                     className="grid h-full w-full place-items-center py-4"
@@ -190,10 +187,10 @@ const DiscoverCountries: React.FC<DiscoverCountriesProps> = ({
                 {countryError && (
                   <motion.div
                     key={countryError}
-                    initial="hidden"
+                    initial="hiddenY"
                     whileInView="visible"
                     variants={variants}
-                    exit="hidden"
+                    exit="hiddenY"
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, ease: "easeInOut" }}
                     className="grid h-full w-full place-items-center py-4"
@@ -206,10 +203,10 @@ const DiscoverCountries: React.FC<DiscoverCountriesProps> = ({
                 {selectedContinent.countries.length === 0 && (
                   <motion.div
                     key="no-countries"
-                    initial="hidden"
+                    initial="hiddenY"
                     whileInView="visible"
                     variants={variants}
-                    exit="hidden"
+                    exit="hiddenY"
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, ease: "easeInOut" }}
                     className="grid h-full w-full place-items-start py-4"
@@ -220,7 +217,7 @@ const DiscoverCountries: React.FC<DiscoverCountriesProps> = ({
 
                 {!countryLoading && !countryError && (
                   <motion.div
-                    initial="hidden"
+                    initial="hiddenY"
                     whileInView="visible"
                     variants={variants}
                     viewport={{ once: true }}

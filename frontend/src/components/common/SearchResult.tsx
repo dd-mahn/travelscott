@@ -6,6 +6,11 @@ import Country from "src/types/Country";
 import Destination from "src/types/Destination";
 import "src/components/common/style/search-result.css";
 import { Link } from "react-router-dom";
+import {
+  HoverVariants,
+  TapVariants,
+  VisibilityVariants,
+} from "src/utils/variants";
 
 type SearchResultProps = {
   open: boolean;
@@ -26,33 +31,21 @@ const SearchResult: React.FC<SearchResultProps> = ({
 
   // Animation variants for the search result container
   const variants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, y: 0 },
-    exit: { opacity: 0 },
-    hover: {
-      scale: 1.1,
-      transition: { duration: 0.4 },
-    },
-    tap: {
-      scale: 0.9,
-      transition: { duration: 0.4 },
-    },
+    hiddenY: VisibilityVariants.hiddenY,
+    visible: VisibilityVariants.visible,
+    exit: VisibilityVariants.hidden,
+    hover: HoverVariants.hoverScale,
+    tap: TapVariants.tapScale,
   };
 
   // Animation variants for images
   const imageVariants = {
-    hover: {
-      scale: 1.1,
-      transition: { duration: 0.4 },
-    },
+    hover: HoverVariants.hoverScale,
   };
 
   // Animation variants for titles
   const titleVariants = {
-    hover: {
-      x: 3,
-      transition: { duration: 0.2 },
-    },
+    hover: HoverVariants.hoverX,
   };
 
   // Memoized render function for countries
@@ -67,9 +60,9 @@ const SearchResult: React.FC<SearchResultProps> = ({
                 to={`/discover/countries/${country._id}`}
                 target="_top"
                 key={country._id}
-                className="flex cursor-pointer flex-col items-center gap-2 "
+                className="flex cursor-pointer flex-col items-center gap-2"
               >
-                <div className="overflow-hidden rounded-xl bg-gradient-to-t from-background-dark to-transparent">
+                <div className="overflow-hiddenY rounded-xl bg-gradient-to-t from-background-dark to-transparent">
                   <motion.img
                     whileHover="hover"
                     variants={imageVariants}
@@ -111,7 +104,7 @@ const SearchResult: React.FC<SearchResultProps> = ({
                 key={destination._id}
                 className="flex cursor-pointer flex-col items-center gap-2 rounded-xl"
               >
-                <div className="overflow-hidden rounded-xl bg-gradient-to-t from-background-dark to-transparent">
+                <div className="overflow-hiddenY rounded-xl bg-gradient-to-t from-background-dark to-transparent">
                   <motion.img
                     whileHover="hover"
                     variants={imageVariants}
@@ -152,7 +145,7 @@ const SearchResult: React.FC<SearchResultProps> = ({
               key={blog._id}
               className="flex cursor-pointer gap-4 rounded-xl lg:h-24 2xl:h-32"
             >
-              <div className="w-1/3 overflow-hidden rounded-xl bg-gradient-to-t from-background-dark to-transparent">
+              <div className="overflow-hiddenY w-1/3 rounded-xl bg-gradient-to-t from-background-dark to-transparent">
                 <motion.img
                   whileHover="hover"
                   variants={imageVariants}
@@ -218,7 +211,7 @@ const SearchResult: React.FC<SearchResultProps> = ({
       {open && (
         <motion.div
           key="search-result"
-          initial="hidden"
+          initial="hiddenY"
           animate="visible"
           exit="exit"
           variants={variants}
@@ -230,7 +223,13 @@ const SearchResult: React.FC<SearchResultProps> = ({
               {destinations.length + countries.length + blogs.length} results
               found
             </span>
-            <motion.button variants={variants} whileHover="hover" whileTap="tap" title="Close" onClick={closeFunc}>
+            <motion.button
+              variants={variants}
+              whileHover="hover"
+              whileTap="tap"
+              title="Close"
+              onClick={closeFunc}
+            >
               <i className="cursor-hover-small p-large ri-close-line"></i>
             </motion.button>
           </div>

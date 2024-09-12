@@ -8,28 +8,16 @@ import airplane2 from "src/assets/svg/airplane-2.svg";
 import airplane3 from "src/assets/svg/airplane-3.svg";
 // Import custom button components
 import { PrimaryButton, SecondaryButton } from "src/components/common/Button";
+import { HoverVariants, VisibilityVariants } from "src/utils/variants";
 
 // Define Framer Motion animation variants
 const variants = {
-  // Basic animations
-  hidden: { opacity: 0, y: 20 },
-  hiddenFullY: { y: "100%" },
-  visible: { opacity: 1, y: 0 },
-  // Rotation animation for the star
-  rotate: {
-    rotate: [0, 360, 390],
-    transition: { delay: 2, duration: 1.5, repeat: 4, repeatDelay: 1 },
-  },
-  // Scale animations
-  initialScale: { scale: 0 },
-  visibleScale: {
-    scale: 1,
-    transition: { delay: 1, duration: 0.5, ease: "easeInOut" },
-  },
-  hoverScale: {
-    scale: 1.05,
-    transition: { duration: 0.4, ease: "easeInOut" },
-  },
+  hiddenY: VisibilityVariants.hiddenY,
+  hiddenFullY: VisibilityVariants.hiddenFullY,
+  visible: VisibilityVariants.visible,
+  hoverScale: HoverVariants.hoverScale,
+  hiddenFullScale: VisibilityVariants.hiddenFullScale,
+  
   // Airplane animations
   airplane1Start: { opacity: 0, x: -50, y: 50 },
   airPlane1End: {
@@ -52,12 +40,19 @@ const variants = {
     y: 0,
     transition: { delay: 3.5, duration: 0.5, type: "spring" },
   },
-  // Star hover animation
+  
+  // Star animations
   hoverStar: {
     scale: [1, 0.5, 1.2, 1],
     rotate: [30, 30, 330, 360],
     transition: { duration: 3 },
   },
+
+  starRotate: {
+    rotate: [0, 360, 390],
+    transition: { delay: 2, duration: 1.5, repeat: 4, repeatDelay: 1 },
+  },
+
   // Blob animations
   blob1Animation: {
     scale: [1, 1.5, 1],
@@ -172,8 +167,8 @@ const Hero: React.FC = () => {
         <motion.i
           ref={starRef}
           variants={variants}
-          initial="initialScale"
-          whileInView={["visibleScale", "rotate"]}
+          initial="hiddenFullScale"
+          whileInView={["visible", "starRotate"]}
           viewport={{ once: true }}
           whileHover="hoverStar"
           transition={{ delay: 1, duration: 0.4 }}
@@ -262,7 +257,7 @@ const Hero: React.FC = () => {
       {/* Animated paragraph */}
       <motion.p
         variants={variants}
-        initial="hidden"
+        initial="hiddenY"
         whileInView="visible"
         transition={{ duration: 0.5, delay: 0.3 }}
         viewport={{ once: true }}
@@ -275,7 +270,7 @@ const Hero: React.FC = () => {
       {/* Animated buttons */}
       <motion.div
         variants={variants}
-        initial="hidden"
+        initial="hiddenY"
         whileInView="visible"
         transition={{ duration: 0.5, delay: 0.4 }}
         viewport={{ once: true }}

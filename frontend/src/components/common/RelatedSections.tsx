@@ -18,6 +18,7 @@ import {
   FetchCountriesType,
   FetchDestinationType,
 } from "src/types/FetchData";
+import { HoverVariants } from "src/utils/variants";
 
 // Constants
 const CONTINENTS = [
@@ -31,10 +32,7 @@ const CONTINENTS = [
 
 // Framer motion variants
 const variants = {
-  hoverBrightness: {
-    filter: "brightness(0.5)",
-    transition: { duration: 0.4 },
-  },
+  hoverBrightness: HoverVariants.hoverBrightness,
 };
 
 // Slider settings

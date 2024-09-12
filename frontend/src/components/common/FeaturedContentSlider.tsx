@@ -1,11 +1,12 @@
 import React, { memo, useCallback, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { DotPagination } from "./Pagination";
+import { VisibilityVariants } from "src/utils/variants";
 
 // Framer motion variants
 const variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 },
+  hiddenY: VisibilityVariants.hiddenY,
+  visible: VisibilityVariants.visible,
   enter: (direction: number) => {
     return {
       x: direction > 0 ? 1000 : -1000,
@@ -81,7 +82,7 @@ const FeaturedContentSlider: React.FC<FeaturedContentSliderProps> = ({
         </AnimatePresence>
       </div>
       <motion.div
-        initial="hidden"
+        initial="hiddenY"
         whileInView="visible"
         transition={{ duration: 0.5 }}
         viewport={{ once: true, margin: "-10%" }}

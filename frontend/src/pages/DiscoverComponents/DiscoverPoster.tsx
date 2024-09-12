@@ -5,14 +5,12 @@ import { Link } from "react-router-dom";
 import Destination from "src/types/Destination";
 import { optimizeImage } from "src/utils/optimizeImage";
 import { useViewportWidth } from "src/utils/imageUtils";
+import { HoverVariants, VisibilityVariants } from "src/utils/variants";
 
 const variants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, scale: 1, y: 0, x: 0 },
-  hoverScale: {
-    scale: 1.05,
-    transition: { duration: 0.4, ease: "easeInOut" },
-  },
+  hiddenY: VisibilityVariants.hiddenY,
+  visible: VisibilityVariants.visible,
+  hoverScale: HoverVariants.hoverScale,
 };
 
 interface DiscoverPosterProps {
@@ -26,7 +24,7 @@ const DiscoverPoster: React.FC<DiscoverPosterProps> = ({
 
   return (
     <motion.section
-      initial="hidden"
+      initial="hiddenY"
       animate="visible"
       transition={{ duration: 0.5, delay: 0.1 }}
       variants={variants}
@@ -88,7 +86,7 @@ const DiscoverPoster: React.FC<DiscoverPosterProps> = ({
                 </div>
 
                 <motion.div
-                  initial="hidden"
+                  initial="hiddenY"
                   animate="visible"
                   transition={{
                     duration: 0.5,

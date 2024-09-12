@@ -19,12 +19,12 @@ import { FetchBlogsType } from "src/types/FetchData";
 import { BASE_URL } from "src/utils/config";
 import Blog from "src/types/Blog";
 import { createBlogChunks } from "src/utils/createBlogChunks";
+import { VisibilityVariants } from "src/utils/variants";
 
 // Framer motion variants for animations
 const variants = {
-  hidden: { opacity: 0, y: 75 },
-  hiddenFullY: { y: "100%" },
-  visible: { opacity: 1, y: 0 },
+  hiddenFullY: VisibilityVariants.hiddenFullY,
+  visible: VisibilityVariants.visible,
 };
 
 // Home component

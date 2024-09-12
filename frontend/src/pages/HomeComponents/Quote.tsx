@@ -1,13 +1,14 @@
 import React, { memo, useEffect, useRef, useState } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
 import { PrimaryButton } from "src/components/common/Button";
+import { VisibilityVariants } from "src/utils/variants";
 
 // Animation variants for Framer Motion
 const variants = {
-  hidden: { opacity: 0, y: 20 },
-  hiddenFullY: { y: "100%" },
-  hiddenLeft: { opacity: 0, x: -50 },
-  visible: { opacity: 1, y: 0, x: 0 },
+  hiddenY: VisibilityVariants.hiddenY,
+  hiddenFullY: VisibilityVariants.hiddenFullY,
+  hiddenLeft: VisibilityVariants.hiddenLeft,
+  visible: VisibilityVariants.visible,
 };
 
 const Quote = () => {
@@ -164,7 +165,7 @@ const Quote = () => {
         </div>
         {/* Quote attribution */}
         <motion.span
-          initial="hidden"
+          initial="hiddenY"
           whileInView="visible"
           viewport={{ once: true }}
           variants={variants}
@@ -175,7 +176,7 @@ const Quote = () => {
       </div>
       {/* CTA button */}
       <motion.div
-        initial="hidden"
+        initial="hiddenY"
         whileInView="visible"
         transition={{ duration: 0.5 }}
         viewport={{ once: true }}

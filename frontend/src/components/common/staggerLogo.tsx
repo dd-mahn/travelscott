@@ -1,12 +1,11 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { VisibilityVariants } from "src/utils/variants";
 
 const variants = {
-  hidden: { opacity: 0, y: 50 },
-  hiddenFullY: {
-    y: "100%",
-  },
-  visible: { opacity: 1, y: 0 },
+  hiddenY: VisibilityVariants.hiddenY,
+  hiddenFullY: VisibilityVariants.hiddenFullY,
+  visible: VisibilityVariants.visible,
 };
 
 export default function StaggerLogo() {

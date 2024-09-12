@@ -1,6 +1,7 @@
 import React, { memo, useState } from "react";
 import Country from "src/types/Country";
 import { AnimatePresence, motion } from "framer-motion";
+import { HoverVariants, TapVariants, VisibilityVariants } from "src/utils/variants";
 
 // Define the props for the CountryGuide component
 interface CountryGuideProps {
@@ -9,23 +10,17 @@ interface CountryGuideProps {
 
 // Animation variants for framer-motion
 const variants = {
-  hidden: { opacity: 0, y: 40 },
-  hiddenShort: { opacity: 0, y: 20 },
-  hiddenFullY: { y: "100%" },
-  hiddenYScale: { scale: 0.95, y: 100, opacity: 0 },
-  exitScale: { scale: 0, opacity: 0, y: 200, originX: 0 },
-  visible: { opacity: 1, scale: 1, y: 0, x: 0 },
-  exitX: { x: -1000, opacity: 0 },
-  hoverScale: {
-    scale: 1.05,
-    transition: { duration: 0.4, ease: "easeInOut" },
-  },
-  tapScale: {
-    scale: 0.95,
-    transition: { duration: 0.4 },
-  },
-  dropHidden: { opacity: 0 },
-  rotate: { rotate: 180 },
+  hiddenY: VisibilityVariants.hiddenY,
+  hiddenShort: VisibilityVariants.hiddenShortY,
+  hiddenFullY: VisibilityVariants.hiddenFullY,
+  hiddenYScale: VisibilityVariants.hiddenYScale,
+  exitScale: VisibilityVariants.exitScale,
+  visible: VisibilityVariants.visible,
+  exitX: VisibilityVariants.exitX,
+  hoverScale: HoverVariants.hoverScale,
+  tapScale: TapVariants.tapScale,
+  dropHidden: VisibilityVariants.dropHidden,
+  rotate: VisibilityVariants.rotate,
 };
 
 // CountryGuide component to display guide sections
@@ -40,7 +35,7 @@ const CountryGuide: React.FC<CountryGuideProps> = ({ country }) => {
   return (
     <motion.div
       variants={variants}
-      initial="hidden"
+      initial="hiddenY"
       whileInView="visible"
       transition={{
         duration: 0.8,
@@ -90,7 +85,7 @@ const GuideSection: React.FC<GuideSectionProps> = ({
 }) => (
   <motion.div
     variants={variants}
-    initial="hidden"
+    initial="hiddenY"
     animate="visible"
     transition={{ duration: 0.5 }}
     className="z-10 w-[60%] rounded-3xl bg-background-light px-12 py-8 shadow-section"

@@ -4,39 +4,21 @@ import { AnimatePresence, motion } from "framer-motion";
 
 import { BASE_URL } from "src/utils/config";
 import { resetForm } from "src/utils/resetForm";
-import planeIcon from "src/assets/svg/plane-icon.svg";
 import StyledInput from "src/components/common/StyledInput";
 import { SecondaryButton } from "src/components/common/Button";
+import {
+  HoverVariants,
+  TapVariants,
+  VisibilityVariants,
+} from "src/utils/variants";
 
 const variants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0 },
-  dropInitial: { opacity: 0 },
-  dropExit: {
-    opacity: 0,
-    transition: {
-      duration: 0.2,
-      ease: "easeOut",
-    },
-  },
-  hoverScale: {
-    scale: 1.05,
-    transition: {
-      duration: 0.4,
-    },
-  },
-  tapScale: {
-    scale: 0.95,
-    transtition: {
-      duration: 0.4,
-    },
-  },
-  rotate: {
-    rotate: 180,
-    transition: {
-      duration: 0.2,
-    },
-  },
+  hiddenY: VisibilityVariants.hiddenY,
+  visible: VisibilityVariants.visible,
+  dropHidden: VisibilityVariants.dropHidden,
+  hoverScale: HoverVariants.hoverScale,
+  tapScale: TapVariants.tapScale,
+  rotate: VisibilityVariants.rotate,
 };
 
 const Contact: React.FC = () => {
@@ -112,7 +94,7 @@ const Contact: React.FC = () => {
   return (
     <main className="contact px-sect relative flex flex-col items-center pb-sect-default lg:pt-20 2xl:pt-40">
       <motion.section
-        initial="hidden"
+        initial="hiddenY"
         animate="visible"
         transition={{ duration: 0.5 }}
         variants={variants}
@@ -135,20 +117,20 @@ const Contact: React.FC = () => {
               toggleInfo("emailing");
             }}
           >
-            <i className={`pointer-events-none ri-arrow-up-line p-large`}></i>
+            <i className={`ri-arrow-up-line p-large pointer-events-none`}></i>
           </motion.button>
         </div>
         <AnimatePresence mode="popLayout">
           {visibleSection === "emailing" && (
-            <div className="overflow-hidden">
+            <div className="overflow-hiddenY">
               <motion.div
                 key="emailingDrop"
-                initial="dropInitial"
+                initial="dropHidden"
                 animate="visible"
-                exit="dropExit"
+                exit="dropHidden"
                 variants={variants}
                 transition={{ duration: 0.2, ease: "easeInOut" }}
-                // className={`${visibleSection === "emailing" ? "flex" : "hidden"} flex-col gap-2 py-8`}
+                // className={`${visibleSection === "emailing" ? "flex" : "hiddenY"} flex-col gap-2 py-8`}
                 className={`flex flex-col gap-2 py-8`}
               >
                 <p className="p-regular">Reach out to us via:</p>
@@ -173,7 +155,7 @@ const Contact: React.FC = () => {
       </motion.section>
 
       <motion.section
-        initial="hidden"
+        initial="hiddenY"
         animate="visible"
         transition={{ duration: 0.5, delay: 0.2 }}
         variants={variants}
@@ -193,20 +175,20 @@ const Contact: React.FC = () => {
               toggleInfo("contribute");
             }}
           >
-            <i className="pointer-events-none ri-arrow-up-line p-large"></i>
+            <i className="ri-arrow-up-line p-large pointer-events-none"></i>
           </motion.button>
         </div>
         <AnimatePresence mode="popLayout">
           {visibleSection === "contribute" && (
-            <div className="overflow-hidden">
+            <div className="overflow-hiddenY">
               <motion.div
                 key="contributeDrop"
-                initial="dropInitial"
+                initial="dropHidden"
                 animate="visible"
-                exit="dropExit"
+                exit="dropHidden"
                 variants={variants}
                 transition={{ duration: 0.2, ease: "easeInOut" }}
-                // className={`${visibleSection === "contribute" ? "flex" : "hidden"} flex flex-row items-center justify-between py-8`}
+                // className={`${visibleSection === "contribute" ? "flex" : "hiddenY"} flex flex-row items-center justify-between py-8`}
                 className={`flex flex-row items-center justify-between py-8`}
               >
                 <p className="p-regular">
@@ -224,7 +206,7 @@ const Contact: React.FC = () => {
       </motion.section>
 
       <motion.section
-        initial="hidden"
+        initial="hiddenY"
         animate="visible"
         transition={{ duration: 0.5, delay: 0.4 }}
         variants={variants}
@@ -236,7 +218,7 @@ const Contact: React.FC = () => {
             whileHover="hoverScale"
             whileTap="tapScale"
             variants={variants}
-            transition={{duration: 0.4}}
+            transition={{ duration: 0.4 }}
             animate={visibleSection === "feedback" ? "rotate" : ""}
             className={`rounded-full border lg:h-20 lg:w-20 xl:h-24 xl:w-24 2xl:h-28 2xl:w-28 3xl:h-28 3xl:w-28`}
             title="open btn"
@@ -244,20 +226,20 @@ const Contact: React.FC = () => {
               toggleInfo("feedback");
             }}
           >
-            <i className="pointer-events-none ri-arrow-up-line p-large"></i>
+            <i className="ri-arrow-up-line p-large pointer-events-none"></i>
           </motion.button>
         </div>
         <AnimatePresence mode="popLayout">
           {visibleSection === "feedback" && (
-            <div className="overflow-hidden">
+            <div className="overflow-hiddenY">
               <motion.div
                 key="feedbackDrop"
-                initial="dropInitial"
+                initial="dropHidden"
                 animate="visible"
-                exit="dropExit"
+                exit="dropHidden"
                 variants={variants}
                 transition={{ duration: 0.2, ease: "easeInOut" }}
-                // className={`${visibleSection === "feedback" ? "flex" : "hidden"} flex flex-row justify-between py-8`}
+                // className={`${visibleSection === "feedback" ? "flex" : "hiddenY"} flex flex-row justify-between py-8`}
                 className={`flex flex-row justify-between py-8`}
               >
                 <p className="p-regular lg:w-1/2 xl:w-1/2 2xl:w-1/2 3xl:w-1/2">
@@ -287,7 +269,10 @@ const Contact: React.FC = () => {
                       className="p-regular rounded-lg border bg-transparent pl-2 pt-1 outline-none"
                     ></textarea>
                   </div>
-                  <SecondaryButton onClick={handleFeedbackSend} text="Send it"></SecondaryButton>
+                  <SecondaryButton
+                    onClick={handleFeedbackSend}
+                    text="Send it"
+                  ></SecondaryButton>
                 </form>
               </motion.div>
             </div>

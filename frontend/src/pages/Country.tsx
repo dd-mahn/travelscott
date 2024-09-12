@@ -21,24 +21,23 @@ import { BASE_URL } from "src/utils/config";
 import NotFoundPage from "./404";
 import { Carousel } from "@material-tailwind/react";
 import Country from "src/types/Country";
+import {
+  HoverVariants,
+  TapVariants,
+  VisibilityVariants,
+} from "src/utils/variants";
 
 // Animation variants
 const variants = {
-  hidden: { opacity: 0, y: 40 },
-  hiddenShort: { opacity: 0, y: 20 },
-  hiddenFullY: { y: "100%" },
-  hiddenYScale: { scale: 0.95, y: 100, opacity: 0 },
-  exitScale: { scale: 0, opacity: 0, y: 200, originX: 0 },
-  visible: { opacity: 1, scale: 1, y: 0, x: 0 },
-  exitX: { x: -1000, opacity: 0 },
-  hoverScale: {
-    scale: 1.05,
-    transition: { duration: 0.4, ease: "easeInOut" },
-  },
-  tapScale: {
-    scale: 0.95,
-    transition: { duration: 0.4 },
-  },
+  hiddenY: VisibilityVariants.hiddenY,
+  hiddenShort: VisibilityVariants.hiddenShortY,
+  hiddenFullY: VisibilityVariants.hiddenFullY,
+  hiddenYScale: VisibilityVariants.hiddenYScale,
+  exitScale: VisibilityVariants.exitScale,
+  visible: VisibilityVariants.visible,
+  exitX: VisibilityVariants.exitX,
+  hoverScale: HoverVariants.hoverScale,
+  tapScale: TapVariants.tapScale,
 };
 
 const CountryPage: React.FC = () => {
@@ -71,7 +70,7 @@ const CountryPage: React.FC = () => {
   if (error) {
     return (
       <motion.div
-        initial="hidden"
+        initial="hiddenY"
         animate="visible"
         variants={variants}
         transition={{ duration: 0.5 }}
@@ -91,7 +90,7 @@ const CountryPage: React.FC = () => {
     <main className="country">
       {/* HERO SECTION */}
       <motion.section
-        initial="hidden"
+        initial="hiddenY"
         animate="visible"
         variants={variants}
         transition={{ duration: 0.5, delay: 0.5 }}
@@ -117,7 +116,7 @@ const CountryPage: React.FC = () => {
 
         <div className="px-sect flex items-center gap-8">
           <motion.img
-            initial="hidden"
+            initial="hiddenY"
             animate="visible"
             variants={variants}
             transition={{ duration: 0.5, delay: 1 }}
@@ -154,7 +153,7 @@ const CountryPage: React.FC = () => {
       <section className="map 2xl:pt-30 relative lg:pt-sect-short">
         <motion.div
           variants={variants}
-          initial="hidden"
+          initial="hiddenY"
           whileInView="visible"
           transition={{ duration: 0.5, delay: 0.5, ease: "easeInOut" }}
           viewport={{ once: true }}

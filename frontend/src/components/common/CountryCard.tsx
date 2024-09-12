@@ -6,6 +6,7 @@ import Country from "src/types/Country";
 import { Link } from "react-router-dom";
 import { optimizeImage } from "src/utils/optimizeImage";
 import { useViewportWidth, getImageSize } from "src/utils/imageUtils";
+import { HoverVariants, TapVariants } from "src/utils/variants";
 
 // Component props type
 type CountryCardProps = {
@@ -14,35 +15,10 @@ type CountryCardProps = {
 
 // Framer motion variants
 const variants = {
-  hoverScale: {
-    scale: 1.05,
-    transition: {
-      duration: 0.4,
-      ease: "easeInOut",
-    },
-  },
-  hoverX: {
-    x: 5,
-    transition: {
-      duration: 1,
-      type: "spring",
-      bounce: 0.5,
-    },
-  },
-  hoverRotate: {
-    rotate: -5,
-    transition: {
-      duration: 0.4,
-      type: "spring",
-    },
-  },
-  tapRotate: {
-    rotate: 5,
-    transition: {
-      duration: 0.4,
-      type: "spring",
-    },
-  },
+  hoverScale: HoverVariants.hoverScale,
+  hoverX: HoverVariants.hoverX,
+  hoverRotate: HoverVariants.hoverRotate,
+  tapRotate: TapVariants.tapRotate,
 };
 
 // CountryCard component

@@ -1,13 +1,14 @@
 import React, { memo } from "react";
 import { motion } from "framer-motion";
 import { MarqueeCountryCarousel } from "./CountryCarousel";
+import { VisibilityVariants } from "src/utils/variants";
 
 // Framer motion variants for animations
 const variants = {
-  hidden: { opacity: 0, y: 20 },
-  hiddenFullY: { y: "100%" },
-  hiddenScale: { scale: 0.9, x: 500, opacity: 0 },
-  visible: { opacity: 1, y: 0, scale: 1, x: 0 },
+  hiddenY: VisibilityVariants.hiddenY,
+  hiddenFullY: VisibilityVariants.hiddenFullY,
+  hiddenScale: VisibilityVariants.hiddenScale,
+  visible: VisibilityVariants.visible,
 };
 
 // Inspired component: Displays inspiration from travelers around the world
@@ -34,7 +35,7 @@ const Inspired: React.FC = () => {
         {/* Headline */}
         <motion.h2
           variants={variants}
-          initial="hidden"
+          initial="hiddenY"
           whileInView="visible"
           viewport={{ once: true, margin: "-300px" }}
           transition={{ duration: 0.8 }}
@@ -48,7 +49,7 @@ const Inspired: React.FC = () => {
 
         {/* Subtext */}
         <motion.span
-          initial="hidden"
+          initial="hiddenY"
           whileInView="visible"
           transition={{ duration: 0.5, delay: 1 }}
           variants={variants}

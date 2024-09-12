@@ -21,6 +21,11 @@ import { RootState } from "src/store/store";
 import { useViewportWidth } from "src/utils/imageUtils";
 import { optimizeImage } from "src/utils/optimizeImage";
 import { setCountryDestinations } from "src/store/slices/countrySlice";
+import {
+  HoverVariants,
+  TapVariants,
+  VisibilityVariants,
+} from "src/utils/variants";
 
 interface CountryDestinationsProps {
   country: Country;
@@ -28,21 +33,15 @@ interface CountryDestinationsProps {
 
 // Animation variants for framer-motion
 const variants = {
-  hidden: { opacity: 0, y: 40 },
-  hiddenShort: { opacity: 0, y: 20 },
-  hiddenFullY: { y: "100%" },
-  hiddenYScale: { scale: 0.95, y: 100, opacity: 0 },
-  exitScale: { scale: 0, opacity: 0, y: 200, originX: 0 },
-  visible: { opacity: 1, scale: 1, y: 0, x: 0 },
-  exitX: { x: -1000, opacity: 0 },
-  hoverScale: {
-    scale: 1.05,
-    transition: { duration: 0.4, ease: "easeInOut" },
-  },
-  tapScale: {
-    scale: 0.95,
-    transition: { duration: 0.4 },
-  },
+  hiddenY: VisibilityVariants.hiddenY,
+  hiddenShort: VisibilityVariants.hiddenShortY,
+  hiddenFullY: VisibilityVariants.hiddenFullY,
+  hiddenYScale: VisibilityVariants.hiddenYScale,
+  exitScale: VisibilityVariants.exitScale,
+  visible: VisibilityVariants.visible,
+  exitX: VisibilityVariants.exitX,
+  hoverScale: HoverVariants.hoverScale,
+  tapScale: TapVariants.tapScale,
 };
 
 const limit = 18;
@@ -142,7 +141,7 @@ const CountryDestinations: React.FC<CountryDestinationsProps> = ({
   return (
     <motion.section
       ref={sectionRef}
-      initial="hidden"
+      initial="hiddenY"
       whileInView="visible"
       viewport={{ once: true }}
       variants={variants}
@@ -174,7 +173,7 @@ const CountryDestinations: React.FC<CountryDestinationsProps> = ({
 
       <div className="flex w-full flex-row justify-between pb-8 pt-sect-short">
         <motion.p
-          initial="hidden"
+          initial="hiddenY"
           whileInView="visible"
           variants={variants}
           transition={{ duration: 0.5, delay: 0.5 }}
@@ -185,7 +184,7 @@ const CountryDestinations: React.FC<CountryDestinationsProps> = ({
           with significant information you will need
         </motion.p>
         <motion.div
-          initial="hidden"
+          initial="hiddenY"
           whileInView="visible"
           variants={variants}
           transition={{ duration: 0.5, delay: 1 }}
@@ -208,9 +207,9 @@ const CountryDestinations: React.FC<CountryDestinationsProps> = ({
           <AnimatePresence mode="wait">
             {isFilterBoardOpen && (
               <motion.div
-                initial="hidden"
+                initial="hiddenY"
                 animate="visible"
-                exit="hidden"
+                exit="hiddenY"
                 variants={variants}
                 transition={{ duration: 0.3 }}
                 className="filter-board absolute right-[5%] top-2/3 z-10 flex flex-col items-center gap-8 rounded-xl bg-background-light px-4 pb-8 pt-4 shadow-component lg:w-[30svw] 2xl:w-[25svw]"
@@ -226,7 +225,7 @@ const CountryDestinations: React.FC<CountryDestinationsProps> = ({
           {destinationLoading ? (
             <motion.div
               key={`loading-${country.name}-${currentPage}-${tags.join("-")}-${searchQuery}`}
-              initial="hidden"
+              initial="hiddenY"
               whileInView="visible"
               viewport={{ once: true }}
               variants={variants}
@@ -239,7 +238,7 @@ const CountryDestinations: React.FC<CountryDestinationsProps> = ({
           ) : destinationError ? (
             <motion.div
               key={`error-${country.name}-${currentPage}-${tags.join("-")}-${searchQuery}`}
-              initial="hidden"
+              initial="hiddenY"
               whileInView="visible"
               viewport={{ once: true }}
               variants={variants}
@@ -252,7 +251,7 @@ const CountryDestinations: React.FC<CountryDestinationsProps> = ({
           ) : optimizedDestinations.length === 0 ? (
             <motion.div
               key={`no-destinations-${country.name}-${currentPage}-${tags.join("-")}-${searchQuery}`}
-              initial="hidden"
+              initial="hiddenY"
               whileInView="visible"
               viewport={{ once: true }}
               variants={variants}
@@ -265,7 +264,7 @@ const CountryDestinations: React.FC<CountryDestinationsProps> = ({
           ) : (
             <motion.div
               key={`destinations-${country.name}-${currentPage}-${tags.join("-")}-${searchQuery}`}
-              initial="hidden"
+              initial="hiddenY"
               whileInView="visible"
               viewport={{ once: true }}
               exit="hiddenShort"

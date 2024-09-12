@@ -5,22 +5,13 @@ import { formatDate } from "src/utils/formatDate";
 import Blog from "src/types/Blog";
 import { optimizeImage } from "src/utils/optimizeImage";
 import { useViewportWidth, getImageSize } from "src/utils/imageUtils";
+import { HoverVariants, VisibilityVariants } from "src/utils/variants";
 
 const variants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, scale: 1, y: 0, x: 0 },
-  hoverScale: {
-    scale: 1.05,
-    transition: { duration: 0.4, ease: "easeInOut" },
-  },
-  hoverX: {
-    x: 5,
-    transition: {
-      duration: 1,
-      type: "spring",
-      bounce: 0.5,
-    },
-  },
+  hiddenY: VisibilityVariants.hiddenY,
+  visible: VisibilityVariants.visible,
+  hoverScale: HoverVariants.hoverScale,
+  hoverX: HoverVariants.hoverX,
 };
 
 interface InspirationCardProps {
@@ -46,7 +37,7 @@ const InspirationCard: React.FC<InspirationCardProps> = memo(({ blog }) => {
 
   return (
     <motion.div
-      initial="hidden"
+      initial="hiddenY"
       whileInView="visible"
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: 0.2 }}
@@ -56,7 +47,7 @@ const InspirationCard: React.FC<InspirationCardProps> = memo(({ blog }) => {
       <Link
         to={blogLink}
         target="_top"
-        className="h-[50svh] w-full overflow-hidden rounded-xl shadow-section bg-gradient-to-t from-background-dark to-transparent"
+        className="h-[50svh] w-full overflow-hidden rounded-xl bg-gradient-to-t from-background-dark to-transparent shadow-section"
       >
         <motion.img
           whileHover="hoverScale"
