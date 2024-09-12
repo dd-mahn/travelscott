@@ -12,37 +12,22 @@ const destinationSchema: Schema = new Schema({
   location: { type: String, default: "" },
   description: { type: String, default: "" },
   places: {
-    type: {
-      to_stay: [String],
-      to_visit: [String],
-      to_eat: [String]
-    },
-    default: { to_stay: [], to_visit: [], to_eat: [] }
+    to_stay: [Object],
+    to_visit: [Object],
+    to_eat: [Object]
   },
   transportation: {
-    type: {
-      overview: String,
-      types: [String]
-    },
-    default: { overview: "", types: [] }
+    overview: String,
+    types: [Object]
   },
   additionalInfo: {
-    type: {
-      whenToVisit: String,
-      whoToGoWith: String,
-      whatToExpect: String,
-      healthAndSafety: String
-    },
-    default: {
-      whenToVisit: "",
-      whoToGoWith: "",
-      whatToExpect: "",
-      healthAndSafety: ""
-    }
+    whenToVisit: String,
+    whoToGoWith: String,
+    whatToExpect: String,
+    healthAndSafety: String
   },
   tags: {
     type: [String],
-    default: [],
     enum: [
       "Wilderness",
       "Culture&Heritage",
@@ -55,11 +40,17 @@ const destinationSchema: Schema = new Schema({
     ]
   },
   insight: {
-    type: {
-      fromUs: [String],
-      fromOthers: [String]
+    from_us: {
+      tips: [String],
+      article: [{
+        title: String,
+        id: String
+      }]
     },
-    default: { fromUs: [], fromOthers: [] }
+    from_others: [{
+      title: String,
+      link: String
+    }]
   },
   summary: { type: String, default: "" },
   featured: { type: Boolean, default: false },
