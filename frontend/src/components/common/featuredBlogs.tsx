@@ -38,7 +38,7 @@ const FeaturedBlogs: React.FC<featuredBlogsProps> = ({ blogs }) => {
             <Link
               to={`/inspiration/${blog._id}`}
               target="_top"
-              className="h-[75svh] w-full overflow-hidden rounded-xl shadow-section"
+              className="h-[75svh] w-full overflow-hidden rounded-xl shadow-section bg-gradient-to-t from-background-dark to-transparent"
             >
               <motion.img
                 whileHover="hoverScale"

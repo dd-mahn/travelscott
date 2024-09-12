@@ -50,15 +50,31 @@ const settings = {
   responsive: [
     {
       breakpoint: 1536,
-      settings: { slidesToShow: 4, slidesToScroll: 1, infinite: true, dots: false },
+      settings: {
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        infinite: true,
+        dots: false,
+      },
     },
     {
       breakpoint: 1024,
-      settings: { slidesToShow: 3, slidesToScroll: 1, infinite: true, dots: false },
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        infinite: true,
+        dots: false,
+      },
     },
     {
       breakpoint: 600,
-      settings: { slidesToShow: 2, slidesToScroll: 1, initialSlide: 2, infinite: true, dots: false },
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        initialSlide: 2,
+        infinite: true,
+        dots: false,
+      },
     },
   ],
 };
@@ -70,7 +86,10 @@ const isCountry = (data: any): data is Country => data && data.name;
 const isContinent = (data: any): data is string => CONTINENTS.includes(data);
 
 // Components
-const RelatedSections: React.FC<{ type: string; data: Blog | Country | Destination | string }> = ({ type, data }) => {
+const RelatedSections: React.FC<{
+  type: string;
+  data: Blog | Country | Destination | string;
+}> = ({ type, data }) => {
   switch (type) {
     case "country":
       return <RelatedCountries country={data as Country} />;
@@ -89,29 +108,49 @@ const RelatedSections: React.FC<{ type: string; data: Blog | Country | Destinati
 
 const RelatedCountries: React.FC<{ country: Country }> = ({ country }) => {
   const viewportWidth = useViewportWidth();
-  const { data: countriesData, error: countriesError, loading: countriesLoading } = useFetch<FetchCountriesType>(
-    `${BASE_URL}/countries?continent=${country.continent}`
+  const {
+    data: countriesData,
+    error: countriesError,
+    loading: countriesLoading,
+  } = useFetch<FetchCountriesType>(
+    `${BASE_URL}/countries?continent=${country.continent}`,
   );
 
-  const relatedCountries = countriesData?.result.filter((c) => c.name !== country.name);
+  const relatedCountries = countriesData?.result.filter(
+    (c) => c.name !== country.name,
+  );
 
-  if (countriesLoading) return <div></div>;
-  if (countriesError) return <div></div>;
+  if (countriesLoading) return null;
+  if (countriesError) return null;
   if (!relatedCountries || relatedCountries.length === 0)
-    return <div className=""><p className="p-regular mt-4">There are no related countries at the moment.</p></div>;
+    return (
+      <div className="">
+        <p className="p-regular mt-4">
+          There are no related countries at the moment.
+        </p>
+      </div>
+    );
 
   return (
     <>
       {relatedCountries.length < 5 ? (
-        <div className="related-countries min-w-screen min-h-[20svh] flex cursor-pointer flex-nowrap gap-2 pb-sect-short">
+        <div className="related-countries min-w-screen flex min-h-[20svh] cursor-pointer flex-nowrap gap-2 pb-sect-short">
           {relatedCountries.map((country) => (
-            <CountryCard key={country._id} country={country} viewportWidth={viewportWidth} />
+            <CountryCard
+              key={country._id}
+              country={country}
+              viewportWidth={viewportWidth}
+            />
           ))}
         </div>
       ) : (
         <Slider {...settings}>
           {relatedCountries.map((country) => (
-            <CountryCard key={country._id} country={country} viewportWidth={viewportWidth} />
+            <CountryCard
+              key={country._id}
+              country={country}
+              viewportWidth={viewportWidth}
+            />
           ))}
         </Slider>
       )}
@@ -119,36 +158,57 @@ const RelatedCountries: React.FC<{ country: Country }> = ({ country }) => {
   );
 };
 
-const RelatedDestinations: React.FC<{ destination: Destination }> = ({ destination }) => {
+const RelatedDestinations: React.FC<{ destination: Destination }> = ({
+  destination,
+}) => {
   const viewportWidth = useViewportWidth();
-  const { data: destinationsData, error: destinationsError, loading: destinationsLoading } = useFetch<FetchDestinationType>(
-    `${BASE_URL}/destinations?limit=100`
-  );
+  const {
+    data: destinationsData,
+    error: destinationsError,
+    loading: destinationsLoading,
+  } = useFetch<FetchDestinationType>(`${BASE_URL}/destinations?limit=100`);
 
   const relatedDestinations = useMemo(() => {
     if (!destinationsData?.result) return [];
     return destinationsData.result.filter(
-      (d) => (d.continent === destination.continent || d.tags.some((tag) => destination.tags.includes(tag))) && d._id !== destination._id
+      (d) =>
+        (d.continent === destination.continent ||
+          d.tags.some((tag) => destination.tags.includes(tag))) &&
+        d._id !== destination._id,
     );
   }, [destinationsData, destination]);
 
-  if (destinationsLoading) return <div></div>;
-  if (destinationsError) return <div></div>;
+  if (destinationsLoading) return null;
+  if (destinationsError) return null;
   if (!relatedDestinations || relatedDestinations.length === 0)
-    return <div className="px-sect grid place-items-center"><p className="p-regular mt-4">There are no related destinations at the moment.</p></div>;
+    return (
+      <div className="px-sect grid place-items-center">
+        <p className="p-regular mt-4">
+          There are no related destinations at the moment.
+        </p>
+      </div>
+    );
 
   return (
     <>
       {relatedDestinations.length < 5 ? (
-        <div className="related-destinations min-w-screen min-h-[20svh] flex flex-nowrap gap-2 py-sect-short">
+        <div className="related-destinations min-w-screen flex min-h-[20svh] flex-nowrap gap-2 py-sect-short">
           {relatedDestinations.map((destination) => (
-            <DestinationCard key={destination._id} destination={destination} viewportWidth={viewportWidth} />
+            <DestinationCard
+              key={destination._id}
+              destination={destination}
+              viewportWidth={viewportWidth}
+            />
           ))}
         </div>
       ) : (
         <Slider {...settings}>
           {relatedDestinations.map((destination) => (
-            <DestinationCard key={destination._id} destination={destination} viewportWidth={viewportWidth} />
+            <DestinationCard
+              key={destination._id}
+              destination={destination}
+              viewportWidth={viewportWidth}
+            />
           ))}
         </Slider>
       )}
@@ -156,9 +216,15 @@ const RelatedDestinations: React.FC<{ destination: Destination }> = ({ destinati
   );
 };
 
-const RelatedArticles: React.FC<{ data: Blog | Destination | Country | string }> = ({ data }) => {
+const RelatedArticles: React.FC<{
+  data: Blog | Destination | Country | string;
+}> = ({ data }) => {
   const viewportWidth = useViewportWidth();
-  const { data: blogData, error: blogError, loading: blogLoading } = useFetch<FetchBlogsType>(`${BASE_URL}/blogs?limit=100`);
+  const {
+    data: blogData,
+    error: blogError,
+    loading: blogLoading,
+  } = useFetch<FetchBlogsType>(`${BASE_URL}/blogs?limit=100`);
 
   const relatedBlogs = useMemo(() => {
     if (!blogData?.result) return [];
@@ -168,10 +234,13 @@ const RelatedArticles: React.FC<{ data: Blog | Destination | Country | string }>
       filtered = filtered.filter(
         (blog) =>
           blog._id !== data._id &&
-          (blog.category === data.category || data.tags.some((tag) => blog.tags.includes(tag)))
+          (blog.category === data.category ||
+            data.tags.some((tag) => blog.tags.includes(tag))),
       );
     } else if (isDestination(data)) {
-      filtered = filtered.filter((blog) => blog.related_destination === data._id);
+      filtered = filtered.filter(
+        (blog) => blog.related_destination === data._id,
+      );
     } else if (isCountry(data)) {
       filtered = filtered.filter((blog) => blog.tags.includes(data.name));
     } else if (isContinent(data)) {
@@ -181,22 +250,31 @@ const RelatedArticles: React.FC<{ data: Blog | Destination | Country | string }>
     return filtered;
   }, [blogData, data]);
 
-  if (blogLoading) return <div>Loading...</div>;
-  if (blogError) return <div>Error loading related articles</div>;
-  if (relatedBlogs.length === 0) return <div>No related articles found</div>;
+  if (blogLoading) return null;
+  if (blogError) return null;
+  if (!relatedBlogs || relatedBlogs.length === 0)
+    return <div>There are no related articles at the moment.</div>;
 
   return (
     <>
       {relatedBlogs.length < 5 ? (
-        <div className="related-blogs grid min-w-screen min-h-[20svh] gap-2 pb-sect-short pl-sect lg:grid-cols-4 2xl:grid-cols-5">
+        <div className="related-blogs min-w-screen pl-sect grid min-h-[20svh] gap-2 pb-sect-short lg:grid-cols-4 2xl:grid-cols-5">
           {relatedBlogs.map((blog) => (
-            <BlogCard key={blog._id} blog={blog} viewportWidth={viewportWidth} />
+            <BlogCard
+              key={blog._id}
+              blog={blog}
+              viewportWidth={viewportWidth}
+            />
           ))}
         </div>
       ) : (
         <Slider {...settings}>
           {relatedBlogs.map((blog) => (
-            <BlogCard key={blog._id} blog={blog} viewportWidth={viewportWidth} />
+            <BlogCard
+              key={blog._id}
+              blog={blog}
+              viewportWidth={viewportWidth}
+            />
           ))}
         </Slider>
       )}
@@ -205,9 +283,12 @@ const RelatedArticles: React.FC<{ data: Blog | Destination | Country | string }>
 };
 
 // Card components
-const CountryCard: React.FC<{ country: Country; viewportWidth: number }> = ({ country, viewportWidth }) => {
+const CountryCard: React.FC<{ country: Country; viewportWidth: number }> = ({
+  country,
+  viewportWidth,
+}) => {
   const imageProps = useMemo(() => {
-    if (country.images.otherImages && country.images.otherImages[0]) {
+    if (country.images.otherImages && country.images.otherImages.length > 0) {
       return optimizeImage(country.images.otherImages[0], {
         width: Math.min(viewportWidth, 1920),
         quality: 80,
@@ -221,7 +302,7 @@ const CountryCard: React.FC<{ country: Country; viewportWidth: number }> = ({ co
     <Link
       to={`/discover/countries/${country._id}`}
       target="_top"
-      className="relative block rounded-lg lg:h-[35svh] 2xl:h-[30svh]"
+      className="relative block rounded-lg bg-gradient-to-t from-background-dark to-transparent lg:h-[35svh] 2xl:h-[30svh]"
     >
       <motion.img
         variants={variants}
@@ -238,7 +319,10 @@ const CountryCard: React.FC<{ country: Country; viewportWidth: number }> = ({ co
   );
 };
 
-const DestinationCard: React.FC<{ destination: Destination; viewportWidth: number }> = ({ destination, viewportWidth }) => {
+const DestinationCard: React.FC<{
+  destination: Destination;
+  viewportWidth: number;
+}> = ({ destination, viewportWidth }) => {
   const imageProps = useMemo(() => {
     if (destination.images && destination.images[0]) {
       return optimizeImage(destination.images[0], {
@@ -254,7 +338,7 @@ const DestinationCard: React.FC<{ destination: Destination; viewportWidth: numbe
     <Link
       to={`/discover/destinations/${destination._id}`}
       target="_top"
-      className="relative block rounded-lg lg:h-[35svh] 2xl:h-[30svh]"
+      className="relative block rounded-lg bg-gradient-to-t from-background-dark to-transparent lg:h-[35svh] 2xl:h-[30svh]"
     >
       <motion.img
         variants={variants}
@@ -271,7 +355,10 @@ const DestinationCard: React.FC<{ destination: Destination; viewportWidth: numbe
   );
 };
 
-const BlogCard: React.FC<{ blog: Blog; viewportWidth: number }> = ({ blog, viewportWidth }) => {
+const BlogCard: React.FC<{ blog: Blog; viewportWidth: number }> = ({
+  blog,
+  viewportWidth,
+}) => {
   const imageProps = useMemo(() => {
     if (blog.image) {
       return optimizeImage(blog.image, {
@@ -287,7 +374,7 @@ const BlogCard: React.FC<{ blog: Blog; viewportWidth: number }> = ({ blog, viewp
     <Link
       to={`/inspiration/${blog._id}`}
       target="_top"
-        className="relative block cursor-pointer rounded-lg border-background-light lg:h-[35svh] 2xl:h-[30svh]"
+      className="relative block cursor-pointer rounded-lg border-background-light bg-gradient-to-t from-background-dark to-transparent lg:h-[35svh] 2xl:h-[30svh]"
       style={{
         backgroundImage: `url(${imageProps.src})`,
         backgroundSize: "cover",

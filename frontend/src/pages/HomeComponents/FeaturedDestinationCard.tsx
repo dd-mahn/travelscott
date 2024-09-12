@@ -50,7 +50,7 @@ const FeaturedDestinationCard: React.FC<DestinationCardProps> = memo(
     return (
       <div className="destination-card flex h-full flex-col gap-4 pb-8">
         {/* Image container */}
-        <div className="h-[70svh] w-full overflow-hidden rounded-xl shadow-component">
+        <div className="h-[70svh] w-full overflow-hidden rounded-xl shadow-component bg-gradient-to-t from-background-dark to-transparent">
           <motion.img
             whileHover="hoverScale"
             transition={{ duration: 0.4 }}

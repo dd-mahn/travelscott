@@ -99,7 +99,7 @@ const Articles: React.FC<ArticlesProps> = memo(({ articlesHookRef, blogChunks })
       target="_top"
       className="flex h-full w-full cursor-pointer flex-col gap-4"
     >
-      <div className="h-[50svh] w-full overflow-hidden rounded-lg shadow-component">
+      <div className="h-[50svh] w-full overflow-hidden rounded-lg shadow-component bg-gradient-to-t from-background-dark to-transparent">
         <motion.img
           loading="lazy"
           {...optimizeImage(blog.image, { width: 800, height: 600 })}
@@ -139,7 +139,7 @@ const Articles: React.FC<ArticlesProps> = memo(({ articlesHookRef, blogChunks })
       className="flex h-full cursor-pointer flex-row gap-4"
       key={blog._id}
     >
-      <div className="h-full w-[45%] overflow-hidden rounded-lg shadow-component">
+      <div className="h-full w-[45%] overflow-hidden rounded-lg shadow-component bg-gradient-to-t from-background-dark to-transparent">
         <motion.img
           loading="lazy"
           {...optimizeImage(blog.image, { width: 400, height: 300 })}

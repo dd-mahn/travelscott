@@ -56,7 +56,7 @@ const InspirationCard: React.FC<InspirationCardProps> = memo(({ blog }) => {
       <Link
         to={blogLink}
         target="_top"
-        className="h-[50svh] w-full overflow-hidden rounded-xl shadow-section"
+        className="h-[50svh] w-full overflow-hidden rounded-xl shadow-section bg-gradient-to-t from-background-dark to-transparent"
       >
         <motion.img
           whileHover="hoverScale"

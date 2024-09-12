@@ -67,9 +67,9 @@ const SearchResult: React.FC<SearchResultProps> = ({
                 to={`/discover/countries/${country._id}`}
                 target="_top"
                 key={country._id}
-                className="flex cursor-pointer flex-col items-center gap-2"
+                className="flex cursor-pointer flex-col items-center gap-2 "
               >
-                <div className="overflow-hidden rounded-xl">
+                <div className="overflow-hidden rounded-xl bg-gradient-to-t from-background-dark to-transparent">
                   <motion.img
                     whileHover="hover"
                     variants={imageVariants}
@@ -111,7 +111,7 @@ const SearchResult: React.FC<SearchResultProps> = ({
                 key={destination._id}
                 className="flex cursor-pointer flex-col items-center gap-2 rounded-xl"
               >
-                <div className="overflow-hidden rounded-xl">
+                <div className="overflow-hidden rounded-xl bg-gradient-to-t from-background-dark to-transparent">
                   <motion.img
                     whileHover="hover"
                     variants={imageVariants}
@@ -152,7 +152,7 @@ const SearchResult: React.FC<SearchResultProps> = ({
               key={blog._id}
               className="flex cursor-pointer gap-4 rounded-xl lg:h-24 2xl:h-32"
             >
-              <div className="w-1/3 overflow-hidden rounded-xl">
+              <div className="w-1/3 overflow-hidden rounded-xl bg-gradient-to-t from-background-dark to-transparent">
                 <motion.img
                   whileHover="hover"
                   variants={imageVariants}
