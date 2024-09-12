@@ -4,6 +4,7 @@ import blogReducer from "src/store/slices/blogSlice";
 import homeReducer from "src/store/slices/homeSlice";
 import filterReducer from "src/store/slices/filterSlice";
 import countryReducer from "src/store/slices/countrySlice";
+import destinationReducer from "src/store/slices/destinationSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     home: homeReducer,
     filter: filterReducer,
     country: countryReducer,
+    destination: destinationReducer,
   },
 });
 
