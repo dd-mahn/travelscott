@@ -3,6 +3,10 @@ import { useRef, useEffect, useCallback } from 'react';
 function useStackedSections() {
   const sectionRefs = useRef<(HTMLElement | null)[]>([]);
 
+  const setRef = useCallback((index: number) => (el: HTMLElement | null) => {
+    sectionRefs.current[index] = el;
+  }, []);
+
   const updateSectionTops = useCallback(() => {
     let previousBottom = 0;
     sectionRefs.current.forEach((section, index) => {
@@ -41,7 +45,7 @@ function useStackedSections() {
     return () => observer.disconnect();
   }, [updateSectionTops]);
 
-  return sectionRefs;
+  return { refs: sectionRefs, setRef };
 }
 
 export default useStackedSections;
