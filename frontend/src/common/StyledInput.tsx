@@ -1,5 +1,5 @@
 import React from "react";
-import "src/components/common/style/styled-input.css"
+import "src/common/style/styled-input.css"
 
 interface StyledInputProps {
   type: string;

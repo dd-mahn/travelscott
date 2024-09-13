@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import Slider from "react-slick";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import "src/components/common/style/related-section.css";
+import "src/common/style/related-section.css";
 // Component imports
 import useFetch from "src/hooks/useFetch";
 import { useViewportWidth } from "src/utils/imageUtils";
@@ -300,7 +300,7 @@ const CountryCard: React.FC<{ country: Country; viewportWidth: number }> = ({
     <Link
       to={`/discover/countries/${country._id}`}
       target="_top"
-      className="relative block rounded-lg bg-gradient-to-t from-background-dark to-transparent lg:h-[35svh] 2xl:h-[30svh]"
+      className="relative block w-full rounded-lg bg-gradient-to-t from-background-dark to-transparent lg:h-[35svh] 2xl:h-[30svh]"
     >
       <motion.img
         variants={variants}
@@ -336,7 +336,7 @@ const DestinationCard: React.FC<{
     <Link
       to={`/discover/destinations/${destination._id}`}
       target="_top"
-      className="relative block rounded-lg bg-gradient-to-t from-background-dark to-transparent lg:h-[35svh] 2xl:h-[30svh]"
+      className="relative block w-full rounded-lg bg-gradient-to-t from-background-dark to-transparent lg:h-[35svh] 2xl:h-[30svh]"
     >
       <motion.img
         variants={variants}
@@ -372,7 +372,7 @@ const BlogCard: React.FC<{ blog: Blog; viewportWidth: number }> = ({
     <Link
       to={`/inspiration/${blog._id}`}
       target="_top"
-      className="relative block cursor-pointer rounded-lg border-background-light bg-gradient-to-t from-background-dark to-transparent lg:h-[35svh] 2xl:h-[30svh]"
+      className="relative block w-full cursor-pointer rounded-lg border-background-light bg-gradient-to-t from-background-dark to-transparent lg:h-[35svh] 2xl:h-[30svh]"
       style={{
         backgroundImage: `url(${imageProps.src})`,
         backgroundSize: "cover",
