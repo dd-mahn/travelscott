@@ -71,19 +71,7 @@ export const FilterButton: React.FC<FilterButtonProps> = ({
         ></i>
       </motion.button>
       <AnimatePresence mode="wait">
-        {isFilterBoardOpen && (
-          <motion.div
-            ref={filterBoardRef}
-            initial="hiddenY"
-            animate="visible"
-            exit="hiddenY"
-            variants={variants}
-            transition={{ duration: 0.3 }}
-            className="filter-board absolute right-[5%] top-2/3 z-10 flex flex-col items-center gap-8 rounded-xl bg-background-light px-4 pb-8 pt-4 shadow-component lg:w-[30svw] 2xl:w-[25svw]"
-          >
-            {children}
-          </motion.div>
-        )}
+        {isFilterBoardOpen && <div ref={filterBoardRef}>{children}</div>}
       </AnimatePresence>
     </motion.div>
   );
