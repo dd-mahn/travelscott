@@ -445,7 +445,7 @@ const About: React.FC = () => {
                     className="person flex w-1/5 flex-col items-center gap-4"
                     key={index}
                   >
-                    <div className="h-[35svh] w-full overflow-hidden rounded-xl bg-gradient-to-t from-gray to-blue-gray-800 shadow-component saturate-0 duration-300 hover:saturate-[0.75]">
+                    <div className="h-[35svh] w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray shadow-component saturate-0 duration-300 hover:saturate-[0.75]">
                       {person.img && (
                         <motion.img
                           whileHover="hoverScale"

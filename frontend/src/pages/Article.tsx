@@ -31,7 +31,7 @@ const Article: React.FC = () => {
   return (
     <main className="">
       <div
-        className="h-[75svh] bg-gradient-to-t from-background-dark to-transparent"
+        className="h-[75svh] bg-gradient-to-t from-blue-gray-900 to-gray"
       >
         <img src={blogData.image} alt={blogData.title} className="h-full w-full object-cover" />
       </div>

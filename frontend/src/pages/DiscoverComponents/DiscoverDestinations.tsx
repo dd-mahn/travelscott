@@ -5,7 +5,7 @@ import { RootState } from "src/store/store";
 import { BASE_URL } from "src/utils/config";
 import useFetch from "src/hooks/useFetch";
 import { FetchDestinationType } from "src/types/FetchData";
-import { DestinationFilter } from "src/common/FIlterBoards";
+import { DestinationFilter } from "src/common/FilterBoards";
 import {
   setDestinations,
   setTotalDestinations,

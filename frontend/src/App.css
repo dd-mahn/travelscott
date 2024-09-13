@@ -77,34 +77,92 @@
   --gray: #969696;
   --aurora-green: #90b37f;
   --aurora-brown: #e7aa75b2;
-  --aurora-brown-gradient: radial-gradient(circle at 50% 50%, var(--aurora-brown), rgba(76, 0, 255, 0));
-  --aurora-green-gradient: radial-gradient(circle at 50% 50%, var(--aurora-green), rgba(76, 0, 255, 0));
-  --space-gradient: linear-gradient(180deg, rgb(0, 0, 0) 0%, rgb(62.05, 75.92, 102.85) 100%);
-  --inspiration-gradient: linear-gradient(180deg, rgb(10.02, 10.23, 10.38) 0%, rgb(70.95, 96.12, 114.35) 50%, rgb(251, 249, 247) 100%);
+  --aurora-brown-gradient: radial-gradient(
+    circle at 50% 50%,
+    var(--aurora-brown),
+    rgba(76, 0, 255, 0)
+  );
+  --aurora-green-gradient: radial-gradient(
+    circle at 50% 50%,
+    var(--aurora-green),
+    rgba(76, 0, 255, 0)
+  );
+  --space-gradient: linear-gradient(
+    180deg,
+    rgb(0, 0, 0) 0%,
+    rgb(62.05, 75.92, 102.85) 100%
+  );
+  --inspiration-gradient: linear-gradient(
+    180deg,
+    rgb(10.02, 10.23, 10.38) 0%,
+    rgb(70.95, 96.12, 114.35) 50%,
+    rgb(251, 249, 247) 100%
+  );
+  --image-gradient: linear-gradient(to top, #263238, #969696);
   /* Spring */
-  --spring-gradient: linear-gradient(180deg, rgba(239,156,102,1) 0%, rgba(200,207,160,1) 50%, rgba(251,249,247,1) 100%);
-  --spring-summer-gradient: linear-gradient(180deg, rgba(200,207,160,1) 0%, rgba(120,171,168,1) 50%, rgba(251,249,247,1) 100%);
-  
-  /* Summer */
-  --summer-gradient: linear-gradient(180deg, rgba(54,186,152,1) 0%, rgba(233,196,106,1) 50%, rgba(251,249,247,1) 100%);
-  --summer-fall-gradient: linear-gradient(180deg, rgb(0, 0, 51) 0%, rgb(255, 165, 0) 50%, rgb(251, 249, 247) 100%);
-  
-  /* Fall */
-  --fall-gradient: linear-gradient(180deg, rgb(51, 0, 0) 0%, rgb(139, 69, 19) 50%, rgb(251, 249, 247) 100%);
-  --fall-winter-gradient: linear-gradient(180deg, rgb(43, 21, 21) 0%, rgb(184, 134, 11) 50%, rgb(251, 249, 247) 100%);
-  
-  /* Winter */
-  --winter-gradient: linear-gradient(180deg, rgba(38,80,115,1) 0%, rgba(45,149,150,1) 50%, rgba(251,249,247,1) 100%);
-  --winter-spring-gradient: linear-gradient(180deg, rgba(6,70,53,1) 0%, rgba(240,187,98,1) 50%, rgba(251,249,247,1) 100%);
+  --spring-gradient: linear-gradient(
+    180deg,
+    rgba(239, 156, 102, 1) 0%,
+    rgba(200, 207, 160, 1) 50%,
+    rgba(251, 249, 247, 1) 100%
+  );
+  --spring-summer-gradient: linear-gradient(
+    180deg,
+    rgba(200, 207, 160, 1) 0%,
+    rgba(120, 171, 168, 1) 50%,
+    rgba(251, 249, 247, 1) 100%
+  );
 
-  --wilderness: #8AB17C;
-  --cultureheritage: #97764F;
-  --fooddrink: #B17C8C;
+  /* Summer */
+  --summer-gradient: linear-gradient(
+    180deg,
+    rgba(54, 186, 152, 1) 0%,
+    rgba(233, 196, 106, 1) 50%,
+    rgba(251, 249, 247, 1) 100%
+  );
+  --summer-fall-gradient: linear-gradient(
+    180deg,
+    rgb(0, 0, 51) 0%,
+    rgb(255, 165, 0) 50%,
+    rgb(251, 249, 247) 100%
+  );
+
+  /* Fall */
+  --fall-gradient: linear-gradient(
+    180deg,
+    rgb(51, 0, 0) 0%,
+    rgb(139, 69, 19) 50%,
+    rgb(251, 249, 247) 100%
+  );
+  --fall-winter-gradient: linear-gradient(
+    180deg,
+    rgb(43, 21, 21) 0%,
+    rgb(184, 134, 11) 50%,
+    rgb(251, 249, 247) 100%
+  );
+
+  /* Winter */
+  --winter-gradient: linear-gradient(
+    180deg,
+    rgba(38, 80, 115, 1) 0%,
+    rgba(45, 149, 150, 1) 50%,
+    rgba(251, 249, 247, 1) 100%
+  );
+  --winter-spring-gradient: linear-gradient(
+    180deg,
+    rgba(6, 70, 53, 1) 0%,
+    rgba(240, 187, 98, 1) 50%,
+    rgba(251, 249, 247, 1) 100%
+  );
+
+  --wilderness: #8ab17c;
+  --cultureheritage: #97764f;
+  --fooddrink: #b17c8c;
   --solojourneys: #333333;
-  --cityscape: #B9D1D1;
-  --seasonfestival: #C35757;
-  --relaxation: #A6DBB8;
-  --firsttimeabroad: #EB996E;
+  --cityscape: #b9d1d1;
+  --seasonfestival: #c35757;
+  --relaxation: #a6dbb8;
+  --firsttimeabroad: #eb996e;
 }
 
 *,
@@ -123,6 +181,22 @@ body {
 
 img {
   max-width: 100%;
+  text-indent: -9999px;
+}
+
+img:after {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--image-gradient);
+  font-family: "Helvetica";
+  font-weight: 300;
+  line-height: 2;
+  text-align: center;
+  content: attr(alt);
 }
 
 ul,
@@ -278,7 +352,9 @@ body::-webkit-scrollbar-thumb:hover,
 
 .btn-primary {
   @apply bg-main-brown text-text-dark;
-  box-shadow: -2px 3px 6.2px 0px rgba(0, 0, 0, 0.25), 0px 4px 4px 0px rgba(255, 242, 242, 0.25) inset !important;
+  box-shadow:
+    -2px 3px 6.2px 0px rgba(0, 0, 0, 0.25),
+    0px 4px 4px 0px rgba(255, 242, 242, 0.25) inset !important;
 }
 
 .btn-secondary {
@@ -286,7 +362,7 @@ body::-webkit-scrollbar-thumb:hover,
 }
 
 .underline-btn {
-  @apply relative cursor-pointer w-fit uppercase lg:text-base lg:font-medium xl:text-lg 2xl:text-xl 2xl:font-semibold 3xl:text-xl;
+  @apply relative w-fit cursor-pointer uppercase lg:text-base lg:font-medium xl:text-lg 2xl:text-xl 2xl:font-semibold 3xl:text-xl;
 }
 
 .underline-btn i {
@@ -296,7 +372,10 @@ body::-webkit-scrollbar-thumb:hover,
 .underline-btn::before {
   @apply absolute bottom-0 right-0 w-0 rounded-sm bg-text-light lg:h-[1.5px] 2xl:h-[2px];
   content: "";
-  transition: right 0.4s, width 0.4s, left 0.4s;
+  transition:
+    right 0.4s,
+    width 0.4s,
+    left 0.4s;
 }
 
 .underline-btn:hover::before {

@@ -64,7 +64,7 @@ const DiscoverPoster: React.FC<DiscoverPosterProps> = ({
         {optimizedDestinations.map((destination) => {
           return (
             <motion.div
-              className="poster px-sect relative flex h-full w-screen cursor-pointer flex-col gap-0 bg-gradient-to-t from-background-dark to-transparent py-sect-short"
+              className="poster px-sect relative flex h-full w-screen cursor-pointer flex-col gap-0 bg-gradient-to-t from-blue-gray-900 to-gray py-sect-short"
               key={destination._id}
             >
               <Link

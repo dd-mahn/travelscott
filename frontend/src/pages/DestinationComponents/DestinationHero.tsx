@@ -31,7 +31,7 @@ const DestinationHero: React.FC<DestinationHeroProps> = ({ destination }) => {
         >
           {destination.images?.map((image, index) => (
             <div
-              className="grid h-full w-full place-items-center bg-gradient-to-t from-background-dark to-transparent"
+              className="grid h-full w-full place-items-center bg-gradient-to-t from-blue-gray-900 to-gray"
               key={index}
             >
               <img

@@ -127,7 +127,7 @@ const BlogComponent: React.FC<{
       >
         {/* Blog image and title section */}
         <div className="relative flex h-3/4 flex-col items-start justify-end gap-0 px-8 pb-4">
-          <div className="absolute right-0 top-0 h-full w-full overflow-hidden bg-gradient-to-t from-background-dark to-transparent">
+          <div className="absolute right-0 top-0 h-full w-full overflow-hidden bg-gradient-to-t from-blue-gray-900 to-gray">
             <motion.img
               whileHover="hoverScale"
               variants={variants}
