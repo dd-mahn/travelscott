@@ -131,8 +131,8 @@ const RelatedCountries: React.FC<{ country: Country }> = ({ country }) => {
 
   return (
     <>
-      {relatedCountries.length < 5 ? (
-        <div className="related-countries min-w-screen flex min-h-[20svh] cursor-pointer flex-nowrap gap-2 pb-sect-short">
+      {relatedCountries.length < 6 ? (
+        <div className="related-countries grid min-h-[20svh] w-screen gap-2 pb-sect-short lg:grid-cols-4 2xl:grid-cols-5">
           {relatedCountries.map((country) => (
             <CountryCard
               key={country._id}
@@ -190,7 +190,7 @@ const RelatedDestinations: React.FC<{ destination: Destination }> = ({
   return (
     <>
       {relatedDestinations.length < 5 ? (
-        <div className="related-destinations min-w-screen flex min-h-[20svh] flex-nowrap gap-2 py-sect-short">
+        <div className="related-destinations grid min-h-[20svh] w-screen gap-2 pb-sect-short lg:grid-cols-4 2xl:grid-cols-5">
           {relatedDestinations.map((destination) => (
             <DestinationCard
               key={destination._id}
@@ -256,7 +256,7 @@ const RelatedArticles: React.FC<{
   return (
     <>
       {relatedBlogs.length < 5 ? (
-        <div className="related-blogs min-w-screen pl-sect grid min-h-[20svh] gap-2 pb-sect-short lg:grid-cols-4 2xl:grid-cols-5">
+        <div className="related-blogs grid min-h-[20svh] w-screen gap-2 pb-sect-short lg:grid-cols-4 2xl:grid-cols-5">
           {relatedBlogs.map((blog) => (
             <BlogCard
               key={blog._id}
@@ -300,7 +300,7 @@ const CountryCard: React.FC<{ country: Country; viewportWidth: number }> = ({
     <Link
       to={`/discover/countries/${country._id}`}
       target="_top"
-      className="relative block w-full rounded-lg bg-gradient-to-t from-background-dark to-transparent lg:h-[35svh] 2xl:h-[30svh]"
+      className="relative block w-full rounded-lg bg-gradient-to-t from-blue-gray-900 to-gray lg:h-[35svh] 2xl:h-[30svh]"
     >
       <motion.img
         variants={variants}
@@ -336,7 +336,7 @@ const DestinationCard: React.FC<{
     <Link
       to={`/discover/destinations/${destination._id}`}
       target="_top"
-      className="relative block w-full rounded-lg bg-gradient-to-t from-background-dark to-transparent lg:h-[35svh] 2xl:h-[30svh]"
+      className="relative block w-full rounded-lg bg-gradient-to-t from-blue-gray-900 to-gray lg:h-[35svh] 2xl:h-[30svh]"
     >
       <motion.img
         variants={variants}
@@ -372,7 +372,7 @@ const BlogCard: React.FC<{ blog: Blog; viewportWidth: number }> = ({
     <Link
       to={`/inspiration/${blog._id}`}
       target="_top"
-      className="relative block w-full cursor-pointer rounded-lg border-background-light bg-gradient-to-t from-background-dark to-transparent lg:h-[35svh] 2xl:h-[30svh]"
+      className="relative block w-full cursor-pointer rounded-lg border-background-light bg-gradient-to-t from-blue-gray-900 to-gray lg:h-[35svh] 2xl:h-[30svh]"
       style={{
         backgroundImage: `url(${imageProps.src})`,
         backgroundSize: "cover",
