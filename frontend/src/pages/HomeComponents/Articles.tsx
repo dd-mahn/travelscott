@@ -2,13 +2,19 @@
 import React, { memo, useCallback, useState, useEffect } from "react";
 import { motion, useTransform, useScroll } from "framer-motion";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "src/store/store";
+import { setBlogChunks } from "src/store/slices/homeSlice";
 
 // Import custom types and utility functions
 import Blog from "src/types/Blog";
 import { formatDate } from "src/utils/formatDate";
-import FeaturedContentSlider from "src/components/common/FeaturedContentSlider";
+import FeaturedContentSlider from "src/common/FeaturedContentSlider";
 import { optimizeImage } from "src/utils/optimizeImage";
 import { HoverVariants, VisibilityVariants } from "src/utils/variants";
+import { createBlogChunks } from "src/utils/createBlogChunks";
+import SeasonHeading from "src/common/SeasonHeading";
+import { getSeason } from "src/utils/getSeason";
 
 // Define Framer Motion animation variants
 const variants = {
@@ -23,150 +29,99 @@ const variants = {
 // Define prop types for the Articles component
 type ArticlesProps = {
   articlesHookRef: React.RefObject<HTMLSpanElement>;
-  blogChunks: Blog[][];
+  blogs: Blog[];
 };
 
+// Child component to render a blog
+const RenderBlog: React.FC<{ blog: Blog; isFeatured: boolean }> = ({
+  blog,
+  isFeatured,
+}) => (
+  <Link
+    to={`/inspiration/${blog._id}`}
+    target="_top"
+    className={`w-full h-full ${isFeatured ? "flex flex-col gap-4" : "grid grid-cols-2 gap-4"}`}
+    key={blog._id}
+  >
+    <div
+      className={`h-${isFeatured ? "[50svh]" : "full"} w-${isFeatured ? "[50svw]" : "[45%]"} overflow-hidden rounded-lg bg-gradient-to-t from-blue-gray-900 to-gray shadow-component`}
+    >
+      <motion.img
+        loading="lazy"
+        {...optimizeImage(blog.image, {
+          width: isFeatured ? 800 : 400,
+          height: isFeatured ? 600 : 300,
+        })}
+        alt={`${isFeatured ? "featured" : "normal"}BlogImage`}
+        whileHover="hoverScale"
+        transition={{ duration: 0.4 }}
+        variants={variants}
+        className="cursor-hover h-full w-full rounded-lg object-cover"
+      />
+    </div>
+    <div
+      className={`flex ${
+        isFeatured ? "flex-col gap-4" : "w-full flex-col gap-4"
+      }`}
+    >
+      <div className="flex flex-col gap-1 pt-2">
+        <span
+          className={`span-small ${isFeatured ? "text-white" : "text-blue-gray-100"}`}
+        >
+          {blog.category}
+        </span>
+        <motion.p
+          whileHover="hoverX"
+          transition={{ duration: 0.3 }}
+          variants={variants}
+          className={`cursor-hover-small span-medium ${isFeatured ? "uppercase text-text-dark dark:text-text-light" : "w-full text-text-dark dark:text-text-light"}`}
+        >
+          {blog.title}
+        </motion.p>
+      </div>
+
+      {isFeatured && (
+        <>
+          <p className="p-regular overflow-hidden text-text-dark 2xl:w-4/5 3xl:w-3/4 dark:text-text-light">
+            {blog.content[0].sectionText[0]}
+          </p>
+          <span className="span-regular w-3/4 overflow-hidden text-text-dark dark:text-text-light">
+            <i className="ri-time-line span-regular text-text-dark dark:text-text-light"></i>{" "}
+            {formatDate(blog.time)}
+          </span>
+        </>
+      )}
+    </div>
+  </Link>
+);
+
 // Articles component: Displays a list of blog articles
-const Articles: React.FC<ArticlesProps> = memo(({ articlesHookRef, blogChunks }) => {
+const Articles: React.FC<ArticlesProps> = memo(({ articlesHookRef, blogs }) => {
+  const dispatch = useDispatch();
+  const blogChunks = useSelector((state: RootState) => state.home.blogChunks);
+
+  useEffect(() => {
+    if (blogs.length > 0) {
+      dispatch(setBlogChunks(createBlogChunks(blogs)));
+    }
+  }, [blogs, dispatch]);
+
   // Set up scroll-based animation
   const { scrollYProgress } = useScroll({
     target: articlesHookRef,
     offset: ["end end", "start start"],
   });
-
   const x = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-
-  // Determine the current season based on the month
-  const getSeason = useCallback(() => {
-    const month = new Date().getMonth();
-    if (month >= 2 && month <= 4) return "Spring";
-    if (month >= 5 && month <= 7) return "Summer";
-    if (month >= 8 && month <= 10) return "Fall";
-    if (month === 11 || month === 0 || month === 1) return "Winter";
-    if (month === 1) return "Winter-Spring";
-    if (month === 4) return "Spring-Summer";
-    if (month === 7) return "Summer-Fall";
-    if (month === 10) return "Fall-Winter";
-    return "Unknown Season";
-  }, []);
 
   // Set the background gradient based on the current season
   const [backgroundGradient, setBackgroundGradient] = useState("");
 
   useEffect(() => {
     const season = getSeason();
-    setBackgroundGradient(`var(--${season.toLowerCase().replace(/ /g, "-")}-gradient)`);
+    setBackgroundGradient(
+      `var(--${season.toLowerCase().replace(/ /g, "-")}-gradient)`,
+    );
   }, [getSeason]);
-
-  // Render the season heading with animated letters
-  const renderSeasonHeading = () => (
-    <motion.div className="big-heading flex h-fit items-center gap-[2svw] overflow-hidden">
-      <div className="inline-block h-fit w-fit overflow-hidden border-b-4 border-text-dark dark:border-text-light">
-        {getSeason().split("").map((letter, index) => (
-          <motion.h1
-            key={index}
-            initial="hiddenFullY"
-            whileInView="visible"
-            transition={{ duration: 0.5, delay: index * 0.1, type: "spring", bounce: 0.5 }}
-            viewport={{ once: true }}
-            variants={variants}
-            className="inline-block text-text-dark dark:text-text-light"
-            style={{ lineHeight: 0.8 }}
-          >
-            {letter}
-          </motion.h1>
-        ))}
-      </div>
-      <motion.h1
-        initial="hiddenFullY"
-        whileInView="visible"
-        transition={{ duration: 0.5, delay: 1 }}
-        viewport={{ once: true }}
-        variants={variants}
-        className="text-stroke-light-bold inline-block border-b-4 border-transparent text-transparent"
-      >
-        {new Date().getFullYear()}
-      </motion.h1>
-    </motion.div>
-  );
-
-  // Render a featured blog article
-  const renderFeaturedBlog = (blog: Blog) => (
-    <Link
-      to={`/inspiration/${blog._id}`}
-      target="_top"
-      className="flex h-full w-full cursor-pointer flex-col gap-4"
-    >
-      <div className="h-[50svh] w-full overflow-hidden rounded-lg shadow-component bg-gradient-to-t from-background-dark to-transparent">
-        <motion.img
-          loading="lazy"
-          {...optimizeImage(blog.image, { width: 800, height: 600 })}
-          alt="featuredBlogImage"
-          whileHover="hoverScale"
-          transition={{ duration: 0.4 }}
-          variants={variants}
-          className="cursor-hover h-full w-full rounded-lg object-cover"
-        />
-      </div>
-      <div className="flex flex-col">
-        <span className="span-small text-white">{blog.category}</span>
-        <motion.p
-          whileHover="hoverX"
-          transition={{ duration: 0.3 }}
-          variants={variants}
-          className="cursor-hover-small span-medium uppercase text-text-dark dark:text-text-light"
-        >
-          {blog.title}
-        </motion.p>
-      </div>
-      <p className="p-regular overflow-hidden 2xl:w-4/5 3xl:w-3/4 text-text-dark dark:text-text-light">
-        {blog.content[0].sectionText[0]}
-      </p>
-      <span className="span-regular w-3/4 overflow-hidden text-text-dark dark:text-text-light">
-        <i className="ri-time-line span-regular text-text-dark dark:text-text-light"></i>{" "}
-        {formatDate(blog.time)}
-      </span>
-    </Link>
-  );
-
-  // Render a normal (non-featured) blog article
-  const renderNormalBlog = (blog: Blog) => (
-    <Link
-      to={`/inspiration/${blog._id}`}
-      target="_top"
-      className="flex h-full cursor-pointer flex-row gap-4"
-      key={blog._id}
-    >
-      <div className="h-full w-[45%] overflow-hidden rounded-lg shadow-component bg-gradient-to-t from-background-dark to-transparent">
-        <motion.img
-          loading="lazy"
-          {...optimizeImage(blog.image, { width: 400, height: 300 })}
-          alt="normalBlogImage"
-          whileHover="hoverScale"
-          transition={{ duration: 0.4 }}
-          variants={variants}
-          className="cursor-hover h-full w-full rounded-lg object-cover"
-        />
-      </div>
-      <div className="flex w-1/2 flex-col gap-4">
-        <div className="flex flex-col gap-0">
-          <span className="span-small text-blue-gray-100">{blog.category}</span>
-          <motion.span
-            whileHover="hoverX"
-            transition={{ duration: 0.3 }}
-            variants={variants}
-            className="cursor-hover-small span-medium w-full text-text-dark dark:text-text-light"
-          >
-            {blog.title}
-          </motion.span>
-        </div>
-        <span className="span-small w-3/4 overflow-hidden text-text-dark dark:text-text-light">
-          <i className="ri-time-line span-regular text-text-dark dark:text-text-light"></i>{" "}
-          {formatDate(blog.time)}
-        </span>
-      </div>
-    </Link>
-  );
 
   // Render the entire Articles component
   return (
@@ -181,21 +136,23 @@ const Articles: React.FC<ArticlesProps> = memo(({ articlesHookRef, blogChunks })
       </motion.span>
       {/* Render blog articles if available */}
       {blogChunks?.length > 0 && (
-        <section 
+        <section
           className="blogs flex flex-col items-center justify-start gap-sect-short lg:pb-sect-default lg:pt-sect-short 2xl:pb-sect-medium 2xl:pt-60"
-          style={{background: backgroundGradient}}
+          style={{ background: backgroundGradient }}
         >
-          {renderSeasonHeading()}
+          <SeasonHeading />
           {/* Featured content slider for blog chunks */}
           <FeaturedContentSlider>
             {blogChunks.map((chunk, chunkIndex) => (
               <div
                 key={chunkIndex}
-                className="px-sect flex h-full w-screen flex-row gap-8"
+                className="px-sect grid w-screen grid-cols-2 gap-8"
               >
-                {renderFeaturedBlog(chunk[0])}
-                <div className="grid h-[75svh] w-full grid-flow-row auto-rows-[30%] gap-4">
-                  {chunk.slice(1).map(renderNormalBlog)}
+                <RenderBlog blog={chunk[0]} isFeatured={true} />
+                <div className="grid h-[75svh] pb-4 w-full grid-rows-3 gap-4">
+                  {chunk.slice(1).map((blog) => (
+                    <RenderBlog key={blog._id} blog={blog} isFeatured={false} />
+                  ))}
                 </div>
               </div>
             ))}

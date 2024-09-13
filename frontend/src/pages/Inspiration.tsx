@@ -1,8 +1,8 @@
 import React, { useCallback, useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
-import FeaturedBlogs from "src/components/common/FeaturedBlogs";
+import FeaturedBlogs from "src/common/FeaturedBlogs";
 import NotFoundPage from "./404";
-import Loading from "src/components/common/Loading";
+import Loading from "src/common/Loading";
 import InspirationCatalog from "./InspiritionComponents/InspirationCatalog";
 import useFetch from "src/hooks/useFetch";
 import { BASE_URL } from "src/utils/config";
@@ -31,6 +31,8 @@ import {
   HoverVariants,
   TapVariants,
 } from "src/utils/variants";
+import { getSeason } from "src/utils/getSeason";
+import SeasonHeading from "src/common/SeasonHeading";
 
 // Framer motion variants
 const variants = {
@@ -66,20 +68,6 @@ const Inspiration: React.FC = () => {
   const { allBlogs, featuredBlogs } = useSelector(
     (state: RootState) => state.blog,
   );
-
-  // Get current season
-  const getSeason = useCallback(() => {
-    const month = new Date().getMonth();
-    if (month >= 2 && month <= 4) return "Spring";
-    if (month >= 5 && month <= 7) return "Summer";
-    if (month >= 8 && month <= 10) return "Fall";
-    if (month === 11 || month === 0 || month === 1) return "Winter";
-    if (month === 1) return "Winter-Spring";
-    if (month === 4) return "Spring-Summer";
-    if (month === 7) return "Summer-Fall";
-    if (month === 10) return "Fall-Winter";
-    return "Unknown Season";
-  }, []);
 
   // Get heading based on category
   const getHeading = useCallback(
@@ -190,16 +178,8 @@ const Inspiration: React.FC = () => {
       </motion.div>
 
       {/* Heading */}
-      <div className="z-20 h-fit overflow-hidden">
-        <motion.h1
-          initial="hiddenFullY"
-          animate="visible"
-          variants={variants}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          className="big-heading z-20 mt-sect-short text-text-dark"
-        >
-          {heading}
-        </motion.h1>
+      <div className="z-20 h-fit overflow-hidden lg:pt-10 2xl:pt-20">
+        <SeasonHeading />
       </div>
 
       {/* Category Filters */}
