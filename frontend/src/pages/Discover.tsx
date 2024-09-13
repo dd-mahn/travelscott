@@ -1,13 +1,4 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { motion } from "framer-motion";
-
-// Asset imports
-import asiaMap from "src/assets/images/ui/maps/Asia.webp";
-import europeMap from "src/assets/images/ui/maps/Europe.webp";
-import africaMap from "src/assets/images/ui/maps/Africa.webp";
-import northAmericaMap from "src/assets/images/ui/maps/NorthAmerica.webp";
-import southAmericaMap from "src/assets/images/ui/maps/SouthAmerica.webp";
-import oceaniaMap from "src/assets/images/ui/maps/Oceania.webp";
 
 // Component imports
 import "src/styles/discover.css";
@@ -16,20 +7,27 @@ import { getFeaturedDestinations } from "src/utils/getFeaturedDestinations";
 import { getCountryByContinent } from "src/utils/getCountryByContinent";
 import { FetchCountriesType, FetchDestinationType } from "src/types/FetchData";
 import NotFoundPage from "./404";
-import Loading from "src/components/common/Loading";
+import Loading from "src/common/Loading";
 import DiscoverDestinations from "./DiscoverComponents/DiscoverDestinations";
 import DiscoverCountries from "./DiscoverComponents/DiscoverCountries";
 import useFetch from "src/hooks/useFetch";
-import Country from "src/types/Country";
-import Destination from "src/types/Destination";
 import DiscoverPoster from "./DiscoverComponents/DiscoverPoster";
+import { setCountries } from "src/store/slices/countrySlice";
+import { setAllDestinations } from "src/store/slices/destinationSlice";
+import { setContinents } from "src/store/slices/continentSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "src/store/store";
+import { continents } from "src/utils/continents";
 
 // Discover component
 const Discover: React.FC = () => {
-  // State hooks for current page, destinations, countries, selected continent, filter tags, filter countries, filter continents
-  const [allDestinations, setAllDestinations] = useState<Destination[]>([]);
-  const [countries, setCountries] = useState<Country[]>([]);
+  const dispatch = useDispatch();
+  const { countries } = useSelector((state: RootState) => state.country);
+  const { allDestinations } = useSelector(
+    (state: RootState) => state.destination,
+  );
 
+  // Fetch data for all destinations
   const {
     data: allDestinationData,
     loading: allDestinationLoading,
@@ -40,104 +38,55 @@ const Discover: React.FC = () => {
     data: countryData,
     loading: countryLoading,
     error: countryError,
-  } = useFetch<FetchCountriesType>(`${BASE_URL}/countries`);
+  } = useFetch<FetchCountriesType>(`${BASE_URL}/countries?limit=1000`);
 
   // Handle fetched data for rendering
   useEffect(() => {
-    if (countryData?.result) {
-      setCountries(countryData.result);
+    if (countryData) {
+      dispatch(setCountries(countryData.result));
     }
 
-    if (allDestinationData?.result) {
-      setAllDestinations(allDestinationData.result);
+    if (allDestinationData) {
+      dispatch(setAllDestinations(allDestinationData.result));
     }
   }, [allDestinationData, countryData]);
 
   // Handle continent data
-  const continents = useMemo(() => {
-    return [
-      {
-        name: "Asia",
-        countries: getCountryByContinent(countries, "Asia"),
-        count: getCountryByContinent(countries, "Asia").length,
-        image: asiaMap,
-      },
-      {
-        name: "Africa",
-        countries: getCountryByContinent(countries, "Africa"),
-        count: getCountryByContinent(countries, "Africa").length,
-        image: africaMap,
-      },
-      {
-        name: "Europe",
-        countries: getCountryByContinent(countries, "Europe"),
-        count: getCountryByContinent(countries, "Europe").length,
-        image: europeMap,
-      },
-      {
-        name: "North America",
-        countries: getCountryByContinent(countries, "North America"),
-        count: getCountryByContinent(countries, "North America").length,
-        image: northAmericaMap,
-      },
-      {
-        name: "South America",
-        countries: getCountryByContinent(countries, "South America"),
-        count: getCountryByContinent(countries, "South America").length,
-        image: southAmericaMap,
-      },
-      {
-        name: "Oceania",
-        countries: getCountryByContinent(countries, "Oceania"),
-        count: getCountryByContinent(countries, "Oceania").length,
-        image: oceaniaMap,
-      },
-    ];
-  }, [countries]);
+  useEffect(() => {
+    if (countries.length > 0) {
+      const updatedContinents = continents.map((continent) => ({
+        ...continent,
+        countries: getCountryByContinent(countries, continent.name),
+        count: getCountryByContinent(countries, continent.name).length,
+      }));
+      dispatch(setContinents(updatedContinents));
+    }
+  }, [countries, continents, dispatch]);
 
   // Handle featured destinations
   const featuredDestinations = useMemo(() => {
     return getFeaturedDestinations(allDestinations);
   }, [allDestinations]);
 
-  // Handle country and continent names
-  const countryNames = Array.isArray(countries)
-    ? countries.map((country) => country?.name)
-    : [];
-  const continentNames = Array.isArray(continents)
-    ? continents.map((continent) => continent.name)
-    : [];
-
   // Handle render
   if (countryLoading || allDestinationLoading) {
     return <Loading />;
   }
 
-  if (countryError || allDestinationError) {
+  if (countryError || allDestinationError || !countries || !allDestinations) {
     return <NotFoundPage />;
   }
 
   return (
     <main className="discover">
       {/* POSTER SECTION */}
-      {!allDestinationError &&
-        !allDestinationLoading &&
-        featuredDestinations.length !== 0 && (
-          <DiscoverPoster featuredDestinations={featuredDestinations} />
-        )}
+      <DiscoverPoster featuredDestinations={featuredDestinations} />
 
       {/* COUNTRY SECTION */}
-      <DiscoverCountries
-        countryLoading={countryLoading}
-        countryError={countryError}
-        continents={continents}
-      />
+      <DiscoverCountries />
 
       {/* DESTINATION SECTION */}
-      <DiscoverDestinations
-        countryNames={countryNames}
-        continentNames={continentNames}
-      />
+      <DiscoverDestinations />
     </main>
   );
 };

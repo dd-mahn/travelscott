@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useMemo, useState } from "react";
+import React, { memo, useCallback, useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "src/store/store";
@@ -86,11 +86,21 @@ const DiscoverDestinations: React.FC = () => {
     }
   }, [destinationData, destinationLoading, destinationError, dispatch]);
 
-  const handlePageChange = (newPage: number) => {
+  const handlePageChange = useCallback((newPage: number) => {
     setCurrentPage(newPage);
-  };
+  }, []);
 
-  const filterKey = `${currentPage}-${tags.join(",")}-${computedCountries.join(",")}-${computedContinents.join(",")}-${destinationSearchQuery}`;
+  const filterKey = useMemo(
+    () =>
+      `${currentPage}-${tags.join(",")}-${computedCountries.join(",")}-${computedContinents.join(",")}-${destinationSearchQuery}`,
+    [
+      currentPage,
+      tags,
+      computedCountries,
+      computedContinents,
+      destinationSearchQuery,
+    ],
+  );
 
   return (
     <section

@@ -1,25 +1,22 @@
 import React, { memo, useCallback, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Select, Option } from "@material-tailwind/react";
-import type { SelectProps, SelectOptionProps } from "@material-tailwind/react";
+import { useSelector } from "react-redux";
+import { RootState } from "src/store/store";
 
 // Component imports
-import Country from "src/types/Country";
-import CountryCard from "src/components/common/CountryCard";
-import RelatedSections from "src/components/common/RelatedSections";
-import { HoverVariants, TapVariants, VisibilityVariants } from "src/utils/variants";
-
-// Component props type
-type DiscoverCountriesProps = {
-  countryLoading: boolean;
-  countryError: string | null;
-  continents: {
-    name: string;
-    countries: Country[];
-    count: number;
-    image: string;
-  }[];
-};
+import CountryCard from "src/common/CountryCard";
+import RelatedSections from "src/common/RelatedSections";
+import {
+  HoverVariants,
+  TapVariants,
+  VisibilityVariants,
+} from "src/utils/variants";
+import {
+  ErrorState,
+  LoadingState,
+  NotFoundState,
+} from "src/common/CatalogStates";
 
 // Framer motion variants
 const variants = {
@@ -35,11 +32,10 @@ const variants = {
 };
 
 // DiscoverCountries component
-const DiscoverCountries: React.FC<DiscoverCountriesProps> = ({
-  countryLoading,
-  countryError,
-  continents,
-}) => {
+const DiscoverCountries: React.FC = () => {
+  const { continents } = useSelector((state: RootState) => state.continent);
+  const { loading, error } = useSelector((state: RootState) => state.country);
+
   // State hooks for selected continent name
   const [selectedContinentName, setSelectedContinentName] =
     useState<string>("Asia");
@@ -57,7 +53,7 @@ const DiscoverCountries: React.FC<DiscoverCountriesProps> = ({
   }, []);
 
   // Select and SelectOption elements props
-  const selectProps: SelectProps = {
+  const selectProps = {
     color: "gray",
     label: "Select Continent",
     variant: "outlined",
@@ -68,7 +64,7 @@ const DiscoverCountries: React.FC<DiscoverCountriesProps> = ({
       mount: { y: 0 },
       unmount: { y: 40 },
     },
-    onChange: (value) => handleSelectContinent(value as string),
+    onChange: (value: string) => handleSelectContinent(value),
     menuProps: {
       className: "bg-background-light shadow-component rounded-xl",
     },
@@ -78,10 +74,13 @@ const DiscoverCountries: React.FC<DiscoverCountriesProps> = ({
     },
   };
 
-  const selectOptionProp: SelectOptionProps = {
+  const selectOptionProp = {
     className: "span-small font-sans",
-    children: undefined,
   };
+
+  const filterKey = useMemo(() => {
+    return selectedContinentName;
+  }, [selectedContinentName]);
 
   // Render logic
   return (
@@ -109,39 +108,32 @@ const DiscoverCountries: React.FC<DiscoverCountriesProps> = ({
           viewport={{ once: true }}
           className="grid w-1/6 place-items-center"
         >
-          <Select
-            placeholder={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-            {...selectProps}
-          >
-            <Option {...selectOptionProp} value="Asia">
-              Asia
-            </Option>
-            <Option {...selectOptionProp} value="Europe">
-              Europe
-            </Option>
-            <Option {...selectOptionProp} value="Africa">
-              Africa
-            </Option>
-            <Option {...selectOptionProp} value="South America">
-              South America
-            </Option>
-            <Option {...selectOptionProp} value="North America">
-              North America
-            </Option>
-            <Option {...selectOptionProp} value="Oceania">
-              Oceania
-            </Option>
+          {/* @ts-ignore */}
+          <Select {...selectProps}>
+            {continents.map((continent) => (
+              <Option
+                key={continent.name}
+                value={continent.name}
+                {...selectOptionProp}
+              >
+                {continent.name}
+              </Option>
+            ))}
           </Select>
         </motion.div>
 
         {/* SELECTED COMPONENT AND COUNTRY LIST */}
         <div className="w-full lg:py-10 2xl:py-sect-short">
           <AnimatePresence mode="wait">
-            {selectedContinent && (
+            {loading ? (
+              <LoadingState keyName={`loading-${filterKey}`} />
+            ) : error ? (
+              <ErrorState keyName={`error-${filterKey}`} />
+            ) : !selectedContinent || selectedContinent.count === 0 ? (
+              <NotFoundState keyName={`not-found-${filterKey}`} />
+            ) : (
               <motion.div
-                key={selectedContinent.name}
+                key={filterKey}
                 id="continent"
                 initial="hiddenY"
                 whileInView="visible"
@@ -169,74 +161,26 @@ const DiscoverCountries: React.FC<DiscoverCountriesProps> = ({
                     {selectedContinent.name}
                   </h2>
                 </div>
-
-                {countryLoading && (
-                  <motion.div
-                    key="Loading..."
-                    initial="hiddenY"
-                    whileInView="visible"
-                    variants={variants}
-                    exit="hiddenY"
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, ease: "easeInOut" }}
-                    className="grid h-full w-full place-items-center py-4"
-                  >
-                    <h3 className="h3-md">Loading...</h3>
-                  </motion.div>
-                )}
-                {countryError && (
-                  <motion.div
-                    key={countryError}
-                    initial="hiddenY"
-                    whileInView="visible"
-                    variants={variants}
-                    exit="hiddenY"
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, ease: "easeInOut" }}
-                    className="grid h-full w-full place-items-center py-4"
-                  >
-                    <h3 className="h3-md">
-                      Error... Please reload the page or try again later.
-                    </h3>
-                  </motion.div>
-                )}
-                {selectedContinent.countries.length === 0 && (
-                  <motion.div
-                    key="no-countries"
-                    initial="hiddenY"
-                    whileInView="visible"
-                    variants={variants}
-                    exit="hiddenY"
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, ease: "easeInOut" }}
-                    className="grid h-full w-full place-items-start py-4"
-                  >
-                    <h3 className="h3-md">No countries found.</h3>
-                  </motion.div>
-                )}
-
-                {!countryLoading && !countryError && (
-                  <motion.div
-                    initial="hiddenY"
-                    whileInView="visible"
-                    variants={variants}
-                    viewport={{ once: true }}
-                    transition={{
-                      duration: 0.5,
-                      delay: 0.8,
-                      delayChildren: 1.2,
-                      staggerChildren: 0.3,
-                    }}
-                    className="grid justify-between lg:grid-cols-3 lg:gap-8 2xl:grid-cols-4 2xl:gap-8"
-                    aria-label="Country list"
-                  >
-                    {selectedContinent.countries.map((country) => (
-                      <motion.div variants={variants} key={country._id}>
-                        <CountryCard country={country} />
-                      </motion.div>
-                    ))}
-                  </motion.div>
-                )}
+                <motion.div
+                  initial="hiddenY"
+                  whileInView="visible"
+                  variants={variants}
+                  viewport={{ once: true }}
+                  transition={{
+                    duration: 0.5,
+                    delay: 0.8,
+                    delayChildren: 1.2,
+                    staggerChildren: 0.3,
+                  }}
+                  className="grid justify-between lg:grid-cols-3 lg:gap-8 2xl:grid-cols-4 2xl:gap-8"
+                  aria-label="Country list"
+                >
+                  {selectedContinent.countries.map((country) => (
+                    <motion.div variants={variants} key={country._id}>
+                      <CountryCard country={country} />
+                    </motion.div>
+                  ))}
+                </motion.div>
               </motion.div>
             )}
           </AnimatePresence>

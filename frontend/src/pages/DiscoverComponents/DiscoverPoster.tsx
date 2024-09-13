@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Destination from "src/types/Destination";
 import { optimizeImage } from "src/utils/optimizeImage";
-import { useViewportWidth } from "src/utils/imageUtils";
+import { getImageSize, useViewportWidth } from "src/utils/imageUtils";
 import { HoverVariants, VisibilityVariants } from "src/utils/variants";
 
 const variants = {
@@ -21,6 +21,29 @@ const DiscoverPoster: React.FC<DiscoverPosterProps> = ({
   featuredDestinations,
 }) => {
   const viewportWidth = useViewportWidth();
+  const imageSize = getImageSize(viewportWidth);
+
+  const optimizedDestinations = useMemo(() => {
+    return featuredDestinations.map((destination) => {
+      if (!destination.images || destination.images.length === 0) {
+        return destination;
+      }
+      return {
+        ...destination,
+        images: destination.images.map((image) =>
+          optimizeImage(image, {
+            width: imageSize,
+            quality: 80,
+            format: "auto",
+          }),
+        ),
+      };
+    });
+  }, [featuredDestinations, viewportWidth]);
+
+  if (featuredDestinations.length === 0 || !featuredDestinations) {
+    return null;
+  }
 
   return (
     <motion.section
@@ -38,42 +61,42 @@ const DiscoverPoster: React.FC<DiscoverPosterProps> = ({
         loop
         className="h-full"
       >
-        {featuredDestinations.map((destination) => {
-          const imageProps = useMemo(() => {
-            if (destination.images && destination.images.length > 0 && destination.images[0]) {
-              return optimizeImage(destination.images[0], {
-                width: Math.min(viewportWidth, 1920),
-                quality: 80,
-                format: "auto",
-              });
-            }
-            return { src: "", srcSet: "" };
-          }, [destination.images, viewportWidth]);
-
+        {optimizedDestinations.map((destination) => {
           return (
             <motion.div
               className="poster px-sect relative flex h-full w-screen cursor-pointer flex-col gap-0 bg-gradient-to-t from-background-dark to-transparent py-sect-short"
               key={destination._id}
             >
-              {imageProps.src && (
-                <Link
-                  to={`destinations/${destination._id}`}
-                  target="_top"
-                  className="absolute left-0 top-0 h-full w-full overflow-hidden"
-                >
-                  <motion.img
-                    whileHover="hoverScale"
-                    transition={{ duration: 0.4 }}
-                    variants={variants}
-                    {...imageProps}
-                    loading="lazy"
-                    className="cursor-hover z-0 h-full w-full object-cover brightness-75"
-                    alt="Featured destination"
-                  />
-                </Link>
-              )}
+              <Link
+                to={`destinations/${destination._id}`}
+                target="_top"
+                className="absolute left-0 top-0 h-full w-full overflow-hidden"
+              >
+                <motion.img
+                  whileHover="hoverScale"
+                  transition={{ duration: 0.4 }}
+                  variants={variants}
+                  src={
+                    destination.images && destination.images.length > 0
+                      ? typeof destination.images[0] === "string"
+                        ? destination.images[0]
+                        : destination.images[0].src || ""
+                      : ""
+                  }
+                  srcSet={
+                    destination.images && destination.images.length > 0
+                      ? typeof destination.images[0] === "string"
+                        ? ""
+                        : destination.images[0].srcSet || ""
+                      : ""
+                  }
+                  loading="lazy"
+                  className="cursor-hover z-0 h-full w-full object-cover brightness-75"
+                  alt={`Featured destination: ${destination.name}`}
+                />
+              </Link>
 
-              <div className="z-10 w-fit pt-sect-short pointer-events-none">
+              <div className="pointer-events-none z-10 w-fit pt-sect-short">
                 <div className="overflow-hidden">
                   <motion.h1
                     initial={{ y: "100%" }}
