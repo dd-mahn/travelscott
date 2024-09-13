@@ -1,8 +1,8 @@
 import React, { memo, useCallback, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from 'src/store/store';
-import { setHomeBlogs, setBlogChunks } from 'src/store/slices/homeSlice';
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "src/store/store";
+import { setHomeBlogs, setBlogChunks } from "src/store/slices/homeSlice";
 
 import "src/styles/home.css";
 
@@ -17,7 +17,6 @@ import Quote from "./HomeComponents/Quote";
 import useFetch from "src/hooks/useFetch";
 import { FetchBlogsType } from "src/types/FetchData";
 import { BASE_URL } from "src/utils/config";
-import Blog from "src/types/Blog";
 import { createBlogChunks } from "src/utils/createBlogChunks";
 import { VisibilityVariants } from "src/utils/variants";
 
@@ -30,35 +29,24 @@ const variants = {
 // Home component
 const Home: React.FC = () => {
   const dispatch = useDispatch();
-  const selectHomeState = useCallback((state: RootState) => ({
-    blogs: state.home.blogs,
-    blogChunks: state.home.blogChunks
-  }), []);
-  const { blogs, blogChunks } = useSelector(selectHomeState);
+  const selectHomeState = useCallback(
+    (state: RootState) => ({
+      blogs: state.home.blogs,
+    }),
+    [],
+  );
+  const { blogs } = useSelector(selectHomeState);
 
   // Fetch blogs data for Articles and Starter sections
-  const { data: blogsData } = useFetch<FetchBlogsType>(`${BASE_URL}/blogs?limit=100`);
+  const { data: blogsData } = useFetch<FetchBlogsType>(
+    `${BASE_URL}/blogs?limit=100`,
+  );
 
   useEffect(() => {
     if (blogsData?.result) {
       dispatch(setHomeBlogs(blogsData.result));
     }
   }, [blogsData, dispatch]);
-
-  useEffect(() => {
-    if (blogs.length > 0) {
-      const chunks = createBlogChunks(blogs);
-      dispatch(setBlogChunks(chunks));
-    }
-  }, [blogs, dispatch]);
-
-  // Handle sticky sections top value
-  useEffect(() => {
-    const stackedSections = document.querySelectorAll<HTMLElement>(".stacked-section");
-    stackedSections.forEach((section) => {
-      section.style.top = `${window.innerHeight - section.offsetHeight}px`;
-    });
-  }, []);
 
   // Create a ref for the Articles component
   const articlesHookRef = useMemo(() => React.createRef<HTMLSpanElement>(), []);
@@ -70,12 +58,12 @@ const Home: React.FC = () => {
       <Featured />
 
       {/* Stacked sections container */}
-      <section className="stacked lg:pt-sect-default 2xl:pt-sect-semi">
+      <section className="lg:pt-sect-default 2xl:pt-sect-semi">
         <div className="sticky top-0 z-0">
           <Inspired />
         </div>
 
-        <Articles articlesHookRef={articlesHookRef} blogChunks={blogChunks} />
+        <Articles articlesHookRef={articlesHookRef} blogs={blogs} />
 
         {/* Starter hook section */}
         <div className="sticky top-0 z-20 bg-background-light">
