@@ -5,7 +5,7 @@ import { RootState } from "src/store/store";
 import { setCountryBlogs } from "src/store/slices/countrySlice";
 
 // Components
-import FeaturedBlogs from "src/components/common/FeaturedBlogs";
+import FeaturedBlogs from "src/common/FeaturedBlogs";
 import Country from "src/types/Country";
 import Blog from "src/types/Blog";
 import { FetchBlogsType } from "src/types/FetchData";
@@ -60,7 +60,7 @@ const CountryArticles: React.FC<CountryArticlesProps> = ({ country }) => {
   if (blogError || countryBlogs.length === 0) return null;
 
   return (
-    <section className="stacked-section blogs sticky -top-sect-semi z-20 flex w-screen flex-col items-start gap-16 rounded-3xl bg-light-brown pt-sect-short shadow-section">
+    <section className="blogs z-20 flex w-screen flex-col items-start gap-16 rounded-3xl bg-light-brown pt-sect-short shadow-section">
       <div className="mt-sect-short w-full overflow-hidden">
         <motion.h1
           variants={variants}

@@ -1,7 +1,7 @@
 import React, { memo, useCallback, useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { InspirationFilter } from "src/components/common/FIlterBoard";
-import { CatalogPagination } from "src/components/common/Pagination";
+import { InspirationFilter } from "src/common/FilterBoards";
+import { CatalogPagination } from "src/common/Pagination";
 import { FetchBlogsType } from "src/types/FetchData";
 import useFetch from "src/hooks/useFetch";
 import { BASE_URL } from "src/utils/config";

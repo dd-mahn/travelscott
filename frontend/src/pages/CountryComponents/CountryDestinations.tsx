@@ -6,7 +6,7 @@ import { BASE_URL } from "src/utils/config";
 import useFetch from "src/hooks/useFetch";
 import { FetchDestinationType } from "src/types/FetchData";
 import Country from "src/types/Country";
-import { CountryDestinationFilter } from "src/common/FIlterBoards";
+import { CountryDestinationFilter } from "src/common/FilterBoards";
 import {
   setDestinations,
   setTotalDestinations,

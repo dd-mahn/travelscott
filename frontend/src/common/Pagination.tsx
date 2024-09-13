@@ -1,8 +1,6 @@
 import React, {
   MouseEventHandler,
-  useCallback,
   useMemo,
-  useState,
 } from "react";
 import { motion } from "framer-motion";
 import { HoverVariants, TapVariants } from "src/utils/variants";
