@@ -5,6 +5,7 @@ import Blog from "src/types/Blog";
 
 interface CountryState {
   currentCountry: Country | null;
+  countries: Country[];
   countryDestinations: Destination[];
   countryBlogs: Blog[];
   loading: boolean;
@@ -13,6 +14,7 @@ interface CountryState {
 
 const initialState: CountryState = {
   currentCountry: null,
+  countries: [],
   countryDestinations: [],
   countryBlogs: [],
   loading: false,
@@ -25,6 +27,9 @@ const countrySlice = createSlice({
   reducers: {
     setCurrentCountry: (state, action: PayloadAction<Country | null>) => {
       state.currentCountry = action.payload;
+    },
+    setCountries: (state, action: PayloadAction<Country[]>) => {
+      state.countries = action.payload;
     },
     setCountryDestinations: (state, action: PayloadAction<Destination[]>) => {
       state.countryDestinations = action.payload;
@@ -43,6 +48,7 @@ const countrySlice = createSlice({
 
 export const {
   setCurrentCountry,
+  setCountries,
   setCountryDestinations,
   setCountryBlogs,
   setLoading,
