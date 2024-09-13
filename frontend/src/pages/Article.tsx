@@ -1,11 +1,11 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import RelatedSections from "src/components/common/RelatedSections";
+import RelatedSections from "src/common/RelatedSections";
 import useFetch from "src/hooks/useFetch";
 import Blog from "src/types/Blog";
 import { BASE_URL } from "src/utils/config";
 import NotFoundPage from "./404";
-import Loading from "src/components/common/Loading";
+import Loading from "src/common/Loading";
 
 const Article: React.FC = () => {
   const { id } = useParams();
@@ -31,13 +31,10 @@ const Article: React.FC = () => {
   return (
     <main className="">
       <div
-        className="h-[75svh]"
-        style={{
-          backgroundImage: `url(${blogData.image})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      ></div>
+        className="h-[75svh] bg-gradient-to-t from-background-dark to-transparent"
+      >
+        <img src={blogData.image} alt={blogData.title} className="h-full w-full object-cover" />
+      </div>
 
       <div className="mt-20 flex h-[35svh] flex-col items-center gap-4">
         <span className="span-medium text-gray">{blogData.category}</span>

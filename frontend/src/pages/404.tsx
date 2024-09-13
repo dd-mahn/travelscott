@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import "src/styles/404.css";
-import { NoirButton } from "src/components/common/Button";
+import { NoirButton } from "src/common/Button";
 import { AuroraVariants, VisibilityVariants } from "src/utils/variants";
 
 const variants = {

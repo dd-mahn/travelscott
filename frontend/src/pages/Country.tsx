@@ -11,19 +11,18 @@ import {
 import useFetch from "src/hooks/useFetch";
 
 // Components
-import RelatedSections from "src/components/common/RelatedSections";
-import Loading from "src/components/common/Loading";
+import RelatedSections from "src/common/RelatedSections";
+import Loading from "src/common/Loading";
 import CountryGuide from "./CountryComponents/CountryGuide";
 import CountryArticles from "./CountryComponents/CountryArticles";
 import CountryDestinations from "./CountryComponents/CountryDestinations";
 import { BASE_URL } from "src/utils/config";
 import NotFoundPage from "./404";
 import Country from "src/types/Country";
-import {
-  VisibilityVariants,
-} from "src/utils/variants";
+import { VisibilityVariants } from "src/utils/variants";
 import CountryOverview from "./CountryComponents/CountryOverview";
 import CountryHero from "./CountryComponents/CountryHero";
+import useStackedSections from "src/hooks/useStackedSections";
 
 // Animation variants
 const variants = {
@@ -55,6 +54,10 @@ const CountryPage: React.FC = () => {
     }
   }, [dispatch, fetchLoading, fetchError, countryData]);
 
+  // Handle sticky sections top value
+  const { refs: stackedRefs, setRef } = useStackedSections();
+
+  // Render logic
   if (loading) {
     return <Loading />;
   }
@@ -103,11 +106,18 @@ const CountryPage: React.FC = () => {
           />
         </motion.div>
 
-        <CountryGuide country={currentCountry} />
-        <CountryArticles country={currentCountry} />
-        <CountryDestinations country={currentCountry} />
-      </section>
+        <section ref={setRef(0)} className="sticky">
+          <CountryGuide country={currentCountry} />
+        </section>
 
+        <section ref={setRef(1)} className="sticky">
+          <CountryArticles country={currentCountry} />
+        </section>
+
+        <section ref={setRef(2)} className="sticky">
+          <CountryDestinations country={currentCountry} />
+        </section>
+      </section>
       {/* MORE COUNTRIES SECTION */}
       <section className="px-sect flex flex-col gap-4 lg:py-40 2xl:py-60">
         <div className="overflow-hidden">

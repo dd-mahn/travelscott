@@ -5,8 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import Header from "src/components/Header/Header";
 import Footer from "src/components/Footer/Footer";
-import AnimatedLogoScreen from "../common/AnimatedLogoScreen";
-import Cursor from "../common/Cursors";
+import AnimatedLogoScreen from "../../common/AnimatedLogoScreen";
+import Cursor from "../../common/Cursors";
 
 const Layout: React.FC = () => {
   const location = useLocation();

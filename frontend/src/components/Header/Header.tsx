@@ -24,7 +24,7 @@ import { BASE_URL } from "src/utils/config";
 import Destination from "src/types/Destination";
 import Country from "src/types/Country";
 import Blog from "src/types/Blog";
-import SearchResult from "../common/SearchResult";
+import SearchResult from "../../common/SearchResult";
 import { search } from "src/utils/handleSearch";
 
 // Navigation items

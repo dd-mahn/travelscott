@@ -4,8 +4,8 @@ import { AnimatePresence, motion } from "framer-motion";
 
 import { BASE_URL } from "src/utils/config";
 import { resetForm } from "src/utils/resetForm";
-import StyledInput from "src/components/common/StyledInput";
-import { SecondaryButton } from "src/components/common/Button";
+import StyledInput from "src/common/StyledInput";
+import { SecondaryButton } from "src/common/Button";
 import {
   HoverVariants,
   TapVariants,
