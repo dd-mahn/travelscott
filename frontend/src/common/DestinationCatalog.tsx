@@ -52,11 +52,11 @@ const DestinationCatalog: React.FC<DestinationCatalogProps> = ({
     <section className="min-h-[50svh] w-full" ref={sectionRef}>
       <AnimatePresence mode="wait">
         {loading ? (
-          <LoadingState key={`loading-state-${currentPage}-${filterKey}`} />
+          <LoadingState keyName={`loading-state-${currentPage}-${filterKey}`} />
         ) : error ? (
-          <ErrorState key={`error-state-${currentPage}-${filterKey}`} />
+          <ErrorState keyName={`error-state-${currentPage}-${filterKey}`} />
         ) : destinations.length === 0 ? (
-          <NotFoundState key={`not-found-state-${currentPage}-${filterKey}`} />
+          <NotFoundState keyName={`not-found-state-${currentPage}-${filterKey}`} />
         ) : (
           destinations.length > 0 && (
             <motion.div
