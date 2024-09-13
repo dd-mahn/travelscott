@@ -11,7 +11,7 @@ import { motion, useTransform, useScroll } from "framer-motion";
 import { debounce } from "lodash";
 
 import Destination from "src/types/Destination";
-import Loading from "src/components/common/Loading";
+import Loading from "src/common/Loading";
 import FeaturedDestinationCard from "./FeaturedDestinationCard";
 import { HoverVariants, VisibilityVariants } from "src/utils/variants";
 
@@ -71,7 +71,8 @@ const HorizontalScrollCarousel: React.FC<HorizontalScrollCarouselProps> = memo(
         <motion.section
           initial="hiddenScale"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-30%" }}
+          transition={{ duration: 0.5 }}
           variants={variants}
           ref={targetRef}
           className="relative h-[400svh]"

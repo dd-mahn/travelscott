@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 // Component imports
 import HorizontalScrollCarousel from "./FeaturedHorizontalScroller";
 import { featuredDemo } from "src/data/featuredDemo";
-import { SecondaryButton } from "src/components/common/Button";
+import { SecondaryButton } from "src/common/Button";
 import { VisibilityVariants } from "src/utils/variants";
 
 // Framer motion variants for animations

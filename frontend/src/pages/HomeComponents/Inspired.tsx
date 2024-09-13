@@ -7,7 +7,7 @@ import { VisibilityVariants } from "src/utils/variants";
 const variants = {
   hiddenY: VisibilityVariants.hiddenY,
   hiddenFullY: VisibilityVariants.hiddenFullY,
-  hiddenScale: VisibilityVariants.hiddenScale,
+  hiddenScaleRight: VisibilityVariants.hiddenScaleRight,
   visible: VisibilityVariants.visible,
 };
 
@@ -19,7 +19,7 @@ const Inspired: React.FC = () => {
       <motion.div 
         className="absolute left-0 top-0 z-0 h-svh w-full"
         variants={variants}
-        initial="hiddenScale"
+        initial="hiddenScaleRight"
         whileInView="visible"
         viewport={{ once: true, margin: "-300px" }}
         transition={{ duration: 1, delay: 2 }}

@@ -7,7 +7,7 @@ import airplane1 from "src/assets/svg/airplane-1.svg";
 import airplane2 from "src/assets/svg/airplane-2.svg";
 import airplane3 from "src/assets/svg/airplane-3.svg";
 // Import custom button components
-import { PrimaryButton, SecondaryButton } from "src/components/common/Button";
+import { PrimaryButton, SecondaryButton } from "src/common/Button";
 import { HoverVariants, VisibilityVariants } from "src/utils/variants";
 
 // Define Framer Motion animation variants
