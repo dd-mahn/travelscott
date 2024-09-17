@@ -1,8 +1,10 @@
-import React, { memo } from "react";
+import React, { memo, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 import Country from "src/types/Country";
 import { VisibilityVariants } from "src/utils/variants";
 import { Carousel } from "@material-tailwind/react";
+import { optimizeImage } from "src/utils/optimizeImage";
+import { getImageSize, useViewportWidth } from "src/utils/imageUtils";
 
 const variants = {
   hiddenY: VisibilityVariants.hiddenY,
@@ -11,6 +13,18 @@ const variants = {
 };
 
 const CountryHero = ({ country }: { country: Country }) => {
+  const viewportWidth = useViewportWidth();
+
+  const optimizedImages = useMemo(() => {
+    return country.images.otherImages?.map((image) =>
+      optimizeImage(image, {
+        width: getImageSize(viewportWidth),
+        quality: 80,
+        format: "auto",
+      }),
+    );
+  }, [country.images.otherImages, viewportWidth]);
+
   return (
     <motion.section
       initial="hiddenY"
@@ -21,13 +35,14 @@ const CountryHero = ({ country }: { country: Country }) => {
     >
       {/* @ts-ignore */}
       <Carousel autoplay autoplayDelay={4000} transition={{ duration: 2 }} loop>
-        {country.images.otherImages?.map((image, index) => (
+        {optimizedImages?.map((image, index) => (
           <div
             className="h-full w-svw bg-gradient-to-t from-blue-gray-900 to-gray"
             key={index}
           >
             <img
-              src={image}
+              src={image.src}
+              srcSet={image.srcSet}
               alt={`${country.name} image`}
               className="h-full w-full object-cover"
             />

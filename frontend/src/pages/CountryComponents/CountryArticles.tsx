@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "src/store/store";
@@ -7,7 +7,6 @@ import { setCountryBlogs } from "src/store/slices/countrySlice";
 // Components
 import FeaturedBlogs from "src/common/FeaturedBlogs";
 import Country from "src/types/Country";
-import Blog from "src/types/Blog";
 import { FetchBlogsType } from "src/types/FetchData";
 import useFetch from "src/hooks/useFetch";
 import { BASE_URL } from "src/utils/config";
@@ -16,6 +15,7 @@ import {
   TapVariants,
   VisibilityVariants,
 } from "src/utils/variants";
+import { LoadingState } from "src/common/CatalogStates";
 
 // Define the props for the CountryArticles component
 interface CountryArticlesProps {
@@ -44,17 +44,16 @@ const CountryArticles: React.FC<CountryArticlesProps> = ({ country }) => {
     data: blogData,
     loading: blogLoading,
     error: blogError,
-  } = useFetch<FetchBlogsType>(`${BASE_URL}/blogs?limit=20`);
+  } = useFetch<FetchBlogsType>(
+    `${BASE_URL}/blogs?limit=20&tags=${country.name}`
+  );
 
   // Filter blogs based on the country name
   useEffect(() => {
     if (blogData?.result) {
-      const filteredBlogs = blogData.result.filter((blog) =>
-        blog.tags.includes(country.name),
-      );
-      dispatch(setCountryBlogs(filteredBlogs));
+      dispatch(setCountryBlogs(blogData.result));
     }
-  }, [blogData, country.name, dispatch]);
+  }, [blogData, dispatch]);
 
   // Return null if there's an error or no blogs
   if (blogError || countryBlogs.length === 0) return null;
@@ -76,18 +75,7 @@ const CountryArticles: React.FC<CountryArticlesProps> = ({ country }) => {
 
       <AnimatePresence mode="wait">
         {blogLoading ? (
-          <motion.div
-            key={`loading-${country.name}`}
-            variants={variants}
-            initial="hiddenY"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-10%" }}
-            exit="hiddenShort"
-            transition={{ duration: 0.5 }}
-            className="grid w-full place-items-center py-sect-short"
-          >
-            <h3 className="h3-md">Loading...</h3>
-          </motion.div>
+          <LoadingState keyName={`loading-${country.name}`} />
         ) : (
           <motion.div
             key={`articles-${country.name}`}

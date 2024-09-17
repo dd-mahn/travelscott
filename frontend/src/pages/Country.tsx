@@ -62,25 +62,10 @@ const CountryPage: React.FC = () => {
     return <Loading />;
   }
 
-  if (error) {
-    return (
-      <motion.div
-        initial="hiddenY"
-        animate="visible"
-        variants={variants}
-        transition={{ duration: 0.5 }}
-        className="grid h-screen w-full place-items-center"
-      >
-        <h3 className="h3-md">{error}</h3>
-      </motion.div>
-    );
-  }
-
-  if (!currentCountry) {
+  if (error || !currentCountry) {
     return <NotFoundPage />;
   }
 
-  // Rest of the component remains the same, using currentCountry from Redux state
   return (
     <main className="country">
       {/* HERO SECTION */}
@@ -90,7 +75,7 @@ const CountryPage: React.FC = () => {
       <CountryOverview country={currentCountry} />
 
       {/* STACKED SECTIONS */}
-      <section className="map 2xl:pt-30 relative lg:pt-sect-short">
+      <section className="2xl:pt-30 relative lg:pt-sect-short">
         <motion.div
           variants={variants}
           initial="hiddenY"
@@ -119,7 +104,7 @@ const CountryPage: React.FC = () => {
         </section>
       </section>
       {/* MORE COUNTRIES SECTION */}
-      <section className="px-sect flex flex-col gap-4 lg:py-40 2xl:py-60">
+      <section className="flex flex-col gap-4 lg:py-40 2xl:py-60">
         <div className="overflow-hidden">
           <motion.h2
             variants={variants}
@@ -127,7 +112,7 @@ const CountryPage: React.FC = () => {
             whileInView="visible"
             transition={{ duration: 0.5, ease: "easeInOut" }}
             viewport={{ once: true }}
-            className="h2-md"
+            className="h2-md px-sect"
           >
             More countries
           </motion.h2>
