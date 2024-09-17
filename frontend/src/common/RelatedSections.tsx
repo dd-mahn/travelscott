@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import "src/common/style/related-section.css";
 // Component imports
 import useFetch from "src/hooks/useFetch";
-import { useViewportWidth } from "src/utils/imageUtils";
+import { getImageSize, useViewportWidth } from "src/utils/imageUtils";
 import { optimizeImage } from "src/utils/optimizeImage";
 import { BASE_URL } from "src/utils/config";
 
@@ -132,7 +132,7 @@ const RelatedCountries: React.FC<{ country: Country }> = ({ country }) => {
   return (
     <>
       {relatedCountries.length < 6 ? (
-        <div className="related-countries grid min-h-[20svh] w-screen gap-2 pb-sect-short lg:grid-cols-4 2xl:grid-cols-5">
+        <div className="related-countries pl-sect grid min-h-[20svh] w-screen gap-2 pb-sect-short lg:grid-cols-4 2xl:grid-cols-5">
           {relatedCountries.map((country) => (
             <CountryCard
               key={country._id}
@@ -190,7 +190,7 @@ const RelatedDestinations: React.FC<{ destination: Destination }> = ({
   return (
     <>
       {relatedDestinations.length < 5 ? (
-        <div className="related-destinations grid min-h-[20svh] w-screen gap-2 pb-sect-short lg:grid-cols-4 2xl:grid-cols-5">
+        <div className="related-destinations pl-sect grid min-h-[20svh] w-screen gap-2 pb-sect-short lg:grid-cols-4 2xl:grid-cols-5">
           {relatedDestinations.map((destination) => (
             <DestinationCard
               key={destination._id}
@@ -256,7 +256,7 @@ const RelatedArticles: React.FC<{
   return (
     <>
       {relatedBlogs.length < 5 ? (
-        <div className="related-blogs grid min-h-[20svh] w-screen gap-2 pb-sect-short lg:grid-cols-4 2xl:grid-cols-5">
+        <div className="related-blogs pl-sect grid min-h-[20svh] w-screen gap-2 pb-sect-short lg:grid-cols-4 2xl:grid-cols-5">
           {relatedBlogs.map((blog) => (
             <BlogCard
               key={blog._id}
@@ -288,7 +288,7 @@ const CountryCard: React.FC<{ country: Country; viewportWidth: number }> = ({
   const imageProps = useMemo(() => {
     if (country.images.otherImages && country.images.otherImages.length > 0) {
       return optimizeImage(country.images.otherImages[0], {
-        width: Math.min(viewportWidth, 1920),
+        width: getImageSize(viewportWidth),
         quality: 80,
         format: "auto",
       });
@@ -324,7 +324,7 @@ const DestinationCard: React.FC<{
   const imageProps = useMemo(() => {
     if (destination.images && destination.images[0]) {
       return optimizeImage(destination.images[0], {
-        width: Math.min(viewportWidth, 1920),
+        width: getImageSize(viewportWidth),
         quality: 80,
         format: "auto",
       });
@@ -360,7 +360,7 @@ const BlogCard: React.FC<{ blog: Blog; viewportWidth: number }> = ({
   const imageProps = useMemo(() => {
     if (blog.image) {
       return optimizeImage(blog.image, {
-        width: Math.min(viewportWidth, 1920),
+        width: getImageSize(viewportWidth),
         quality: 80,
         format: "auto",
       });

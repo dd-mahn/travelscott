@@ -30,9 +30,8 @@ const FeaturedDestinationCard: React.FC<DestinationCardProps> = memo(
 
     // Memoize image properties to prevent unnecessary recalculations
     const imageProps = useMemo(() => {
-      const imageSize = getImageSize(viewportWidth);
       return optimizeImage(destination.images?.[0] ?? "", {
-        width: imageSize,
+        width: getImageSize(viewportWidth),
         quality: 80,
         format: "auto",
       });

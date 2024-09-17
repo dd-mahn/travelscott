@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { motion } from "framer-motion";
 
 import Destination from "src/types/Destination";
@@ -18,15 +18,16 @@ const variants = {
 
 const DestinationCard: React.FC<DestinationCardProps> = ({ destination }) => {
   const viewportWidth = useViewportWidth();
-  const imageSize = getImageSize(viewportWidth);
 
-  const optimizedImage = destination.images && destination.images.length > 0
+  const optimizedImage = useMemo(() => destination.images && destination.images.length > 0
     ? optimizeImage(destination.images[0], {
-        width: imageSize,
+        width: getImageSize(viewportWidth),
         quality: 80,
         format: "auto",
       })
-    : null;
+    : null,
+    [destination.images, viewportWidth]
+  );
 
   return (
     <div

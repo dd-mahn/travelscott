@@ -20,18 +20,17 @@ const variants = {
 
 const FeaturedBlogs: React.FC<featuredBlogsProps> = ({ blogs }) => {
   const viewportWidth = useViewportWidth();
-  const imageSize = getImageSize(viewportWidth);
 
   const optimizedBlogs = useMemo(() => {
     return blogs.map((blog) => ({
       ...blog,
       image: optimizeImage(blog.image, {
-        width: imageSize,
+        width: getImageSize(viewportWidth),
         quality: 100,
         format: "auto",
       }),
     }));
-  }, [blogs, imageSize]);
+  }, [blogs, viewportWidth]);
 
   return (
     <div className="flex w-screen flex-col items-center gap-8 pb-sect-default">

@@ -1,12 +1,26 @@
-import React, { memo } from "react";
+import React, { memo, useMemo } from "react";
 import { Carousel } from "@material-tailwind/react";
 import Destination from "src/types/Destination";
+import { optimizeImage } from "src/utils/optimizeImage";
+import { getImageSize, useViewportWidth } from "src/utils/imageUtils";
 
 interface DestinationHeroProps {
   destination: Destination;
 }
 
 const DestinationHero: React.FC<DestinationHeroProps> = ({ destination }) => {
+  const viewportWidth = useViewportWidth();
+
+  const optimizedImages = useMemo(() => destination.images?.map((image) => {
+    return optimizeImage(image, {
+      width: getImageSize(viewportWidth),
+      quality: 80,
+      format: "auto",
+      });
+    }),
+    [destination.images, viewportWidth]
+  );
+
   return (
     <section className="hero relative h-screen">
       <div className="absolute top-0 z-10 grid h-[90%] w-full place-items-center bg-background-dark bg-opacity-20">
@@ -25,17 +39,15 @@ const DestinationHero: React.FC<DestinationHeroProps> = ({ destination }) => {
           autoplayDelay={4000}
           transition={{ duration: 2 }}
           loop
-          placeholder={undefined}
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
         >
-          {destination.images?.map((image, index) => (
+          {optimizedImages?.map((image, index) => (
             <div
               className="grid h-full w-full place-items-center bg-gradient-to-t from-blue-gray-900 to-gray"
               key={index}
             >
               <img
-                src={image}
+                src={image.src}
+                srcSet={image.srcSet}
                 alt={destination.name}
                 className="h-full w-full object-cover"
               />

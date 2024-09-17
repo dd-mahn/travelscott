@@ -15,7 +15,7 @@ import { setStarterBlogs } from 'src/store/slices/blogSlice';
 // Import custom types and utility functions
 import BlogType from "src/types/Blog";
 import { optimizeImage } from "src/utils/optimizeImage";
-import { useViewportWidth } from "src/utils/imageUtils";
+import { getImageSize, useViewportWidth } from "src/utils/imageUtils";
 import { HoverVariants, VisibilityVariants } from "src/utils/variants";
 
 // Define interfaces for component props and state
@@ -97,7 +97,7 @@ const BlogComponent: React.FC<{
     const imageProps = useMemo(
       () =>
         optimizeImage(blog.image, {
-          width: Math.min(viewportWidth, 400),
+          width: getImageSize(viewportWidth),
           quality: 80,
           format: "auto",
         }),

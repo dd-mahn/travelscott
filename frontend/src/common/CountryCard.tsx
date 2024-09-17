@@ -1,4 +1,4 @@
-import React, { memo, Suspense } from "react";
+import React, { memo, Suspense, useMemo } from "react";
 import { motion } from "framer-motion";
 
 // Component imports
@@ -24,15 +24,18 @@ const variants = {
 // CountryCard component
 const CountryCard: React.FC<CountryCardProps> = ({ country }) => {
   const viewportWidth = useViewportWidth();
-  const imageSize = getImageSize(viewportWidth);
 
-  const optimizedImage = country?.images?.flagImages?.[0]
-    ? optimizeImage(country.images.flagImages[0], {
-        width: imageSize,
-        quality: 80,
-        format: "auto",
-      })
-    : null;
+  const optimizedImage = useMemo(
+    () =>
+      country?.images?.flagImages?.[0]
+        ? optimizeImage(country.images.flagImages[0], {
+            width: getImageSize(viewportWidth),
+            quality: 80,
+            format: "auto",
+          })
+        : null,
+    [country.images.flagImages, viewportWidth],
+  );
 
   // Render logic
   return (

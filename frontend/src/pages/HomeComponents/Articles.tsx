@@ -1,5 +1,5 @@
 // Import necessary dependencies and components
-import React, { memo, useCallback, useState, useEffect } from "react";
+import React, { memo, useCallback, useState, useEffect, useMemo } from "react";
 import { motion, useTransform, useScroll } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -36,64 +36,72 @@ type ArticlesProps = {
 const RenderBlog: React.FC<{ blog: Blog; isFeatured: boolean }> = ({
   blog,
   isFeatured,
-}) => (
-  <Link
-    to={`/inspiration/${blog._id}`}
-    target="_top"
-    className={`w-full h-full ${isFeatured ? "flex flex-col gap-4" : "grid grid-cols-2 gap-4"}`}
-    key={blog._id}
-  >
-    <div
-      className={`h-${isFeatured ? "[50svh]" : "full"} w-${isFeatured ? "[50svw]" : "[45%]"} overflow-hidden rounded-lg bg-gradient-to-t from-blue-gray-900 to-gray shadow-component`}
-    >
-      <motion.img
-        loading="lazy"
-        {...optimizeImage(blog.image, {
-          width: isFeatured ? 800 : 400,
-          height: isFeatured ? 600 : 300,
-        })}
-        alt={`${isFeatured ? "featured" : "normal"}BlogImage`}
-        whileHover="hoverScale"
-        transition={{ duration: 0.4 }}
-        variants={variants}
-        className="cursor-hover h-full w-full rounded-lg object-cover"
-      />
-    </div>
-    <div
-      className={`flex ${
-        isFeatured ? "flex-col gap-4" : "w-full flex-col gap-4"
-      }`}
-    >
-      <div className="flex flex-col gap-1 pt-2">
-        <span
-          className={`span-small ${isFeatured ? "text-white" : "text-blue-gray-100"}`}
-        >
-          {blog.category}
-        </span>
-        <motion.p
-          whileHover="hoverX"
-          transition={{ duration: 0.3 }}
-          variants={variants}
-          className={`cursor-hover-small span-medium ${isFeatured ? "uppercase text-text-dark dark:text-text-light" : "w-full text-text-dark dark:text-text-light"}`}
-        >
-          {blog.title}
-        </motion.p>
-      </div>
+}) => {
+  const optimizedImage = useMemo(() => {
+    return optimizeImage(blog.image, {
+      width: isFeatured ? 800 : 400,
+      height: isFeatured ? 600 : 300,
+      quality: 80,
+      format: "auto",
+    });
+  }, [blog.image]);
 
-      {isFeatured && (
-        <>
-          <p className="p-regular overflow-hidden text-text-dark 2xl:w-4/5 3xl:w-3/4 dark:text-text-light">
-            {blog.content[0].sectionText[0]}
-          </p>
-          <span className="span-regular w-3/4 overflow-hidden text-text-dark dark:text-text-light">
-            <i className="ri-time-line span-regular text-text-dark dark:text-text-light"></i>{" "}
-            {formatDate(blog.time)}
+  return (
+    <Link
+      to={`/inspiration/${blog._id}`}
+      target="_top"
+      className={`h-full w-full ${isFeatured ? "flex flex-col gap-4" : "grid grid-cols-2 gap-4"}`}
+      key={blog._id}
+    >
+      <div
+        className={`h-${isFeatured ? "[50svh]" : "full"} w-${isFeatured ? "[50svw]" : "[45%]"} overflow-hidden rounded-lg bg-gradient-to-t from-blue-gray-900 to-gray shadow-component`}
+      >
+        <motion.img
+          loading="lazy"
+          {...optimizedImage}
+          alt={`${isFeatured ? "featured" : "normal"}BlogImage`}
+          whileHover="hoverScale"
+          transition={{ duration: 0.4 }}
+          variants={variants}
+          className="cursor-hover h-full w-full rounded-lg object-cover"
+        />
+      </div>
+      <div
+        className={`flex ${
+          isFeatured ? "flex-col gap-4" : "w-full flex-col gap-4"
+        }`}
+      >
+        <div className="flex flex-col gap-1 pt-2">
+          <span
+            className={`span-small ${isFeatured ? "text-white" : "text-blue-gray-100"}`}
+          >
+            {blog.category}
           </span>
-        </>
-      )}
-    </div>
-  </Link>
-);
+          <motion.p
+            whileHover="hoverX"
+            transition={{ duration: 0.3 }}
+            variants={variants}
+            className={`cursor-hover-small span-medium ${isFeatured ? "uppercase text-text-dark dark:text-text-light" : "w-full text-text-dark dark:text-text-light"}`}
+          >
+            {blog.title}
+          </motion.p>
+        </div>
+
+        {isFeatured && (
+          <>
+            <p className="p-regular overflow-hidden text-text-dark 2xl:w-4/5 3xl:w-3/4 dark:text-text-light">
+              {blog.content[0].sectionText[0]}
+            </p>
+            <span className="span-regular w-3/4 overflow-hidden text-text-dark dark:text-text-light">
+              <i className="ri-time-line span-regular text-text-dark dark:text-text-light"></i>{" "}
+              {formatDate(blog.time)}
+            </span>
+          </>
+        )}
+      </div>
+    </Link>
+  );
+};
 
 // Articles component: Displays a list of blog articles
 const Articles: React.FC<ArticlesProps> = memo(({ articlesHookRef, blogs }) => {
@@ -149,7 +157,7 @@ const Articles: React.FC<ArticlesProps> = memo(({ articlesHookRef, blogs }) => {
                 className="px-sect grid w-screen grid-cols-2 gap-8"
               >
                 <RenderBlog blog={chunk[0]} isFeatured={true} />
-                <div className="grid h-[75svh] pb-4 w-full grid-rows-3 gap-4">
+                <div className="grid h-[75svh] w-full grid-rows-3 gap-4 pb-4">
                   {chunk.slice(1).map((blog) => (
                     <RenderBlog key={blog._id} blog={blog} isFeatured={false} />
                   ))}

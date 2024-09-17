@@ -21,7 +21,6 @@ const DiscoverPoster: React.FC<DiscoverPosterProps> = ({
   featuredDestinations,
 }) => {
   const viewportWidth = useViewportWidth();
-  const imageSize = getImageSize(viewportWidth);
 
   const optimizedDestinations = useMemo(() => {
     return featuredDestinations.map((destination) => {
@@ -32,7 +31,7 @@ const DiscoverPoster: React.FC<DiscoverPosterProps> = ({
         ...destination,
         images: destination.images.map((image) =>
           optimizeImage(image, {
-            width: imageSize,
+            width: getImageSize(viewportWidth),
             quality: 80,
             format: "auto",
           }),
