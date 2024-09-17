@@ -1,139 +1,233 @@
-import React, { memo, useState, useEffect, useCallback } from "react";
-import DestinationType from "src/types/Destination";
+import React, { memo, useState, useCallback, useMemo } from "react";
+import {
+  destinationPlace,
+  placeToEat,
+  placeToStay,
+  placeToVisit,
+} from "src/types/Destination";
 import PlaceDialog from "./placeDialog";
+import SlideRevealIconHeading from "src/common/SlideRevealIconHeading";
+import { AnimatePresence, motion } from "framer-motion";
+import { HoverVariants, VisibilityVariants } from "src/utils/variants";
+import { optimizeImage } from "src/utils/optimizeImage";
 
+// Define the props for the DestinationPlaces component
 type DestinationPlacesProps = {
-  destination: DestinationType;
+  places: destinationPlace;
 };
 
-const DestinationPlaces: React.FC<DestinationPlacesProps> = ({
-  destination,
-}) => {
-  // Handle places display
+// Define animation variants
+const variants = {
+  hidden: VisibilityVariants.hidden,
+  hiddenY: VisibilityVariants.hiddenY,
+  hiddenFullY: VisibilityVariants.hiddenFullY,
+  visible: VisibilityVariants.visible,
+  hoverX: HoverVariants.hoverX,
+  hoverScale: HoverVariants.hoverScale,
+};
+
+// Define category descriptions
+const CATEGORY_DESCRIPTIONS = {
+  to_stay:
+    "These places were chosen after carefully considering a balance of several important factors: price, distance, quality, and ratings. By evaluating these elements, we ensured that the selection offers the best overall value and convenience.",
+  to_visit:
+    "These are the most popular places that are truly worth visiting. Each destination offers unique experiences and attractions that make them stand out as must-see locations.",
+  to_eat:
+    "Don't miss out on enjoying delicious local dishes at these excellent restaurants. They offer a variety of flavors and culinary experiences that are sure to satisfy your taste buds.",
+};
+
+const DestinationPlaces: React.FC<DestinationPlacesProps> = ({ places }) => {
+  // State to manage the current place category
   const [placeCategory, setPlaceCategory] = useState("to_stay");
+
+  // Callback to handle place category change
   const handlePlaceCategoryChange = useCallback((category: string) => {
     setPlaceCategory(category);
   }, []);
 
-  // Handle place catalog
-  useEffect(() => {
-    const dialogs: NodeListOf<HTMLDialogElement> =
-      document.querySelectorAll("dialog");
-    dialogs.forEach((dialog) => {
-      const handleClick = (e: MouseEvent) => {
-        const dialogContent = dialog.querySelector(".dialog-content");
-        if (dialogContent && !dialogContent.contains(e.target as Node)) {
-          dialog.close();
-        }
-      };
-      dialog.addEventListener("click", handleClick);
-      return () => dialog.removeEventListener("click", handleClick);
-    });
-  }, []);
+  // State to manage the current dialog
+  const [currentDialog, setCurrentDialog] = useState<string | null>(null);
 
-  const openPlaceDialog = useCallback((name: string) => {
-    const placeDialog = document.querySelector(`dialog[data-name="${name}"]`);
-    if (placeDialog instanceof HTMLDialogElement) {
-      placeDialog.removeAttribute("hidden");
-      placeDialog.showModal();
-    }
-  }, []);
-
-  const selectedCategoryPlaces =
-    placeCategory === "to_stay"
-      ? destination.places?.to_stay
+  // Memoized selected category places
+  const selectedCategoryPlaces = useMemo(() => {
+    return placeCategory === "to_stay"
+      ? places?.to_stay
       : placeCategory === "to_visit"
-        ? destination.places?.to_visit
-        : destination.places?.to_eat;
+        ? places?.to_visit
+        : places?.to_eat;
+  }, [placeCategory, places]);
 
   return (
     <section
       id="places"
       className="places px-sect rounded-3xl bg-light-green pb-sect-short pt-sect-short shadow-section"
     >
-      <div className="mt-sect-short flex flex-col gap-20">
-        <h1 className="h1-md">
-          <i className="ri-map-pin-fill"></i> Places
-        </h1>
+      <SlideRevealIconHeading
+        iconClass="ri-map-pin-fill"
+        headingText="Places"
+      />
 
-        <div className="flex flex-col gap-6">
-          <h2 className="h2-inter">
-            <span>
-              {placeCategory === "to_stay"
-                ? "To stay"
-                : placeCategory === "to_visit"
-                  ? "To visit"
-                  : "To eat"}
-            </span>
-            <span
-              className="cursor-pointer text-gray"
-              onClick={() =>
-                handlePlaceCategoryChange(
-                  placeCategory === "to_stay"
-                    ? "to_visit"
-                    : placeCategory === "to_visit"
-                      ? "to_eat"
-                      : "to_stay",
-                )
-              }
-            >
-              /
-              {placeCategory === "to_stay"
-                ? "visit"
-                : placeCategory === "to_visit"
-                  ? "eat"
-                  : "stay"}
-            </span>
-            <span
-              className="cursor-pointer text-gray"
-              onClick={() =>
-                handlePlaceCategoryChange(
-                  placeCategory === "to_stay"
-                    ? "to_eat"
-                    : placeCategory === "to_visit"
-                      ? "to_stay"
-                      : "to_visit",
-                )
-              }
-            >
-              /
-              {placeCategory === "to_stay"
-                ? "eat"
-                : placeCategory === "to_visit"
-                  ? "stay"
-                  : "visit"}
-            </span>
-          </h2>
-          <p className="p-regular w-2/5">
-            {placeCategory === "to_stay"
-              ? "These places were chosen after carefully considering a balance of several important factors: price, distance, quality, and ratings. By evaluating these elements, we ensured that the selection offers the best overall value and convenience."
-              : placeCategory === "to_visit"
-                ? "These are the most popular places that are truly worth visiting. Each destination offers unique experiences and attractions that make them stand out as must-see locations."
-                : "Don’t miss out on enjoying delicious local dishes at these excellent restaurants. They offer a variety of flavors and culinary experiences that are sure to satisfy your taste buds."}
-          </p>
-        </div>
-      </div>
-
-      <div className="mt-20 grid grid-cols-3 gap-x-8 gap-y-16">
-        {selectedCategoryPlaces?.map((place, index) => (
-          <div key={index}>
-            <div
-              className="flex cursor-pointer flex-col gap-4"
-              onClick={() => openPlaceDialog(place.name)}
-            >
-              <img
-                className="h-[50svh] rounded-xl"
-                src={place?.image_url}
-                alt="place image"
-              />
-              <span className="span-medium">{place?.name}</span>
+      <AnimatePresence mode="wait">
+        {selectedCategoryPlaces && (
+          <motion.div
+            key={`places-${placeCategory}-${selectedCategoryPlaces.length}`}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            variants={variants}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="mt-sect-short flex flex-col gap-20">
+              <div className="flex flex-col gap-6">
+                <motion.h2
+                  className="h2-inter"
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={variants}
+                  transition={{ duration: 0.5, delay: 0.5 }}
+                >
+                  <span>
+                    {placeCategory === "to_stay"
+                      ? "To stay"
+                      : placeCategory === "to_visit"
+                        ? "To visit"
+                        : "To eat"}
+                  </span>
+                  {["visit", "eat", "stay"]
+                    .filter(
+                      (category) =>
+                        category !== placeCategory.replace("to_", ""),
+                    )
+                    .map((category, index) => (
+                      <span
+                        key={index}
+                        className="cursor-pointer text-gray transition-colors duration-300 hover:text-text-light"
+                        onClick={() =>
+                          handlePlaceCategoryChange(
+                            placeCategory === "to_stay"
+                              ? category === "visit"
+                                ? "to_visit"
+                                : "to_eat"
+                              : placeCategory === "to_visit"
+                                ? category === "eat"
+                                  ? "to_eat"
+                                  : "to_stay"
+                                : category === "stay"
+                                  ? "to_stay"
+                                  : "to_visit",
+                          )
+                        }
+                      >
+                        /{category}
+                      </span>
+                    ))}
+                </motion.h2>
+                <motion.p
+                  className="p-regular w-2/5"
+                  initial="hiddenY"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={variants}
+                  transition={{ duration: 0.5, delay: 0.5 }}
+                >
+                  {
+                    CATEGORY_DESCRIPTIONS[
+                      placeCategory as keyof typeof CATEGORY_DESCRIPTIONS
+                    ]
+                  }
+                </motion.p>
+              </div>
             </div>
-            <PlaceDialog place={place} category={placeCategory} />
-          </div>
-        ))}
-      </div>
+
+            <div className="mt-20 grid grid-cols-3 gap-x-8 gap-y-16">
+              {selectedCategoryPlaces?.map((place, index) => (
+                <PlaceCard
+                  key={index}
+                  place={place}
+                  callBack={() => setCurrentDialog(place.name)}
+                />
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {currentDialog && (
+          <motion.div
+            key={`${currentDialog}-dialog`}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            variants={variants}
+            transition={{ duration: 0.5 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+            onClick={() => setCurrentDialog(null)}
+          >
+            <PlaceDialog
+              place={
+                selectedCategoryPlaces?.find(
+                  (place) => place.name === currentDialog,
+                ) as placeToStay | placeToVisit | placeToEat
+              }
+              category={placeCategory}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
 
 export default memo(DestinationPlaces);
+
+// PlaceCard component to display individual place cards
+const PlaceCard: React.FC<{
+  place: placeToStay | placeToVisit | placeToEat;
+  callBack: () => void;
+}> = memo(({ place, callBack }) => {
+  // Memoized optimized image
+  const optimizedImage = useMemo(() => {
+    return optimizeImage(place.image_url, {
+      width: 600,
+      height: 600,
+      quality: 70,
+      format: "auto",
+    });
+  }, [place]);
+
+  return (
+    <motion.div
+      initial="hiddenY"
+      whileInView="visible"
+      viewport={{ once: true }}
+      variants={variants}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="flex flex-col gap-4">
+        <div className="overflow-hidden rounded-xl">
+          <motion.img
+            whileHover="hoverScale"
+            variants={variants}
+            transition={{ duration: 0.5 }}
+            className="cursor-hover-small h-[50svh] cursor-pointer rounded-xl"
+            src={optimizedImage.src}
+            srcSet={optimizedImage.srcSet}
+            alt="place image"
+            onClick={callBack}
+          />
+        </div>
+
+        <motion.span
+          variants={variants}
+          whileHover="hoverX"
+          transition={{ duration: 0.5 }}
+          className="span-medium cursor-hover-small cursor-pointer"
+          onClick={callBack}
+        >
+          {place?.name}
+        </motion.span>
+      </div>
+    </motion.div>
+  );
+});

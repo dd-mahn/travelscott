@@ -1,14 +1,27 @@
 import React, { memo } from "react";
+import { motion } from "framer-motion";
 import { placeToEat, placeToStay, placeToVisit } from "src/types/Destination";
 import bookingImg from "src/assets/images/ui/destination/booking.png";
 import agodaImg from "src/assets/images/ui/destination/agoda-light.png";
 import tripadvisorImg from "src/assets/images/ui/destination/tripadvisor-light.png";
+import { HoverVariants, VisibilityVariants } from "src/utils/variants";
 
+// Define animation variants
+const variants = {
+  hidden: VisibilityVariants.hidden,
+  hiddenY: VisibilityVariants.hiddenY,
+  visible: VisibilityVariants.visible,
+  hoverScale: HoverVariants.hoverScale,
+  hoverX: HoverVariants.hoverX,
+};
+
+// Define the props for the PlaceDialog component
 type PlaceDialogProps = {
   place: placeToEat | placeToStay | placeToVisit;
   category: string;
 };
 
+// Main component to render the dialog based on the category
 const PlaceDialog: React.FC<PlaceDialogProps> = ({ place, category }) => {
   const renderDialogContent = () => {
     switch (category) {
@@ -26,6 +39,7 @@ const PlaceDialog: React.FC<PlaceDialogProps> = ({ place, category }) => {
   return <>{renderDialogContent()}</>;
 };
 
+// Component to render the dialog for "to_stay" category
 const PlaceToStayDialog: React.FC<{ place: placeToStay }> = ({ place }) => {
   const { name, type, image_url, description, location, price, rating } = place;
   return (
@@ -40,6 +54,7 @@ const PlaceToStayDialog: React.FC<{ place: placeToStay }> = ({ place }) => {
   );
 };
 
+// Component to render the dialog for "to_visit" category
 const PlaceToVisitDialog: React.FC<{ place: placeToVisit }> = ({ place }) => {
   const { name, type, image_url, description, location } = place;
   return (
@@ -53,6 +68,7 @@ const PlaceToVisitDialog: React.FC<{ place: placeToVisit }> = ({ place }) => {
   );
 };
 
+// Component to render the dialog for "to_eat" category
 const PlaceToEatDialog: React.FC<{ place: placeToEat }> = ({ place }) => {
   const { name, type, image_url, description, location, price, rating } = place;
   return (
@@ -67,30 +83,33 @@ const PlaceToEatDialog: React.FC<{ place: placeToEat }> = ({ place }) => {
   );
 };
 
+// Wrapper component for the dialog
 const DialogWrapper: React.FC<{
   name: string;
   image_url: string;
   children: React.ReactNode;
 }> = ({ name, image_url, children }) => (
-  <dialog
-    hidden
-    data-name={name}
-    className="place-dialog h-[75svh] w-[60svw] overflow-y-scroll rounded-xl pb-8"
+  <motion.dialog
+    open={true}
+    className="place-dialog custom-scrollbar h-[75svh] w-[60svw] overflow-y-scroll rounded-xl pb-8"
   >
-    <div className="dialog-content h-full w-full">
-      <div
-        className="h-1/3"
-        style={{
-          backgroundImage: `url(${image_url})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      ></div>
+    <motion.div
+      className="dialog-content h-full w-full"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <div className="h-2/5">
+        <img
+          src={image_url}
+          alt={name}
+          className="h-full w-full object-cover"
+        />
+      </div>
       {children}
-    </div>
-  </dialog>
+    </motion.div>
+  </motion.dialog>
 );
 
+// Component to render the header of the dialog
 const DialogHeader: React.FC<{
   name: string;
   type: string;
@@ -98,14 +117,35 @@ const DialogHeader: React.FC<{
 }> = ({ name, type, rating }) => (
   <div className="mt-4 flex justify-between">
     <div className="flex flex-col gap-2">
-      <span className="span-small uppercase text-gray">{type}</span>
-      <h3 className="h3-md">{name}</h3>
+      <motion.span
+        variants={variants}
+        initial="hidden"
+        animate="visible"
+        transition={{ duration: 0.5 }}
+        className="span-small uppercase text-gray"
+      >
+        {type}
+      </motion.span>
+      <motion.h3
+        variants={variants}
+        initial="hidden"
+        animate="visible"
+        transition={{ duration: 0.5 }}
+        className="h3-md"
+      >
+        {name}
+      </motion.h3>
     </div>
     {rating && (
       <div className="grid grid-cols-2 items-center justify-end gap-x-2 gap-y-4 lg:w-2/5 2xl:w-1/3">
-        {Object.entries(rating).map(([website, rating]) => (
-          <div
+        {Object.entries(rating).map(([website, rating], index) => (
+          <motion.div
             key={website}
+            variants={variants}
+            initial="hidden"
+            animate="visible"
+            whileHover="hoverScale"
+            transition={{ duration: 0.5 }}
             className="flex h-12 flex-row items-center gap-4 rounded-xl bg-background-light px-4 py-2 shadow-component only:col-start-2"
           >
             <img
@@ -123,33 +163,51 @@ const DialogHeader: React.FC<{
               {rating}{" "}
               <i className="ri-shining-2-fill span-small text-yellow"></i>
             </span>
-          </div>
+          </motion.div>
         ))}
       </div>
     )}
   </div>
 );
 
+// Component to render the location of the place
 const DialogLocation: React.FC<{
   location: { on_map: string; address: string };
 }> = ({ location }) => (
-  <div className="mt-4 flex items-center gap-2">
+  <motion.div
+    className="mt-4 flex items-center gap-2"
+    initial="hidden"
+    animate="visible"
+    whileHover="hoverX"
+    variants={variants}
+    transition={{ duration: 0.5 }}
+  >
     <i className="p-medium ri-map-pin-2-line"></i>
-    <a className="span-regular border-none outline-none" href={location.on_map}>
+    <a
+      className="span-regular cursor-hover border-none outline-none"
+      href={location.on_map}
+    >
       {location.address}
     </a>
-  </div>
+  </motion.div>
 );
 
+// Component to render the price of the place
 const DialogPrice: React.FC<{ price: { currency: string; value: number } }> = ({
   price,
 }) => (
-  <div className="flex items-center gap-2">
+  <motion.div
+    className="flex items-center gap-2"
+    initial="hidden"
+    animate="visible"
+    variants={variants}
+    transition={{ duration: 0.5 }}
+  >
     <i className="p-medium ri-price-tag-3-line"></i>
     <span className="span-regular">
       From: {" " + price.currency + " - " + price.value}
     </span>
-  </div>
+  </motion.div>
 );
 
 export default memo(PlaceDialog);
