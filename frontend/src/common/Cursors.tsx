@@ -9,7 +9,8 @@ type CursorState =
   | "hoverLink"
   | "hoverSmall"
   | "tap"
-  | "hoverTap";
+  | "hoverTap"
+  | "disabled";
 
 const Cursor = () => {
   const cursorRef = useRef<HTMLDivElement>(null);
@@ -26,6 +27,47 @@ const Cursor = () => {
     return () => document.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
+  // Handle iframe mouse events
+  useEffect(() => {
+    const handleIframeMouseEnter = () => setCursorState("disabled");
+    const handleIframeMouseLeave = () => setCursorState("default");
+
+    const addIframeListeners = () => {
+      const iframes = document.querySelectorAll("iframe");
+      iframes.forEach((iframe) => {
+        iframe.addEventListener("mouseenter", handleIframeMouseEnter);
+        iframe.addEventListener("mouseleave", handleIframeMouseLeave);
+      });
+    };
+
+    const removeIframeListeners = () => {
+      const iframes = document.querySelectorAll("iframe");
+      iframes.forEach((iframe) => {
+        iframe.removeEventListener("mouseenter", handleIframeMouseEnter);
+        iframe.removeEventListener("mouseleave", handleIframeMouseLeave);
+      });
+    };
+
+    addIframeListeners();
+
+    // Re-add listeners when new iframes are added to the DOM
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === "childList") {
+          removeIframeListeners();
+          addIframeListeners();
+        }
+      });
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      removeIframeListeners();
+      observer.disconnect();
+    };
+  }, []);
+
   // Handle cursor state changes based on mouse events
   useEffect(() => {
     const handleMouseEvents = (e: MouseEvent) => {
@@ -33,7 +75,9 @@ const Cursor = () => {
         const target = e.target;
         switch (e.type) {
           case "mouseover":
-            if (target.classList.contains("cursor-hover")) {
+            if (target.classList.contains("cursor-disabled")) {
+              setCursorState("disabled");
+            } else if (target.classList.contains("cursor-hover")) {
               setCursorState("hover");
             } else if (target.classList.contains("cursor-hover-link")) {
               setCursorState("hoverLink");
@@ -112,6 +156,13 @@ const Cursor = () => {
       height: "3svw",
       x: cursorPosition.x - 16,
       y: cursorPosition.y - 16,
+    },
+    disabled: {
+      width: "0",
+      height: "0",
+      x: cursorPosition.x - 16,
+      y: cursorPosition.y - 16,
+      opacity: 0,
     },
   };
 
