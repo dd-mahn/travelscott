@@ -7,6 +7,7 @@ import { optimizeImage } from "src/utils/optimizeImage";
 import { useViewportWidth, getImageSize } from "src/utils/imageUtils";
 import { HoverVariants, VisibilityVariants } from "src/utils/variants";
 
+// Define motion variants for animations
 const variants = {
   hiddenY: VisibilityVariants.hiddenY,
   visible: VisibilityVariants.visible,
@@ -20,18 +21,18 @@ interface InspirationCardProps {
 
 const InspirationCard: React.FC<InspirationCardProps> = memo(({ blog }) => {
   const viewportWidth = useViewportWidth();
-  const imageSize = getImageSize(viewportWidth);
 
+  // Optimize the blog image based on the viewport width
   const optimizedImage = useMemo(() => {
     if (blog.image) {
       return optimizeImage(blog.image, {
-        width: imageSize,
+        width: getImageSize(viewportWidth),
         quality: 80,
         format: "auto",
       });
     }
     return { src: "", srcSet: "" };
-  }, [blog.image, imageSize]);
+  }, [blog.image, viewportWidth]);
 
   const blogLink = `/inspiration/${blog._id}`;
 
@@ -44,6 +45,7 @@ const InspirationCard: React.FC<InspirationCardProps> = memo(({ blog }) => {
       variants={variants}
       className="flex flex-col lg:gap-2 2xl:gap-4"
     >
+      {/* Blog Image Link */}
       <Link
         to={blogLink}
         target="_top"
@@ -61,6 +63,7 @@ const InspirationCard: React.FC<InspirationCardProps> = memo(({ blog }) => {
         />
       </Link>
 
+      {/* Blog Title and Category */}
       <div className="mt-4 flex flex-col gap-2">
         <span className="span-regular text-gray">{blog.category}</span>
         <Link to={blogLink} target="_top">
@@ -75,7 +78,10 @@ const InspirationCard: React.FC<InspirationCardProps> = memo(({ blog }) => {
         </Link>
       </div>
 
+      {/* Blog Content Preview */}
       <p className="p-regular w-3/4">{blog.content?.[0]?.sectionText?.[0]}</p>
+
+      {/* Blog Publish Time */}
       <span className="span-regular flex items-center gap-3">
         <i className="ri-time-line p-medium"></i> {formatDate(blog.time)}
       </span>
