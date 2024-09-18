@@ -37,7 +37,7 @@ const DestinationSummary = ({ summary }: { summary: string }) => {
             whileInView="visible"
             viewport={{ once: true }}
             variants={variants}
-            transition={{ duration: 0.5, delay: 1 }}
+            transition={{ duration: 0.5, delay: 2 }}
           >
             Have a good trip!
           </motion.p>

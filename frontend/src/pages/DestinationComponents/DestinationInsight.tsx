@@ -22,15 +22,17 @@ type DestinationInsightProps = {
 };
 
 // Main component to render insights
-const DestinationInsight: React.FC<DestinationInsightProps> = ({ destination }) => {
+const DestinationInsight: React.FC<DestinationInsightProps> = ({
+  destination,
+}) => {
   // Function to render tips from "from_us"
   const renderTips = () =>
     destination.insight?.from_us?.tips.map((tip, index) => (
       <motion.div
-        initial="hidden"
+        initial="hiddenY"
         whileHover="hoverRotate"
         whileInView="visible"
-        viewport={{ once: true }}
+        viewport={{ once: true, margin: "-200px" }}
         variants={variants}
         transition={{ duration: 0.5 }}
         className="rounded-xl bg-background-light bg-opacity-70 px-6 py-4 shadow-component"
@@ -43,12 +45,17 @@ const DestinationInsight: React.FC<DestinationInsightProps> = ({ destination }) 
   // Function to render articles from "from_others"
   const renderArticles = () =>
     destination.insight?.from_others?.map((article, index) => (
-      <Link to={article.link ?? ""} key={index}>
+      <Link
+        to={article.link ?? ""}
+        target="_blank"
+        key={index}
+        className="cursor-hover"
+      >
         <motion.div
-          initial="hidden"
+          initial="hiddenY"
           whileHover="hoverRotate"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-200px" }}
           variants={variants}
           transition={{ duration: 0.5 }}
           className="cursor-hover p-medium rounded-xl bg-background-light bg-opacity-70 px-6 py-2 shadow-component"

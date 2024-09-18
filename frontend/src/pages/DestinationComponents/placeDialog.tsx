@@ -13,6 +13,7 @@ const variants = {
   visible: VisibilityVariants.visible,
   hoverScale: HoverVariants.hoverScale,
   hoverX: HoverVariants.hoverX,
+  hoverRotate: HoverVariants.hoverRotate,
 };
 
 // Define the props for the PlaceDialog component
@@ -144,8 +145,8 @@ const DialogHeader: React.FC<{
             variants={variants}
             initial="hidden"
             animate="visible"
-            whileHover="hoverScale"
-            transition={{ duration: 0.5 }}
+            whileHover="hoverRotate"
+            transition={{ duration: 0.3 }}
             className="flex h-12 flex-row items-center gap-4 rounded-xl bg-background-light px-4 py-2 shadow-component only:col-start-2"
           >
             <img

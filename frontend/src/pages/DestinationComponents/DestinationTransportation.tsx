@@ -89,7 +89,7 @@ const DestinationTransportation: React.FC<DestinationTransportationProps> = ({ t
               whileInView="visible"
               viewport={{ once: true }}
               variants={variants}
-              transition={{ duration: 0.5, delay: 0.5 + index * 0.3 }}
+              transition={{ duration: 0.5, delay: 0.5 + index * 0.2 }}
               className="flex w-full flex-col gap-8 rounded-xl bg-light-brown px-8 py-4 shadow-component"
             >
               <motion.button

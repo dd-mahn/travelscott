@@ -55,7 +55,7 @@ const DestinationHero: React.FC<DestinationHeroProps> = ({ destination }) => {
                   animate="visible"
                   transition={{
                     duration: 0.8,
-                    delay: 1.2 + index * 0.1,
+                    delay: 0.5 + index * 0.1,
                     type: "spring",
                     bounce: 0.5,
                   }}
