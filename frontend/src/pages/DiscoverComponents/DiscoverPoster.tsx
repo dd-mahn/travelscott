@@ -9,6 +9,7 @@ import { HoverVariants, VisibilityVariants } from "src/utils/variants";
 
 const variants = {
   hiddenY: VisibilityVariants.hiddenY,
+  hiddenFullY: VisibilityVariants.hiddenFullY,
   visible: VisibilityVariants.visible,
   hoverScale: HoverVariants.hoverScale,
 };
@@ -96,15 +97,25 @@ const DiscoverPoster: React.FC<DiscoverPosterProps> = ({
               </Link>
 
               <div className="pointer-events-none z-10 w-fit pt-sect-short">
-                <div className="overflow-hidden">
-                  <motion.h1
-                    initial={{ y: "100%" }}
-                    animate={{ y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.5 }}
-                    className="big-heading pointer-events-none select-none text-text-dark"
-                  >
-                    {destination.name}
-                  </motion.h1>
+                <div className="overflow-hidden big-heading">
+                  {destination.name.split("").map((letter, index) => (
+                    <motion.h1
+                      key={index}
+                      variants={variants}
+                      initial="hiddenFullY"
+                      whileInView="visible"
+                      viewport={{ once: true }}
+                      transition={{
+                        duration: 0.8,
+                        delay: 0.5 + index * 0.1,
+                        type: "spring",
+                        bounce: 0.5,
+                      }}
+                      className="inline-block text-text-dark"
+                    >
+                      {letter}
+                    </motion.h1>
+                  ))}
                 </div>
 
                 <motion.div
