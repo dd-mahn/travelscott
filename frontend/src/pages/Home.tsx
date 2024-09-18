@@ -2,7 +2,7 @@ import React, { memo, useCallback, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "src/store/store";
-import { setHomeBlogs, setBlogChunks } from "src/store/slices/homeSlice";
+import { setHomeBlogs } from "src/store/slices/blogSlice";
 
 import "src/styles/home.css";
 
@@ -17,7 +17,6 @@ import Quote from "./HomeComponents/Quote";
 import useFetch from "src/hooks/useFetch";
 import { FetchBlogsType } from "src/types/FetchData";
 import { BASE_URL } from "src/utils/config";
-import { createBlogChunks } from "src/utils/createBlogChunks";
 import { VisibilityVariants } from "src/utils/variants";
 
 // Framer motion variants for animations
@@ -31,7 +30,7 @@ const Home: React.FC = () => {
   const dispatch = useDispatch();
   const selectHomeState = useCallback(
     (state: RootState) => ({
-      blogs: state.home.blogs,
+      blogs: state.blog.homeBlogs,
     }),
     [],
   );
