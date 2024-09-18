@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 
@@ -168,4 +168,4 @@ const Article: React.FC = () => {
   );
 };
 
-export default Article;
+export default memo(Article);
