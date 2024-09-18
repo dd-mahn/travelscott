@@ -75,7 +75,7 @@ const FeaturedContentSlider: React.FC<FeaturedContentSliderProps> = ({
               opacity: { duration: 0.2 },
             }}
             variants={variants}
-            className="absolute left-0 top-0 h-fit w-full pb-5"
+            className="absolute z-10 left-0 top-0 h-fit w-full pb-5"
           >
             {children[index]}
           </motion.div>

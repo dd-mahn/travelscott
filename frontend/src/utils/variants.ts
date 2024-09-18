@@ -15,9 +15,18 @@ export const VisibilityVariants = {
 
   hiddenX: { x: 1000, opacity: 0 },
 
-  hiddenScale: { scale: 0.95, y: 100, opacity: 0 },
+  hiddenScale: {
+    scale: [0.9, 0.9, 1],
+    y: [50, 50, 0],
+    opacity: [0, 1, 1],
+    transition: { originX: "50%" },
+  },
 
-  hiddenFullScale: { scale: 0, opacity: 0, y: 200, originX: 0 },
+  hiddenScaleY: { scale: 0.5, y: 300, opacity: 0 },
+
+  hiddenScaleRight: { scale: 0.95, x: 1000, opacity: 0 },
+
+  hiddenFullScale: { scale: 0 },
 
   hiddenLeft: { opacity: 0, x: -50 },
 

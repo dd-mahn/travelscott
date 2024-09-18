@@ -8,9 +8,9 @@ import React, {
 } from "react";
 import { motion, useDragControls } from "framer-motion";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from 'src/store/store';
-import { setStarterBlogs } from 'src/store/slices/blogSlice';
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "src/store/store";
+import { setStarterBlogs } from "src/store/slices/blogSlice";
 
 // Import custom types and utility functions
 import BlogType from "src/types/Blog";
@@ -69,7 +69,7 @@ const positionReducer = (state: Positions, action: Action): Positions => {
 // Animation variants for Framer Motion
 const variants = {
   hidden: VisibilityVariants.hidden,
-  visible: VisibilityVariants.visible,
+  visible: { opacity: 1 },
   hoverScale: HoverVariants.hoverScale,
   hoverX: HoverVariants.hoverX,
 };
@@ -109,7 +109,7 @@ const BlogComponent: React.FC<{
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.5, delay: 1 }}
         variants={variants}
         className="blog absolute flex h-[50svh] w-1/3 flex-col justify-between gap-4 overflow-hidden rounded-xl bg-background-light pb-8 shadow-component"
         style={{
@@ -193,7 +193,10 @@ const StarterBlogs: React.FC<StarterBlogsProps> = React.memo(({ blogs }) => {
         containerRect.height / 2 - blogHeight / 2 + Math.random() * 200 - 100;
       initialPositions[blog.title] = { x, y, zIndex: 1 };
     });
-    dispatchPositions({ type: "SET_INITIAL_POSITIONS", payload: initialPositions });
+    dispatchPositions({
+      type: "SET_INITIAL_POSITIONS",
+      payload: initialPositions,
+    });
     setDragConstraints({
       top: 0,
       left: 0,
@@ -273,7 +276,9 @@ const StarterBlogs: React.FC<StarterBlogsProps> = React.memo(({ blogs }) => {
   );
 
   useEffect(() => {
-    const filteredBlogs = blogs.filter((blog) => blog.category === "FirstTimeAbroad" && blog.image);
+    const filteredBlogs = blogs.filter(
+      (blog) => blog.category === "FirstTimeAbroad" && blog.image,
+    );
     dispatch(setStarterBlogs(filteredBlogs));
   }, [blogs, dispatch]);
 

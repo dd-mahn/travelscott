@@ -1,10 +1,10 @@
 // Import necessary dependencies and components
-import React, { memo, useCallback, useState, useEffect, useMemo } from "react";
+import React, { memo, useState, useEffect, useMemo } from "react";
 import { motion, useTransform, useScroll } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "src/store/store";
-import { setBlogChunks } from "src/store/slices/homeSlice";
+import { setBlogChunks } from "src/store/slices/blogSlice";
 
 // Import custom types and utility functions
 import Blog from "src/types/Blog";
@@ -106,7 +106,7 @@ const RenderBlog: React.FC<{ blog: Blog; isFeatured: boolean }> = ({
 // Articles component: Displays a list of blog articles
 const Articles: React.FC<ArticlesProps> = memo(({ articlesHookRef, blogs }) => {
   const dispatch = useDispatch();
-  const blogChunks = useSelector((state: RootState) => state.home.blogChunks);
+  const blogChunks = useSelector((state: RootState) => state.blog.blogChunks);
 
   useEffect(() => {
     if (blogs.length > 0) {
@@ -150,21 +150,34 @@ const Articles: React.FC<ArticlesProps> = memo(({ articlesHookRef, blogs }) => {
         >
           <SeasonHeading />
           {/* Featured content slider for blog chunks */}
-          <FeaturedContentSlider>
-            {blogChunks.map((chunk, chunkIndex) => (
-              <div
-                key={chunkIndex}
-                className="px-sect grid w-screen grid-cols-2 gap-8"
-              >
-                <RenderBlog blog={chunk[0]} isFeatured={true} />
-                <div className="grid h-[75svh] w-full grid-rows-3 gap-4 pb-4">
-                  {chunk.slice(1).map((blog) => (
-                    <RenderBlog key={blog._id} blog={blog} isFeatured={false} />
-                  ))}
+          <motion.div
+            initial="hiddenY"
+            whileInView="visible"
+            transition={{ duration: 0.5, delay: 1 }}
+            viewport={{ once: true, margin: "-10%" }}
+            variants={variants}
+            className="w-screen"
+          >
+            <FeaturedContentSlider>
+              {blogChunks.map((chunk, chunkIndex) => (
+                <div
+                  key={chunkIndex}
+                  className="px-sect grid w-screen grid-cols-2 gap-8"
+                >
+                  <RenderBlog blog={chunk[0]} isFeatured={true} />
+                  <div className="grid h-[75svh] w-full grid-rows-3 gap-4 pb-4">
+                    {chunk.slice(1).map((blog) => (
+                      <RenderBlog
+                        key={blog._id}
+                        blog={blog}
+                        isFeatured={false}
+                      />
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
-          </FeaturedContentSlider>
+              ))}
+            </FeaturedContentSlider>
+          </motion.div>
         </section>
       )}
     </div>

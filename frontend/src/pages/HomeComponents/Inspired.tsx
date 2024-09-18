@@ -5,21 +5,23 @@ import { VisibilityVariants } from "src/utils/variants";
 
 // Framer motion variants for animations
 const variants = {
+  hidden: VisibilityVariants.hidden,
   hiddenY: VisibilityVariants.hiddenY,
   hiddenFullY: VisibilityVariants.hiddenFullY,
   hiddenScaleRight: VisibilityVariants.hiddenScaleRight,
+  hiddenScaleY: VisibilityVariants.hiddenScaleY,
   visible: VisibilityVariants.visible,
 };
 
 // Inspired component: Displays inspiration from travelers around the world
 const Inspired: React.FC = () => {
   return (
-    <section className="px-sect relative inspired flex items-center justify-center lg:pb-sect-semi lg:pt-sect-default 2xl:pb-sect-semi 2xl:pt-sect-medium">
+    <section className="px-sect inspired relative flex items-center justify-center lg:pb-sect-semi lg:pt-sect-default 2xl:pb-sect-semi 2xl:pt-sect-medium">
       {/* Background carousel */}
-      <motion.div 
+      <motion.div
         className="absolute left-0 top-0 z-0 h-svh w-full"
         variants={variants}
-        initial="hiddenScaleRight"
+        initial="hiddenScaleY"
         whileInView="visible"
         viewport={{ once: true, margin: "-300px" }}
         transition={{ duration: 1, delay: 2 }}
@@ -37,8 +39,8 @@ const Inspired: React.FC = () => {
           variants={variants}
           initial="hiddenY"
           whileInView="visible"
-          viewport={{ once: true, margin: "-300px" }}
-          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.5 }}
           className="h2-inter text-center tracking-tight"
           style={{ lineHeight: "1.2" }}
         >
@@ -51,9 +53,9 @@ const Inspired: React.FC = () => {
         <motion.span
           initial="hiddenY"
           whileInView="visible"
-          transition={{ duration: 0.5, delay: 1 }}
+          transition={{ duration: 0.5, delay: 1.5 }}
           variants={variants}
-          viewport={{ once: true, margin: "-200px" }}
+          viewport={{ once: true }}
           className="p-medium self-end"
         >
           (Maybe you are one)

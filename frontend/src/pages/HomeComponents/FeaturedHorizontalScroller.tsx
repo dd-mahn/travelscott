@@ -62,7 +62,7 @@ const HorizontalScrollCarousel: React.FC<HorizontalScrollCarouselProps> = memo(
 
     // Use Framer Motion's useScroll hook to track vertical scroll progress
     const { scrollYProgress } = useScroll({ target: targetRef });
-    
+
     // Transform vertical scroll progress into horizontal movement
     const x = useTransform(scrollYProgress, [0, 1], [0, -scrollPixels]);
 
@@ -71,8 +71,8 @@ const HorizontalScrollCarousel: React.FC<HorizontalScrollCarouselProps> = memo(
         <motion.section
           initial="hiddenScale"
           whileInView="visible"
-          viewport={{ once: true, margin: "-30%" }}
-          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.5 }}
           variants={variants}
           ref={targetRef}
           className="relative h-[400svh]"
