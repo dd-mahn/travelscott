@@ -95,7 +95,7 @@ const DialogWrapper: React.FC<{
     className="place-dialog custom-scrollbar h-[75svh] w-[60svw] overflow-y-scroll rounded-xl pb-8"
   >
     <motion.div
-      className="dialog-content h-full w-full"
+      className="dialog-content h-full w-full bg-gradient-to-t from-blue-gray-900 to-gray"
       onClick={(e) => e.stopPropagation()}
     >
       <div className="h-2/5">

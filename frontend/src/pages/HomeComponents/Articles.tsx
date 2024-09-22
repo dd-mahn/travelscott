@@ -10,7 +10,7 @@ import { setBlogChunks } from "src/store/slices/blogSlice";
 import Blog from "src/types/Blog";
 import { formatDate } from "src/utils/formatDate";
 import FeaturedContentSlider from "src/common/FeaturedContentSlider";
-import { optimizeImage } from "src/utils/optimizeImage";
+import { getImageSize, useViewportWidth, optimizeImage } from "src/utils/imageUtils";
 import { HoverVariants, VisibilityVariants } from "src/utils/variants";
 import { createBlogChunks } from "src/utils/createBlogChunks";
 import SeasonHeading from "src/common/SeasonHeading";

@@ -6,8 +6,7 @@ import Blog from "src/types/Blog";
 import FeaturedContentSlider from "./FeaturedContentSlider";
 import { formatDate } from "src/utils/formatDate";
 import { HoverVariants, TapVariants } from "src/utils/variants";
-import { getImageSize, useViewportWidth } from "src/utils/imageUtils";
-import { optimizeImage } from "src/utils/optimizeImage";
+import { getImageSize, useViewportWidth, optimizeImage } from "src/utils/imageUtils";
 
 type featuredBlogsProps = {
   blogs: Blog[];

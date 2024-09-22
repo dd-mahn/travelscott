@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 import { RootState } from "src/store/store";
 import { VisibilityVariants } from "src/utils/variants";
-import { getInspirationHeading } from "src/utils/getInspirationHeading";
+import { getInspirationHeading } from "src/utils/inspirationUtils";
 
 // Define motion variants for visibility
 const variants = {

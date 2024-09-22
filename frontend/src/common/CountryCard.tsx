@@ -4,8 +4,11 @@ import { motion } from "framer-motion";
 // Component imports
 import Country from "src/types/Country";
 import { Link } from "react-router-dom";
-import { optimizeImage } from "src/utils/optimizeImage";
-import { useViewportWidth, getImageSize } from "src/utils/imageUtils";
+import {
+  useViewportWidth,
+  getImageSize,
+  optimizeImage,
+} from "src/utils/imageUtils";
 import { HoverVariants, TapVariants } from "src/utils/variants";
 
 // Component props type

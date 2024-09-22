@@ -3,8 +3,7 @@ import { motion } from "framer-motion";
 import Country from "src/types/Country";
 import { VisibilityVariants } from "src/utils/variants";
 import { Carousel } from "@material-tailwind/react";
-import { optimizeImage } from "src/utils/optimizeImage";
-import { getImageSize, useViewportWidth } from "src/utils/imageUtils";
+import { getImageSize, useViewportWidth, optimizeImage } from "src/utils/imageUtils";
 
 const variants = {
   hiddenY: VisibilityVariants.hiddenY,

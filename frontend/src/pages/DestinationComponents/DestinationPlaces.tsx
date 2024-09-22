@@ -9,7 +9,12 @@ import PlaceDialog from "./placeDialog";
 import SlideRevealIconHeading from "src/common/SlideRevealIconHeading";
 import { AnimatePresence, motion } from "framer-motion";
 import { HoverVariants, VisibilityVariants } from "src/utils/variants";
-import { optimizeImage } from "src/utils/optimizeImage";
+import { optimizeImage } from "src/utils/imageUtils";
+import { getSelectedCategoryPlaces } from "src/utils/destinationPlaceUtils";
+import {
+  getDestinationPlaceHeading,
+  getPlaceCategoryChange,
+} from "src/utils/destinationPlaceUtils";
 
 // Define the props for the DestinationPlaces component
 type DestinationPlacesProps = {
@@ -50,11 +55,7 @@ const DestinationPlaces: React.FC<DestinationPlacesProps> = ({ places }) => {
 
   // Memoized selected category places
   const selectedCategoryPlaces = useMemo(() => {
-    return placeCategory === "to_stay"
-      ? places?.to_stay
-      : placeCategory === "to_visit"
-        ? places?.to_visit
-        : places?.to_eat;
+    return getSelectedCategoryPlaces(placeCategory, places);
   }, [placeCategory, places]);
 
   return (
@@ -87,13 +88,7 @@ const DestinationPlaces: React.FC<DestinationPlacesProps> = ({ places }) => {
                   variants={variants}
                   transition={{ duration: 0.5, delay: 0.5 }}
                 >
-                  <span>
-                    {placeCategory === "to_stay"
-                      ? "To stay"
-                      : placeCategory === "to_visit"
-                        ? "To visit"
-                        : "To eat"}
-                  </span>
+                  <span>{getDestinationPlaceHeading(placeCategory)}</span>
                   {["visit", "eat", "stay"]
                     .filter(
                       (category) =>
@@ -105,17 +100,7 @@ const DestinationPlaces: React.FC<DestinationPlacesProps> = ({ places }) => {
                         className="cursor-pointer text-gray transition-colors duration-300 hover:text-text-light"
                         onClick={() =>
                           handlePlaceCategoryChange(
-                            placeCategory === "to_stay"
-                              ? category === "visit"
-                                ? "to_visit"
-                                : "to_eat"
-                              : placeCategory === "to_visit"
-                                ? category === "eat"
-                                  ? "to_eat"
-                                  : "to_stay"
-                                : category === "stay"
-                                  ? "to_stay"
-                                  : "to_visit",
+                            getPlaceCategoryChange(placeCategory, category),
                           )
                         }
                       >

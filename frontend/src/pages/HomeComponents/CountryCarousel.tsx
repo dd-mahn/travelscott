@@ -22,7 +22,7 @@ import argentinaFlag from "src/assets/images/ui/countryFlags/argentina-flag-medi
 
 // Import utility functions
 import { shuffleArray } from "src/utils/shuffleArray";
-import { optimizeImage } from "src/utils/optimizeImage";
+import { optimizeImage } from "src/utils/imageUtils";
 
 // Array of flag images
 const flags = [
@@ -75,7 +75,7 @@ const CountryCarousel = React.memo(({ settings }: { settings: any }) => {
           const { src, srcSet } = optimizeImage(flag);
           return (
             <div
-              className="pr-4 lg:h-[12svh] lg:w-[18svh] 2xl:h-[15svh] 2xl:w-[20svw]"
+              className="pr-4 lg:h-[12svh] lg:w-[18svh] 2xl:h-[15svh] 2xl:w-[20svw] bg-gradient-to-t from-blue-gray-900 to-gray"
               key={index}
             >
               <img
@@ -134,7 +134,7 @@ export const MarqueeCountryCarousel = React.memo(() => {
               velocity={20}
               radius={scale * 80}
             >
-              <div className="mt-[70svh] lg:h-[4svh] lg:w-[5svw] 2xl:h-[5svh] 2xl:w-[7.5svw]">
+              <div className="mt-[70svh] lg:h-[4svh] 2xl:h-[5svh] bg-gradient-to-t rounded-lg from-blue-gray-900 to-gray">
                 <img
                   loading="lazy"
                   src={src}

@@ -82,7 +82,7 @@ const CountryPage: React.FC = () => {
           whileInView="visible"
           transition={{ duration: 0.5, delay: 0.5, ease: "easeInOut" }}
           viewport={{ once: true }}
-          className="sticky right-0 top-0 z-0 ml-auto h-screen w-2/3"
+          className="sticky right-0 top-0 z-0 ml-auto h-screen w-2/3 bg-gradient-to-t from-blue-gray-900 to-gray"
         >
           <img
             src={currentCountry.images.mapImages?.[0]}

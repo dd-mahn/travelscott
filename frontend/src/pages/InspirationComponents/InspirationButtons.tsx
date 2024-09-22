@@ -16,6 +16,7 @@ import cityScapeImage from "src/assets/images/ui/inspiration/city.webp";
 import seasonFestivalImage from "src/assets/images/ui/inspiration/season.webp";
 import relaxationImage from "src/assets/images/ui/inspiration/relax.webp";
 import firstTimeAbroadImage from "src/assets/images/ui/inspiration/first.webp";
+import { getBackgroundKey } from "src/utils/inspirationUtils";
 
 const variants = {
   hiddenY: VisibilityVariants.hiddenY,
@@ -55,6 +56,7 @@ const InspirationButtons = () => {
     dispatch(setCategory(category));
     dispatch(setCategoryImage(images[category] || ""));
   };
+
   return (
     <motion.div
       initial="hiddenY"
@@ -77,27 +79,7 @@ const InspirationButtons = () => {
               whileHover="buttonHover"
               whileTap="buttonTap"
               onClick={() => handleCategoryChange(f)}
-              className={`filter-btn span-medium rounded-xl px-10 py-4 font-prima text-text-dark shadow-component ${
-                f === "All"
-                  ? "bg-background-dark"
-                  : f === "Wilderness"
-                    ? "bg-wilderness"
-                    : f === "Culture&Heritage"
-                      ? "bg-cultureheritage"
-                      : f === "Food&Drink"
-                        ? "bg-fooddrink"
-                        : f === "SoloJourneys"
-                          ? "bg-solojourneys"
-                          : f === "CityScape"
-                            ? "bg-cityscape"
-                            : f === "Season&Festival"
-                              ? "bg-seasonfestival"
-                              : f === "Relaxation"
-                                ? "bg-relaxation"
-                                : f === "FirstTimeAbroad"
-                                  ? "bg-firsttimeabroad"
-                                  : "bg-background-dark"
-              }`}
+              className={`filter-btn span-medium rounded-xl px-10 py-4 font-prima text-text-dark shadow-component bg-${getBackgroundKey(f)}`}
             >
               {f}
             </motion.button>
@@ -108,3 +90,25 @@ const InspirationButtons = () => {
 };
 
 export default memo(InspirationButtons);
+
+// ${
+// f === "All"
+//   ? "bg-background-dark"
+//   : f === "Wilderness"
+//     ? "bg-wilderness"
+//     : f === "Culture&Heritage"
+//       ? "bg-cultureheritage"
+//       : f === "Food&Drink"
+//         ? "bg-fooddrink"
+//         : f === "SoloJourneys"
+//           ? "bg-solojourneys"
+//           : f === "CityScape"
+//             ? "bg-cityscape"
+//             : f === "Season&Festival"
+//               ? "bg-seasonfestival"
+//               : f === "Relaxation"
+//                 ? "bg-relaxation"
+//                 : f === "FirstTimeAbroad"
+//                   ? "bg-firsttimeabroad"
+//                   : "bg-background-dark"
+// }

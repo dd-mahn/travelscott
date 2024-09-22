@@ -3,8 +3,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { formatDate } from "src/utils/formatDate";
 import Blog from "src/types/Blog";
-import { optimizeImage } from "src/utils/optimizeImage";
-import { useViewportWidth, getImageSize } from "src/utils/imageUtils";
+import { useViewportWidth, getImageSize, optimizeImage } from "src/utils/imageUtils";
 import { HoverVariants, VisibilityVariants } from "src/utils/variants";
 
 // Define motion variants for animations

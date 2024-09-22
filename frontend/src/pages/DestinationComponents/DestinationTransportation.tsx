@@ -63,7 +63,7 @@ const DestinationTransportation: React.FC<DestinationTransportationProps> = ({ t
             transportationIndex === index && (
               <motion.div
                 key={`transportation-type-${type.name}`}
-                className="h-[75svh] w-2/3 rounded-xl shadow-component"
+                className="h-[75svh] w-2/3 rounded-xl shadow-component bg-gradient-to-t from-blue-gray-900 to-gray"
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}

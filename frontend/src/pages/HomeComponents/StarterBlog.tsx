@@ -14,8 +14,7 @@ import { setStarterBlogs } from "src/store/slices/blogSlice";
 
 // Import custom types and utility functions
 import BlogType from "src/types/Blog";
-import { optimizeImage } from "src/utils/optimizeImage";
-import { getImageSize, useViewportWidth } from "src/utils/imageUtils";
+import { getImageSize, useViewportWidth, optimizeImage } from "src/utils/imageUtils";
 import { HoverVariants, VisibilityVariants } from "src/utils/variants";
 
 // Define interfaces for component props and state

@@ -20,6 +20,16 @@ type SearchResultProps = {
   closeFunc: () => void;
 };
 
+// Animation variants for the search result container
+const variants = {
+  hiddenY: VisibilityVariants.hiddenY,
+  visible: VisibilityVariants.visible,
+  exit: VisibilityVariants.hidden,
+  hover: HoverVariants.hoverScale,
+  tap: TapVariants.tapScale,
+  hoverX: HoverVariants.hoverX,
+};
+
 const SearchResult: React.FC<SearchResultProps> = ({
   open,
   blogs,
@@ -28,25 +38,6 @@ const SearchResult: React.FC<SearchResultProps> = ({
   closeFunc,
 }) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-
-  // Animation variants for the search result container
-  const variants = {
-    hiddenY: VisibilityVariants.hiddenY,
-    visible: VisibilityVariants.visible,
-    exit: VisibilityVariants.hidden,
-    hover: HoverVariants.hoverScale,
-    tap: TapVariants.tapScale,
-  };
-
-  // Animation variants for images
-  const imageVariants = {
-    hover: HoverVariants.hoverScale,
-  };
-
-  // Animation variants for titles
-  const titleVariants = {
-    hover: HoverVariants.hoverX,
-  };
 
   // Memoized render function for countries
   const renderCountries = useMemo(
@@ -62,20 +53,20 @@ const SearchResult: React.FC<SearchResultProps> = ({
                 key={country._id}
                 className="flex cursor-pointer flex-col items-center gap-2"
               >
-                <div className="overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray">
+                <div className="h-full w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray">
                   <motion.img
                     whileHover="hover"
-                    variants={imageVariants}
+                    variants={variants}
                     src={country.images.flagImages?.[0]}
                     alt={country.name}
-                    className="cursor-hover-small h-full w-full object-cover rounded-xl"
+                    className="cursor-hover-small h-full w-full rounded-xl object-cover"
                     transition={{ duration: 0.4 }}
                   />
                 </div>
                 <motion.span
                   className="cursor-hover-small span-regular"
-                  whileHover="hover"
-                  variants={titleVariants}
+                  whileHover="hoverX"
+                  variants={variants}
                   transition={{ duration: 0.2 }}
                 >
                   {country.name}
@@ -104,20 +95,20 @@ const SearchResult: React.FC<SearchResultProps> = ({
                 key={destination._id}
                 className="flex cursor-pointer flex-col items-center gap-2 rounded-xl"
               >
-                <div className="overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray">
+                <div className="h-full w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray">
                   <motion.img
                     whileHover="hover"
-                    variants={imageVariants}
+                    variants={variants}
                     src={destination.images?.[0]}
                     alt={destination.name}
-                    className="cursor-hover-small h-full w-full object-cover rounded-xl"
+                    className="cursor-hover-small h-full w-full rounded-xl object-cover"
                     transition={{ duration: 0.4 }}
                   />
                 </div>
                 <motion.span
                   className="cursor-hover-small span-regular"
-                  whileHover="hover"
-                  variants={titleVariants}
+                  whileHover="hoverX"
+                  variants={variants}
                   transition={{ duration: 0.2 }}
                 >
                   {destination.name}
@@ -145,20 +136,20 @@ const SearchResult: React.FC<SearchResultProps> = ({
               key={blog._id}
               className="flex cursor-pointer gap-4 rounded-xl lg:h-24 2xl:h-32"
             >
-              <div className="overflow-hidden w-1/3 rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray">
+              <div className="h-full w-1/3 overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray">
                 <motion.img
                   whileHover="hover"
-                  variants={imageVariants}
+                  variants={variants}
                   src={blog.image}
                   alt={blog.title}
-                  className="cursor-hover-small h-full w-full object-cover rounded-xl"
+                  className="cursor-hover-small h-full w-full rounded-xl object-cover"
                   transition={{ duration: 0.4 }}
                 />
               </div>
               <motion.span
                 className="cursor-hover-small span-regular mt-3 w-2/3"
-                whileHover="hover"
-                variants={titleVariants}
+                whileHover="hoverX"
+                variants={variants}
                 transition={{ duration: 0.2 }}
               >
                 {blog.title}

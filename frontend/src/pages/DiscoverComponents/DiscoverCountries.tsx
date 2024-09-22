@@ -144,7 +144,7 @@ const DiscoverCountries: React.FC = () => {
                 className="flex min-h-[70svh] w-full flex-row items-start lg:gap-8 2xl:gap-12"
               >
                 <div className="relative flex items-center justify-center">
-                  <div className="h-[70svh] w-[40svw] overflow-hidden rounded-xl shadow-component">
+                  <div className="h-[70svh] w-[40svw] overflow-hidden rounded-xl shadow-component bg-gradient-to-t from-blue-gray-900 to-gray">
                     <motion.img
                       whileHover="hoverScale"
                       variants={variants}

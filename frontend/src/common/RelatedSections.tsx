@@ -5,8 +5,7 @@ import { Link } from "react-router-dom";
 import "src/common/style/related-section.css";
 // Component imports
 import useFetch from "src/hooks/useFetch";
-import { getImageSize, useViewportWidth } from "src/utils/imageUtils";
-import { optimizeImage } from "src/utils/optimizeImage";
+import { getImageSize, useViewportWidth, optimizeImage } from "src/utils/imageUtils";
 import { BASE_URL } from "src/utils/config";
 
 // Types

@@ -3,8 +3,10 @@ import React, { useEffect, useMemo, useState } from "react";
 // Component imports
 import "src/styles/discover.css";
 import { BASE_URL } from "src/utils/config";
-import { getFeaturedDestinations } from "src/utils/getFeaturedDestinations";
-import { getCountryByContinent } from "src/utils/getCountryByContinent";
+import {
+  getFeaturedDestinations,
+  getCountryByContinent,
+} from "src/utils/filterUtils";
 import { FetchCountriesType, FetchDestinationType } from "src/types/FetchData";
 import NotFoundPage from "./404";
 import Loading from "src/common/Loading";
