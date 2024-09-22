@@ -30,9 +30,13 @@ export const createCountry = async (req: Request, res: Response) => {
 
 export const getCountries = async (req: Request, res: Response) => {
   try {
-    const { continent } = req.query;
+    const { continent, searchQuery } = req.query;
     const filter: any = {};
     if (continent) filter.continent = continent;
+    if (typeof searchQuery === 'string') {
+      const regex = new RegExp(searchQuery, "i"); // 'i' makes it case-insensitive
+      filter.$or = [{ name: regex }, { continent: regex }];
+    }
 
     const countries = await Country.find(filter);
     const count = await Country.countDocuments(filter);

@@ -1,0 +1,165 @@
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import ReactDOM from "react-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import useDebounce from "src/hooks/useDebounce";
+import useFetch from "src/hooks/useFetch";
+import {
+  FetchBlogsType,
+  FetchCountriesType,
+  FetchDestinationType,
+} from "src/types/FetchData";
+import { BASE_URL } from "src/utils/config";
+import SearchResult from "src/common/SearchResult";
+import { BorderVariants, HoverVariants, InputVariants } from "./headerVariants";
+
+const HeaderSearch: React.FC = () => {
+  // State variables
+  const [inputDisplay, setInputDisplay] = useState(false);
+  const [searchResultOpen, setSearchResultOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // Refs
+  const searchRef = useRef<HTMLInputElement>(null);
+
+  // Debounced search query
+  const debouncedSearchQuery = useDebounce(searchQuery, 300);
+
+  // Fetch data
+  const { data: destinationsData } = useFetch<FetchDestinationType>(
+    `${BASE_URL}/destinations?limit=100&searchQuery=${debouncedSearchQuery}`,
+  );
+  const { data: countriesData } = useFetch<FetchCountriesType>(
+    `${BASE_URL}/countries?limit=100&searchQuery=${debouncedSearchQuery}`,
+  );
+  const { data: blogsData } = useFetch<FetchBlogsType>(
+    `${BASE_URL}/blogs?limit=100&searchQuery=${debouncedSearchQuery}`,
+  );
+
+  // Memoized data
+  const destinations = useMemo(
+    () => destinationsData?.result || [],
+    [destinationsData],
+  );
+  const countries = useMemo(() => countriesData?.result || [], [countriesData]);
+  const blogs = useMemo(() => blogsData?.result || [], [blogsData]);
+
+  // Effect to handle search result visibility
+  useEffect(() => {
+    setSearchResultOpen(!!debouncedSearchQuery);
+  }, [debouncedSearchQuery]);
+
+  // Close search result
+  const closeSearchResult = useCallback(() => {
+    setSearchResultOpen(false);
+    setInputDisplay(false);
+    if (searchRef.current) searchRef.current.value = "";
+    setSearchQuery("");
+  }, []);
+
+  // Handle click outside search result
+  const handleSearchResultClickOutside = useCallback(
+    (e: MouseEvent) => {
+      const searchResult = document.querySelector(".search-result");
+      if (
+        searchRef.current &&
+        !searchRef.current.contains(e.target as Node) &&
+        searchResult &&
+        !searchResult.contains(e.target as Node)
+      ) {
+        closeSearchResult();
+      }
+    },
+    [closeSearchResult],
+  );
+
+  // Handle search button click
+  const handleSearchClick = useCallback(() => {
+    if (!inputDisplay) {
+      setInputDisplay(true);
+      setTimeout(() => {
+        searchRef.current?.focus();
+      }, 100);
+    }
+  }, [inputDisplay]);
+
+  // Effect to add/remove event listener for click outside search result
+  useEffect(() => {
+    if (searchResultOpen) {
+      document.addEventListener("mousedown", handleSearchResultClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleSearchResultClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleSearchResultClickOutside);
+    };
+  }, [searchResultOpen, handleSearchResultClickOutside]);
+
+  return (
+    <div className="search-bar relative flex items-center">
+      <AnimatePresence>
+        {inputDisplay && (
+          <motion.div
+            key="search-input-container"
+            variants={InputVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            transition={{ duration: 0.4 }}
+            className="absolute right-full mr-2 overflow-hidden"
+          >
+            <input
+              type="text"
+              placeholder="Search"
+              id="search"
+              autoComplete="off"
+              ref={searchRef}
+              className="p-small w-40 bg-transparent text-text-dark outline-none"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onBlur={() => {
+                if (searchQuery === "") setInputDisplay(false);
+              }}
+            />
+            <motion.div
+              variants={BorderVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              transition={{ duration: 0.4 }}
+              className="absolute bottom-0 left-0 bg-white lg:h-[1px] 2xl:h-[1.5px]"
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <motion.button
+        variants={HoverVariants}
+        whileHover="hoverScale"
+        transition={{ duration: 0.2 }}
+        whileTap={{ scale: 1 }}
+        title="Search"
+        className="p-large px-1"
+        onClick={handleSearchClick}
+      >
+        <i className="ri-search-2-line pointer-events-none"></i>
+      </motion.button>
+      {ReactDOM.createPortal(
+        <SearchResult
+          open={searchResultOpen}
+          blogs={blogs}
+          countries={countries}
+          destinations={destinations}
+          closeFunc={closeSearchResult}
+        />,
+        document.body,
+      )}
+    </div>
+  );
+};
+
+export default HeaderSearch;
