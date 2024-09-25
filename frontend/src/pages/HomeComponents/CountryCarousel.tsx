@@ -134,12 +134,12 @@ export const MarqueeCountryCarousel = React.memo(() => {
               velocity={20}
               radius={scale * 80}
             >
-              <div className="mt-[70svh] lg:h-[4svh] 2xl:h-[5svh] bg-gradient-to-t rounded-lg from-blue-gray-900 to-gray">
+              <div className="mt-[70svh] lg:h-[5svh] 2xl:h-[5svh] bg-gradient-to-t lg:rounded-md 2xl:rounded-lg from-blue-gray-900 to-gray">
                 <img
                   loading="lazy"
                   src={src}
                   srcSet={srcSet}
-                  className="h-full rounded-lg object-cover shadow-component"
+                  className="h-full lg:rounded-md 2xl:rounded-lg object-cover shadow-component dark:shadow-component-dark"
                   alt="country flag"
                 />
               </div>

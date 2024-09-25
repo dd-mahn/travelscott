@@ -30,7 +30,7 @@ const DestinationTransportation: React.FC<DestinationTransportationProps> = ({ t
   return (
     <section
       id="transportation"
-      className="transportation px-sect sticky rounded-3xl bg-light-brown pt-sect-short shadow-section lg:pb-40 2xl:pb-sect-short"
+      className="transportation px-sect sticky rounded-3xl bg-light-brown dark:bg-background-dark-brown pt-sect-short shadow-section lg:pb-40 2xl:pb-sect-short"
     >
       <div className="mt-sect-short flex flex-col gap-8">
         <SlideRevealIconHeading
@@ -63,7 +63,7 @@ const DestinationTransportation: React.FC<DestinationTransportationProps> = ({ t
             transportationIndex === index && (
               <motion.div
                 key={`transportation-type-${type.name}`}
-                className="h-[75svh] w-2/3 rounded-xl shadow-component bg-gradient-to-t from-blue-gray-900 to-gray"
+                className="h-[75svh] w-2/3 rounded-xl shadow-component dark:shadow-component-dark bg-gradient-to-t from-blue-gray-900 to-gray"
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -90,7 +90,7 @@ const DestinationTransportation: React.FC<DestinationTransportationProps> = ({ t
               viewport={{ once: true }}
               variants={variants}
               transition={{ duration: 0.5, delay: 0.5 + index * 0.2 }}
-              className="flex w-full flex-col gap-8 rounded-xl bg-light-brown px-8 py-4 shadow-component"
+              className="flex w-full flex-col gap-8 rounded-xl bg-light-brown dark:bg-background-dark-brown px-8 py-4 shadow-component dark:shadow-component-dark"
             >
               <motion.button
                 whileHover="hoverX"

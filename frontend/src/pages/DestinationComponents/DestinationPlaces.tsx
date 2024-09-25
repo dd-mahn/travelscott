@@ -61,7 +61,7 @@ const DestinationPlaces: React.FC<DestinationPlacesProps> = ({ places }) => {
   return (
     <section
       id="places"
-      className="places px-sect rounded-3xl bg-light-green pb-sect-short pt-sect-short shadow-section"
+      className="places px-sect rounded-3xl bg-light-green dark:bg-background-dark-green pb-sect-short pt-sect-short"
     >
       <SlideRevealIconHeading
         iconClass="ri-map-pin-fill"
@@ -190,7 +190,7 @@ const PlaceCard: React.FC<{
       transition={{ duration: 0.5 }}
     >
       <div className="flex flex-col gap-4">
-        <div className="overflow-hidden rounded-xl">
+        <div className="overflow-hidden rounded-xl shadow-component dark:shadow-component-dark">
           <motion.img
             whileHover="hoverScale"
             variants={variants}

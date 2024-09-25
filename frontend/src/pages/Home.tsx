@@ -65,9 +65,9 @@ const Home: React.FC = () => {
         <Articles articlesHookRef={articlesHookRef} blogs={blogs} />
 
         {/* Starter hook section */}
-        <div className="sticky top-0 z-20 bg-background-light">
+        <div className="sticky top-0 z-20 bg-background-light dark:bg-background-dark">
           <section className="hook px-sect pb-sect-semi pt-sect-default">
-            <div className="overflow-hidden pb-4">
+            <div className="overflow-hidden lg:pb-2">
               <motion.h2
                 initial="hiddenFullY"
                 whileInView="visible"
@@ -79,7 +79,7 @@ const Home: React.FC = () => {
                 If you are still hesitant,
               </motion.h2>
             </div>
-            <div className="overflow-hidden pb-4">
+            <div className="overflow-hidden lg:pb-2">
               <motion.h2
                 initial="hiddenFullY"
                 whileInView="visible"

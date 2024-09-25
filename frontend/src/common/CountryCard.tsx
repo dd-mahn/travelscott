@@ -52,7 +52,7 @@ const CountryCard: React.FC<CountryCardProps> = ({ country }) => {
           whileHover="hoverRotate"
           whileTap="tapRotate"
           variants={variants}
-          className="flex cursor-pointer items-center justify-center overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray shadow-component lg:h-20 lg:w-2/3"
+          className="flex cursor-pointer items-center justify-center overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray shadow-component dark:shadow-component-dark lg:h-20 lg:w-2/3"
         >
           <Link
             to={`countries/${country._id}`}

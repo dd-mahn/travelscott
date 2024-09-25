@@ -10,7 +10,7 @@ interface StyledInputProps {
 const StyledInput: React.FC<StyledInputProps> = ({ type, id, label }) => {
 
   return (
-    <div className="styled-input flex w-full items-center border-b border-text-light">
+    <div className="styled-input flex w-full items-center border-b border-text-light dark:border-text-dark">
       <label htmlFor={id} className="label span-regular">
         {label}
       </label>

@@ -13,7 +13,7 @@ const DestinationSummary = ({ summary }: { summary: string }) => {
   return (
     <section
       id="summary"
-      className="summary px-sect flex flex-col gap-sect-short rounded-3xl bg-background-light lg:py-sect-short 2xl:py-sect-default"
+      className="summary px-sect flex flex-col gap-sect-short rounded-3xl bg-background-light dark:bg-background-dark lg:py-sect-short 2xl:py-sect-default"
     >
       <SlideRevealIconHeading
         iconClass="ri-shining-2-fill"

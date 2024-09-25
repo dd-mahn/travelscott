@@ -60,12 +60,21 @@ const otherLinks = [
 const variants = {
   hiddenY: VisibilityVariants.hiddenY,
   visible: VisibilityVariants.visible,
+
+  blobAnimation: {
+    scale: [1, 1.5, 1],
+    opacity: [0.6, 0.7, 0.6],
+    zIndex: [0, 0, 0],
+    transition: { duration: 5, repeat: Infinity },
+  },
 };
 
 const Footer = () => {
   return (
-    <footer className="flex flex-col self-end border-t border-solid border-gray xl:pt-20 2xl:pt-20">
-      <div className="px-sect flex items-end justify-between">
+    <footer className="flex flex-col relative self-end border-t border-solid border-gray lg:pt-12 xl:pt-20 2xl:pt-20">
+      <motion.div initial="hidden" animate="blobAnimation" variants={variants} className="blob-brown blur-blob absolute -right-1/3 top-[40%] z-0 h-[80%] w-1/2 opacity-60"></motion.div>
+      
+      <div className="px-sect flex items-end justify-between z-10">
         <motion.p
           initial="hiddenY"
           whileInView="visible"
@@ -77,7 +86,7 @@ const Footer = () => {
           Made and curated by people with <br />
           passion in travel, Travel, and TRAVEL.
         </motion.p>
-        <div className="styled-input flex w-fit items-center justify-between border-b border-solid border-text-light">
+        <div className="styled-input flex w-fit items-center justify-between border-b border-solid border-text-light dark:border-text-dark">
           <label
             htmlFor="subscribe-email"
             className="label span-regular uppercase"
@@ -113,7 +122,7 @@ const Footer = () => {
             title="subscribe"
           >
             {" "}
-            <img src={planeIcon} alt="" className="cursor-hover-small" />{" "}
+            <img src={planeIcon} alt="" className="cursor-hover-small dark:invert" />{" "}
           </motion.button>
         </div>
       </div>
@@ -124,7 +133,7 @@ const Footer = () => {
         viewport={{ once: true }}
         variants={variants}
         transition={{ duration: 0.6 }}
-        className="px-sect flex items-end justify-between"
+        className="px-sect flex items-end justify-between z-10"
       >
         <div className="z-10 flex lg:gap-8 xl:gap-10 2xl:gap-12 3xl:gap-12">
           <nav className="flex flex-col lg:gap-2 2xl:gap-4">
@@ -169,13 +178,13 @@ const Footer = () => {
         </button>
       </motion.div>
 
-      <div className="flex justify-center border-t border-solid border-gray">
-        <div className="w-screen select-none overflow-hidden text-center font-logo text-text-light lg:mr-16 lg:text-8xl xl:text-13xl 2xl:text-14xl 3xl:text-15xl">
+      <div className="flex justify-center border-t border-solid border-gray z-10">
+        <div className="w-screen leading-[1] pointer-events-none overflow-hidden text-center font-logo text-text-light lg:mr-16 lg:text-12xl xl:text-13xl 2xl:text-14xl 3xl:text-15xl">
           <StaggerLogo />
         </div>
       </div>
 
-      <div className="px-sect flex flex-row items-center justify-between border-t border-solid border-gray lg:h-8 2xl:h-10">
+      <div className="px-sect z-10 flex flex-row items-center justify-between border-t border-solid border-gray lg:h-8 2xl:h-10">
         <span className="select-none font-medium uppercase text-gray lg:text-base xl:text-sm 2xl:text-lg">
           Copyright TravelScott 2024
         </span>
@@ -188,7 +197,7 @@ const Footer = () => {
                 key={index}
                 className="text-gray"
               >
-                <NavLink to={item.path}>{item.display}</NavLink>
+                <NavLink to={item.path} className="span-small">{item.display}</NavLink>
               </motion.li>
             ))}
           </ul>

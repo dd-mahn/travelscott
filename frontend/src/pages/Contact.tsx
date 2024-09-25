@@ -13,12 +13,20 @@ import {
 } from "src/utils/variants";
 
 const variants = {
+  hidden: VisibilityVariants.hidden,
   hiddenY: VisibilityVariants.hiddenY,
   visible: VisibilityVariants.visible,
   dropHidden: VisibilityVariants.dropHidden,
   hoverScale: HoverVariants.hoverScale,
   tapScale: TapVariants.tapScale,
   rotate: VisibilityVariants.rotate,
+
+  blobAnimation: {
+    scale: [1, 1.5, 1],
+    opacity: [0.6, 0.7, 0.6],
+    zIndex: [0, 0, 0],
+    transition: { duration: 5, repeat: Infinity },
+  },
 };
 
 const Contact: React.FC = () => {
@@ -98,7 +106,7 @@ const Contact: React.FC = () => {
         animate="visible"
         transition={{ duration: 0.5 }}
         variants={variants}
-        className="emailing z-20 w-full rounded-3xl bg-background-light px-12 py-8 shadow-section"
+        className="emailing z-20 w-full rounded-3xl bg-background-light dark:bg-background-dark px-12 py-8 shadow-section dark:shadow-section-dark"
       >
         <div className="flex flex-row items-center justify-between border-b pb-8">
           <h2 className="h2-md">
@@ -159,7 +167,7 @@ const Contact: React.FC = () => {
         animate="visible"
         transition={{ duration: 0.5, delay: 0.2 }}
         variants={variants}
-        className="contribute z-20 w-full rounded-3xl bg-background-light px-12 py-8 shadow-section"
+        className="contribute z-20 w-full rounded-3xl bg-background-light dark:bg-background-dark px-12 py-8 shadow-section dark:shadow-section-dark"
       >
         <div className="flex flex-row items-center justify-between border-b pb-8">
           <h2 className="h2-md">Want to share your experience as resource?</h2>
@@ -210,7 +218,7 @@ const Contact: React.FC = () => {
         animate="visible"
         transition={{ duration: 0.5, delay: 0.4 }}
         variants={variants}
-        className="feedback z-20 w-full rounded-3xl bg-background-light px-12 py-8 shadow-section"
+        className="feedback z-20 w-full rounded-3xl bg-background-light dark:bg-background-dark px-12 py-8 shadow-section dark:shadow-section-dark"
       >
         <div className="flex flex-row items-center justify-between border-b pb-8">
           <h2 className="h2-md">Want to give us a feedback?</h2>
@@ -281,12 +289,18 @@ const Contact: React.FC = () => {
       </motion.section>
 
       <motion.div
+        initial="hidden"
+        animate="blobAnimation"
+        variants={variants}
         layout
-        className="blur-blob blob-brown -left-[10%] top-[5%] h-[40%] w-[30%] opacity-100"
+        className="blur-blob blob-brown -left-[10%] top-[5%] h-[40%] w-[30%] opacity-100 dark:opacity-60"
       ></motion.div>
       <motion.div
+        initial="hidden"
+        animate="blobAnimation"
+        variants={variants}
         layout
-        className="blur-blob blob-green -right-[10%] bottom-[20%] h-[40%] w-[30%] opacity-60"
+        className="blur-blob blob-green -right-[10%] bottom-[20%] h-[40%] w-[30%] opacity-60 dark:opacity-40"
       ></motion.div>
     </main>
   );

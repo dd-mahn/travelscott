@@ -88,7 +88,7 @@ const GuideSection: React.FC<GuideSectionProps> = ({
     initial="hiddenY"
     animate="visible"
     transition={{ duration: 0.5 }}
-    className="z-10 w-[60%] rounded-3xl bg-background-light lg:px-8 lg:py-6 2xl:px-12 2xl:py-8 shadow-section"
+    className="z-10 w-[60%] rounded-3xl bg-background-light dark:bg-background-dark lg:px-8 lg:py-6 2xl:px-12 2xl:py-8 shadow-section dark:shadow-section-dark"
   >
     <div className="flex flex-row items-center justify-between border-b pb-8">
       <h2 className="h2-md">{title}</h2>

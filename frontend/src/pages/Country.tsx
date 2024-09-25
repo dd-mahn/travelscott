@@ -23,6 +23,7 @@ import { VisibilityVariants } from "src/utils/variants";
 import CountryOverview from "./CountryComponents/CountryOverview";
 import CountryHero from "./CountryComponents/CountryHero";
 import useStackedSections from "src/hooks/useStackedSections";
+import { selectIsDarkMode } from "src/store/slices/themeSlice";
 
 // Animation variants
 const variants = {
@@ -36,6 +37,7 @@ const CountryPage: React.FC = () => {
   const { currentCountry, loading, error } = useSelector(
     (state: RootState) => state.country,
   );
+  const isDarkMode = useSelector(selectIsDarkMode);
   const { id } = useParams();
 
   const {
@@ -82,12 +84,12 @@ const CountryPage: React.FC = () => {
           whileInView="visible"
           transition={{ duration: 0.5, delay: 0.5, ease: "easeInOut" }}
           viewport={{ once: true }}
-          className="sticky right-0 top-0 z-0 ml-auto h-screen w-2/3 bg-gradient-to-t from-blue-gray-900 to-gray"
+          className="sticky right-0 top-0 z-0 ml-auto h-screen w-2/3 rounded-2xl bg-gradient-to-t from-blue-gray-900 to-gray"
         >
           <img
-            src={currentCountry.images.mapImages?.[0]}
+            src={isDarkMode ? currentCountry.images.mapImages?.filter(image => image.includes("dark"))[0] : currentCountry.images.mapImages?.filter(image => !image.includes("dark"))[0]}
             alt={`${currentCountry.name} map`}
-            className="h-full w-full object-cover"
+            className="h-full w-full rounded-2xl object-cover"
           />
         </motion.div>
 

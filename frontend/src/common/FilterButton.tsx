@@ -63,7 +63,7 @@ export const FilterButton: React.FC<FilterButtonProps> = ({
         variants={variants}
         whileTap="tapScale"
         title="filter"
-        className={`rounded-full bg-background-dark shadow-component lg:h-12 lg:w-12 xl:h-12 xl:w-12 2xl:h-16 2xl:w-16 3xl:h-16 3xl:w-16`}
+        className={`rounded-full bg-background-dark dark:bg-background-dark-transparent shadow-component dark:shadow-component-dark lg:h-12 lg:w-12 xl:h-12 xl:w-12 2xl:h-16 2xl:w-16 3xl:h-16 3xl:w-16`}
         onClick={toggleFilterBoard}
       >
         <i

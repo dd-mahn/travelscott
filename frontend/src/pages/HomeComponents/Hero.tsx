@@ -17,14 +17,20 @@ const variants = {
   visible: VisibilityVariants.visible,
   hoverScale: HoverVariants.hoverScale,
   hiddenFullScale: VisibilityVariants.hiddenFullScale,
-  
+
   // Airplane animations
   airplane1Start: { opacity: 0, x: -50, y: 50 },
   airPlane1End: {
     opacity: 1,
     x: 0,
     y: 0,
-    transition: { delay: 2.5, duration: 0.5, type: "spring", stiffness: 260, damping: 10 },
+    transition: {
+      delay: 2.5,
+      duration: 0.5,
+      type: "spring",
+      stiffness: 260,
+      damping: 10,
+    },
   },
   airplane2Start: { opacity: 0, x: 100, y: 100 },
   airPlane2End: {
@@ -40,7 +46,7 @@ const variants = {
     y: 0,
     transition: { delay: 3.5, duration: 0.5, type: "spring" },
   },
-  
+
   // Star animations
   hoverStar: {
     scale: [1, 0.5, 1.2, 1],
@@ -74,7 +80,7 @@ const Hero: React.FC = () => {
   const starRef = useRef<HTMLElement>(null);
   const switchTextRef = useRef<HTMLDivElement>(null);
   const switchContainerRef = useRef<HTMLDivElement>(null);
-  
+
   // Animation controls for star sibling
   const starSiblingControls = useAnimation();
 
@@ -131,7 +137,7 @@ const Hero: React.FC = () => {
             dragConstraints={{ top: 0, left: 0, right: 0, bottom: 0 }}
             src={airplane1}
             alt="Airplane"
-            className="w-full"
+            className="w-full dark:brightness-90"
           />
           <div className="blob-shadow blur-blob -bottom-[20%] h-1/3 w-full opacity-60"></div>
         </motion.div>
@@ -146,7 +152,7 @@ const Hero: React.FC = () => {
           drag
           dragConstraints={{ top: 0, left: 0, right: 0, bottom: 0 }}
           src={airplane2}
-          className="airplane-2 absolute w-[15vw] transform lg:-top-1/2 lg:right-[5%] xl:-top-1/3 xl:right-[5%] 2xl:-top-1/3 2xl:right-0 3xl:-top-1/3 3xl:right-[5%]"
+          className="airplane-2 absolute w-[15vw] transform dark:brightness-90 lg:-top-1/2 lg:right-[5%] xl:-top-1/3 xl:right-[5%] 2xl:-top-1/3 2xl:right-0 3xl:-top-1/3 3xl:right-[5%]"
           alt="Airplane"
         />
         <motion.img
@@ -160,7 +166,7 @@ const Hero: React.FC = () => {
           drag
           dragConstraints={{ top: 0, left: 0, right: 0, bottom: 0 }}
           src={airplane3}
-          className="airplane-3 absolute w-[8vw] transform lg:-top-1/3 lg:right-[40%] xl:-top-[40%] xl:right-1/3 2xl:-top-1/2 2xl:right-[40%] 3xl:-top-1/2 3xl:right-[40%]"
+          className="airplane-3 absolute w-[8vw] transform dark:brightness-90 lg:-top-1/3 lg:right-[40%] xl:-top-[40%] xl:right-1/3 2xl:-top-1/2 2xl:right-[40%] 3xl:-top-1/2 3xl:right-[40%]"
           alt="Airplane"
         />
         {/* Animated Star */}
@@ -172,7 +178,7 @@ const Hero: React.FC = () => {
           viewport={{ once: true }}
           whileHover="hoverStar"
           transition={{ delay: 1, duration: 0.4 }}
-          className="star ri-shining-2-fill absolute -top-[5%] rotate-[30deg] transform text-yellow lg:text-5.5xl xl:text-6xl 2xl:text-6.5xl 3xl:text-7.5xl"
+          className="star ri-shining-2-fill absolute rotate-[30deg] transform text-yellow dark:text-yellow lg:top-0 lg:text-5xl xl:text-6xl 2xl:-top-[5%] 2xl:text-6.5xl 3xl:text-7.5xl"
         ></motion.i>
         {/* Animated Text */}
         <div className="overflow-hidden">
@@ -196,7 +202,9 @@ const Hero: React.FC = () => {
             className="h1-md"
           >
             favorite{" "}
-            <span className="uppercase text-main-green">travel guide</span>
+            <span className="uppercase text-main-green dark:text-dark-green">
+              travel guide
+            </span>
           </motion.h1>
         </div>
 
@@ -206,7 +214,7 @@ const Hero: React.FC = () => {
             initial="hiddenFullY"
             animate="visible"
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="h1-md"
+            className="h1-md overflow-hidden"
           >
             to{" "}
             <div className="inline-block">
@@ -249,7 +257,10 @@ const Hero: React.FC = () => {
                 ))}
               </div>
             </div>{" "}
-            <span className="uppercase text-main-brown">experience</span>.
+            <span className="uppercase text-main-brown dark:text-dark-brown">
+              experience
+            </span>
+            .
           </motion.h1>
         </div>
       </div>

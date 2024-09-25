@@ -79,7 +79,7 @@ const InspirationButtons = () => {
               whileHover="buttonHover"
               whileTap="buttonTap"
               onClick={() => handleCategoryChange(f)}
-              className={`filter-btn span-medium rounded-xl px-10 py-4 font-prima text-text-dark shadow-component bg-${getBackgroundKey(f)}`}
+              className={`filter-btn span-medium rounded-xl px-10 py-4 font-prima text-text-dark shadow-component dark:shadow-component-dark bg-${getBackgroundKey(f)}`}
             >
               {f}
             </motion.button>

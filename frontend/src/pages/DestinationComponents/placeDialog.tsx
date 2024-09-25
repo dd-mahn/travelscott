@@ -147,7 +147,7 @@ const DialogHeader: React.FC<{
             animate="visible"
             whileHover="hoverRotate"
             transition={{ duration: 0.3 }}
-            className="flex h-12 flex-row items-center gap-4 rounded-xl bg-background-light px-4 py-2 shadow-component only:col-start-2"
+            className="flex h-12 flex-row items-center gap-4 rounded-xl bg-background-light px-4 py-2 shadow-component dark:shadow-component-dark only:col-start-2"
           >
             <img
               src={

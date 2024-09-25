@@ -95,7 +95,7 @@ const Brief: React.FC = () => {
               transition={{ duration: 0.5 }}
               className=""
             >
-              A <span className="text-main-green">Comprehensive Catalog</span>{" "}
+              A <span className="text-main-green dark:text-dark-green">Comprehensive Catalog</span>{" "}
               of
             </motion.div>
           </div>
@@ -122,14 +122,14 @@ const Brief: React.FC = () => {
           whileInView="visible"
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="sticky top-0 z-0 h-svh rounded-2xl py-4"
+          className="sticky top-0 z-0 h-svh rounded-2xl py-4 "
         >
           <video
             src={briefVideo}
             autoPlay
             muted
             loop
-            className="h-full rounded-2xl"
+            className="h-full rounded-2xl shadow-component dark:shadow-component-dark"
           ></video>
         </motion.div>
         {/* Paragraphs section with animated blobs */}

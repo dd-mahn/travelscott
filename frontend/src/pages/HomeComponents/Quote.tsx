@@ -9,6 +9,13 @@ const variants = {
   hiddenFullY: VisibilityVariants.hiddenFullY,
   hiddenLeft: VisibilityVariants.hiddenLeft,
   visible: VisibilityVariants.visible,
+
+  blobAnimation: {
+    scale: [1, 1.5, 1],
+    opacity: [0.6, 0.7, 0.6],
+    zIndex: [0, 0, 0],
+    transition: { duration: 5, repeat: Infinity },
+  },
 };
 
 const Quote = () => {
@@ -74,8 +81,9 @@ const Quote = () => {
   }, [inViewed, iconContainerRefs, iconSiblingRefs, iconSiblingControls]);
 
   return (
-    <section className="quote px-sect flex flex-col gap-4 lg:py-sect-default 2xl:py-sect-medium">
-      <div className="flex flex-row items-end justify-between">
+    <section className="quote relative px-sect flex flex-col gap-4 lg:py-sect-default 2xl:py-sect-medium">
+      <motion.div initial="hidden" animate="blobAnimation" variants={variants} className="blob-brown blur-blob absolute -left-1/3 top-[10%] z-0 h-[80%] w-1/2 opacity-60"></motion.div>
+      <div className="flex flex-row items-end justify-between ">
         <div className="big-heading">
           {/* First line of the quote */}
           <div className="relative flex items-center">
@@ -106,15 +114,16 @@ const Quote = () => {
               ></motion.i>
             </div>
 
-            <div className={`inline-block overflow-hidden pl-4`}>
+            <div className={`inline-block overflow-hidden`}>
               <motion.h1
                 ref={iconSiblingRefs[0]}
                 initial="hiddenFullY"
                 animate={iconSiblingControls[0]}
                 transition={{ duration: 0.5 }}
                 variants={variants}
-                className="w-fit uppercase text-main-green"
+                className="w-fit uppercase text-main-green dark:text-dark-green"
               >
+                {" "}
                 travel
               </motion.h1>
             </div>
@@ -131,7 +140,7 @@ const Quote = () => {
                 transition={{ duration: 0.5 }}
                 className=""
               >
-                is to <span className="uppercase text-main-brown">live</span>{" "}
+                is to <span className="uppercase text-main-brown dark:text-dark-brown">live</span>{" "}
               </motion.h1>
             </div>
 
@@ -169,7 +178,7 @@ const Quote = () => {
           whileInView="visible"
           viewport={{ once: true }}
           variants={variants}
-          className="p-medium uppercase"
+          className="lg:span-small 2xl:span-medium uppercase"
         >
           - Hans Christian Andersen
         </motion.span>

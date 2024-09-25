@@ -5,7 +5,7 @@ import filterReducer from "src/store/slices/filterSlice";
 import countryReducer from "src/store/slices/countrySlice";
 import destinationReducer from "src/store/slices/destinationSlice";
 import continentReducer from "src/store/slices/continentSlice";
-
+import themeReducer from "src/store/slices/themeSlice";
 export const store = configureStore({
   reducer: {
     inspiration: inspirationReducer,
@@ -14,6 +14,7 @@ export const store = configureStore({
     country: countryReducer,
     destination: destinationReducer,
     continent: continentReducer,
+    theme: themeReducer,
   },
 });
 

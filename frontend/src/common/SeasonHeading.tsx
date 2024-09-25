@@ -15,7 +15,7 @@ const SeasonHeading: React.FC<SeasonHeadingProps> = () => {
   const season = getSeason();
   return (
     <motion.div className="big-heading flex h-fit items-center gap-[2svw] overflow-hidden">
-      <div className="inline-block h-fit w-fit overflow-hidden border-b-4 border-text-dark dark:border-text-light">
+      <div className="inline-block h-fit w-fit overflow-hidden border-b-4 border-text-dark ">
         {season.split("").map((letter, index) => (
           <motion.h1
             key={index}
@@ -29,7 +29,7 @@ const SeasonHeading: React.FC<SeasonHeadingProps> = () => {
             }}
             viewport={{ once: true }}
             variants={variants}
-            className="inline-block text-text-dark dark:text-text-light"
+            className="inline-block text-text-dark"
             style={{ lineHeight: 0.8 }}
           >
             {letter}
@@ -42,7 +42,7 @@ const SeasonHeading: React.FC<SeasonHeadingProps> = () => {
         transition={{ duration: 0.5, delay: 1 }}
         viewport={{ once: true }}
         variants={variants}
-        className="text-stroke-light-bold inline-block border-b-4 border-transparent text-transparent"
+        className="text-stroke-light-bold inline-block border-b-4 border-transparent text-transparent dark:text-transparent"
       >
         {new Date().getFullYear()}
       </motion.h1>

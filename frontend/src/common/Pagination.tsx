@@ -1,7 +1,4 @@
-import React, {
-  MouseEventHandler,
-  useMemo,
-} from "react";
+import React, { MouseEventHandler, useMemo } from "react";
 import { motion } from "framer-motion";
 import { HoverVariants, TapVariants } from "src/utils/variants";
 
@@ -40,10 +37,11 @@ export const CatalogPagination: React.FC<CatalogPaginationProps> = ({
   );
 
   return (
-    <div className="pagination mt-sect-short flex w-full items-center justify-between rounded-xl px-4 py-2 shadow-component">
+    <div className="pagination mt-sect-short flex w-full items-center justify-between rounded-xl bg-opacity-75 px-4 py-2 shadow-component dark:shadow-component-dark">
       <p className="p-regular">
         Showing {startRange} to {endRange} of{" "}
-        <span className="text-main-brown">{count}</span> results
+        <span className="text-main-brown dark:text-dark-brown">{count}</span>{" "}
+        results
       </p>
 
       <div className="flex items-center gap-2">
@@ -66,7 +64,7 @@ export const CatalogPagination: React.FC<CatalogPaginationProps> = ({
             title="Previous"
             aria-label="Go to previous page"
           >
-            <i className="cursor-hover-small ri-arrow-left-s-line pointer-events-none text-gray opacity-50"></i>
+            <i className="cursor-hover-small ri-arrow-left-s-line pointer-events-none text-gray opacity-50 dark:text-blue-gray-700"></i>
           </button>
         )}
         {Array.from({ length: totalPage }, (_, i) => (
@@ -76,7 +74,9 @@ export const CatalogPagination: React.FC<CatalogPaginationProps> = ({
             variants={variants}
             transition={{ duration: 0.3 }}
             key={`page-${i}`}
-            className={page === i + 1 ? "active page-btn cursor-hover-small" : "page-btn"}
+            className={
+              page === i + 1 ? "active page-btn cursor-hover-small" : "page-btn"
+            }
             onClick={() => handlePageClick(i + 1)}
             aria-label={`Go to page ${i + 1}`}
           >
@@ -102,7 +102,7 @@ export const CatalogPagination: React.FC<CatalogPaginationProps> = ({
             title="Next"
             aria-label="Go to next page"
           >
-            <i className="cursor-hover-small ri-arrow-right-s-line pointer-events-none text-gray opacity-50"></i>
+            <i className="cursor-hover-small ri-arrow-right-s-line pointer-events-none text-gray opacity-50 dark:text-blue-gray-700"></i>
           </button>
         )}
       </div>
@@ -191,7 +191,7 @@ export const DotPagination: React.FC<DotPaginationProps> = ({
   return (
     <motion.div
       layout
-      className="pagination-bar flex w-fit flex-row items-center justify-between gap-8 rounded-3xl bg-background-light bg-opacity-75 px-2 py-1 shadow-component dark:bg-background-dark"
+      className="pagination-bar flex w-fit flex-row items-center justify-between gap-8 rounded-3xl bg-background-light bg-opacity-75 px-2 py-1 shadow-component dark:shadow-component-dark"
     >
       <motion.button
         variants={buttonVariants}
@@ -202,7 +202,9 @@ export const DotPagination: React.FC<DotPaginationProps> = ({
         onClick={handlePreviousClick}
         disabled={index === 0}
       >
-        <i className={`cursor-hover-small p-large ri-arrow-left-s-line pointer-events-none ${index === 0 ? 'text-gray opacity-70' : ''}`}></i>
+        <i
+          className={`cursor-hover-small p-large ri-arrow-left-s-line pointer-events-none text-text-light dark:text-text-light ${index === 0 ? "text-gray opacity-70 dark:text-gray" : ""}`}
+        ></i>
       </motion.button>
 
       <div className="flex items-center justify-center space-x-2">
@@ -226,7 +228,9 @@ export const DotPagination: React.FC<DotPaginationProps> = ({
         onClick={handleNextClick}
         disabled={index === count - 1}
       >
-        <i className={`cursor-hover-small p-large ri-arrow-right-s-line ${index === count - 1 ? 'text-gray opacity-70' : ''}`}></i>
+        <i
+          className={`cursor-hover-small p-large ri-arrow-right-s-line text-text-light dark:text-text-light ${index === count - 1 ? "text-gray opacity-70 dark:text-gray" : ""}`}
+        ></i>
       </motion.button>
     </motion.div>
   );

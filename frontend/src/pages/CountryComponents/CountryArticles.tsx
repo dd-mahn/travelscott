@@ -59,7 +59,7 @@ const CountryArticles: React.FC<CountryArticlesProps> = ({ country }) => {
   if (blogError || countryBlogs.length === 0) return null;
 
   return (
-    <section className="blogs z-20 flex w-screen flex-col items-start gap-16 rounded-3xl bg-light-brown pt-sect-short shadow-section">
+    <section className="blogs z-20 flex w-screen flex-col items-start gap-16 rounded-3xl bg-light-brown dark:bg-background-dark-brown pt-sect-short shadow-section">
       <div className="mt-sect-short w-full overflow-hidden">
         <motion.h1
           variants={variants}

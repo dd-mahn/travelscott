@@ -30,7 +30,7 @@ const Featured: React.FC = () => {
           className="h1-md relative"
         >
           {/* Decorative icon */}
-          <i className="ri-shining-2-fill rotate-30 absolute -left-[5%] -top-0 transform text-yellow lg:text-3xl xl:text-4xl 2xl:text-4xl 3xl:text-5xl"></i>{" "}
+          <i className="ri-shining-2-fill rotate-30 absolute -left-[5%] -top-0 transform text-yellow dark:text-yellow lg:text-3xl xl:text-4xl 2xl:text-4xl 3xl:text-5xl"></i>{" "}
           Featured Destinations
         </motion.h1>
       </div>
@@ -50,7 +50,7 @@ const Featured: React.FC = () => {
           className="p-large"
         >
           They are just so few among the{" "}
-          <span className="font-semibold text-main-brown lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl">
+          <span className="font-semibold text-main-brown dark:text-dark-brown lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl">
             100
           </span>
           + <br />
@@ -67,8 +67,10 @@ const Featured: React.FC = () => {
           className="relative flex items-end"
         >
           {/* Decorative blob */}
-          <div className="blob blur-blob absolute z-0 h-full w-1/3"></div>
-          <SecondaryButton text="Discover More" link="/discover" />
+          <div className="blob-green blur-blob absolute z-0 h-full w-1/3 -top-[40%] -right-[10%] opacity-100"></div>
+          <div className="z-10">
+            <SecondaryButton text="Discover More" link="/discover" />
+          </div>
         </motion.div>
       </div>
     </section>

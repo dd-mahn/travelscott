@@ -58,7 +58,7 @@ const DiscoverCountries: React.FC = () => {
     label: "Select Continent",
     variant: "outlined",
     size: "lg",
-    className: "span-small font-sans shadow-component rounded-xl border-none",
+    className: "span-small dark:bg-background-dark-transparent font-sans shadow-component dark:shadow-component-dark rounded-xl border-none",
     children: undefined,
     animate: {
       mount: { y: 0 },
@@ -66,7 +66,7 @@ const DiscoverCountries: React.FC = () => {
     },
     onChange: (value: string) => handleSelectContinent(value),
     menuProps: {
-      className: "bg-background-light shadow-component rounded-xl",
+      className: "bg-background-light dark:bg-background-dark shadow-component dark:shadow-component-dark rounded-xl",
     },
     labelProps: {
       className:
@@ -144,7 +144,7 @@ const DiscoverCountries: React.FC = () => {
                 className="flex min-h-[70svh] w-full flex-row items-start lg:gap-8 2xl:gap-12"
               >
                 <div className="relative flex items-center justify-center">
-                  <div className="h-[70svh] w-[40svw] overflow-hidden rounded-xl shadow-component bg-gradient-to-t from-blue-gray-900 to-gray">
+                  <div className="h-[70svh] w-[40svw] overflow-hidden rounded-xl shadow-component dark:shadow-component-dark bg-gradient-to-t from-blue-gray-900 to-gray">
                     <motion.img
                       whileHover="hoverScale"
                       variants={variants}

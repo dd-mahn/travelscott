@@ -42,7 +42,7 @@ const DestinationOverview = ({ destination }: { destination: Destination }) => {
             {destination.tags.map((tag) => (
               <span
                 key={tag}
-                className="span-small rounded-2xl border-solid border-text-light px-4 lg:border 2xl:border-2"
+                className="span-small rounded-2xl border-solid border-text-light dark:border-text-dark px-4 lg:border 2xl:border-2"
               >
                 {tag}
               </span>

@@ -3,7 +3,11 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 import Destination from "src/types/Destination";
-import { getImageSize, useViewportWidth, optimizeImage } from "src/utils/imageUtils";
+import {
+  getImageSize,
+  useViewportWidth,
+  optimizeImage,
+} from "src/utils/imageUtils";
 import { HoverVariants, VisibilityVariants } from "src/utils/variants";
 
 // Define prop types for the component
@@ -37,9 +41,9 @@ const FeaturedDestinationCard: React.FC<DestinationCardProps> = memo(
     }, [destination.images, viewportWidth]);
 
     return (
-      <div className="destination-card flex h-full flex-col gap-4 pb-8">
+      <div className="destination-card flex h-full flex-col lg:gap-2 2xl:gap-4 lg:pb-6 2xl:pb-8">
         {/* Image container */}
-        <div className="h-[70svh] w-full overflow-hidden rounded-xl shadow-component bg-gradient-to-t from-blue-gray-900 to-gray">
+        <div className="w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray shadow-component dark:shadow-component-dark lg:h-[65svh] 2xl:h-[70svh]">
           <motion.img
             whileHover="hoverScale"
             transition={{ duration: 0.4 }}
@@ -52,8 +56,8 @@ const FeaturedDestinationCard: React.FC<DestinationCardProps> = memo(
           />
         </div>
         {/* Destination information */}
-        <div className="flex flex-col lg:gap-0 xl:gap-0 2xl:gap-0 3xl:gap-0">
-          <span className="span-regular text-gray">{destination.country}</span>
+        <div className="flex flex-col lg:gap-0 xl:gap-0 2xl:gap-0 3xl:gap-0 pt-2">
+          <span className="span-small text-gray">{destination.country}</span>
           <motion.span
             whileHover="hoverX"
             transition={{ duration: 0.3 }}

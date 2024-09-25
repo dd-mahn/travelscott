@@ -36,7 +36,7 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ destination }) => {
       <Link
         to={`/discover/destinations/${destination._id}`}
         target="_top"
-        className="grid h-[50svh] place-items-center overflow-hidden rounded-2xl shadow-component bg-gradient-to-t from-blue-gray-900 to-gray"
+        className="grid h-[50svh] place-items-center overflow-hidden rounded-2xl shadow-component dark:shadow-component-dark bg-gradient-to-t from-blue-gray-900 to-gray"
       >
         {optimizedImage && (
           <motion.img

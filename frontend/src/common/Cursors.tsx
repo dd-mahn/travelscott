@@ -178,8 +178,8 @@ const Cursor = () => {
       }}
       className={`pointer-events-none fixed z-[1000] grid place-items-center rounded-full ${
         cursorState === "hover"
-          ? "bg-aurora-brown"
-          : "bg-white mix-blend-difference dark:bg-black"
+          ? "bg-aurora-brown dark:bg-dark-brown"
+          : "bg-white mix-blend-difference"
       }`}
     >
       {cursorState === "hover" && (

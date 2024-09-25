@@ -17,11 +17,12 @@ const Layout: React.FC = () => {
   const handleLoading = useCallback(() => {
     if (location.pathname === "/") {
       setLoading(true);
-      // Show loading screen for 3 seconds
+      // Show loading screen for 2 seconds
       setTimeout(() => {
         setLoading(false);
+
         setLoadingShown(true);
-      }, 3000);
+      }, 2000);
     }
   }, [location.pathname]);
 

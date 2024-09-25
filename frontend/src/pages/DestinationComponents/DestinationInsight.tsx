@@ -35,7 +35,7 @@ const DestinationInsight: React.FC<DestinationInsightProps> = ({
         viewport={{ once: true, margin: "-200px" }}
         variants={variants}
         transition={{ duration: 0.5 }}
-        className="rounded-xl bg-background-light bg-opacity-70 px-6 py-4 shadow-component"
+        className="rounded-xl bg-background-light dark:bg-background-dark bg-opacity-70 px-6 py-4 shadow-component dark:shadow-component-dark"
         key={index}
       >
         <p className="p-medium text-text-light">{tip}</p>
@@ -58,7 +58,7 @@ const DestinationInsight: React.FC<DestinationInsightProps> = ({
           viewport={{ once: true, margin: "-200px" }}
           variants={variants}
           transition={{ duration: 0.5 }}
-          className="cursor-hover p-medium rounded-xl bg-background-light bg-opacity-70 px-6 py-2 shadow-component"
+          className="cursor-hover p-medium rounded-xl bg-background-light dark:bg-background-dark bg-opacity-70 px-6 py-2 shadow-component dark:shadow-component-dark"
           key={index}
         >
           {article.title}{" "}
@@ -70,7 +70,7 @@ const DestinationInsight: React.FC<DestinationInsightProps> = ({
   return (
     <section
       id="insight"
-      className="insight px-sect sticky flex flex-col gap-20 rounded-3xl bg-light-brown pb-sect-default pt-sect-short shadow-section"
+      className="insight px-sect sticky flex flex-col gap-20 rounded-3xl bg-light-brown dark:bg-background-dark-brown pb-sect-default pt-sect-short shadow-component"
     >
       <SlideRevealIconHeading iconClass="ri-eye-fill" headingText="Insight" />
 

@@ -56,7 +56,7 @@ const DestinationMenu = () => {
         }}
         title="open-menu"
         onClick={toggleMenuBoard}
-        className="rounded-full bg-background-dark shadow-component lg:h-12 lg:w-12 xl:h-12 xl:w-12 2xl:h-16 2xl:w-16 3xl:h-16 3xl:w-16"
+        className="dark:bg-background-dark-transparent rounded-full bg-background-dark shadow-component dark:shadow-component-dark lg:h-12 lg:w-12 xl:h-12 xl:w-12 2xl:h-16 2xl:w-16 3xl:h-16 3xl:w-16"
       >
         <i className="cursor-hover-small ri-menu-5-line p-large m-auto text-text-dark"></i>
       </motion.button>
@@ -71,7 +71,7 @@ const DestinationMenu = () => {
             exit="hiddenY"
             variants={variants}
             transition={{ duration: 0.5 }}
-            className={`menu-board absolute right-0 top-[20%] z-10 flex w-2/5 flex-col items-center gap-2 rounded-xl bg-background-light px-8 pb-12 pt-4 shadow-section`}
+            className={`menu-board absolute right-0 top-[10%] z-10 flex w-2/5 flex-col items-center gap-2 rounded-xl bg-background-light px-8 pb-12 pt-4 shadow-component dark:bg-background-dark dark:shadow-component-dark`}
           >
             <p className="p-large font-prima uppercase">Table of content</p>
             <span className="span-small">

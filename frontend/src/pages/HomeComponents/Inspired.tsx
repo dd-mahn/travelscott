@@ -11,6 +11,13 @@ const variants = {
   hiddenScaleRight: VisibilityVariants.hiddenScaleRight,
   hiddenScaleY: VisibilityVariants.hiddenScaleY,
   visible: VisibilityVariants.visible,
+
+  blobAnimation: {
+    scale: [1, 1.5, 1],
+    opacity: [0.6, 0.7, 0.6],
+    zIndex: [0, 0, 0],
+    transition: { duration: 5, repeat: Infinity },
+  },
 };
 
 // Inspired component: Displays inspiration from travelers around the world
@@ -23,7 +30,7 @@ const Inspired: React.FC = () => {
         variants={variants}
         initial="hiddenScaleY"
         whileInView="visible"
-        viewport={{ once: true, margin: "-300px" }}
+        viewport={{ once: true }}
         transition={{ duration: 1, delay: 2 }}
       >
         <MarqueeCountryCarousel />
@@ -32,7 +39,7 @@ const Inspired: React.FC = () => {
       {/* Main content */}
       <div className="relative flex w-fit flex-col lg:gap-2 xl:gap-2 2xl:gap-4 3xl:gap-4">
         {/* Decorative blob */}
-        <div className="blob-brown blur-blob absolute -left-1/3 -top-[10%] z-0 h-full w-1/2 opacity-60"></div>
+        <motion.div initial="hidden" animate="blobAnimation" variants={variants} className="blob-brown blur-blob absolute -left-1/3 -top-[10%] z-0 h-full w-1/2 opacity-60"></motion.div>
 
         {/* Headline */}
         <motion.h2
@@ -45,7 +52,7 @@ const Inspired: React.FC = () => {
           style={{ lineHeight: "1.2" }}
         >
           We got inspired by travelers of <br />
-          <span className="text-main-green">20</span>+ countries around the
+          <span className="text-main-green dark:text-dark-green">20</span>+ countries around the
           world
         </motion.h2>
 

@@ -81,7 +81,7 @@ const CountryDestinations: React.FC<CountryDestinationsProps> = ({ country }) =>
       viewport={{ once: true }}
       variants={variants}
       transition={{ duration: 0.5 }}
-      className="destinations px-sect z-30 flex flex-col items-center gap-8 rounded-3xl bg-light-green py-sect-short shadow-section"
+      className="destinations px-sect z-30 flex flex-col items-center gap-8 rounded-3xl bg-light-green dark:bg-background-dark-green py-sect-short shadow-section"
     >
       <div className="overflow-hidden">
         <motion.h1

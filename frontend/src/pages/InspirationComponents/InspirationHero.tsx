@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "src/store/store";
 import { VisibilityVariants } from "src/utils/variants";
 import { getInspirationHeading } from "src/utils/inspirationUtils";
+import { selectIsDarkMode } from "src/store/slices/themeSlice";
 
 // Define motion variants for visibility
 const variants = {
@@ -21,6 +22,7 @@ const InspirationHero = ({ currentCategory }: { currentCategory: string }) => {
   const heading = getInspirationHeading(currentCategory);
 
   // Determine the background style based on the current category
+  const isDarkMode = useSelector(selectIsDarkMode);
   const backgroundStyle =
     currentCategory !== "All"
       ? {
@@ -28,13 +30,21 @@ const InspirationHero = ({ currentCategory }: { currentCategory: string }) => {
           backgroundSize: "cover",
           backgroundPosition: "center",
         }
-      : {
-          background: `var(--${heading
-            .toLowerCase()
-            .replace(/ /g, "-")
-            .replace(/\d{4}/, "")
-            .trim()}gradient)`,
-        };
+      : isDarkMode
+        ? {
+            background: `var(--${heading
+              .toLowerCase()
+              .replace(/ /g, "-")
+              .replace(/\d{4}/, "")
+              .trim()}gradient-dark)`,
+          }
+        : {
+            background: `var(--${heading
+              .toLowerCase()
+              .replace(/ /g, "-")
+              .replace(/\d{4}/, "")
+              .trim()}gradient)`,
+          };
 
   return (
     <motion.div

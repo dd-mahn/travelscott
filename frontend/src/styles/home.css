@@ -1,45 +1,24 @@
 .hero {
   .blob-shadow {
-    background: radial-gradient(
-      circle at 50% 50%,
-      #595959,
-      rgba(76, 0, 255, 0)
-    );
+    @apply dark:bg-gradient-to-r from-blue-gray-700 to-blue-gray-700;
+    background: radial-gradient( circle at 50% 50%, #595959, rgba(76, 0, 255, 0) ) ;
   }
 }
 
 .brief {
-
   p.active {
     opacity: 100 !important;
   }
 }
 
-.featured {
-  .blob {
-    top: -40%;
-    right: -10%;
-    background: radial-gradient(
-      circle at 50% 50%,
-      var(--main-green),
-      rgba(76, 0, 255, 0)
-    );
-    filter: blur(25px);
-    opacity: 0.6 !important;
-  }
-}
-
-.inspired {
-}
-
 .globe {
   background: var(--space-gradient);
 
-  canvas{
+  canvas {
     width: 100svw !important;
     height: 100svh !important;
     transform: scale(2) translateX(16%) translateY(10%);
-  };
+  }
 }
 
 .blogs {
@@ -49,9 +28,5 @@
 }
 
 .starter {
-  background: linear-gradient(
-    180deg,
-    rgb(235, 153, 110) 0%,
-    rgb(158.95, 105.42, 77.36) 100%
-  );
+  @apply dark:bg-dark-brown bg-gradient-to-b from-[#eb996e] to-[#9e694d];
 }

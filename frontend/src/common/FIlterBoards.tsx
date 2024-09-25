@@ -136,7 +136,7 @@ export const DestinationFilter: React.FC = memo(() => {
       viewport={{ once: true }}
       exit="hiddenY"
       transition={{ duration: 0.4, ease: "easeInOut" }}
-      className={`filter-board absolute right-[5%] top-2/3 z-10 flex flex-col items-center gap-8 rounded-2xl bg-background-light px-4 pb-10 pt-6 shadow-section lg:w-[40svw] 2xl:w-[30svw]`}
+      className={`filter-board absolute right-[5%] top-2/3 z-10 flex flex-col items-center gap-8 rounded-2xl bg-background-light dark:bg-background-dark px-4 pb-10 pt-6 shadow-section dark:shadow-section-dark lg:w-[40svw] 2xl:w-[30svw]`}
     >
       <div className="flex w-full flex-col items-start gap-2">
         <span className="span-medium font-prima uppercase">Search</span>
@@ -149,7 +149,7 @@ export const DestinationFilter: React.FC = memo(() => {
             onChange={handleSearchChange}
             onFocus={() => setInputFocus(true)}
             onBlur={() => setInputFocus(false)}
-            className="w-full rounded-full border-[1px] border-gray bg-background-light px-4 py-2 text-text-light outline-none transition-all duration-300 focus:border-text-light focus:shadow-lg"
+            className="w-full rounded-full border-[1px] border-gray bg-background-light dark:bg-background-dark px-4 py-2 text-text-light outline-none transition-all duration-300 focus:border-text-light dark:focus:border-text-dark focus:shadow-lg"
           />
           <div className="absolute right-[5%] overflow-hidden">
             <motion.i
@@ -171,7 +171,7 @@ export const DestinationFilter: React.FC = memo(() => {
               transition={{ duration: 0.3 }}
               whileTap="tapScale"
               key={continent}
-              className={`${filterContinents.includes(continent) ? "bg-background-dark text-text-dark" : "bg-background-light text-text-light"} span-small cursor-pointer rounded-2xl border-gray px-4 lg:border-[1px] 2xl:border-[1.5px]`}
+              className={`${filterContinents.includes(continent) ? "bg-background-dark text-text-dark dark:bg-background-light dark:text-text-light" : "bg-background-light dark:bg-background-dark text-text-light"} span-small cursor-pointer rounded-2xl border-gray px-4 lg:border-[1px] 2xl:border-[1.5px]`}
               onClick={() => continentFilterClick(continent)}
             >
               {continent}
@@ -184,7 +184,7 @@ export const DestinationFilter: React.FC = memo(() => {
               transition={{ duration: 0.3 }}
               whileTap="tapScale"
               key={country}
-              className={`${filterCountries.includes(country) ? "bg-background-dark text-text-dark" : "bg-background-light text-text-light"} span-small cursor-pointer rounded-2xl border-gray px-4 lg:border-[1px] 2xl:border-[1.5px]`}
+              className={`${filterCountries.includes(country) ? "bg-background-dark text-text-dark dark:bg-background-light dark:text-text-light" : "bg-background-light dark:bg-background-dark text-text-light"} span-small cursor-pointer rounded-2xl border-gray px-4 lg:border-[1px] 2xl:border-[1.5px]`}
               onClick={() => countryFilterClick(country)}
             >
               {country}
@@ -203,7 +203,7 @@ export const DestinationFilter: React.FC = memo(() => {
               transition={{ duration: 0.3 }}
               whileTap="tapScale"
               key={tag}
-              className={`${filterTags.includes(tag) ? "bg-background-dark text-text-dark" : "bg-background-light text-text-light"} span-small cursor-pointer rounded-2xl border-gray px-4 lg:border-[1px] 2xl:border-[1.5px]`}
+              className={`${filterTags.includes(tag) ? "bg-background-dark text-text-dark dark:bg-background-light dark:text-text-light" : "bg-background-light dark:bg-background-dark text-text-light"} span-small cursor-pointer rounded-2xl border-gray px-4 lg:border-[1px] 2xl:border-[1.5px]`}
               onClick={() => tagFilterClick(tag)}
             >
               {tag}
@@ -277,7 +277,7 @@ export const CountryDestinationFilter: React.FC = memo(() => {
       exit="hiddenY"
       variants={variants}
       transition={{ duration: 0.3 }}
-      className="filter-board absolute right-[5%] top-2/3 z-10 flex flex-col items-center gap-8 rounded-xl bg-background-light px-4 pb-8 pt-4 shadow-component lg:w-[30svw] 2xl:w-[25svw]"
+      className="filter-board absolute right-[5%] top-2/3 z-10 flex flex-col items-center gap-8 rounded-xl bg-background-light dark:bg-background-dark px-4 pb-8 pt-4 shadow-component dark:shadow-component-dark lg:w-[30svw] 2xl:w-[25svw]"
     >
       <div className="flex w-full flex-col items-start gap-8">
         <div className="flex w-full flex-col items-start gap-2">
@@ -291,7 +291,7 @@ export const CountryDestinationFilter: React.FC = memo(() => {
               onChange={handleSearchChange}
               onFocus={() => setInputFocus(true)}
               onBlur={() => setInputFocus(false)}
-              className="w-full rounded-full border-[1px] border-gray bg-background-light px-4 py-2 text-text-light outline-none transition-all duration-300 focus:border-text-light focus:shadow-lg"
+              className="w-full rounded-full border-[1px] border-gray bg-background-light dark:bg-background-dark px-4 py-2 text-text-light outline-none transition-all duration-300 focus:border-text-light dark:focus:border-text-dark focus:shadow-component dark:focus:shadow-component-dark"
             />
             <div className="absolute right-[5%] overflow-hidden">
               <motion.i
@@ -315,8 +315,8 @@ export const CountryDestinationFilter: React.FC = memo(() => {
                 key={tag}
                 className={`${
                   selectTags.includes(tag)
-                    ? "bg-background-dark text-text-dark"
-                    : "bg-background-light text-text-light"
+                    ? "bg-background-dark text-text-dark dark:bg-background-light dark:text-text-light"
+                    : "bg-background-light dark:bg-background-dark text-text-light"
                 } span-small cursor-pointer rounded-2xl border-gray px-4 lg:border-[1px] 2xl:border-[1.5px]`}
                 onClick={() => handleTagFilter(tag)}
               >
@@ -385,7 +385,7 @@ export const InspirationFilter: React.FC<{ continentNames: string[] }> = memo(
           staggerChildren: 0.2,
           delayChildren: 0.5,
         }}
-        className="continent-filter flex flex-row flex-wrap items-center justify-center shadow-component lg:gap-3 lg:rounded-2xl lg:px-12 lg:py-6 2xl:gap-4 2xl:rounded-3xl 2xl:px-sect-short 2xl:py-8"
+        className="continent-filter flex flex-row flex-wrap items-center justify-center shadow-component dark:shadow-component-dark lg:gap-3 lg:rounded-2xl lg:px-12 lg:py-6 2xl:gap-4 2xl:rounded-3xl 2xl:px-sect-short 2xl:py-8"
       >
         {continentNames.map((continent) => (
           <motion.button
@@ -397,7 +397,7 @@ export const InspirationFilter: React.FC<{ continentNames: string[] }> = memo(
             transition={{ duration: 0.3 }}
             className={`continent-btn span-regular rounded-3xl border border-gray lg:border-[1px] lg:px-6 lg:py-1 2xl:border-[1.5px] 2xl:px-8 2xl:py-2 ${
               selectTags.includes(continent)
-                ? "bg-background-dark text-text-dark"
+                ? "bg-background-dark dark:bg-background-light text-text-dark dark:text-text-light"
                 : "bg-transparent text-text-light"
             }`}
           >
@@ -413,8 +413,8 @@ export const InspirationFilter: React.FC<{ continentNames: string[] }> = memo(
             onChange={handleSearchChange}
             onFocus={() => setInputFocus(true)}
             onBlur={() => setInputFocus(false)}
-            className={`w-full rounded-full border border-gray bg-background-light text-text-light transition-all duration-300 focus:outline-none lg:border-[1px] lg:px-3 lg:py-1 2xl:border-[1.5px] 2xl:px-4 2xl:py-2 ${
-              inputFocus ? "border-text-light shadow-lg" : ""
+            className={`w-full rounded-full border border-gray bg-background-light dark:bg-background-dark text-text-light transition-all duration-300 focus:outline-none lg:border-[1px] lg:px-3 lg:py-1 2xl:border-[1.5px] 2xl:px-4 2xl:py-2 ${
+              inputFocus ? "border-text-light dark:border-text-dark shadow-component dark:shadow-component-dark" : ""
             }`}
           />
           <i

@@ -93,7 +93,7 @@ const SearchResult: React.FC<SearchResultProps> = ({
                 to={`/discover/destinations/${destination._id}`}
                 target="_top"
                 key={destination._id}
-                className="flex cursor-pointer flex-col items-center gap-2 rounded-xl"
+                className="flex h-[15svh] cursor-pointer flex-col items-center gap-2 rounded-xl"
               >
                 <div className="h-full w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray">
                   <motion.img
@@ -207,9 +207,9 @@ const SearchResult: React.FC<SearchResultProps> = ({
           exit="exit"
           variants={variants}
           transition={{ duration: 0.4 }}
-          className={`search-result fixed top-20 z-50 flex h-[50svh] w-[30svw] flex-col rounded-2xl bg-background-light pb-8 shadow-component lg:right-12 xl:right-16 2xl:right-20 3xl:right-24`}
+          className={`search-result fixed top-20 z-50 flex h-[50svh] w-[30svw] flex-col rounded-2xl bg-background-light dark:bg-background-dark-transparent pb-8 shadow-component dark:shadow-component-dark lg:right-12 xl:right-16 2xl:right-20 3xl:right-24`}
         >
-          <div className="sticky top-0 z-10 flex w-full items-center justify-between rounded-2xl bg-background-light px-8 py-4">
+          <div className="sticky top-0 z-10 flex w-full items-center justify-between rounded-2xl bg-background-light dark:bg-background-dark-transparent px-8 py-4">
             <span className="span-regular">
               {destinations.length + countries.length + blogs.length} results
               found

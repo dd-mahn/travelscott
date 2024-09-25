@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import "src/components/Header/header.css";
 import { HeaderVariants, HoverVariants } from "./headerVariants";
 import HeaderSearch from "./HeaderSearch";
+import ThemeButton from "./ThemeButton";
 
 // Navigation items
 const navs = [
@@ -18,6 +19,7 @@ const navs = [
 
 // Header component
 const Header: React.FC = () => {
+
   const renderNavItems = useMemo(
     () =>
       navs.map((item, index) => (
@@ -82,16 +84,7 @@ const Header: React.FC = () => {
         <div className="lg:flex lg:gap-2 xl:gap-3 2xl:gap-3 3xl:gap-4">
           <HeaderSearch />
 
-          <motion.button
-            variants={HoverVariants}
-            whileHover="hoverScale"
-            transition={{ duration: 0.2 }}
-            whileTap={{ scale: 1 }}
-            title="Toggle Contrast"
-            className="p-large"
-          >
-            <i className="ri-contrast-2-fill pointer-events-none"></i>
-          </motion.button>
+          <ThemeButton />
         </div>
       </div>
     </motion.header>

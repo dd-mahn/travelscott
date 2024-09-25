@@ -4,7 +4,7 @@ import withMT from "@material-tailwind/react/utils/withMT";
 
 const config: Config = {
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
-  darkMode: "selector", // or 'media' or 'class'
+  darkMode: "class", // or 'media' or 'class'
   theme: {
     screens: {
       sm: "640px",
@@ -15,15 +15,20 @@ const config: Config = {
     },
     colors: {
       transparent: "transparent",
-      "background-dark": "#21272F",
+      "background-dark": "#1e2125",
+      "background-dark-transparent": "#101010",
       "background-light": "#FBF9F7",
       "main-green": "#8AB17C",
       "main-brown": "#EB996E",
+      "dark-brown": "#b56f49",
+      "dark-green": "#658f55",
       "light-green": "#F8FCF3",
       "light-brown": "#FFF9F3",
+      "background-dark-green": "#374137",
+      "background-dark-brown": "#322d27",
       yellow: "#F1BA50",
       "text-light": "#333333",
-      "text-dark": "#FFFFFF",
+      "text-dark": "#F2F2F2",
       gray: "#969696",
       "aurora-green": "#90B37F",
       "aurora-brown": "#FFDDAA",
@@ -51,7 +56,9 @@ const config: Config = {
       },
       boxShadow: {
         section: "-5px 5px 30px 10px rgba(51, 51, 51, 0.30)",
+        "section-dark": "-5px 5px 20px 10px rgba(242, 242, 242, 0.20)",
         component: "-5px 5px 30px 0px rgba(51, 51, 51, 0.30)",
+        "component-dark": "-5px 5px 30px 0px rgba(242, 242, 242, 0.20)",
       },
       fontSize: {
         "15xl": "24rem",

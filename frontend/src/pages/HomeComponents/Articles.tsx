@@ -10,11 +10,16 @@ import { setBlogChunks } from "src/store/slices/blogSlice";
 import Blog from "src/types/Blog";
 import { formatDate } from "src/utils/formatDate";
 import FeaturedContentSlider from "src/common/FeaturedContentSlider";
-import { getImageSize, useViewportWidth, optimizeImage } from "src/utils/imageUtils";
+import {
+  getImageSize,
+  useViewportWidth,
+  optimizeImage,
+} from "src/utils/imageUtils";
 import { HoverVariants, VisibilityVariants } from "src/utils/variants";
 import { createBlogChunks } from "src/utils/createBlogChunks";
 import SeasonHeading from "src/common/SeasonHeading";
 import { getSeason } from "src/utils/getSeason";
+import { selectIsDarkMode } from "src/store/slices/themeSlice";
 
 // Define Framer Motion animation variants
 const variants = {
@@ -54,7 +59,7 @@ const RenderBlog: React.FC<{ blog: Blog; isFeatured: boolean }> = ({
       key={blog._id}
     >
       <div
-        className={`h-${isFeatured ? "[50svh]" : "full"} w-${isFeatured ? "[50svw]" : "[45%]"} overflow-hidden rounded-lg bg-gradient-to-t from-blue-gray-900 to-gray shadow-component`}
+        className={`h-${isFeatured ? "[50svh]" : "full"} w-${isFeatured ? "[50svw]" : "[45%]"} overflow-hidden rounded-lg bg-gradient-to-t from-blue-gray-900 to-gray shadow-component dark:shadow-component-dark`}
       >
         <motion.img
           loading="lazy"
@@ -72,16 +77,14 @@ const RenderBlog: React.FC<{ blog: Blog; isFeatured: boolean }> = ({
         }`}
       >
         <div className="flex flex-col gap-1 pt-2">
-          <span
-            className={`span-small ${isFeatured ? "text-white" : "text-blue-gray-100"}`}
-          >
+          <span className={`span-small text-blue-gray-100`}>
             {blog.category}
           </span>
           <motion.p
             whileHover="hoverX"
             transition={{ duration: 0.3 }}
             variants={variants}
-            className={`cursor-hover-small span-medium ${isFeatured ? "uppercase text-text-dark dark:text-text-light" : "w-full text-text-dark dark:text-text-light"}`}
+            className={`cursor-hover-small span-medium ${isFeatured ? "uppercase text-text-dark" : "w-full text-text-dark"}`}
           >
             {blog.title}
           </motion.p>
@@ -89,11 +92,11 @@ const RenderBlog: React.FC<{ blog: Blog; isFeatured: boolean }> = ({
 
         {isFeatured && (
           <>
-            <p className="p-regular overflow-hidden text-text-dark 2xl:w-4/5 3xl:w-3/4 dark:text-text-light">
+            <p className="p-regular overflow-hidden text-blue-gray-50 2xl:w-4/5 3xl:w-3/4">
               {blog.content[0].sectionText[0]}
             </p>
-            <span className="span-regular w-3/4 overflow-hidden text-text-dark dark:text-text-light">
-              <i className="ri-time-line span-regular text-text-dark dark:text-text-light"></i>{" "}
+            <span className="lg:span-small 2xl:span-regular w-3/4 overflow-hidden text-blue-gray-50">
+              <i className="ri-time-line text-blue-gray-50"></i>{" "}
               {formatDate(blog.time)}
             </span>
           </>
@@ -107,7 +110,7 @@ const RenderBlog: React.FC<{ blog: Blog; isFeatured: boolean }> = ({
 const Articles: React.FC<ArticlesProps> = memo(({ articlesHookRef, blogs }) => {
   const dispatch = useDispatch();
   const blogChunks = useSelector((state: RootState) => state.blog.blogChunks);
-
+  const isDarkMode = useSelector(selectIsDarkMode);
   useEffect(() => {
     if (blogs.length > 0) {
       dispatch(setBlogChunks(createBlogChunks(blogs)));
@@ -126,10 +129,15 @@ const Articles: React.FC<ArticlesProps> = memo(({ articlesHookRef, blogs }) => {
 
   useEffect(() => {
     const season = getSeason();
-    setBackgroundGradient(
-      `var(--${season.toLowerCase().replace(/ /g, "-")}-gradient)`,
-    );
-  }, [getSeason]);
+    const gradient = `var(--${season.toLowerCase().replace(/ /g, "-")}-gradient)`;
+    const darkGradient = `var(--${season.toLowerCase().replace(/ /g, "-")}-gradient-dark)`;
+
+    if (isDarkMode) {
+      setBackgroundGradient(darkGradient);
+    } else {
+      setBackgroundGradient(gradient);
+    }
+  }, [isDarkMode]);
 
   // Render the entire Articles component
   return (
@@ -162,9 +170,11 @@ const Articles: React.FC<ArticlesProps> = memo(({ articlesHookRef, blogs }) => {
               {blogChunks.map((chunk, chunkIndex) => (
                 <div
                   key={chunkIndex}
-                  className="px-sect grid w-screen grid-cols-2 gap-8"
+                  className="px-sect grid h-[75svh] w-screen grid-cols-2 gap-8"
                 >
-                  <RenderBlog blog={chunk[0]} isFeatured={true} />
+                  <div className="h-[75svh] pb-4">
+                    <RenderBlog blog={chunk[0]} isFeatured={true} />
+                  </div>
                   <div className="grid h-[75svh] w-full grid-rows-3 gap-4 pb-4">
                     {chunk.slice(1).map((blog) => (
                       <RenderBlog
