@@ -55,7 +55,7 @@ export const NotFoundState: React.FC<{ keyName: string }> = React.memo(
         transition={{ duration: 0.5, ease: "easeInOut" }}
         className="grid h-[50svh] w-full place-items-center py-sect-short"
       >
-        <h3 className="h3-md">No destinations found.</h3>
+        <h3 className="h3-md">Nothing found.</h3>
       </motion.div>
     );
   },

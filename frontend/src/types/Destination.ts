@@ -78,7 +78,7 @@ type transportationType = {
   recommended?: boolean;
 };
 
-interface destinationTransportation {
+export interface destinationTransportation {
   overview?: string;
   types?: transportationType[];
 }
@@ -98,7 +98,7 @@ type fromOthers = {
   link?: string;
 };
 
-interface destinationInsight {
+export interface destinationInsight {
   from_us?: fromUs;
   from_others?: fromOthers[];
 }

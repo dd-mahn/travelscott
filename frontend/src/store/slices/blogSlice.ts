@@ -3,6 +3,7 @@ import BlogType from 'src/types/Blog';
 
 interface BlogState {
   allBlogs: BlogType[];
+  inspirationBlogs: BlogType[];
   featuredBlogs: BlogType[];
   starterBlogs: BlogType[];
   homeBlogs: BlogType[];
@@ -11,6 +12,7 @@ interface BlogState {
 
 const initialState: BlogState = {
   allBlogs: [],
+  inspirationBlogs: [],
   featuredBlogs: [],
   starterBlogs: [],
   homeBlogs: [],
@@ -23,6 +25,9 @@ const blogSlice = createSlice({
   reducers: {
     setAllBlogs: (state, action: PayloadAction<BlogType[]>) => {
       state.allBlogs = action.payload;
+    },
+    setInspirationBlogs: (state, action: PayloadAction<BlogType[]>) => {
+      state.inspirationBlogs = action.payload;
     },
     setFeaturedBlogs: (state, action: PayloadAction<BlogType[]>) => {
       state.featuredBlogs = action.payload;
@@ -42,6 +47,7 @@ const blogSlice = createSlice({
 export const {
   setAllBlogs,
   setFeaturedBlogs,
+  setInspirationBlogs,
   setStarterBlogs,
   setHomeBlogs,
   setBlogChunks
