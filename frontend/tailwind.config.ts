@@ -7,8 +7,8 @@ const config: Config = {
   darkMode: "class", // or 'media' or 'class'
   theme: {
     screens: {
-      sm: "640px",
-      md: "768px",
+      sm: "320px",
+      md: "576px",
       lg: "1024px",
       xl: "1280px",
       "2xl": "1536px",
@@ -78,6 +78,9 @@ const config: Config = {
         "1.5xl": "1.375rem",
       },
       spacing: {
+        "sect-short-mobile": "2rem",
+        "sect-default-mobile": "5rem",
+        "sect-long-mobile": "10rem",
         "sect-short": "5rem",
         "sect-default": "20rem",
         "sect-medium": "30rem",

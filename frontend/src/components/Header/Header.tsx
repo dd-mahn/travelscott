@@ -8,6 +8,7 @@ import "src/components/Header/header.css";
 import { HeaderVariants, HoverVariants } from "./headerVariants";
 import HeaderSearch from "./HeaderSearch";
 import ThemeButton from "./ThemeButton";
+import HeaderMobileMenu from "./HeaderMobileMenu";
 
 // Navigation items
 const navs = [
@@ -19,7 +20,6 @@ const navs = [
 
 // Header component
 const Header: React.FC = () => {
-
   const renderNavItems = useMemo(
     () =>
       navs.map((item, index) => (
@@ -57,7 +57,7 @@ const Header: React.FC = () => {
       transition={{ duration: 0.3 }}
       className="px-sect fixed top-0 z-50 min-h-16 w-svw bg-transparent py-4 mix-blend-difference"
     >
-      <div className="lg:flex lg:items-center lg:justify-between">
+      <div className="sm:flex sm:items-center sm:justify-between">
         {/* Logo */}
         <NavLink to="/" target="_top">
           <motion.h1
@@ -75,17 +75,20 @@ const Header: React.FC = () => {
         {/* Navigation menu */}
         <motion.ul
           layout
-          className="lg:flex lg:flex-row lg:justify-between lg:gap-4 xl:gap-6 2xl:gap-8 3xl:gap-8"
+          className="sm:hidden md:flex md:gap-2 lg:flex lg:flex-row lg:justify-between lg:gap-4 xl:gap-6 2xl:gap-8 3xl:gap-8"
         >
           {renderNavItems}
         </motion.ul>
 
         {/* Search and contrast toggle */}
-        <div className="lg:flex lg:gap-2 xl:gap-3 2xl:gap-3 3xl:gap-4">
+        <div className="sm:hidden md:flex md:gap-2 lg:flex lg:gap-2 xl:gap-3 2xl:gap-3 3xl:gap-4">
           <HeaderSearch />
 
           <ThemeButton />
         </div>
+
+        {/* Menu button */}
+        <HeaderMobileMenu />
       </div>
     </motion.header>
   );

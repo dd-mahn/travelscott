@@ -32,6 +32,7 @@ const variants = {
 const Contact: React.FC = () => {
   const [visibleSection, setVisibleSection] = useState("");
   const [formValid, setFormValid] = useState(false);
+  const [copiedEmail, setCopiedEmail] = useState<string | null>(null);
 
   const toggleInfo = (sectionId: string) => {
     setVisibleSection((prevSection) =>
@@ -99,17 +100,27 @@ const Contact: React.FC = () => {
     }
   };
 
+  const copyContent = (content: string) => {
+    navigator.clipboard.writeText(content);
+    setCopiedEmail(content);
+    setTimeout(() => setCopiedEmail(null), 1000);
+  };
+
+  const emailButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    copyContent(e.currentTarget.textContent as string);
+  };
+
   return (
-    <main className="contact px-sect relative flex flex-col items-center pb-sect-default lg:pt-20 2xl:pt-40">
+    <main className="contact px-sect relative flex min-h-svh pb-20 flex-col items-center overflow-hidden sm:pt-20 lg:pb-sect-default lg:pt-20 2xl:pt-40">
       <motion.section
         initial="hiddenY"
         animate="visible"
         transition={{ duration: 0.5 }}
         variants={variants}
-        className="emailing z-20 w-full rounded-3xl bg-background-light dark:bg-background-dark px-12 py-8 shadow-section dark:shadow-section-dark"
+        className="emailing z-20 w-full bg-background-light shadow-section dark:bg-background-dark dark:shadow-section-dark sm:rounded-xl sm:px-4 sm:pb-4 sm:pt-2 md:rounded-2xl md:px-5 md:py-4 lg:rounded-3xl lg:px-8 lg:py-6"
       >
-        <div className="flex flex-row items-center justify-between border-b pb-8">
-          <h2 className="h2-md">
+        <div className="flex flex-row items-center justify-between border-b sm:gap-4 sm:pb-3 lg:pb-8">
+          <h2 className="h3-md">
             Need assistance planning your next adventure? <br />
             Looking to collaborate with us commercially?
           </h2>
@@ -119,7 +130,7 @@ const Contact: React.FC = () => {
             whileTap="tapScale"
             animate={visibleSection === "emailing" ? "rotate" : ""}
             variants={variants}
-            className={`rounded-full border lg:h-20 lg:w-20 xl:h-24 xl:w-24 2xl:h-28 2xl:w-28 3xl:h-28 3xl:w-28`}
+            className={`rounded-full border sm:px-1 md:h-16 md:w-16 lg:h-20 lg:w-20 xl:h-24 xl:w-24 2xl:h-28 2xl:w-28 3xl:h-28 3xl:w-28`}
             title="open btn"
             onClick={() => {
               toggleInfo("emailing");
@@ -139,21 +150,61 @@ const Contact: React.FC = () => {
                 variants={variants}
                 transition={{ duration: 0.2, ease: "easeInOut" }}
                 // className={`${visibleSection === "emailing" ? "flex" : "hiddenY"} flex-col gap-2 py-8`}
-                className={`flex flex-col gap-2 py-8`}
+                className={`flex flex-col gap-2 sm:py-4 lg:py-8`}
               >
                 <p className="p-regular">Reach out to us via:</p>
-                <div className="flex flex-row gap-24">
-                  <div className="span-medium flex items-center">
+                <div className="flex sm:flex-col sm:gap-1 md:flex-row md:gap-24">
+                  <div className="span-medium relative flex items-center">
                     <i className="ri-arrow-right-line mr-4"></i>
-                    <button className="underline-btn">
+                    <button
+                      onClick={(e) => {
+                        emailButtonClick(e);
+                      }}
+                      className="underline-btn span-medium"
+                    >
                       hello@travelscott.com
                     </button>
+
+                    <AnimatePresence>
+                      {copiedEmail === "hello@travelscott.com" && (
+                        <motion.div
+                          key={copiedEmail}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.5 }}
+                          className="absolute -top-full left-1/3 w-fit rounded-md bg-background-light px-3 py-2 shadow-md dark:bg-background-dark-transparent dark:shadow-component-dark"
+                        >
+                          <p className="span-small">Copied!</p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
-                  <div className="span-medium flex items-center">
+
+                  <div className="span-medium relative flex items-center">
                     <i className="ri-arrow-right-line mr-4"></i>
-                    <button className="underline-btn p-large">
+                    <button
+                      onClick={(e) => {
+                        emailButtonClick(e);
+                      }}
+                      className="underline-btn span-medium"
+                    >
                       dev.manhdo@gmail.com
                     </button>
+                    <AnimatePresence>
+                      {copiedEmail === "dev.manhdo@gmail.com" && (
+                        <motion.div
+                          key={copiedEmail}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.5 }}
+                          className="absolute -top-full left-1/3 w-fit rounded-md bg-background-light px-3 py-2 shadow-md dark:bg-background-dark-transparent dark:shadow-component-dark"
+                        >
+                          <p className="span-small">Copied!</p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
                 </div>
               </motion.div>
@@ -167,17 +218,17 @@ const Contact: React.FC = () => {
         animate="visible"
         transition={{ duration: 0.5, delay: 0.2 }}
         variants={variants}
-        className="contribute z-20 w-full rounded-3xl bg-background-light dark:bg-background-dark px-12 py-8 shadow-section dark:shadow-section-dark"
+        className="contribute z-20 w-full bg-background-light shadow-section dark:bg-background-dark dark:shadow-section-dark sm:rounded-xl sm:px-4 sm:pb-4 sm:pt-2 md:rounded-2xl md:px-5 md:py-4 lg:rounded-3xl lg:px-8 lg:py-6"
       >
-        <div className="flex flex-row items-center justify-between border-b pb-8">
-          <h2 className="h2-md">Want to share your experience as resource?</h2>
+        <div className="flex flex-row items-center justify-between border-b sm:gap-4 sm:pb-3 lg:pb-8">
+          <h2 className="h3-md">Want to share your experience as resource?</h2>
           <motion.button
             whileHover="hoverScale"
             whileTap="tapScale"
             variants={variants}
             transition={{ duration: 0.4 }}
             animate={visibleSection === "contribute" ? "rotate" : ""}
-            className={`rounded-full border lg:h-20 lg:w-20 xl:h-24 xl:w-24 2xl:h-28 2xl:w-28 3xl:h-28 3xl:w-28`}
+            className={`rounded-full border sm:px-1 md:h-16 md:w-16 lg:h-20 lg:w-20 xl:h-24 xl:w-24 2xl:h-28 2xl:w-28 3xl:h-28 3xl:w-28`}
             title="open btn"
             onClick={() => {
               toggleInfo("contribute");
@@ -197,14 +248,14 @@ const Contact: React.FC = () => {
                 variants={variants}
                 transition={{ duration: 0.2, ease: "easeInOut" }}
                 // className={`${visibleSection === "contribute" ? "flex" : "hiddenY"} flex flex-row items-center justify-between py-8`}
-                className={`flex flex-row items-center justify-between py-8`}
+                className={`flex flex-col gap-4 py-4 md:flex-row md:items-center md:justify-between md:py-8`}
               >
                 <p className="p-regular">
                   We love seeing your cherished memories and believe others will
                   too! <br />
                   Let us help you share them with the world.
                 </p>
-                <button className="underline-btn">
+                <button className="underline-btn span-medium flex-grow-1 sm:underline md:no-underline">
                   Follow this link <i className="ri-arrow-right-up-line"></i>
                 </button>
               </motion.div>
@@ -218,17 +269,17 @@ const Contact: React.FC = () => {
         animate="visible"
         transition={{ duration: 0.5, delay: 0.4 }}
         variants={variants}
-        className="feedback z-20 w-full rounded-3xl bg-background-light dark:bg-background-dark px-12 py-8 shadow-section dark:shadow-section-dark"
+        className="feedback z-20 w-full bg-background-light shadow-section dark:bg-background-dark dark:shadow-section-dark sm:rounded-xl sm:px-4 sm:pb-4 sm:pt-2 md:rounded-2xl md:px-5 md:py-4 lg:rounded-3xl lg:px-8 lg:py-6"
       >
-        <div className="flex flex-row items-center justify-between border-b pb-8">
-          <h2 className="h2-md">Want to give us a feedback?</h2>
+        <div className="flex flex-row items-center justify-between border-b sm:gap-4 sm:pb-3 lg:pb-8">
+          <h2 className="h3-md">Want to give us a feedback?</h2>
           <motion.button
             whileHover="hoverScale"
             whileTap="tapScale"
             variants={variants}
             transition={{ duration: 0.4 }}
             animate={visibleSection === "feedback" ? "rotate" : ""}
-            className={`rounded-full border lg:h-20 lg:w-20 xl:h-24 xl:w-24 2xl:h-28 2xl:w-28 3xl:h-28 3xl:w-28`}
+            className={`rounded-full border sm:px-1 md:h-16 md:w-16 lg:h-20 lg:w-20 xl:h-24 xl:w-24 2xl:h-28 2xl:w-28 3xl:h-28 3xl:w-28`}
             title="open btn"
             onClick={() => {
               toggleInfo("feedback");
@@ -250,7 +301,7 @@ const Contact: React.FC = () => {
                 // className={`${visibleSection === "feedback" ? "flex" : "hiddenY"} flex flex-row justify-between py-8`}
                 className={`flex flex-row justify-between py-8`}
               >
-                <p className="p-regular lg:w-1/2 xl:w-1/2 2xl:w-1/2 3xl:w-1/2">
+                <p className="p-regular sm:hidden md:w-1/2 lg:block lg:w-1/2 xl:w-1/2 2xl:w-1/2 3xl:w-1/2">
                   We’re seeking input from global users to enhance its
                   functionality. We believe that collective insights and
                   resources can propel our project forward. Whether who you are,
@@ -260,7 +311,10 @@ const Contact: React.FC = () => {
                   resonates with people from every corner of the world.
                 </p>
 
-                <form action="" className="flex w-2/5 flex-col gap-12 pt-8">
+                <form
+                  action=""
+                  className="flex w-[90%] flex-col gap-8 pt-2 md:w-4/5 lg:w-2/5 lg:gap-12 lg:pt-8"
+                >
                   <StyledInput type="text" id="firstName" label="First name" />
                   <StyledInput type="text" id="lastName" label="Last name" />
                   <StyledInput type="email" id="email" label="Email address" />

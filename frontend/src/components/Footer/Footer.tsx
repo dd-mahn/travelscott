@@ -71,22 +71,27 @@ const variants = {
 
 const Footer = () => {
   return (
-    <footer className="flex flex-col relative self-end border-t border-solid border-gray lg:pt-12 xl:pt-20 2xl:pt-20">
-      <motion.div initial="hidden" animate="blobAnimation" variants={variants} className="blob-brown blur-blob absolute -right-1/3 top-[40%] z-0 h-[80%] w-1/2 opacity-60"></motion.div>
-      
-      <div className="px-sect flex items-end justify-between z-10">
+    <footer className="relative flex flex-col self-end overflow-hidden border-t border-solid border-gray pt-6 lg:pt-12 xl:pt-20 2xl:pt-20">
+      <motion.div
+        initial="hidden"
+        animate="blobAnimation"
+        variants={variants}
+        className="blob-brown blur-blob absolute -right-1/3 top-[40%] z-0 h-[80%] w-1/2 opacity-60"
+      ></motion.div>
+
+      <div className="px-sect z-10 flex flex-col items-start gap-8 md:flex-row md:justify-between">
         <motion.p
           initial="hiddenY"
           whileInView="visible"
           viewport={{ once: true }}
           variants={variants}
           transition={{ duration: 0.6 }}
-          className="p-large text-text-light"
+          className="p-large w-full text-center text-text-light md:w-fit md:text-left"
         >
           Made and curated by people with <br />
           passion in travel, Travel, and TRAVEL.
         </motion.p>
-        <div className="styled-input flex w-fit items-center justify-between border-b border-solid border-text-light dark:border-text-dark">
+        <div className="styled-input flex w-full items-center justify-between border-b border-solid border-text-light dark:border-text-dark md:mt-2 md:w-fit">
           <label
             htmlFor="subscribe-email"
             className="label span-regular uppercase"
@@ -122,7 +127,11 @@ const Footer = () => {
             title="subscribe"
           >
             {" "}
-            <img src={planeIcon} alt="" className="cursor-hover-small dark:invert" />{" "}
+            <img
+              src={planeIcon}
+              alt=""
+              className="cursor-hover-small dark:invert"
+            />{" "}
           </motion.button>
         </div>
       </div>
@@ -133,38 +142,42 @@ const Footer = () => {
         viewport={{ once: true }}
         variants={variants}
         transition={{ duration: 0.6 }}
-        className="px-sect flex items-end justify-between z-10"
+        className="px-sect z-10 flex items-center justify-end pb-1 md:mt-4 md:items-end md:justify-between md:pb-4"
       >
-        <div className="z-10 flex lg:gap-8 xl:gap-10 2xl:gap-12 3xl:gap-12">
-          <nav className="flex flex-col lg:gap-2 2xl:gap-4">
-            <span className="font-medium text-text-light lg:text-lg 2xl:text-xl">
+        <div className="z-10 hidden md:flex md:gap-6 lg:gap-8 xl:gap-10 2xl:gap-12 3xl:gap-12">
+          <nav className="flex flex-col md:gap-1 lg:gap-2 2xl:gap-4">
+            <span className="p-medium font-medium text-text-light">
               Sitemap
             </span>
             <ul className="flex flex-col justify-start">
               {sitemap.map((item, index) => (
                 <motion.li
-                  whileHover={{ color: "var(--text-light)" }}
+                  initial={{ opacity: 0.6 }}
+                  whileHover={{ opacity: 1 }}
                   transition={{ duration: 0.2 }}
                   key={index}
-                  className="text-gray"
+                  className="p-regular"
                 >
-                  <NavLink to={item.path} target="_top">{item.display}</NavLink>
+                  <NavLink to={item.path} target="_top">
+                    {item.display}
+                  </NavLink>
                 </motion.li>
               ))}
             </ul>
           </nav>
 
-          <nav className="flex flex-col lg:gap-2 2xl:gap-4">
-            <span className="font-medium text-text-light lg:text-lg 2xl:text-xl">
+          <nav className="hidden flex-col md:flex md:gap-1 lg:gap-2 2xl:gap-4">
+            <span className="p-medium font-medium text-text-light">
               Socials
             </span>
             <ul className="flex flex-col justify-start">
               {socials.map((item, index) => (
                 <motion.li
-                  whileHover={{ color: "var(--text-light)" }}
+                  initial={{ opacity: 0.6 }}
+                  whileHover={{ opacity: 1 }}
                   transition={{ duration: 0.2 }}
                   key={index}
-                  className="text-gray"
+                  className="p-regular"
                 >
                   <Link to={item.path}>{item.display}</Link>
                 </motion.li>
@@ -173,19 +186,20 @@ const Footer = () => {
           </nav>
         </div>
 
-        <button className="underline-btn" onClick={scrollToTop}>
+        <button
+          className="underline-btn span-medium mt-8 md:mt-0"
+          onClick={scrollToTop}
+        >
           Back to top <i className="cursor-hover-small ri-arrow-up-line"></i>
         </button>
       </motion.div>
 
-      <div className="flex justify-center border-t border-solid border-gray z-10">
-        <div className="w-screen leading-[1] pointer-events-none overflow-hidden text-center font-logo text-text-light lg:mr-16 lg:text-12xl xl:text-13xl 2xl:text-14xl 3xl:text-15xl">
-          <StaggerLogo />
-        </div>
+      <div className="z-10 flex justify-center border-t border-solid border-gray py-2">
+        <StaggerLogo />
       </div>
 
-      <div className="px-sect z-10 flex flex-row items-center justify-between border-t border-solid border-gray lg:h-8 2xl:h-10">
-        <span className="select-none font-medium uppercase text-gray lg:text-base xl:text-sm 2xl:text-lg">
+      <div className="px-sect z-10 flex flex-col items-center justify-between border-t border-solid border-gray md:flex-row lg:h-8 2xl:h-10">
+        <span className="span-small select-none font-medium uppercase text-gray">
           Copyright TravelScott 2024
         </span>
         <nav>
@@ -197,7 +211,9 @@ const Footer = () => {
                 key={index}
                 className="text-gray"
               >
-                <NavLink to={item.path} className="span-small">{item.display}</NavLink>
+                <NavLink to={item.path} className="span-small">
+                  {item.display}
+                </NavLink>
               </motion.li>
             ))}
           </ul>

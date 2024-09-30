@@ -34,7 +34,7 @@ const ThemeButton = () => {
       transition={{ duration: 0.2 }}
       whileTap={{ scale: 1 }}
       title="Toggle Contrast"
-      className="p-large"
+      className="p-large "
       onClick={handleToggleDarkMode}
     >
       <i className="ri-contrast-2-fill pointer-events-none"></i>

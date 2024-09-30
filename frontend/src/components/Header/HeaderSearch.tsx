@@ -111,7 +111,7 @@ const HeaderSearch: React.FC = () => {
             animate="visible"
             exit="exit"
             transition={{ duration: 0.4 }}
-            className="absolute right-full mr-2 overflow-hidden"
+            className="absolute md:top-full md:mr-0 md:right-0 lg:top-0 lg:right-full lg:mr-2 overflow-hidden"
           >
             <input
               type="text"
@@ -119,7 +119,7 @@ const HeaderSearch: React.FC = () => {
               id="search"
               autoComplete="off"
               ref={searchRef}
-              className="p-small w-40 bg-transparent text-text-dark outline-none"
+              className="span-small w-16 md:w-24 lg:w-40 bg-transparent text-text-dark outline-none placeholder:text-gray"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onBlur={() => {
@@ -132,7 +132,7 @@ const HeaderSearch: React.FC = () => {
               animate="visible"
               exit="exit"
               transition={{ duration: 0.4 }}
-              className="absolute bottom-0 left-0 bg-white lg:h-[1px] 2xl:h-[1.5px]"
+              className="absolute bottom-0 left-0 bg-white dark:bg-white h-[1px] 2xl:h-[1.5px]"
             />
           </motion.div>
         )}

@@ -320,68 +320,68 @@ body::-webkit-scrollbar-thumb:hover,
 
 /* TYPO CLASSES */
 .big-heading {
-  @apply font-prima font-bold uppercase lg:text-9xl xl:text-11xl 2xl:text-12xl 2xl:leading-snug 3xl:text-13xl 3xl:leading-snug;
+  @apply font-prima font-bold uppercase sm:text-7xl md:text-9xl lg:text-9xl xl:text-11xl 2xl:text-12xl 2xl:leading-snug 3xl:text-13xl 3xl:leading-snug;
   line-height: 1 !important;
 }
 
 .h1-md {
-  @apply font-prima font-bold uppercase lg:text-7xl xl:text-8xl 2xl:text-8.5xl 3xl:text-9xl 3xl:tracking-wide;
+  @apply font-prima font-bold uppercase sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-8.5xl 3xl:text-9xl 3xl:tracking-wide;
 }
 
 .h1-logo {
-  @apply font-logo font-bold uppercase lg:text-6xl xl:text-7xl 2xl:text-8xl 3xl:text-9xl;
+  @apply font-logo font-bold uppercase sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl 2xl:text-8xl 3xl:text-9xl;
 }
 
 .h1-md-bold {
-  @apply font-prima font-bold uppercase leading-snug lg:text-8xl 2xl:text-10xl;
+  @apply font-prima font-bold uppercase leading-snug sm:text-6xl md:text-8xl lg:text-8xl 2xl:text-10xl;
 }
 
 .h2-md {
-  @apply font-prima font-semibold tracking-normal lg:text-4xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl;
+  @apply font-prima font-semibold tracking-normal sm:text-2xl md:text-3xl lg:text-4xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl;
 }
 
 .h2-logo {
-  @apply font-logo font-semibold lg:text-4xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl;
+  @apply font-logo font-semibold sm:text-3xl md:text-2xl lg:text-3xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl;
 }
 
 .h2-inter {
-  @apply font-medium tracking-tight lg:text-4xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl;
+  @apply font-medium tracking-tight sm:text-2xl md:text-3xl lg:text-4xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl;
 }
 
 .h3-md {
-  @apply font-prima font-semibold leading-normal tracking-tight lg:text-3xl xl:text-3.5xl 2xl:text-4xl 3xl:text-4.5xl;
+  @apply font-prima font-semibold leading-normal tracking-tight sm:text-xl md:text-2xl lg:text-3xl xl:text-3.5xl 2xl:text-4xl 3xl:text-4.5xl;
 }
 
 .h3-inter {
-  @apply font-medium leading-normal tracking-tight lg:text-3xl xl:text-3.5xl 2xl:text-4xl 3xl:text-4.5xl;
+  @apply font-medium leading-normal tracking-tight sm:text-xl md:text-2xl lg:text-3xl xl:text-3.5xl 2xl:text-4xl 3xl:text-4.5xl;
 }
 
 .p-regular {
-  @apply font-normal lg:text-base xl:text-lg 2xl:text-xl;
+  @apply font-normal sm:text-sm md:text-sm lg:text-base xl:text-lg 2xl:text-xl;
 }
 
 .p-medium {
-  @apply font-medium lg:text-lg xl:text-lg 2xl:text-xl 3xl:text-1.5xl;
+  @apply font-medium sm:text-base md:text-base lg:text-lg xl:text-lg 2xl:text-xl 3xl:text-1.5xl;
 }
 
 .p-large {
-  @apply font-medium lg:text-xl xl:text-1.5xl 2xl:text-2xl 3xl:text-3xl;
+  @apply font-medium sm:text-lg md:text-lg lg:text-xl xl:text-1.5xl 2xl:text-2xl 3xl:text-3xl;
 }
 
 .span-small {
-  @apply font-normal lg:text-sm xl:text-sm 2xl:text-base 3xl:text-base;
+  @apply font-normal sm:text-sm md:text-sm lg:text-sm xl:text-sm 2xl:text-base 3xl:text-base;
 }
 
 .span-regular {
-  @apply font-medium lg:text-base xl:text-base 2xl:text-lg 3xl:text-lg;
+  @apply font-medium sm:text-sm md:text-sm lg:text-base xl:text-base 2xl:text-lg 3xl:text-lg;
 }
 
 .span-medium {
-  @apply font-semibold lg:text-lg xl:text-xl 2xl:text-2xl 3xl:text-2xl;
+  @apply font-semibold sm:text-sm md:text-sm lg:text-lg xl:text-xl 2xl:text-2xl 3xl:text-2xl;
 }
 
 .span-large {
-  @apply font-extrabold lg:text-lg xl:text-xl 2xl:text-2xl 3xl:text-2xl;
+  @apply font-extrabold sm:text-sm md:text-sm lg:text-lg xl:text-xl 2xl:text-2xl 3xl:text-2xl;
 }
 
 .text-stroke {
@@ -418,11 +418,11 @@ body::-webkit-scrollbar-thumb:hover,
 
 /* BUTTON classes  */
 .btn {
-  @apply flex w-fit cursor-pointer items-center justify-center rounded-md border-none font-medium uppercase tracking-wide shadow-component dark:shadow-component-dark lg:gap-2 lg:px-3 lg:py-2 lg:text-base xl:gap-2 xl:px-4 xl:py-2 xl:text-base 2xl:gap-3 2xl:px-5 2xl:py-3 2xl:text-xl 3xl:gap-3 3xl:px-6 3xl:py-3 3xl:text-xl;
+  @apply flex w-fit cursor-pointer items-center justify-center rounded-md border-none font-medium uppercase tracking-wide shadow-component dark:shadow-component-dark gap-2 px-3 py-1 text-sm lg:gap-2 lg:px-3 lg:py-2 lg:text-base xl:gap-2 xl:px-4 xl:py-2 xl:text-base 2xl:gap-3 2xl:px-5 2xl:py-3 2xl:text-xl 3xl:gap-3 3xl:px-6 3xl:py-3 3xl:text-xl;
 }
 
 .page-btn {
-  @apply text-center font-medium lg:h-8 lg:w-8 lg:rounded-lg lg:border dark:border-text-dark lg:text-base xl:text-base 2xl:h-8 2xl:w-8 2xl:rounded-lg 2xl:border-2 2xl:text-lg 3xl:text-lg;
+  @apply text-center font-medium dark:border-text-dark lg:h-8 lg:w-8 lg:rounded-lg lg:border lg:text-base xl:text-base 2xl:h-8 2xl:w-8 2xl:rounded-lg 2xl:border-2 2xl:text-lg 3xl:text-lg;
 }
 
 .page-btn.active {
@@ -449,7 +449,7 @@ body::-webkit-scrollbar-thumb:hover,
 }
 
 .underline-btn::before {
-  @apply absolute bottom-0 right-0 w-0 rounded-sm bg-text-light lg:h-[1.5px] 2xl:h-[2px];
+  @apply absolute bottom-0 right-0 w-0 rounded-sm bg-text-light dark:bg-text-dark lg:h-[1.5px] 2xl:h-[2px];
   content: "";
   transition:
     right 0.4s,
