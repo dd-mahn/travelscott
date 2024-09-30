@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Outlet, ScrollRestoration, useLocation } from "react-router-dom";
-import { ReactLenis } from "lenis/dist/lenis-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import Header from "src/components/Header/Header";
 import Footer from "src/components/Footer/Footer";
 import AnimatedLogoScreen from "../../common/AnimatedLogoScreen";
 import Cursor from "../../common/Cursors";
+import ReactLenis from "@studio-freight/react-lenis";
 
 const Layout: React.FC = () => {
   const location = useLocation();
