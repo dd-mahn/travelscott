@@ -26,7 +26,7 @@ const About: React.FC = () => {
       <AboutHero />
 
       {/* Stacked Section */}
-      <section className="flex flex-col items-center justify-start lg:py-40 2xl:py-sect-default">
+      <section className="flex flex-col items-center justify-start py-32 md:py-48 lg:py-40 2xl:py-sect-default">
         {/* How Section */}
         <motion.h2
           initial="hiddenY"

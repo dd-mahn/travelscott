@@ -3,6 +3,7 @@ import { motion, useAnimation, useScroll, useTransform } from "framer-motion";
 
 import { HoverVariants, VisibilityVariants } from "src/utils/variants";
 import heroVideo from "src/assets/videos/about-hero.mp4";
+import { useViewportWidth } from "src/utils/imageUtils";
 
 const variants = {
   hidden: VisibilityVariants.hidden,
@@ -35,6 +36,7 @@ const variants = {
 };
 
 const AboutHero = () => {
+  const viewportWidth = useViewportWidth()
   const [leftValue, setLeftValue] = useState(0);
   const sideBlockRefs = [
     useRef<HTMLDivElement>(null),
@@ -107,7 +109,7 @@ const AboutHero = () => {
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
   const opacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
   return (
-    <section className="hero px-sect relative flex flex-col items-center lg:gap-6 lg:py-10 2xl:gap-12 2xl:py-sect-short">
+    <section className="hero px-sect relative flex flex-col items-center gap-3 md:gap-4 lg:gap-6 lg:py-10 2xl:gap-12 2xl:py-sect-short">
       {/* Background blobs */}
       <motion.div initial="hidden" animate="blob1Animation" variants={variants} className="blur-blob blob-brown left-[10%] top-0 h-1/3 w-1/5 opacity-50"></motion.div>
       <motion.div initial="hidden" animate="blob2Animation" variants={variants} className="blur-blob blob-green right-1/3 top-[10%] h-[20%] w-1/3 opacity-50"></motion.div>
@@ -115,7 +117,7 @@ const AboutHero = () => {
       {/* Hero Title */}
       <motion.div
         ref={containerRef}
-        className="h1-md-bold relative z-10 w-screen overflow-hidden pt-sect-short text-center"
+        className="h1-md-bold h-fit relative z-10 w-screen overflow-hidden pt-sect-short flex justify-center items-end"
       >
         {/* Animated title parts */}
         <motion.div
@@ -132,7 +134,7 @@ const AboutHero = () => {
           initial={{ opacity: 0, y: "100%" }}
           animate={blockControls}
           variants={variants}
-          className={`bot-0 absolute inline-block w-fit`}
+          className={`bottom-[0.5px] absolute inline-block w-fit`}
           style={{ left: leftValue ? leftValue : "50%" }}
         >
           <span className="font-logo font-medium normal-case text-text-light">
@@ -179,7 +181,7 @@ const AboutHero = () => {
         animate="visible"
         variants={variants}
         transition={{ duration: 0.8, delay: 1.4 }}
-        className="relative h-screen w-full lg:mt-40 2xl:mt-sect-default"
+        className="relative h-[80svh] md:h-screen w-full mt-32 lg:mt-40 2xl:mt-sect-default"
       >
         <motion.video
           ref={aboutVideoRef}
@@ -188,11 +190,11 @@ const AboutHero = () => {
           autoPlay
           loop
           muted
-          className="absolute top-0 z-10 w-full rounded-3xl shadow-section dark:shadow-section-dark"
+          className="absolute top-0 z-10 w-full h-full object-cover rounded-3xl shadow-section dark:shadow-section-dark"
         ></motion.video>
         <motion.h2
           style={{ opacity }}
-          className="h2-md absolute top-1/2 z-[15] w-full text-center text-text-dark"
+          className={`h2-md absolute top-1/2 md:top-1/2 z-[15] w-full text-center text-text-dark`}
         >
           We want you to travel.
         </motion.h2>

@@ -5,6 +5,7 @@ import { HoverVariants, VisibilityVariants } from "src/utils/variants";
 import airplane1 from "src/assets/svg/airplane-1.svg";
 import airplane2 from "src/assets/svg/airplane-2.svg";
 import airplane3 from "src/assets/svg/airplane-3.svg";
+import { useViewportWidth } from "src/utils/imageUtils";
 
 const variants = {
   hiddenY: VisibilityVariants.hiddenY,
@@ -14,8 +15,9 @@ const variants = {
 };
 
 const AboutWhy = () => {
+  const viewportWidth = useViewportWidth();
   return (
-    <section className="why px-sect relative flex h-[50svh] flex-col items-center lg:mb-32 lg:mt-20 lg:gap-48 2xl:mt-24 2xl:mb-40 2xl:gap-64">
+    <section className="why px-sect relative flex h-[50svh] flex-col items-center mb-32 mt-40 gap-24 lg:mb-32 lg:mt-20 lg:gap-48 2xl:mt-24 2xl:mb-40 2xl:gap-64">
         <img src={airplane1} alt="" className="plane-1 absolute" />
         <img src={airplane2} alt="" className="plane-2 absolute" />
         <img src={airplane3} alt="" className="plane-3 absolute" />
@@ -35,9 +37,9 @@ const AboutWhy = () => {
           variants={variants}
           transition={{ duration: 0.5 }}
           viewport={{ once: true, margin: "0% 0% -30% 0%" }}
-          className="p-large"
+          className="p-large text-center md:text-left"
         >
-          “A paper plane’s journey, however brief, reminds us that <br /> even
+          “A paper plane’s journey, however brief, reminds us that {viewportWidth > 576 && <br />} even
           the simplest dreams can take flight.”
         </motion.p>
       </section>

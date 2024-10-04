@@ -68,7 +68,7 @@ const whoImages = [who1, who2, who3, who4, who5, who6, who7, who8];
 
 const AboutWho = () => {
   return (
-    <section className="who px-sect sticky top-0 z-20 rounded-5xl bg-background-dark-transparent dark:bg-background-dark-transparent overflow-hidden shadow-section lg:pb-sect-default lg:pt-40 2xl:py-sect-default">
+    <section className="who px-sect sticky top-0 z-20 rounded-5xl bg-background-dark-transparent dark:bg-background-dark-transparent overflow-hidden shadow-section pb-64 pt-32 lg:pb-sect-default lg:pt-40 2xl:py-sect-default">
       <div className="relative flex flex-col">
         <motion.div initial="hidden" animate="blob2Animation" variants={variants} className="blob-brown blur-blob left-1/2 top-[20%] h-1/4 w-1/4 opacity-30"></motion.div>
         <motion.div initial="hidden" animate="blob1Animation" variants={variants} className="blob-green blur-blob top-[5%] left-[5%] h-1/4 w-1/3 opacity-20"></motion.div>
@@ -78,7 +78,7 @@ const AboutWho = () => {
           variants={variants}
           viewport={{ once: true, margin: "0% 0% -20% 0%" }}
           transition={{ duration: 0.5 }}
-          className="h3-inter text-center lg:py-40 2xl:pb-sect-default"
+          className="h3-inter text-center py-32 lg:py-40 2xl:pb-sect-default"
         >
           <h1 className="text-text-dark">Who?</h1>
         </motion.div>
@@ -88,14 +88,14 @@ const AboutWho = () => {
           variants={variants}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="z-10 flex flex-wrap justify-center gap-12"
+          className="z-10 grid grid-cols-3 justify-center gap-x-4 gap-y-8 ld;gap-12"
         >
           {people.map((person, index) => (
             <div
-              className="person flex w-1/5 flex-col items-center gap-4"
+              className="person flex flex-col items-center gap-2 lg:gap-4"
               key={index}
             >
-              <div className="h-[35svh] w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray shadow-component dark:shadow-component-dark saturate-0 duration-300 hover:saturate-[0.75]">
+              <div className=" h-[20svh] sm:h-[30svh] md:h-[35svh] w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray shadow-component dark:shadow-component-dark saturate-0 duration-300 hover:saturate-[0.75]">
                 {person.img && (
                   <motion.img
                     whileHover="hoverScale"
@@ -107,7 +107,7 @@ const AboutWho = () => {
                   />
                 )}
               </div>
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-1 lg:gap-2">
                 <h3 className="span-regular text-center text-text-dark">
                   {person.name}
                 </h3>
@@ -118,7 +118,7 @@ const AboutWho = () => {
             </div>
           ))}
         </motion.div>
-        <div className="px-sect relative pb-sect-default pt-sect-long 2xl:mt-sect-default">
+        <div className="px-sect relative pb-48 pt-sect-medium lg:pb-sect-default lg:pt-sect-long 2xl:mt-sect-default">
           <motion.div initial="hidden" animate="blobAnimation" variants={variants} className="blob-brown blur-blob left-[20%] top-1/3 h-1/2 w-1/2 opacity-30"></motion.div>
 
           {whoImages.map((img, index) => (
@@ -131,7 +131,7 @@ const AboutWho = () => {
             variants={variants}
             viewport={{ once: true }}
             transition={{ duration: 1 }}
-            className="p-regular text-text-dark lg:w-2/3 xl:w-2/3 2xl:w-1/2 3xl:w-2/5"
+            className="p-regular z-10 text-text-dark lg:w-2/3 xl:w-2/3 2xl:w-1/2 3xl:w-2/5"
           >
             In 2024, we came together, fueled by an unwavering passion for
             adventure and a deep-seated commitment to unveiling the splendor of
@@ -156,7 +156,7 @@ const AnimatedImage = memo(({ src, index }: { src: string; index: number }) => {
       animate={isInView ? ["visible", "imgFloat"] : "hiddenY"}
       variants={variants}
       transition={{ delay: 0.2 + index * 0.1 }}
-      className={`img-${index + 1} absolute rounded-lg overflow-hidden will-change-transform`}
+      className={`img-${index + 1} -z-10  absolute rounded-md lg:rounded-lg overflow-hidden will-change-transform`}
     >
       <Suspense fallback={<div className="w-full h-full bg-gray-200" />}>
         <LazyImage src={src} alt="" loading="lazy" />

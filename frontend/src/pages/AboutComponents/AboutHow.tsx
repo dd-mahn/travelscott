@@ -13,197 +13,201 @@ const AboutHow = () => {
   return (
     <section className="how relative">
       {/* Optimal Information */}
-      <div className="sticky z-0 mx-auto mb-24 flex h-[50svh] flex-row items-start justify-between rounded-xl bg-background-light px-8 pb-sect-short pt-4 shadow-section dark:bg-background-dark-transparent dark:shadow-section-dark lg:top-24 lg:mt-40 lg:w-3/4 2xl:top-48 2xl:mt-sect-medium 2xl:w-3/4">
-        {/* Content */}
-        <div className="flex w-2/3 flex-col items-start justify-start gap-12">
-          {/* Title */}
-          <div className="flex flex-col justify-start gap-0">
-            <div className="overflow-hidden">
-              <motion.h1
-                initial="hiddenFullY"
+      <div className="sticky top-24 z-0 mx-auto mb-24 mt-32 flex w-4/5 flex-col items-start justify-between gap-8 rounded-xl bg-background-light px-8 pb-16 pt-4 shadow-section dark:bg-background-dark-transparent dark:shadow-section-dark md:h-[40svh] md:pb-sect-short lg:top-24 lg:mt-40 lg:h-[50svh] lg:w-3/4 2xl:top-48 2xl:mt-sect-medium 2xl:w-3/4">
+        <div className="flex w-full justify-between">
+          {/* Heading */}
+          <div className="flex w-2/3 flex-col items-start justify-start gap-12">
+            {/* Title */}
+            <div className="flex flex-col justify-start gap-0">
+              <div className="overflow-hidden">
+                <motion.h1
+                  initial="hiddenFullY"
+                  whileInView="visible"
+                  transition={{ duration: 0.4 }}
+                  viewport={{ once: true, margin: "0% 0% -10% 0%" }}
+                  variants={variants}
+                  className="h1-md-bold leading-[0.8]"
+                >
+                  Optimal
+                </motion.h1>
+              </div>
+              <motion.span
+                initial="hiddenY"
                 whileInView="visible"
-                transition={{ duration: 0.4 }}
                 viewport={{ once: true, margin: "0% 0% -10% 0%" }}
+                transition={{ duration: 0.4, delay: 0.4 }}
                 variants={variants}
-                className="h1-md-bold"
+                className="span-medium uppercase"
               >
-                Optimal
-              </motion.h1>
+                Information
+              </motion.span>
             </div>
-            <motion.span
-              initial="hiddenY"
-              whileInView="visible"
-              viewport={{ once: true, margin: "0% 0% -10% 0%" }}
-              transition={{ duration: 0.4, delay: 0.4 }}
-              variants={variants}
-              className="span-medium uppercase"
-            >
-              Information
-            </motion.span>
           </div>
-          {/* Description */}
-          <p className="p-medium lg:w-full 2xl:w-3/4 3xl:w-3/4">
-            From the must-see landmarks to the hidden gems, our guides are
-            designed to ensure you're well-informed. Whether it's an upcoming
-            journey or a place you're curious about, our resources are tailored
-            to provide just the right insights to fuel your wanderlust and help
-            you travel smarter.
-          </p>
+          {/* Number */}
+          <div className="flex h-fit w-fit gap-1 overflow-hidden md:gap-0">
+            <motion.div
+              initial="hiddenFullY"
+              whileInView="visible"
+              transition={{ duration: 0.4, delay: 0.6 }}
+              viewport={{ once: true, margin: "0% 0% -10% 0%" }}
+              variants={variants}
+              className="text-stroke dark:text-stroke-dark h1-md-bold inline-block leading-[0.8] text-transparent dark:text-transparent"
+            >
+              0
+            </motion.div>
+            <motion.div
+              initial="hiddenFullY"
+              whileInView="visible"
+              transition={{ duration: 0.4, delay: 0.8 }}
+              viewport={{ once: true, margin: "0% 0% -10% 0%" }}
+              variants={variants}
+              className="text-stroke dark:text-stroke-dark h1-md-bold inline-block leading-[0.8] text-transparent dark:text-transparent"
+            >
+              1
+            </motion.div>
+          </div>
         </div>
-        {/* Number */}
-        <div className="w-fit overflow-hidden">
-          <motion.div
-            initial="hiddenFullY"
-            whileInView="visible"
-            transition={{ duration: 0.4, delay: 0.6 }}
-            viewport={{ once: true, margin: "0% 0% -10% 0%" }}
-            variants={variants}
-            className="text-stroke dark:text-stroke-dark h1-md-bold inline-block text-transparent dark:text-transparent"
-          >
-            0
-          </motion.div>
-          <motion.div
-            initial="hiddenFullY"
-            whileInView="visible"
-            transition={{ duration: 0.4, delay: 0.8 }}
-            viewport={{ once: true, margin: "0% 0% -10% 0%" }}
-            variants={variants}
-            className="text-stroke dark:text-stroke-dark h1-md-bold inline-block text-transparent dark:text-transparent"
-          >
-            1
-          </motion.div>
-        </div>
+        {/* Description */}
+        <p className="p-medium w-full lg:w-full 2xl:w-3/4 3xl:w-3/4">
+          From the must-see landmarks to the hidden gems, our guides are
+          designed to ensure you're well-informed. Whether it's an upcoming
+          journey or a place you're curious about, our resources are tailored to
+          provide just the right insights to fuel your wanderlust and help you
+          travel smarter.
+        </p>
       </div>
 
       {/* Vibrant Experience */}
-      <div className="sticky z-0 mx-auto mb-24 mt-sect-medium flex h-[50svh] flex-row items-start justify-between rounded-xl bg-light-brown px-8 pb-sect-short pt-4 shadow-section dark:bg-background-dark-brown dark:shadow-section-dark lg:top-48 lg:w-3/4 2xl:top-72 2xl:w-3/4">
-        {/* Number */}
-        <div className="w-2/3 overflow-hidden">
-          <motion.div
-            initial="hiddenFullY"
-            whileInView="visible"
-            transition={{ duration: 0.4, delay: 0.6 }}
-            viewport={{ once: true, margin: "0% 0% -10% 0%" }}
-            variants={variants}
-            className="text-stroke dark:text-stroke-dark h1-md-bold inline-block text-transparent dark:text-transparent"
-          >
-            0
-          </motion.div>
-          <motion.div
-            initial="hiddenFullY"
-            whileInView="visible"
-            transition={{ duration: 0.4, delay: 0.8 }}
-            viewport={{ once: true, margin: "0% 0% -10% 0%" }}
-            variants={variants}
-            className="text-stroke dark:text-stroke-dark h1-md-bold inline-block text-transparent dark:text-transparent"
-          >
-            2
-          </motion.div>
-        </div>
-        {/* Content */}
-        <div className="flex flex-col items-end justify-start gap-12">
-          {/* Title */}
-          <div className="flex w-2/3 flex-col justify-end gap-0">
-            <div className="overflow-hidden">
-              <motion.h1
-                initial="hiddenFullY"
-                whileInView="visible"
-                transition={{ duration: 0.4 }}
-                viewport={{ once: true, margin: "0% 0% -10% 0%" }}
-                variants={variants}
-                className="h1-md-bold text-end"
-              >
-                Vibrant
-              </motion.h1>
-            </div>
-            <motion.span
-              initial="hiddenY"
+      <div className="sticky top-48 z-0 mx-auto mb-24 mt-sect-medium flex w-4/5 flex-col items-start justify-between gap-8 rounded-xl bg-light-brown px-8 pb-16 pt-4 shadow-section dark:bg-background-dark-brown dark:shadow-section-dark md:h-[40svh] md:pb-sect-short lg:top-48 lg:h-[50svh] lg:w-3/4 2xl:top-72 2xl:w-3/4">
+        <div className="flex w-full justify-between">
+          {/* Number */}
+          <div className="flex h-fit w-fit gap-1 overflow-hidden md:gap-0">
+            <motion.div
+              initial="hiddenFullY"
               whileInView="visible"
+              transition={{ duration: 0.4, delay: 0.6 }}
               viewport={{ once: true, margin: "0% 0% -10% 0%" }}
-              transition={{ duration: 0.4, delay: 0.4 }}
               variants={variants}
-              className="span-medium text-end uppercase"
+              className="text-stroke dark:text-stroke-dark h1-md-bold inline-block leading-[0.8] text-transparent dark:text-transparent"
             >
-              Experience
-            </motion.span>
+              0
+            </motion.div>
+            <motion.div
+              initial="hiddenFullY"
+              whileInView="visible"
+              transition={{ duration: 0.4, delay: 0.8 }}
+              viewport={{ once: true, margin: "0% 0% -10% 0%" }}
+              variants={variants}
+              className="text-stroke dark:text-stroke-dark h1-md-bold inline-block leading-[0.8] text-transparent dark:text-transparent"
+            >
+              2
+            </motion.div>
           </div>
-          {/* Description */}
-          <p className="p-medium lg:w-full 2xl:w-3/4 3xl:w-3/4">
-            We provide a streamlined research experience with high-quality
-            visual content that aims to inspire your travel plans. Each search
-            is an opportunity for discovery, and our vivid imagery stirs the
-            urge to see the world. With practical resources that vividly depict
-            your next destination, we empower you to travel with enthusiasm and
-            insight.
-          </p>
+          {/* Content */}
+          <div className="flex flex-col items-end justify-start gap-12">
+            {/* Title */}
+            <div className="flex w-fit flex-col items-end justify-start gap-0">
+              <div className="overflow-hidden">
+                <motion.h1
+                  initial="hiddenFullY"
+                  whileInView="visible"
+                  transition={{ duration: 0.4 }}
+                  viewport={{ once: true, margin: "0% 0% -10% 0%" }}
+                  variants={variants}
+                  className="h1-md-bold leading-[0.8]"
+                >
+                  Vibrant
+                </motion.h1>
+              </div>
+              <motion.span
+                initial="hiddenY"
+                whileInView="visible"
+                viewport={{ once: true, margin: "0% 0% -10% 0%" }}
+                transition={{ duration: 0.4, delay: 0.4 }}
+                variants={variants}
+                className="span-medium uppercase"
+              >
+                Experience
+              </motion.span>
+            </div>
+          </div>
         </div>
+        {/* Description */}
+        <p className="p-medium w-full lg:w-full 2xl:w-3/4 3xl:w-3/4">
+          We provide a streamlined research experience with high-quality visual
+          content that aims to inspire your travel plans. Each search is an
+          opportunity for discovery, and our vivid imagery stirs the urge to see
+          the world. With practical resources that vividly depict your next
+          destination, we empower you to travel with enthusiasm and insight.
+        </p>
       </div>
 
       {/* Verified Resource */}
-      <div className="sticky z-0 mx-auto mb-24 mt-sect-medium flex h-[50svh] flex-row items-start justify-between rounded-xl bg-light-green px-8 pb-sect-short pt-4 shadow-section dark:bg-background-dark-green dark:shadow-section-dark lg:top-72 lg:w-3/4 2xl:top-96 2xl:w-3/4">
-        {/* Content */}
-        <div className="flex w-2/3 flex-col items-start justify-start gap-12">
-          {/* Title */}
-          <div className="flex flex-col justify-start gap-0">
-            <div className="overflow-hidden">
-              <motion.h1
-                initial="hiddenFullY"
-                whileInView="visible"
-                transition={{ duration: 0.4 }}
-                viewport={{ once: true, margin: "0% 0% -10% 0%" }}
-                variants={variants}
-                className="h1-md-bold"
-              >
-                Verified
-              </motion.h1>
-            </div>
+      <div className="sticky top-72 z-0 mx-auto mb-24 mt-sect-medium flex w-4/5 flex-col items-start justify-between gap-8 rounded-xl bg-light-green px-8 pb-16 pt-4 shadow-section dark:bg-background-dark-green dark:shadow-section-dark md:h-[40svh] md:pb-sect-short lg:top-72 lg:h-[50svh] lg:w-3/4 2xl:top-96 2xl:w-3/4">
+        <div className="flex w-full justify-between">
+          {/* Content */}
+          <div className="flex w-2/3 flex-col items-start justify-start gap-12">
+            {/* Title */}
+            <div className="flex flex-col justify-start gap-0">
+              <div className="overflow-hidden">
+                <motion.h1
+                  initial="hiddenFullY"
+                  whileInView="visible"
+                  transition={{ duration: 0.4 }}
+                  viewport={{ once: true, margin: "0% 0% -10% 0%" }}
+                  variants={variants}
+                  className="h1-md-bold leading-[0.8]"
+                >
+                  Verified
+                </motion.h1>
+              </div>
 
-            <motion.span
-              initial="hiddenY"
-              whileInView="visible"
-              viewport={{ once: true, margin: "0% 0% -10% 0%" }}
-              transition={{ duration: 0.4, delay: 0.4 }}
-              variants={variants}
-              className="span-medium uppercase"
-            >
-              Resource
-            </motion.span>
+              <motion.span
+                initial="hiddenY"
+                whileInView="visible"
+                viewport={{ once: true, margin: "0% 0% -10% 0%" }}
+                transition={{ duration: 0.4, delay: 0.4 }}
+                variants={variants}
+                className="span-medium uppercase"
+              >
+                Resource
+              </motion.span>
+            </div>
           </div>
 
-          <p className="p-medium lg:w-full 2xl:w-3/4 3xl:w-3/4">
-            Our platform curates content from renowned travel
-            websites and authentic traveler reviews to create a comprehensive
-            travel resource. Rest assured, the credibility of our information is
-            our top priority, ensuring you have reliable insights for your
-            journey.
-          </p>
+          <div className="flex h-fit w-fit gap-1 overflow-hidden md:gap-0">
+            <motion.div
+              initial="hiddenFullY"
+              whileInView="visible"
+              transition={{ duration: 0.4, delay: 0.6 }}
+              viewport={{ once: true, margin: "0% 0% -10% 0%" }}
+              variants={variants}
+              className="text-stroke dark:text-stroke-dark h1-md-bold inline-block leading-[0.8] text-transparent dark:text-transparent"
+            >
+              0
+            </motion.div>
+            <motion.div
+              initial="hiddenFullY"
+              whileInView="visible"
+              transition={{ duration: 0.4, delay: 0.8 }}
+              viewport={{ once: true, margin: "0% 0% -10% 0%" }}
+              variants={variants}
+              className="text-stroke dark:text-stroke-dark h1-md-bold inline-block leading-[0.8] text-transparent dark:text-transparent"
+            >
+              3
+            </motion.div>
+          </div>
         </div>
-
-        <div className="w-fit overflow-hidden">
-          <motion.div
-            initial="hiddenFullY"
-            whileInView="visible"
-            transition={{ duration: 0.4, delay: 0.6 }}
-            viewport={{ once: true, margin: "0% 0% -10% 0%" }}
-            variants={variants}
-            className="text-stroke dark:text-stroke-dark h1-md-bold inline-block text-transparent dark:text-transparent"
-          >
-            0
-          </motion.div>
-          <motion.div
-            initial="hiddenFullY"
-            whileInView="visible"
-            transition={{ duration: 0.4, delay: 0.8 }}
-            viewport={{ once: true, margin: "0% 0% -10% 0%" }}
-            variants={variants}
-            className="text-stroke dark:text-stroke-dark h1-md-bold inline-block text-transparent dark:text-transparent"
-          >
-            3
-          </motion.div>
-        </div>
+        <p className="p-medium w-full lg:w-full 2xl:w-3/4 3xl:w-3/4">
+          Our platform curates content from renowned travel
+          websites and authentic traveler reviews to create a comprehensive
+          travel resource. Rest assured, the credibility of our information is
+          our top priority, ensuring you have reliable insights for your
+          journey.
+        </p>
       </div>
 
-      <div className="lg:py-20 2xl:py-sect-default"></div>
+      <div className="py-16 lg:py-20 2xl:py-sect-default"></div>
     </section>
   );
 };
