@@ -7,8 +7,8 @@ const config: Config = {
   darkMode: "class", // or 'media' or 'class'
   theme: {
     screens: {
-      sm: "320px",
-      md: "576px",
+      sm: "576px",
+      md: "768px",
       lg: "1024px",
       xl: "1280px",
       "2xl": "1536px",
