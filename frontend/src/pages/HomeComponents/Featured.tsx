@@ -6,6 +6,7 @@ import HorizontalScrollCarousel from "./FeaturedHorizontalScroller";
 import { featuredDemo } from "src/data/featuredDemo";
 import { SecondaryButton } from "src/common/Button";
 import { VisibilityVariants } from "src/utils/variants";
+import { useViewportWidth } from "src/utils/imageUtils";
 
 // Framer motion variants for animations
 const variants = {
@@ -17,6 +18,7 @@ const variants = {
 
 // Featured component: Displays featured destinations
 const Featured: React.FC = () => {
+  const viewportWidth = useViewportWidth();
   return (
     <section className="featured flex flex-col lg:gap-28 xl:gap-32 2xl:gap-36 3xl:gap-40">
       {/* Header */}
@@ -30,7 +32,7 @@ const Featured: React.FC = () => {
           className="h1-md relative"
         >
           {/* Decorative icon */}
-          <i className="ri-shining-2-fill rotate-30 absolute -left-[5%] -top-0 transform text-yellow dark:text-yellow lg:text-3xl xl:text-4xl 2xl:text-4xl 3xl:text-5xl"></i>{" "}
+          <i className="ri-shining-2-fill hidden md:block rotate-30 absolute md:-left-[7%] lg:-left-[5%] top-0 transform text-yellow dark:text-yellow md:text-3xl lg:text-3xl xl:text-4xl 2xl:text-4xl 3xl:text-5xl"></i>{" "}
           Featured Destinations
         </motion.h1>
       </div>
@@ -39,7 +41,7 @@ const Featured: React.FC = () => {
       <HorizontalScrollCarousel data={featuredDemo} />
 
       {/* Footer section */}
-      <div className="px-sect flex w-full flex-row justify-between">
+      <div className="px-sect flex w-full flex-col items-start justify-start gap-4 md:flex-row md:justify-between">
         {/* Destinations count */}
         <motion.p
           initial="hiddenY"
@@ -47,10 +49,10 @@ const Featured: React.FC = () => {
           transition={{ duration: 0.5 }}
           viewport={{ once: true, margin: "0% 0% -10% 0%" }}
           variants={variants}
-          className="p-large"
+          className={`${viewportWidth > 768 ? "p-large" : "p-medium"}`}
         >
           They are just so few among the{" "}
-          <span className="font-semibold text-main-brown dark:text-dark-brown lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl">
+          <span className="font-semibold text-main-brown dark:text-dark-brown span-large">
             100
           </span>
           + <br />

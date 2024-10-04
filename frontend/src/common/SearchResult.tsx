@@ -207,7 +207,7 @@ const SearchResult: React.FC<SearchResultProps> = ({
           exit="exit"
           variants={variants}
           transition={{ duration: 0.4 }}
-          className={`search-result fixed top-20 z-50 flex h-[50svh] w-[40svw] flex-col rounded-2xl bg-background-light dark:bg-background-dark-transparent pb-8 shadow-component dark:shadow-component-dark right-6 md:right-8 lg:right-12 xl:right-16 2xl:right-20 3xl:right-24`}
+          className={`search-result fixed top-20 z-50 flex w-[60svw] h-[60svh] md:h-[50svh] md:w-[40svw] flex-col rounded-2xl bg-background-light dark:bg-background-dark-transparent pb-8 shadow-component dark:shadow-component-dark right-6 md:right-8 lg:right-12 xl:right-16 2xl:right-20 3xl:right-24`}
         >
           <div className="sticky top-0 z-10 flex w-full items-center justify-between rounded-2xl bg-background-light dark:bg-background-dark-transparent px-4 py-2 lg:px-8 lg:py-4">
             <span className="span-regular">

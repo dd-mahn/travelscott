@@ -23,7 +23,7 @@ const variants = {
 // Starter component: Displays a section with blog posts for first-time travelers
 const Starter: React.FC<{ blogs: Blog[] }> = ({ blogs }) => {
   return (
-    <section className="starter relative rounded-5xl dark:from-[#824c2f] dark:to-[#2e190e] bg-gradient-to-b from-[#eb996e] to-[#9e694d] h-[140svh]">
+    <section className="starter relative rounded-5xl dark:from-[#824c2f] dark:to-[#2e190e] bg-gradient-to-b from-[#eb996e] to-[#9e694d] h-[105svh] md:h-[120svh] lg:h-[140svh]">
       {/* Draggable airplane image */}
       <motion.img
         initial="hiddenPlane"
@@ -35,7 +35,7 @@ const Starter: React.FC<{ blogs: Blog[] }> = ({ blogs }) => {
         dragConstraints={{ top: 0, left: 0, right: 0, bottom: 0 }}
         src={airplane1}
         alt="Plane"
-        className="absolute z-[1000] dark:brightness-90 -top-[5%] left-[5%] lg:w-44 xl:w-44 2xl:w-44 3xl:w-48"
+        className="absolute z-[1000] dark:brightness-90 -top-[3%] md:-top-[5%] left-[5%] w-24 md:w-32 lg:w-44 xl:w-44 2xl:w-44 3xl:w-48"
       />
       {/* Container for StarterBlogs component */}
       <div className="h-full w-full overflow-hidden">
@@ -48,7 +48,7 @@ const Starter: React.FC<{ blogs: Blog[] }> = ({ blogs }) => {
         transition={{ duration: 0.5 }}
         variants={variants}
         viewport={{ once: true }}
-        className="absolute -bottom-4 right-0 lg:mr-12 xl:mr-16 2xl:mr-20 3xl:mr-24 z-[1000]"
+        className="absolute -bottom-4 right-0 mr-sect z-[1000]"
       >
         <SecondaryButton text="Find More" link="/inspiration" />
       </motion.div>

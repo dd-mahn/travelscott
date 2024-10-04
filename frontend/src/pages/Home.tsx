@@ -57,7 +57,7 @@ const Home: React.FC = () => {
       <Featured />
 
       {/* Stacked sections container */}
-      <section className="lg:pt-sect-default 2xl:pt-sect-semi">
+      <section className="pt-40 md:pt-64 lg:pt-sect-default 2xl:pt-sect-semi">
         <div className="sticky top-0 z-0">
           <Inspired />
         </div>
@@ -66,30 +66,32 @@ const Home: React.FC = () => {
 
         {/* Starter hook section */}
         <div className="sticky top-0 z-20 bg-background-light dark:bg-background-dark">
-          <section className="hook px-sect pb-sect-semi pt-sect-default">
-            <div className="overflow-hidden lg:pb-2">
-              <motion.h2
-                initial="hiddenFullY"
-                whileInView="visible"
-                transition={{ duration: 0.5 }}
-                viewport={{ once: true }}
-                variants={variants}
-                className="h2-inter"
-              >
-                If you are still hesitant,
-              </motion.h2>
-            </div>
-            <div className="overflow-hidden lg:pb-2">
-              <motion.h2
-                initial="hiddenFullY"
-                whileInView="visible"
-                transition={{ duration: 0.5, delay: 0.1 }}
-                viewport={{ once: true }}
-                variants={variants}
-                className="h2-inter"
-              >
-                perhaps some of the articles below can help.
-              </motion.h2>
+          <section className="hook px-sect h-[120svh] flex items-center">
+            <div className="mb-20 md:mb-40">
+              <div className="overflow-hidden lg:pb-2">
+                <motion.h2
+                  initial="hiddenFullY"
+                  whileInView="visible"
+                  transition={{ duration: 0.5 }}
+                  viewport={{ once: true }}
+                  variants={variants}
+                  className="h2-inter"
+                >
+                  If you are still hesitant,
+                </motion.h2>
+              </div>
+              <div className="overflow-hidden lg:pb-2">
+                <motion.h2
+                  initial="hiddenFullY"
+                  whileInView="visible"
+                  transition={{ duration: 0.5, delay: 0.1 }}
+                  viewport={{ once: true }}
+                  variants={variants}
+                  className="h2-inter"
+                >
+                  perhaps some of the articles below can help.
+                </motion.h2>
+              </div>
             </div>
           </section>
         </div>

@@ -41,9 +41,9 @@ const FeaturedDestinationCard: React.FC<DestinationCardProps> = memo(
     }, [destination.images, viewportWidth]);
 
     return (
-      <div className="destination-card flex h-full flex-col lg:gap-2 2xl:gap-4 lg:pb-6 2xl:pb-8">
+      <div className="destination-card flex h-full flex-col gap-1 lg:gap-2 2xl:gap-4 lg:pb-6 2xl:pb-8">
         {/* Image container */}
-        <div className="w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray shadow-component dark:shadow-component-dark lg:h-[65svh] 2xl:h-[70svh]">
+        <div className="w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray shadow-component dark:shadow-component-dark h-[60svh] md:h-[65svh] lg:h-[65svh] 2xl:h-[70svh]">
           <motion.img
             whileHover="hoverScale"
             transition={{ duration: 0.4 }}
@@ -69,11 +69,11 @@ const FeaturedDestinationCard: React.FC<DestinationCardProps> = memo(
             </Link>
           </motion.span>
           {/* Tags */}
-          <div className="mt-4 flex flex-wrap gap-2">
+          <div className=" mt-2 lg:mt-4 flex flex-wrap gap-1 lg:gap-2">
             {destination.tags.map((tag, index) => (
               <span
                 key={index}
-                className="span-small rounded-2xl border-gray px-4 lg:border"
+                className="span-small rounded-2xl border-gray px-2 lg:px-4 border"
               >
                 {tag}
               </span>

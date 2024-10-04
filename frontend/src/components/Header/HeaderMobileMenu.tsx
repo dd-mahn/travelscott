@@ -5,6 +5,7 @@ import ReactDOM from "react-dom";
 import { HoverVariants } from "./headerVariants";
 import { BlobVariants, VisibilityVariants } from "src/utils/variants";
 import ThemeButton from "./ThemeButton";
+import HeaderSearch from "./HeaderSearch";
 
 const navs = [
   { path: "/", display: "Home" },
@@ -59,7 +60,6 @@ const HeaderMobileMenu = () => {
     <div className="md:hidden">
       {!isOpen && (
         <motion.button
-          layoutId="menu-toggle-button"
           onClick={toggleMenu}
           title="Menu"
           className="flex items-center justify-center rounded-md bg-background-light px-2 py-1"
@@ -83,9 +83,7 @@ const HeaderMobileMenu = () => {
             >
               <div className="flex w-full justify-between border-b border-text-light pb-4 dark:border-text-dark">
                 <ThemeButton />
-
                 <motion.button
-                  layoutId="menu-toggle-button"
                   onClick={toggleMenu}
                   title="Menu"
                   className="flex h-fit w-fit items-center justify-center rounded-md bg-background-dark px-2 py-1 dark:bg-background-light"
@@ -97,7 +95,7 @@ const HeaderMobileMenu = () => {
               </div>
 
               <div className="flex w-full justify-between">
-                <ul className="flex flex-col gap-4">
+                <ul className="z-10 flex flex-col gap-8">
                   {navs.map((nav, index) => (
                     <li key={index} className="h-fit w-fit overflow-hidden">
                       <motion.div
@@ -110,7 +108,7 @@ const HeaderMobileMenu = () => {
                         <NavLink
                           to={nav.path}
                           target="_top"
-                          className="h1-md text-text-light dark:text-text-dark"
+                          className="h1-md leading-[0.8] text-text-light dark:text-text-dark"
                         >
                           {nav.display}
                         </NavLink>
@@ -119,7 +117,7 @@ const HeaderMobileMenu = () => {
                   ))}
                 </ul>
 
-                <ul className="flex flex-col gap-2 items-end">
+                <ul className="z-10 flex flex-col items-end gap-2">
                   {socials.map((social, index) => (
                     <li key={index} className="h-fit w-fit overflow-hidden">
                       <motion.div

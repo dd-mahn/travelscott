@@ -67,7 +67,7 @@ export const SecondaryButton: React.FC<ButtonProps> = ({
               transition={{ duration: 0.3 }}
               src={planeIcon}
               alt=""
-              className="cursor-hover-small dark:invert"
+              className="cursor-hover-small dark:invert w-3 h-3 sm:w-4 sm:h-4 lg:w-6 lg:h-6"
             />
           </motion.button>
         </Link>
@@ -85,7 +85,7 @@ export const SecondaryButton: React.FC<ButtonProps> = ({
             transition={{ duration: 0.3 }}
             src={planeIcon}
             alt=""
-            className="cursor-hover-small dark:invert"
+            className="cursor-hover-small dark:invert w-3 h-3 sm:w-4 sm:h-4 lg:w-6 lg:h-6"
           />
         </motion.button>
       )}

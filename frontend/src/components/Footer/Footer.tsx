@@ -79,7 +79,7 @@ const Footer = () => {
         className="blob-brown blur-blob absolute -right-1/3 top-[40%] z-0 h-[80%] w-1/2 opacity-60"
       ></motion.div>
 
-      <div className="px-sect z-10 flex flex-col items-start gap-8 md:flex-row md:justify-between">
+      <div className="px-sect z-10 flex flex-col items-center gap-8 md:flex-row md:items-start md:justify-between">
         <motion.p
           initial="hiddenY"
           whileInView="visible"
@@ -91,7 +91,7 @@ const Footer = () => {
           Made and curated by people with <br />
           passion in travel, Travel, and TRAVEL.
         </motion.p>
-        <div className="styled-input flex w-full items-center justify-between border-b border-solid border-text-light dark:border-text-dark md:mt-2 md:w-fit">
+        <div className="styled-input flex w-[90%] items-center justify-between border-b border-solid border-text-light dark:border-text-dark md:mt-2 md:w-fit">
           <label
             htmlFor="subscribe-email"
             className="label span-regular uppercase"
@@ -142,7 +142,7 @@ const Footer = () => {
         viewport={{ once: true }}
         variants={variants}
         transition={{ duration: 0.6 }}
-        className="px-sect z-10 flex items-center justify-end pb-1 md:mt-4 md:items-end md:justify-between md:pb-4"
+        className="px-sect z-10 flex items-center justify-end pb-4 md:mt-4 md:items-end md:justify-between md:pb-4"
       >
         <div className="z-10 hidden md:flex md:gap-6 lg:gap-8 xl:gap-10 2xl:gap-12 3xl:gap-12">
           <nav className="flex flex-col md:gap-1 lg:gap-2 2xl:gap-4">
@@ -194,11 +194,11 @@ const Footer = () => {
         </button>
       </motion.div>
 
-      <div className="z-10 flex justify-center border-t border-solid border-gray py-2">
+      <div className="z-10 flex justify-center border-t overflow-hidden border-solid border-gray py-2">
         <StaggerLogo />
       </div>
 
-      <div className="px-sect z-10 flex flex-col items-center justify-between border-t border-solid border-gray md:flex-row lg:h-8 2xl:h-10">
+      <div className="px-sect z-10 py-2 flex flex-col items-center justify-between border-t border-solid border-gray md:flex-row">
         <span className="span-small select-none font-medium uppercase text-gray">
           Copyright TravelScott 2024
         </span>

@@ -81,9 +81,9 @@ const Quote = () => {
   }, [inViewed, iconContainerRefs, iconSiblingRefs, iconSiblingControls]);
 
   return (
-    <section className="quote relative px-sect flex flex-col gap-4 lg:py-sect-default 2xl:py-sect-medium">
+    <section className="quote relative px-sect flex flex-col gap-2 md:gap-4 py-48 lg:py-sect-default 2xl:py-sect-medium">
       <motion.div initial="hidden" animate="blobAnimation" variants={variants} className="blob-brown blur-blob absolute -left-1/3 top-[10%] z-0 h-[80%] w-1/2 opacity-60"></motion.div>
-      <div className="flex flex-row items-end justify-between ">
+      <div className="flex flex-col items-center justify-end lg:flex-row lg:items-end lg:justify-between ">
         <div className="big-heading">
           {/* First line of the quote */}
           <div className="relative flex items-center">
@@ -94,7 +94,7 @@ const Quote = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
                 variants={variants}
-                className=""
+                className="pr-2 md:pr-3"
               >
                 " To{" "}
               </motion.h1>
@@ -178,7 +178,7 @@ const Quote = () => {
           whileInView="visible"
           viewport={{ once: true }}
           variants={variants}
-          className="lg:span-small 2xl:span-medium uppercase"
+          className="span-small 2xl:span-medium uppercase mt-6 md:mt-8 lg:mt-0"
         >
           - Hans Christian Andersen
         </motion.span>
@@ -190,7 +190,7 @@ const Quote = () => {
         transition={{ duration: 0.5 }}
         viewport={{ once: true }}
         variants={variants}
-        className="flex flex-row justify-end"
+        className="flex flex-row justify-center lg:justify-end"
       >
         <PrimaryButton text="Have any question?" link="/contact" />
       </motion.div>

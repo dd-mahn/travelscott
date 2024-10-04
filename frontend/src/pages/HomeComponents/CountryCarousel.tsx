@@ -22,7 +22,7 @@ import argentinaFlag from "src/assets/images/ui/countryFlags/argentina-flag-medi
 
 // Import utility functions
 import { shuffleArray } from "src/utils/shuffleArray";
-import { optimizeImage } from "src/utils/imageUtils";
+import { optimizeImage, useViewportWidth } from "src/utils/imageUtils";
 
 // Array of flag images
 const flags = [
@@ -105,9 +105,10 @@ export const LeftCountryCarousel = React.memo(() => (
 
 // MarqueeCountryCarousel component
 export const MarqueeCountryCarousel = React.memo(() => {
+  const viewportWidth = useViewportWidth();
   // Shuffle flags once on component mount
   const shuffledFlags = useMemo(() => shuffleArray(flags), []);
-  const scale = 1.5;
+  const scale = viewportWidth > 768 ? 1.5 : 1;
 
   return (
     <div className="h-svh w-[100svw]">
@@ -134,12 +135,12 @@ export const MarqueeCountryCarousel = React.memo(() => {
               velocity={20}
               radius={scale * 80}
             >
-              <div className="mt-[70svh] lg:h-[5svh] 2xl:h-[5svh] bg-gradient-to-t lg:rounded-md 2xl:rounded-lg from-blue-gray-900 to-gray">
+              <div className="mt-[70svh] h-[4svh] lg:h-[5svh] 2xl:h-[5svh] bg-gradient-to-t rounded-md lg:rounded-md 2xl:rounded-lg from-blue-gray-900 to-gray">
                 <img
                   loading="lazy"
                   src={src}
                   srcSet={srcSet}
-                  className="h-full lg:rounded-md 2xl:rounded-lg object-cover shadow-component dark:shadow-component-dark"
+                  className="h-full rounded-md lg:rounded-md 2xl:rounded-lg object-cover shadow-component dark:shadow-component-dark"
                   alt="country flag"
                 />
               </div>

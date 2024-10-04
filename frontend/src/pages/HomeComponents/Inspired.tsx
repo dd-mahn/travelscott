@@ -23,7 +23,7 @@ const variants = {
 // Inspired component: Displays inspiration from travelers around the world
 const Inspired: React.FC = () => {
   return (
-    <section className="px-sect inspired relative flex items-center justify-center lg:pb-sect-semi lg:pt-sect-default 2xl:pb-sect-semi 2xl:pt-sect-medium">
+    <section className="px-sect inspired relative flex items-center justify-center pt-[40svh] pb-[70svh] ">
       {/* Background carousel */}
       <motion.div
         className="absolute left-0 top-0 z-0 h-svh w-full"

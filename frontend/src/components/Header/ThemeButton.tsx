@@ -3,8 +3,10 @@ import { motion } from "framer-motion";
 import { HoverVariants } from "src/utils/variants";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleDarkMode, selectIsDarkMode, setDarkMode } from "src/store/slices/themeSlice";
+import { useViewportWidth } from "src/utils/imageUtils";
 
 const ThemeButton = () => {
+  const viewportWidth = useViewportWidth();
   const dispatch = useDispatch();
   const isDarkMode = useSelector(selectIsDarkMode);
 
@@ -34,7 +36,7 @@ const ThemeButton = () => {
       transition={{ duration: 0.2 }}
       whileTap={{ scale: 1 }}
       title="Toggle Contrast"
-      className="p-large "
+      className={`${viewportWidth > 768 ? "p-large" : "h2-inter"} px-1`}
       onClick={handleToggleDarkMode}
     >
       <i className="ri-contrast-2-fill pointer-events-none"></i>

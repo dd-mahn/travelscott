@@ -111,15 +111,15 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <main className="contact px-sect relative flex min-h-svh pb-20 flex-col items-center overflow-hidden sm:pt-20 lg:pb-sect-default lg:pt-20 2xl:pt-40">
+    <main className="contact px-sect relative flex min-h-svh pb-20 flex-col items-center overflow-hidden pt-20 lg:pb-sect-default lg:pt-20 2xl:pt-40">
       <motion.section
         initial="hiddenY"
         animate="visible"
         transition={{ duration: 0.5 }}
         variants={variants}
-        className="emailing z-20 w-full bg-background-light shadow-section dark:bg-background-dark dark:shadow-section-dark sm:rounded-xl sm:px-4 sm:pb-4 sm:pt-2 md:rounded-2xl md:px-5 md:py-4 lg:rounded-3xl lg:px-8 lg:py-6"
+        className="emailing z-20 w-full bg-background-light shadow-section dark:bg-background-dark dark:shadow-section-dark rounded-xl px-4 pb-4 pt-2 md:rounded-2xl md:px-5 md:py-4 lg:rounded-3xl lg:px-8 lg:py-6"
       >
-        <div className="flex flex-row items-center justify-between border-b sm:gap-4 sm:pb-3 lg:pb-8">
+        <div className="flex flex-row items-center justify-between border-b gap-4 pb-3 lg:pb-8">
           <h2 className="h3-md">
             Need assistance planning your next adventure? <br />
             Looking to collaborate with us commercially?
@@ -130,7 +130,7 @@ const Contact: React.FC = () => {
             whileTap="tapScale"
             animate={visibleSection === "emailing" ? "rotate" : ""}
             variants={variants}
-            className={`rounded-full border sm:px-1 md:h-16 md:w-16 lg:h-20 lg:w-20 xl:h-24 xl:w-24 2xl:h-28 2xl:w-28 3xl:h-28 3xl:w-28`}
+            className={`rounded-full border px-1 md:h-16 md:w-16 lg:h-20 lg:w-20 xl:h-24 xl:w-24 2xl:h-28 2xl:w-28 3xl:h-28 3xl:w-28`}
             title="open btn"
             onClick={() => {
               toggleInfo("emailing");
@@ -150,10 +150,10 @@ const Contact: React.FC = () => {
                 variants={variants}
                 transition={{ duration: 0.2, ease: "easeInOut" }}
                 // className={`${visibleSection === "emailing" ? "flex" : "hiddenY"} flex-col gap-2 py-8`}
-                className={`flex flex-col gap-2 sm:py-4 lg:py-8`}
+                className={`flex flex-col gap-2 py-4 lg:py-8`}
               >
                 <p className="p-regular">Reach out to us via:</p>
-                <div className="flex sm:flex-col sm:gap-1 md:flex-row md:gap-24">
+                <div className="flex flex-col gap-1 md:flex-row md:gap-24">
                   <div className="span-medium relative flex items-center">
                     <i className="ri-arrow-right-line mr-4"></i>
                     <button
@@ -218,9 +218,9 @@ const Contact: React.FC = () => {
         animate="visible"
         transition={{ duration: 0.5, delay: 0.2 }}
         variants={variants}
-        className="contribute z-20 w-full bg-background-light shadow-section dark:bg-background-dark dark:shadow-section-dark sm:rounded-xl sm:px-4 sm:pb-4 sm:pt-2 md:rounded-2xl md:px-5 md:py-4 lg:rounded-3xl lg:px-8 lg:py-6"
+        className="contribute z-20 w-full bg-background-light shadow-section dark:bg-background-dark dark:shadow-section-dark rounded-xl px-4 pb-4 pt-2 md:rounded-2xl md:px-5 md:py-4 lg:rounded-3xl lg:px-8 lg:py-6"
       >
-        <div className="flex flex-row items-center justify-between border-b sm:gap-4 sm:pb-3 lg:pb-8">
+        <div className="flex flex-row items-center justify-between border-b gap-4 pb-3 lg:pb-8">
           <h2 className="h3-md">Want to share your experience as resource?</h2>
           <motion.button
             whileHover="hoverScale"
@@ -228,7 +228,7 @@ const Contact: React.FC = () => {
             variants={variants}
             transition={{ duration: 0.4 }}
             animate={visibleSection === "contribute" ? "rotate" : ""}
-            className={`rounded-full border sm:px-1 md:h-16 md:w-16 lg:h-20 lg:w-20 xl:h-24 xl:w-24 2xl:h-28 2xl:w-28 3xl:h-28 3xl:w-28`}
+            className={`rounded-full border px-1 md:h-16 md:w-16 lg:h-20 lg:w-20 xl:h-24 xl:w-24 2xl:h-28 2xl:w-28 3xl:h-28 3xl:w-28`}
             title="open btn"
             onClick={() => {
               toggleInfo("contribute");
@@ -255,7 +255,7 @@ const Contact: React.FC = () => {
                   too! <br />
                   Let us help you share them with the world.
                 </p>
-                <button className="underline-btn span-medium flex-grow-1 sm:underline md:no-underline">
+                <button className="underline-btn span-medium flex-grow-1 underline md:no-underline">
                   Follow this link <i className="ri-arrow-right-up-line"></i>
                 </button>
               </motion.div>
@@ -269,9 +269,9 @@ const Contact: React.FC = () => {
         animate="visible"
         transition={{ duration: 0.5, delay: 0.4 }}
         variants={variants}
-        className="feedback z-20 w-full bg-background-light shadow-section dark:bg-background-dark dark:shadow-section-dark sm:rounded-xl sm:px-4 sm:pb-4 sm:pt-2 md:rounded-2xl md:px-5 md:py-4 lg:rounded-3xl lg:px-8 lg:py-6"
+        className="feedback z-20 w-full bg-background-light shadow-section dark:bg-background-dark dark:shadow-section-dark rounded-xl px-4 pb-4 pt-2 md:rounded-2xl md:px-5 md:py-4 lg:rounded-3xl lg:px-8 lg:py-6"
       >
-        <div className="flex flex-row items-center justify-between border-b sm:gap-4 sm:pb-3 lg:pb-8">
+        <div className="flex flex-row items-center justify-between border-b gap-4 pb-3 lg:pb-8">
           <h2 className="h3-md">Want to give us a feedback?</h2>
           <motion.button
             whileHover="hoverScale"
@@ -279,7 +279,7 @@ const Contact: React.FC = () => {
             variants={variants}
             transition={{ duration: 0.4 }}
             animate={visibleSection === "feedback" ? "rotate" : ""}
-            className={`rounded-full border sm:px-1 md:h-16 md:w-16 lg:h-20 lg:w-20 xl:h-24 xl:w-24 2xl:h-28 2xl:w-28 3xl:h-28 3xl:w-28`}
+            className={`rounded-full border px-1 md:h-16 md:w-16 lg:h-20 lg:w-20 xl:h-24 xl:w-24 2xl:h-28 2xl:w-28 3xl:h-28 3xl:w-28`}
             title="open btn"
             onClick={() => {
               toggleInfo("feedback");
@@ -301,7 +301,7 @@ const Contact: React.FC = () => {
                 // className={`${visibleSection === "feedback" ? "flex" : "hiddenY"} flex flex-row justify-between py-8`}
                 className={`flex flex-row justify-between py-8`}
               >
-                <p className="p-regular sm:hidden md:w-1/2 lg:block lg:w-1/2 xl:w-1/2 2xl:w-1/2 3xl:w-1/2">
+                <p className="p-regular hidden md:w-1/2 lg:block lg:w-1/2 xl:w-1/2 2xl:w-1/2 3xl:w-1/2">
                   We’re seeking input from global users to enhance its
                   functionality. We believe that collective insights and
                   resources can propel our project forward. Whether who you are,
