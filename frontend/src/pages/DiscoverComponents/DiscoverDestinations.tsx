@@ -105,7 +105,7 @@ const DiscoverDestinations: React.FC = () => {
   return (
     <section
       id="destinations"
-      className="destinations px-sect flex flex-col items-center py-sect-default"
+      className="destinations px-sect flex flex-col items-center py-sect-short md:py-32 lg:py-sect-default"
     >
       <div className="overflow-hidden">
         <motion.h1
@@ -114,13 +114,13 @@ const DiscoverDestinations: React.FC = () => {
           viewport={{ once: true }}
           variants={variants}
           transition={{ duration: 0.5 }}
-          className="h1-md"
+          className="h1-md-bold"
         >
           Discover destinations
         </motion.h1>
       </div>
 
-      <div className="flex w-full flex-row justify-between py-sect-short">
+      <div className="flex w-full flex-row justify-between py-12 lg:py-sect-short">
         <motion.p
           initial="hiddenY"
           whileInView="visible"

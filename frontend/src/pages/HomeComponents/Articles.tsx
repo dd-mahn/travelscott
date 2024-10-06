@@ -55,7 +55,7 @@ const RenderBlog: React.FC<{ blog: Blog; isFeatured: boolean }> = ({
     <Link
       to={`/inspiration/${blog._id}`}
       target="_top"
-      className={`h-full w-full ${isFeatured ? "flex flex-col gap-4" : "grid grid-cols-2 gap-4"}`}
+      className={`h-full w-full ${isFeatured ? "flex flex-col gap-2 lg:gap-4" : "grid grid-cols-2 gap-2 lg:gap-4"}`}
       key={blog._id}
     >
       <div
@@ -73,7 +73,7 @@ const RenderBlog: React.FC<{ blog: Blog; isFeatured: boolean }> = ({
       </div>
       <div
         className={`flex ${
-          isFeatured ? "flex-col gap-4" : "w-full flex-col gap-4"
+          isFeatured ? "flex-col gap-2 lg:gap-4" : "w-full flex-col gap-2 lg:gap-4"
         }`}
       >
         <div className="flex flex-col gap-1 pt-2">
@@ -146,14 +146,14 @@ const Articles: React.FC<ArticlesProps> = memo(({ articlesHookRef, blogs }) => {
       <motion.span
         ref={articlesHookRef}
         style={{ x }}
-        className="article-hook px-sect p-large absolute -top-10 left-0 font-semibold uppercase text-text-light dark:text-text-dark"
+        className="article-hook px-sect p-large absolute -top-6 md:-top-6 lg:-top-10 left-0 font-semibold uppercase text-text-light dark:text-text-dark"
       >
         Discover the latest articles in
       </motion.span>
       {/* Render blog articles if available */}
       {blogChunks?.length > 0 && (
         <section
-          className="blogs flex flex-col items-center justify-start gap-sect-short lg:pb-sect-default lg:pt-sect-short 2xl:pb-sect-medium 2xl:pt-60"
+          className="blogs flex flex-col items-center justify-start gap-sect-short pb-48 pt-sect-short lg:pb-sect-default lg:pt-sect-short 2xl:pb-sect-medium 2xl:pt-60"
           style={{ background: backgroundGradient }}
         >
           <SeasonHeading />
@@ -170,12 +170,12 @@ const Articles: React.FC<ArticlesProps> = memo(({ articlesHookRef, blogs }) => {
               {blogChunks.map((chunk, chunkIndex) => (
                 <div
                   key={chunkIndex}
-                  className="px-sect grid h-[75svh] w-screen grid-cols-2 gap-8"
+                  className="px-sect grid h-[40svh] sm:h-[50svh] md:h-[60svh] lg:h-[75svh] w-screen grid-cols-2 gap-2 md:gap-4 lg:gap-8"
                 >
-                  <div className="h-[75svh] pb-4">
+                  <div className="h-[40svh] sm:h-[50svh] md:h-[60svh] lg:h-[75svh] pb-4">
                     <RenderBlog blog={chunk[0]} isFeatured={true} />
                   </div>
-                  <div className="grid h-[75svh] w-full grid-rows-3 gap-4 pb-4">
+                  <div className="grid h-[40svh] sm:h-[50svh] md:h-[60svh] lg:h-[75svh] w-full grid-rows-3 gap-4 pb-4">
                     {chunk.slice(1).map((blog) => (
                       <RenderBlog
                         key={blog._id}

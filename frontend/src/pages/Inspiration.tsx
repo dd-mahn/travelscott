@@ -60,7 +60,7 @@ const Inspiration: React.FC = () => {
           exit="hiddenY"
           variants={variants}
           transition={{ duration: 1 }}
-          className="inspiration relative flex min-h-screen flex-col items-center gap-8 pb-sect-default"
+          className="inspiration relative flex min-h-screen flex-col items-center gap-8 pb-sect-short md:pb-sect-default"
           data-filter={currentCategory}
         >
           {/* Hero Section */}
@@ -79,12 +79,12 @@ const Inspiration: React.FC = () => {
               animate="visible"
               variants={variants}
               transition={{ duration: 0.5, delay: 2.5 }}
-              className="z-10 w-full lg:mt-sect-short 2xl:mt-[15rem]"
+              className="z-10 w-full mt-sect-short lg:mt-sect-short 2xl:mt-[15rem]"
             >
               <FeaturedBlogs blogs={featuredBlogs} />
             </motion.div>
           ) : (
-            <div className="h-[75svh]" />
+            <div className="h-[50svh] md:h-[75svh]" />
           )}
 
           {/* Catalog Section */}

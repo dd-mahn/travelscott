@@ -42,13 +42,13 @@ const InspirationCard: React.FC<InspirationCardProps> = memo(({ blog }) => {
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: 0.2 }}
       variants={variants}
-      className="flex flex-col lg:gap-2 2xl:gap-4"
+      className="flex flex-col gap-3 lg:gap-2 2xl:gap-4"
     >
       {/* Blog Image Link */}
       <Link
         to={blogLink}
         target="_top"
-        className="h-[50svh] w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray shadow-section dark:shadow-section-dark"
+        className=" h-[40svh] md:h-[50svh] w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray shadow-section dark:shadow-section-dark"
       >
         <motion.img
           whileHover="hoverScale"
@@ -63,7 +63,7 @@ const InspirationCard: React.FC<InspirationCardProps> = memo(({ blog }) => {
       </Link>
 
       {/* Blog Title and Category */}
-      <div className="mt-4 flex flex-col gap-2">
+      <div className="mt-4 flex flex-col md:gap-2">
         <span className="span-regular text-gray">{blog.category}</span>
         <Link to={blogLink} target="_top">
           <motion.h3
@@ -78,10 +78,10 @@ const InspirationCard: React.FC<InspirationCardProps> = memo(({ blog }) => {
       </div>
 
       {/* Blog Content Preview */}
-      <p className="p-regular w-3/4">{blog.content?.[0]?.sectionText?.[0]}</p>
+      <p className="p-regular md:w-3/4 line-clamp-3 md:line-clamp-none">{blog.content?.[0]?.sectionText?.[0]}</p>
 
       {/* Blog Publish Time */}
-      <span className="span-regular flex items-center gap-3">
+      <span className="span-regular flex items-center gap-1 md:gap-3">
         <i className="ri-time-line p-medium"></i> {formatDate(blog.time)}
       </span>
     </motion.div>

@@ -88,7 +88,7 @@ const InspirationCatalog: React.FC<InspirationCatalogProps> = memo(
     return (
       <section
         ref={sectionRef}
-        className="catalog px-sect mt-sect-short flex w-full flex-col items-center gap-20"
+        className="catalog px-sect mt-sect-short flex w-full flex-col items-center gap-8 md:gap-20"
       >
         <InspirationFilter continentNames={continentNames} />
         <AnimatePresence mode="wait">
@@ -117,7 +117,7 @@ const InspirationCatalog: React.FC<InspirationCatalogProps> = memo(
               <motion.div
                 variants={variants}
                 transition={{ staggerChildren: 0.2 }}
-                className="grid grid-cols-2 justify-between gap-x-8 gap-y-20"
+                className="grid grid-cols-2 justify-between gap-x-6 md:gap-x-8 gap-y-12 md:gap-y-20"
               >
                 {allBlogs.map((blog) => (
                   <InspirationCard key={blog._id} blog={blog} />

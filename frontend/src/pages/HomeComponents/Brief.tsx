@@ -76,7 +76,7 @@ const Brief: React.FC = () => {
   return (
     <section className="brief px-sect flex flex-col py-24 md:pb-40 lg:gap-36 lg:py-sect-medium xl:gap-48 xl:py-sect-semi 2xl:gap-64 2xl:py-sect-long 3xl:gap-80 3xl:py-sect-long">
       {/* Header section with animated airplane */}
-      <div className="flex min-h-20 flex-row items-center justify-center md:min-h-40 md:justify-start md:gap-28 xl:gap-28 2xl:gap-44 3xl:gap-52">
+      <div className="flex min-h-20 flex-row items-center justify-center md:min-h-40 md:justify-start md:gap-8 xl:gap-28 2xl:gap-44 3xl:gap-52">
         <motion.img
           variants={variants}
           initial="airplaneStart"
@@ -160,7 +160,7 @@ const Brief: React.FC = () => {
             <motion.p
               ref={paragraphRefs[0]}
               style={{ opacity: opacities[0] }}
-              className={`${viewportWidth < 768 ? "text-center" : "p-medium"} z-10 text-text-dark dark:text-text-light sm:w-3/4 md:w-2/3 md:text-left md:text-text-light md:dark:text-text-dark lg:w-4/5 3xl:w-2/3`}
+              className={`${viewportWidth < 768 ? "text-center p-regular" : "p-regular"} z-10 text-text-dark dark:text-text-light sm:w-3/4 md:w-2/3 md:text-left md:text-text-light md:dark:text-text-dark lg:w-4/5 3xl:w-2/3`}
             >
               Take a break from your daily routine. When was the last time you
               explored beyond your city? Discover new places, meet new people,
@@ -171,7 +171,7 @@ const Brief: React.FC = () => {
             <motion.p
               ref={paragraphRefs[1]}
               style={{ opacity: opacities[1] }}
-              className={`${viewportWidth < 768 ? "text-center" : "p-medium"} z-10 text-text-dark dark:text-text-light sm:w-3/4 md:w-2/3 md:text-left md:text-text-light md:dark:text-text-dark lg:w-4/5 3xl:w-2/3`}
+              className={`${viewportWidth < 768 ? "text-center p-regular" : "p-regular"} z-10 text-text-dark dark:text-text-light sm:w-3/4 md:w-2/3 md:text-left md:text-text-light md:dark:text-text-dark lg:w-4/5 3xl:w-2/3`}
             >
               To help you get started, explore our virtual gallery. It features
               a curated selection of global destinations with visuals and key
@@ -182,7 +182,7 @@ const Brief: React.FC = () => {
             <motion.p
               ref={paragraphRefs[2]}
               style={{ opacity: opacities[2] }}
-              className={`${viewportWidth < 768 ? "text-center" : "p-medium"} z-10 text-text-dark dark:text-text-light sm:w-3/4 md:w-2/3 md:text-left md:text-text-light md:dark:text-text-dark lg:w-4/5 3xl:w-2/3`}
+              className={`${viewportWidth < 768 ? "text-center p-regular" : "p-regular"} z-10 text-text-dark dark:text-text-light sm:w-3/4 md:w-2/3 md:text-left md:text-text-light md:dark:text-text-dark lg:w-4/5 3xl:w-2/3`}
             >
               For more insights, visit our blog. Our travel stories and tips
               will help you plan and make the most of your adventures.

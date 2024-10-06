@@ -114,7 +114,7 @@ const BlogComponent: React.FC<{
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 1 }}
         variants={variants}
-        className="blog absolute flex h-[50svh] w-1/3 flex-col gap-4 overflow-hidden rounded-xl bg-background-light dark:bg-background-dark lg:pb-4 2xl:pb-8 shadow-component dark:shadow-component-dark"
+        className="blog absolute flex h-[35svh] md:h-[45svh] lg:h-[50svh] w-1/2 lg:w-1/3 flex-col gap-4 overflow-hidden rounded-xl bg-background-light dark:bg-background-dark pb-3 lg:pb-4 2xl:pb-8 shadow-component dark:shadow-component-dark"
         style={{
           x: position.x,
           y: position.y,
@@ -129,7 +129,7 @@ const BlogComponent: React.FC<{
         onDragEnd={onDragEnd}
       >
         {/* Blog image and title section */}
-        <div className="relative flex flex-col items-start justify-end gap-0 px-8 pb-4 lg:h-1/2 2xl:h-3/4">
+        <div className="relative flex flex-col items-start justify-end gap-0 px-4 lg:px-8 pb-4 h-1/2 lg:h-1/2 2xl:h-3/4">
           <div className="absolute right-0 top-0 h-full w-full overflow-hidden bg-gradient-to-t from-blue-gray-900 to-gray brightness-75">
             <motion.img
               whileHover="hoverScale"
@@ -146,7 +146,7 @@ const BlogComponent: React.FC<{
             whileHover="hoverX"
             transition={{ duration: 0.3 }}
             variants={variants}
-            className="cursor-hover-small span-medium z-20 cursor-pointer uppercase line-clamp-1 text-text-dark"
+            className="cursor-hover-small span-medium leading-[0.8] z-20 cursor-pointer uppercase line-clamp-21 text-text-dark"
           >
             <Link to={`/inspiration/${blog._id}`} target="_top">
               {blog.title}
@@ -154,11 +154,11 @@ const BlogComponent: React.FC<{
           </motion.span>
         </div>
         {/* Blog content preview and link */}
-        <div className="flex flex-col gap-4 px-8">
-          <p className="p-regular line-clamp-3 w-full overflow-hidden">
+        <div className="flex flex-col gap-4 px-4 lg:px-8">
+          <p className="p-regular line-clamp-6 lg:line-clamp-5 w-full overflow-hidden">
             {blog.content[0].sectionText[0]}
           </p>
-          <button className="underline-btn text-sm uppercase">
+          <button className="underline-btn span-medium uppercase">
             <Link to={`/inspiration/${blog._id}`} target="_top">
               View<i className="ri-arrow-right-up-line pointer-events-none"></i>
             </Link>

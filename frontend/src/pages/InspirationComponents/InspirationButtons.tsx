@@ -68,7 +68,7 @@ const InspirationButtons = () => {
         staggerChildren: 0.2,
         delayChildren: 1,
       }}
-      className="z-10 flex w-2/3 flex-row flex-wrap justify-center gap-x-4 gap-y-4 filter"
+      className="z-10 flex px-sect lg:w-2/3 flex-row flex-wrap justify-center gap-x-2 gap-y-3 lg:gap-x-4 lg:gap-y-4 filter"
     >
       {categories
         .filter((f) => f !== currentCategory)
@@ -79,7 +79,7 @@ const InspirationButtons = () => {
               whileHover="buttonHover"
               whileTap="buttonTap"
               onClick={() => handleCategoryChange(f)}
-              className={`filter-btn span-medium rounded-xl px-10 py-4 font-prima text-text-dark shadow-component dark:shadow-component-dark bg-${getBackgroundKey(f)}`}
+              className={`filter-btn span-medium rounded-xl px-6 py-2 md:px-10 md:py-4 font-prima text-text-dark shadow-component dark:shadow-component-dark bg-${getBackgroundKey(f)}`}
             >
               {f}
             </motion.button>

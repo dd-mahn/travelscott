@@ -85,7 +85,7 @@ const DiscoverCountries: React.FC = () => {
   // Render logic
   return (
     <>
-      <section className="countries px-sect flex w-full flex-col items-center gap-4 lg:pb-20 lg:pt-sect-default 2xl:pb-40 2xl:pt-sect-default">
+      <section className="countries px-sect flex w-full flex-col items-center gap-4 py-sect-short lg:pb-20 lg:pt-sect-default 2xl:pb-40 2xl:pt-sect-default">
         <div className="overflow-hidden">
           <motion.h1
             initial="hiddenFullY"
@@ -93,7 +93,7 @@ const DiscoverCountries: React.FC = () => {
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
             variants={variants}
-            className="h1-md-bold"
+            className="h1-md-bold leading-[0.8]"
           >
             Discover countries
           </motion.h1>
@@ -106,7 +106,7 @@ const DiscoverCountries: React.FC = () => {
           transition={{ duration: 0.5, delay: 0.4 }}
           variants={variants}
           viewport={{ once: true }}
-          className="grid w-1/6 place-items-center"
+          className="grid lg:w-1/6 place-items-center"
         >
           {/* @ts-ignore */}
           <Select {...selectProps}>
@@ -123,7 +123,7 @@ const DiscoverCountries: React.FC = () => {
         </motion.div>
 
         {/* SELECTED COMPONENT AND COUNTRY LIST */}
-        <div className="w-full lg:py-10 2xl:py-sect-short">
+        <div className="w-full py-10 lg:py-10 2xl:py-sect-short">
           <AnimatePresence mode="wait">
             {loading ? (
               <LoadingState keyName={`loading-${filterKey}`} />
@@ -141,10 +141,10 @@ const DiscoverCountries: React.FC = () => {
                 exit="exitX"
                 transition={{ duration: 0.5, delay: 0.8, ease: "easeInOut" }}
                 variants={variants}
-                className="flex min-h-[70svh] w-full flex-row items-start lg:gap-8 2xl:gap-12"
+                className="flex md:min-h-[70svh] w-full flex-col lg:flex-row gap-4 md:gap-8 items-start lg:gap-8 2xl:gap-12"
               >
                 <div className="relative flex items-center justify-center">
-                  <div className="h-[70svh] w-[40svw] overflow-hidden rounded-xl shadow-component dark:shadow-component-dark bg-gradient-to-t from-blue-gray-900 to-gray">
+                  <div className="lg:h-[70svh] lg:w-[40svw] w-full overflow-hidden rounded-xl shadow-component dark:shadow-component-dark bg-gradient-to-t from-blue-gray-900 to-gray">
                     <motion.img
                       whileHover="hoverScale"
                       variants={variants}
@@ -172,7 +172,7 @@ const DiscoverCountries: React.FC = () => {
                     delayChildren: 1.2,
                     staggerChildren: 0.3,
                   }}
-                  className="grid justify-between lg:grid-cols-3 lg:gap-8 2xl:grid-cols-4 2xl:gap-8"
+                  className="grid justify-between grid-cols-3 sm:grid-cols-4 gap-2 md:gap-4 lg:grid-cols-3 lg:gap-8 2xl:grid-cols-4 2xl:gap-8"
                   aria-label="Country list"
                 >
                   {selectedContinent.countries.map((country) => (
@@ -188,7 +188,7 @@ const DiscoverCountries: React.FC = () => {
       </section>
 
       {/* RELATED SECTION */}
-      <section className="related flex flex-col lg:gap-4 2xl:gap-8">
+      <section className="related flex flex-col gap-3 lg:gap-4 2xl:gap-8">
         <div className="px-sect overflow-hidden">
           <motion.h2
             initial="hiddenFullY"

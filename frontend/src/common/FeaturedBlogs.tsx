@@ -32,17 +32,17 @@ const FeaturedBlogs: React.FC<featuredBlogsProps> = ({ blogs }) => {
   }, [blogs, viewportWidth]);
 
   return (
-    <div className="flex w-screen flex-col items-center gap-8 pb-sect-default">
+    <div className="flex w-screen flex-col items-center gap-8 pb-sect-short lg:pb-sect-default">
       <FeaturedContentSlider>
         {optimizedBlogs.map((blog) => (
           <div
             key={blog._id}
-            className="px-sect flex h-fit w-svw flex-col items-center gap-8 pt-8"
+            className="px-sect flex h-fit w-svw flex-col items-center gap-4 md:gap-6 lg:gap-8 pt-8"
           >
             <Link
               to={`/inspiration/${blog._id}`}
               target="_top"
-              className="h-[75svh] w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray shadow-section dark:shadow-section-dark"
+              className="h-[50svh] md:h-[75svh] w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray shadow-section dark:shadow-section-dark"
             >
               <motion.img
                 whileHover="hoverScale"
@@ -64,7 +64,7 @@ const FeaturedBlogs: React.FC<featuredBlogsProps> = ({ blogs }) => {
                 className="cursor-hover h-full w-full cursor-pointer rounded-xl object-cover"
               />
             </Link>
-            <div className="flex flex-col items-center gap-2">
+            <div className="flex flex-col items-center gap-1 md:gap-2">
               <span className="span-regular text-gray">{blog.category}</span>
               <Link to={`/inspiration/${blog._id}`} target="_top">
                 <motion.h2
@@ -76,7 +76,7 @@ const FeaturedBlogs: React.FC<featuredBlogsProps> = ({ blogs }) => {
                 </motion.h2>
               </Link>
             </div>
-            <p className="p-regular w-2/5 text-center">
+            <p className="p-regular md:w-2/3 lg:w-2/5 text-center">
               {blog.content?.[0]?.sectionText?.[0]}
             </p>
             <span className="span-regular flex items-center gap-3">

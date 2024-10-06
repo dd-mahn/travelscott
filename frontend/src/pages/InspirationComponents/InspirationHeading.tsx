@@ -31,7 +31,7 @@ const InspirationHeading = ({ currentCategory }: { currentCategory: string }) =>
   );
 
   return (
-    <div className="z-20 h-fit overflow-hidden lg:pt-10 2xl:pt-20">
+    <div className="z-20 h-fit overflow-hidden pt-28 lg:pt-10 2xl:pt-20">
       {headingContent}
     </div>
   );

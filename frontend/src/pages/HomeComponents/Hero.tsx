@@ -110,14 +110,14 @@ const Hero: React.FC = () => {
   useEffect(() => {
     window.addEventListener("resize", () => {
       if (switchTextRef.current) {
-        setSwitchTextHeight(switchTextRef.current.offsetHeight);
+        setSwitchTextHeight(switchTextRef.current.offsetHeight + 2);
       }
     });
 
     return () => {
       window.removeEventListener("resize", () => {
         if (switchTextRef.current) {
-          setSwitchTextHeight(switchTextRef.current.offsetHeight);
+          setSwitchTextHeight(switchTextRef.current.offsetHeight + 2);
         }
       });
     };
@@ -185,7 +185,7 @@ const Hero: React.FC = () => {
           drag
           dragConstraints={{ top: 0, left: 0, right: 0, bottom: 0 }}
           src={airplane3}
-          className="airplane-3 md:w-10vw] absolute left-[5%] top-[10%] w-[10svw] transform dark:brightness-90 sm:left-[15%] sm:top-[15%] sm:w-[10vw] md:-top-[40%] md:left-[40%] lg:-top-1/2 lg:right-[40%] xl:-top-[40%] xl:right-1/3 2xl:-top-1/2 2xl:right-[40%] 3xl:-top-1/2 3xl:right-[40%]"
+          className="airplane-3 md:w-10vw] absolute left-[5%] top-[10%] w-[10svw] transform dark:brightness-90 sm:left-[5%] sm:top-[15%] sm:w-[10vw] md:-top-[40%] md:left-[40%] lg:-top-1/2 lg:right-[40%] xl:-top-[40%] xl:right-1/3 2xl:-top-1/2 2xl:right-[40%] 3xl:-top-1/2 3xl:right-[40%]"
           alt="Airplane"
         />
         {/* Animated Star */}
@@ -244,14 +244,14 @@ const Hero: React.FC = () => {
               delay: viewportWidth < 768 ? 0.4 : 0.2,
               delayChildren: 0.2,
             }}
-            className="h1-md leading-[0.8] overflow-hidden text-center md:text-left"
+            className="h1-md overflow-hidden leading-[0.85] text-center md:text-left"
           >
             <span className="hidden md:inline-block">to </span>{" "}
             <div className="inline-block">
               {/* Animated text switch */}
               <div
                 ref={switchContainerRef}
-                className="flex w-fit flex-col overflow-hidden border-b-4 border-solid border-text-light pb-2 dark:border-text-dark"
+                className="flex w-fit flex-col overflow-hidden border-b-4 border-solid border-text-light pb-4 lg:pb-2 dark:border-text-dark"
               >
                 <motion.div
                   initial={{ y: 0 }}
@@ -306,7 +306,7 @@ const Hero: React.FC = () => {
         whileInView="visible"
         transition={{ duration: 0.5, delay: 0.3 }}
         viewport={{ once: true }}
-        className="p-medium text-center w-3/4 sm:w-2/3 md:w-1/2 md:text-left xl:w-2/5 2xl:w-1/3 3xl:w-1/3"
+        className="p-medium text-center w-3/4 sm:w-[70%] md:w-1/2 md:text-left xl:w-2/5 2xl:w-1/3 3xl:w-1/3"
       >
         From the smallest idea to the most memorable journeys. Join us to awaken
         your traveling spirit and discover the adventurer within you.

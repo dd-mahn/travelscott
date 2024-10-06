@@ -113,7 +113,7 @@ export const MarqueeCountryCarousel = React.memo(() => {
   return (
     <div className="h-svh w-[100svw]">
       <Marquee
-        velocity={20}
+        velocity={viewportWidth > 768 ? 25 : 15}
         resetAfterTries={200}
         direction={"rtl"}
         scatterRandomly={false}
@@ -133,9 +133,9 @@ export const MarqueeCountryCarousel = React.memo(() => {
               }}
               direction={Math.random() > 0.5 ? "clockwise" : "counterclockwise"}
               velocity={20}
-              radius={scale * 80}
+              radius={scale * 40}
             >
-              <div className="mt-[70svh] h-[4svh] lg:h-[5svh] 2xl:h-[5svh] bg-gradient-to-t rounded-md lg:rounded-md 2xl:rounded-lg from-blue-gray-900 to-gray">
+              <div className="mt-[70svh] h-[3svh] md:h-[3.5svh] lg:h-[5svh] 2xl:h-[5svh] bg-gradient-to-t rounded-md lg:rounded-md 2xl:rounded-lg from-blue-gray-900 to-gray">
                 <img
                   loading="lazy"
                   src={src}

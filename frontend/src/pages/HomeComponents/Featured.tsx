@@ -29,7 +29,7 @@ const Featured: React.FC = () => {
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
           variants={variants}
-          className="h1-md relative"
+          className="h1-md relative leading-[0.85]"
         >
           {/* Decorative icon */}
           <i className="ri-shining-2-fill hidden md:block rotate-30 absolute md:-left-[7%] lg:-left-[5%] top-0 transform text-yellow dark:text-yellow md:text-3xl lg:text-3xl xl:text-4xl 2xl:text-4xl 3xl:text-5xl"></i>{" "}
@@ -41,7 +41,7 @@ const Featured: React.FC = () => {
       <HorizontalScrollCarousel data={featuredDemo} />
 
       {/* Footer section */}
-      <div className="px-sect flex w-full flex-col items-start justify-start gap-4 md:flex-row md:justify-between">
+      <div className="px-sect flex w-full flex-col items-start md:items-end justify-start gap-4 md:flex-row md:justify-between">
         {/* Destinations count */}
         <motion.p
           initial="hiddenY"
@@ -49,10 +49,10 @@ const Featured: React.FC = () => {
           transition={{ duration: 0.5 }}
           viewport={{ once: true, margin: "0% 0% -10% 0%" }}
           variants={variants}
-          className={`${viewportWidth > 768 ? "p-large" : "p-medium"}`}
+          className={`${viewportWidth > 576 ? "p-large" : "p-medium"}`}
         >
           They are just so few among the{" "}
-          <span className="font-semibold text-main-brown dark:text-dark-brown span-large">
+          <span className="font-semibold text-main-brown dark:text-dark-brown h3-inter">
             100
           </span>
           + <br />

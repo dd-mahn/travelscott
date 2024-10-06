@@ -36,7 +36,7 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ destination }) => {
       <Link
         to={`/discover/destinations/${destination._id}`}
         target="_top"
-        className="grid h-[50svh] place-items-center overflow-hidden rounded-2xl shadow-component dark:shadow-component-dark bg-gradient-to-t from-blue-gray-900 to-gray"
+        className="grid h-[30svh] sm:h-[35svh] lg:h-[50svh] place-items-center overflow-hidden rounded-2xl shadow-component dark:shadow-component-dark bg-gradient-to-t from-blue-gray-900 to-gray"
       >
         {optimizedImage && (
           <motion.img
@@ -66,11 +66,11 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ destination }) => {
             {destination.name}
           </Link>
         </motion.span>
-        <div className="mt-4 flex flex-row items-start justify-start gap-2">
+        <div className="mt-2 md:mt-4 flex flex-row items-start justify-start gap-1 md:gap-2">
           {destination.tags && destination.tags.map((tag) => (
             <span
               key={tag}
-              className="span-small rounded-2xl border-solid border-gray px-4 lg:border"
+              className="span-small rounded-2xl border-solid border-gray px-2 lg:px-4 border"
             >
               {tag}
             </span>

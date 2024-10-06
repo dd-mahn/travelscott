@@ -76,7 +76,7 @@ const DestinationCatalog: React.FC<DestinationCatalogProps> = ({
                 transition={{
                   staggerChildren: 0.2,
                 }}
-                className="grid w-full grid-cols-3 items-start gap-x-8 gap-y-12"
+                className="grid w-full grid-cols-2 md:grid-cols-3 items-start gap-x-4 gap-y-8 lg:gap-x-8 lg:gap-y-12"
               >
                 {destinations.map((destination) => (
                   <motion.div

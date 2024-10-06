@@ -50,7 +50,7 @@ const DiscoverPoster: React.FC<DiscoverPosterProps> = ({
       animate="visible"
       transition={{ duration: 0.5, delay: 0.1 }}
       variants={variants}
-      className="posters h-[95svh] w-screen"
+      className="posters h-[60svh] md:h-[95svh] w-screen"
     >
       {/* @ts-ignore */}
       <Carousel
