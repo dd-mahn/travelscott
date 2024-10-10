@@ -7,6 +7,8 @@ import { scrollToTop } from "src/utils/scrollToTop";
 import StaggerLogo from "../../common/StaggerLogo";
 import { Link } from "react-router-dom";
 import { VisibilityVariants } from "src/utils/variants";
+import { BASE_URL } from "src/utils/config";
+import { useNotification } from "src/context/NotificationContext";
 
 const sitemap = [
   {
@@ -70,6 +72,25 @@ const variants = {
 };
 
 const Footer = () => {
+  const { showNotification } = useNotification();
+  const handleSubscribe = async (email: string) => {
+    try {
+      const res = await fetch(`${BASE_URL}/feedback`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+      if (res.ok) {
+        showNotification("Thank you for subscribing!");
+      } else {
+        showNotification("Failed to send. Please try again later.");
+      }
+    } catch (error) {
+      showNotification("Failed to send. Please try again later.");
+    }
+  };
   return (
     <footer className="relative flex flex-col self-end overflow-hidden border-t border-solid border-gray pt-6 lg:pt-12 xl:pt-20 2xl:pt-20">
       <motion.div
@@ -125,6 +146,12 @@ const Footer = () => {
             whileHover={{ scale: 1.05, x: 5, transition: { duration: 0.2 } }}
             whileTap={{ scale: 0.95, x: 0 }}
             title="subscribe"
+            onClick={() =>
+              handleSubscribe(
+                (document.getElementById("subscribe-email") as HTMLInputElement)
+                  .value,
+              )
+            }
           >
             {" "}
             <img
@@ -194,11 +221,11 @@ const Footer = () => {
         </button>
       </motion.div>
 
-      <div className="z-10 flex justify-center border-t overflow-hidden border-solid border-gray py-2">
+      <div className="z-10 flex justify-center overflow-hidden border-t border-solid border-gray py-2">
         <StaggerLogo />
       </div>
 
-      <div className="px-sect z-10 py-2 flex flex-col items-center justify-between border-t border-solid border-gray md:flex-row">
+      <div className="px-sect z-10 flex flex-col items-center justify-between border-t border-solid border-gray py-2 md:flex-row">
         <span className="span-small select-none font-medium uppercase text-gray">
           Copyright TravelScott 2024
         </span>
