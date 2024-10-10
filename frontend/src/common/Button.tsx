@@ -4,17 +4,20 @@ import { motion } from "framer-motion";
 import planeIcon from "src/assets/svg/plane-icon.svg";
 import { Link } from "react-router-dom";
 import { ButtonVariants } from "src/utils/variants";
+import { type } from "os";
 
 interface ButtonProps {
   text: string;
   onClick?: () => void;
   link?: string;
+  type?: "button" | "submit" | "reset";
 }
 
 export const PrimaryButton: React.FC<ButtonProps> = ({
   text,
   onClick,
   link,
+  type
 }) => {
   return (
     <>
@@ -25,6 +28,7 @@ export const PrimaryButton: React.FC<ButtonProps> = ({
             whileTap="buttonTap"
             variants={ButtonVariants}
             className="btn btn-primary z-20"
+            type={type}
             onClick={onClick ? onClick : undefined}
           >
             {text}
@@ -37,6 +41,7 @@ export const PrimaryButton: React.FC<ButtonProps> = ({
           variants={ButtonVariants}
           className="btn btn-primary z-20"
           onClick={onClick ? onClick : undefined}
+          type={type}
         >
           {text}
         </motion.button>
@@ -49,6 +54,7 @@ export const SecondaryButton: React.FC<ButtonProps> = ({
   text,
   onClick,
   link,
+  type
 }) => {
   return (
     <>
@@ -60,6 +66,7 @@ export const SecondaryButton: React.FC<ButtonProps> = ({
             variants={ButtonVariants}
             className="btn btn-secondary z-20"
             onClick={onClick ? onClick : undefined}
+            type={type}
           >
             {text}
             <motion.img
@@ -78,6 +85,7 @@ export const SecondaryButton: React.FC<ButtonProps> = ({
           variants={ButtonVariants}
           className="btn btn-secondary z-20"
           onClick={onClick ? onClick : undefined}
+          type={type}
         >
           {text}{" "}
           <motion.img
@@ -93,7 +101,7 @@ export const SecondaryButton: React.FC<ButtonProps> = ({
   );
 };
 
-export const NoirButton: React.FC<ButtonProps> = ({ text, onClick, link }) => {
+export const NoirButton: React.FC<ButtonProps> = ({ text, onClick, link, type }) => {
   return (
     <>
       {link ? (
@@ -104,6 +112,7 @@ export const NoirButton: React.FC<ButtonProps> = ({ text, onClick, link }) => {
             variants={ButtonVariants}
             className="btn z-20 bg-background-dark uppercase text-text-dark"
             onClick={onClick ? onClick : undefined}
+            type={type}
           >
             {text}
           </motion.button>
@@ -115,6 +124,7 @@ export const NoirButton: React.FC<ButtonProps> = ({ text, onClick, link }) => {
           variants={ButtonVariants}
           className="btn z-20 bg-background-dark uppercase text-text-dark"
           onClick={onClick ? onClick : undefined}
+          type={type}
         >
           {text}
         </motion.button>
