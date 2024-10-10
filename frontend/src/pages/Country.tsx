@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "src/store/store";
 import {
@@ -24,6 +24,10 @@ import CountryOverview from "./CountryComponents/CountryOverview";
 import CountryHero from "./CountryComponents/CountryHero";
 import useStackedSections from "src/hooks/useStackedSections";
 import { selectIsDarkMode } from "src/store/slices/themeSlice";
+import {
+  useSectionTransition,
+  useSectionTransition2,
+} from "src/hooks/useSectionTransition";
 
 // Animation variants
 const variants = {
@@ -59,6 +63,18 @@ const CountryPage: React.FC = () => {
   // Handle sticky sections top value
   const { refs: stackedRefs, setRef } = useStackedSections();
 
+  // Handle section transition
+  const {
+    ref: articleRef,
+    scale: scaleArticle,
+    opacity: opacityArticle,
+  } = useSectionTransition(["start end", "start center"], [0.7, 1], [0, 1]);
+  const {
+    ref: destinationRef,
+    scale: scaleDestination,
+    opacity: opacityDestination,
+  } = useSectionTransition(["start end", "start center"], [0.7, 1], [0, 1]);
+
   // Render logic
   if (loading) {
     return <Loading />;
@@ -74,39 +90,62 @@ const CountryPage: React.FC = () => {
       <CountryHero country={currentCountry} />
 
       {/* OVERVIEW SECTION */}
-      <CountryOverview country={currentCountry} />
+      <motion.div>
+        <CountryOverview country={currentCountry} />
+      </motion.div>
 
       {/* STACKED SECTIONS */}
       <section className="2xl:pt-30 relative lg:pt-sect-short">
         <motion.div
+          style={{ scale: scaleArticle, opacity: opacityArticle }}
           variants={variants}
           initial="hiddenY"
           whileInView="visible"
           transition={{ duration: 0.5, delay: 0.5, ease: "easeInOut" }}
           viewport={{ once: true }}
-          className="sticky right-0 top-0 z-0 ml-auto h-screen w-2/3 rounded-2xl bg-gradient-to-t from-blue-gray-900 to-gray"
+          className="sticky right-0 top-0 z-0 ml-auto h-screen w-full rounded-2xl bg-gradient-to-t from-blue-gray-900 to-gray lg:w-2/3"
         >
           <img
-            src={isDarkMode ? currentCountry.images.mapImages?.filter(image => image.includes("dark"))[0] : currentCountry.images.mapImages?.filter(image => !image.includes("dark"))[0]}
+            src={
+              isDarkMode
+                ? currentCountry.images.mapImages?.filter((image) =>
+                    image.includes("dark"),
+                  )[0]
+                : currentCountry.images.mapImages?.filter(
+                    (image) => !image.includes("dark"),
+                  )[0]
+            }
             alt={`${currentCountry.name} map`}
             className="h-full w-full rounded-2xl object-cover"
           />
         </motion.div>
 
-        <section ref={setRef(0)} className="sticky">
+        <motion.section
+          style={{ scale: scaleArticle, opacity: opacityArticle }}
+          ref={setRef(0)}
+          className="sticky"
+        >
           <CountryGuide country={currentCountry} />
-        </section>
+        </motion.section>
 
-        <section ref={setRef(1)} className="sticky">
-          <CountryArticles country={currentCountry} />
-        </section>
+        <motion.section
+          style={{ scale: scaleDestination, opacity: opacityDestination }}
+          ref={setRef(1)}
+          className="sticky"
+        >
+          <div ref={articleRef}>
+            <CountryArticles country={currentCountry} />
+          </div>
+        </motion.section>
 
         <section ref={setRef(2)} className="sticky">
-          <CountryDestinations country={currentCountry} />
+          <div ref={destinationRef}>
+            <CountryDestinations country={currentCountry} />
+          </div>
         </section>
       </section>
       {/* MORE COUNTRIES SECTION */}
-      <section className="flex flex-col gap-4 lg:py-40 2xl:py-60">
+      <section className="flex flex-col gap-4 py-24 lg:py-40 2xl:py-60">
         <div className="overflow-hidden">
           <motion.h2
             variants={variants}

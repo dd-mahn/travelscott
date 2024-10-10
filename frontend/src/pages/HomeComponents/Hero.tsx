@@ -89,14 +89,23 @@ const Hero: React.FC = () => {
 
   // Effect to animate star sibling
   useEffect(() => {
-    if (starRef.current) {
-      const starWidth = starRef.current.clientWidth + 10;
-      starSiblingControls.start({ opacity: [0, 1], y: [75, 0] });
-      starSiblingControls.start({
-        x: starWidth,
-        transition: { delay: 1, duration: 0.6, ease: "circInOut" },
-      });
-    }
+    const updateStarSiblingX = () => {
+      if (starRef.current) {
+        const starWidth = starRef.current.clientWidth + 10;
+        starSiblingControls.start({ opacity: [0, 1], y: [75, 0] });
+        starSiblingControls.start({
+          x: starWidth,
+          transition: { delay: 1, duration: 0.6, ease: "circInOut" },
+        });
+      }
+    };
+
+    updateStarSiblingX();
+    window.addEventListener("resize", updateStarSiblingX);
+
+    return () => {
+      window.removeEventListener("resize", updateStarSiblingX);
+    };
   }, [starRef, starSiblingControls]);
 
   // Effect to set switch container height
@@ -108,18 +117,16 @@ const Hero: React.FC = () => {
   }, [switchTextHeight]);
 
   useEffect(() => {
-    window.addEventListener("resize", () => {
+    const updateSwitchTextHeight = () => {
       if (switchTextRef.current) {
-        setSwitchTextHeight(switchTextRef.current.offsetHeight + 2);
+        setSwitchTextHeight(switchTextRef.current.offsetHeight);
       }
-    });
+    };
+
+    window.addEventListener("resize", updateSwitchTextHeight);
 
     return () => {
-      window.removeEventListener("resize", () => {
-        if (switchTextRef.current) {
-          setSwitchTextHeight(switchTextRef.current.offsetHeight + 2);
-        }
-      });
+      window.removeEventListener("resize", updateSwitchTextHeight);
     };
   }, [switchTextRef.current]);
 
@@ -244,14 +251,14 @@ const Hero: React.FC = () => {
               delay: viewportWidth < 768 ? 0.4 : 0.2,
               delayChildren: 0.2,
             }}
-            className="h1-md overflow-hidden leading-[0.85] text-center md:text-left"
+            className="h1-md overflow-hidden leading-[0.9] text-center md:text-left"
           >
             <span className="hidden md:inline-block">to </span>{" "}
             <div className="inline-block">
               {/* Animated text switch */}
               <div
                 ref={switchContainerRef}
-                className="flex w-fit flex-col overflow-hidden border-b-4 border-solid border-text-light pb-4 lg:pb-2 dark:border-text-dark"
+                className="flex w-fit flex-col overflow-hidden border-b-4 border-solid border-text-light leading-[1] dark:border-text-dark"
               >
                 <motion.div
                   initial={{ y: 0 }}

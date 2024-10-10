@@ -18,48 +18,52 @@ const variants = {
 
 const DestinationOverview = ({ destination }: { destination: Destination }) => {
   return (
-    <section id="overview" className="overview px-sect py-sect-short">
-      <div className="flex justify-between">
-        <motion.div className="flex w-1/2 flex-col gap-4">
-          <motion.h2
-            variants={variants}
-            initial="hiddenY"
-            whileInView="visible"
-            viewport={{ once: true }}
-            transition={{ ease: "easeInOut", duration: 0.5 }}
-            className="h2-md"
-          >
-            {destination.location}
-          </motion.h2>
-          <motion.div
-            variants={variants}
-            initial="hiddenY"
-            whileInView="visible"
-            viewport={{ once: true }}
-            transition={{ ease: "easeInOut", duration: 0.5, delay: 0.3 }}
-            className="flex flex-row items-start justify-start gap-2"
-          >
-            {destination.tags.map((tag) => (
-              <span
-                key={tag}
-                className="span-small rounded-2xl border-solid border-text-light dark:border-text-dark px-4 lg:border 2xl:border-2"
-              >
-                {tag}
-              </span>
-            ))}
-          </motion.div>
+    <section id="overview" className="overview px-sect md:py-sect-short">
+      <div className="flex flex-col gap-8">
+        <motion.div className="flex justify-between">
+          <div className="flex flex-col gap-2">
+            <motion.h2
+              variants={variants}
+              initial="hiddenY"
+              whileInView="visible"
+              viewport={{ once: true }}
+              transition={{ ease: "easeInOut", duration: 0.5 }}
+              className="h2-md"
+            >
+              {destination.location}
+            </motion.h2>
+            <motion.div
+              variants={variants}
+              initial="hiddenY"
+              whileInView="visible"
+              viewport={{ once: true }}
+              transition={{ ease: "easeInOut", duration: 0.5, delay: 0.3 }}
+              className="flex flex-row items-start justify-start gap-2"
+            >
+              {destination.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="span-small rounded-2xl border border-solid border-text-light px-4 dark:border-text-dark lg:border 2xl:border-2"
+                >
+                  {tag}
+                </span>
+              ))}
+            </motion.div>
+          </div>
+          <DestinationMenu />
+        </motion.div>
+        <motion.div className="flex md:w-3/4 lg:w-1/2 flex-col gap-4">
           <motion.p
             variants={variants}
             initial="hiddenY"
             whileInView="visible"
             viewport={{ once: true }}
             transition={{ ease: "easeInOut", duration: 0.5, delay: 0.6 }}
-            className="p-regular mt-2 w-3/4"
+            className="p-regular mt-2 md:w-3/4"
           >
             {destination.description}
           </motion.p>
         </motion.div>
-        <DestinationMenu />
       </div>
     </section>
   );

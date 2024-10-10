@@ -30,16 +30,16 @@ const DestinationTransportation: React.FC<DestinationTransportationProps> = ({ t
   return (
     <section
       id="transportation"
-      className="transportation px-sect sticky rounded-3xl bg-light-brown dark:bg-background-dark-brown pt-sect-short shadow-section lg:pb-40 2xl:pb-sect-short"
+      className="transportation px-sect sticky rounded-3xl bg-light-brown dark:bg-background-dark-brown pt-sect-short shadow-section pb-20 lg:pb-40 2xl:pb-sect-short"
     >
-      <div className="mt-sect-short flex flex-col gap-8">
+      <div className="md:mt-sect-short flex flex-col md:gap-8">
         <SlideRevealIconHeading
           iconClass="ri-car-fill"
           headingText="Transportation"
         />
 
         <motion.p
-          className="p-regular w-2/5"
+          className="p-regular w-3/4 sm:w-4/5 md:w-2/5"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -63,7 +63,7 @@ const DestinationTransportation: React.FC<DestinationTransportationProps> = ({ t
             transportationIndex === index && (
               <motion.div
                 key={`transportation-type-${type.name}`}
-                className="h-[75svh] w-2/3 rounded-xl shadow-component dark:shadow-component-dark bg-gradient-to-t from-blue-gray-900 to-gray"
+                className="h-[50svh] md:h-[75svh] md:w-2/3 rounded-xl shadow-component dark:shadow-component-dark bg-gradient-to-t from-blue-gray-900 to-gray"
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -81,7 +81,7 @@ const DestinationTransportation: React.FC<DestinationTransportationProps> = ({ t
           ))}
         </AnimatePresence>
 
-        <div className="absolute right-0 top-[20%] w-1/2">
+        <div className="absolute right-0 top-[20%] w-4/5 md:w-1/2">
           {transportation.types?.map((type, index) => (
             <motion.div
               key={index}
@@ -90,7 +90,7 @@ const DestinationTransportation: React.FC<DestinationTransportationProps> = ({ t
               viewport={{ once: true }}
               variants={variants}
               transition={{ duration: 0.5, delay: 0.5 + index * 0.2 }}
-              className="flex w-full flex-col gap-8 rounded-xl bg-light-brown dark:bg-background-dark-brown px-8 py-4 shadow-component dark:shadow-component-dark"
+              className="flex w-full flex-col gap-4 md:gap-8 rounded-lg md:rounded-xl bg-light-brown dark:bg-background-dark-brown px-4 pt-2 pb-4 md:px-8 md:py-4 shadow-component dark:shadow-component-dark"
             >
               <motion.button
                 whileHover="hoverX"
@@ -110,10 +110,10 @@ const DestinationTransportation: React.FC<DestinationTransportationProps> = ({ t
                     variants={variants}
                     transition={{ duration: 0.5 }}
                     key={`transportation-type-${type.name}`}
-                    className="flex flex-col gap-4"
+                    className="flex flex-col gap-2 md:gap-4"
                   >
-                    <div className="flex flex-row gap-8">
-                      <i className="ri-information-2-line p-large mt-4"></i>
+                    <div className="flex flex-row gap-4 md:gap-8">
+                      <i className="ri-information-2-line p-large mt-2 md:mt-4"></i>
                       <div className="flex flex-col">
                         <p className="p-regular">{type.description}</p>
                         <ul>
@@ -128,7 +128,7 @@ const DestinationTransportation: React.FC<DestinationTransportationProps> = ({ t
                         </ul>
                       </div>
                     </div>
-                    <div className="flex flex-row items-center gap-8">
+                    <div className="flex flex-row items-center gap-4 md:gap-8">
                       <i className="ri-price-tag-3-line p-large"></i>
                       <p className="p-regular">
                         {type.price_range?.currency &&
@@ -139,7 +139,7 @@ const DestinationTransportation: React.FC<DestinationTransportationProps> = ({ t
                       </p>
                     </div>
                     {type.quick_review && (
-                      <div className="flex items-start gap-8">
+                      <div className="flex items-start gap-4 md:gap-8">
                         <i className="ri-arrow-right-line p-large"></i>
                         <p className="p-regular">{type.quick_review}</p>
                       </div>

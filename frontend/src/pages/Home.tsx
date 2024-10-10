@@ -1,5 +1,5 @@
-import React, { memo, useCallback, useEffect, useMemo } from "react";
-import { motion } from "framer-motion";
+import React, { memo, useCallback, useEffect, useMemo, useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "src/store/store";
 import { setHomeBlogs } from "src/store/slices/blogSlice";
@@ -18,6 +18,10 @@ import useFetch from "src/hooks/useFetch";
 import { FetchBlogsType } from "src/types/FetchData";
 import { BASE_URL } from "src/utils/config";
 import { VisibilityVariants } from "src/utils/variants";
+import {
+  useSectionTransition,
+  useSectionTransition2,
+} from "src/hooks/useSectionTransition";
 
 // Framer motion variants for animations
 const variants = {
@@ -49,6 +53,8 @@ const Home: React.FC = () => {
 
   // Create a ref for the Articles component
   const articlesHookRef = useMemo(() => React.createRef<HTMLSpanElement>(), []);
+  const { ref: refSO, scale: scaleSO, opacity: opacitySO } = useSectionTransition();
+  const { ref: refS, scale: scaleS } = useSectionTransition2();
 
   return (
     <main className="home flex flex-col">
@@ -57,16 +63,21 @@ const Home: React.FC = () => {
       <Featured />
 
       {/* Stacked sections container */}
-      <section className="pt-40 md:pt-64 lg:pt-sect-default 2xl:pt-sect-semi">
-        <div className="sticky top-0 z-0">
+      <motion.section
+        style={{ scale: scaleS }}
+        className="pt-40 md:pt-64 lg:pt-sect-default 2xl:pt-sect-semi"
+      >
+        <motion.div style={{ scale: scaleSO, opacity: opacitySO }} className="sticky top-0 z-0">
           <Inspired />
+        </motion.div>
+
+        <div ref={refSO} className="">
+          <Articles articlesHookRef={articlesHookRef} blogs={blogs} />
         </div>
 
-        <Articles articlesHookRef={articlesHookRef} blogs={blogs} />
-
         {/* Starter hook section */}
-        <div className="sticky top-0 z-20 bg-background-light dark:bg-background-dark">
-          <section className="hook px-sect h-[120svh] flex items-center">
+        <motion.div className="sticky top-0 -z-10">
+          <section className="hook px-sect flex h-[120svh] items-center">
             <div className="mb-20 md:mb-40">
               <div className="overflow-hidden lg:pb-2">
                 <motion.h2
@@ -94,15 +105,15 @@ const Home: React.FC = () => {
               </div>
             </div>
           </section>
-        </div>
+        </motion.div>
 
         {/* Starter section */}
-        <div className="sticky top-0 z-30">
-          <Starter blogs={blogs} />
-        </div>
-      </section>
+        <Starter blogs={blogs} />
+      </motion.section>
 
-      <Quote />
+      <div ref={refS} className="z-30">
+        <Quote />
+      </div>
     </main>
   );
 };

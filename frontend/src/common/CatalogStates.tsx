@@ -11,7 +11,7 @@ export const LoadingState: React.FC<{ keyName: string }> = React.memo(
         whileInView="visible"
         viewport={{ once: true }}
         variants={VisibilityVariants}
-        exit="hiddenShort"
+        exit="hiddenY"
         transition={{ duration: 0.5, ease: "easeInOut" }}
         className="grid h-[50svh] w-full place-items-center py-sect-short"
       >
@@ -30,7 +30,7 @@ export const ErrorState: React.FC<{ keyName: string }> = React.memo(
         whileInView="visible"
         viewport={{ once: true }}
         variants={VisibilityVariants}
-        exit="hiddenShort"
+        exit="hiddenY"
         transition={{ duration: 0.5, ease: "easeInOut" }}
         className="grid h-[50svh] w-full place-items-center py-sect-short"
       >
@@ -51,7 +51,7 @@ export const NotFoundState: React.FC<{ keyName: string }> = React.memo(
         whileInView="visible"
         viewport={{ once: true }}
         variants={VisibilityVariants}
-        exit="hiddenShort"
+        exit="hiddenY"
         transition={{ duration: 0.5, ease: "easeInOut" }}
         className="grid h-[50svh] w-full place-items-center py-sect-short"
       >

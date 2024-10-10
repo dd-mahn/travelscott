@@ -54,9 +54,18 @@ const FeaturedContentSlider: React.FC<FeaturedContentSliderProps> = ({
   }, [index]);
 
   useEffect(() => {
-    if (containerRef.current && childRef.current) {
-      containerRef.current.style.height = `${childRef.current.offsetHeight}px`;
-    }
+    const updateHeight = () => {
+      if (containerRef.current && childRef.current) {
+        containerRef.current.style.height = `${childRef.current.offsetHeight}px`;
+      }
+    };
+
+    updateHeight();
+
+    window.addEventListener('resize', updateHeight);
+    return () => {
+      window.removeEventListener('resize', updateHeight);
+    };
   }, [index]);
 
   return (
@@ -84,10 +93,10 @@ const FeaturedContentSlider: React.FC<FeaturedContentSliderProps> = ({
       <motion.div
         initial="hiddenY"
         whileInView="visible"
-        transition={{ duration: 0.5 }}
-        viewport={{ once: true, margin: "-10%" }}
+        transition={{ duration: 0.5, delay: 0.5 }}
+        viewport={{ once: true }}
         variants={variants}
-        className="flex w-full justify-center"
+        className="flex w-full justify-center mt-4 md:mt-8"
       >
         <DotPagination
           count={children.length}

@@ -52,38 +52,52 @@ const Quote = () => {
 
   // Effect to handle icon positioning and animations
   useEffect(() => {
-    iconSiblingRefs.forEach((ref, index) => {
-      const iconContainer = iconContainerRefs[index].current;
-      const iconSibling = ref.current;
-      const parentElement = iconSibling?.parentElement;
+    const handleResize = () => {
+      iconSiblingRefs.forEach((ref, index) => {
+        const iconContainer = iconContainerRefs[index].current;
+        const iconSibling = ref.current;
+        const parentElement = iconSibling?.parentElement;
 
-      if (iconContainer && iconSibling && parentElement) {
-        // Position the icon container
-        iconContainer.style.right = `${parentElement.offsetWidth - iconContainer.offsetWidth}px`;
+        if (iconContainer && iconSibling && parentElement) {
+          // Position the icon container
+          iconContainer.style.right = `${parentElement.offsetWidth - iconContainer.offsetWidth}px`;
 
-        // Adjust parent element width
-        parentElement.style.width = `${iconSibling.offsetWidth + iconContainer.offsetWidth}px`;
+          // Adjust parent element width
+          parentElement.style.width = `${iconSibling.offsetWidth + iconContainer.offsetWidth}px`;
 
-        // Trigger animations when in view
-        if (inViewed[index]) {
-          iconSiblingControls[index].start("visible");
-          iconSiblingControls[index].start({
-            x: iconContainer.offsetWidth,
-            transition: {
-              delay: 1 + index * 0.5,
-              duration: 0.5,
-              ease: "circInOut",
-            },
-          });
+          // Trigger animations when in view
+          if (inViewed[index]) {
+            iconSiblingControls[index].start("visible");
+            iconSiblingControls[index].start({
+              x: iconContainer.offsetWidth,
+              transition: {
+                delay: 1 + index * 0.5,
+                duration: 0.5,
+                ease: "circInOut",
+              },
+            });
+          }
         }
-      }
-    });
+      });
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, [inViewed, iconContainerRefs, iconSiblingRefs, iconSiblingControls]);
 
   return (
-    <section className="quote relative px-sect flex flex-col gap-2 md:gap-4 py-48 lg:py-sect-default 2xl:py-sect-medium">
-      <motion.div initial="hidden" animate="blobAnimation" variants={variants} className="blob-brown blur-blob absolute -left-1/3 top-[10%] z-0 h-[80%] w-1/2 opacity-60"></motion.div>
-      <div className="flex flex-col items-center justify-end lg:flex-row lg:items-end lg:justify-between ">
+    <section className="quote px-sect relative flex flex-col gap-2 py-48 md:gap-4 lg:py-sect-default 2xl:py-sect-medium">
+      <motion.div
+        initial="hidden"
+        animate="blobAnimation"
+        variants={variants}
+        className="blob-brown blur-blob absolute -left-1/3 top-[10%] z-0 h-[80%] w-1/2 opacity-60"
+      ></motion.div>
+      <div className="flex flex-col items-center justify-end lg:flex-row lg:items-end lg:justify-between">
         <div className="big-heading">
           {/* First line of the quote */}
           <div className="relative flex items-center">
@@ -140,7 +154,10 @@ const Quote = () => {
                 transition={{ duration: 0.5 }}
                 className=""
               >
-                is to <span className="uppercase text-main-brown dark:text-dark-brown">live</span>{" "}
+                is to{" "}
+                <span className="uppercase text-main-brown dark:text-dark-brown">
+                  live
+                </span>{" "}
               </motion.h1>
             </div>
 
@@ -178,7 +195,7 @@ const Quote = () => {
           whileInView="visible"
           viewport={{ once: true }}
           variants={variants}
-          className="span-small 2xl:span-medium uppercase mt-6 md:mt-8 lg:mt-0"
+          className="span-small 2xl:span-medium mt-6 uppercase md:mt-8 lg:mt-0"
         >
           - Hans Christian Andersen
         </motion.span>

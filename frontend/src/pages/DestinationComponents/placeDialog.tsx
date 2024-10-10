@@ -45,11 +45,11 @@ const PlaceToStayDialog: React.FC<{ place: placeToStay }> = ({ place }) => {
   const { name, type, image_url, description, location, price, rating } = place;
   return (
     <DialogWrapper name={name} image_url={image_url}>
-      <div className="flex flex-col gap-4 px-8">
+      <div className="flex flex-col gap-4 px-4 sm:px-6 md:px-8">
         <DialogHeader name={name} type={type} rating={rating} />
         <DialogLocation location={location} />
         <DialogPrice price={price} />
-        <p className="p-regular mt-4 pb-sect-short">{description}</p>
+        <p className="p-regular mt-4 pb-4 sm:pb-6 md:pb-sect-short">{description}</p>
       </div>
     </DialogWrapper>
   );
@@ -60,7 +60,7 @@ const PlaceToVisitDialog: React.FC<{ place: placeToVisit }> = ({ place }) => {
   const { name, type, image_url, description, location } = place;
   return (
     <DialogWrapper name={name} image_url={image_url}>
-      <div className="mt-4 flex flex-col gap-4 px-8">
+      <div className="mt-4 flex flex-col gap-4 px-4 sm:px-6 md:px-8">
         <DialogHeader name={name} type={type} />
         <DialogLocation location={location} />
         <p className="p-regular mt-4">{description}</p>
@@ -74,7 +74,7 @@ const PlaceToEatDialog: React.FC<{ place: placeToEat }> = ({ place }) => {
   const { name, type, image_url, description, location, price, rating } = place;
   return (
     <DialogWrapper name={name} image_url={image_url}>
-      <div className="flex flex-col gap-4 px-8">
+      <div className="flex flex-col gap-4 px-4 sm:px-6 md:px-8">
         <DialogHeader name={name} type={type} rating={rating} />
         <DialogLocation location={location} />
         <DialogPrice price={price} />
@@ -92,13 +92,13 @@ const DialogWrapper: React.FC<{
 }> = ({ name, image_url, children }) => (
   <motion.dialog
     open={true}
-    className="place-dialog custom-scrollbar h-[75svh] w-[60svw] overflow-y-scroll rounded-xl pb-8"
+    className="place-dialog custom-scrollbar h-[75svh] w-[90vw] sm:w-[80vw] md:w-[60svw] overflow-y-scroll rounded-xl pb-8"
   >
     <motion.div
-      className="dialog-content h-full w-full bg-gradient-to-t from-blue-gray-900 to-gray"
+      className="dialog-content h-full w-full "
       onClick={(e) => e.stopPropagation()}
     >
-      <div className="h-2/5">
+      <div className="h-2/5 bg-gradient-to-t from-blue-gray-900 to-gray">
         <img
           src={image_url}
           alt={name}
@@ -138,7 +138,7 @@ const DialogHeader: React.FC<{
       </motion.h3>
     </div>
     {rating && (
-      <div className="grid grid-cols-2 items-center justify-end gap-x-2 gap-y-4 lg:w-2/5 2xl:w-1/3">
+      <div className="grid grid-cols-2 items-center justify-end gap-x-2 gap-y-4 w-3/5 sm:w-2/5 2xl:w-1/3">
         {Object.entries(rating).map(([website, rating], index) => (
           <motion.div
             key={website}

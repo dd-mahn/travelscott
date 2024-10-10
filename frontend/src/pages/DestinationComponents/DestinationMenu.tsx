@@ -56,7 +56,7 @@ const DestinationMenu = () => {
         }}
         title="open-menu"
         onClick={toggleMenuBoard}
-        className="dark:bg-background-dark-transparent rounded-full bg-background-dark shadow-component dark:shadow-component-dark lg:h-12 lg:w-12 xl:h-12 xl:w-12 2xl:h-16 2xl:w-16 3xl:h-16 3xl:w-16"
+        className="dark:bg-background-dark-transparent rounded-full bg-background-dark shadow-component dark:shadow-component-dark h-12 w-12 md:h-10 md:w-10 lg:h-12 lg:w-12 xl:h-12 xl:w-12 2xl:h-16 2xl:w-16 3xl:h-16 3xl:w-16"
       >
         <i className="cursor-hover-small ri-menu-5-line p-large m-auto text-text-dark"></i>
       </motion.button>
@@ -71,13 +71,13 @@ const DestinationMenu = () => {
             exit="hiddenY"
             variants={variants}
             transition={{ duration: 0.5 }}
-            className={`menu-board absolute right-0 top-[10%] z-10 flex w-2/5 flex-col items-center gap-2 rounded-xl bg-background-light px-8 pb-12 pt-4 shadow-component dark:bg-background-dark dark:shadow-component-dark`}
+            className={`menu-board absolute right-0 top-[10%] z-10 flex w-[50svw] md:w-2/5 flex-col items-center gap-1 rounded-xl bg-background-light px-6 py-4 md:px-8 md:pb-12 md:pt-4 shadow-component dark:bg-background-dark dark:shadow-component-dark`}
           >
-            <p className="p-large font-prima uppercase">Table of content</p>
+            <p className="h3-md uppercase">Table of content</p>
             <span className="span-small">
               If this is your first time, don't use this!
             </span>
-            <div className="mt-6 flex w-full flex-col gap-4">
+            <div className="mt-6 flex w-full flex-col gap-2 md:gap-4">
               <motion.a
                 variants={variants}
                 whileHover="hoverX"

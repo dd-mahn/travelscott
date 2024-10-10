@@ -35,7 +35,7 @@ const DestinationInsight: React.FC<DestinationInsightProps> = ({
         viewport={{ once: true, margin: "-200px" }}
         variants={variants}
         transition={{ duration: 0.5 }}
-        className="rounded-xl bg-background-light dark:bg-background-dark bg-opacity-70 px-6 py-4 shadow-component dark:shadow-component-dark"
+        className="rounded-xl bg-background-light dark:bg-background-dark bg-opacity-70 px-4 py-2 md:px-6 md:py-4 shadow-component dark:shadow-component-dark"
         key={index}
       >
         <p className="p-medium text-text-light">{tip}</p>
@@ -58,7 +58,7 @@ const DestinationInsight: React.FC<DestinationInsightProps> = ({
           viewport={{ once: true, margin: "-200px" }}
           variants={variants}
           transition={{ duration: 0.5 }}
-          className="cursor-hover p-medium rounded-xl bg-background-light dark:bg-background-dark bg-opacity-70 px-6 py-2 shadow-component dark:shadow-component-dark"
+          className="cursor-hover p-medium rounded-xl bg-background-light dark:bg-background-dark bg-opacity-70 px-4 md:px-6 py-2 shadow-component dark:shadow-component-dark"
           key={index}
         >
           {article.title}{" "}
@@ -70,12 +70,12 @@ const DestinationInsight: React.FC<DestinationInsightProps> = ({
   return (
     <section
       id="insight"
-      className="insight px-sect sticky flex flex-col gap-20 rounded-3xl bg-light-brown dark:bg-background-dark-brown pb-sect-default pt-sect-short shadow-component"
+      className="insight px-sect sticky flex flex-col gap-10 md:gap-20 rounded-3xl bg-light-brown dark:bg-background-dark-brown pb-sect-short lg:pb-sect-default pt-sect-short shadow-component"
     >
       <SlideRevealIconHeading iconClass="ri-eye-fill" headingText="Insight" />
 
       {/* Section for tips from "from_us" */}
-      <div className="flex flex-col items-center gap-8">
+      <div className="flex flex-col items-center gap-4 md:gap-8">
         <motion.h2
           className="h2-md"
           initial="hiddenY"
@@ -86,7 +86,7 @@ const DestinationInsight: React.FC<DestinationInsightProps> = ({
         >
           From us
         </motion.h2>
-        <div className="grid grid-cols-3 gap-x-4 gap-y-8">{renderTips()}</div>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-8">{renderTips()}</div>
         <motion.div
           className="mt-8"
           initial="hiddenY"
@@ -100,7 +100,7 @@ const DestinationInsight: React.FC<DestinationInsightProps> = ({
       </div>
 
       {/* Section for articles from "from_others" */}
-      <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-4 md:gap-8">
         <motion.h2
           className="h2-md"
           initial="hiddenY"
@@ -112,7 +112,7 @@ const DestinationInsight: React.FC<DestinationInsightProps> = ({
           From others
         </motion.h2>
         <motion.p
-          className="p-regular w-2/5"
+          className="p-regular sm:w-3/4 md:w-2/5"
           initial="hiddenY"
           whileInView="visible"
           viewport={{ once: true }}
@@ -126,7 +126,7 @@ const DestinationInsight: React.FC<DestinationInsightProps> = ({
           experiences can inspire you and give you a clearer idea of what to
           expect.
         </motion.p>
-        <div className="mt-8 flex flex-wrap gap-4">{renderArticles()}</div>
+        <div className="mt-4 md:mt-8 flex flex-wrap gap-4">{renderArticles()}</div>
       </div>
     </section>
   );

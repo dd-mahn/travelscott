@@ -28,8 +28,8 @@ const variants = {
 // CountryOverview component to display country information
 const CountryOverview: React.FC<CountryOverviewProps> = ({ country }) => {
   return (
-    <section className="brief px-sect flex justify-between pb-sect-default pt-sect-short">
-      <div className="flex w-1/2 flex-col lg:gap-4 2xl:gap-8">
+    <section className="brief px-sect flex flex-col md:flex-row gap-16 justify-between pb-sect-default pt-sect-short">
+      <div className="flex w-full md:w-1/2 flex-col gap-4 lg:gap-4 2xl:gap-8">
         {country.description.map((desc, index) => (
           <motion.p
             key={index}
@@ -61,7 +61,7 @@ const CountryOverview: React.FC<CountryOverviewProps> = ({ country }) => {
           staggerChildren: 0.1,
         }}
         viewport={{ once: true }}
-        className="grid w-2/5 grid-cols-2 grid-rows-3 gap-y-4"
+        className="grid w-full md:w-2/5 grid-cols-2 grid-rows-3 gap-x-4 md:gap-x-0 gap-y-4"
       >
         <InfoItem
           icon="ri-global-line"

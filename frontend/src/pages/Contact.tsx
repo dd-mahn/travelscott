@@ -11,6 +11,7 @@ import {
   TapVariants,
   VisibilityVariants,
 } from "src/utils/variants";
+import { useNotification } from "src/context/NotificationContext";
 
 const variants = {
   hidden: VisibilityVariants.hidden,
@@ -33,6 +34,7 @@ const Contact: React.FC = () => {
   const [visibleSection, setVisibleSection] = useState("");
   const [formValid, setFormValid] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState<string | null>(null);
+  const { showNotification } = useNotification();
 
   const toggleInfo = (sectionId: string) => {
     setVisibleSection((prevSection) =>
@@ -85,17 +87,13 @@ const Contact: React.FC = () => {
         });
 
         if (res.ok) {
-          alert("Feedback sent successfully!");
           resetForm();
+          showNotification("Feedback sent successfully!");
         } else {
-          alert("Failed to send feedback. Please try again later.");
+          showNotification("Failed to send feedback. Please try again later.");
         }
       } catch (error) {
-        if (error instanceof Error) {
-          console.error(error.message);
-        } else {
-          console.error("An error occurred while processing your request.");
-        }
+        showNotification("Failed to send feedback. Please try again later.");
       }
     }
   };
@@ -334,6 +332,7 @@ const Contact: React.FC = () => {
                   <SecondaryButton
                     onClick={handleFeedbackSend}
                     text="Send it"
+                    type="button"
                   ></SecondaryButton>
                 </form>
               </motion.div>

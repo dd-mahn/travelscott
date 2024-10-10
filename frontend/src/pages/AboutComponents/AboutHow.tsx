@@ -68,7 +68,7 @@ const AboutHow = () => {
           </div>
         </div>
         {/* Description */}
-        <p className="p-medium w-full md:w-3/4 lg:w-full 2xl:w-3/4 3xl:w-3/4">
+        <p className="p-medium w-full md:w-3/4 lg:w-2/3 2xl:w-2/3 3xl:w-2/3">
           From the must-see landmarks to the hidden gems, our guides are
           designed to ensure you're well-informed. Whether it's an upcoming
           journey or a place you're curious about, our resources are tailored to
@@ -76,7 +76,7 @@ const AboutHow = () => {
           travel smarter.
         </p>
       </div>
-` `
+
       {/* Vibrant Experience */}
       <div className="sticky top-40 md:top-48 z-10 mx-auto mb-24 mt-sect-medium flex w-4/5 flex-col items-start gap-8 md:gap-12 rounded-xl bg-light-brown px-8 pb-16 pt-4 shadow-section dark:bg-background-dark-brown dark:shadow-section-dark md:h-[40svh] md:pb-24 lg:top-48 lg:h-[50svh] lg:w-3/4 2xl:top-72 2xl:w-3/4">
         <div className="flex w-full justify-between">
@@ -133,7 +133,7 @@ const AboutHow = () => {
           </div>
         </div>
         {/* Description */}
-        <p className="p-medium w-full md:w-3/4 lg:w-full 2xl:w-3/4 3xl:w-3/4">
+        <p className="p-medium w-full md:w-3/4 lg:w-2/3 2xl:w-2/3 3xl:w-2/3">
           We provide a streamlined research experience with high-quality visual
           content that aims to inspire your travel plans. Each search is an
           opportunity for discovery, and our vivid imagery stirs the urge to see
@@ -198,7 +198,7 @@ const AboutHow = () => {
             </motion.div>
           </div>
         </div>
-        <p className="p-medium w-full md:w-3/4 lg:w-full 2xl:w-3/4 3xl:w-3/4">
+        <p className="p-medium w-full md:w-3/4 lg:w-2/3 2xl:w-2/3 3xl:w-2/3">
           Our platform curates content from renowned travel
           websites and authentic traveler reviews to create a comprehensive
           travel resource. Rest assured, the credibility of our information is

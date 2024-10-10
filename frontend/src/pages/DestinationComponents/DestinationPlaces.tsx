@@ -5,7 +5,7 @@ import {
   placeToStay,
   placeToVisit,
 } from "src/types/Destination";
-import PlaceDialog from "./placeDialog";
+import PlaceDialog from "./PlaceDialog";
 import SlideRevealIconHeading from "src/common/SlideRevealIconHeading";
 import { AnimatePresence, motion } from "framer-motion";
 import { HoverVariants, VisibilityVariants } from "src/utils/variants";
@@ -61,7 +61,7 @@ const DestinationPlaces: React.FC<DestinationPlacesProps> = ({ places }) => {
   return (
     <section
       id="places"
-      className="places px-sect rounded-3xl bg-light-green dark:bg-background-dark-green pb-sect-short pt-sect-short"
+      className="places px-sect rounded-3xl bg-light-green pb-sect-short pt-sect-short dark:bg-background-dark-green"
     >
       <SlideRevealIconHeading
         iconClass="ri-map-pin-fill"
@@ -78,8 +78,8 @@ const DestinationPlaces: React.FC<DestinationPlacesProps> = ({ places }) => {
             variants={variants}
             transition={{ duration: 0.5 }}
           >
-            <div className="mt-sect-short flex flex-col gap-20">
-              <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-10 md:mt-sect-short md:gap-20">
+              <div className="flex flex-col gap-4 md:gap-6">
                 <motion.h2
                   className="h2-inter"
                   initial="hidden"
@@ -109,7 +109,7 @@ const DestinationPlaces: React.FC<DestinationPlacesProps> = ({ places }) => {
                     ))}
                 </motion.h2>
                 <motion.p
-                  className="p-regular w-2/5"
+                  className="p-regular w-3/4 sm:w-4/5 md:w-2/5"
                   initial="hiddenY"
                   whileInView="visible"
                   viewport={{ once: true }}
@@ -125,7 +125,7 @@ const DestinationPlaces: React.FC<DestinationPlacesProps> = ({ places }) => {
               </div>
             </div>
 
-            <div className="mt-20 grid grid-cols-3 gap-x-8 gap-y-16">
+            <div className="mt-10 md:mt-20 grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-8 md:gap-x-8 md:gap-y-16">
               {selectedCategoryPlaces?.map((place, index) => (
                 <PlaceCard
                   key={index}
@@ -189,13 +189,13 @@ const PlaceCard: React.FC<{
       variants={variants}
       transition={{ duration: 0.5 }}
     >
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2 md:gap-4">
         <div className="overflow-hidden rounded-xl shadow-component dark:shadow-component-dark">
           <motion.img
             whileHover="hoverScale"
             variants={variants}
             transition={{ duration: 0.5 }}
-            className="cursor-hover-small h-[50svh] cursor-pointer rounded-xl"
+            className="cursor-hover-small h-[30svh] md:h-[50svh] cursor-pointer rounded-xl"
             src={optimizedImage.src}
             srcSet={optimizedImage.srcSet}
             alt="place image"

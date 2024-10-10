@@ -9,6 +9,10 @@ import AboutHow from "./AboutComponents/AboutHow";
 import AboutWho from "./AboutComponents/AboutWho";
 import AboutWhy from "./AboutComponents/AboutWhy";
 import useStackedSections from "src/hooks/useStackedSections";
+import {
+  useSectionTransition,
+  useSectionTransition2,
+} from "src/hooks/useSectionTransition";
 
 // Framer motion variants
 const variants = {
@@ -20,13 +24,18 @@ const variants = {
 // About page component
 const About: React.FC = () => {
   const { refs, setRef } = useStackedSections();
+  const { ref, scale, opacity } = useSectionTransition();
+  const { ref: ref2, scale: scale2 } = useSectionTransition2();
   return (
     <main className="about">
       {/* Hero Section */}
       <AboutHero />
 
       {/* Stacked Section */}
-      <section className="flex flex-col items-center justify-start pb-32 pt-64 md:py-48 lg:py-40 2xl:py-sect-default">
+      <motion.section
+        style={{ scale: scale2 }}
+        className="flex flex-col items-center justify-start pb-32 pt-64 md:py-48 lg:py-40 2xl:py-sect-default"
+      >
         {/* How Section */}
         <motion.h2
           initial="hiddenY"
@@ -40,17 +49,25 @@ const About: React.FC = () => {
         </motion.h2>
 
         <div className="stacked relative">
-          <div ref={setRef(0)} className="sticky">
+          <motion.div
+            style={{ scale, opacity }}
+            ref={setRef(0)}
+            className="sticky"
+          >
             <AboutHow />
-          </div>
+          </motion.div>
 
           {/* WHO SECTION */}
-          <AboutWho />
+          <div ref={ref} className="">
+            <AboutWho />
+          </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* WHY SECTION */}
-      <AboutWhy />
+      <div ref={ref2} className="z-30">
+        <AboutWhy />
+      </div>
     </main>
   );
 };

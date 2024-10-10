@@ -11,6 +11,7 @@ import { RootState } from "src/store/store";
 import { setAllBlogs } from "src/store/slices/blogSlice";
 import { VisibilityVariants } from "src/utils/variants";
 import { usePagedData } from "src/hooks/usePagedData";
+import { createSelector } from 'reselect';
 import {
   ErrorState,
   LoadingState,
@@ -44,14 +45,16 @@ const InspirationCatalog: React.FC<InspirationCatalogProps> = memo(
   ({ currentCategory }) => {
     const dispatch = useDispatch();
 
-    // Selector to get blog state from Redux store
-    const selectBlogState = useCallback(
-      (state: RootState) => ({
-        allBlogs: state.blog.allBlogs,
-        blogTags: state.filter.blog.tags,
-        searchQuery: state.filter.blog.searchQuery,
-      }),
-      [],
+    // Memoized selector
+    const selectBlogState = createSelector(
+      (state: RootState) => state.blog.allBlogs,
+      (state: RootState) => state.filter.blog.tags,
+      (state: RootState) => state.filter.blog.searchQuery,
+      (allBlogs, blogTags, searchQuery) => ({
+        allBlogs,
+        blogTags,
+        searchQuery,
+      })
     );
 
     const { allBlogs, blogTags, searchQuery } = useSelector(selectBlogState);

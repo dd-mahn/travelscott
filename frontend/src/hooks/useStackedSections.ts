@@ -11,7 +11,12 @@ function useStackedSections() {
     let previousBottom = 0;
     sectionRefs.current.forEach((section, index) => {
       if (section) {
-        const topValue = Math.min(previousBottom, window.innerHeight - section.offsetHeight);
+        let topValue;
+        if (section.offsetHeight < window.innerHeight) {
+          topValue = 0;
+        } else {
+          topValue = Math.min(previousBottom, window.innerHeight - section.offsetHeight);
+        }
         section.style.top = `${topValue}px`;
         previousBottom = topValue + section.offsetHeight;
         console.log(`Section ${index} top set to: ${topValue}px`);

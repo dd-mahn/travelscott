@@ -38,7 +38,7 @@ const Article: React.FC = () => {
         initial="hiddenY"
         animate="visible"
         transition={{ duration: 0.5 }}
-        className="h-[75svh] bg-gradient-to-t from-blue-gray-900 to-gray"
+        className="h-[50svh] md:h-[75svh] bg-gradient-to-t from-blue-gray-900 to-gray"
       >
         <img
           src={blogData.image}
@@ -47,7 +47,7 @@ const Article: React.FC = () => {
         />
       </motion.div>
 
-      <div className="mt-20 flex h-[35svh] flex-col items-center lg:gap-2 2xl:gap-4">
+      <div className=" mt-12 md:mt-20 flex h-[20svh] lg:h-[35svh] flex-col items-center gap-2 lg:gap-2 2xl:gap-4">
         <motion.span
           variants={variants}
           initial="hiddenY"
@@ -92,14 +92,14 @@ const Article: React.FC = () => {
 
       <div className="flex flex-col items-center gap-20">
         {blogData.content.map((content, index) => (
-          <div key={index} className="flex w-2/3 flex-col items-center gap-20">
+          <div key={index} className="flex w-[90%] sm:w-3/4 lg:w-2/3 flex-col items-center gap-8 md:gap-12 lg:gap-20">
             <motion.div
               variants={variants}
               initial="hiddenY"
               whileInView="visible"
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="flex w-2/3 flex-col gap-4"
+              className="flex lg:w-2/3 flex-col gap-4"
             >
               <h3 className="h3-md">{content.sectionTitle}</h3>
               {content.sectionText.map((sectionText, index) => (
@@ -115,7 +115,7 @@ const Article: React.FC = () => {
               whileInView="visible"
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="flex flex-col items-center gap-4"
+              className="flex flex-col items-center gap-2 md:gap-4"
             >
               <img
                 className="w-full rounded-xl"
@@ -135,7 +135,7 @@ const Article: React.FC = () => {
           whileInView="visible"
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="flex w-2/3 justify-end border-t pt-2"
+          className="flex w-[90%] sm:w-3/4 lg:w-2/3  justify-end border-t pt-2"
         >
           <span className="span-large w-fit">By {" " + blogData.author}</span>
         </motion.div>
@@ -147,7 +147,7 @@ const Article: React.FC = () => {
         whileInView="visible"
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="lg:py-40 2xl:py-sect-default"
+        className=" py-20 lg:py-40 2xl:py-sect-default"
       >
         <div className="overflow-hidden">
           <motion.h2
@@ -156,7 +156,7 @@ const Article: React.FC = () => {
             whileInView="visible"
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.5 }}
-            className="h2-md px-sect w-full text-center lg:pb-8 2xl:pb-12"
+            className="h2-md px-sect w-full text-center pb-4 lg:pb-8 2xl:pb-12"
           >
             Related articles
           </motion.h2>

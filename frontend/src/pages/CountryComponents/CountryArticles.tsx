@@ -59,15 +59,15 @@ const CountryArticles: React.FC<CountryArticlesProps> = ({ country }) => {
   if (blogError || countryBlogs.length === 0) return null;
 
   return (
-    <section className="blogs z-20 flex w-screen flex-col items-start gap-16 rounded-3xl bg-light-brown dark:bg-background-dark-brown pt-sect-short shadow-section">
-      <div className="mt-sect-short w-full overflow-hidden">
+    <section className="blogs z-20 flex min-h-screen w-screen flex-col items-start gap-8 md:gap-16 rounded-3xl bg-light-brown dark:bg-background-dark-brown pt-sect-short shadow-section">
+      <div className="md:mt-sect-short w-full overflow-hidden">
         <motion.h1
           variants={variants}
           initial="hiddenFullY"
           whileInView="visible"
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="h1-md text-center"
+          className="h1-md text-center leading-[0.9]"
         >
           Latest articles in {country.name}
         </motion.h1>

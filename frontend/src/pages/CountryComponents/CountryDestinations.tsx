@@ -90,13 +90,13 @@ const CountryDestinations: React.FC<CountryDestinationsProps> = ({ country }) =>
           viewport={{ once: true }}
           variants={variants}
           transition={{ duration: 0.5 }}
-          className="h1-md mt-sect-short uppercase"
+          className="h1-md md:mt-sect-short uppercase text-center leading-[0.9]"
         >
           {country.name}'s destinations
         </motion.h1>
       </div>
 
-      <div className="flex w-full flex-row justify-between pb-8 pt-sect-short">
+      <div className="flex w-full flex-row justify-between pb-4 md:pb-8 md:pt-sect-short">
         <motion.p
           initial="hiddenY"
           whileInView="visible"

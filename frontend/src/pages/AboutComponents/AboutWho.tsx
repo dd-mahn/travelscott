@@ -88,14 +88,14 @@ const AboutWho = () => {
           variants={variants}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="z-10 grid grid-cols-3 justify-center gap-x-3 gap-y-6 sm:gap-x-6 sm:gap-y-8 lg:gap-12"
+          className="z-10 grid grid-cols-3 lg:grid-cols-4 justify-center gap-x-3 gap-y-6 sm:gap-x-6 sm:gap-y-8 lg:gap-12"
         >
           {people.map((person, index) => (
             <div
               className="person flex flex-col items-center gap-2 lg:gap-4"
               key={index}
             >
-              <div className=" h-[20svh] sm:h-[25svh] md:h-[30svh] w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray shadow-component dark:shadow-component-dark saturate-0 duration-300 hover:saturate-[0.75]">
+              <div className=" h-[20svh] sm:h-[25svh] md:h-[30svh] lg:h-[40svh] w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray shadow-component dark:shadow-component-dark saturate-0 duration-300 hover:saturate-[0.75]">
                 {person.img && (
                   <motion.img
                     whileHover="hoverScale"

@@ -130,13 +130,13 @@ const BlogComponent: React.FC<{
       >
         {/* Blog image and title section */}
         <div className="relative flex flex-col items-start justify-end gap-0 px-4 lg:px-8 pb-4 h-1/2 lg:h-1/2 2xl:h-3/4">
-          <div className="absolute right-0 top-0 h-full w-full overflow-hidden bg-gradient-to-t from-blue-gray-900 to-gray brightness-75">
+          <div className="absolute right-0 select-none top-0 h-full w-full overflow-hidden bg-gradient-to-t from-blue-gray-900 to-gray brightness-75">
             <motion.img
               whileHover="hoverScale"
               variants={variants}
               transition={{ duration: 0.5 }}
               loading="lazy"
-              className="h-full w-full object-cover brightness-75"
+              className="h-full w-full object-cover pointer-events-none brightness-75"
               {...imageProps}
               alt={blog.title}
             />

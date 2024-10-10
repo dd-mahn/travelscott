@@ -30,7 +30,7 @@ const CountryHero = ({ country }: { country: Country }) => {
       animate="visible"
       variants={variants}
       transition={{ duration: 0.5, delay: 0.5 }}
-      className="hero flex h-screen flex-col gap-8"
+      className="hero flex h-[95svh] md:h-screen flex-col gap-4 md:gap-8"
     >
       {/* @ts-ignore */}
       <Carousel autoplay autoplayDelay={4000} transition={{ duration: 2 }} loop>
@@ -49,14 +49,14 @@ const CountryHero = ({ country }: { country: Country }) => {
         ))}
       </Carousel>
 
-      <div className="px-sect flex items-center gap-8">
+      <div className="px-sect flex items-center gap-4 md:gap-8">
         <motion.img
           initial="hiddenY"
           animate="visible"
           variants={variants}
           transition={{ duration: 0.5, delay: 1 }}
           src={country.images.flagImages?.[0]}
-          className="w-1/6 rounded-xl"
+          className=" w-1/4 md:w-1/6 rounded-lg md:rounded-xl"
           alt={`${country.name} flag`}
         />
         <div className="big-heading overflow-hidden">

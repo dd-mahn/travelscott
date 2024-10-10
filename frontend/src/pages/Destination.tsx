@@ -28,6 +28,7 @@ import DestinationSummary from "./DestinationComponents/DestinationSummary";
 
 // Animation Variants
 import { VisibilityVariants } from "src/utils/variants";
+import { useSectionTransition, useSectionTransition2 } from "src/hooks/useSectionTransition";
 
 const variants = {
   hiddenY: VisibilityVariants.hiddenY,
@@ -65,6 +66,9 @@ const DestinationPage: React.FC = () => {
   // Handle sticky sections top value
   const { refs: stackedRefs, setRef } = useStackedSections();
 
+  // Handle section transition
+  const { ref: refS, scale: scaleS } = useSectionTransition2();
+  const { ref: refSO, scale: scaleSO, opacity: opacitySO } = useSectionTransition();
   // Render loading state
   if (loading) {
     return <Loading />;
@@ -80,39 +84,44 @@ const DestinationPage: React.FC = () => {
     <main className="destination">
       <DestinationHero destination={currentDestination} />
       <DestinationOverview destination={currentDestination} />
-      <DestinationVideo videoCode={currentDestination.video} />
+
+      <motion.div className="z-30">
+        <DestinationVideo videoCode={currentDestination.video} />
+      </motion.div>
 
       <section className="relative">
-        <section
+        <section 
           id="additional"
-          className="additional px-sect sticky top-0 grid grid-cols-2 grid-rows-2 gap-x-4 gap-y-16 lg:py-40 2xl:py-sect-default"
+          className="additional px-sect sticky top-0 grid h-[120svh] place-items-start pt-32 md:pt-sect-default"
         >
-          {Object.entries(currentDestination.additionalInfo).map(
-            ([key, value], index) => (
-              <motion.div
-                key={key}
-                className="flex flex-col gap-4"
-                variants={variants}
-                initial="hiddenY"
-                whileInView="visible"
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
-              >
-                <h2 className="h2-md">
-                  {key === "whenToVisit"
-                    ? "When to visit?"
-                    : key === "whoToGoWith"
-                    ? "Who to go with?"
-                    : key === "whatToExpect"
-                    ? "What to expect?"
-                    : key === "healthAndSafety"
-                    ? "Health and safety"
-                    : ""}
-                </h2>
-                <p className="p-regular w-3/4">{value}</p>
-              </motion.div>
-            ),
-          )}
+          <div className="grid grid-cols-1 gap-x-3 gap-y-10 md:grid-cols-2 md:gap-x-4 md:gap-y-16">
+            {Object.entries(currentDestination.additionalInfo).map(
+              ([key, value], index) => (
+                <motion.div
+                  key={key}
+                  className="flex h-fit flex-col items-center gap-4 md:items-start"
+                  variants={variants}
+                  initial="hiddenY"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.2 }}
+                >
+                  <h2 className="h2-md">
+                    {key === "whenToVisit"
+                      ? "When to visit?"
+                      : key === "whoToGoWith"
+                        ? "Who to go with?"
+                        : key === "whatToExpect"
+                          ? "What to expect?"
+                          : key === "healthAndSafety"
+                            ? "Health and safety"
+                            : ""}
+                  </h2>
+                  <p className="p-regular sm:w-4/5 md:w-3/4">{value}</p>
+                </motion.div>
+              ),
+            )}
+          </div>
         </section>
 
         <section ref={setRef(0)} className="sticky">
@@ -132,7 +141,7 @@ const DestinationPage: React.FC = () => {
 
       <DestinationSummary summary={currentDestination.summary} />
 
-      <section className="related lg:py-sect-short 2xl:py-40">
+      <section className="related py-sect-short lg:py-sect-short 2xl:py-40">
         <div className="overflow-hidden">
           <motion.h2
             className="h2-md px-sect w-full text-center"

@@ -55,11 +55,11 @@ const RenderBlog: React.FC<{ blog: Blog; isFeatured: boolean }> = ({
     <Link
       to={`/inspiration/${blog._id}`}
       target="_top"
-      className={`h-full w-full ${isFeatured ? "flex flex-col gap-2 lg:gap-4" : "grid grid-cols-2 gap-2 lg:gap-4"}`}
+      className={`w-full ${isFeatured ? "flex flex-col gap-2 lg:gap-4" : "grid grid-cols-2 gap-2 lg:gap-4"}`}
       key={blog._id}
     >
       <div
-        className={`h-${isFeatured ? "[50svh]" : "full"} w-${isFeatured ? "[50svw]" : "[45%]"} overflow-hidden rounded-lg bg-gradient-to-t from-blue-gray-900 to-gray shadow-component dark:shadow-component-dark`}
+        className={` w-full overflow-hidden rounded-lg bg-gradient-to-t from-blue-gray-900 to-gray shadow-component dark:shadow-component-dark`}
       >
         <motion.img
           loading="lazy"
@@ -162,7 +162,7 @@ const Articles: React.FC<ArticlesProps> = memo(({ articlesHookRef, blogs }) => {
             initial="hiddenY"
             whileInView="visible"
             transition={{ duration: 0.5, delay: 1 }}
-            viewport={{ once: true, margin: "-10%" }}
+            viewport={{ once: true }}
             variants={variants}
             className="w-screen"
           >
@@ -170,12 +170,12 @@ const Articles: React.FC<ArticlesProps> = memo(({ articlesHookRef, blogs }) => {
               {blogChunks.map((chunk, chunkIndex) => (
                 <div
                   key={chunkIndex}
-                  className="px-sect grid h-[40svh] sm:h-[50svh] md:h-[60svh] lg:h-[75svh] w-screen grid-cols-2 gap-2 md:gap-4 lg:gap-8"
+                  className="px-sect grid w-screen grid-cols-2 gap-2 md:gap-4 lg:gap-8"
                 >
-                  <div className="h-[40svh] sm:h-[50svh] md:h-[60svh] lg:h-[75svh] pb-4">
+                  <div className=" pb-4">
                     <RenderBlog blog={chunk[0]} isFeatured={true} />
                   </div>
-                  <div className="grid h-[40svh] sm:h-[50svh] md:h-[60svh] lg:h-[75svh] w-full grid-rows-3 gap-4 pb-4">
+                  <div className=" w-full grid grid-rows-3 gap-2 md:gap-4 pb-4">
                     {chunk.slice(1).map((blog) => (
                       <RenderBlog
                         key={blog._id}

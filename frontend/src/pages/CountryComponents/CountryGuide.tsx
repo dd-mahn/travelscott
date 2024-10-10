@@ -44,7 +44,7 @@ const CountryGuide: React.FC<CountryGuideProps> = ({ country }) => {
         staggerChildren: 0.5,
       }}
       viewport={{ once: true }}
-      className="px-sect -gap-8 z-10 flex h-screen w-full flex-col pb-sect-long"
+      className="px-sect -gap-8 z-10 flex h-screen w-full flex-col pt-24 pb-sect-long"
     >
       <GuideSection
         title="When to visit?"
@@ -88,7 +88,7 @@ const GuideSection: React.FC<GuideSectionProps> = ({
     initial="hiddenY"
     animate="visible"
     transition={{ duration: 0.5 }}
-    className="z-10 w-[60%] rounded-3xl bg-background-light dark:bg-background-dark lg:px-8 lg:py-6 2xl:px-12 2xl:py-8 shadow-section dark:shadow-section-dark"
+    className="z-10 w-full md:w-[80%] lg:w-[60%] rounded-xl md:rounded-3xl bg-background-light dark:bg-background-dark px-6 py-3 md:px-8 md:py-6 2xl:px-12 2xl:py-8 shadow-section dark:shadow-section-dark"
   >
     <div className="flex flex-row items-center justify-between border-b pb-8">
       <h2 className="h2-md">{title}</h2>
@@ -98,7 +98,7 @@ const GuideSection: React.FC<GuideSectionProps> = ({
         variants={variants}
         transition={{ duration: 0.4 }}
         animate={isVisible ? "rotate" : ""}
-        className="rounded-full border lg:h-16 lg:w-16 xl:h-24 xl:w-24 2xl:h-28 2xl:w-28 3xl:h-28 3xl:w-28"
+        className="rounded-full border h-10 w-10 md:h-12 md:w-12 lg:h-16 lg:w-16 xl:h-24 xl:w-24 2xl:h-28 2xl:w-28 3xl:h-28 3xl:w-28"
         title="open btn"
         onClick={toggleVisibility}
       >

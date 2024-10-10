@@ -139,7 +139,7 @@ const DiscoverCountries: React.FC = () => {
                 whileInView="visible"
                 viewport={{ once: true }}
                 exit="exitX"
-                transition={{ duration: 0.5, delay: 0.8, ease: "easeInOut" }}
+                transition={{ duration: 0.5, delay: 0.2, ease: "easeInOut" }}
                 variants={variants}
                 className="flex md:min-h-[70svh] w-full flex-col lg:flex-row gap-4 md:gap-8 items-start lg:gap-8 2xl:gap-12"
               >
@@ -172,7 +172,7 @@ const DiscoverCountries: React.FC = () => {
                     delayChildren: 1.2,
                     staggerChildren: 0.3,
                   }}
-                  className="grid justify-between grid-cols-3 sm:grid-cols-4 gap-2 md:gap-4 lg:grid-cols-3 lg:gap-8 2xl:grid-cols-4 2xl:gap-8"
+                  className="grid justify-between grid-cols-3 sm:grid-cols-4 gap-2 md:gap-4 lg:grid-cols-2 xl:grid-cols-3 lg:gap-8 2xl:grid-cols-3 3xl:grid-cols-4 2xl:gap-8"
                   aria-label="Country list"
                 >
                   {selectedContinent.countries.map((country) => (
@@ -201,8 +201,20 @@ const DiscoverCountries: React.FC = () => {
             Related articles
           </motion.h2>
         </div>
-
-        <RelatedSections type={"blog"} data={selectedContinentName} />
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={selectedContinentName}
+            initial="hiddenY"
+            whileInView="visible"
+            exit="hiddenY"
+            variants={variants}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <RelatedSections type={"blog"} data={selectedContinentName} />
+          </motion.div>
+        </AnimatePresence>
+        
       </section>
     </>
   );

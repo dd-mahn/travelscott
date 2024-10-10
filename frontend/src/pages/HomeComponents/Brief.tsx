@@ -160,7 +160,7 @@ const Brief: React.FC = () => {
             <motion.p
               ref={paragraphRefs[0]}
               style={{ opacity: opacities[0] }}
-              className={`${viewportWidth < 768 ? "text-center p-regular" : "p-regular"} z-10 text-text-dark dark:text-text-light sm:w-3/4 md:w-2/3 md:text-left md:text-text-light md:dark:text-text-dark lg:w-4/5 3xl:w-2/3`}
+              className={`${viewportWidth < 768 ? "text-center p-regular" : "p-regular"} z-10 text-text-dark dark:text-text-dark sm:w-3/4 md:w-2/3 md:text-left md:text-text-light md:dark:text-text-dark lg:w-4/5 3xl:w-2/3`}
             >
               Take a break from your daily routine. When was the last time you
               explored beyond your city? Discover new places, meet new people,
@@ -171,7 +171,7 @@ const Brief: React.FC = () => {
             <motion.p
               ref={paragraphRefs[1]}
               style={{ opacity: opacities[1] }}
-              className={`${viewportWidth < 768 ? "text-center p-regular" : "p-regular"} z-10 text-text-dark dark:text-text-light sm:w-3/4 md:w-2/3 md:text-left md:text-text-light md:dark:text-text-dark lg:w-4/5 3xl:w-2/3`}
+              className={`${viewportWidth < 768 ? "text-center p-regular" : "p-regular"} z-10 text-text-dark dark:text-text-dark sm:w-3/4 md:w-2/3 md:text-left md:text-text-light md:dark:text-text-dark lg:w-4/5 3xl:w-2/3`}
             >
               To help you get started, explore our virtual gallery. It features
               a curated selection of global destinations with visuals and key
@@ -182,7 +182,7 @@ const Brief: React.FC = () => {
             <motion.p
               ref={paragraphRefs[2]}
               style={{ opacity: opacities[2] }}
-              className={`${viewportWidth < 768 ? "text-center p-regular" : "p-regular"} z-10 text-text-dark dark:text-text-light sm:w-3/4 md:w-2/3 md:text-left md:text-text-light md:dark:text-text-dark lg:w-4/5 3xl:w-2/3`}
+              className={`${viewportWidth < 768 ? "text-center p-regular" : "p-regular"} z-10 text-text-dark dark:text-text-dark sm:w-3/4 md:w-2/3 md:text-left md:text-text-light md:dark:text-text-dark lg:w-4/5 3xl:w-2/3`}
             >
               For more insights, visit our blog. Our travel stories and tips
               will help you plan and make the most of your adventures.

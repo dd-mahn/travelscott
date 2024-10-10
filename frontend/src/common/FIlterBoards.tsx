@@ -277,7 +277,7 @@ export const CountryDestinationFilter: React.FC = memo(() => {
       exit="hiddenY"
       variants={variants}
       transition={{ duration: 0.3 }}
-      className="filter-board absolute right-[5%] top-2/3 z-10 flex flex-col items-center gap-8 rounded-xl bg-background-light dark:bg-background-dark px-4 pb-8 pt-4 shadow-component dark:shadow-component-dark lg:w-[30svw] 2xl:w-[25svw]"
+      className="filter-board absolute right-[5%] top-2/3 z-10 flex flex-col items-center gap-8 rounded-xl bg-background-light dark:bg-background-dark px-4 pb-8 pt-4 shadow-component dark:shadow-component-dark w-[80svw] md:w-[50svw] lg:w-[30svw] 2xl:w-[25svw]"
     >
       <div className="flex w-full flex-col items-start gap-8">
         <div className="flex w-full flex-col items-start gap-2">
@@ -291,7 +291,7 @@ export const CountryDestinationFilter: React.FC = memo(() => {
               onChange={handleSearchChange}
               onFocus={() => setInputFocus(true)}
               onBlur={() => setInputFocus(false)}
-              className="w-full rounded-full border-[1px] border-gray bg-background-light dark:bg-background-dark px-4 py-2 text-text-light outline-none transition-all duration-300 focus:border-text-light dark:focus:border-text-dark focus:shadow-component dark:focus:shadow-component-dark"
+              className="w-full rounded-full border-[1px] border-gray bg-background-light dark:bg-background-dark px-3 py-1 md:px-4 md:py-2 text-text-light outline-none transition-all duration-300 focus:border-text-light dark:focus:border-text-dark focus:shadow-component dark:focus:shadow-component-dark"
             />
             <div className="absolute right-[5%] overflow-hidden">
               <motion.i
