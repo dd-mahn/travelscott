@@ -23,6 +23,7 @@ import {
   TapVariants,
   VisibilityVariants,
 } from "src/utils/variants";
+import { createSelector } from "reselect";
 
 const variants = {
   hiddenY: VisibilityVariants.hiddenY,
@@ -31,25 +32,36 @@ const variants = {
   tapScale: TapVariants.tapScale,
 };
 
+const selectDestinationFilterState = createSelector(
+  (state: RootState) => state.filter.destination,
+  (destination) => ({
+    continents: destination.continents,
+    countries: destination.countries,
+    tags: destination.tags,
+    searchQuery: destination.searchQuery,
+  }),
+);
+
+const selectCountryState = createSelector(
+  (state: RootState) => state.country,
+  (country) => country.countries,
+);
+
+const selectContinentState = createSelector(
+  (state: RootState) => state.continent,
+  (continent) => continent.continents,
+);
+
 export const DestinationFilter: React.FC = memo(() => {
   const dispatch = useDispatch();
-  const selectDestinationFilterState = useCallback(
-    (state: RootState) => ({
-      continents: state.filter.destination.continents,
-      countries: state.filter.destination.countries,
-      tags: state.filter.destination.tags,
-      searchQuery: state.filter.destination.searchQuery,
-    }),
-    [],
-  );
   const {
     continents: filterContinents,
     countries: filterCountries,
     tags: filterTags,
     searchQuery,
   } = useSelector(selectDestinationFilterState);
-  const { countries } = useSelector((state: RootState) => state.country);
-  const { continents } = useSelector((state: RootState) => state.continent);
+  const countries = useSelector(selectCountryState);
+  const continents = useSelector(selectContinentState);
   const [inputFocus, setInputFocus] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const [localSearchQuery, setLocalSearchQuery] = useState(searchQuery);
@@ -136,7 +148,7 @@ export const DestinationFilter: React.FC = memo(() => {
       viewport={{ once: true }}
       exit="hiddenY"
       transition={{ duration: 0.4, ease: "easeInOut" }}
-      className={`filter-board absolute right-[5%] top-2/3 z-10 flex flex-col items-center gap-8 rounded-2xl bg-background-light dark:bg-background-dark px-4 pb-10 pt-6 shadow-section dark:shadow-section-dark w-[80svw] sm:w-[60svw] md:w-[50svw] lg:w-[40svw] 2xl:w-[30svw]`}
+      className={`filter-board absolute right-[5%] top-2/3 z-10 flex w-[80svw] flex-col items-center gap-8 rounded-2xl bg-background-light px-4 pb-10 pt-6 shadow-section dark:bg-background-dark dark:shadow-section-dark sm:w-[60svw] md:w-[50svw] lg:w-[40svw] 2xl:w-[30svw]`}
     >
       <div className="flex w-full flex-col items-start gap-2">
         <span className="h3-md uppercase">Search</span>
@@ -149,7 +161,7 @@ export const DestinationFilter: React.FC = memo(() => {
             onChange={handleSearchChange}
             onFocus={() => setInputFocus(true)}
             onBlur={() => setInputFocus(false)}
-            className="w-full rounded-full border-[1px] border-gray bg-background-light dark:bg-background-dark lg:px-4 px-3 py-1 lg:py-2 text-text-light outline-none transition-all duration-300 focus:border-text-light dark:focus:border-text-dark focus:shadow-lg"
+            className="w-full rounded-full border-[1px] border-gray bg-background-light px-3 py-1 text-text-light outline-none transition-all duration-300 focus:border-text-light focus:shadow-lg dark:bg-background-dark dark:focus:border-text-dark lg:px-4 lg:py-2"
           />
           <div className="absolute right-[5%] overflow-hidden">
             <motion.i
@@ -171,7 +183,7 @@ export const DestinationFilter: React.FC = memo(() => {
               transition={{ duration: 0.3 }}
               whileTap="tapScale"
               key={continent}
-              className={`${filterContinents.includes(continent) ? "bg-background-dark text-text-dark dark:bg-background-light dark:text-text-light" : "bg-background-light dark:bg-background-dark text-text-light"} span-small cursor-pointer rounded-2xl border-gray px-4 border lg:border-[1px] 2xl:border-[1.5px]`}
+              className={`${filterContinents.includes(continent) ? "bg-background-dark text-text-dark dark:bg-background-light dark:text-text-light" : "bg-background-light text-text-light dark:bg-background-dark"} span-small cursor-pointer rounded-2xl border border-gray px-4 lg:border-[1px] 2xl:border-[1.5px]`}
               onClick={() => continentFilterClick(continent)}
             >
               {continent}
@@ -184,7 +196,7 @@ export const DestinationFilter: React.FC = memo(() => {
               transition={{ duration: 0.3 }}
               whileTap="tapScale"
               key={country}
-              className={`${filterCountries.includes(country) ? "bg-background-dark text-text-dark dark:bg-background-light dark:text-text-light" : "bg-background-light dark:bg-background-dark text-text-light"} span-small cursor-pointer rounded-2xl border-gray px-4 border lg:border-[1px] 2xl:border-[1.5px]`}
+              className={`${filterCountries.includes(country) ? "bg-background-dark text-text-dark dark:bg-background-light dark:text-text-light" : "bg-background-light text-text-light dark:bg-background-dark"} span-small cursor-pointer rounded-2xl border border-gray px-4 lg:border-[1px] 2xl:border-[1.5px]`}
               onClick={() => countryFilterClick(country)}
             >
               {country}
@@ -203,7 +215,7 @@ export const DestinationFilter: React.FC = memo(() => {
               transition={{ duration: 0.3 }}
               whileTap="tapScale"
               key={tag}
-              className={`${filterTags.includes(tag) ? "bg-background-dark text-text-dark dark:bg-background-light dark:text-text-light" : "bg-background-light dark:bg-background-dark text-text-light"} span-small cursor-pointer rounded-2xl border-gray px-4 border lg:border-[1px] 2xl:border-[1.5px]`}
+              className={`${filterTags.includes(tag) ? "bg-background-dark text-text-dark dark:bg-background-light dark:text-text-light" : "bg-background-light text-text-light dark:bg-background-dark"} span-small cursor-pointer rounded-2xl border border-gray px-4 lg:border-[1px] 2xl:border-[1.5px]`}
               onClick={() => tagFilterClick(tag)}
             >
               {tag}
@@ -215,20 +227,21 @@ export const DestinationFilter: React.FC = memo(() => {
   );
 });
 
+const selectCountryDestinationFilterState = createSelector(
+  (state: RootState) => state.filter.destination,
+  (destination) => ({
+    tags: destination.tags,
+    searchQuery: destination.searchQuery,
+  }),
+);
+
 export const CountryDestinationFilter: React.FC = memo(() => {
   const dispatch = useDispatch();
   const [inputFocus, setInputFocus] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const selectDestinationFilterState = useCallback(
-    (state: RootState) => ({
-      tags: state.filter.destination.tags,
-      searchQuery: state.filter.destination.searchQuery,
-    }),
-    [],
-  );
   const { tags: selectTags, searchQuery: selectSearchQuery } = useSelector(
-    selectDestinationFilterState,
+    selectCountryDestinationFilterState,
   );
   const [localSearchQuery, setLocalSearchQuery] = useState(selectSearchQuery);
   const debouncedSearchQuery = useDebounce(localSearchQuery, 500);
@@ -277,7 +290,7 @@ export const CountryDestinationFilter: React.FC = memo(() => {
       exit="hiddenY"
       variants={variants}
       transition={{ duration: 0.3 }}
-      className="filter-board absolute right-[5%] top-2/3 z-10 flex flex-col items-center gap-8 rounded-xl bg-background-light dark:bg-background-dark px-4 pb-8 pt-4 shadow-component dark:shadow-component-dark w-[80svw] md:w-[50svw] lg:w-[30svw] 2xl:w-[25svw]"
+      className="filter-board absolute right-[5%] top-2/3 z-10 flex w-[80svw] flex-col items-center gap-8 rounded-xl bg-background-light px-4 pb-8 pt-4 shadow-component dark:bg-background-dark dark:shadow-component-dark md:w-[50svw] lg:w-[30svw] 2xl:w-[25svw]"
     >
       <div className="flex w-full flex-col items-start gap-8">
         <div className="flex w-full flex-col items-start gap-2">
@@ -291,7 +304,7 @@ export const CountryDestinationFilter: React.FC = memo(() => {
               onChange={handleSearchChange}
               onFocus={() => setInputFocus(true)}
               onBlur={() => setInputFocus(false)}
-              className="w-full rounded-full border-[1px] border-gray bg-background-light dark:bg-background-dark px-3 py-1 md:px-4 md:py-2 text-text-light outline-none transition-all duration-300 focus:border-text-light dark:focus:border-text-dark focus:shadow-component dark:focus:shadow-component-dark"
+              className="w-full rounded-full border-[1px] border-gray bg-background-light px-3 py-1 text-text-light outline-none transition-all duration-300 focus:border-text-light focus:shadow-component dark:bg-background-dark dark:focus:border-text-dark dark:focus:shadow-component-dark md:px-4 md:py-2"
             />
             <div className="absolute right-[5%] overflow-hidden">
               <motion.i
@@ -316,8 +329,8 @@ export const CountryDestinationFilter: React.FC = memo(() => {
                 className={`${
                   selectTags.includes(tag)
                     ? "bg-background-dark text-text-dark dark:bg-background-light dark:text-text-light"
-                    : "bg-background-light dark:bg-background-dark text-text-light"
-                } span-small cursor-pointer rounded-2xl border-gray px-4 border lg:border-[1px] 2xl:border-[1.5px]`}
+                    : "bg-background-light text-text-light dark:bg-background-dark"
+                } span-small cursor-pointer rounded-2xl border border-gray px-4 lg:border-[1px] 2xl:border-[1.5px]`}
                 onClick={() => handleTagFilter(tag)}
               >
                 {tag}
@@ -330,19 +343,20 @@ export const CountryDestinationFilter: React.FC = memo(() => {
   );
 });
 
+const selectBlogFilterState = createSelector(
+  (state: RootState) => state.filter.blog,
+  (blog) => ({
+    tags: blog.tags,
+    searchQuery: blog.searchQuery,
+  }),
+);
+
 export const InspirationFilter: React.FC<{ continentNames: string[] }> = memo(
   ({ continentNames }) => {
     const dispatch = useDispatch();
     const [inputFocus, setInputFocus] = useState<boolean>(false);
     const inputRef = useRef<HTMLInputElement>(null);
 
-    const selectBlogFilterState = useCallback(
-      (state: RootState) => ({
-        tags: state.filter.blog.tags,
-        searchQuery: state.filter.blog.searchQuery,
-      }),
-      [],
-    );
     const { tags: selectTags, searchQuery: selectSearchQuery } = useSelector(
       selectBlogFilterState,
     );
@@ -385,7 +399,7 @@ export const InspirationFilter: React.FC<{ continentNames: string[] }> = memo(
           staggerChildren: 0.2,
           delayChildren: 0.5,
         }}
-        className="continent-filter flex flex-row flex-wrap w-3/4 sm:w-full items-center justify-center shadow-component gap-2 rounded-xl px-2 sm:px-4 md:px-4 py-4 dark:shadow-component-dark lg:gap-3 lg:rounded-2xl lg:px-12 lg:py-6 2xl:gap-4 2xl:rounded-3xl 2xl:px-sect-short 2xl:py-8"
+        className="continent-filter flex w-3/4 flex-row flex-wrap items-center justify-center gap-2 rounded-xl px-2 py-4 shadow-component dark:shadow-component-dark sm:w-full sm:px-4 md:px-4 lg:gap-3 lg:rounded-2xl lg:px-12 lg:py-6 2xl:gap-4 2xl:rounded-3xl 2xl:px-sect-short 2xl:py-8"
       >
         {continentNames.map((continent) => (
           <motion.button
@@ -395,9 +409,9 @@ export const InspirationFilter: React.FC<{ continentNames: string[] }> = memo(
             whileHover="hoverScale"
             whileTap="tapScale"
             transition={{ duration: 0.3 }}
-            className={`continent-btn span-regular rounded-3xl border-gray border px-2 py-1 lg:border-[1px] lg:px-6 lg:py-1 2xl:border-[1.5px] 2xl:px-8 2xl:py-2 ${
+            className={`continent-btn span-regular rounded-3xl border border-gray px-2 py-1 lg:border-[1px] lg:px-6 lg:py-1 2xl:border-[1.5px] 2xl:px-8 2xl:py-2 ${
               selectTags.includes(continent)
-                ? "bg-background-dark dark:bg-background-light text-text-dark dark:text-text-light"
+                ? "bg-background-dark text-text-dark dark:bg-background-light dark:text-text-light"
                 : "bg-transparent text-text-light"
             }`}
           >
@@ -413,8 +427,10 @@ export const InspirationFilter: React.FC<{ continentNames: string[] }> = memo(
             onChange={handleSearchChange}
             onFocus={() => setInputFocus(true)}
             onBlur={() => setInputFocus(false)}
-            className={`w-full rounded-full border-gray px-2 bg-background-light dark:bg-background-dark text-text-light transition-all duration-300 focus:outline-none border lg:border-[1px] lg:px-3 lg:py-1 2xl:border-[1.5px] 2xl:px-4 2xl:py-2 ${
-              inputFocus ? "border-text-light dark:border-text-dark shadow-component dark:shadow-component-dark" : ""
+            className={`w-full rounded-full border border-gray bg-background-light px-2 text-text-light transition-all duration-300 focus:outline-none dark:bg-background-dark lg:border-[1px] lg:px-3 lg:py-1 2xl:border-[1.5px] 2xl:px-4 2xl:py-2 ${
+              inputFocus
+                ? "border-text-light shadow-component dark:border-text-dark dark:shadow-component-dark"
+                : ""
             }`}
           />
           <i
