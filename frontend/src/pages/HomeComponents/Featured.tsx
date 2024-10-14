@@ -1,5 +1,5 @@
-import React, { memo } from "react";
-import { motion } from "framer-motion";
+import React, { memo, useEffect } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
 // Component imports
 import HorizontalScrollCarousel from "./FeaturedHorizontalScroller";
@@ -7,6 +7,14 @@ import { featuredDemo } from "src/data/featuredDemo";
 import { SecondaryButton } from "src/common/Button";
 import { VisibilityVariants } from "src/utils/variants";
 import { useViewportWidth } from "src/utils/imageUtils";
+import useFetch from "src/hooks/useFetch";
+import { BASE_URL } from "src/utils/config";
+import Destination from "src/types/Destination";
+import { FetchDestinationType } from "src/types/FetchData";
+import { useDispatch, useSelector } from "react-redux";
+import { setFeaturedDestinations } from "src/store/slices/destinationSlice";
+import { ErrorState, LoadingState } from "src/common/CatalogStates";
+import { RootState } from "src/store/store";
 
 // Framer motion variants for animations
 const variants = {
@@ -19,6 +27,19 @@ const variants = {
 // Featured component: Displays featured destinations
 const Featured: React.FC = () => {
   const viewportWidth = useViewportWidth();
+  const dispatch = useDispatch();
+
+  const { data, loading, error } = useFetch<FetchDestinationType>(
+    `${BASE_URL}/destinations?featured=true`,
+  );
+  const featuredDestinations = data?.result;
+
+  useEffect(() => {
+    if (featuredDestinations) {
+      dispatch(setFeaturedDestinations(featuredDestinations));
+    }
+  }, [featuredDestinations, dispatch]);
+  
   return (
     <section className="featured flex flex-col lg:gap-28 xl:gap-32 2xl:gap-36 3xl:gap-40">
       {/* Header */}
@@ -32,16 +53,30 @@ const Featured: React.FC = () => {
           className="h1-md relative leading-[0.85]"
         >
           {/* Decorative icon */}
-          <i className="ri-shining-2-fill hidden md:block rotate-30 absolute md:-left-[7%] lg:-left-[5%] top-0 transform text-yellow dark:text-yellow md:text-3xl lg:text-3xl xl:text-4xl 2xl:text-4xl 3xl:text-5xl"></i>{" "}
+          <i className="ri-shining-2-fill rotate-30 absolute top-0 hidden transform text-yellow dark:text-yellow md:-left-[7%] md:block md:text-3xl lg:-left-[5%] lg:text-3xl xl:text-4xl 2xl:text-4xl 3xl:text-5xl"></i>{" "}
           Featured Destinations
         </motion.h1>
       </div>
 
       {/* Horizontal scroll carousel */}
-      <HorizontalScrollCarousel data={featuredDemo} />
+      <AnimatePresence mode="wait">
+        {
+          loading ? <LoadingState keyName={`featured-loading-${loading}`}/> :
+          error ? <ErrorState keyName={`featured-error-${error}`}/> :
+          featuredDestinations && featuredDestinations?.length >= 5 ? (
+            <div key={`featured-destinations-${featuredDestinations.length}`}>
+              <HorizontalScrollCarousel data={featuredDestinations.slice(0, 10)} />
+            </div>
+          ) : (
+            <div key={`featured-destinations-${featuredDestinations?.length}`}>
+              <HorizontalScrollCarousel data={featuredDemo} />
+            </div>
+          )
+        }
+      </AnimatePresence>
 
       {/* Footer section */}
-      <div className="px-sect flex w-full flex-col items-start md:items-end justify-start gap-4 md:flex-row md:justify-between">
+      <div className="px-sect flex w-full flex-col items-start justify-start gap-4 md:flex-row md:items-end md:justify-between">
         {/* Destinations count */}
         <motion.p
           initial="hiddenY"
@@ -52,7 +87,7 @@ const Featured: React.FC = () => {
           className={`${viewportWidth > 576 ? "p-large" : "p-medium"}`}
         >
           They are just so few among the{" "}
-          <span className="font-semibold text-main-brown dark:text-dark-brown h3-inter">
+          <span className="h3-inter font-semibold text-main-brown dark:text-dark-brown">
             100
           </span>
           + <br />
@@ -69,7 +104,7 @@ const Featured: React.FC = () => {
           className="relative flex items-end"
         >
           {/* Decorative blob */}
-          <div className="blob-green blur-blob absolute z-0 h-full w-1/3 -top-[40%] -right-[10%] opacity-100"></div>
+          <div className="blob-green blur-blob absolute -right-[10%] -top-[40%] z-0 h-full w-1/3 opacity-100"></div>
           <div className="z-10">
             <SecondaryButton text="Discover More" link="/discover" />
           </div>

@@ -41,9 +41,14 @@ const FeaturedDestinationCard: React.FC<DestinationCardProps> = memo(
     }, [destination.images, viewportWidth]);
 
     return (
-      <div className="destination-card flex h-full flex-col gap-1 lg:gap-2 2xl:gap-4 lg:pb-6 2xl:pb-8">
+      <div className="destination-card flex h-full flex-col gap-1 lg:gap-2 lg:pb-6 2xl:gap-4 2xl:pb-8">
         {/* Image container */}
-        <div className="w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray shadow-component dark:shadow-component-dark h-[60svh] md:h-[65svh] lg:h-[65svh] 2xl:h-[70svh]">
+
+        <Link
+          to={`/destinations/${destination._id}`}
+          target="_top"
+          className="h-[60svh] w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray shadow-component dark:shadow-component-dark md:h-[65svh] lg:h-[65svh] 2xl:h-[70svh]"
+        >
           <motion.img
             whileHover="hoverScale"
             transition={{ duration: 0.4 }}
@@ -54,9 +59,9 @@ const FeaturedDestinationCard: React.FC<DestinationCardProps> = memo(
             alt={`Image of ${destination.name}`}
             className="cursor-hover h-full w-full cursor-pointer rounded-xl object-cover"
           />
-        </div>
+        </Link>
         {/* Destination information */}
-        <div className="flex flex-col lg:gap-0 xl:gap-0 2xl:gap-0 3xl:gap-0 pt-2">
+        <div className="flex flex-col pt-2 lg:gap-0 xl:gap-0 2xl:gap-0 3xl:gap-0">
           <span className="span-small text-gray">{destination.country}</span>
           <motion.span
             whileHover="hoverX"
@@ -64,16 +69,20 @@ const FeaturedDestinationCard: React.FC<DestinationCardProps> = memo(
             variants={variants}
             className="cursor-hover-small span-medium w-fit cursor-pointer uppercase"
           >
-            <Link to={"/"} aria-label={`View details for ${destination.name}`}>
+            <Link
+              to={`/destinations/${destination._id}`}
+              aria-label={`View ${destination.name}`}
+              target="_top"
+            >
               {destination.name}
             </Link>
           </motion.span>
           {/* Tags */}
-          <div className=" mt-2 lg:mt-4 flex flex-wrap gap-1 lg:gap-2">
+          <div className="mt-2 flex flex-wrap gap-1 lg:mt-4 lg:gap-2">
             {destination.tags.map((tag, index) => (
               <span
                 key={index}
-                className="span-small rounded-2xl border-gray px-2 lg:px-4 border"
+                className="span-small rounded-2xl border border-gray px-2 lg:px-4"
               >
                 {tag}
               </span>

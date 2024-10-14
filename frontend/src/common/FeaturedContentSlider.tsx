@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import { DotPagination } from "./Pagination";
 import { VisibilityVariants } from "src/utils/variants";
 
@@ -38,6 +38,7 @@ const FeaturedContentSlider: React.FC<FeaturedContentSliderProps> = ({
   const [index, setIndex] = useState(0);
   const childRef = React.useRef<HTMLDivElement>(null);
   const containerRef = React.useRef<HTMLDivElement>(null);
+  const inView = useInView(childRef, { once: true });
 
   const handleNext = useCallback(() => {
     if (index < children.length - 1) {
@@ -53,20 +54,38 @@ const FeaturedContentSlider: React.FC<FeaturedContentSliderProps> = ({
     }
   }, [index]);
 
-  useEffect(() => {
-    const updateHeight = () => {
-      if (containerRef.current && childRef.current) {
-        containerRef.current.style.height = `${childRef.current.offsetHeight}px`;
-      }
-    };
+  const updateHeight = () => {
+    if (containerRef.current && childRef.current) {
+      containerRef.current.style.height = `${childRef.current.scrollHeight}px`;
+    }
+  };
 
+  useEffect(() => {
+    // Call updateHeight on initial mount
     updateHeight();
 
-    window.addEventListener('resize', updateHeight);
+    const handleResize = () => {
+      updateHeight();
+    };
+
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("zoom", handleResize);
+
     return () => {
-      window.removeEventListener('resize', updateHeight);
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("zoom", handleResize);
     };
   }, [index]);
+
+  useEffect(() => {
+    updateHeight();
+  }, [children, index]);
+
+  useEffect(() => {
+    if (inView) {
+      updateHeight();
+    }
+  }, [inView]);
 
   return (
     <>
@@ -84,7 +103,7 @@ const FeaturedContentSlider: React.FC<FeaturedContentSliderProps> = ({
               opacity: { duration: 0.2 },
             }}
             variants={variants}
-            className="absolute z-10 left-0 top-0 h-fit w-full pb-5"
+            className="absolute left-0 top-0 z-10 w-full pb-5"
           >
             {children[index]}
           </motion.div>
@@ -96,7 +115,7 @@ const FeaturedContentSlider: React.FC<FeaturedContentSliderProps> = ({
         transition={{ duration: 0.5, delay: 0.5 }}
         viewport={{ once: true }}
         variants={variants}
-        className="flex w-full justify-center mt-4 md:mt-8"
+        className="mt-4 flex w-full justify-center md:mt-8"
       >
         <DotPagination
           count={children.length}

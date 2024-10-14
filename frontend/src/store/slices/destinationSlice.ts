@@ -5,7 +5,7 @@ interface DestinationsState {
   currentDestination: Destination | null;
   destinations: Destination[];
   allDestinations: Destination[];
-  homeFeaturedDestinations: Destination[];
+  featuredDestinations: Destination[];
   totalDestinations: number;
   loading: boolean;
   error: string | null;
@@ -15,7 +15,7 @@ const initialState: DestinationsState = {
   currentDestination: null,
   destinations: [],
   allDestinations: [],
-  homeFeaturedDestinations: [],
+  featuredDestinations: [],
   totalDestinations: 0,
   loading: false,
   error: null,
@@ -34,8 +34,8 @@ const destinationsSlice = createSlice({
     setAllDestinations: (state, action: PayloadAction<Destination[]>) => {
       state.allDestinations = action.payload;
     },
-    setHomeFeaturedDestinations: (state, action: PayloadAction<Destination[]>) => {
-      state.homeFeaturedDestinations = action.payload;
+    setFeaturedDestinations: (state, action: PayloadAction<Destination[]>) => {
+      state.featuredDestinations = action.payload;
     },
     setTotalDestinations: (state, action: PayloadAction<number>) => {
       state.totalDestinations = action.payload;
@@ -54,7 +54,7 @@ export const {
   setDestinations,
   setAllDestinations,
   setTotalDestinations,
-  setHomeFeaturedDestinations,
+  setFeaturedDestinations,
   setLoading,
   setError,
 } = destinationsSlice.actions;
