@@ -75,7 +75,7 @@ const Footer = () => {
   const { showNotification } = useNotification();
   const handleSubscribe = async (email: string) => {
     try {
-      const res = await fetch(`${BASE_URL}/feedback`, {
+      const res = await fetch(`${BASE_URL}/subscribe`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -122,7 +122,7 @@ const Footer = () => {
           <input
             type="email"
             id="subscribe-email"
-            className="input p-regular border-0 bg-transparent focus:outline-none"
+            className="input p-regular border-0 bg-transparent focus:outline-none invalid:text-main-brown valid:text-main-green"
             onFocus={() => {
               const input = document.getElementById("subscribe-email");
               if (input) {
