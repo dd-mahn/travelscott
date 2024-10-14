@@ -116,3 +116,12 @@ export const TapVariants = {
     },
   },
 };
+
+export const BlobVariants = {
+  blob: {
+    scale: [1, 1.5, 1],
+    opacity: [0.6, 0.7, 0.6],
+    zIndex: [0, 0, 0],
+    transition: { duration: 5, repeat: Infinity },
+  },
+};
