@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document } from "mongoose";
-import { IFeedback as IFeedbackBase } from "../types/feedback";
+import { IFeedback as IFeedbackBase } from "src/types/feedback";
 
 export interface IFeedback extends IFeedbackBase, Document {}
 

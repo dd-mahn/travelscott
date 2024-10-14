@@ -5,7 +5,8 @@ import destinationRoutes from "src/routes/destination";
 import feedbackRoutes from "src/routes/feedback";
 import blogRoutes from "src/routes/blog";
 import countryRoutes from "src/routes/country";
-import { errorHandler } from "./errorHandler";
+import subscribeRoutes from "src/routes/subscribe";
+import { errorHandler } from "src/utils/errorHandler";
 
 export const corsOptions = {
   origin: true,
@@ -20,6 +21,7 @@ export const setupMiddleware = (app) => {
   app.use("/api/feedback", feedbackRoutes);
   app.use("/api/blogs", blogRoutes);
   app.use("/api/countries", countryRoutes);
+  app.use("/api/subscribe", subscribeRoutes);
 
   // Error handling middleware
   app.use(errorHandler);

@@ -1,3 +1,3 @@
-import startServer from "./utils/server";
+import startServer from "src/utils/server";
 
 startServer();

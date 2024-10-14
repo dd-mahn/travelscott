@@ -24,13 +24,28 @@ export const createDestination = async (req: Request, res: Response) => {
   try {
     const destination = new Destination(req.body);
     await destination.save();
-    sendSuccessResponse(res, "Destination created successfully", destination, 201);
+    sendSuccessResponse(
+      res,
+      "Destination created successfully",
+      destination,
+      201
+    );
   } catch (error) {
     console.error(error);
     if (error instanceof Error) {
-      sendErrorResponse(res, "Failed to create destination", 500, error.message);
+      sendErrorResponse(
+        res,
+        "Failed to create destination",
+        500,
+        error.message
+      );
     } else {
-      sendErrorResponse(res, "Failed to create destination", 500, "An unknown error occurred");
+      sendErrorResponse(
+        res,
+        "Failed to create destination",
+        500,
+        "An unknown error occurred"
+      );
     }
   }
 };
@@ -43,6 +58,7 @@ type GetDestinationsRequest = {
   searchQuery?: string;
   page?: string;
   limit?: string;
+  featured?: string; // Add featured query
 };
 
 export const getDestinations = async (req: Request, res: Response) => {
@@ -54,6 +70,7 @@ export const getDestinations = async (req: Request, res: Response) => {
       searchQuery,
       page = DEFAULT_PAGE,
       limit = DEFAULT_LIMIT,
+      featured, // Destructure featured query
     }: GetDestinationsRequest = req.query;
 
     const pageNumber = parseInt(page);
@@ -63,6 +80,7 @@ export const getDestinations = async (req: Request, res: Response) => {
       country?: { $in: RegExp[] };
       continent?: { $in: RegExp[] };
       tags?: { $in: RegExp[] };
+      featured?: boolean; // Add featured filter
       $or?: { name?: RegExp; country?: RegExp; continent?: RegExp }[];
     };
 
@@ -85,6 +103,10 @@ export const getDestinations = async (req: Request, res: Response) => {
       filter.$or = [{ name: regex }, { country: regex }, { continent: regex }];
     }
 
+    if (featured) {
+      filter.featured = featured === "true"; // Convert string to boolean
+    }
+
     const skip = (pageNumber - 1) * limitNumber;
 
     const destinations = await Destination.find(filter)
@@ -103,9 +125,19 @@ export const getDestinations = async (req: Request, res: Response) => {
   } catch (error) {
     console.error(error);
     if (error instanceof Error) {
-      sendErrorResponse(res, "Failed to retrieve destinations", 500, error.message);
+      sendErrorResponse(
+        res,
+        "Failed to retrieve destinations",
+        500,
+        error.message
+      );
     } else {
-      sendErrorResponse(res, "Failed to retrieve destinations", 500, "An unknown error occurred");
+      sendErrorResponse(
+        res,
+        "Failed to retrieve destinations",
+        500,
+        "An unknown error occurred"
+      );
     }
   }
 };
@@ -121,9 +153,19 @@ export const getSingleDestination = async (req: Request, res: Response) => {
   } catch (error) {
     console.error(error);
     if (error instanceof Error) {
-      sendErrorResponse(res, "Failed to retrieve destination", 500, error.message);
+      sendErrorResponse(
+        res,
+        "Failed to retrieve destination",
+        500,
+        error.message
+      );
     } else {
-      sendErrorResponse(res, "Failed to retrieve destination", 500, "An unknown error occurred");
+      sendErrorResponse(
+        res,
+        "Failed to retrieve destination",
+        500,
+        "An unknown error occurred"
+      );
     }
   }
 };
@@ -132,6 +174,7 @@ export const getSingleDestination = async (req: Request, res: Response) => {
 type updateData = {
   name?: string;
   country?: string;
+  video?: string;
   continent?: string;
   location?: string;
   description?: string;
@@ -157,9 +200,19 @@ export const updateDestination = async (req: Request, res: Response) => {
   } catch (error) {
     console.error(error);
     if (error instanceof Error) {
-      sendErrorResponse(res, "Failed to update destination", 500, error.message);
+      sendErrorResponse(
+        res,
+        "Failed to update destination",
+        500,
+        error.message
+      );
     } else {
-      sendErrorResponse(res, "Failed to update destination", 500, "An unknown error occurred");
+      sendErrorResponse(
+        res,
+        "Failed to update destination",
+        500,
+        "An unknown error occurred"
+      );
     }
   }
 };
@@ -175,9 +228,19 @@ export const deleteDestination = async (req: Request, res: Response) => {
   } catch (error) {
     console.error(error);
     if (error instanceof Error) {
-      sendErrorResponse(res, "Failed to delete destination", 500, error.message);
+      sendErrorResponse(
+        res,
+        "Failed to delete destination",
+        500,
+        error.message
+      );
     } else {
-      sendErrorResponse(res, "Failed to delete destination", 500, "An unknown error occurred");
+      sendErrorResponse(
+        res,
+        "Failed to delete destination",
+        500,
+        "An unknown error occurred"
+      );
     }
   }
 };
@@ -190,9 +253,19 @@ export const deleteAllDestinations = async (req: Request, res: Response) => {
   } catch (error) {
     console.error(error);
     if (error instanceof Error) {
-      sendErrorResponse(res, "Failed to delete all destinations", 500, error.message);
+      sendErrorResponse(
+        res,
+        "Failed to delete all destinations",
+        500,
+        error.message
+      );
     } else {
-      sendErrorResponse(res, "Failed to delete all destinations", 500, "An unknown error occurred");
+      sendErrorResponse(
+        res,
+        "Failed to delete all destinations",
+        500,
+        "An unknown error occurred"
+      );
     }
   }
 };
@@ -207,13 +280,27 @@ export const updateDestinationPlaces = async (req: Request, res: Response) => {
     const places: DestinationPlace = req.body;
     destination.places = places;
     await destination.save();
-    sendSuccessResponse(res, "Destination places updated successfully", destination.places);
+    sendSuccessResponse(
+      res,
+      "Destination places updated successfully",
+      destination.places
+    );
   } catch (error) {
     console.error(error);
     if (error instanceof Error) {
-      sendErrorResponse(res, "Failed to update destination places", 500, error.message);
+      sendErrorResponse(
+        res,
+        "Failed to update destination places",
+        500,
+        error.message
+      );
     } else {
-      sendErrorResponse(res, "Failed to update destination places", 500, "An unknown error occurred");
+      sendErrorResponse(
+        res,
+        "Failed to update destination places",
+        500,
+        "An unknown error occurred"
+      );
     }
   }
 };
@@ -232,13 +319,27 @@ export const updateDestinationTransportation = async (
     const transportation: DestinationTransportation = req.body;
     destination.transportation = transportation;
     await destination.save();
-    sendSuccessResponse(res, "Destination transportation updated successfully", destination.transportation);
+    sendSuccessResponse(
+      res,
+      "Destination transportation updated successfully",
+      destination.transportation
+    );
   } catch (error) {
     console.error(error);
     if (error instanceof Error) {
-      sendErrorResponse(res, "Failed to update destination transportation", 500, error.message);
+      sendErrorResponse(
+        res,
+        "Failed to update destination transportation",
+        500,
+        error.message
+      );
     } else {
-      sendErrorResponse(res, "Failed to update destination transportation", 500, "An unknown error occurred");
+      sendErrorResponse(
+        res,
+        "Failed to update destination transportation",
+        500,
+        "An unknown error occurred"
+      );
     }
   }
 };
@@ -254,13 +355,27 @@ export const updateDestinationInsight = async (req: Request, res: Response) => {
     const insight: DestinationInsight = req.body;
     destination.insight = insight;
     await destination.save();
-    sendSuccessResponse(res, "Destination insight updated successfully", destination.insight);
+    sendSuccessResponse(
+      res,
+      "Destination insight updated successfully",
+      destination.insight
+    );
   } catch (error) {
     console.error(error);
     if (error instanceof Error) {
-      sendErrorResponse(res, "Failed to update destination insight", 500, error.message);
+      sendErrorResponse(
+        res,
+        "Failed to update destination insight",
+        500,
+        error.message
+      );
     } else {
-      sendErrorResponse(res, "Failed to update destination insight", 500, "An unknown error occurred");
+      sendErrorResponse(
+        res,
+        "Failed to update destination insight",
+        500,
+        "An unknown error occurred"
+      );
     }
   }
 };
@@ -324,13 +439,27 @@ export const updateDestinationImages = async (req: Request, res: Response) => {
     await destination.save();
     console.log("Destination Images saved successfully");
 
-    sendSuccessResponse(res, "Destination images updated successfully", destination);
+    sendSuccessResponse(
+      res,
+      "Destination images updated successfully",
+      destination
+    );
   } catch (error) {
     console.error(error); // log the error details on the server
     if (error instanceof Error) {
-      sendErrorResponse(res, "Failed to update destination images", 500, error.message);
+      sendErrorResponse(
+        res,
+        "Failed to update destination images",
+        500,
+        error.message
+      );
     } else {
-      sendErrorResponse(res, "Failed to update destination images", 500, "An unknown error occurred");
+      sendErrorResponse(
+        res,
+        "Failed to update destination images",
+        500,
+        "An unknown error occurred"
+      );
     }
   }
 };
@@ -351,7 +480,11 @@ export const getDestinationBySearch = async (req: Request, res: Response) => {
     }
 
     if (!name && !country) {
-      return sendErrorResponse(res, "Please provide a name or country to search", 400);
+      return sendErrorResponse(
+        res,
+        "Please provide a name or country to search",
+        400
+      );
     }
 
     const destinations = await Destination.find(query);
@@ -360,13 +493,25 @@ export const getDestinationBySearch = async (req: Request, res: Response) => {
       return sendErrorResponse(res, "No destinations found", 404);
     }
 
-    sendSuccessResponse(res, "Destinations retrieved successfully", { result: destinations });
+    sendSuccessResponse(res, "Destinations retrieved successfully", {
+      result: destinations,
+    });
   } catch (error) {
     console.error(error);
     if (error instanceof Error) {
-      sendErrorResponse(res, "Failed to search destinations", 500, error.message);
+      sendErrorResponse(
+        res,
+        "Failed to search destinations",
+        500,
+        error.message
+      );
     } else {
-      sendErrorResponse(res, "Failed to search destinations", 500, "An unknown error occurred");
+      sendErrorResponse(
+        res,
+        "Failed to search destinations",
+        500,
+        "An unknown error occurred"
+      );
     }
   }
 };

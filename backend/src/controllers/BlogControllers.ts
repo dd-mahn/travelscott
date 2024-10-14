@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import Blog from "../models/Blog";
-import { sendSuccessResponse, sendErrorResponse } from "../utils/apiResponse";
-import { blogContent, updateData } from "../types/blog";
+import Blog from "src/models/Blog";
+import { sendSuccessResponse, sendErrorResponse } from "src/utils/apiResponse";
+import { blogContent, updateData } from "src/types/blog";
 
 const DEFAULT_PAGE = 1;
 const DEFAULT_LIMIT = 10;

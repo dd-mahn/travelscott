@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import Feedback from "../models/Feedback";
-import { sendSuccessResponse, sendErrorResponse } from "../utils/apiResponse";
+import Feedback from "src/models/Feedback";
+import { sendSuccessResponse, sendErrorResponse } from "src/utils/apiResponse";
 
 // Create feedback
 export const createFeedback = async (req: Request, res: Response) => {

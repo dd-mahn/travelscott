@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document } from "mongoose";
-import { IBlog as IBlogBase } from "../types/blog";
-import { getCurrentDate } from "../utils/getCurrentDate";
+import { IBlog as IBlogBase } from "src/types/blog";
+import { getCurrentDate } from "src/utils/getCurrentDate";
 
 export interface IBlog extends IBlogBase, Document {}
 

@@ -1,7 +1,7 @@
 import express from "express"
-import * as blogController from "../controllers/BlogControllers"
-import { validateRequest } from "../utils/validationMiddleware"
-import { blogSchema } from "../utils/validationSchemas"
+import * as blogController from "src/controllers/BlogControllers"
+import { validateRequest } from "src/utils/validationMiddleware"
+import { blogSchema } from "src/utils/validationSchemas"
 
 const router = express.Router()
 

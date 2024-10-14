@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import Country from "../models/Country";
-import Destination from "../models/Destination";
-import { sendSuccessResponse, sendErrorResponse } from "../utils/apiResponse";
-import s3 from "../utils/aws";
+import Country from "src/models/Country";
+import Destination from "src/models/Destination";
+import { sendSuccessResponse, sendErrorResponse } from "src/utils/apiResponse";
+import s3 from "src/utils/aws";
 import path from "path";
 import fs from "fs";
 

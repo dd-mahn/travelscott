@@ -1,7 +1,7 @@
 import express from "express";
-import * as destinationController from "../controllers/DestinationControllers";
-import { validateRequest } from "../utils/validationMiddleware";
-import { destinationSchema } from "../utils/validationSchemas";
+import * as destinationController from "src/controllers/DestinationControllers";
+import { validateRequest } from "src/utils/validationMiddleware";
+import { destinationSchema } from "src/utils/validationSchemas";
 
 const router = express.Router();
 
