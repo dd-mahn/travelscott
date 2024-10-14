@@ -2,6 +2,7 @@ import React, { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import App from "src/App";
 import Layout from "src/components/Layout/Layout";
+import PrivacyPolicy from "src/pages/PrivacyPolicy";
 
 const About = lazy(() => import("src/pages/About"));
 const Contact = lazy(() => import("src/pages/Contact"));
@@ -79,6 +80,14 @@ const router = createBrowserRouter([
         element: (
           <Suspense fallback={<div className="h-screen w-screen"></div>}>
             <Article />{" "}
+          </Suspense>
+        ),
+      },
+      {
+        path: "/privacy",
+        element: (
+          <Suspense fallback={<div className="h-screen w-screen"></div>}>
+            <PrivacyPolicy />{" "}
           </Suspense>
         ),
       },
