@@ -22,13 +22,11 @@ export default function StaggerLogo({
 
   useEffect(() => {
     const handleResize = () => {
-      requestAnimationFrame(resizeText);
+      resizeText();
     };
 
-    requestAnimationFrame(() => {
-      resizeText();
-      window.addEventListener("resize", handleResize);
-    });
+    resizeText();
+    window.addEventListener("resize", handleResize);
 
     return () => {
       window.removeEventListener("resize", handleResize);
@@ -58,13 +56,15 @@ export default function StaggerLogo({
       }
     }
 
+    // Ensure the font size is set correctly after the loop
+    textElement.style.fontSize = max + "px";
     setFontSize(max);
   };
 
   return (
     <div
       ref={containerRef}
-      className={`pointer-events-none flex w-full items-center justify-start overflow-y-hidden font-logo leading-[1] ${containerClassName}`}
+      className={`pointer-events-none flex w-screen items-center justify-start overflow-y-hidden font-logo leading-[1] ${containerClassName}`}
     >
       <div
         ref={textRef}
