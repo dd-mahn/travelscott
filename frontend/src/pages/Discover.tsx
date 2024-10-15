@@ -4,8 +4,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import "src/styles/discover.css";
 import { BASE_URL } from "src/utils/config";
 import {
-  getFeaturedDestinations,
   getCountryByContinent,
+  getFeaturedDestinations,
 } from "src/utils/filterUtils";
 import { FetchCountriesType, FetchDestinationType } from "src/types/FetchData";
 import NotFoundPage from "./404";
@@ -15,7 +15,7 @@ import DiscoverCountries from "./DiscoverComponents/DiscoverCountries";
 import useFetch from "src/hooks/useFetch";
 import DiscoverPoster from "./DiscoverComponents/DiscoverPoster";
 import { setCountries } from "src/store/slices/countrySlice";
-import { setAllDestinations } from "src/store/slices/destinationSlice";
+import { setAllDestinations, setFeaturedDestinations } from "src/store/slices/destinationSlice";
 import { setContinents } from "src/store/slices/continentSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "src/store/store";
@@ -25,7 +25,7 @@ import { continents } from "src/utils/continents";
 const Discover: React.FC = () => {
   const dispatch = useDispatch();
   const { countries } = useSelector((state: RootState) => state.country);
-  const { allDestinations } = useSelector(
+  const { allDestinations, featuredDestinations } = useSelector(
     (state: RootState) => state.destination,
   );
 
@@ -50,6 +50,7 @@ const Discover: React.FC = () => {
 
     if (allDestinationData) {
       dispatch(setAllDestinations(allDestinationData.result));
+      dispatch(setFeaturedDestinations(getFeaturedDestinations(allDestinationData.result)));
     }
   }, [allDestinationData, countryData]);
 
@@ -65,11 +66,6 @@ const Discover: React.FC = () => {
     }
   }, [countries, continents, dispatch]);
 
-  // Handle featured destinations
-  const featuredDestinations = useMemo(() => {
-    return getFeaturedDestinations(allDestinations);
-  }, [allDestinations]);
-
   // Handle render
   if (countryLoading || allDestinationLoading) {
     return <Loading />;
@@ -82,7 +78,7 @@ const Discover: React.FC = () => {
   return (
     <main className="discover">
       {/* POSTER SECTION */}
-      <DiscoverPoster featuredDestinations={featuredDestinations} />
+      <DiscoverPoster featuredDestinations={featuredDestinations || getFeaturedDestinations(allDestinations)} />
 
       {/* COUNTRY SECTION */}
       <DiscoverCountries />
