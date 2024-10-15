@@ -1,10 +1,12 @@
+/* Import Google Fonts */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 
+/* Import Tailwind CSS */
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-/* CUSTOM FONTS FACE */
+/* Custom Font Faces */
 @font-face {
   font-family: "Kaushan Script";
   src: url("./fonts/KaushanScript/KaushanScript-Regular.ttf") format("opentype");
@@ -61,8 +63,7 @@
   font-display: swap;
 }
 
-/* DEFAULT */
-
+/* Default Theme Variables */
 :root {
   --transparent: transparent;
   --background-dark: #1e2125;
@@ -82,145 +83,44 @@
   --gray: #969696;
   --aurora-green: #90b37f;
   --aurora-brown: #e7aa75b2;
-  --aurora-brown-gradient: radial-gradient(
-    circle at 50% 50%,
-    var(--aurora-brown),
-    rgba(76, 0, 255, 0)
-  );
-  --aurora-green-gradient: radial-gradient(
-    circle at 50% 50%,
-    var(--aurora-green),
-    rgba(76, 0, 255, 0)
-  );
-  --space-gradient: linear-gradient(
-    180deg,
-    rgb(0, 0, 0) 0%,
-    rgb(62.05, 75.92, 102.85) 100%
-  );
+  --aurora-brown-gradient: radial-gradient(circle at 50% 50%, var(--aurora-brown), rgba(76, 0, 255, 0));
+  --aurora-green-gradient: radial-gradient(circle at 50% 50%, var(--aurora-green), rgba(76, 0, 255, 0));
+  --space-gradient: linear-gradient(180deg, rgb(0, 0, 0) 0%, rgb(62.05, 75.92, 102.85) 100%);
   --image-gradient: linear-gradient(to top, #263238, #969696);
 
-  /* Inspiration */
-  --inspiration-gradient: linear-gradient(
-    180deg,
-    rgb(10.02, 10.23, 10.38) 0%,
-    rgb(70.95, 96.12, 114.35) 50%,
-    rgb(251, 249, 247) 100%
-  );
-  --inspiration-gradient-dark: linear-gradient(
-    180deg,
-    rgb(10.02, 10.23, 10.38) 0%,
-    rgb(70.95, 96.12, 114.35) 50%,
-    var(--background-dark) 100%
-  );
+  /* Inspiration Gradients */
+  --inspiration-gradient: linear-gradient(180deg, rgb(10.02, 10.23, 10.38) 0%, rgb(70.95, 96.12, 114.35) 50%, rgb(251, 249, 247) 100%);
+  --inspiration-gradient-dark: linear-gradient(180deg, rgb(10.02, 10.23, 10.38) 0%, rgb(70.95, 96.12, 114.35) 50%, var(--background-dark) 100%);
 
-  /* Spring */
-  --spring-gradient: linear-gradient(
-    180deg,
-    rgba(239, 156, 102, 1) 0%,
-    rgba(200, 207, 160, 1) 50%,
-    rgba(251, 249, 247, 1) 100%
-  );
-  --spring-gradient-dark: linear-gradient(
-    180deg,
-    rgba(239, 156, 102, 1) 0%,
-    rgba(200, 207, 160, 1) 50%,
-    var(--background-dark) 100%
-  );
+  /* Spring Gradients */
+  --spring-gradient: linear-gradient(180deg, rgba(239, 156, 102, 1) 0%, rgba(200, 207, 160, 1) 50%, rgba(251, 249, 247, 1) 100%);
+  --spring-gradient-dark: linear-gradient(180deg, rgba(239, 156, 102, 1) 0%, rgba(200, 207, 160, 1) 50%, var(--background-dark) 100%);
 
-  --spring-summer-gradient: linear-gradient(
-    180deg,
-    rgba(200, 207, 160, 1) 0%,
-    rgba(120, 171, 168, 1) 50%,
-    rgba(251, 249, 247, 1) 100%
-  );
-  --spring-summer-gradient-dark: linear-gradient(
-    180deg,
-    rgba(200, 207, 160, 1) 0%,
-    rgba(120, 171, 168, 1) 50%,
-    var(--background-dark) 100%
-  );
+  --spring-summer-gradient: linear-gradient(180deg, rgba(200, 207, 160, 1) 0%, rgba(120, 171, 168, 1) 50%, rgba(251, 249, 247, 1) 100%);
+  --spring-summer-gradient-dark: linear-gradient(180deg, rgba(200, 207, 160, 1) 0%, rgba(120, 171, 168, 1) 50%, var(--background-dark) 100%);
 
-  /* Summer */
-  --summer-gradient: linear-gradient(
-    180deg,
-    rgba(54, 186, 152, 1) 0%,
-    rgba(233, 196, 106, 1) 50%,
-    rgba(251, 249, 247, 1) 100%
-  );
-  --summer-gradient-dark: linear-gradient(
-    180deg,
-    rgba(54, 186, 152, 1) 0%,
-    rgba(233, 196, 106, 1) 50%,
-    var(--background-dark) 100%
-  );
+  /* Summer Gradients */
+  --summer-gradient: linear-gradient(180deg, rgba(54, 186, 152, 1) 0%, rgba(233, 196, 106, 1) 50%, rgba(251, 249, 247, 1) 100%);
+  --summer-gradient-dark: linear-gradient(180deg, rgba(54, 186, 152, 1) 0%, rgba(233, 196, 106, 1) 50%, var(--background-dark) 100%);
 
-  --summer-fall-gradient: linear-gradient(
-    180deg,
-    rgb(0, 0, 51) 0%,
-    rgb(255, 165, 0) 50%,
-    rgb(251, 249, 247) 100%
-  );
-  --summer-fall-gradient-dark: linear-gradient(
-    180deg,
-    rgb(0, 0, 51) 0%,
-    rgb(255, 165, 0) 50%,
-    var(--background-dark) 100%
-  );
+  --summer-fall-gradient: linear-gradient(180deg, rgb(0, 0, 51) 0%, rgb(255, 165, 0) 50%, rgb(251, 249, 247) 100%);
+  --summer-fall-gradient-dark: linear-gradient(180deg, rgb(0, 0, 51) 0%, rgb(255, 165, 0) 50%, var(--background-dark) 100%);
 
-  /* Fall */
-  --fall-gradient: linear-gradient(
-    180deg,
-    rgb(51, 0, 0) 0%,
-    rgb(139, 69, 19) 50%,
-    rgb(251, 249, 247) 100%
-  );
-  --fall-gradient-dark: linear-gradient(
-    180deg,
-    rgb(51, 0, 0) 0%,
-    rgb(139, 69, 19) 50%,
-    var(--background-dark) 100%
-  );
+  /* Fall Gradients */
+  --fall-gradient: linear-gradient(180deg, rgb(51, 0, 0) 0%, rgb(139, 69, 19) 50%, rgb(251, 249, 247) 100%);
+  --fall-gradient-dark: linear-gradient(180deg, rgb(51, 0, 0) 0%, rgb(139, 69, 19) 50%, var(--background-dark) 100%);
 
-  --fall-winter-gradient: linear-gradient(
-    180deg,
-    rgb(43, 21, 21) 0%,
-    rgb(184, 134, 11) 50%,
-    rgb(251, 249, 247) 100%
-  );
-  --fall-winter-gradient-dark: linear-gradient(
-    180deg,
-    rgb(43, 21, 21) 0%,
-    rgb(184, 134, 11) 50%,
-    var(--background-dark) 100%
-  );
+  --fall-winter-gradient: linear-gradient(180deg, rgb(43, 21, 21) 0%, rgb(184, 134, 11) 50%, rgb(251, 249, 247) 100%);
+  --fall-winter-gradient-dark: linear-gradient(180deg, rgb(43, 21, 21) 0%, rgb(184, 134, 11) 50%, var(--background-dark) 100%);
 
-  /* Winter */
-  --winter-gradient: linear-gradient(
-    180deg,
-    rgba(38, 80, 115, 1) 0%,
-    rgba(45, 149, 150, 1) 50%,
-    rgba(251, 249, 247, 1) 100%
-  );
-  --winter-gradient-dark: linear-gradient(
-    180deg,
-    rgba(38, 80, 115, 1) 0%,
-    rgba(45, 149, 150, 1) 50%,
-    var(--background-dark) 100%
-  );
+  /* Winter Gradients */
+  --winter-gradient: linear-gradient(180deg, rgba(38, 80, 115, 1) 0%, rgba(45, 149, 150, 1) 50%, rgba(251, 249, 247, 1) 100%);
+  --winter-gradient-dark: linear-gradient(180deg, rgba(38, 80, 115, 1) 0%, rgba(45, 149, 150, 1) 50%, var(--background-dark) 100%);
 
-  --winter-spring-gradient: linear-gradient(
-    180deg,
-    rgba(6, 70, 53, 1) 0%,
-    rgba(240, 187, 98, 1) 50%,
-    rgba(251, 249, 247, 1) 100%
-  );
-  --winter-spring-gradient-dark: linear-gradient(
-    180deg,
-    rgba(6, 70, 53, 1) 0%,
-    rgba(240, 187, 98, 1) 50%,
-    var(--background-dark) 100%
-  );
+  --winter-spring-gradient: linear-gradient(180deg, rgba(6, 70, 53, 1) 0%, rgba(240, 187, 98, 1) 50%, rgba(251, 249, 247, 1) 100%);
+  --winter-spring-gradient-dark: linear-gradient(180deg, rgba(6, 70, 53, 1) 0%, rgba(240, 187, 98, 1) 50%, var(--background-dark) 100%);
 
+  /* Category Colors */
   --wilderness: #8ab17c;
   --cultureheritage: #97764f;
   --fooddrink: #b17c8c;
@@ -231,6 +131,7 @@
   --firsttimeabroad: #eb996e;
 }
 
+/* General Styles */
 .lenis-smooth .react-player::before {
   content: "";
   position: absolute;
@@ -256,7 +157,7 @@ body * {
   @apply transition-colors duration-500;
 }
 
-footer *{
+footer * {
   scrollbar-width: none;
 }
 
@@ -278,7 +179,7 @@ p {
   line-height: 1.2 !important;
 }
 
-/* SCROLLBAR */
+/* Scrollbar Styles */
 body::-webkit-scrollbar-track,
 .custom-scrollbar::-webkit-scrollbar-track {
   border-radius: 50px;
@@ -322,26 +223,26 @@ body::-webkit-scrollbar-thumb:hover,
   @apply bg-background-dark dark:bg-background-light;
 }
 
-/* TYPO CLASSES */
+/* Typography Classes */
 .big-heading {
   @apply font-prima font-bold uppercase text-6.5xl sm:text-7.5xl md:text-9xl lg:text-9xl xl:text-11xl 2xl:text-12xl 2xl:leading-snug 3xl:text-13xl 3xl:leading-snug;
   line-height: 1 !important;
 }
 
 .h1-md {
-  @apply font-prima font-semibold md:font-bold *:leading-[1] uppercase text-4.5xl sm:text-6.5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-8.5xl 3xl:text-9xl 3xl:tracking-wide;
+  @apply font-prima font-semibold *:leading-[0.8] md:font-bold uppercase text-4xl sm:text-6.5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-8.5xl 3xl:text-9xl 3xl:tracking-wide;
 }
 
 .h1-logo {
-  @apply font-logo font-semibold md:font-bold leading-[1] uppercase text-4.5xl sm:text-5.5xl md:text-6.5xl lg:text-6xl xl:text-7xl 2xl:text-8xl 3xl:text-9xl;
+  @apply font-logo font-semibold md:font-bold uppercase text-4xl sm:text-5.5xl md:text-6.5xl lg:text-6xl xl:text-7xl 2xl:text-8xl 3xl:text-9xl;
 }
 
 .h1-md-bold {
-  @apply font-prima font-semibold md:font-bold leading-[1] uppercase text-6xl sm:text-7xl md:text-8xl lg:text-8xl 2xl:text-10xl;
+  @apply font-prima font-bold md:font-bold uppercase text-4xl sm:text-5.5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-8.5xl 3xl:text-9xl 3xl:tracking-wide;
 }
 
 .h2-md {
-  @apply font-prima font-semibold tracking-normal leading-[1] text-1.5xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl;
+  @apply font-prima font-semibold tracking-normal text-1.5xl sm:text-2.5xl md:text-3.5xl lg:text-4xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl;
 }
 
 .h2-logo {
@@ -349,11 +250,11 @@ body::-webkit-scrollbar-thumb:hover,
 }
 
 .h2-inter {
-  @apply font-medium tracking-tight  text-1.5xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl;
+  @apply font-medium tracking-tight text-1.5xl sm:text-2.5xl md:text-3xl lg:text-4xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl;
 }
 
 .h3-md {
-  @apply font-prima font-semibold  leading-[1] tracking-tight text-xl sm:text-1.5xl md:text-2xl lg:text-3xl xl:text-3.5xl 2xl:text-4xl 3xl:text-4.5xl;
+  @apply font-prima font-semibold leading-[1] tracking-tight text-xl sm:text-1.5xl md:text-2xl lg:text-3xl xl:text-3.5xl 2xl:text-4xl 3xl:text-4.5xl;
 }
 
 .h3-inter {
@@ -420,13 +321,13 @@ body::-webkit-scrollbar-thumb:hover,
   -webkit-text-stroke: 4px #333333;
 } */
 
-/* BUTTON classes  */
+/* Button Classes */
 .btn {
-  @apply flex w-fit cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-md border-none py-2 text-xs font-medium uppercase tracking-wide shadow-component dark:shadow-component-dark px-2 md:px-3 md:text-sm lg:gap-2 lg:px-3 lg:py-2 lg:text-base gap-1 xl:gap-2 xl:px-4 xl:py-2 xl:text-base 2xl:gap-3 2xl:px-5 2xl:py-3 2xl:text-xl 3xl:gap-3 3xl:px-6 3xl:py-3 3xl:text-xl;
+  @apply flex w-fit cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-md border-none py-2 text-xs font-medium uppercase tracking-wide shadow-component dark:shadow-component-dark px-2 md:px-3 md:text-sm lg:gap-2 lg:px-3 lg:py-2 lg:text-base xl:gap-2 xl:px-4 xl:py-2 xl:text-base 2xl:gap-3 2xl:px-5 2xl:py-3 2xl:text-xl 3xl:gap-3 3xl:px-6 3xl:py-3 3xl:text-xl;
 }
 
 .page-btn {
-  @apply text-center font-medium dark:border-text-dark lg:h-8 lg:w-8 lg:rounded-lg lg:border lg:text-base xl:text-base 2xl:h-8 2xl:w-8 2xl:rounded-lg 2xl:border-2 2xl:text-lg 3xl:text-lg;
+  @apply text-center grid place-items-center font-medium leading-[0.8] dark:border-text-dark border h-6 w-6 rounded-md lg:h-8 lg:w-8 lg:rounded-lg lg:border lg:text-base xl:text-base 2xl:h-8 2xl:w-8 2xl:rounded-lg 2xl:border-2 2xl:text-lg 3xl:text-lg;
 }
 
 .page-btn.active {
@@ -435,9 +336,7 @@ body::-webkit-scrollbar-thumb:hover,
 
 .btn-primary {
   @apply bg-main-brown text-text-dark dark:bg-dark-brown;
-  box-shadow:
-    -2px 3px 6.2px 0px rgba(0, 0, 0, 0.25),
-    0px 4px 4px 0px rgba(255, 242, 242, 0.25) inset !important;
+  box-shadow: -2px 3px 6.2px 0px rgba(0, 0, 0, 0.25), 0px 4px 4px 0px rgba(255, 242, 242, 0.25) inset !important;
 }
 
 .btn-secondary {
@@ -455,10 +354,7 @@ body::-webkit-scrollbar-thumb:hover,
 .underline-btn::before {
   @apply absolute bottom-0 right-0 w-0 rounded-sm bg-text-light dark:bg-text-dark lg:h-[1.5px] 2xl:h-[2px];
   content: "";
-  transition:
-    right 0.4s,
-    width 0.4s,
-    left 0.4s;
+  transition: right 0.4s, width 0.4s, left 0.4s;
 }
 
 .underline-btn:hover::before {
@@ -466,7 +362,7 @@ body::-webkit-scrollbar-thumb:hover,
   left: 0;
 }
 
-/* LAYOUT classes */
+/* Layout Classes */
 .px-sect {
   @apply px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 3xl:px-24;
 }
@@ -491,7 +387,7 @@ body::-webkit-scrollbar-thumb:hover,
   @apply mr-6 md:mr-8 lg:mr-12 xl:mr-16 2xl:mr-20 3xl:mr-24;
 }
 
-/* OTHER ELEMENT classes */
+/* Other Element Classes */
 .blur-blob {
   position: absolute;
   z-index: 0;
