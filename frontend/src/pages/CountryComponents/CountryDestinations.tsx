@@ -96,7 +96,7 @@ const CountryDestinations: React.FC<CountryDestinationsProps> = ({ country }) =>
         </motion.h1>
       </div>
 
-      <div className="flex w-full flex-row justify-between pb-4 md:pb-8 md:pt-sect-short">
+      <div className="flex w-full flex-row z-50 justify-between pb-4 md:pb-8 md:pt-sect-short">
         <motion.p
           initial="hiddenY"
           whileInView="visible"

@@ -49,7 +49,7 @@ const DestinationCatalog: React.FC<DestinationCatalogProps> = ({
   );
 
   return (
-    <section className="min-h-[50svh] w-full" ref={sectionRef}>
+    <section className="min-h-[50svh] z-0 w-full" ref={sectionRef}>
       <AnimatePresence mode="wait">
         {loading ? (
           <LoadingState keyName={`loading-state-${currentPage}-${filterKey}`} />

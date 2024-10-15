@@ -120,7 +120,7 @@ const DiscoverDestinations: React.FC = () => {
         </motion.h1>
       </div>
 
-      <div className="flex w-full flex-row justify-between py-12 lg:py-sect-short">
+      <div className="flex w-full flex-row justify-between py-12 z-50 lg:py-sect-short">
         <motion.p
           initial="hiddenY"
           whileInView="visible"
@@ -136,6 +136,7 @@ const DiscoverDestinations: React.FC = () => {
           <DestinationFilter />
         </FilterButton>
       </div>
+
       <DestinationCatalog
         destinations={destinations}
         totalDestinations={totalDestinations}
