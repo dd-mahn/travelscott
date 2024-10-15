@@ -108,7 +108,7 @@ const DiscoverCountries: React.FC = () => {
           transition={{ duration: 0.5, delay: 0.4 }}
           variants={variants}
           viewport={{ once: true }}
-          className="grid place-items-center lg:w-1/6"
+          className="grid place-items-center z-50 lg:w-1/6"
         >
           {/* @ts-ignore */}
           <Select {...selectProps}>
@@ -125,7 +125,7 @@ const DiscoverCountries: React.FC = () => {
         </motion.div>
 
         {/* SELECTED COMPONENT AND COUNTRY LIST */}
-        <div className="w-full py-10 lg:py-10 2xl:py-sect-short">
+        <div className="z-0 w-full py-10 lg:py-10 2xl:py-sect-short">
           <AnimatePresence mode="wait">
             {loading ? (
               <LoadingState keyName={`loading-${filterKey}`} />
@@ -170,9 +170,8 @@ const DiscoverCountries: React.FC = () => {
                   viewport={{ once: true }}
                   transition={{
                     duration: 0.5,
-                    delay: 0.8,
-                    delayChildren: 1.2,
-                    staggerChildren: 0.3,
+                    delayChildren: 0.5,
+                    staggerChildren: 0.2,
                   }}
                   className="grid grid-cols-3 justify-between gap-2 sm:grid-cols-4 md:gap-4 lg:grid-cols-2 lg:gap-8 xl:grid-cols-3 2xl:grid-cols-3 2xl:gap-8 3xl:grid-cols-4"
                   aria-label="Country list"
