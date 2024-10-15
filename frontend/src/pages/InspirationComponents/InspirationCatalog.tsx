@@ -120,7 +120,7 @@ const InspirationCatalog: React.FC<InspirationCatalogProps> = memo(
               <motion.div
                 variants={variants}
                 transition={{ staggerChildren: 0.2 }}
-                className="grid grid-cols-2 justify-between gap-x-6 md:gap-x-8 gap-y-12 md:gap-y-20"
+                className="grid grid-cols-2 justify-between gap-x-4 gap-y-8 lg:gap-x-8 lg:gap-y-12 md:gap-y-20"
               >
                 {inspirationCatalogBlogs.map((blog) => (
                   <InspirationCard key={blog._id} blog={blog} />

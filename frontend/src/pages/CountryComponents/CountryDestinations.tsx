@@ -20,6 +20,7 @@ import {
 } from "src/utils/variants";
 import FilterButton from "src/common/FilterButton";
 import DestinationCatalog from "src/common/DestinationCatalog";
+import { useViewportWidth } from "src/utils/imageUtils";
 
 interface CountryDestinationsProps {
   country: Country;
@@ -41,6 +42,7 @@ const variants = {
 const limit = 18;
 
 const CountryDestinations: React.FC<CountryDestinationsProps> = ({ country }) => {
+  const viewportWidth = useViewportWidth();
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const { tags, searchQuery } = useSelector((state: RootState) => state.filter.destination);
@@ -103,9 +105,9 @@ const CountryDestinations: React.FC<CountryDestinationsProps> = ({ country }) =>
           variants={variants}
           transition={{ duration: 0.5, delay: 0.5 }}
           viewport={{ once: true }}
-          className="p-medium"
+          className="p-medium w-3/4 md:w-auto"
         >
-          Each destination we've covered here is fully filled <br />
+          Each destination we've covered here is fully filled {viewportWidth > 768 ? <br /> : ""}
           with significant information you will need
         </motion.p>
 

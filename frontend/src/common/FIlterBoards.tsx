@@ -399,7 +399,7 @@ export const InspirationFilter: React.FC<{ continentNames: string[] }> = memo(
           staggerChildren: 0.2,
           delayChildren: 0.5,
         }}
-        className="continent-filter flex w-3/4 flex-row flex-wrap items-center justify-center gap-2 rounded-xl px-2 py-4 shadow-component dark:shadow-component-dark sm:w-full sm:px-4 md:px-4 lg:gap-3 lg:rounded-2xl lg:px-12 lg:py-6 2xl:gap-4 2xl:rounded-3xl 2xl:px-sect-short 2xl:py-8"
+        className="continent-filter flex flex-row flex-wrap items-center justify-center gap-2 rounded-xl px-2 py-4 shadow-component dark:shadow-component-dark w-full sm:px-4 md:px-4 lg:gap-3 lg:rounded-2xl lg:px-12 lg:py-6 2xl:gap-4 2xl:rounded-3xl 2xl:px-sect-short 2xl:py-8"
       >
         {continentNames.map((continent) => (
           <motion.button

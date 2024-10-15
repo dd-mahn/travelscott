@@ -70,13 +70,13 @@ const FeaturedBlogs: React.FC<featuredBlogsProps> = ({ blogs }) => {
                 <motion.h2
                   whileHover={{ y: -3 }}
                   transition={{ duration: 0.3 }}
-                  className="cursor-hover-small h2-md cursor-pointer"
+                  className="cursor-hover-small h2-md cursor-pointer text-center leading-[0.9]"
                 >
                   {blog.title}
                 </motion.h2>
               </Link>
             </div>
-            <p className="p-regular md:w-2/3 lg:w-2/5 text-center">
+            <p className="p-regular md:w-2/3 lg:w-2/5 text-center mt-2">
               {blog.content?.[0]?.sectionText?.[0]}
             </p>
             <span className="span-regular flex items-center gap-2 lg:gap-3">
