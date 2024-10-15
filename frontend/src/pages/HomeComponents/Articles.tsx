@@ -174,12 +174,12 @@ const Articles: React.FC<ArticlesProps> = memo(({ articlesHookRef, blogs }) => {
               {blogChunks.map((chunk, chunkIndex) => (
                 <div
                   key={chunkIndex}
-                  className="px-sect grid h-[90svh] md:h-[80svh] w-screen grid-cols-2 gap-2 pb-4  md:gap-4 lg:gap-8"
+                  className="px-sect grid h-[60svh] md:h-[60svh] lg:h-[80svh] w-screen grid-cols-2 gap-2 pb-4  md:gap-4 lg:gap-8"
                 >
-                  <div className="pb-4 h-[90svh] md:h-[80svh]">
+                  <div className="pb-4 h-[60svh] md:h-[60svh] lg:h-[80svh]">
                     <RenderBlog blog={chunk[0]} isFeatured={true} />
                   </div>
-                  <div className="grid w-full h-[90svh] md:h-[80svh] grid-rows-3 items-stretch gap-2 md:gap-4 pb-4">
+                  <div className="grid w-full h-[60svh] md:h-[60svh] lg:h-[80svh] grid-rows-3 items-stretch gap-2 md:gap-4 pb-4">
                     {chunk.slice(1).map((blog) => (
                       <RenderBlog
                         key={blog._id}
