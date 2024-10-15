@@ -1,4 +1,4 @@
-import React, { memo, useState, useCallback, useMemo } from "react";
+import React, { memo, useState, useCallback, useMemo, useEffect, useRef } from "react";
 import {
   destinationPlace,
   placeToEat,
@@ -43,7 +43,7 @@ const CATEGORY_DESCRIPTIONS = {
 
 const DestinationPlaces: React.FC<DestinationPlacesProps> = ({ places }) => {
   // State to manage the current place category
-  const [placeCategory, setPlaceCategory] = useState("to_stay");
+  const [placeCategory, setPlaceCategory] = useState("to_visit");
 
   // Callback to handle place category change
   const handlePlaceCategoryChange = useCallback((category: string) => {
@@ -52,6 +52,26 @@ const DestinationPlaces: React.FC<DestinationPlacesProps> = ({ places }) => {
 
   // State to manage the current dialog
   const [currentDialog, setCurrentDialog] = useState<string | null>(null);
+  const scrollRef = useRef<number>(0);
+
+  // Effect to manage scroll event listener
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (currentDialog && Math.abs(currentScrollY - scrollRef.current) > window.innerHeight * 0.5) {
+        setCurrentDialog(null);
+      }
+    };
+
+    if (currentDialog) {
+      scrollRef.current = window.scrollY;
+      window.addEventListener('scroll', handleScroll);
+    }
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [currentDialog]);
 
   // Memoized selected category places
   const selectedCategoryPlaces = useMemo(() => {
@@ -125,7 +145,7 @@ const DestinationPlaces: React.FC<DestinationPlacesProps> = ({ places }) => {
               </div>
             </div>
 
-            <div className="mt-10 md:mt-20 grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-8 md:gap-x-8 md:gap-y-16">
+            <div className="mt-10 md:mt-20 grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-8 lg:gap-x-8 lg:gap-y-16">
               {selectedCategoryPlaces?.map((place, index) => (
                 <PlaceCard
                   key={index}
@@ -146,7 +166,7 @@ const DestinationPlaces: React.FC<DestinationPlacesProps> = ({ places }) => {
             exit="hidden"
             variants={variants}
             transition={{ duration: 0.5 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
             onClick={() => setCurrentDialog(null)}
           >
             <PlaceDialog
@@ -195,7 +215,7 @@ const PlaceCard: React.FC<{
             whileHover="hoverScale"
             variants={variants}
             transition={{ duration: 0.5 }}
-            className="cursor-hover-small h-[30svh] md:h-[50svh] cursor-pointer rounded-xl"
+            className="cursor-hover-small h-[30svh] lg:h-[50svh] cursor-pointer rounded-xl"
             src={optimizedImage.src}
             srcSet={optimizedImage.srcSet}
             alt="place image"

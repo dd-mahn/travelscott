@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState, useCallback } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
 import { VisibilityVariants } from "src/utils/variants";
 
@@ -32,7 +32,7 @@ const SlideRevealIconHeading = ({
 
   const textControl = useAnimation();
 
-  useEffect(() => {
+  const updateSlideValue = useCallback(() => {
     if (inViewed && textRef.current && iconRef.current) {
       const slideValue = iconRef.current.offsetWidth + 16;
       textControl.start("visible");
@@ -41,7 +41,18 @@ const SlideRevealIconHeading = ({
         transition: { duration: 0.5, ease: "circInOut", delay: 1 },
       });
     }
-  }, [inViewed]);
+  }, [inViewed, textControl]);
+
+  useEffect(() => {
+    updateSlideValue();
+  }, [inViewed, updateSlideValue]);
+
+  useEffect(() => {
+    window.addEventListener("resize", updateSlideValue);
+    return () => {
+      window.removeEventListener("resize", updateSlideValue);
+    };
+  }, [updateSlideValue]);
 
   return (
     <div className="relative">
@@ -52,7 +63,7 @@ const SlideRevealIconHeading = ({
         initial="hidden"
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 1.3 }}
-        className={`${iconClass} h1-md absolute left-0`}
+        className={`${iconClass} h1-md absolute left-0 `}
       ></motion.i>
 
       <div className="overflow-hidden">
@@ -60,7 +71,7 @@ const SlideRevealIconHeading = ({
           ref={textRef}
           variants={variants}
           initial="hiddenFullY"
-          className="h1-md"
+          className="h1-md leading-[1.2]"
           animate={textControl}
           transition={{ duration: 0.5 }}
         >

@@ -20,7 +20,7 @@ const DestinationSummary = ({ summary }: { summary: string }) => {
         headingText="Summary"
       />
       <div className="md:mt-sect-short grid place-items-center">
-        <div className="flex md:w-2/5 flex-col gap-8">
+        <div className="flex md:w-3/4 lg:w-2/5 flex-col gap-8">
           <motion.p
             className="p-medium w-full"
             initial="hidden"

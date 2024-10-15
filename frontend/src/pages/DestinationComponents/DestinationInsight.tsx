@@ -112,7 +112,7 @@ const DestinationInsight: React.FC<DestinationInsightProps> = ({
           From others
         </motion.h2>
         <motion.p
-          className="p-regular sm:w-3/4 md:w-2/5"
+          className="p-regular sm:w-3/4 lg:w-2/5"
           initial="hiddenY"
           whileInView="visible"
           viewport={{ once: true }}

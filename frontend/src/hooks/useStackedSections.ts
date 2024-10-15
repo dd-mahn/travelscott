@@ -1,11 +1,14 @@
-import { useRef, useEffect, useCallback } from 'react';
+import { useRef, useEffect, useCallback } from "react";
 
 function useStackedSections() {
   const sectionRefs = useRef<(HTMLElement | null)[]>([]);
 
-  const setRef = useCallback((index: number) => (el: HTMLElement | null) => {
-    sectionRefs.current[index] = el;
-  }, []);
+  const setRef = useCallback(
+    (index: number) => (el: HTMLElement | null) => {
+      sectionRefs.current[index] = el;
+    },
+    [],
+  );
 
   const updateSectionTops = useCallback(() => {
     let previousBottom = 0;
@@ -15,7 +18,10 @@ function useStackedSections() {
         if (section.offsetHeight < window.innerHeight) {
           topValue = 0;
         } else {
-          topValue = Math.min(previousBottom, window.innerHeight - section.offsetHeight);
+          topValue = Math.min(
+            previousBottom,
+            window.innerHeight - section.offsetHeight,
+          );
         }
         section.style.top = `${topValue}px`;
         previousBottom = topValue + section.offsetHeight;
@@ -30,28 +36,30 @@ function useStackedSections() {
       console.log("Initial update of section tops");
     }, 1000);
 
-    window.addEventListener('resize', updateSectionTops);
+    window.addEventListener("resize", updateSectionTops);
     return () => {
       clearTimeout(timer);
-      window.removeEventListener('resize', updateSectionTops);
+      window.removeEventListener("resize", updateSectionTops);
     };
   }, [updateSectionTops]);
 
-  useEffect(() => {
+  if (sectionRefs.current.length > 0) {
     const observer = new MutationObserver(() => {
       updateSectionTops();
       console.log("Mutation observed, updating section tops");
     });
-    sectionRefs.current.forEach(section => {
+    sectionRefs.current.forEach((section) => {
       if (section) {
-        observer.observe(section, { childList: true, subtree: true, attributes: true });
+        observer.observe(section, {
+          childList: true,
+          subtree: true,
+          attributes: true,
+        });
       }
     });
-    return () => observer.disconnect();
-  }, [updateSectionTops]);
+  }
 
   return { refs: sectionRefs, setRef };
 }
 
 export default useStackedSections;
-

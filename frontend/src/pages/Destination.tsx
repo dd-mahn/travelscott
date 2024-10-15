@@ -1,4 +1,4 @@
-import React, { useEffect, memo } from "react";
+import React, { useEffect, memo, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
@@ -28,7 +28,7 @@ import DestinationSummary from "./DestinationComponents/DestinationSummary";
 
 // Animation Variants
 import { VisibilityVariants } from "src/utils/variants";
-import { useSectionTransition, useSectionTransition2 } from "src/hooks/useSectionTransition";
+
 
 const variants = {
   hiddenY: VisibilityVariants.hiddenY,
@@ -66,9 +66,6 @@ const DestinationPage: React.FC = () => {
   // Handle sticky sections top value
   const { refs: stackedRefs, setRef } = useStackedSections();
 
-  // Handle section transition
-  const { ref: refS, scale: scaleS } = useSectionTransition2();
-  const { ref: refSO, scale: scaleSO, opacity: opacitySO } = useSectionTransition();
   // Render loading state
   if (loading) {
     return <Loading />;
@@ -81,7 +78,7 @@ const DestinationPage: React.FC = () => {
 
   // Render main content
   return (
-    <main className="destination">
+    <main className="destination relative">
       <DestinationHero destination={currentDestination} />
       <DestinationOverview destination={currentDestination} />
 
@@ -90,9 +87,9 @@ const DestinationPage: React.FC = () => {
       </motion.div>
 
       <section className="relative">
-        <section 
+        <section
           id="additional"
-          className="additional px-sect sticky top-0 grid h-[120svh] place-items-start pt-32 md:pt-sect-default"
+          className="additional px-sect sticky top-0 grid h-[120svh] place-items-start pt-32 lg:pt-sect-default"
         >
           <div className="grid grid-cols-1 gap-x-3 gap-y-10 md:grid-cols-2 md:gap-x-4 md:gap-y-16">
             {Object.entries(currentDestination.additionalInfo).map(
@@ -156,7 +153,7 @@ const DestinationPage: React.FC = () => {
         </div>
 
         <motion.div
-          className=""
+          className="mt-4"
           initial="hiddenY"
           whileInView="visible"
           viewport={{ once: true }}

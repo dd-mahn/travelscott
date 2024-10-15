@@ -30,7 +30,7 @@ const DestinationTransportation: React.FC<DestinationTransportationProps> = ({ t
   return (
     <section
       id="transportation"
-      className="transportation px-sect sticky rounded-3xl bg-light-brown dark:bg-background-dark-brown pt-sect-short shadow-section pb-20 lg:pb-40 2xl:pb-sect-short"
+      className="transportation px-sect sticky rounded-3xl bg-light-brown dark:bg-background-dark-brown pt-sect-short shadow-section pb-32 lg:pb-40 2xl:pb-sect-short"
     >
       <div className="md:mt-sect-short flex flex-col md:gap-8">
         <SlideRevealIconHeading

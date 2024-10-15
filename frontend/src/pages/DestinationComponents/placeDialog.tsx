@@ -45,11 +45,13 @@ const PlaceToStayDialog: React.FC<{ place: placeToStay }> = ({ place }) => {
   const { name, type, image_url, description, location, price, rating } = place;
   return (
     <DialogWrapper name={name} image_url={image_url}>
-      <div className="flex flex-col gap-4 px-4 sm:px-6 md:px-8">
+      <div className="flex flex-col gap-4 px-2 sm:px-4 md:px-6 lg:px-8">
         <DialogHeader name={name} type={type} rating={rating} />
         <DialogLocation location={location} />
         <DialogPrice price={price} />
-        <p className="p-regular mt-4 pb-4 sm:pb-6 md:pb-sect-short">{description}</p>
+        <p className="p-regular mt-4 pb-4 sm:pb-6 md:pb-sect-short">
+          {description}
+        </p>
       </div>
     </DialogWrapper>
   );
@@ -60,7 +62,7 @@ const PlaceToVisitDialog: React.FC<{ place: placeToVisit }> = ({ place }) => {
   const { name, type, image_url, description, location } = place;
   return (
     <DialogWrapper name={name} image_url={image_url}>
-      <div className="mt-4 flex flex-col gap-4 px-4 sm:px-6 md:px-8">
+      <div className="mt-4 flex flex-col gap-4 px-2 sm:px-4 md:px-6 lg:px-8">
         <DialogHeader name={name} type={type} />
         <DialogLocation location={location} />
         <p className="p-regular mt-4">{description}</p>
@@ -74,7 +76,7 @@ const PlaceToEatDialog: React.FC<{ place: placeToEat }> = ({ place }) => {
   const { name, type, image_url, description, location, price, rating } = place;
   return (
     <DialogWrapper name={name} image_url={image_url}>
-      <div className="flex flex-col gap-4 px-4 sm:px-6 md:px-8">
+      <div className="flex flex-col gap-4 px-4 sm:px-4 md:px-6 lg:px-8">
         <DialogHeader name={name} type={type} rating={rating} />
         <DialogLocation location={location} />
         <DialogPrice price={price} />
@@ -92,10 +94,10 @@ const DialogWrapper: React.FC<{
 }> = ({ name, image_url, children }) => (
   <motion.dialog
     open={true}
-    className="place-dialog custom-scrollbar h-[75svh] w-[90vw] sm:w-[80vw] md:w-[60svw] overflow-y-scroll rounded-xl pb-8"
+    className="place-dialog custom-scrollbar h-[85svh] w-[90vw] overflow-y-scroll rounded-xl pb-8 sm:w-[80vw] md:w-[60svw]"
   >
     <motion.div
-      className="dialog-content h-full w-full "
+      className="dialog-content h-full w-full"
       onClick={(e) => e.stopPropagation()}
     >
       <div className="h-2/5 bg-gradient-to-t from-blue-gray-900 to-gray">
@@ -116,8 +118,8 @@ const DialogHeader: React.FC<{
   type: string;
   rating?: Record<string, number>;
 }> = ({ name, type, rating }) => (
-  <div className="mt-4 flex justify-between">
-    <div className="flex flex-col gap-2">
+  <div className="mt-4 flex flex-col gap-2 lg:gap-4">
+    <div className="flex flex-col lg:gap-2">
       <motion.span
         variants={variants}
         initial="hidden"
@@ -138,7 +140,7 @@ const DialogHeader: React.FC<{
       </motion.h3>
     </div>
     {rating && (
-      <div className="grid grid-cols-2 items-center justify-end gap-x-2 gap-y-4 w-3/5 sm:w-2/5 2xl:w-1/3">
+      <div className="grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 items-center justify-start gap-x-2 gap-y-4">
         {Object.entries(rating).map(([website, rating], index) => (
           <motion.div
             key={website}
@@ -147,19 +149,22 @@ const DialogHeader: React.FC<{
             animate="visible"
             whileHover="hoverRotate"
             transition={{ duration: 0.3 }}
-            className="flex h-12 flex-row items-center gap-4 rounded-xl bg-background-light px-4 py-2 shadow-component dark:shadow-component-dark only:col-start-2"
+            className="flex h-8 sm:h-10 lg:h-12 items-center gap-4 sm:gap-8 rounded-xl bg-background-light px-2 shadow-component dark:shadow-component-dark"
           >
-            <img
-              src={
-                website === "booking.com"
-                  ? bookingImg
-                  : website === "agoda"
-                    ? agodaImg
-                    : tripadvisorImg
-              }
-              className="max-h-full max-w-[66.66%]"
-              alt=""
-            />
+            <div className="h-full p-1 grid place-items-center">
+              <img
+                src={
+                  website === "booking.com"
+                    ? bookingImg
+                    : website === "agoda"
+                      ? agodaImg
+                      : tripadvisorImg
+                }
+                className="h-full w-auto max-h-full max-w-full"
+                alt=""
+              />
+            </div>
+
             <span className="span-regular flex items-center gap-2">
               {rating}{" "}
               <i className="ri-shining-2-fill span-small text-yellow"></i>
@@ -185,7 +190,7 @@ const DialogLocation: React.FC<{
   >
     <i className="p-medium ri-map-pin-2-line"></i>
     <a
-      className="span-regular cursor-hover border-none outline-none"
+      className="span-regular cursor-hover border-none underline outline-none md:no-underline"
       href={location.on_map}
     >
       {location.address}
