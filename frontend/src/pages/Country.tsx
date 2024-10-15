@@ -64,16 +64,13 @@ const CountryPage: React.FC = () => {
   const { refs: stackedRefs, setRef } = useStackedSections();
 
   // Handle section transition
-  const {
-    ref: articleRef,
-    scale: scaleArticle,
-    opacity: opacityArticle,
-  } = useSectionTransition(["start end", "start center"], [0.7, 1], [0, 1]);
-  const {
-    ref: destinationRef,
-    scale: scaleDestination,
-    opacity: opacityDestination,
-  } = useSectionTransition(["start end", "start center"], [0.7, 1], [0, 1]);
+  const articlesRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress: articlesScrollYProgress } = useScroll({
+    target: articlesRef,
+    
+  });
+
+  const scaleArticles = useTransform(articlesScrollYProgress, [0, 1], [0.8, 1]);
 
   // Render logic
   if (loading) {
@@ -97,7 +94,6 @@ const CountryPage: React.FC = () => {
       {/* STACKED SECTIONS */}
       <section className="2xl:pt-30 relative lg:pt-sect-short">
         <motion.div
-          style={{ scale: scaleArticle, opacity: opacityArticle }}
           variants={variants}
           initial="hiddenY"
           whileInView="visible"
@@ -121,7 +117,6 @@ const CountryPage: React.FC = () => {
         </motion.div>
 
         <motion.section
-          style={{ scale: scaleArticle, opacity: opacityArticle }}
           ref={setRef(0)}
           className="sticky"
         >
@@ -129,17 +124,16 @@ const CountryPage: React.FC = () => {
         </motion.section>
 
         <motion.section
-          style={{ scale: scaleDestination, opacity: opacityDestination }}
           ref={setRef(1)}
           className="sticky"
         >
-          <div ref={articleRef}>
+          <div >
             <CountryArticles country={currentCountry} />
           </div>
         </motion.section>
 
         <section ref={setRef(2)} className="sticky">
-          <div ref={destinationRef}>
+          <div >
             <CountryDestinations country={currentCountry} />
           </div>
         </section>

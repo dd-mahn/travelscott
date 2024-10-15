@@ -115,7 +115,7 @@ const FeaturedContentSlider: React.FC<FeaturedContentSliderProps> = ({
         transition={{ duration: 0.5, delay: 0.5 }}
         viewport={{ once: true }}
         variants={variants}
-        className="mt-4 flex w-full justify-center md:mt-8"
+        className="mt-2 flex w-full justify-center md:mt-8"
       >
         <DotPagination
           count={children.length}

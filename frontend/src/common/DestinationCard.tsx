@@ -66,7 +66,7 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ destination }) => {
             {destination.name}
           </Link>
         </motion.span>
-        <div className="mt-2 md:mt-4 flex flex-row items-start justify-start gap-1 md:gap-2">
+        <div className="mt-2 md:mt-4 flex flex-row items-start flex-wrap justify-start gap-1 md:gap-2">
           {destination.tags && destination.tags.map((tag) => (
             <span
               key={tag}
