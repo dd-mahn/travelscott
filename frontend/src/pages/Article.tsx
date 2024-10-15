@@ -10,7 +10,11 @@ import NotFoundPage from "./404";
 import Loading from "src/common/Loading";
 import { VisibilityVariants } from "src/utils/variants";
 import { formatDate } from "src/utils/formatDate";
-import { useViewportWidth, getImageSize, optimizeImage } from "src/utils/imageUtils";
+import {
+  useViewportWidth,
+  getImageSize,
+  optimizeImage,
+} from "src/utils/imageUtils";
 
 // Define motion variants
 const variants = {
@@ -21,6 +25,7 @@ const variants = {
 };
 
 const Article: React.FC = () => {
+  const viewportWidth = useViewportWidth();
   const { id } = useParams();
 
   // Fetch blog data
@@ -34,20 +39,6 @@ const Article: React.FC = () => {
   if (blogLoading) return <Loading />;
   if (!blogData || blogError) return <NotFoundPage />;
 
-  const viewportWidth = useViewportWidth();
-
-  // Optimize the main image based on the viewport width and blog data
-  const optimizedMainImage = useMemo(() => {
-    if (blogData.image) {
-      return optimizeImage(blogData.image, {
-        width: getImageSize(viewportWidth),
-        quality: 80,
-        format: "auto",
-      });
-    }
-    return null;
-  }, [blogData.image, viewportWidth]);
-
   return (
     <main className="">
       {/* Blog header image */}
@@ -56,12 +47,20 @@ const Article: React.FC = () => {
         initial="hiddenY"
         animate="visible"
         transition={{ duration: 0.5 }}
-        className="h-[50svh] md:h-[75svh] bg-gradient-to-t from-blue-gray-900 to-gray"
+        className="h-[50svh] bg-gradient-to-t from-blue-gray-900 to-gray md:h-[75svh]"
       >
-        {optimizedMainImage && (
+        {blogData.image && (
           <img
-            src={optimizedMainImage.src}
-            srcSet={optimizedMainImage.srcSet}
+            src={optimizeImage(blogData.image, {
+              width: getImageSize(viewportWidth),
+              quality: 80,
+              format: "auto",
+            }).src}
+            srcSet={optimizeImage(blogData.image, {
+              width: getImageSize(viewportWidth),
+              quality: 80,
+              format: "auto",
+            }).srcSet}
             alt={blogData.title}
             className="h-full w-full object-cover"
           />
@@ -69,7 +68,7 @@ const Article: React.FC = () => {
       </motion.div>
 
       {/* Blog metadata */}
-      <div className="mt-12 md:mt-20 flex h-[20svh] lg:h-[35svh] flex-col items-center gap-2 lg:gap-2 2xl:gap-4">
+      <div className="mt-12 flex h-[20svh] flex-col items-center gap-2 md:mt-20 lg:h-[35svh] lg:gap-2 2xl:gap-4">
         <motion.span
           variants={variants}
           initial="hiddenY"
@@ -79,7 +78,7 @@ const Article: React.FC = () => {
         >
           {blogData.category}
         </motion.span>
-        <div className="overflow-hidden h-fit">
+        <div className="h-fit overflow-hidden">
           <motion.h2
             variants={variants}
             initial="hiddenFullY"
@@ -114,26 +113,18 @@ const Article: React.FC = () => {
       {/* Blog content */}
       <div className="flex flex-col items-center gap-20">
         {blogData.content.map((content, index) => {
-          const optimizedSectionImage = useMemo(() => {
-            if (content.sectionImages && content.sectionImages.length > 0) {
-              return optimizeImage(content.sectionImages[0].url, {
-                width: getImageSize(viewportWidth),
-                quality: 80,
-                format: "auto",
-              });
-            }
-            return null;
-          }, [content.sectionImages, viewportWidth]);
-
           return (
-            <div key={index} className="flex w-[90%] sm:w-3/4 lg:w-2/3 flex-col items-center gap-8 md:gap-12 lg:gap-20">
+            <div
+              key={index}
+              className="flex w-[90%] flex-col items-center gap-8 sm:w-3/4 md:gap-12 lg:w-2/3 lg:gap-20"
+            >
               <motion.div
                 variants={variants}
                 initial="hiddenY"
                 whileInView="visible"
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="flex lg:w-2/3 flex-col gap-4"
+                className="flex flex-col gap-4 lg:w-2/3"
               >
                 <h3 className="h3-md">{content.sectionTitle}</h3>
                 {content.sectionText.map((sectionText, index) => (
@@ -152,11 +143,19 @@ const Article: React.FC = () => {
                 transition={{ duration: 0.5 }}
                 className="flex flex-col items-center gap-2 md:gap-4"
               >
-                {optimizedSectionImage && (
+                {content.sectionImages && content.sectionImages.length > 0 && (
                   <img
                     className="w-full rounded-xl"
-                    src={optimizedSectionImage.src}
-                    srcSet={optimizedSectionImage.srcSet}
+                    src={optimizeImage(content.sectionImages[0].url, {
+                      width: getImageSize(viewportWidth),
+                      quality: 80,
+                      format: "auto",
+                    }).src}
+                    srcSet={optimizeImage(content.sectionImages[0].url, {
+                      width: getImageSize(viewportWidth),
+                      quality: 80,
+                      format: "auto",
+                    }).srcSet}
                     alt={content.sectionTitle}
                   />
                 )}
@@ -175,7 +174,7 @@ const Article: React.FC = () => {
           whileInView="visible"
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="flex w-[90%] sm:w-3/4 lg:w-2/3 justify-end border-t pt-2"
+          className="flex w-[90%] justify-end border-t pt-2 sm:w-3/4 lg:w-2/3"
         >
           <span className="span-large w-fit">By {" " + blogData.author}</span>
         </motion.div>
@@ -197,7 +196,7 @@ const Article: React.FC = () => {
             whileInView="visible"
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.5 }}
-            className="h2-md px-sect w-full text-center pb-4 lg:pb-8 2xl:pb-12"
+            className="h2-md px-sect w-full pb-4 text-center lg:pb-8 2xl:pb-12"
           >
             Related articles
           </motion.h2>

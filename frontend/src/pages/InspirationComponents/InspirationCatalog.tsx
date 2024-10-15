@@ -68,6 +68,10 @@ const InspirationCatalog: React.FC<InspirationCatalogProps> = memo(
       },
     );
 
+    useEffect(() => {
+      setCurrentPage(1);
+    }, [currentCategory, blogTags, searchQuery]);
+
     // Construct query parameters for fetching blogs
     const blogTagsQuery = blogTags.length > 0 ? blogTags.join(",") : "";
     const {

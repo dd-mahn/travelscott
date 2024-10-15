@@ -25,7 +25,7 @@ export const getBackgroundKey = (category: string): string => {
     "Culture&Heritage": "cultureheritage",
     "Food&Drink": "fooddrink",
     SoloJourneys: "solojourneys",
-    CityScape: "bg-cityscape",
+    CityScape: "cityscape",
     "Season&Festival": "seasonfestival",
     Relaxation: "relaxation",
     FirstTimeAbroad: "firsttimeabroad",

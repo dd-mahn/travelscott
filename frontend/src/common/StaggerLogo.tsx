@@ -72,7 +72,7 @@ export default function StaggerLogo({
     >
       <div
         ref={textRef}
-        className="whitespace-nowrap"
+        className="whitespace-nowrap w-screen"
         style={{ fontSize: `${fontSize * 0.95}px` }}
       >
         {text.split("").map((char, index) => (

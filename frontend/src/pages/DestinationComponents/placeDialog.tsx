@@ -95,7 +95,7 @@ const DialogWrapper: React.FC<{
 }> = ({ name, image_url, children }) => (
   <motion.dialog
     open={true}
-    className="place-dialog custom-scrollbar h-[85svh] w-[90vw] overflow-y-scroll rounded-xl pb-8 sm:w-[80vw] md:w-[60svw]"
+    className="place-dialog custom-scrollbar h-[85svh] w-[90vw] overflow-y-scroll bg-background-light dark:bg-background-dark rounded-xl pb-8 sm:w-[80vw] md:w-[60svw]"
   >
     <motion.div
       className="dialog-content h-full w-full"
@@ -150,7 +150,7 @@ const DialogHeader: React.FC<{
             animate="visible"
             whileHover="hoverRotate"
             transition={{ duration: 0.3 }}
-            className="flex h-8 sm:h-10 lg:h-12 items-center gap-4 sm:gap-8 rounded-xl bg-background-light px-2 shadow-component dark:shadow-component-dark"
+            className="flex h-8 sm:h-10 lg:h-12 items-center gap-4 sm:gap-8 rounded-xl bg-background-light dark:bg-gray px-2 shadow-component dark:shadow-component-dark"
           >
             <div className="h-full p-1 grid place-items-center">
               <img
@@ -168,7 +168,7 @@ const DialogHeader: React.FC<{
 
             <span className="span-regular flex items-center gap-2">
               {rating}{" "}
-              <i className="ri-shining-2-fill span-small text-yellow"></i>
+              <i className="ri-shining-2-fill span-small text-yellow dark:text-yellow"></i>
             </span>
           </motion.div>
         ))}

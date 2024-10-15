@@ -5,6 +5,7 @@ import BlogType from 'src/types/Blog';
 interface BlogState {
   allBlogs: BlogType[];
   inspirationCatalogBlogs: BlogType[];
+  filteredBlogs: BlogType[]; // New state for filtered blogs
   featuredBlogs: BlogType[];
   starterBlogs: BlogType[];
   homeBlogs: BlogType[];
@@ -15,6 +16,7 @@ interface BlogState {
 const initialState: BlogState = {
   allBlogs: [],
   inspirationCatalogBlogs: [],
+  filteredBlogs: [], // Initialize with an empty array
   featuredBlogs: [],
   starterBlogs: [],
   homeBlogs: [],
@@ -33,6 +35,10 @@ const blogSlice = createSlice({
     // Set the list of inspiration catalog blogs
     setInspirationCatalogBlogs: (state, action: PayloadAction<BlogType[]>) => {
       state.inspirationCatalogBlogs = action.payload;
+    },
+    // Set the list of filtered blogs
+    setFilteredBlogs: (state, action: PayloadAction<BlogType[]>) => {
+      state.filteredBlogs = action.payload;
     },
     // Set the list of featured blogs
     setFeaturedBlogs: (state, action: PayloadAction<BlogType[]>) => {
@@ -58,6 +64,7 @@ export const {
   setAllBlogs,
   setFeaturedBlogs,
   setInspirationCatalogBlogs,
+  setFilteredBlogs, // Export the new action
   setStarterBlogs,
   setHomeBlogs,
   setBlogChunks

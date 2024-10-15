@@ -39,6 +39,11 @@ const InspirationHero = ({ currentCategory }: { currentCategory: string }) => {
           .trim()}gradient${isDarkMode ? "-dark" : ""})`,
       };
 
+  // Define the gradient style for the overlay
+  const overlayGradient = isDarkMode
+    ? "linear-gradient(180deg, rgba(30, 33, 37, 0.5) 50%, #1e2125 100%)"
+    : "linear-gradient(180deg, rgb(10.02, 10.23, 10.38, 0.2) 50%, #FBF9F7 100%)";
+
   return (
     <motion.div
       initial="hidden"
@@ -55,8 +60,7 @@ const InspirationHero = ({ currentCategory }: { currentCategory: string }) => {
           transition={{ duration: 1 }}
           className="h-full w-full"
           style={{
-            background:
-              "linear-gradient(180deg,rgb(10.02, 10.23, 10.38, 0.2) 50%, #FBF9F7 100%)",
+            background: overlayGradient,
           }}
         />
       )}
