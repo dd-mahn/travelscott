@@ -45,9 +45,12 @@ const CountryDestinations: React.FC<CountryDestinationsProps> = ({ country }) =>
   const viewportWidth = useViewportWidth();
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
+
+  // Extracting necessary state from Redux store
   const { tags, searchQuery } = useSelector((state: RootState) => state.filter.destination);
   const { destinations, totalDestinations, loading, error } = useSelector((state: RootState) => state.destination);
 
+  // Constructing the URL for fetching destinations
   const url = useMemo(() => {
     let baseUrl = `${BASE_URL}/destinations?page=${currentPage}&limit=${limit}&countries=${country.name}`;
     if (tags.length > 0) {
@@ -59,8 +62,10 @@ const CountryDestinations: React.FC<CountryDestinationsProps> = ({ country }) =>
     return baseUrl;
   }, [currentPage, country.name, tags, searchQuery]);
 
+  // Fetching destination data
   const { data: destinationData, loading: destinationLoading, error: destinationError } = useFetch<FetchDestinationType>(url, [url]);
 
+  // Updating Redux store with fetched data
   useEffect(() => {
     if (destinationData) {
       dispatch(setDestinations(destinationData.result));
@@ -70,10 +75,12 @@ const CountryDestinations: React.FC<CountryDestinationsProps> = ({ country }) =>
     }
   }, [destinationData, destinationLoading, destinationError, dispatch]);
 
+  // Handling page change
   const handlePageChange = useCallback((newPage: number) => {
     setCurrentPage(newPage);
   }, []);
 
+  // Unique key for filtering
   const filterKey = `${currentPage}-${tags.join(",")}-${country.name}-${searchQuery}`;
 
   return (

@@ -48,7 +48,7 @@ const InspirationCard: React.FC<InspirationCardProps> = memo(({ blog }) => {
       <Link
         to={blogLink}
         target="_top"
-        className=" h-[30svh] md:h-[50svh] w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray shadow-section dark:shadow-section-dark"
+        className="h-[30svh] md:h-[50svh] w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray shadow-section dark:shadow-section-dark"
       >
         <motion.img
           whileHover="hoverScale"
@@ -78,7 +78,9 @@ const InspirationCard: React.FC<InspirationCardProps> = memo(({ blog }) => {
       </div>
 
       {/* Blog Content Preview */}
-      <p className="p-regular md:w-3/4 line-clamp-3 md:line-clamp-none">{blog.content?.[0]?.sectionText?.[0]}</p>
+      <p className="p-regular md:w-3/4 line-clamp-3 md:line-clamp-none">
+        {blog.content?.[0]?.sectionText?.[0]}
+      </p>
 
       {/* Blog Publish Time */}
       <span className="span-regular flex items-center gap-1 md:gap-3">

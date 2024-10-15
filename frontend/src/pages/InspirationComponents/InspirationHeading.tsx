@@ -12,7 +12,7 @@ const variants = {
 };
 
 // InspirationHeading component to display the heading based on the current category
-const InspirationHeading = ({ currentCategory }: { currentCategory: string }) => {
+const InspirationHeading: React.FC<{ currentCategory: string }> = ({ currentCategory }) => {
   // Determine the heading content based on the current category
   const headingContent = currentCategory === "All" ? (
     <SeasonHeading />

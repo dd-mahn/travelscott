@@ -3,6 +3,7 @@ import Slider from "react-slick";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import "src/common/style/related-section.css";
+
 // Component imports
 import useFetch from "src/hooks/useFetch";
 import { getImageSize, useViewportWidth, optimizeImage } from "src/utils/imageUtils";
@@ -83,8 +84,6 @@ const settings = {
         dots: false,
       },
     },
-
-    
   ],
 };
 
@@ -94,7 +93,7 @@ const isDestination = (data: any): data is Destination => data && data._id;
 const isCountry = (data: any): data is Country => data && data.name;
 const isContinent = (data: any): data is string => CONTINENTS.includes(data);
 
-// Components
+// Main component
 const RelatedSections: React.FC<{
   type: string;
   data: Blog | Country | Destination | string;
@@ -115,6 +114,7 @@ const RelatedSections: React.FC<{
   }
 };
 
+// RelatedCountries component
 const RelatedCountries: React.FC<{ country: Country }> = ({ country }) => {
   const viewportWidth = useViewportWidth();
   const {
@@ -129,9 +129,7 @@ const RelatedCountries: React.FC<{ country: Country }> = ({ country }) => {
     (c) => c.name !== country.name,
   );
 
-  if (countriesLoading) return null;
-  if (countriesError) return null;
-  if (!relatedCountries || relatedCountries.length === 0)
+  if (countriesLoading || countriesError || !relatedCountries || relatedCountries.length === 0) {
     return (
       <div className="">
         <p className="p-regular mt-4">
@@ -139,6 +137,7 @@ const RelatedCountries: React.FC<{ country: Country }> = ({ country }) => {
         </p>
       </div>
     );
+  }
 
   return (
     <>
@@ -167,6 +166,7 @@ const RelatedCountries: React.FC<{ country: Country }> = ({ country }) => {
   );
 };
 
+// RelatedDestinations component
 const RelatedDestinations: React.FC<{ destination: Destination }> = ({
   destination,
 }) => {
@@ -187,9 +187,7 @@ const RelatedDestinations: React.FC<{ destination: Destination }> = ({
     );
   }, [destinationsData, destination]);
 
-  if (destinationsLoading) return null;
-  if (destinationsError) return null;
-  if (!relatedDestinations || relatedDestinations.length === 0)
+  if (destinationsLoading || destinationsError || !relatedDestinations || relatedDestinations.length === 0) {
     return (
       <div className="px-sect grid place-items-center">
         <p className="p-regular mt-4">
@@ -197,6 +195,7 @@ const RelatedDestinations: React.FC<{ destination: Destination }> = ({
         </p>
       </div>
     );
+  }
 
   return (
     <>
@@ -225,6 +224,7 @@ const RelatedDestinations: React.FC<{ destination: Destination }> = ({
   );
 };
 
+// RelatedArticles component
 const RelatedArticles: React.FC<{
   data: Blog | Destination | Country | string;
 }> = ({ data }) => {
@@ -259,10 +259,9 @@ const RelatedArticles: React.FC<{
     return filtered;
   }, [blogData, data]);
 
-  if (blogLoading) return null;
-  if (blogError) return null;
-  if (!relatedBlogs || relatedBlogs.length === 0)
+  if (blogLoading || blogError || !relatedBlogs || relatedBlogs.length === 0) {
     return <div>There are no related articles at the moment.</div>;
+  }
 
   return (
     <>

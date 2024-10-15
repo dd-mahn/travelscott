@@ -9,7 +9,6 @@ const variants = {
   hiddenFullY: VisibilityVariants.hiddenFullY,
   hiddenLeft: VisibilityVariants.hiddenLeft,
   visible: VisibilityVariants.visible,
-
   blobAnimation: {
     scale: [1, 1.5, 1],
     opacity: [0.6, 0.7, 0.6],
@@ -23,14 +22,8 @@ const Quote = () => {
   const [inViewed, setInViewed] = useState([false, false]);
 
   // Refs for icon containers and their sibling elements
-  const iconContainerRefs = [
-    useRef<HTMLDivElement>(null),
-    useRef<HTMLDivElement>(null),
-  ];
-  const iconSiblingRefs = [
-    useRef<HTMLHeadingElement>(null),
-    useRef<HTMLHeadingElement>(null),
-  ];
+  const iconContainerRefs = [useRef<HTMLDivElement>(null), useRef<HTMLDivElement>(null)];
+  const iconSiblingRefs = [useRef<HTMLHeadingElement>(null), useRef<HTMLHeadingElement>(null)];
 
   // Animation controls for icon siblings
   const iconSiblingControls = [useAnimation(), useAnimation()];
@@ -91,12 +84,14 @@ const Quote = () => {
 
   return (
     <section className="quote px-sect relative flex flex-col gap-2 py-48 md:gap-4 lg:py-sect-default 2xl:py-sect-medium">
+      {/* Background blob animation */}
       <motion.div
         initial="hidden"
         animate="blobAnimation"
         variants={variants}
         className="blob-brown blur-blob absolute -left-1/3 top-[10%] z-0 h-[80%] w-1/2 opacity-60"
       ></motion.div>
+
       <div className="flex flex-col items-center justify-end lg:flex-row lg:items-end lg:justify-between">
         <div className="big-heading">
           {/* First line of the quote */}
@@ -114,10 +109,7 @@ const Quote = () => {
               </motion.h1>
             </div>
 
-            <div
-              ref={iconContainerRefs[0]}
-              className="absolute inline-block overflow-hidden"
-            >
+            <div ref={iconContainerRefs[0]} className="absolute inline-block overflow-hidden">
               <motion.i
                 initial="hiddenLeft"
                 whileInView="visible"
@@ -128,7 +120,7 @@ const Quote = () => {
               ></motion.i>
             </div>
 
-            <div className={`inline-block overflow-hidden`}>
+            <div className="inline-block overflow-hidden">
               <motion.h1
                 ref={iconSiblingRefs[0]}
                 initial="hiddenFullY"
@@ -161,10 +153,7 @@ const Quote = () => {
               </motion.h1>
             </div>
 
-            <div
-              ref={iconContainerRefs[1]}
-              className="absolute inline-block overflow-hidden"
-            >
+            <div ref={iconContainerRefs[1]} className="absolute inline-block overflow-hidden">
               <motion.i
                 initial="hiddenLeft"
                 whileInView="visible"
@@ -189,6 +178,7 @@ const Quote = () => {
             </div>
           </div>
         </div>
+
         {/* Quote attribution */}
         <motion.span
           initial="hiddenY"
@@ -200,6 +190,7 @@ const Quote = () => {
           - Hans Christian Andersen
         </motion.span>
       </div>
+
       {/* CTA button */}
       <motion.div
         initial="hiddenY"

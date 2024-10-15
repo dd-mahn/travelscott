@@ -1,8 +1,10 @@
 import { useRef, useEffect, useCallback } from "react";
 
 function useStackedSections() {
+  // Reference to hold the section elements
   const sectionRefs = useRef<(HTMLElement | null)[]>([]);
 
+  // Function to set the reference for each section
   const setRef = useCallback(
     (index: number) => (el: HTMLElement | null) => {
       sectionRefs.current[index] = el;
@@ -10,19 +12,15 @@ function useStackedSections() {
     [],
   );
 
+  // Function to update the top position of each section
   const updateSectionTops = useCallback(() => {
     let previousBottom = 0;
     sectionRefs.current.forEach((section, index) => {
       if (section) {
-        let topValue;
-        if (section.offsetHeight < window.innerHeight) {
-          topValue = 0;
-        } else {
-          topValue = Math.min(
-            previousBottom,
-            window.innerHeight - section.offsetHeight,
-          );
-        }
+        const topValue = section.offsetHeight < window.innerHeight
+          ? 0
+          : Math.min(previousBottom, window.innerHeight - section.offsetHeight);
+        
         section.style.top = `${topValue}px`;
         previousBottom = topValue + section.offsetHeight;
         console.log(`Section ${index} top set to: ${topValue}px`);
@@ -30,6 +28,7 @@ function useStackedSections() {
     });
   }, []);
 
+  // Effect to handle initial update and window resize events
   useEffect(() => {
     const timer = setTimeout(() => {
       updateSectionTops();
@@ -43,21 +42,25 @@ function useStackedSections() {
     };
   }, [updateSectionTops]);
 
-  if (sectionRefs.current.length > 0) {
-    const observer = new MutationObserver(() => {
-      updateSectionTops();
-      console.log("Mutation observed, updating section tops");
-    });
-    sectionRefs.current.forEach((section) => {
-      if (section) {
-        observer.observe(section, {
-          childList: true,
-          subtree: true,
-          attributes: true,
-        });
-      }
-    });
-  }
+  // Effect to handle mutations in the section elements
+  useEffect(() => {
+    if (sectionRefs.current.length > 0) {
+      const observer = new MutationObserver(() => {
+        updateSectionTops();
+        console.log("Mutation observed, updating section tops");
+      });
+      sectionRefs.current.forEach((section) => {
+        if (section) {
+          observer.observe(section, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+          });
+        }
+      });
+      return () => observer.disconnect();
+    }
+  }, [updateSectionTops]);
 
   return { refs: sectionRefs, setRef };
 }

@@ -25,6 +25,7 @@ import {
 } from "src/utils/variants";
 import { createSelector } from "reselect";
 
+// Define motion variants
 const variants = {
   hiddenY: VisibilityVariants.hiddenY,
   visible: VisibilityVariants.visible,
@@ -32,6 +33,7 @@ const variants = {
   tapScale: TapVariants.tapScale,
 };
 
+// Selectors
 const selectDestinationFilterState = createSelector(
   (state: RootState) => state.filter.destination,
   (destination) => ({
@@ -52,6 +54,7 @@ const selectContinentState = createSelector(
   (continent) => continent.continents,
 );
 
+// DestinationFilter Component
 export const DestinationFilter: React.FC = memo(() => {
   const dispatch = useDispatch();
   const {
@@ -67,6 +70,7 @@ export const DestinationFilter: React.FC = memo(() => {
   const [localSearchQuery, setLocalSearchQuery] = useState(searchQuery);
   const debouncedSearchQuery = useDebounce(localSearchQuery, 500);
 
+  // Memoized values
   const countryNames = useMemo(
     () => countries.map((country) => country.name),
     [countries],
@@ -90,6 +94,7 @@ export const DestinationFilter: React.FC = memo(() => {
     [],
   );
 
+  // Handlers
   const continentFilterClick = useCallback(
     (continent: string) => {
       dispatch(
@@ -227,6 +232,7 @@ export const DestinationFilter: React.FC = memo(() => {
   );
 });
 
+// Selectors for CountryDestinationFilter
 const selectCountryDestinationFilterState = createSelector(
   (state: RootState) => state.filter.destination,
   (destination) => ({
@@ -235,6 +241,7 @@ const selectCountryDestinationFilterState = createSelector(
   }),
 );
 
+// CountryDestinationFilter Component
 export const CountryDestinationFilter: React.FC = memo(() => {
   const dispatch = useDispatch();
   const [inputFocus, setInputFocus] = useState<boolean>(false);
@@ -259,6 +266,7 @@ export const CountryDestinationFilter: React.FC = memo(() => {
     [],
   );
 
+  // Handlers
   const handleTagFilter = useCallback(
     (tag: string) => {
       dispatch(
@@ -343,6 +351,7 @@ export const CountryDestinationFilter: React.FC = memo(() => {
   );
 });
 
+// Selectors for InspirationFilter
 const selectBlogFilterState = createSelector(
   (state: RootState) => state.filter.blog,
   (blog) => ({
@@ -351,6 +360,7 @@ const selectBlogFilterState = createSelector(
   }),
 );
 
+// InspirationFilter Component
 export const InspirationFilter: React.FC<{ continentNames: string[] }> = memo(
   ({ continentNames }) => {
     const dispatch = useDispatch();
@@ -363,6 +373,7 @@ export const InspirationFilter: React.FC<{ continentNames: string[] }> = memo(
     const [localSearchQuery, setLocalSearchQuery] = useState(selectSearchQuery);
     const debouncedSearchQuery = useDebounce(localSearchQuery, 500);
 
+    // Handlers
     const handleContinentFilter = useCallback(
       (continent: string) => {
         dispatch(

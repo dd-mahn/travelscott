@@ -33,12 +33,12 @@ const variants = {
 
 // DiscoverCountries component
 const DiscoverCountries: React.FC = () => {
+  // Redux selectors
   const { continents } = useSelector((state: RootState) => state.continent);
   const { loading, error } = useSelector((state: RootState) => state.country);
 
   // State hooks for selected continent name
-  const [selectedContinentName, setSelectedContinentName] =
-    useState<string>("Asia");
+  const [selectedContinentName, setSelectedContinentName] = useState<string>("Asia");
 
   // Memoized selected continent object
   const selectedContinent = useMemo(() => {
@@ -80,6 +80,7 @@ const DiscoverCountries: React.FC = () => {
     className: "span-small font-sans",
   };
 
+  // Memoized filter key
   const filterKey = useMemo(() => {
     return selectedContinentName;
   }, [selectedContinentName]);

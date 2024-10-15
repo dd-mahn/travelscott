@@ -1,15 +1,18 @@
 export const resetForm = () => {
-  const firstName = document.getElementById("firstName") as HTMLInputElement;
-  const lastName = document.getElementById("lastName") as HTMLInputElement;
-  const email = document.getElementById("email") as HTMLInputElement;
-  const age = document.getElementById("age") as HTMLInputElement;
-  const country = document.getElementById("country") as HTMLInputElement;
-  const message = document.getElementById("message") as HTMLTextAreaElement;
+  // Get all form elements by their IDs
+  const formElements = [
+    document.getElementById("firstName") as HTMLInputElement,
+    document.getElementById("lastName") as HTMLInputElement,
+    document.getElementById("email") as HTMLInputElement,
+    document.getElementById("age") as HTMLInputElement,
+    document.getElementById("country") as HTMLInputElement,
+    document.getElementById("message") as HTMLTextAreaElement
+  ];
 
-  firstName.value = "";
-  lastName.value = "";
-  email.value = "";
-  age.value = "";
-  country.value = "";
-  message.value = "";
+  // Reset the value of each form element
+  formElements.forEach(element => {
+    if (element) {
+      element.value = "";
+    }
+  });
 };

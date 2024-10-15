@@ -11,7 +11,6 @@ const variants = {
   hiddenScaleRight: VisibilityVariants.hiddenScaleRight,
   hiddenScaleY: VisibilityVariants.hiddenScaleY,
   visible: VisibilityVariants.visible,
-
   blobAnimation: {
     scale: [1, 1.5, 1],
     opacity: [0.6, 0.7, 0.6],
@@ -23,7 +22,7 @@ const variants = {
 // Inspired component: Displays inspiration from travelers around the world
 const Inspired: React.FC = () => {
   return (
-    <section className="px-sect inspired relative flex items-center justify-center pt-[40svh] pb-[70svh] ">
+    <section className="px-sect inspired relative flex items-center justify-center pt-[40svh] pb-[70svh]">
       {/* Background carousel */}
       <motion.div
         className="absolute left-0 top-0 z-0 h-svh w-full"
@@ -39,7 +38,12 @@ const Inspired: React.FC = () => {
       {/* Main content */}
       <div className="relative flex w-fit flex-col lg:gap-2 xl:gap-2 2xl:gap-4 3xl:gap-4">
         {/* Decorative blob */}
-        <motion.div initial="hidden" animate="blobAnimation" variants={variants} className="blob-brown blur-blob absolute -left-1/3 -top-[10%] z-0 h-full w-1/2 opacity-60"></motion.div>
+        <motion.div
+          initial="hidden"
+          animate="blobAnimation"
+          variants={variants}
+          className="blob-brown blur-blob absolute -left-1/3 -top-[10%] z-0 h-full w-1/2 opacity-60"
+        ></motion.div>
 
         {/* Headline */}
         <motion.h2

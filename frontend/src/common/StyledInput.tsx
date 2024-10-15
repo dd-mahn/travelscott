@@ -1,14 +1,16 @@
 import React, { useEffect } from "react";
 import "src/common/style/styled-input.css"
 
+// Define the props for the StyledInput component
 interface StyledInputProps {
   type: string;
   id: string;
-  label: string
+  label: string;
 }
 
 const StyledInput: React.FC<StyledInputProps> = ({ type, id, label }) => {
 
+  // Handle focus event to add 'active' class to the closest styled-input element
   const handleFocus = () => {
     const input = document.getElementById(id);
     if (input) {
@@ -17,6 +19,7 @@ const StyledInput: React.FC<StyledInputProps> = ({ type, id, label }) => {
     }
   };
 
+  // Handle blur event to remove 'active' class if input value is empty
   const handleBlur = () => {
     const input = document.getElementById(id);
     if (input && (input as HTMLInputElement).value === "") {
@@ -25,6 +28,7 @@ const StyledInput: React.FC<StyledInputProps> = ({ type, id, label }) => {
     }
   };
 
+  // Handle autofill event to check if input is filled and update the class accordingly
   const handleAutoFill = () => {
     const input = document.getElementById(id) as HTMLInputElement;
     if (input && input.value !== "") {
@@ -34,6 +38,7 @@ const StyledInput: React.FC<StyledInputProps> = ({ type, id, label }) => {
     }
   };
 
+  // useEffect hook to handle component mount and unmount logic
   useEffect(() => {
     const input = document.getElementById(id) as HTMLInputElement;
     if (input) {
@@ -43,9 +48,10 @@ const StyledInput: React.FC<StyledInputProps> = ({ type, id, label }) => {
       // Listen for animationstart event
       input.addEventListener("animationstart", handleAutoFill);
 
-      // Use setInterval to check for autofill every 3 seconds
+      // Use setInterval to check for autofill every 2 seconds
       const intervalId = setInterval(handleAutoFill, 2000);
 
+      // Cleanup event listener and interval on component unmount
       return () => {
         input.removeEventListener("animationstart", handleAutoFill);
         clearInterval(intervalId);

@@ -34,6 +34,34 @@ const variants = {
   visible: VisibilityVariants.visible,
 };
 
+// EffectComposer component for postprocessing
+const EffectComposerComponent: React.FC<{ enable: boolean }> = ({ enable }) => {
+  if (enable)
+    return (
+      <Suspense fallback={null}>
+        <EffectComposer>
+          <Bloom
+            luminanceThreshold={2}
+            luminanceSmoothing={1}
+            mipmapBlur
+            intensity={2}
+          />
+          <Vignette eskil={false} offset={0.5} darkness={1} />
+          <ToneMapping
+            blendFunction={BlendFunction.NORMAL}
+            adaptive={true}
+            resolution={256}
+            middleGrey={0.6}
+            maxLuminance={16.0}
+            averageLuminance={1.0}
+            adaptationRate={1.0}
+          />
+        </EffectComposer>
+      </Suspense>
+    );
+  return null;
+};
+
 // Scene component
 const EarthScene: React.FC<SceneProps> = ({ articlesHookRef }) => {
   // Add states and refs for 3D scene and carousels
@@ -51,6 +79,7 @@ const EarthScene: React.FC<SceneProps> = ({ articlesHookRef }) => {
     margin: "0% 0% -50% 0%",
   });
 
+  // Observe the articles hook to determine if it is above the viewport
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -74,7 +103,7 @@ const EarthScene: React.FC<SceneProps> = ({ articlesHookRef }) => {
   useEffect(() => {
     if (canvasInView && !articlesHookInView && !isHookAboveViewport) {
       setFrameLoopValue("always");
-    } else if (articlesHookInView || isHookAboveViewport || !canvasInView) {
+    } else {
       setFrameLoopValue("demand");
     }
   }, [canvasInView, articlesHookInView, isHookAboveViewport]);
@@ -137,32 +166,3 @@ const EarthScene: React.FC<SceneProps> = ({ articlesHookRef }) => {
 };
 
 export default memo(EarthScene);
-
-// EffectComposer component for postprocessing
-const EffectComposerComponent: React.FC<{ enable: boolean }> = ({ enable }) => {
-  if (enable)
-    return (
-      <>
-        <Suspense fallback={null}>
-          <EffectComposer>
-            <Bloom
-              luminanceThreshold={2}
-              luminanceSmoothing={1}
-              mipmapBlur
-              intensity={2}
-            />
-            <Vignette eskil={false} offset={0.5} darkness={1} />
-            <ToneMapping
-              blendFunction={BlendFunction.NORMAL}
-              adaptive={true}
-              resolution={256}
-              middleGrey={0.6}
-              maxLuminance={16.0}
-              averageLuminance={1.0}
-              adaptationRate={1.0}
-            />
-          </EffectComposer>
-        </Suspense>
-      </>
-    );
-};

@@ -1,68 +1,40 @@
 import React, { memo } from "react";
 import "src/components/Footer/footer.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import planeIcon from "src/assets/svg/plane-icon.svg";
 import { motion } from "framer-motion";
 import { scrollToTop } from "src/utils/scrollToTop";
 import StaggerLogo from "../../common/StaggerLogo";
-import { Link } from "react-router-dom";
 import { VisibilityVariants } from "src/utils/variants";
-import { BASE_URL } from "src/utils/config";
 import { useNotification } from "src/context/NotificationContext";
+import { sendSubscribe } from "src/apis/sendSubscribe";
 
+// Sitemap links
 const sitemap = [
-  {
-    path: "/",
-    display: "Home",
-  },
-  {
-    path: "/about",
-    display: "About",
-  },
-  {
-    path: "/discover",
-    display: "Discover",
-  },
-  {
-    path: "/inspiration",
-    display: "Inspiration",
-  },
-  {
-    path: "/contact",
-    display: "Contact",
-  },
+  { path: "/", display: "Home" },
+  { path: "/about", display: "About" },
+  { path: "/discover", display: "Discover" },
+  { path: "/inspiration", display: "Inspiration" },
+  { path: "/contact", display: "Contact" },
 ];
 
+// Social media links
 const socials = [
-  {
-    path: "/",
-    display: "ProductHunt",
-  },
-  {
-    path: "/",
-    display: "Twitter",
-  },
-  {
-    path: "/",
-    display: "Instagram",
-  },
-  {
-    path: "/",
-    display: "Facebook",
-  },
+  { path: "/", display: "ProductHunt" },
+  { path: "/", display: "Twitter" },
+  { path: "/", display: "Instagram" },
+  { path: "/", display: "Facebook" },
 ];
 
+// Other links
 const otherLinks = [
-  {
-    path: "/privacy",
-    display: "Privacy Policy",
-  },
+  { path: "/privacy", display: "Privacy Policy" },
 ];
 
+// Animation variants
 const variants = {
   hiddenY: VisibilityVariants.hiddenY,
   visible: VisibilityVariants.visible,
-
   blobAnimation: {
     scale: [1, 1.5, 1],
     opacity: [0.6, 0.7, 0.6],
@@ -73,24 +45,17 @@ const variants = {
 
 const Footer = () => {
   const { showNotification } = useNotification();
+
+  // Handle subscription
   const handleSubscribe = async (email: string) => {
-    try {
-      const res = await fetch(`${BASE_URL}/subscribe`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      });
-      if (res.ok) {
-        showNotification("Thank you for subscribing!");
-      } else {
-        showNotification("Failed to send. Please try again later.");
-      }
-    } catch (error) {
+    const success = await sendSubscribe(email);
+    if (success) {
+      showNotification("Thank you for subscribing!");
+    } else {
       showNotification("Failed to send. Please try again later.");
     }
   };
+
   return (
     <footer className="relative flex flex-col self-end overflow-hidden border-t border-solid border-gray pt-6 lg:pt-12 xl:pt-20 2xl:pt-20">
       <motion.div
@@ -153,12 +118,11 @@ const Footer = () => {
               )
             }
           >
-            {" "}
             <img
               src={planeIcon}
               alt=""
               className="cursor-hover-small dark:invert"
-            />{" "}
+            />
           </motion.button>
         </div>
       </div>

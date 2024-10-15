@@ -5,6 +5,7 @@ import { VisibilityVariants } from "src/utils/variants";
 import { Carousel } from "@material-tailwind/react";
 import { getImageSize, useViewportWidth, optimizeImage } from "src/utils/imageUtils";
 
+// Define motion variants for animations
 const variants = {
   hiddenY: VisibilityVariants.hiddenY,
   hiddenFullY: VisibilityVariants.hiddenFullY,
@@ -14,6 +15,7 @@ const variants = {
 const CountryHero = ({ country }: { country: Country }) => {
   const viewportWidth = useViewportWidth();
 
+  // Optimize images based on viewport width
   const optimizedImages = useMemo(() => {
     return country.images.otherImages?.map((image) =>
       optimizeImage(image, {
@@ -49,6 +51,7 @@ const CountryHero = ({ country }: { country: Country }) => {
         ))}
       </Carousel>
 
+      {/* Section for displaying country flag and name */}
       <div className="px-sect flex items-center gap-4 md:gap-8">
         <motion.img
           initial="hiddenY"
@@ -56,7 +59,7 @@ const CountryHero = ({ country }: { country: Country }) => {
           variants={variants}
           transition={{ duration: 0.5, delay: 1 }}
           src={country.images.flagImages?.[0]}
-          className=" w-1/4 md:w-1/6 rounded-lg md:rounded-xl"
+          className="w-1/4 md:w-1/6 rounded-lg md:rounded-xl"
           alt={`${country.name} flag`}
         />
         <div className="big-heading overflow-hidden">

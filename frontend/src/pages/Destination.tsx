@@ -1,4 +1,4 @@
-import React, { useEffect, memo, useRef } from "react";
+import React, { useEffect, memo } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
@@ -29,7 +29,7 @@ import DestinationSummary from "./DestinationComponents/DestinationSummary";
 // Animation Variants
 import { VisibilityVariants } from "src/utils/variants";
 
-
+// Define animation variants
 const variants = {
   hiddenY: VisibilityVariants.hiddenY,
   hiddenFullY: VisibilityVariants.hiddenFullY,

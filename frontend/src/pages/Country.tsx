@@ -16,18 +16,16 @@ import Loading from "src/common/Loading";
 import CountryGuide from "./CountryComponents/CountryGuide";
 import CountryArticles from "./CountryComponents/CountryArticles";
 import CountryDestinations from "./CountryComponents/CountryDestinations";
-import { BASE_URL } from "src/utils/config";
-import NotFoundPage from "./404";
-import Country from "src/types/Country";
-import { VisibilityVariants } from "src/utils/variants";
 import CountryOverview from "./CountryComponents/CountryOverview";
 import CountryHero from "./CountryComponents/CountryHero";
+import NotFoundPage from "./404";
+
+// Utilities
+import { BASE_URL } from "src/utils/config";
+import { VisibilityVariants } from "src/utils/variants";
 import useStackedSections from "src/hooks/useStackedSections";
 import { selectIsDarkMode } from "src/store/slices/themeSlice";
-import {
-  useSectionTransition,
-  useSectionTransition2,
-} from "src/hooks/useSectionTransition";
+import Country from "src/types/Country";
 
 // Animation variants
 const variants = {
@@ -38,12 +36,13 @@ const variants = {
 
 const CountryPage: React.FC = () => {
   const dispatch = useDispatch();
+  const { id } = useParams();
+  const isDarkMode = useSelector(selectIsDarkMode);
   const { currentCountry, loading, error } = useSelector(
     (state: RootState) => state.country,
   );
-  const isDarkMode = useSelector(selectIsDarkMode);
-  const { id } = useParams();
 
+  // Fetch country data
   const {
     data: countryData,
     loading: fetchLoading,
@@ -67,16 +66,15 @@ const CountryPage: React.FC = () => {
   const articlesRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress: articlesScrollYProgress } = useScroll({
     target: articlesRef,
-    
   });
-
   const scaleArticles = useTransform(articlesScrollYProgress, [0, 1], [0.8, 1]);
 
-  // Render logic
+  // Render loading state
   if (loading) {
     return <Loading />;
   }
 
+  // Render error state or not found page
   if (error || !currentCountry) {
     return <NotFoundPage />;
   }
@@ -116,28 +114,23 @@ const CountryPage: React.FC = () => {
           />
         </motion.div>
 
-        <motion.section
-          ref={setRef(0)}
-          className="sticky"
-        >
+        <motion.section ref={setRef(0)} className="sticky">
           <CountryGuide country={currentCountry} />
         </motion.section>
 
-        <motion.section
-          ref={setRef(1)}
-          className="sticky"
-        >
-          <div >
+        <motion.section ref={setRef(1)} className="sticky">
+          <div>
             <CountryArticles country={currentCountry} />
           </div>
         </motion.section>
 
         <section ref={setRef(2)} className="sticky">
-          <div >
+          <div>
             <CountryDestinations country={currentCountry} />
           </div>
         </section>
       </section>
+
       {/* MORE COUNTRIES SECTION */}
       <section className="flex flex-col gap-4 py-24 lg:py-40 2xl:py-60">
         <div className="overflow-hidden">

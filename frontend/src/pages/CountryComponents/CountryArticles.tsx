@@ -6,16 +6,22 @@ import { setCountryBlogs } from "src/store/slices/countrySlice";
 
 // Components
 import FeaturedBlogs from "src/common/FeaturedBlogs";
+import { LoadingState } from "src/common/CatalogStates";
+
+// Types
 import Country from "src/types/Country";
 import { FetchBlogsType } from "src/types/FetchData";
+
+// Hooks
 import useFetch from "src/hooks/useFetch";
+
+// Utils
 import { BASE_URL } from "src/utils/config";
 import {
   HoverVariants,
   TapVariants,
   VisibilityVariants,
 } from "src/utils/variants";
-import { LoadingState } from "src/common/CatalogStates";
 
 // Define the props for the CountryArticles component
 interface CountryArticlesProps {
@@ -48,7 +54,7 @@ const CountryArticles: React.FC<CountryArticlesProps> = ({ country }) => {
     `${BASE_URL}/blogs?limit=20&tags=${country.name}`
   );
 
-  // Filter blogs based on the country name
+  // Update the country blogs in the store when blogData changes
   useEffect(() => {
     if (blogData?.result) {
       dispatch(setCountryBlogs(blogData.result));

@@ -2,11 +2,13 @@ import React, { memo, useEffect, useRef, useState, useCallback } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
 import { VisibilityVariants } from "src/utils/variants";
 
+// Define the prop types for the component
 type SlideRevealIconHeadingProps = {
   iconClass: string;
   headingText: string;
 };
 
+// Define the animation variants
 const variants = {
   hidden: VisibilityVariants.hidden,
   hiddenY: VisibilityVariants.hiddenY,
@@ -22,8 +24,10 @@ const SlideRevealIconHeading = ({
   const iconRef = useRef<HTMLElement>(null);
   const textRef = useRef<HTMLHeadingElement>(null);
 
+  // Check if the text is in view
   const textInViewed = useInView(textRef, { once: true });
 
+  // Update the inViewed state when text comes into view
   useEffect(() => {
     if (textInViewed) {
       setInViewed(true);
@@ -32,6 +36,7 @@ const SlideRevealIconHeading = ({
 
   const textControl = useAnimation();
 
+  // Update the slide value based on the icon's width
   const updateSlideValue = useCallback(() => {
     if (inViewed && textRef.current && iconRef.current) {
       const slideValue = iconRef.current.offsetWidth + 16;
@@ -43,10 +48,12 @@ const SlideRevealIconHeading = ({
     }
   }, [inViewed, textControl]);
 
+  // Trigger slide value update when inViewed changes
   useEffect(() => {
     updateSlideValue();
   }, [inViewed, updateSlideValue]);
 
+  // Add and clean up resize event listener
   useEffect(() => {
     window.addEventListener("resize", updateSlideValue);
     return () => {

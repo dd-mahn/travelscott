@@ -42,6 +42,7 @@ const RenderBlog: React.FC<{ blog: Blog; isFeatured: boolean }> = ({
   blog,
   isFeatured,
 }) => {
+  // Optimize the blog image based on whether it is featured or not
   const optimizedImage = useMemo(() => {
     return optimizeImage(blog.image, {
       width: isFeatured ? 800 : 400,
@@ -49,7 +50,7 @@ const RenderBlog: React.FC<{ blog: Blog; isFeatured: boolean }> = ({
       quality: 80,
       format: "auto",
     });
-  }, [blog.image]);
+  }, [blog.image, isFeatured]);
 
   return (
     <div
@@ -115,6 +116,8 @@ const Articles: React.FC<ArticlesProps> = memo(({ articlesHookRef, blogs }) => {
   const dispatch = useDispatch();
   const blogChunks = useSelector((state: RootState) => state.blog.blogChunks);
   const isDarkMode = useSelector(selectIsDarkMode);
+
+  // Dispatch blog chunks when blogs are updated
   useEffect(() => {
     if (blogs.length > 0) {
       dispatch(setBlogChunks(createBlogChunks(blogs)));

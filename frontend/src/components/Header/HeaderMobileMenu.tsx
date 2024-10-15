@@ -7,6 +7,7 @@ import { BlobVariants, VisibilityVariants } from "src/utils/variants";
 import ThemeButton from "./ThemeButton";
 import HeaderSearch from "./HeaderSearch";
 
+// Navigation links
 const navs = [
   { path: "/", display: "Home" },
   { path: "/about", display: "About" },
@@ -15,28 +16,18 @@ const navs = [
   { path: "/contact", display: "Contact" },
 ];
 
+// Social media links
 const socials = [
-  {
-    path: "/",
-    display: "ProductHunt",
-  },
-  {
-    path: "/",
-    display: "Twitter",
-  },
-  {
-    path: "/",
-    display: "Instagram",
-  },
-  {
-    path: "/",
-    display: "Facebook",
-  },
+  { path: "/", display: "ProductHunt" },
+  { path: "/", display: "Twitter" },
+  { path: "/", display: "Instagram" },
+  { path: "/", display: "Facebook" },
 ];
 
 const HeaderMobileMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
 
+  // Handle body overflow when menu is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -52,6 +43,7 @@ const HeaderMobileMenu = () => {
     };
   }, [isOpen]);
 
+  // Toggle menu open/close state
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -64,9 +56,7 @@ const HeaderMobileMenu = () => {
           title="Menu"
           className="flex items-center justify-center rounded-md bg-background-light px-2 py-1"
         >
-          <i
-            className={`ri-menu-line text-xl text-text-light dark:text-text-light`}
-          ></i>
+          <i className="ri-menu-line text-xl text-text-light dark:text-text-light"></i>
         </motion.button>
       )}
       {ReactDOM.createPortal(
@@ -88,9 +78,7 @@ const HeaderMobileMenu = () => {
                   title="Menu"
                   className="flex h-fit w-fit items-center justify-center rounded-md bg-background-dark px-2 py-1 dark:bg-background-light"
                 >
-                  <i
-                    className={`ri-close-line text-xl text-text-dark dark:text-text-light`}
-                  ></i>
+                  <i className="ri-close-line text-xl text-text-dark dark:text-text-light"></i>
                 </motion.button>
               </div>
 
@@ -103,7 +91,6 @@ const HeaderMobileMenu = () => {
                         initial="hiddenFullY"
                         animate="visible"
                         transition={{ duration: 0.5, delay: index * 0.2 }}
-                        className=""
                       >
                         <NavLink
                           to={nav.path}
@@ -125,7 +112,6 @@ const HeaderMobileMenu = () => {
                         initial="hiddenFullY"
                         animate="visible"
                         transition={{ duration: 0.5, delay: index * 0.2 }}
-                        className=""
                       >
                         <NavLink
                           to={social.path}

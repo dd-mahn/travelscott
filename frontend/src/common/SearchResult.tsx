@@ -12,6 +12,7 @@ import {
   VisibilityVariants,
 } from "src/utils/variants";
 
+// Define the type for the component props
 type SearchResultProps = {
   open: boolean;
   blogs: Blog[];
@@ -30,6 +31,7 @@ const variants = {
   hoverX: HoverVariants.hoverX,
 };
 
+// Define the SearchResult component
 const SearchResult: React.FC<SearchResultProps> = ({
   open,
   blogs,
@@ -40,126 +42,126 @@ const SearchResult: React.FC<SearchResultProps> = ({
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   // Memoized render function for countries
-  const renderCountries = useMemo(
-    () =>
-      countries.length > 0 && (
-        <div className="border-t border-gray pt-2">
-          <p className="span-medium mb-2 font-prima">Countries</p>
-          <div className="grid gap-x-2 gap-y-4 grid-cols-2 md:grid-cols-4">
-            {countries.map((country) => (
-              <Link
-                to={`/discover/countries/${country._id}`}
-                target="_top"
-                key={country._id}
-                className="flex cursor-pointer flex-col items-center gap-2"
-              >
-                <div className="h-full w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray">
-                  <motion.img
-                    whileHover="hover"
-                    variants={variants}
-                    src={country.images.flagImages?.[0]}
-                    alt={country.name}
-                    className="cursor-hover-small h-full w-full rounded-xl object-cover"
-                    transition={{ duration: 0.4 }}
-                  />
-                </div>
-                <motion.span
-                  className="cursor-hover-small span-regular"
-                  whileHover="hoverX"
-                  variants={variants}
-                  transition={{ duration: 0.2 }}
-                >
-                  {country.name}
-                </motion.span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      ),
-    [countries],
-  );
+  const renderCountries = useMemo(() => {
+    if (countries.length === 0) return null;
 
-  // Memoized render function for destinations
-  const renderDestinations = useMemo(
-    () =>
-      destinations.length > 0 && (
-        <div
-          className={`${countries.length > 0 ? "mt-16" : ""} flex flex-col border-t border-gray pt-2`}
-        >
-          <p className="span-medium mb-2 font-prima">Destinations</p>
-          <div className="grid h-fit grid-cols-2 md:grid-cols-3 gap-x-2 gap-y-4">
-            {destinations.map((destination) => (
-              <Link
-                to={`/discover/destinations/${destination._id}`}
-                target="_top"
-                key={destination._id}
-                className="flex h-[15svh] cursor-pointer flex-col items-center gap-2 rounded-xl"
-              >
-                <div className="h-full w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray">
-                  <motion.img
-                    whileHover="hover"
-                    variants={variants}
-                    src={destination.images?.[0]}
-                    alt={destination.name}
-                    className="cursor-hover-small h-full w-full rounded-xl object-cover"
-                    transition={{ duration: 0.4 }}
-                  />
-                </div>
-                <motion.span
-                  className="cursor-hover-small span-regular"
-                  whileHover="hoverX"
-                  variants={variants}
-                  transition={{ duration: 0.2 }}
-                >
-                  {destination.name}
-                </motion.span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      ),
-    [destinations, countries.length],
-  );
-
-  // Memoized render function for blogs
-  const renderBlogs = useMemo(
-    () =>
-      blogs.length > 0 && (
-        <div
-          className={`${destinations.length > 0 || countries.length > 0 ? "mt-16" : ""} flex flex-col gap-4 border-t border-gray pt-2`}
-        >
-          <p className="span-medium mb-2 font-prima">Articles</p>
-          {blogs.map((blog) => (
+    return (
+      <div className="border-t border-gray pt-2">
+        <p className="span-medium mb-2 font-prima">Countries</p>
+        <div className="grid gap-x-2 gap-y-4 grid-cols-2 md:grid-cols-4">
+          {countries.map((country) => (
             <Link
-              to={`/inspiration/${blog._id}`}
+              to={`/discover/countries/${country._id}`}
               target="_top"
-              key={blog._id}
-              className="flex cursor-pointer gap-4 rounded-xl h-20 lg:h-24 2xl:h-32"
+              key={country._id}
+              className="flex cursor-pointer flex-col items-center gap-2"
             >
-              <div className="h-full w-1/3 overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray">
+              <div className="h-full w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray">
                 <motion.img
                   whileHover="hover"
                   variants={variants}
-                  src={blog.image}
-                  alt={blog.title}
+                  src={country.images.flagImages?.[0]}
+                  alt={country.name}
                   className="cursor-hover-small h-full w-full rounded-xl object-cover"
                   transition={{ duration: 0.4 }}
                 />
               </div>
               <motion.span
-                className="cursor-hover-small span-regular mt-1 md:mt-3 w-2/3"
+                className="cursor-hover-small span-regular"
                 whileHover="hoverX"
                 variants={variants}
                 transition={{ duration: 0.2 }}
               >
-                {blog.title}
+                {country.name}
               </motion.span>
             </Link>
           ))}
         </div>
-      ),
-    [blogs, destinations.length, countries.length],
-  );
+      </div>
+    );
+  }, [countries]);
+
+  // Memoized render function for destinations
+  const renderDestinations = useMemo(() => {
+    if (destinations.length === 0) return null;
+
+    return (
+      <div
+        className={`${countries.length > 0 ? "mt-16" : ""} flex flex-col border-t border-gray pt-2`}
+      >
+        <p className="span-medium mb-2 font-prima">Destinations</p>
+        <div className="grid h-fit grid-cols-2 md:grid-cols-3 gap-x-2 gap-y-4">
+          {destinations.map((destination) => (
+            <Link
+              to={`/discover/destinations/${destination._id}`}
+              target="_top"
+              key={destination._id}
+              className="flex h-[15svh] cursor-pointer flex-col items-center gap-2 rounded-xl"
+            >
+              <div className="h-full w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray">
+                <motion.img
+                  whileHover="hover"
+                  variants={variants}
+                  src={destination.images?.[0]}
+                  alt={destination.name}
+                  className="cursor-hover-small h-full w-full rounded-xl object-cover"
+                  transition={{ duration: 0.4 }}
+                />
+              </div>
+              <motion.span
+                className="cursor-hover-small span-regular"
+                whileHover="hoverX"
+                variants={variants}
+                transition={{ duration: 0.2 }}
+              >
+                {destination.name}
+              </motion.span>
+            </Link>
+          ))}
+        </div>
+      </div>
+    );
+  }, [destinations, countries.length]);
+
+  // Memoized render function for blogs
+  const renderBlogs = useMemo(() => {
+    if (blogs.length === 0) return null;
+
+    return (
+      <div
+        className={`${destinations.length > 0 || countries.length > 0 ? "mt-16" : ""} flex flex-col gap-4 border-t border-gray pt-2`}
+      >
+        <p className="span-medium mb-2 font-prima">Articles</p>
+        {blogs.map((blog) => (
+          <Link
+            to={`/inspiration/${blog._id}`}
+            target="_top"
+            key={blog._id}
+            className="flex cursor-pointer gap-4 rounded-xl h-20 lg:h-24 2xl:h-32"
+          >
+            <div className="h-full w-1/3 overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray">
+              <motion.img
+                whileHover="hover"
+                variants={variants}
+                src={blog.image}
+                alt={blog.title}
+                className="cursor-hover-small h-full w-full rounded-xl object-cover"
+                transition={{ duration: 0.4 }}
+              />
+            </div>
+            <motion.span
+              className="cursor-hover-small span-regular mt-1 md:mt-3 w-2/3"
+              whileHover="hoverX"
+              variants={variants}
+              transition={{ duration: 0.2 }}
+            >
+              {blog.title}
+            </motion.span>
+          </Link>
+        ))}
+      </div>
+    );
+  }, [blogs, destinations.length, countries.length]);
 
   // Effect for smooth scrolling using Lenis
   useEffect(() => {

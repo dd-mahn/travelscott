@@ -1,20 +1,28 @@
 import React, { memo, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
 
 // Component imports
 import HorizontalScrollCarousel from "./FeaturedHorizontalScroller";
-import { featuredDemo } from "src/data/featuredDemo";
 import { SecondaryButton } from "src/common/Button";
+import { ErrorState, LoadingState } from "src/common/CatalogStates";
+
+// Utility imports
 import { VisibilityVariants } from "src/utils/variants";
 import { useViewportWidth } from "src/utils/imageUtils";
 import useFetch from "src/hooks/useFetch";
 import { BASE_URL } from "src/utils/config";
+
+// Type imports
 import Destination from "src/types/Destination";
 import { FetchDestinationType } from "src/types/FetchData";
-import { useDispatch, useSelector } from "react-redux";
-import { setFeaturedDestinations } from "src/store/slices/destinationSlice";
-import { ErrorState, LoadingState } from "src/common/CatalogStates";
 import { RootState } from "src/store/store";
+
+// Redux actions
+import { setFeaturedDestinations } from "src/store/slices/destinationSlice";
+
+// Demo data
+import { featuredDemo } from "src/data/featuredDemo";
 
 // Framer motion variants for animations
 const variants = {
@@ -29,17 +37,19 @@ const Featured: React.FC = () => {
   const viewportWidth = useViewportWidth();
   const dispatch = useDispatch();
 
+  // Fetch featured destinations
   const { data, loading, error } = useFetch<FetchDestinationType>(
     `${BASE_URL}/destinations?featured=true`,
   );
   const featuredDestinations = data?.result;
 
+  // Dispatch featured destinations to the store
   useEffect(() => {
     if (featuredDestinations) {
       dispatch(setFeaturedDestinations(featuredDestinations));
     }
   }, [featuredDestinations, dispatch]);
-  
+
   return (
     <section className="featured flex flex-col lg:gap-28 xl:gap-32 2xl:gap-36 3xl:gap-40">
       {/* Header */}
@@ -60,19 +70,19 @@ const Featured: React.FC = () => {
 
       {/* Horizontal scroll carousel */}
       <AnimatePresence mode="wait">
-        {
-          loading ? <LoadingState keyName={`featured-loading-${loading}`}/> :
-          error ? <ErrorState keyName={`featured-error-${error}`}/> :
-          featuredDestinations && featuredDestinations?.length >= 5 ? (
-            <div key={`featured-destinations-${featuredDestinations.length}`}>
-              <HorizontalScrollCarousel data={featuredDestinations.slice(0, 10)} />
-            </div>
-          ) : (
-            <div key={`featured-destinations-${featuredDestinations?.length}`}>
-              <HorizontalScrollCarousel data={featuredDemo} />
-            </div>
-          )
-        }
+        {loading ? (
+          <LoadingState keyName={`featured-loading-${loading}`} />
+        ) : error ? (
+          <ErrorState keyName={`featured-error-${error}`} />
+        ) : featuredDestinations && featuredDestinations.length >= 5 ? (
+          <div key={`featured-destinations-${featuredDestinations.length}`}>
+            <HorizontalScrollCarousel data={featuredDestinations.slice(0, 10)} />
+          </div>
+        ) : (
+          <div key={`featured-destinations-${featuredDestinations?.length}`}>
+            <HorizontalScrollCarousel data={featuredDemo} />
+          </div>
+        )}
       </AnimatePresence>
 
       {/* Footer section */}

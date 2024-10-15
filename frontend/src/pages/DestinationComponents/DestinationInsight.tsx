@@ -1,10 +1,10 @@
 import React, { memo } from "react";
-import RelatedSections from "src/common/RelatedSections";
-import DestinationType from "src/types/Destination";
-import { motion } from "framer-motion";
-import { HoverVariants, VisibilityVariants } from "src/utils/variants";
-import SlideRevealIconHeading from "src/common/SlideRevealIconHeading";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import RelatedSections from "src/common/RelatedSections";
+import SlideRevealIconHeading from "src/common/SlideRevealIconHeading";
+import DestinationType from "src/types/Destination";
+import { HoverVariants, VisibilityVariants } from "src/utils/variants";
 
 // Define animation variants
 const variants = {
@@ -29,6 +29,7 @@ const DestinationInsight: React.FC<DestinationInsightProps> = ({
   const renderTips = () =>
     destination.insight?.from_us?.tips.map((tip, index) => (
       <motion.div
+        key={index}
         initial="hiddenY"
         whileHover="hoverRotate"
         whileInView="visible"
@@ -36,7 +37,6 @@ const DestinationInsight: React.FC<DestinationInsightProps> = ({
         variants={variants}
         transition={{ duration: 0.5 }}
         className="rounded-xl bg-background-light dark:bg-background-dark bg-opacity-70 px-4 py-2 md:px-6 md:py-4 shadow-component dark:shadow-component-dark"
-        key={index}
       >
         <p className="p-medium text-text-light">{tip}</p>
       </motion.div>
@@ -46,9 +46,9 @@ const DestinationInsight: React.FC<DestinationInsightProps> = ({
   const renderArticles = () =>
     destination.insight?.from_others?.map((article, index) => (
       <Link
+        key={index}
         to={article.link ?? ""}
         target="_blank"
-        key={index}
         className="cursor-hover"
       >
         <motion.div
@@ -59,7 +59,6 @@ const DestinationInsight: React.FC<DestinationInsightProps> = ({
           variants={variants}
           transition={{ duration: 0.5 }}
           className="cursor-hover p-medium rounded-xl bg-background-light dark:bg-background-dark bg-opacity-70 px-4 md:px-6 py-2 shadow-component dark:shadow-component-dark"
-          key={index}
         >
           {article.title}{" "}
           <i className="ri-arrow-right-up-line p-large cursor-hover"></i>
@@ -86,7 +85,9 @@ const DestinationInsight: React.FC<DestinationInsightProps> = ({
         >
           From us
         </motion.h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-8">{renderTips()}</div>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-8">
+          {renderTips()}
+        </div>
         <motion.div
           className="mt-8"
           initial="hiddenY"
@@ -126,7 +127,9 @@ const DestinationInsight: React.FC<DestinationInsightProps> = ({
           experiences can inspire you and give you a clearer idea of what to
           expect.
         </motion.p>
-        <div className="mt-4 md:mt-8 flex flex-wrap gap-4">{renderArticles()}</div>
+        <div className="mt-4 md:mt-8 flex flex-wrap gap-4">
+          {renderArticles()}
+        </div>
       </div>
     </section>
   );

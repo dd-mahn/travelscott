@@ -1,15 +1,17 @@
 import React, { useMemo } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 import Destination from "src/types/Destination";
-import { Link } from "react-router-dom";
 import { useViewportWidth, getImageSize, optimizeImage } from "src/utils/imageUtils";
 import { HoverVariants } from "src/utils/variants";
 
+// Define the props for the DestinationCard component
 interface DestinationCardProps {
   destination: Destination;
 }
 
+// Define the hover variants for the motion components
 const variants = {
   hoverX: HoverVariants.hoverX,
   hoverScale: HoverVariants.hoverScale,
@@ -18,15 +20,17 @@ const variants = {
 const DestinationCard: React.FC<DestinationCardProps> = ({ destination }) => {
   const viewportWidth = useViewportWidth();
 
-  const optimizedImage = useMemo(() => destination.images && destination.images.length > 0
-    ? optimizeImage(destination.images[0], {
+  // Optimize the image based on the viewport width and destination images
+  const optimizedImage = useMemo(() => {
+    if (destination.images && destination.images.length > 0) {
+      return optimizeImage(destination.images[0], {
         width: getImageSize(viewportWidth),
         quality: 80,
         format: "auto",
-      })
-    : null,
-    [destination.images, viewportWidth]
-  );
+      });
+    }
+    return null;
+  }, [destination.images, viewportWidth]);
 
   return (
     <div

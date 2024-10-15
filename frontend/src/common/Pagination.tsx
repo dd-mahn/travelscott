@@ -26,11 +26,16 @@ export const CatalogPagination: React.FC<CatalogPaginationProps> = ({
   handlePageClick,
   handleNextClick,
 }) => {
+  // Calculate total pages
   const totalPage = useMemo(() => Math.ceil(count / limit), [count, limit]);
+
+  // Calculate start range of items
   const startRange = useMemo(
     () => (page === 1 ? 1 : limit * page - limit + 1),
     [page, limit],
   );
+
+  // Calculate end range of items
   const endRange = useMemo(
     () => Math.min(startRange + limit - 1, count),
     [startRange, count],
@@ -45,6 +50,7 @@ export const CatalogPagination: React.FC<CatalogPaginationProps> = ({
       </p>
 
       <div className="flex items-center gap-2">
+        {/* Previous button */}
         {page > 1 ? (
           <motion.button
             whileHover="hoverScale"
@@ -67,6 +73,8 @@ export const CatalogPagination: React.FC<CatalogPaginationProps> = ({
             <i className="cursor-hover-small ri-arrow-left-s-line pointer-events-none text-gray opacity-50 dark:text-blue-gray-700"></i>
           </button>
         )}
+
+        {/* Page buttons */}
         {Array.from({ length: totalPage }, (_, i) => (
           <motion.button
             whileHover="hoverScale"
@@ -83,6 +91,8 @@ export const CatalogPagination: React.FC<CatalogPaginationProps> = ({
             {i + 1}
           </motion.button>
         ))}
+
+        {/* Next button */}
         {page < totalPage && !(totalPage === 1 && page === 1) ? (
           <motion.button
             whileHover="hoverScale"
@@ -133,6 +143,7 @@ export const ButtonPagination: React.FC<ButtonPaginationProps> = ({
           : { justifyContent: "flex-end" }
       }
     >
+      {/* Previous button */}
       {count > 1 && index > 0 && (
         <motion.button
           whileHover="hoverScale"
@@ -147,6 +158,7 @@ export const ButtonPagination: React.FC<ButtonPaginationProps> = ({
         </motion.button>
       )}
 
+      {/* Next button */}
       {count > 1 && index < count - 1 && (
         <motion.button
           whileHover="hoverScale"
@@ -178,11 +190,13 @@ export const DotPagination: React.FC<DotPaginationProps> = ({
   handlePreviousClick,
   handleNextClick,
 }) => {
+  // Button animation variants
   const buttonVariants = {
     hover: { scale: 1.1 },
     tap: { scale: 0.9 },
   };
 
+  // Dot animation variants
   const dotVariants = {
     inactive: { scale: 1, backgroundColor: "#808080" },
     active: { scale: 1.2, backgroundColor: "#000000" },
@@ -193,6 +207,7 @@ export const DotPagination: React.FC<DotPaginationProps> = ({
       layout
       className="pagination-bar flex w-fit flex-row items-center justify-between gap-8 rounded-3xl bg-background-light bg-opacity-75 px-2 py-1 shadow-component dark:shadow-component-dark"
     >
+      {/* Previous button */}
       <motion.button
         variants={buttonVariants}
         whileHover="hover"
@@ -207,6 +222,7 @@ export const DotPagination: React.FC<DotPaginationProps> = ({
         ></i>
       </motion.button>
 
+      {/* Dots */}
       <div className="flex items-center justify-center space-x-2">
         {[0, 1, 2].map((i) => (
           <motion.span
@@ -219,6 +235,7 @@ export const DotPagination: React.FC<DotPaginationProps> = ({
         ))}
       </div>
 
+      {/* Next button */}
       <motion.button
         variants={buttonVariants}
         whileHover="hover"

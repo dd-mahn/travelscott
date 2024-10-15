@@ -6,18 +6,21 @@ import {
   TapVariants,
 } from "src/utils/variants";
 
+// Define animation variants
 const variants = {
   hiddenY: VisibilityVariants.hiddenY,
   visible: VisibilityVariants.visible,
   hoverScale: HoverVariants.hoverScale,
   tapScale: TapVariants.tapScale,
 };
+
+// Define the props for the FilterButton component
 type FilterButtonProps = {
   children: React.ReactNode;
   onFilterBoardClose?: () => void;
 };
 
-export const FilterButton: React.FC<FilterButtonProps> = ({
+const FilterButton: React.FC<FilterButtonProps> = ({
   children,
   onFilterBoardClose,
 }) => {
@@ -29,6 +32,7 @@ export const FilterButton: React.FC<FilterButtonProps> = ({
     setIsFilterBoardOpen((prev) => !prev);
   }, []);
 
+  // Handle clicks outside the filter board to close it
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -63,7 +67,7 @@ export const FilterButton: React.FC<FilterButtonProps> = ({
         variants={variants}
         whileTap="tapScale"
         title="filter"
-        className={`rounded-full bg-background-dark dark:bg-background-dark-transparent shadow-component dark:shadow-component-dark h-10 w-10 md:h-12 md:w-12 lg:h-12 lg:w-12 xl:h-12 xl:w-12 2xl:h-16 2xl:w-16 3xl:h-16 3xl:w-16`}
+        className="rounded-full bg-background-dark dark:bg-background-dark-transparent shadow-component dark:shadow-component-dark h-10 w-10 md:h-12 md:w-12 lg:h-12 lg:w-12 xl:h-12 xl:w-12 2xl:h-16 2xl:w-16 3xl:h-16 3xl:w-16"
         onClick={toggleFilterBoard}
       >
         <i

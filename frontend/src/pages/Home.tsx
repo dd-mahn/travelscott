@@ -1,5 +1,5 @@
-import React, { memo, useCallback, useEffect, useMemo, useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import React, { memo, useCallback, useEffect, useMemo } from "react";
+import { motion } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "src/store/store";
 import { setHomeBlogs } from "src/store/slices/blogSlice";
@@ -32,6 +32,8 @@ const variants = {
 // Home component
 const Home: React.FC = () => {
   const dispatch = useDispatch();
+
+  // Selector to get home blogs from the Redux store
   const selectHomeState = useCallback(
     (state: RootState) => ({
       blogs: state.blog.homeBlogs,
@@ -45,6 +47,7 @@ const Home: React.FC = () => {
     `${BASE_URL}/blogs?limit=100`,
   );
 
+  // Dispatch fetched blogs data to the Redux store
   useEffect(() => {
     if (blogsData?.result) {
       dispatch(setHomeBlogs(blogsData.result));
@@ -67,11 +70,13 @@ const Home: React.FC = () => {
         style={{ scale: scaleS }}
         className="pt-40 md:pt-64 lg:pt-sect-default 2xl:pt-sect-semi"
       >
+        {/* Inspired section with scale and opacity transitions */}
         <motion.div style={{ scale: scaleSO, opacity: opacitySO }} className="sticky top-0 z-0">
           <Inspired />
         </motion.div>
 
-        <div ref={refSO} className="">
+        {/* Articles section with ref for section transition */}
+        <div ref={refSO}>
           <Articles articlesHookRef={articlesHookRef} blogs={blogs} />
         </div>
 
@@ -111,6 +116,7 @@ const Home: React.FC = () => {
         <Starter blogs={blogs} />
       </motion.section>
 
+      {/* Quote section with ref for section transition */}
       <div ref={refS} className="z-30">
         <Quote />
       </div>

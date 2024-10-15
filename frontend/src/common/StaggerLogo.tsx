@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { VisibilityVariants } from "src/utils/variants";
 
+// Define animation variants
 const variants = {
   hiddenY: VisibilityVariants.hiddenY,
   hiddenFullY: VisibilityVariants.hiddenFullY,
@@ -20,19 +21,7 @@ export default function StaggerLogo({
   const textRef = useRef<HTMLDivElement>(null);
   const [fontSize, setFontSize] = useState(16); // Default size
 
-  useEffect(() => {
-    const handleResize = () => {
-      resizeText();
-    };
-
-    resizeText();
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
+  // Resize text based on container width
   const resizeText = () => {
     const container = containerRef.current;
     const textElement = textRef.current;
@@ -45,6 +34,7 @@ export default function StaggerLogo({
     let min = 1;
     let max = 2500;
 
+    // Binary search to find the optimal font size
     while (min <= max) {
       const mid = Math.floor((min + max) / 2);
       textElement.style.fontSize = mid + "px";
@@ -60,6 +50,20 @@ export default function StaggerLogo({
     textElement.style.fontSize = max + "px";
     setFontSize(max);
   };
+
+  // Handle window resize events
+  useEffect(() => {
+    const handleResize = () => {
+      resizeText();
+    };
+
+    resizeText();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <div

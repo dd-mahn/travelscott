@@ -5,13 +5,13 @@ import { HoverVariants, VisibilityVariants } from "src/utils/variants";
 import heroVideo from "src/assets/videos/about-hero.mp4";
 import { useViewportWidth } from "src/utils/imageUtils";
 
+// Define animation variants
 const variants = {
   hidden: VisibilityVariants.hidden,
   hiddenY: VisibilityVariants.hiddenY,
   hiddenFullY: VisibilityVariants.hiddenFullY,
   visible: VisibilityVariants.visible,
   hoverScale: HoverVariants.hoverScale,
-
   blob1Animation: {
     scale: [1, 1.5, 1],
     opacity: [0.5, 0.7, 0.5],
@@ -22,7 +22,6 @@ const variants = {
       repeat: Infinity,
     },
   },
-
   blob2Animation: {
     scale: [1, 1.5, 1],
     opacity: [0.5, 0.7, 0.5],
@@ -36,12 +35,11 @@ const variants = {
 };
 
 const AboutHero = () => {
-  const viewportWidth = useViewportWidth()
+  const viewportWidth = useViewportWidth();
   const [leftValue, setLeftValue] = useState(0);
-  const sideBlockRefs = [
-    useRef<HTMLDivElement>(null),
-    useRef<HTMLDivElement>(null),
-  ];
+
+  // Refs for DOM elements
+  const sideBlockRefs = [useRef<HTMLDivElement>(null), useRef<HTMLDivElement>(null)];
   const blockRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const aboutVideoRef = useRef<HTMLVideoElement>(null);
@@ -108,11 +106,22 @@ const AboutHero = () => {
 
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
   const opacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
   return (
     <section className="hero px-sect relative flex flex-col items-center gap-3 md:gap-4 lg:gap-6 lg:py-10 2xl:gap-12 2xl:py-sect-short">
       {/* Background blobs */}
-      <motion.div initial="hidden" animate="blob1Animation" variants={variants} className="blur-blob blob-brown left-[10%] top-0 h-1/3 w-1/5 opacity-50"></motion.div>
-      <motion.div initial="hidden" animate="blob2Animation" variants={variants} className="blur-blob blob-green right-1/3 top-[10%] h-[20%] w-1/3 opacity-50"></motion.div>
+      <motion.div
+        initial="hidden"
+        animate="blob1Animation"
+        variants={variants}
+        className="blur-blob blob-brown left-[10%] top-0 h-1/3 w-1/5 opacity-50"
+      ></motion.div>
+      <motion.div
+        initial="hidden"
+        animate="blob2Animation"
+        variants={variants}
+        className="blur-blob blob-green right-1/3 top-[10%] h-[20%] w-1/3 opacity-50"
+      ></motion.div>
 
       {/* Hero Title */}
       <motion.div

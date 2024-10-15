@@ -24,6 +24,7 @@ type PlaceDialogProps = {
 
 // Main component to render the dialog based on the category
 const PlaceDialog: React.FC<PlaceDialogProps> = ({ place, category }) => {
+  // Function to render dialog content based on category
   const renderDialogContent = () => {
     switch (category) {
       case "to_stay":

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect } from "react";
 
 // Component imports
 import "src/styles/discover.css";
@@ -52,7 +52,7 @@ const Discover: React.FC = () => {
       dispatch(setAllDestinations(allDestinationData.result));
       dispatch(setFeaturedDestinations(getFeaturedDestinations(allDestinationData.result)));
     }
-  }, [allDestinationData, countryData]);
+  }, [allDestinationData, countryData, dispatch]);
 
   // Handle continent data
   useEffect(() => {
@@ -64,7 +64,7 @@ const Discover: React.FC = () => {
       }));
       dispatch(setContinents(updatedContinents));
     }
-  }, [countries, continents, dispatch]);
+  }, [countries, dispatch]);
 
   // Handle render
   if (countryLoading || allDestinationLoading) {

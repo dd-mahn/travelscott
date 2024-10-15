@@ -12,6 +12,13 @@ interface CountryOverviewProps {
   country: Country;
 }
 
+// Define the props for the InfoItem component
+interface InfoItemProps {
+  icon: string;
+  label: string;
+  value: string;
+}
+
 // Animation variants for framer-motion
 const variants = {
   hiddenY: VisibilityVariants.hiddenY,
@@ -24,6 +31,16 @@ const variants = {
   hoverScale: HoverVariants.hoverScale,
   tapScale: TapVariants.tapScale,
 };
+
+// InfoItem component to display individual pieces of information
+const InfoItem: React.FC<InfoItemProps> = ({ icon, label, value }) => (
+  <motion.div variants={variants} className="flex flex-col gap-2">
+    <span className="span-medium uppercase">
+      <i className={icon}></i> {label}
+    </span>
+    <p className="p-regular">{value}</p>
+  </motion.div>
+);
 
 // CountryOverview component to display country information
 const CountryOverview: React.FC<CountryOverviewProps> = ({ country }) => {
@@ -97,22 +114,5 @@ const CountryOverview: React.FC<CountryOverviewProps> = ({ country }) => {
     </section>
   );
 };
-
-// Define the props for the InfoItem component
-interface InfoItemProps {
-  icon: string;
-  label: string;
-  value: string;
-}
-
-// InfoItem component to display individual pieces of information
-const InfoItem: React.FC<InfoItemProps> = ({ icon, label, value }) => (
-  <motion.div variants={variants} className="flex flex-col gap-2">
-    <span className="span-medium uppercase">
-      <i className={icon}></i> {label}
-    </span>
-    <p className="p-regular">{value}</p>
-  </motion.div>
-);
 
 export default memo(CountryOverview);

@@ -43,7 +43,6 @@ const FeaturedDestinationCard: React.FC<DestinationCardProps> = memo(
     return (
       <div className="destination-card flex h-full flex-col gap-1 lg:gap-2 lg:pb-6 2xl:gap-4 2xl:pb-8">
         {/* Image container */}
-
         <Link
           to={`/destinations/${destination._id}`}
           target="_top"

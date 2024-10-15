@@ -20,6 +20,7 @@ import {
 import FilterButton from "src/common/FilterButton";
 import DestinationCatalog from "src/common/DestinationCatalog";
 
+// Define animation variants
 const variants = {
   hiddenY: VisibilityVariants.hiddenY,
   hiddenShort: VisibilityVariants.hiddenShortY,
@@ -32,11 +33,14 @@ const variants = {
   tapScale: TapVariants.tapScale,
 };
 
+// Define the limit of destinations per page
 const limit = 18;
 
 const DiscoverDestinations: React.FC = () => {
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
+
+  // Extract necessary state from Redux store
   const {
     continents: computedContinents,
     countries: computedCountries,
@@ -48,6 +52,7 @@ const DiscoverDestinations: React.FC = () => {
     (state: RootState) => state.destination,
   );
 
+  // Construct the URL for fetching destinations
   const url = useMemo(() => {
     let url = `${BASE_URL}/destinations?page=${currentPage}&limit=${limit}`;
     if (tags.length > 0) {
@@ -71,12 +76,14 @@ const DiscoverDestinations: React.FC = () => {
     destinationSearchQuery,
   ]);
 
+  // Fetch destination data
   const {
     data: destinationData,
     loading: destinationLoading,
     error: destinationError,
   } = useFetch<FetchDestinationType>(url, [url]);
 
+  // Update Redux store with fetched data
   useEffect(() => {
     if (destinationData) {
       dispatch(setDestinations(destinationData.result));
@@ -86,10 +93,12 @@ const DiscoverDestinations: React.FC = () => {
     }
   }, [destinationData, destinationLoading, destinationError, dispatch]);
 
+  // Handle page change
   const handlePageChange = useCallback((newPage: number) => {
     setCurrentPage(newPage);
   }, []);
 
+  // Generate a unique key for filtering
   const filterKey = useMemo(
     () =>
       `${currentPage}-${tags.join(",")}-${computedCountries.join(",")}-${computedContinents.join(",")}-${destinationSearchQuery}`,

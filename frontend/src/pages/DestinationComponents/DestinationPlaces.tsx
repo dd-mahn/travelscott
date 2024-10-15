@@ -41,6 +41,57 @@ const CATEGORY_DESCRIPTIONS = {
     "Don't miss out on enjoying delicious local dishes at these excellent restaurants. They offer a variety of flavors and culinary experiences that are sure to satisfy your taste buds.",
 };
 
+// PlaceCard component to display individual place cards
+const PlaceCard: React.FC<{
+  place: placeToStay | placeToVisit | placeToEat;
+  callBack: () => void;
+}> = memo(({ place, callBack }) => {
+  // Memoized optimized image
+  const optimizedImage = useMemo(() => {
+    return optimizeImage(place.image_url, {
+      width: 600,
+      height: 600,
+      quality: 70,
+      format: "auto",
+    });
+  }, [place]);
+
+  return (
+    <motion.div
+      initial="hiddenY"
+      whileInView="visible"
+      viewport={{ once: true }}
+      variants={variants}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="flex flex-col gap-2 md:gap-4">
+        <div className="overflow-hidden rounded-xl shadow-component dark:shadow-component-dark">
+          <motion.img
+            whileHover="hoverScale"
+            variants={variants}
+            transition={{ duration: 0.5 }}
+            className="cursor-hover-small h-[30svh] lg:h-[50svh] cursor-pointer rounded-xl"
+            src={optimizedImage.src}
+            srcSet={optimizedImage.srcSet}
+            alt="place image"
+            onClick={callBack}
+          />
+        </div>
+
+        <motion.span
+          variants={variants}
+          whileHover="hoverX"
+          transition={{ duration: 0.5 }}
+          className="span-medium cursor-hover-small cursor-pointer"
+          onClick={callBack}
+        >
+          {place?.name}
+        </motion.span>
+      </div>
+    </motion.div>
+  );
+});
+
 const DestinationPlaces: React.FC<DestinationPlacesProps> = ({ places }) => {
   // State to manage the current place category
   const [placeCategory, setPlaceCategory] = useState("to_visit");
@@ -185,54 +236,3 @@ const DestinationPlaces: React.FC<DestinationPlacesProps> = ({ places }) => {
 };
 
 export default memo(DestinationPlaces);
-
-// PlaceCard component to display individual place cards
-const PlaceCard: React.FC<{
-  place: placeToStay | placeToVisit | placeToEat;
-  callBack: () => void;
-}> = memo(({ place, callBack }) => {
-  // Memoized optimized image
-  const optimizedImage = useMemo(() => {
-    return optimizeImage(place.image_url, {
-      width: 600,
-      height: 600,
-      quality: 70,
-      format: "auto",
-    });
-  }, [place]);
-
-  return (
-    <motion.div
-      initial="hiddenY"
-      whileInView="visible"
-      viewport={{ once: true }}
-      variants={variants}
-      transition={{ duration: 0.5 }}
-    >
-      <div className="flex flex-col gap-2 md:gap-4">
-        <div className="overflow-hidden rounded-xl shadow-component dark:shadow-component-dark">
-          <motion.img
-            whileHover="hoverScale"
-            variants={variants}
-            transition={{ duration: 0.5 }}
-            className="cursor-hover-small h-[30svh] lg:h-[50svh] cursor-pointer rounded-xl"
-            src={optimizedImage.src}
-            srcSet={optimizedImage.srcSet}
-            alt="place image"
-            onClick={callBack}
-          />
-        </div>
-
-        <motion.span
-          variants={variants}
-          whileHover="hoverX"
-          transition={{ duration: 0.5 }}
-          className="span-medium cursor-hover-small cursor-pointer"
-          onClick={callBack}
-        >
-          {place?.name}
-        </motion.span>
-      </div>
-    </motion.div>
-  );
-});

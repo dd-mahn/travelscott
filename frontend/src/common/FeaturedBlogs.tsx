@@ -8,18 +8,21 @@ import { formatDate } from "src/utils/formatDate";
 import { HoverVariants, TapVariants } from "src/utils/variants";
 import { getImageSize, useViewportWidth, optimizeImage } from "src/utils/imageUtils";
 
-type featuredBlogsProps = {
+// Define the props type for the component
+type FeaturedBlogsProps = {
   blogs: Blog[];
 };
 
+// Define the animation variants
 const variants = {
   hoverScale: HoverVariants.hoverScale,
   tapScale: TapVariants.tapScale,
 };
 
-const FeaturedBlogs: React.FC<featuredBlogsProps> = ({ blogs }) => {
+const FeaturedBlogs: React.FC<FeaturedBlogsProps> = ({ blogs }) => {
   const viewportWidth = useViewportWidth();
 
+  // Optimize blog images based on the viewport width
   const optimizedBlogs = useMemo(() => {
     return blogs.map((blog) => ({
       ...blog,

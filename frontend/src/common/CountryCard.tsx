@@ -1,9 +1,9 @@
 import React, { memo, Suspense, useMemo } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 // Component imports
 import Country from "src/types/Country";
-import { Link } from "react-router-dom";
 import {
   useViewportWidth,
   getImageSize,
@@ -28,6 +28,7 @@ const variants = {
 const CountryCard: React.FC<CountryCardProps> = ({ country }) => {
   const viewportWidth = useViewportWidth();
 
+  // Memoize optimized image to avoid unnecessary recalculations
   const optimizedImage = useMemo(
     () =>
       country?.images?.flagImages?.[0]

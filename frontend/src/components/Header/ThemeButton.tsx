@@ -1,15 +1,16 @@
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
-import { HoverVariants } from "src/utils/variants";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleDarkMode, selectIsDarkMode, setDarkMode } from "src/store/slices/themeSlice";
 import { useViewportWidth } from "src/utils/imageUtils";
+import { HoverVariants } from "src/utils/variants";
 
 const ThemeButton = () => {
   const viewportWidth = useViewportWidth();
   const dispatch = useDispatch();
   const isDarkMode = useSelector(selectIsDarkMode);
 
+  // Retrieve dark mode setting from local storage on component mount
   useEffect(() => {
     const storedDarkMode = localStorage.getItem('isDarkMode');
     if (storedDarkMode) {
@@ -17,6 +18,7 @@ const ThemeButton = () => {
     }
   }, [dispatch]);
 
+  // Apply or remove dark mode class based on isDarkMode state
   useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add("dark");
@@ -25,6 +27,7 @@ const ThemeButton = () => {
     }
   }, [isDarkMode]);
 
+  // Handle dark mode toggle button click
   const handleToggleDarkMode = () => {
     dispatch(toggleDarkMode());
   };

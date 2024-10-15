@@ -1,6 +1,7 @@
 import { getSeason } from "./getSeason";
 
-export const getInspirationHeading = (category: string) => {
+// Function to get the heading based on the category
+export const getInspirationHeading = (category: string): string => {
   const headings: { [key: string]: string } = {
     Wilderness: "Wilderness",
     "Culture&Heritage": "Culture & Heritage",
@@ -11,30 +12,25 @@ export const getInspirationHeading = (category: string) => {
     Relaxation: "Relaxation",
     FirstTimeAbroad: "First Time Abroad",
   };
+
+  // Return the heading if it exists, otherwise return the current season and year
   return headings[category] || `${getSeason()} ${new Date().getFullYear()}`;
 };
 
-export const getBackgroundKey = (category: string) => {
-  switch (category) {
-    case "All":
-      return "background-dark";
-    case "Wilderness":
-      return "wilderness";
-    case "Culture&Heritage":
-      return "cultureheritage";
-    case "Food&Drink":
-      return "fooddrink";
-    case "SoloJourneys":
-      return "solojourneys";
-    case "CityScape":
-      return "bg-cityscape";
-    case "Season&Festival":
-      return "seasonfestival";
-    case "Relaxation":
-      return "relaxation";
-    case "FirstTimeAbroad":
-      return "firsttimeabroad";
-    default:
-      return "background-dark";
-  }
+// Function to get the background key based on the category
+export const getBackgroundKey = (category: string): string => {
+  const backgroundKeys: { [key: string]: string } = {
+    All: "background-dark",
+    Wilderness: "wilderness",
+    "Culture&Heritage": "cultureheritage",
+    "Food&Drink": "fooddrink",
+    SoloJourneys: "solojourneys",
+    CityScape: "bg-cityscape",
+    "Season&Festival": "seasonfestival",
+    Relaxation: "relaxation",
+    FirstTimeAbroad: "firsttimeabroad",
+  };
+
+  // Return the background key if it exists, otherwise return the default background key
+  return backgroundKeys[category] || "background-dark";
 };

@@ -60,12 +60,11 @@ const Brief: React.FC = () => {
   const paragraphRefs = [useRef(null), useRef(null), useRef(null)];
 
   // Create scroll-based animations for each paragraph
-  const scrollYProgresses = paragraphRefs.map(
-    (ref) =>
-      useScroll({
-        target: ref,
-        offset: ["start center", "end center"],
-      }).scrollYProgress,
+  const scrollYProgresses = paragraphRefs.map((ref) =>
+    useScroll({
+      target: ref,
+      offset: ["start center", "end center"],
+    }).scrollYProgress,
   );
 
   // Transform scroll progress into opacity values
@@ -157,36 +156,37 @@ const Brief: React.FC = () => {
               className="blob-brown blur-blob absolute bottom-[15%] right-0 h-1/3 w-1/3 opacity-60"
             ></motion.div>
             {/* Paragraphs with scroll-based opacity animation */}
-            <motion.p
-              ref={paragraphRefs[0]}
-              style={{ opacity: opacities[0] }}
-              className={`${viewportWidth < 768 ? "text-center p-regular" : "p-regular"} z-10 text-text-dark dark:text-text-dark sm:w-3/4 md:w-2/3 md:text-left md:text-text-light md:dark:text-text-dark lg:w-4/5 3xl:w-2/3`}
-            >
-              Take a break from your daily routine. When was the last time you
-              explored beyond your city? Discover new places, meet new people,
-              and experience different cultures. It's time to refresh your
-              spirit and broaden your horizons.
-            </motion.p>
-
-            <motion.p
-              ref={paragraphRefs[1]}
-              style={{ opacity: opacities[1] }}
-              className={`${viewportWidth < 768 ? "text-center p-regular" : "p-regular"} z-10 text-text-dark dark:text-text-dark sm:w-3/4 md:w-2/3 md:text-left md:text-text-light md:dark:text-text-dark lg:w-4/5 3xl:w-2/3`}
-            >
-              To help you get started, explore our virtual gallery. It features
-              a curated selection of global destinations with visuals and key
-              information to simplify your travel planning and inspire your next
-              trip.
-            </motion.p>
-
-            <motion.p
-              ref={paragraphRefs[2]}
-              style={{ opacity: opacities[2] }}
-              className={`${viewportWidth < 768 ? "text-center p-regular" : "p-regular"} z-10 text-text-dark dark:text-text-dark sm:w-3/4 md:w-2/3 md:text-left md:text-text-light md:dark:text-text-dark lg:w-4/5 3xl:w-2/3`}
-            >
-              For more insights, visit our blog. Our travel stories and tips
-              will help you plan and make the most of your adventures.
-            </motion.p>
+            {paragraphRefs.map((ref, index) => (
+              <motion.p
+                key={index}
+                ref={ref}
+                style={{ opacity: opacities[index] }}
+                className={`${viewportWidth < 768 ? "text-center p-regular" : "p-regular"} z-10 text-text-dark dark:text-text-dark sm:w-3/4 md:w-2/3 md:text-left md:text-text-light md:dark:text-text-dark lg:w-4/5 3xl:w-2/3`}
+              >
+                {index === 0 && (
+                  <>
+                    Take a break from your daily routine. When was the last time you
+                    explored beyond your city? Discover new places, meet new people,
+                    and experience different cultures. It's time to refresh your
+                    spirit and broaden your horizons.
+                  </>
+                )}
+                {index === 1 && (
+                  <>
+                    To help you get started, explore our virtual gallery. It features
+                    a curated selection of global destinations with visuals and key
+                    information to simplify your travel planning and inspire your next
+                    trip.
+                  </>
+                )}
+                {index === 2 && (
+                  <>
+                    For more insights, visit our blog. Our travel stories and tips
+                    will help you plan and make the most of your adventures.
+                  </>
+                )}
+              </motion.p>
+            ))}
           </div>
         </div>
       </div>

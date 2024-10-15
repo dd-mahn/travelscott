@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 
@@ -10,7 +10,9 @@ import NotFoundPage from "./404";
 import Loading from "src/common/Loading";
 import { VisibilityVariants } from "src/utils/variants";
 import { formatDate } from "src/utils/formatDate";
+import { useViewportWidth, getImageSize, optimizeImage } from "src/utils/imageUtils";
 
+// Define motion variants
 const variants = {
   hidden: VisibilityVariants.hidden,
   visible: VisibilityVariants.visible,
@@ -21,18 +23,34 @@ const variants = {
 const Article: React.FC = () => {
   const { id } = useParams();
 
-  // Handle blog data
+  // Fetch blog data
   const {
     data: blogData,
     loading: blogLoading,
     error: blogError,
   } = useFetch<Blog>(`${BASE_URL}/blogs/${id}`);
 
+  // Handle loading and error states
   if (blogLoading) return <Loading />;
   if (!blogData || blogError) return <NotFoundPage />;
 
+  const viewportWidth = useViewportWidth();
+
+  // Optimize the main image based on the viewport width and blog data
+  const optimizedMainImage = useMemo(() => {
+    if (blogData.image) {
+      return optimizeImage(blogData.image, {
+        width: getImageSize(viewportWidth),
+        quality: 80,
+        format: "auto",
+      });
+    }
+    return null;
+  }, [blogData.image, viewportWidth]);
+
   return (
     <main className="">
+      {/* Blog header image */}
       <motion.div
         variants={variants}
         initial="hiddenY"
@@ -40,14 +58,18 @@ const Article: React.FC = () => {
         transition={{ duration: 0.5 }}
         className="h-[50svh] md:h-[75svh] bg-gradient-to-t from-blue-gray-900 to-gray"
       >
-        <img
-          src={blogData.image}
-          alt={blogData.title}
-          className="h-full w-full object-cover"
-        />
+        {optimizedMainImage && (
+          <img
+            src={optimizedMainImage.src}
+            srcSet={optimizedMainImage.srcSet}
+            alt={blogData.title}
+            className="h-full w-full object-cover"
+          />
+        )}
       </motion.div>
 
-      <div className=" mt-12 md:mt-20 flex h-[20svh] lg:h-[35svh] flex-col items-center gap-2 lg:gap-2 2xl:gap-4">
+      {/* Blog metadata */}
+      <div className="mt-12 md:mt-20 flex h-[20svh] lg:h-[35svh] flex-col items-center gap-2 lg:gap-2 2xl:gap-4">
         <motion.span
           variants={variants}
           initial="hiddenY"
@@ -68,7 +90,6 @@ const Article: React.FC = () => {
             {blogData.title}
           </motion.h2>
         </div>
-
         <motion.span
           variants={variants}
           initial="hiddenY"
@@ -90,64 +111,84 @@ const Article: React.FC = () => {
         </motion.span>
       </div>
 
+      {/* Blog content */}
       <div className="flex flex-col items-center gap-20">
-        {blogData.content.map((content, index) => (
-          <div key={index} className="flex w-[90%] sm:w-3/4 lg:w-2/3 flex-col items-center gap-8 md:gap-12 lg:gap-20">
-            <motion.div
-              variants={variants}
-              initial="hiddenY"
-              whileInView="visible"
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="flex lg:w-2/3 flex-col gap-4"
-            >
-              <h3 className="h3-md">{content.sectionTitle}</h3>
-              {content.sectionText.map((sectionText, index) => (
-                <p className="p-regular" key={index}>
-                  {sectionText}
-                </p>
-              ))}
-            </motion.div>
+        {blogData.content.map((content, index) => {
+          const optimizedSectionImage = useMemo(() => {
+            if (content.sectionImages && content.sectionImages.length > 0) {
+              return optimizeImage(content.sectionImages[0].url, {
+                width: getImageSize(viewportWidth),
+                quality: 80,
+                format: "auto",
+              });
+            }
+            return null;
+          }, [content.sectionImages, viewportWidth]);
 
-            <motion.div
-              variants={variants}
-              initial="hiddenY"
-              whileInView="visible"
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="flex flex-col items-center gap-2 md:gap-4"
-            >
-              <img
-                className="w-full rounded-xl"
-                src={content.sectionImages?.[0].url}
-                alt={content.sectionTitle}
-              />
-              <span className="span-small text-gray">
-                {content.sectionImages?.[0].description}
-              </span>
-            </motion.div>
-          </div>
-        ))}
+          return (
+            <div key={index} className="flex w-[90%] sm:w-3/4 lg:w-2/3 flex-col items-center gap-8 md:gap-12 lg:gap-20">
+              <motion.div
+                variants={variants}
+                initial="hiddenY"
+                whileInView="visible"
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="flex lg:w-2/3 flex-col gap-4"
+              >
+                <h3 className="h3-md">{content.sectionTitle}</h3>
+                {content.sectionText.map((sectionText, index) => (
+                  <p className="p-regular" key={index}>
+                    {sectionText}
+                  </p>
+                ))}
+              </motion.div>
 
+              {/* Blog section images */}
+              <motion.div
+                variants={variants}
+                initial="hiddenY"
+                whileInView="visible"
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="flex flex-col items-center gap-2 md:gap-4"
+              >
+                {optimizedSectionImage && (
+                  <img
+                    className="w-full rounded-xl"
+                    src={optimizedSectionImage.src}
+                    srcSet={optimizedSectionImage.srcSet}
+                    alt={content.sectionTitle}
+                  />
+                )}
+                <span className="span-small text-gray">
+                  {content.sectionImages?.[0].description}
+                </span>
+              </motion.div>
+            </div>
+          );
+        })}
+
+        {/* Blog author */}
         <motion.div
           variants={variants}
           initial="hiddenY"
           whileInView="visible"
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="flex w-[90%] sm:w-3/4 lg:w-2/3  justify-end border-t pt-2"
+          className="flex w-[90%] sm:w-3/4 lg:w-2/3 justify-end border-t pt-2"
         >
           <span className="span-large w-fit">By {" " + blogData.author}</span>
         </motion.div>
       </div>
 
+      {/* Related articles */}
       <motion.div
         variants={variants}
         initial="hiddenY"
         whileInView="visible"
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className=" py-20 lg:py-40 2xl:py-sect-default"
+        className="py-20 lg:py-40 2xl:py-sect-default"
       >
         <div className="overflow-hidden">
           <motion.h2
@@ -161,7 +202,6 @@ const Article: React.FC = () => {
             Related articles
           </motion.h2>
         </div>
-
         <RelatedSections type={"blog"} data={blogData} />
       </motion.div>
     </main>

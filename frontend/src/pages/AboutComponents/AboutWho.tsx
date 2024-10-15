@@ -1,9 +1,10 @@
-import React, { memo } from "react";
+import React, { memo, Suspense } from "react";
 import { motion, useInView } from "framer-motion";
 import { HoverVariants, VisibilityVariants } from "src/utils/variants";
 import { people } from "src/data/about-people";
-import { Suspense } from "react";
+import LazyImage from "./LazyImage";
 
+// Import images
 import who1 from "src/assets/images/ui/about/about-1.webp";
 import who2 from "src/assets/images/ui/about/about-2.webp";
 import who3 from "src/assets/images/ui/about/about-3.webp";
@@ -12,66 +13,60 @@ import who5 from "src/assets/images/ui/about/about-5.webp";
 import who6 from "src/assets/images/ui/about/about-6.webp";
 import who7 from "src/assets/images/ui/about/about-7.webp";
 import who8 from "src/assets/images/ui/about/about-8.webp";
-import LazyImage from "./LazyImage";
 
+// Define animation variants
 const variants = {
   hiddenY: VisibilityVariants.hiddenY,
   hiddenFullY: VisibilityVariants.hiddenFullY,
   visible: VisibilityVariants.visible,
   hoverScale: HoverVariants.hoverScale,
-
   imgVisible: {
     opacity: 1,
     y: 0,
     transition: { duration: 0.4, ease: "easeInOut" },
   },
-  
   imgFloat: {
     y: [0, 10, -10, 0],
     scale: [1, 0.98, 1.02, 1],
     transition: { duration: 5, repeat: Infinity },
   },
-
   blobAnimation: {
     scale: [1, 1.5, 1],
     opacity: [0.6, 0.7, 0.6],
     zIndex: [0, 0, 0],
     transition: { duration: 5, repeat: Infinity },
   },
-
   blob1Animation: {
     scale: [1, 1.5, 1],
     opacity: [0.5, 0.7, 0.5],
     x: [0, 300, 0],
     y: [0, 100, 0],
     zIndex: [0, 0, 0],
-    transition: {
-      duration: 5,
-      repeat: Infinity,
-    },
+    transition: { duration: 5, repeat: Infinity },
   },
-
   blob2Animation: {
     scale: [1, 1.5, 1],
     opacity: [0.5, 0.7, 0.5],
     x: [0, 300, 0],
     y: [0, -200, 0],
     zIndex: [0, 0, 0],
-    transition: {
-      duration: 5,
-      repeat: Infinity,
-    },
+    transition: { duration: 5, repeat: Infinity },
   },
 };
 
+// Array of images
 const whoImages = [who1, who2, who3, who4, who5, who6, who7, who8];
 
+// Main component
 const AboutWho = () => {
   return (
     <section className="who px-sect sticky top-0 z-20 rounded-5xl bg-background-dark-transparent dark:bg-background-dark-transparent overflow-hidden shadow-section pb-64 pt-32 lg:pb-sect-default lg:pt-40 2xl:py-sect-default">
       <div className="relative flex flex-col">
+        {/* Animated blobs */}
         <motion.div initial="hidden" animate="blob2Animation" variants={variants} className="blob-brown blur-blob left-1/2 top-[20%] h-1/4 w-1/4 opacity-30"></motion.div>
         <motion.div initial="hidden" animate="blob1Animation" variants={variants} className="blob-green blur-blob top-[5%] left-[5%] h-1/4 w-1/3 opacity-20"></motion.div>
+        
+        {/* Section title */}
         <motion.div
           initial="hiddenY"
           whileInView="visible"
@@ -82,6 +77,8 @@ const AboutWho = () => {
         >
           <h1 className="text-text-dark">Who?</h1>
         </motion.div>
+        
+        {/* People grid */}
         <motion.div
           initial="hiddenY"
           whileInView="visible"
@@ -118,6 +115,8 @@ const AboutWho = () => {
             </div>
           ))}
         </motion.div>
+        
+        {/* Animated images and description */}
         <div className="px-sect relative pb-48 pt-sect-medium lg:pb-sect-default lg:pt-sect-long 2xl:mt-sect-default">
           <motion.div initial="hidden" animate="blobAnimation" variants={variants} className="blob-brown blur-blob left-[20%] top-1/3 h-1/2 w-1/2 opacity-30"></motion.div>
 
@@ -145,6 +144,7 @@ const AboutWho = () => {
   );
 };
 
+// Animated image component
 const AnimatedImage = memo(({ src, index }: { src: string; index: number }) => {
   const ref = React.useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });

@@ -1,22 +1,29 @@
-import React, { memo, useEffect, useMemo, useRef, useState } from "react";
+import React, { memo, useMemo, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { VisibilityVariants } from "src/utils/variants";
-import Destination from "src/types/Destination";
 import ReactPlayer from "react-player";
 
+// Define animation variants for the motion component
 const variants = {
   hiddenY: VisibilityVariants.hiddenY,
   visible: VisibilityVariants.visible,
 };
 
-const DestinationVideo = ({ videoCode }: { videoCode: string }) => {
+interface DestinationVideoProps {
+  videoCode: string;
+}
+
+const DestinationVideo: React.FC<DestinationVideoProps> = ({ videoCode }) => {
+  // Reference to the video container element
   const videoContainerRef = useRef<HTMLDivElement>(null);
 
+  // Check if the video container is in view
   const videoInView = useInView(videoContainerRef, {
     once: false,
     margin: "-40%",
   });
 
+  // Memoize the ReactPlayer component to optimize performance
   const videoPlayer = useMemo(
     () => (
       <ReactPlayer

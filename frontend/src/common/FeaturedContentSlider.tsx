@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useState } from "react";
+import React, { memo, useCallback, useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { DotPagination } from "./Pagination";
 import { VisibilityVariants } from "src/utils/variants";
@@ -7,24 +7,20 @@ import { VisibilityVariants } from "src/utils/variants";
 const variants = {
   hiddenY: VisibilityVariants.hiddenY,
   visible: VisibilityVariants.visible,
-  enter: (direction: number) => {
-    return {
-      x: direction > 0 ? 1000 : -1000,
-      opacity: 0,
-    };
-  },
+  enter: (direction: number) => ({
+    x: direction > 0 ? 1000 : -1000,
+    opacity: 0,
+  }),
   center: {
     zIndex: 1,
     x: 0,
     opacity: 1,
   },
-  exit: (direction: number) => {
-    return {
-      zIndex: 0,
-      x: direction < 0 ? 1000 : -1000,
-      opacity: 0,
-    };
-  },
+  exit: (direction: number) => ({
+    zIndex: 0,
+    x: direction < 0 ? 1000 : -1000,
+    opacity: 0,
+  }),
 };
 
 type FeaturedContentSliderProps = {
@@ -36,10 +32,11 @@ const FeaturedContentSlider: React.FC<FeaturedContentSliderProps> = ({
 }) => {
   const [direction, setDirection] = useState(1);
   const [index, setIndex] = useState(0);
-  const childRef = React.useRef<HTMLDivElement>(null);
-  const containerRef = React.useRef<HTMLDivElement>(null);
+  const childRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const inView = useInView(childRef, { once: true });
 
+  // Handle next slide
   const handleNext = useCallback(() => {
     if (index < children.length - 1) {
       setDirection(1);
@@ -47,6 +44,7 @@ const FeaturedContentSlider: React.FC<FeaturedContentSliderProps> = ({
     }
   }, [index, children.length]);
 
+  // Handle previous slide
   const handlePrev = useCallback(() => {
     if (index > 0) {
       setDirection(-1);
@@ -54,14 +52,15 @@ const FeaturedContentSlider: React.FC<FeaturedContentSliderProps> = ({
     }
   }, [index]);
 
-  const updateHeight = () => {
+  // Update container height based on child content
+  const updateHeight = useCallback(() => {
     if (containerRef.current && childRef.current) {
       containerRef.current.style.height = `${childRef.current.scrollHeight}px`;
     }
-  };
+  }, []);
 
+  // Update height on initial mount and on window resize/zoom
   useEffect(() => {
-    // Call updateHeight on initial mount
     updateHeight();
 
     const handleResize = () => {
@@ -75,17 +74,19 @@ const FeaturedContentSlider: React.FC<FeaturedContentSliderProps> = ({
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("zoom", handleResize);
     };
-  }, [index]);
+  }, [index, updateHeight]);
 
+  // Update height when children or index changes
   useEffect(() => {
     updateHeight();
-  }, [children, index]);
+  }, [children, index, updateHeight]);
 
+  // Update height when the component is in view
   useEffect(() => {
     if (inView) {
       updateHeight();
     }
-  }, [inView]);
+  }, [inView, updateHeight]);
 
   return (
     <>

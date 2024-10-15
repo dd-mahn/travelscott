@@ -21,6 +21,7 @@ import { useViewportWidth } from "src/utils/imageUtils";
 
 const HeaderSearch: React.FC = () => {
   const viewportWidth = useViewportWidth();
+
   // State variables
   const [inputDisplay, setInputDisplay] = useState(false);
   const [searchResultOpen, setSearchResultOpen] = useState(false);

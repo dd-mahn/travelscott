@@ -1,7 +1,7 @@
 import React, { memo, useState } from "react";
 import "src/styles/contact.css";
 import { AnimatePresence, motion } from "framer-motion";
-
+import { sendFeedback } from "src/apis/sendFeedback";
 import { BASE_URL } from "src/utils/config";
 import { resetForm } from "src/utils/resetForm";
 import StyledInput from "src/common/StyledInput";
@@ -14,6 +14,7 @@ import {
 import { useNotification } from "src/context/NotificationContext";
 import { Link } from "react-router-dom";
 
+// Define animation variants
 const variants = {
   hidden: VisibilityVariants.hidden,
   hiddenY: VisibilityVariants.hiddenY,
@@ -22,7 +23,6 @@ const variants = {
   hoverScale: HoverVariants.hoverScale,
   tapScale: TapVariants.tapScale,
   rotate: VisibilityVariants.rotate,
-
   blobAnimation: {
     scale: [1, 1.5, 1],
     opacity: [0.6, 0.7, 0.6],
@@ -37,14 +37,15 @@ const Contact: React.FC = () => {
   const [copiedEmail, setCopiedEmail] = useState<string | null>(null);
   const { showNotification } = useNotification();
 
+  // Toggle visibility of sections
   const toggleInfo = (sectionId: string) => {
     setVisibleSection((prevSection) =>
       prevSection === sectionId ? "" : sectionId,
     );
   };
 
+  // Handle feedback form submission
   const handleFeedbackSend = async () => {
-    // handle feedback form submission
     const firstName = document.getElementById("firstName") as HTMLInputElement;
     const lastName = document.getElementById("lastName") as HTMLInputElement;
     const email = document.getElementById("email") as HTMLInputElement;
@@ -52,6 +53,7 @@ const Contact: React.FC = () => {
     const country = document.getElementById("country") as HTMLInputElement;
     const message = document.getElementById("message") as HTMLTextAreaElement;
 
+    // Validate form fields
     if (
       firstName.value === "" ||
       lastName.value === "" ||
@@ -67,50 +69,43 @@ const Contact: React.FC = () => {
       setFormValid(true);
     }
 
-    // send feedback data to backend
+    // Send feedback if form is valid
     if (formValid) {
-      try {
-        const feedbackData = {
-          firstName: firstName.value,
-          lastName: lastName.value,
-          email: email.value,
-          age: age.value,
-          country: country.value,
-          message: message.value,
-        };
+      const feedbackData = {
+        firstName: firstName.value,
+        lastName: lastName.value,
+        email: email.value,
+        age: age.value,
+        country: country.value,
+        message: message.value,
+      };
 
-        const res = await fetch(`${BASE_URL}/feedback`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(feedbackData),
-        });
+      const success = await sendFeedback(feedbackData);
 
-        if (res.ok) {
-          resetForm();
-          showNotification("Feedback sent successfully!");
-        } else {
-          showNotification("Failed to send feedback. Please try again later.");
-        }
-      } catch (error) {
+      if (success) {
+        resetForm();
+        showNotification("Feedback sent successfully!");
+      } else {
         showNotification("Failed to send feedback. Please try again later.");
       }
     }
   };
 
+  // Copy email content to clipboard
   const copyContent = (content: string) => {
     navigator.clipboard.writeText(content);
     setCopiedEmail(content);
     setTimeout(() => setCopiedEmail(null), 1000);
   };
 
+  // Handle email button click
   const emailButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     copyContent(e.currentTarget.textContent as string);
   };
 
   return (
     <main className="contact px-sect relative flex min-h-svh flex-col items-center overflow-hidden pb-20 pt-20 lg:pb-sect-default lg:pt-20 2xl:pt-40">
+      {/* Emailing Section */}
       <motion.section
         initial="hiddenY"
         animate="visible"
@@ -148,7 +143,6 @@ const Contact: React.FC = () => {
                 exit="dropHidden"
                 variants={variants}
                 transition={{ duration: 0.2, ease: "easeInOut" }}
-                // className={`${visibleSection === "emailing" ? "flex" : "hiddenY"} flex-col gap-2 py-8`}
                 className={`flex flex-col gap-2 py-4 lg:py-8`}
               >
                 <p className="p-regular">Reach out to us via:</p>
@@ -212,6 +206,7 @@ const Contact: React.FC = () => {
         </AnimatePresence>
       </motion.section>
 
+      {/* Contribute Section */}
       <motion.section
         initial="hiddenY"
         animate="visible"
@@ -246,7 +241,6 @@ const Contact: React.FC = () => {
                 exit="dropHidden"
                 variants={variants}
                 transition={{ duration: 0.2, ease: "easeInOut" }}
-                // className={`${visibleSection === "contribute" ? "flex" : "hiddenY"} flex flex-row items-center justify-between py-8`}
                 className={`flex flex-col gap-4 py-4 md:flex-row md:items-center md:justify-between md:py-8`}
               >
                 <p className="p-regular">
@@ -265,6 +259,7 @@ const Contact: React.FC = () => {
         </AnimatePresence>
       </motion.section>
 
+      {/* Feedback Section */}
       <motion.section
         initial="hiddenY"
         animate="visible"
@@ -299,7 +294,6 @@ const Contact: React.FC = () => {
                 exit="dropHidden"
                 variants={variants}
                 transition={{ duration: 0.2, ease: "easeInOut" }}
-                // className={`${visibleSection === "feedback" ? "flex" : "hiddenY"} flex flex-row justify-between py-8`}
                 className={`flex flex-row justify-between py-8`}
               >
                 <p className="p-regular hidden md:w-1/2 lg:block lg:w-1/2 xl:w-1/2 2xl:w-1/2 3xl:w-1/2">
@@ -344,6 +338,7 @@ const Contact: React.FC = () => {
         </AnimatePresence>
       </motion.section>
 
+      {/* Animated Blobs */}
       <motion.div
         initial="hidden"
         animate="blobAnimation"

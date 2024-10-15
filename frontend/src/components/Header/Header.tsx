@@ -20,6 +20,7 @@ const navs = [
 
 // Header component
 const Header: React.FC = () => {
+  // Memoize the navigation items to avoid unnecessary re-renders
   const renderNavItems = useMemo(
     () =>
       navs.map((item, index) => (
@@ -83,11 +84,10 @@ const Header: React.FC = () => {
         {/* Search and contrast toggle */}
         <div className="hidden md:flex md:gap-2 lg:gap-2 xl:gap-3 2xl:gap-3 3xl:gap-4">
           <HeaderSearch />
-
           <ThemeButton />
         </div>
 
-        {/* Menu button */}
+        {/* Menu button for mobile view */}
         <div className="md:hidden flex gap-4">
           <HeaderSearch />
           <HeaderMobileMenu />

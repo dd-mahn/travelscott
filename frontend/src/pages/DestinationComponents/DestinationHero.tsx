@@ -5,10 +5,12 @@ import { getImageSize, useViewportWidth, optimizeImage } from "src/utils/imageUt
 import { motion } from "framer-motion";
 import { HoverVariants, VisibilityVariants } from "src/utils/variants";
 
+// Define the interface for the component props
 interface DestinationHeroProps {
   destination: Destination;
 }
 
+// Define animation variants
 const variants = {
   hiddenY: VisibilityVariants.hiddenY,
   hiddenFullY: VisibilityVariants.hiddenFullY,
@@ -19,6 +21,7 @@ const variants = {
 const DestinationHero: React.FC<DestinationHeroProps> = ({ destination }) => {
   const viewportWidth = useViewportWidth();
 
+  // Optimize images based on viewport width
   const optimizedImages = useMemo(
     () =>
       destination.images?.map((image) => {
@@ -33,8 +36,10 @@ const DestinationHero: React.FC<DestinationHeroProps> = ({ destination }) => {
 
   return (
     <section className="hero relative h-screen">
+      {/* Overlay with country and destination name */}
       <div className="pointer-events-none absolute top-0 z-10 grid h-[90%] w-full place-items-center bg-background-dark bg-opacity-20">
         <div className="flex flex-col items-start gap-0 px-8 py-4">
+          {/* Country name */}
           <motion.span
             variants={variants}
             initial="hiddenY"
@@ -44,6 +49,7 @@ const DestinationHero: React.FC<DestinationHeroProps> = ({ destination }) => {
           >
             {destination.country}
           </motion.span>
+          {/* Destination name */}
           <div className="overflow-hidden">
             <div className="big-heading overflow-hidden">
               {destination.name.split("").map((letter, index) => (
@@ -67,6 +73,7 @@ const DestinationHero: React.FC<DestinationHeroProps> = ({ destination }) => {
           </div>
         </div>
       </div>
+      {/* Carousel with optimized images */}
       <motion.div
         variants={variants}
         initial="hiddenY"

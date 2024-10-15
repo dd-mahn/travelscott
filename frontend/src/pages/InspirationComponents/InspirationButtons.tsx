@@ -8,6 +8,7 @@ import {
   setCategoryImage,
 } from "src/store/slices/inspirationSlice";
 
+// Import images
 import wildernessImage from "src/assets/images/ui/inspiration/wilder-alt.webp";
 import cultureHeritageImage from "src/assets/images/ui/inspiration/culture.webp";
 import foodDrinkImage from "src/assets/images/ui/inspiration/food.webp";
@@ -18,11 +19,13 @@ import relaxationImage from "src/assets/images/ui/inspiration/relax.webp";
 import firstTimeAbroadImage from "src/assets/images/ui/inspiration/first.webp";
 import { getBackgroundKey } from "src/utils/inspirationUtils";
 
+// Define animation variants
 const variants = {
   hiddenY: VisibilityVariants.hiddenY,
   visible: VisibilityVariants.visible,
 };
 
+// Define categories and corresponding images
 const categories = [
   "All",
   "Wilderness",
@@ -52,6 +55,7 @@ const InspirationButtons = () => {
     (state: RootState) => state.inspiration,
   );
 
+  // Handle category change
   const handleCategoryChange = (category: string) => {
     dispatch(setCategory(category));
     dispatch(setCategoryImage(images[category] || ""));
@@ -91,24 +95,3 @@ const InspirationButtons = () => {
 
 export default memo(InspirationButtons);
 
-// ${
-// f === "All"
-//   ? "bg-background-dark"
-//   : f === "Wilderness"
-//     ? "bg-wilderness"
-//     : f === "Culture&Heritage"
-//       ? "bg-cultureheritage"
-//       : f === "Food&Drink"
-//         ? "bg-fooddrink"
-//         : f === "SoloJourneys"
-//           ? "bg-solojourneys"
-//           : f === "CityScape"
-//             ? "bg-cityscape"
-//             : f === "Season&Festival"
-//               ? "bg-seasonfestival"
-//               : f === "Relaxation"
-//                 ? "bg-relaxation"
-//                 : f === "FirstTimeAbroad"
-//                   ? "bg-firsttimeabroad"
-//                   : "bg-background-dark"
-// }

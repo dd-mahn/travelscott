@@ -8,7 +8,7 @@ import { BASE_URL } from "src/utils/config";
 import InspirationCard from "./InspirationCard";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "src/store/store";
-import { setAllBlogs, setInspirationCatalogBlogs } from "src/store/slices/blogSlice";
+import { setInspirationCatalogBlogs } from "src/store/slices/blogSlice";
 import { VisibilityVariants } from "src/utils/variants";
 import { usePagedData } from "src/hooks/usePagedData";
 import { createSelector } from 'reselect';
@@ -45,7 +45,7 @@ const InspirationCatalog: React.FC<InspirationCatalogProps> = memo(
   ({ currentCategory }) => {
     const dispatch = useDispatch();
 
-    // Memoized selector
+    // Memoized selector to get the required state from Redux store
     const selectBlogState = createSelector(
       (state: RootState) => state.blog.inspirationCatalogBlogs,
       (state: RootState) => state.filter.blog.tags,

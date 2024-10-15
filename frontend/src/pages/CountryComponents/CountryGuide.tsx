@@ -46,24 +46,20 @@ const CountryGuide: React.FC<CountryGuideProps> = ({ country }) => {
       viewport={{ once: true }}
       className="px-sect -gap-8 z-10 flex h-screen w-full flex-col pt-24 pb-sect-long"
     >
-      <GuideSection
-        title="When to visit?"
-        content={country.additionalInfo.whenToVisit?.[0]}
-        isVisible={visibleSection === "whenToVisit"}
-        toggleVisibility={() => toggleGuide("whenToVisit")}
-      />
-      <GuideSection
-        title="Transportation"
-        content={country.additionalInfo.transportation?.[0]}
-        isVisible={visibleSection === "transportation"}
-        toggleVisibility={() => toggleGuide("transportation")}
-      />
-      <GuideSection
-        title="Health & Safety"
-        content={country.additionalInfo.healthAndSafety?.[0]}
-        isVisible={visibleSection === "healthAndSafety"}
-        toggleVisibility={() => toggleGuide("healthAndSafety")}
-      />
+      {/* Render guide sections */}
+      {[
+        { title: "When to visit?", content: country.additionalInfo.whenToVisit?.[0], section: "whenToVisit" },
+        { title: "Transportation", content: country.additionalInfo.transportation?.[0], section: "transportation" },
+        { title: "Health & Safety", content: country.additionalInfo.healthAndSafety?.[0], section: "healthAndSafety" },
+      ].map(({ title, content, section }) => (
+        <GuideSection
+          key={section}
+          title={title}
+          content={content}
+          isVisible={visibleSection === section}
+          toggleVisibility={() => toggleGuide(section)}
+        />
+      ))}
     </motion.div>
   );
 };

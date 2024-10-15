@@ -1,4 +1,4 @@
-import React, { memo, useState, useRef, useEffect } from "react";
+import React, { memo } from "react";
 import Destination from "src/types/Destination";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -8,6 +8,7 @@ import {
 } from "src/utils/variants";
 import DestinationMenu from "./DestinationMenu";
 
+// Define animation variants
 const variants = {
   hiddenY: VisibilityVariants.hiddenY,
   hiddenFullY: VisibilityVariants.hiddenFullY,
@@ -16,12 +17,14 @@ const variants = {
   tapScale: TapVariants.tapScale,
 };
 
+// Define the DestinationOverview component
 const DestinationOverview = ({ destination }: { destination: Destination }) => {
   return (
     <section id="overview" className="overview px-sect md:py-sect-short">
       <div className="flex flex-col gap-8">
         <motion.div className="flex justify-between">
           <div className="flex flex-col gap-2">
+            {/* Location heading */}
             <motion.h2
               variants={variants}
               initial="hiddenY"
@@ -32,6 +35,7 @@ const DestinationOverview = ({ destination }: { destination: Destination }) => {
             >
               {destination.location}
             </motion.h2>
+            {/* Tags */}
             <motion.div
               variants={variants}
               initial="hiddenY"
@@ -50,8 +54,10 @@ const DestinationOverview = ({ destination }: { destination: Destination }) => {
               ))}
             </motion.div>
           </div>
+          {/* Destination menu */}
           <DestinationMenu />
         </motion.div>
+        {/* Description */}
         <motion.div className="flex md:w-3/4 lg:w-1/2 flex-col gap-4">
           <motion.p
             variants={variants}
@@ -69,4 +75,5 @@ const DestinationOverview = ({ destination }: { destination: Destination }) => {
   );
 };
 
+// Export the memoized component
 export default memo(DestinationOverview);

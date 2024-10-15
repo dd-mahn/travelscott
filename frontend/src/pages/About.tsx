@@ -23,9 +23,15 @@ const variants = {
 
 // About page component
 const About: React.FC = () => {
+  // Hook to manage stacked sections
   const { refs, setRef } = useStackedSections();
-  const { ref, scale, opacity } = useSectionTransition();
-  const { ref: ref2, scale: scale2 } = useSectionTransition2();
+
+  // Hook to manage section transition with scale and opacity
+  const { ref: transitionRef, scale, opacity } = useSectionTransition();
+
+  // Hook to manage section transition with only scale
+  const { ref: transitionRef2, scale: scale2 } = useSectionTransition2();
+
   return (
     <main className="about">
       {/* Hero Section */}
@@ -49,6 +55,7 @@ const About: React.FC = () => {
         </motion.h2>
 
         <div className="stacked relative">
+          {/* AboutHow Section */}
           <motion.div
             style={{ scale, opacity }}
             ref={setRef(0)}
@@ -57,15 +64,15 @@ const About: React.FC = () => {
             <AboutHow />
           </motion.div>
 
-          {/* WHO SECTION */}
-          <div ref={ref} className="">
+          {/* AboutWho Section */}
+          <div ref={transitionRef} className="">
             <AboutWho />
           </div>
         </div>
       </motion.section>
 
-      {/* WHY SECTION */}
-      <div ref={ref2} className="z-30">
+      {/* AboutWhy Section */}
+      <div ref={transitionRef2} className="z-30">
         <AboutWhy />
       </div>
     </main>

@@ -5,6 +5,7 @@ import React, {
   useReducer,
   useMemo,
   useRef,
+  useState,
 } from "react";
 import { motion, useDragControls } from "framer-motion";
 import { Link } from "react-router-dom";
@@ -174,10 +175,10 @@ const StarterBlogs: React.FC<StarterBlogsProps> = React.memo(({ blogs }) => {
   const dispatch = useDispatch();
   const { starterBlogs } = useSelector((state: RootState) => state.blog);
   const [positions, dispatchPositions] = useReducer(positionReducer, {});
-  const [maxZIndex, setMaxZIndex] = React.useState(1);
+  const [maxZIndex, setMaxZIndex] = useState(1);
   const viewportWidth = useViewportWidth();
   const containerRef = useRef<HTMLDivElement>(null);
-  const [dragConstraints, setDragConstraints] = React.useState<DragConstraints>(
+  const [dragConstraints, setDragConstraints] = useState<DragConstraints>(
     { top: 0, left: 0, right: 0, bottom: 0 },
   );
 
@@ -278,6 +279,7 @@ const StarterBlogs: React.FC<StarterBlogsProps> = React.memo(({ blogs }) => {
     [positions],
   );
 
+  // Filter blogs based on category and image availability
   useEffect(() => {
     const filteredBlogs = blogs.filter(
       (blog) => blog.category === "FirstTimeAbroad" && blog.image,

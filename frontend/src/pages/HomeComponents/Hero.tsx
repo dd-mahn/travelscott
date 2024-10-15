@@ -6,6 +6,7 @@ import { motion, useAnimation } from "framer-motion";
 import airplane1 from "src/assets/svg/airplane-1.svg";
 import airplane2 from "src/assets/svg/airplane-2.svg";
 import airplane3 from "src/assets/svg/airplane-3.svg";
+
 // Import custom button components
 import { PrimaryButton, SecondaryButton } from "src/common/Button";
 import { HoverVariants, VisibilityVariants } from "src/utils/variants";
@@ -116,6 +117,7 @@ const Hero: React.FC = () => {
     }
   }, [switchTextHeight]);
 
+  // Effect to update switch text height on resize
   useEffect(() => {
     const updateSwitchTextHeight = () => {
       if (switchTextRef.current) {

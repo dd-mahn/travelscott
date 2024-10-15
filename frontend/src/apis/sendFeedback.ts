@@ -1,30 +1,32 @@
-import { Feedback } from "src/types/Feedback";
 import { BASE_URL } from "src/utils/config";
 
-export const sendFeedback = async ({ name, email, feedback }: Feedback) => {
-  const feedbackObj = {
-    name: name,
-    email: email,
-    message: feedback,
-  };
+// Define the type for feedback data
+interface FeedbackData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  age: string;
+  country: string;
+  message: string;
+}
 
+// Function to send feedback data to the server
+export const sendFeedback = async (feedbackData: FeedbackData): Promise<boolean> => {
   try {
-    const response = await fetch(`${BASE_URL}/feedback`, {
+    // Make a POST request to the feedback endpoint
+    const res = await fetch(`${BASE_URL}/feedback`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(feedbackObj),
+      body: JSON.stringify(feedbackData),
     });
 
-    if (response.ok) {
-      const data = await response.json();
-      console.log(data);
-      alert("Thank you for submitting your feedback!");
-    } else {
-      alert("Error: " + response.status);
-    }
+    // Return true if the response is ok, otherwise false
+    return res.ok;
   } catch (error) {
-    console.error(error);
+    // Log any errors that occur during the fetch
+    console.error("Error sending feedback:", error);
+    return false;
   }
 };

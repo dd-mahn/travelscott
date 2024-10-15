@@ -11,6 +11,7 @@ import {
 } from "src/common/CatalogStates";
 import Destination from "src/types/Destination";
 
+// Define animation variants
 const variants = {
   hiddenY: VisibilityVariants.hiddenY,
   hiddenShort: VisibilityVariants.hiddenShortY,
@@ -43,6 +44,7 @@ const DestinationCatalog: React.FC<DestinationCatalogProps> = ({
   limit,
   filterKey,
 }) => {
+  // Custom hook to handle pagination
   const { sectionRef, handlePagination } = usePagedData(
     currentPage,
     onPageChange,

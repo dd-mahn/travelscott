@@ -21,30 +21,23 @@ const InspirationHero = ({ currentCategory }: { currentCategory: string }) => {
   // Get the heading based on the current category
   const heading = getInspirationHeading(currentCategory);
 
-  // Determine the background style based on the current category
+  // Determine if dark mode is enabled
   const isDarkMode = useSelector(selectIsDarkMode);
-  const backgroundStyle =
-    currentCategory !== "All"
-      ? {
-          backgroundImage: `url(${currentCategoryImage})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }
-      : isDarkMode
-        ? {
-            background: `var(--${heading
-              .toLowerCase()
-              .replace(/ /g, "-")
-              .replace(/\d{4}/, "")
-              .trim()}gradient-dark)`,
-          }
-        : {
-            background: `var(--${heading
-              .toLowerCase()
-              .replace(/ /g, "-")
-              .replace(/\d{4}/, "")
-              .trim()}gradient)`,
-          };
+
+  // Determine the background style based on the current category and dark mode
+  const backgroundStyle = currentCategory !== "All"
+    ? {
+        backgroundImage: `url(${currentCategoryImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }
+    : {
+        background: `var(--${heading
+          .toLowerCase()
+          .replace(/ /g, "-")
+          .replace(/\d{4}/, "")
+          .trim()}gradient${isDarkMode ? "-dark" : ""})`,
+      };
 
   return (
     <motion.div

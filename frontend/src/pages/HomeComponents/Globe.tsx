@@ -2,24 +2,26 @@ import React, { memo, useRef } from "react";
 import EarthScene from "./EarthScene";
 import { motion, useScroll, useTransform } from "framer-motion";
 
-// Component props
+// Define the props for the Globe component
 type GlobeProps = {
   articlesHookRef: React.RefObject<HTMLSpanElement>;
 }
 
 // Globe component
-const Globe: React.FC<GlobeProps> = ({articlesHookRef}) => {
+const Globe: React.FC<GlobeProps> = ({ articlesHookRef }) => {
   // Create a ref for the span element
-  const spanRef = useRef(null);
+  const spanRef = useRef<HTMLSpanElement>(null);
 
   // Handle scroll animation
   const { scrollYProgress } = useScroll({
     target: spanRef,
     offset: ["end end", "start start"],
   });
+
+  // Transform the x position based on scroll progress
   const x = useTransform(scrollYProgress, [0, 1], ["0%", "-30%"]);
 
-  // Render logic
+  // Render the Globe component
   return (
     <section className="globe relative grid items-center rounded-5xl">
       <motion.span
@@ -34,4 +36,5 @@ const Globe: React.FC<GlobeProps> = ({articlesHookRef}) => {
   );
 };
 
+// Export the memoized Globe component to prevent unnecessary re-renders
 export default memo(Globe);

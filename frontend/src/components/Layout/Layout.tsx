@@ -20,7 +20,6 @@ const Layout: React.FC = () => {
       // Show loading screen for 2 seconds
       setTimeout(() => {
         setLoading(false);
-
         setLoadingShown(true);
       }, 2000);
     }
