@@ -12,6 +12,7 @@ import {
   VisibilityVariants,
 } from "src/utils/variants";
 import { useNotification } from "src/context/NotificationContext";
+import { Link } from "react-router-dom";
 
 const variants = {
   hidden: VisibilityVariants.hidden,
@@ -109,15 +110,15 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <main className="contact px-sect relative flex min-h-svh pb-20 flex-col items-center overflow-hidden pt-20 lg:pb-sect-default lg:pt-20 2xl:pt-40">
+    <main className="contact px-sect relative flex min-h-svh flex-col items-center overflow-hidden pb-20 pt-20 lg:pb-sect-default lg:pt-20 2xl:pt-40">
       <motion.section
         initial="hiddenY"
         animate="visible"
         transition={{ duration: 0.5 }}
         variants={variants}
-        className="emailing z-20 w-full bg-background-light shadow-section dark:bg-background-dark dark:shadow-section-dark rounded-xl px-4 pb-4 pt-2 md:rounded-2xl md:px-5 md:py-4 lg:rounded-3xl lg:px-8 lg:py-6"
+        className="emailing z-20 w-full rounded-xl bg-background-light px-4 pb-4 pt-2 shadow-section dark:bg-background-dark dark:shadow-section-dark md:rounded-2xl md:px-5 md:py-4 lg:rounded-3xl lg:px-8 lg:py-6"
       >
-        <div className="flex flex-row items-center justify-between border-b gap-4 pb-3 lg:pb-8">
+        <div className="flex flex-row items-center justify-between gap-4 border-b pb-3 lg:pb-8">
           <h2 className="h3-md">
             Need assistance planning your next adventure? <br />
             Looking to collaborate with us commercially?
@@ -216,9 +217,9 @@ const Contact: React.FC = () => {
         animate="visible"
         transition={{ duration: 0.5, delay: 0.2 }}
         variants={variants}
-        className="contribute z-20 w-full bg-background-light shadow-section dark:bg-background-dark dark:shadow-section-dark rounded-xl px-4 pb-4 pt-2 md:rounded-2xl md:px-5 md:py-4 lg:rounded-3xl lg:px-8 lg:py-6"
+        className="contribute z-20 w-full rounded-xl bg-background-light px-4 pb-4 pt-2 shadow-section dark:bg-background-dark dark:shadow-section-dark md:rounded-2xl md:px-5 md:py-4 lg:rounded-3xl lg:px-8 lg:py-6"
       >
-        <div className="flex flex-row items-center justify-between border-b gap-4 pb-3 lg:pb-8">
+        <div className="flex flex-row items-center justify-between gap-4 border-b pb-3 lg:pb-8">
           <h2 className="h3-md">Want to share your experience as resource?</h2>
           <motion.button
             whileHover="hoverScale"
@@ -253,9 +254,11 @@ const Contact: React.FC = () => {
                   too! <br />
                   Let us help you share them with the world.
                 </p>
-                <button className="underline-btn span-medium flex-grow-1 underline md:no-underline">
-                  Follow this link <i className="ri-arrow-right-up-line"></i>
-                </button>
+                <Link to="https://forms.gle/1nLkZA7btyHa22wFA" target="_blank">
+                  <button className="underline-btn span-medium flex-grow-1 underline md:no-underline">
+                    Follow this link <i className="ri-arrow-right-up-line"></i>
+                  </button>
+                </Link>
               </motion.div>
             </div>
           )}
@@ -267,9 +270,9 @@ const Contact: React.FC = () => {
         animate="visible"
         transition={{ duration: 0.5, delay: 0.4 }}
         variants={variants}
-        className="feedback z-20 w-full bg-background-light shadow-section dark:bg-background-dark dark:shadow-section-dark rounded-xl px-4 pb-4 pt-2 md:rounded-2xl md:px-5 md:py-4 lg:rounded-3xl lg:px-8 lg:py-6"
+        className="feedback z-20 w-full rounded-xl bg-background-light px-4 pb-4 pt-2 shadow-section dark:bg-background-dark dark:shadow-section-dark md:rounded-2xl md:px-5 md:py-4 lg:rounded-3xl lg:px-8 lg:py-6"
       >
-        <div className="flex flex-row items-center justify-between border-b gap-4 pb-3 lg:pb-8">
+        <div className="flex flex-row items-center justify-between gap-4 border-b pb-3 lg:pb-8">
           <h2 className="h3-md">Want to give us a feedback?</h2>
           <motion.button
             whileHover="hoverScale"

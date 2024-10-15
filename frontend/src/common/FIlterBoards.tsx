@@ -151,7 +151,7 @@ export const DestinationFilter: React.FC = memo(() => {
       className={`filter-board absolute right-[5%] top-2/3 z-10 flex w-[80svw] flex-col items-center gap-8 rounded-2xl bg-background-light px-4 pb-10 pt-6 shadow-section dark:bg-background-dark dark:shadow-section-dark sm:w-[60svw] md:w-[50svw] lg:w-[40svw] 2xl:w-[30svw]`}
     >
       <div className="flex w-full flex-col items-start gap-2">
-        <span className="h3-md uppercase">Search</span>
+        <span className="p-large font-prima uppercase">Search</span>
         <div className="relative flex w-full items-center">
           <input
             ref={inputRef}
@@ -174,7 +174,7 @@ export const DestinationFilter: React.FC = memo(() => {
       </div>
 
       <div className="flex w-full flex-col items-start gap-2">
-        <span className="h3-md uppercase">Location filter</span>
+        <span className="p-large font-prima uppercase">Location filter</span>
         <div className="flex flex-wrap gap-2">
           {continentNames.map((continent) => (
             <motion.button
@@ -206,7 +206,7 @@ export const DestinationFilter: React.FC = memo(() => {
       </div>
 
       <div className="flex w-full flex-col items-start gap-2">
-        <span className="h3-md uppercase">Tag filter</span>
+        <span className="p-large font-prima uppercase">Tag filter</span>
         <div className="flex flex-wrap gap-2">
           {predefinedTags.map((tag) => (
             <motion.button
@@ -294,7 +294,7 @@ export const CountryDestinationFilter: React.FC = memo(() => {
     >
       <div className="flex w-full flex-col items-start gap-8">
         <div className="flex w-full flex-col items-start gap-2">
-          <span className="h3-md uppercase">Search</span>
+          <span className="p-large font-prima uppercase">Search</span>
           <div className="relative flex w-full items-center">
             <input
               ref={inputRef}
@@ -317,7 +317,7 @@ export const CountryDestinationFilter: React.FC = memo(() => {
         </div>
 
         <div className="flex w-full flex-col items-start gap-2">
-          <span className="h3-md uppercase">Tag filter</span>
+          <span className="p-large font-prima uppercase">Tag filter</span>
           <div className="flex flex-wrap gap-2">
             {predefinedTags.map((tag) => (
               <motion.button
