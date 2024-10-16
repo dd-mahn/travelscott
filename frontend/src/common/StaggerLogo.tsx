@@ -32,7 +32,7 @@ export default function StaggerLogo({
 
     const containerWidth = container.offsetWidth;
     let min = 1;
-    let max = 2500;
+    let max = 5000;
 
     // Binary search to find the optimal font size
     while (min <= max) {
@@ -72,7 +72,7 @@ export default function StaggerLogo({
     >
       <div
         ref={textRef}
-        className="whitespace-nowrap w-screen"
+        className="whitespace-nowrap"
         style={{ fontSize: `${fontSize * 0.95}px` }}
       >
         {text.split("").map((char, index) => (

@@ -2,6 +2,7 @@ import React, { useState, useMemo } from "react";
 import Slider from "react-slick";
 import Marquee from "react-marquee-slider";
 import { Motion } from "react-marquee-slider";
+import OptimizedImage from "src/common/OptimizedImage";
 
 // Import flag images
 import vietnamFlag from "src/assets/images/ui/countryFlags/vietnam-flag-medium.webp";
@@ -22,7 +23,7 @@ import argentinaFlag from "src/assets/images/ui/countryFlags/argentina-flag-medi
 
 // Import utility functions
 import { shuffleArray } from "src/utils/shuffleArray";
-import { optimizeImage, useViewportWidth } from "src/utils/imageUtils";
+import { useViewportWidth } from "src/utils/imageUtils";
 
 // Array of flag images
 const flags = [
@@ -71,23 +72,18 @@ const CountryCarousel = React.memo(({ settings }: { settings: any }) => {
   return (
     <div className="w-[60svw]">
       <Slider {...settings}>
-        {shuffledFlags.map((flag, index) => {
-          const { src, srcSet } = optimizeImage(flag);
-          return (
-            <div
-              className="pr-4 lg:h-[12svh] lg:w-[18svh] 2xl:h-[15svh] 2xl:w-[20svw] bg-gradient-to-t from-blue-gray-900 to-gray"
-              key={index}
-            >
-              <img
-                loading="lazy"
-                src={src}
-                srcSet={srcSet}
-                className="h-full rounded-lg object-cover"
-                alt="country flag"
-              />
-            </div>
-          );
-        })}
+        {shuffledFlags.map((flag, index) => (
+          <div
+            className="pr-4 lg:h-[12svh] lg:w-[18svh] 2xl:h-[15svh] 2xl:w-[20svw] bg-gradient-to-t from-blue-gray-900 to-gray"
+            key={index}
+          >
+            <OptimizedImage
+              src={flag}
+              className="h-full rounded-lg object-cover"
+              alt="country flag"
+            />
+          </div>
+        ))}
       </Slider>
     </div>
   );
@@ -120,33 +116,28 @@ export const MarqueeCountryCarousel = React.memo(() => {
         onInit={() => {}}
         onFinish={() => {}}
       >
-        {shuffledFlags.map((flag, index) => {
-          const { src, srcSet } = optimizeImage(flag);
-          return (
-            <Motion
-              initDeg={Math.random() * 360}
-              key={index}
-              backgroundColors={{
-                earth: "",
-                solarSystem: "",
-                buffer: "",
-              }}
-              direction={Math.random() > 0.5 ? "clockwise" : "counterclockwise"}
-              velocity={20}
-              radius={scale * 40}
-            >
-              <div className="mt-[70svh] h-[3svh] md:h-[3.5svh] lg:h-[5svh] 2xl:h-[5svh] bg-gradient-to-t rounded-md lg:rounded-md 2xl:rounded-lg from-blue-gray-900 to-gray">
-                <img
-                  loading="lazy"
-                  src={src}
-                  srcSet={srcSet}
-                  className="h-full rounded-md lg:rounded-md 2xl:rounded-lg object-cover shadow-component dark:shadow-component-dark"
-                  alt="country flag"
-                />
-              </div>
-            </Motion>
-          );
-        })}
+        {shuffledFlags.map((flag, index) => (
+          <Motion
+            initDeg={Math.random() * 360}
+            key={index}
+            backgroundColors={{
+              earth: "",
+              solarSystem: "",
+              buffer: "",
+            }}
+            direction={Math.random() > 0.5 ? "clockwise" : "counterclockwise"}
+            velocity={20}
+            radius={scale * 40}
+          >
+            <div className="mt-[70svh] h-[3svh] md:h-[3.5svh] lg:h-[5svh] 2xl:h-[5svh] bg-gradient-to-t rounded-md lg:rounded-md 2xl:rounded-lg from-blue-gray-900 to-gray">
+              <OptimizedImage
+                src={flag}
+                className="h-full rounded-md lg:rounded-md 2xl:rounded-lg object-cover shadow-component dark:shadow-component-dark"
+                alt="country flag"
+              />
+            </div>
+          </Motion>
+        ))}
       </Marquee>
     </div>
   );

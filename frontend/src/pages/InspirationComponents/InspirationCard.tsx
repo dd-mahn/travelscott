@@ -1,10 +1,11 @@
-import React, { memo, useMemo } from "react";
+import React, { memo } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { formatDate } from "src/utils/formatDate";
 import Blog from "src/types/Blog";
-import { useViewportWidth, getImageSize, optimizeImage } from "src/utils/imageUtils";
+import { useViewportWidth } from "src/utils/imageUtils";
 import { HoverVariants, VisibilityVariants } from "src/utils/variants";
+import OptimizedImage from "src/common/OptimizedImage";
 
 // Define motion variants for animations
 const variants = {
@@ -20,18 +21,6 @@ interface InspirationCardProps {
 
 const InspirationCard: React.FC<InspirationCardProps> = memo(({ blog }) => {
   const viewportWidth = useViewportWidth();
-
-  // Optimize the blog image based on the viewport width
-  const optimizedImage = useMemo(() => {
-    if (blog.image) {
-      return optimizeImage(blog.image, {
-        width: getImageSize(viewportWidth),
-        quality: 80,
-        format: "auto",
-      });
-    }
-    return { src: "", srcSet: "" };
-  }, [blog.image, viewportWidth]);
 
   const blogLink = `/inspiration/${blog._id}`;
 
@@ -50,15 +39,13 @@ const InspirationCard: React.FC<InspirationCardProps> = memo(({ blog }) => {
         target="_top"
         className="h-[30svh] md:h-[50svh] w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray shadow-section dark:shadow-section-dark"
       >
-        <motion.img
+        <OptimizedImage
           whileHover="hoverScale"
           transition={{ duration: 0.4 }}
           variants={variants}
-          src={optimizedImage.src}
-          srcSet={optimizedImage.srcSet}
+          src={blog.image ?? ""}
           alt={blog.title}
           className="cursor-hover h-full w-full rounded-xl object-cover"
-          loading="lazy"
         />
       </Link>
 

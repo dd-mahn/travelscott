@@ -26,3 +26,5 @@ dist-ssr
 # Million Lint
 .million
 /src/*.md
+/src/assets/images/countries/*
+/src/assets/images/destinations/*

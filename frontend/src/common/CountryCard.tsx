@@ -1,14 +1,10 @@
-import React, { memo, Suspense, useMemo } from "react";
+import React, { memo, Suspense } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 // Component imports
 import Country from "src/types/Country";
-import {
-  useViewportWidth,
-  getImageSize,
-  optimizeImage,
-} from "src/utils/imageUtils";
+import OptimizedImage from "src/common/OptimizedImage";
 import { HoverVariants, TapVariants } from "src/utils/variants";
 
 // Component props type
@@ -26,21 +22,6 @@ const variants = {
 
 // CountryCard component
 const CountryCard: React.FC<CountryCardProps> = ({ country }) => {
-  const viewportWidth = useViewportWidth();
-
-  // Memoize optimized image to avoid unnecessary recalculations
-  const optimizedImage = useMemo(
-    () =>
-      country?.images?.flagImages?.[0]
-        ? optimizeImage(country.images.flagImages[0], {
-            width: getImageSize(viewportWidth),
-            quality: 80,
-            format: "auto",
-          })
-        : null,
-    [country.images.flagImages, viewportWidth],
-  );
-
   // Render logic
   return (
     <Suspense
@@ -60,16 +41,14 @@ const CountryCard: React.FC<CountryCardProps> = ({ country }) => {
             target="_top"
             className="h-full w-full"
           >
-            {optimizedImage && (
-              <motion.img
+            {country?.images?.flagImages?.[0] && (
+              <OptimizedImage
+                src={country.images.flagImages[0]}
+                alt={country.name}
+                className="cursor-hover h-full w-full rounded-xl"
                 whileHover="hoverScale"
                 transition={{ duration: 0.4 }}
                 variants={variants}
-                src={optimizedImage.src}
-                srcSet={optimizedImage.srcSet}
-                alt={country.name}
-                className="cursor-hover h-full w-full rounded-xl"
-                loading="lazy"
               />
             )}
           </Link>

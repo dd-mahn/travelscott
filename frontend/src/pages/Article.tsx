@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from "react";
+import React, { memo } from "react";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 
@@ -10,11 +10,7 @@ import NotFoundPage from "./404";
 import Loading from "src/common/Loading";
 import { VisibilityVariants } from "src/utils/variants";
 import { formatDate } from "src/utils/formatDate";
-import {
-  useViewportWidth,
-  getImageSize,
-  optimizeImage,
-} from "src/utils/imageUtils";
+import OptimizedImage from "src/common/OptimizedImage";
 
 // Define motion variants
 const variants = {
@@ -25,7 +21,6 @@ const variants = {
 };
 
 const Article: React.FC = () => {
-  const viewportWidth = useViewportWidth();
   const { id } = useParams();
 
   // Fetch blog data
@@ -50,17 +45,8 @@ const Article: React.FC = () => {
         className="h-[50svh] bg-gradient-to-t from-blue-gray-900 to-gray md:h-[75svh]"
       >
         {blogData.image && (
-          <img
-            src={optimizeImage(blogData.image, {
-              width: getImageSize(viewportWidth),
-              quality: 80,
-              format: "auto",
-            }).src}
-            srcSet={optimizeImage(blogData.image, {
-              width: getImageSize(viewportWidth),
-              quality: 80,
-              format: "auto",
-            }).srcSet}
+          <OptimizedImage
+            src={blogData.image}
             alt={blogData.title}
             className="h-full w-full object-cover"
           />
@@ -144,18 +130,9 @@ const Article: React.FC = () => {
                 className="flex flex-col items-center gap-2 md:gap-4"
               >
                 {content.sectionImages && content.sectionImages.length > 0 && (
-                  <img
+                  <OptimizedImage
                     className="w-full rounded-xl"
-                    src={optimizeImage(content.sectionImages[0].url, {
-                      width: getImageSize(viewportWidth),
-                      quality: 80,
-                      format: "auto",
-                    }).src}
-                    srcSet={optimizeImage(content.sectionImages[0].url, {
-                      width: getImageSize(viewportWidth),
-                      quality: 80,
-                      format: "auto",
-                    }).srcSet}
+                    src={content.sectionImages[0].url}
                     alt={content.sectionTitle}
                   />
                 )}

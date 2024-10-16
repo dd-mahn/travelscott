@@ -1,9 +1,9 @@
-import React, { memo, useMemo } from "react";
+import React, { memo } from "react";
 import { Carousel } from "@material-tailwind/react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Destination from "src/types/Destination";
-import { getImageSize, useViewportWidth, optimizeImage } from "src/utils/imageUtils";
+import OptimizedImage from "src/common/OptimizedImage";
 import { HoverVariants, VisibilityVariants } from "src/utils/variants";
 
 // Define animation variants
@@ -19,27 +19,6 @@ interface DiscoverPosterProps {
 }
 
 const DiscoverPoster: React.FC<DiscoverPosterProps> = ({ featuredDestinations }) => {
-  const viewportWidth = useViewportWidth();
-
-  // Optimize images based on viewport width
-  const optimizedDestinations = useMemo(() => {
-    return featuredDestinations.map((destination) => {
-      if (!destination.images || destination.images.length === 0) {
-        return destination;
-      }
-      return {
-        ...destination,
-        images: destination.images.map((image) =>
-          optimizeImage(image, {
-            width: getImageSize(viewportWidth),
-            quality: 80,
-            format: "auto",
-          }),
-        ),
-      };
-    });
-  }, [featuredDestinations, viewportWidth]);
-
   // Return null if there are no featured destinations
   if (featuredDestinations.length === 0 || !featuredDestinations) {
     return null;
@@ -61,7 +40,7 @@ const DiscoverPoster: React.FC<DiscoverPosterProps> = ({ featuredDestinations })
         loop
         className="h-full"
       >
-        {optimizedDestinations.map((destination) => (
+        {featuredDestinations.map((destination) => (
           <motion.div
             className="poster px-sect relative flex h-full w-screen cursor-pointer flex-col gap-0 bg-gradient-to-t from-blue-gray-900 to-gray pb-sect-short lg:pb-sect-default"
             key={destination._id}
@@ -71,7 +50,7 @@ const DiscoverPoster: React.FC<DiscoverPosterProps> = ({ featuredDestinations })
               target="_top"
               className="absolute left-0 top-0 h-full w-full overflow-hidden"
             >
-              <motion.img
+              <OptimizedImage
                 whileHover="hoverScale"
                 transition={{ duration: 0.4 }}
                 variants={variants}
@@ -79,17 +58,9 @@ const DiscoverPoster: React.FC<DiscoverPosterProps> = ({ featuredDestinations })
                   destination.images && destination.images.length > 0
                     ? typeof destination.images[0] === "string"
                       ? destination.images[0]
-                      : destination.images[0].src || ""
+                      : destination.images[0] || ""
                     : ""
                 }
-                srcSet={
-                  destination.images && destination.images.length > 0
-                    ? typeof destination.images[0] === "string"
-                      ? ""
-                      : destination.images[0].srcSet || ""
-                    : ""
-                }
-                loading="lazy"
                 className="cursor-hover z-0 h-full w-full object-cover brightness-75"
                 alt={`Featured destination: ${destination.name}`}
               />

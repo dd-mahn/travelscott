@@ -9,12 +9,12 @@ import PlaceDialog from "./PlaceDialog";
 import SlideRevealIconHeading from "src/common/SlideRevealIconHeading";
 import { AnimatePresence, motion } from "framer-motion";
 import { HoverVariants, VisibilityVariants } from "src/utils/variants";
-import { optimizeImage } from "src/utils/imageUtils";
 import { getSelectedCategoryPlaces } from "src/utils/destinationPlaceUtils";
 import {
   getDestinationPlaceHeading,
   getPlaceCategoryChange,
 } from "src/utils/destinationPlaceUtils";
+import OptimizedImage from "src/common/OptimizedImage";
 
 // Define the props for the DestinationPlaces component
 type DestinationPlacesProps = {
@@ -46,16 +46,6 @@ const PlaceCard: React.FC<{
   place: placeToStay | placeToVisit | placeToEat;
   callBack: () => void;
 }> = memo(({ place, callBack }) => {
-  // Memoized optimized image
-  const optimizedImage = useMemo(() => {
-    return optimizeImage(place.image_url, {
-      width: 600,
-      height: 600,
-      quality: 70,
-      format: "auto",
-    });
-  }, [place]);
-
   return (
     <motion.div
       initial="hiddenY"
@@ -66,13 +56,12 @@ const PlaceCard: React.FC<{
     >
       <div className="flex flex-col gap-2 md:gap-4">
         <div className="overflow-hidden rounded-xl shadow-component dark:shadow-component-dark">
-          <motion.img
+          <OptimizedImage
             whileHover="hoverScale"
             variants={variants}
             transition={{ duration: 0.5 }}
             className="cursor-hover-small h-[30svh] lg:h-[50svh] cursor-pointer rounded-xl"
-            src={optimizedImage.src}
-            srcSet={optimizedImage.srcSet}
+            src={place.image_url}
             alt="place image"
             onClick={callBack}
           />

@@ -3,7 +3,6 @@ import React, {
   useCallback,
   useEffect,
   useReducer,
-  useMemo,
   useRef,
   useState,
 } from "react";
@@ -15,12 +14,9 @@ import { setStarterBlogs } from "src/store/slices/blogSlice";
 
 // Import custom types and utility functions
 import BlogType from "src/types/Blog";
-import {
-  getImageSize,
-  useViewportWidth,
-  optimizeImage,
-} from "src/utils/imageUtils";
+import { useViewportWidth } from "src/utils/imageUtils";
 import { HoverVariants, VisibilityVariants } from "src/utils/variants";
+import OptimizedImage from "src/common/OptimizedImage";
 
 // Define interfaces for component props and state
 interface Position {
@@ -97,17 +93,6 @@ const BlogComponent: React.FC<{
   }) => {
     const dragControls = useDragControls();
 
-    // Optimize image based on viewport width
-    const imageProps = useMemo(
-      () =>
-        optimizeImage(blog.image, {
-          width: getImageSize(viewportWidth),
-          quality: 80,
-          format: "auto",
-        }),
-      [blog.image, viewportWidth],
-    );
-
     return (
       <motion.div
         initial="hidden"
@@ -132,13 +117,12 @@ const BlogComponent: React.FC<{
         {/* Blog image and title section */}
         <div className="relative flex flex-col items-start justify-end gap-0 px-4 lg:px-8 pb-4 h-1/2 lg:h-1/2 2xl:h-3/4">
           <div className="absolute right-0 select-none top-0 h-full w-full overflow-hidden bg-gradient-to-t from-blue-gray-900 to-gray brightness-75">
-            <motion.img
+            <OptimizedImage
               whileHover="hoverScale"
               variants={variants}
               transition={{ duration: 0.5 }}
-              loading="lazy"
               className="h-full w-full object-cover pointer-events-none brightness-75"
-              {...imageProps}
+              src={blog.image}
               alt={blog.title}
             />
           </div>

@@ -1,9 +1,9 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 import Destination from "src/types/Destination";
-import { useViewportWidth, getImageSize, optimizeImage } from "src/utils/imageUtils";
+import OptimizedImage from "src/common/OptimizedImage";
 import { HoverVariants } from "src/utils/variants";
 
 // Define the props for the DestinationCard component
@@ -18,20 +18,6 @@ const variants = {
 };
 
 const DestinationCard: React.FC<DestinationCardProps> = ({ destination }) => {
-  const viewportWidth = useViewportWidth();
-
-  // Optimize the image based on the viewport width and destination images
-  const optimizedImage = useMemo(() => {
-    if (destination.images && destination.images.length > 0) {
-      return optimizeImage(destination.images[0], {
-        width: getImageSize(viewportWidth),
-        quality: 80,
-        format: "auto",
-      });
-    }
-    return null;
-  }, [destination.images, viewportWidth]);
-
   return (
     <div
       key={destination.name}
@@ -42,16 +28,14 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ destination }) => {
         target="_top"
         className="grid h-[30svh] sm:h-[35svh] lg:h-[50svh] place-items-center overflow-hidden rounded-2xl shadow-component dark:shadow-component-dark bg-gradient-to-t from-blue-gray-900 to-gray"
       >
-        {optimizedImage && (
-          <motion.img
+        {destination.images && destination.images.length > 0 && (
+          <OptimizedImage
+            src={destination.images[0]}
+            alt={destination.name}
+            className="cursor-hover h-full w-full rounded-xl"
             whileHover="hoverScale"
             transition={{ duration: 0.4 }}
             variants={variants}
-            loading="lazy"
-            src={optimizedImage.src}
-            srcSet={optimizedImage.srcSet}
-            alt={destination.name}
-            className="cursor-hover h-full w-full rounded-xl"
           />
         )}
       </Link>

@@ -1,5 +1,5 @@
 // Import necessary dependencies and components
-import React, { memo, useState, useEffect, useMemo } from "react";
+import React, { memo, useState, useEffect } from "react";
 import { motion, useTransform, useScroll } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -10,11 +10,7 @@ import { setBlogChunks } from "src/store/slices/blogSlice";
 import Blog from "src/types/Blog";
 import { formatDate } from "src/utils/formatDate";
 import FeaturedContentSlider from "src/common/FeaturedContentSlider";
-import {
-  getImageSize,
-  useViewportWidth,
-  optimizeImage,
-} from "src/utils/imageUtils";
+import OptimizedImage from "src/common/OptimizedImage";
 import { HoverVariants, VisibilityVariants } from "src/utils/variants";
 import { createBlogChunks } from "src/utils/createBlogChunks";
 import SeasonHeading from "src/common/SeasonHeading";
@@ -42,16 +38,6 @@ const RenderBlog: React.FC<{ blog: Blog; isFeatured: boolean }> = ({
   blog,
   isFeatured,
 }) => {
-  // Optimize the blog image based on whether it is featured or not
-  const optimizedImage = useMemo(() => {
-    return optimizeImage(blog.image, {
-      width: isFeatured ? 800 : 400,
-      height: isFeatured ? 600 : 300,
-      quality: 80,
-      format: "auto",
-    });
-  }, [blog.image, isFeatured]);
-
   return (
     <div
       className={`h-full w-full ${isFeatured ? "flex flex-col gap-2 lg:gap-4" : "grid grid-cols-2 gap-2 lg:gap-4"}`}
@@ -62,14 +48,13 @@ const RenderBlog: React.FC<{ blog: Blog; isFeatured: boolean }> = ({
         target="_top"
         className={`w-full overflow-hidden rounded-lg bg-gradient-to-t from-blue-gray-900 to-gray shadow-component dark:shadow-component-dark`}
       >
-        <motion.img
-          loading="lazy"
-          {...optimizedImage}
+        <OptimizedImage
+          src={blog.image}
           alt={`${isFeatured ? "featured" : "normal"}BlogImage`}
+          className="cursor-hover h-full w-full rounded-lg object-cover"
           whileHover="hoverScale"
           transition={{ duration: 0.4 }}
           variants={variants}
-          className="cursor-hover h-full w-full rounded-lg object-cover"
         />
       </Link>
       <div

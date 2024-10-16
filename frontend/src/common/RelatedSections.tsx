@@ -6,8 +6,9 @@ import "src/common/style/related-section.css";
 
 // Component imports
 import useFetch from "src/hooks/useFetch";
-import { getImageSize, useViewportWidth, optimizeImage } from "src/utils/imageUtils";
+import { useViewportWidth } from "src/utils/imageUtils";
 import { BASE_URL } from "src/utils/config";
+import OptimizedImage from "src/common/OptimizedImage";
 
 // Types
 import Blog from "src/types/Blog";
@@ -125,9 +126,11 @@ const RelatedCountries: React.FC<{ country: Country }> = ({ country }) => {
     `${BASE_URL}/countries?continent=${country.continent}`,
   );
 
-  const relatedCountries = countriesData?.result.filter(
-    (c) => c.name !== country.name,
-  );
+  // Filter out the current country from the related countries
+  const relatedCountries = useMemo(() => {
+    if (!countriesData?.result) return [];
+    return countriesData.result.filter((c) => c.name !== country.name);
+  }, [countriesData, country.name]);
 
   if (countriesLoading || countriesError || !relatedCountries || relatedCountries.length === 0) {
     return (
@@ -177,6 +180,7 @@ const RelatedDestinations: React.FC<{ destination: Destination }> = ({
     loading: destinationsLoading,
   } = useFetch<FetchDestinationType>(`${BASE_URL}/destinations?limit=100`);
 
+  // Filter out the current destination from the related destinations
   const relatedDestinations = useMemo(() => {
     if (!destinationsData?.result) return [];
     return destinationsData.result.filter(
@@ -235,6 +239,7 @@ const RelatedArticles: React.FC<{
     loading: blogLoading,
   } = useFetch<FetchBlogsType>(`${BASE_URL}/blogs?limit=100`);
 
+  // Filter related blogs based on the type of data
   const relatedBlogs = useMemo(() => {
     if (!blogData?.result) return [];
     let filtered = blogData.result;
@@ -295,16 +300,7 @@ const CountryCard: React.FC<{ country: Country; viewportWidth: number }> = ({
   country,
   viewportWidth,
 }) => {
-  const imageProps = useMemo(() => {
-    if (country.images.otherImages && country.images.otherImages.length > 0) {
-      return optimizeImage(country.images.otherImages[0], {
-        width: getImageSize(viewportWidth),
-        quality: 80,
-        format: "auto",
-      });
-    }
-    return { src: "", srcSet: "" };
-  }, [country.images.otherImages, viewportWidth]);
+  const imageSrc = country.images.otherImages && country.images.otherImages.length > 0 ? country.images.otherImages[0] : "";
 
   return (
     <Link
@@ -312,13 +308,13 @@ const CountryCard: React.FC<{ country: Country; viewportWidth: number }> = ({
       target="_top"
       className="relative block w-full rounded-lg bg-gradient-to-t from-blue-gray-900 to-gray h-[25svh] md:h-[30svh] lg:h-[35svh] 2xl:h-[30svh]"
     >
-      <motion.img
+      <OptimizedImage
+        src={imageSrc}
+        alt={country.name}
+        className="cursor-hover absolute right-0 top-0 z-0 h-full w-full rounded-lg brightness-75"
         variants={variants}
         whileHover="hoverBrightness"
         transition={{ duration: 0.4 }}
-        {...imageProps}
-        alt={country.name}
-        className="cursor-hover absolute right-0 top-0 z-0 h-full w-full rounded-lg brightness-75"
       />
       <p className="cursor-hover-small p-large pointer-events-none absolute left-0 right-0 top-[40%] z-10 px-8 text-center font-prima text-text-dark">
         {country.name}
@@ -331,16 +327,7 @@ const DestinationCard: React.FC<{
   destination: Destination;
   viewportWidth: number;
 }> = ({ destination, viewportWidth }) => {
-  const imageProps = useMemo(() => {
-    if (destination.images && destination.images[0]) {
-      return optimizeImage(destination.images[0], {
-        width: getImageSize(viewportWidth),
-        quality: 80,
-        format: "auto",
-      });
-    }
-    return { src: "", srcSet: "" };
-  }, [destination.images, viewportWidth]);
+  const imageSrc = destination.images && destination.images[0] ? destination.images[0] : "";
 
   return (
     <Link
@@ -348,13 +335,13 @@ const DestinationCard: React.FC<{
       target="_top"
       className="relative block w-full rounded-lg bg-gradient-to-t from-blue-gray-900 to-gray h-[25svh] md:h-[30svh] lg:h-[35svh] 2xl:h-[30svh]"
     >
-      <motion.img
+      <OptimizedImage
+        src={imageSrc}
+        alt={destination.name}
+        className="absolute right-0 top-0 z-0 h-full w-full rounded-lg brightness-75"
         variants={variants}
         whileHover="hoverBrightness"
         transition={{ duration: 0.4 }}
-        {...imageProps}
-        alt={destination.name}
-        className="absolute right-0 top-0 z-0 h-full w-full rounded-lg brightness-75"
       />
       <p className="cursor-hover-small p-large pointer-events-none absolute left-0 right-0 top-[40%] z-10 px-8 text-center font-prima text-text-dark">
         {destination.name}
@@ -367,16 +354,7 @@ const BlogCard: React.FC<{ blog: Blog; viewportWidth: number }> = ({
   blog,
   viewportWidth,
 }) => {
-  const imageProps = useMemo(() => {
-    if (blog.image) {
-      return optimizeImage(blog.image, {
-        width: getImageSize(viewportWidth),
-        quality: 80,
-        format: "auto",
-      });
-    }
-    return { src: "", srcSet: "" };
-  }, [blog.image, viewportWidth]);
+  const imageSrc = blog.image ? blog.image : "";
 
   return (
     <Link
@@ -384,18 +362,18 @@ const BlogCard: React.FC<{ blog: Blog; viewportWidth: number }> = ({
       target="_top"
       className="relative block w-full cursor-pointer rounded-lg border-background-light bg-gradient-to-t from-blue-gray-900 to-gray h-[25svh] md:h-[30svh] lg:h-[35svh] 2xl:h-[30svh]"
       style={{
-        backgroundImage: `url(${imageProps.src})`,
+        backgroundImage: `url(${imageSrc})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
     >
-      <motion.img
+      <OptimizedImage
+        src={imageSrc}
+        alt={blog.title}
+        className="cursor-hover absolute left-0 top-0 z-0 h-full w-full rounded-lg brightness-75"
         variants={variants}
         whileHover="hoverBrightness"
         transition={{ duration: 0.4 }}
-        {...imageProps}
-        alt={blog.title}
-        className="cursor-hover absolute left-0 top-0 z-0 h-full w-full rounded-lg brightness-75"
       />
       <p className={`cursor-hover-small ${viewportWidth < 768 ? "h3-md" : "p-large"} pointer-events-none absolute left-0 right-0 top-[40%] z-10 px-8 text-center font-prima text-text-dark`}>
         {blog.title}

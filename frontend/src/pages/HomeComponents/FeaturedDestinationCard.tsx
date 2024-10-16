@@ -1,14 +1,11 @@
-import React, { memo, useMemo } from "react";
+import React, { memo } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 import Destination from "src/types/Destination";
-import {
-  getImageSize,
-  useViewportWidth,
-  optimizeImage,
-} from "src/utils/imageUtils";
+import { useViewportWidth } from "src/utils/imageUtils";
 import { HoverVariants, VisibilityVariants } from "src/utils/variants";
+import OptimizedImage from "src/common/OptimizedImage";
 
 // Define prop types for the component
 type DestinationCardProps = {
@@ -31,15 +28,6 @@ const FeaturedDestinationCard: React.FC<DestinationCardProps> = memo(
     // Get the current viewport width
     const viewportWidth = useViewportWidth();
 
-    // Memoize image properties to prevent unnecessary recalculations
-    const imageProps = useMemo(() => {
-      return optimizeImage(destination.images?.[0] ?? "", {
-        width: getImageSize(viewportWidth),
-        quality: 80,
-        format: "auto",
-      });
-    }, [destination.images, viewportWidth]);
-
     return (
       <div className="destination-card flex h-full flex-col gap-1 lg:gap-2 lg:pb-6 2xl:gap-4 2xl:pb-8">
         {/* Image container */}
@@ -48,15 +36,14 @@ const FeaturedDestinationCard: React.FC<DestinationCardProps> = memo(
           target="_top"
           className="h-[60svh] w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray shadow-component dark:shadow-component-dark md:h-[65svh] lg:h-[65svh] 2xl:h-[70svh]"
         >
-          <motion.img
+          <OptimizedImage
+            src={destination.images?.[0] ?? ""}
+            alt={`Image of ${destination.name}`}
+            className="cursor-hover h-full w-full cursor-pointer rounded-xl object-cover"
             whileHover="hoverScale"
             transition={{ duration: 0.4 }}
             variants={variants}
-            loading="lazy"
-            {...imageProps}
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            alt={`Image of ${destination.name}`}
-            className="cursor-hover h-full w-full cursor-pointer rounded-xl object-cover"
           />
         </Link>
         {/* Destination information */}

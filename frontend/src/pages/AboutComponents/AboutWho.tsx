@@ -2,7 +2,7 @@ import React, { memo, Suspense } from "react";
 import { motion, useInView } from "framer-motion";
 import { HoverVariants, VisibilityVariants } from "src/utils/variants";
 import { people } from "src/data/about-people";
-import LazyImage from "./LazyImage";
+import OptimizedImage from "src/common/OptimizedImage";
 
 // Import images
 import who1 from "src/assets/images/ui/about/about-1.webp";
@@ -16,6 +16,7 @@ import who8 from "src/assets/images/ui/about/about-8.webp";
 
 // Define animation variants
 const variants = {
+  hidden: VisibilityVariants.hidden,
   hiddenY: VisibilityVariants.hiddenY,
   hiddenFullY: VisibilityVariants.hiddenFullY,
   visible: VisibilityVariants.visible,
@@ -60,12 +61,22 @@ const whoImages = [who1, who2, who3, who4, who5, who6, who7, who8];
 // Main component
 const AboutWho = () => {
   return (
-    <section className="who px-sect sticky top-0 z-20 rounded-5xl bg-background-dark-transparent dark:bg-background-dark-transparent overflow-hidden shadow-section pb-64 pt-32 lg:pb-sect-default lg:pt-40 2xl:py-sect-default">
+    <section className="who px-sect sticky top-0 z-20 overflow-hidden rounded-5xl bg-background-dark-transparent pb-64 pt-32 shadow-section dark:bg-background-dark-transparent lg:pb-sect-default lg:pt-40 2xl:py-sect-default">
       <div className="relative flex flex-col">
         {/* Animated blobs */}
-        <motion.div initial="hidden" animate="blob2Animation" variants={variants} className="blob-brown blur-blob left-1/2 top-[20%] h-1/4 w-1/4 opacity-30"></motion.div>
-        <motion.div initial="hidden" animate="blob1Animation" variants={variants} className="blob-green blur-blob top-[5%] left-[5%] h-1/4 w-1/3 opacity-20"></motion.div>
-        
+        <motion.div
+          initial="hidden"
+          animate="blob2Animation"
+          variants={variants}
+          className="blob-brown blur-blob left-1/2 top-[20%] h-1/4 w-1/4 opacity-30"
+        ></motion.div>
+        <motion.div
+          initial="hidden"
+          animate="blob1Animation"
+          variants={variants}
+          className="blob-green blur-blob left-[5%] top-[5%] h-1/4 w-1/3 opacity-20"
+        ></motion.div>
+
         {/* Section title */}
         <motion.div
           initial="hiddenY"
@@ -73,11 +84,11 @@ const AboutWho = () => {
           variants={variants}
           viewport={{ once: true, margin: "0% 0% -20% 0%" }}
           transition={{ duration: 0.5 }}
-          className="h3-inter text-center py-32 lg:py-40 2xl:pb-sect-default"
+          className="h3-inter py-32 text-center lg:py-40 2xl:pb-sect-default"
         >
           <h1 className="text-text-dark">Who?</h1>
         </motion.div>
-        
+
         {/* People grid */}
         <motion.div
           initial="hiddenY"
@@ -85,23 +96,26 @@ const AboutWho = () => {
           variants={variants}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="z-10 grid grid-cols-3 lg:grid-cols-4 justify-center gap-x-3 gap-y-6 sm:gap-x-6 sm:gap-y-8 lg:gap-12"
+          className="z-10 grid grid-cols-3 justify-center gap-x-3 gap-y-6 sm:gap-x-6 sm:gap-y-8 lg:grid-cols-4 lg:gap-12"
         >
           {people.map((person, index) => (
             <div
               className="person flex flex-col items-center gap-2 lg:gap-4"
               key={index}
             >
-              <div className=" h-[20svh] sm:h-[25svh] md:h-[30svh] lg:h-[40svh] w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray shadow-component dark:shadow-component-dark saturate-0 duration-300 hover:saturate-[0.75]">
+              <div className="h-[20svh] w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray shadow-component saturate-0 duration-300 hover:saturate-[0.75] dark:shadow-component-dark sm:h-[25svh] md:h-[30svh] lg:h-[40svh]">
                 {person.img && (
-                  <motion.img
+                  <motion.div
                     whileHover="hoverScale"
                     variants={variants}
                     transition={{ duration: 0.4 }}
-                    src={person.img}
-                    alt=""
-                    className="h-full w-full rounded-xl object-cover"
-                  />
+                  >
+                    <OptimizedImage
+                      src={person.img}
+                      alt=""
+                      className="h-full w-full rounded-xl object-cover"
+                    />
+                  </motion.div>
                 )}
               </div>
               <div className="flex flex-col gap-1 lg:gap-2">
@@ -115,10 +129,15 @@ const AboutWho = () => {
             </div>
           ))}
         </motion.div>
-        
+
         {/* Animated images and description */}
         <div className="px-sect relative pb-48 pt-sect-medium lg:pb-sect-default lg:pt-sect-long 2xl:mt-sect-default">
-          <motion.div initial="hidden" animate="blobAnimation" variants={variants} className="blob-brown blur-blob left-[20%] top-1/3 h-1/2 w-1/2 opacity-30"></motion.div>
+          <motion.div
+            initial="hidden"
+            animate="blobAnimation"
+            variants={variants}
+            className="blob-brown blur-blob left-[20%] top-1/3 h-1/3 w-1/3 opacity-30"
+          ></motion.div>
 
           {whoImages.map((img, index) => (
             <AnimatedImage key={`whoImg-${index}`} src={img} index={index} />
@@ -147,20 +166,17 @@ const AboutWho = () => {
 // Animated image component
 const AnimatedImage = memo(({ src, index }: { src: string; index: number }) => {
   const ref = React.useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
     <motion.div
       ref={ref}
-      initial="hiddenY"
-      animate={isInView ? ["visible", "imgFloat"] : "hiddenY"}
+      initial="hidden"
+      whileInView={["visible", "imgFloat"]}
       variants={variants}
       transition={{ delay: 0.2 + index * 0.1 }}
-      className={`img-${index + 1} -z-10  absolute rounded-md lg:rounded-lg overflow-hidden will-change-transform`}
+      className={`img-${index + 1} absolute -z-10 overflow-hidden rounded-md bg-gradient-to-t from-blue-gray-900 to-gray will-change-transform lg:rounded-lg`}
     >
-      <Suspense fallback={<div className="w-full h-full bg-gray-200" />}>
-        <LazyImage src={src} alt="" loading="lazy" />
-      </Suspense>
+      <OptimizedImage src={src} alt="" className="h-full w-full object-cover" />
     </motion.div>
   );
 });
