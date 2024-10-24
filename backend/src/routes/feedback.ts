@@ -1,7 +1,7 @@
 import express from "express";
-import * as feedbackController from "src/controllers/FeedbackControllers";
-import { validateRequest } from "src/utils/validationMiddleware";
-import { feedbackSchema } from "src/utils/validationSchemas";
+import * as feedbackController from "src/controllers/FeedbackControllers/FeedbackControllers";
+import { validateRequest } from "src/utils/validation/validationMiddleware";
+import { feedbackSchema } from "src/utils/validation/validationSchemas";
 
 const router = express.Router();
 

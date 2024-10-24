@@ -6,7 +6,7 @@ import feedbackRoutes from "src/routes/feedback";
 import blogRoutes from "src/routes/blog";
 import countryRoutes from "src/routes/country";
 import subscribeRoutes from "src/routes/subscribe";
-import { errorHandler } from "src/utils/errorHandler";
+import { errorHandler } from "src/middlewares/errorHandler";
 
 export const corsOptions = {
   origin: true,

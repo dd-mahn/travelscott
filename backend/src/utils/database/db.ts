@@ -1,14 +1,15 @@
 import mongoose from 'mongoose';
+import config from 'src/config/config';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-if (!process.env.MONGO_URI) {
+if (!config.dbUri) {
     throw new Error('MONGO_URI is not defined in the environment');
 }
 
-export const dbName = process.env.DB_NAME || 'CollectionDB';
-export const mongoUri: string = process.env.MONGO_URI;
+export const dbName = process.env.DB_NAME || 'TravelScottDB';
+export const mongoUri: string = config.dbUri;
 
 mongoose.set('strictQuery', false);
 

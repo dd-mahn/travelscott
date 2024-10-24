@@ -1,6 +1,6 @@
 import express from "express";
-import { connect } from "src/utils/db";
-import { setupMiddleware } from "src/utils/middleware";
+import { connect } from "src/utils/database/db";
+import { setupMiddleware } from "src/middlewares/middlewares";
 import mongoose from "mongoose";
 
 const app = express();
