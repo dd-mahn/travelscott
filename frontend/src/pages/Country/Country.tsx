@@ -13,12 +13,12 @@ import useFetch from "src/hooks/useFetch/useFetch";
 // Components
 import RelatedSections from "src/common/RelatedSections";
 import Loading from "src/common/Loading";
-import CountryGuide from "./Country/Components/CountryGuide";
-import CountryArticles from "./Country/Components/CountryArticles";
-import CountryDestinations from "./Country/Components/CountryDestinations";
-import CountryOverview from "./Country/Components/CountryOverview";
-import CountryHero from "./Country/Components/CountryHero";
-import NotFoundPage from "./404";
+import CountryGuide from "src/pages/Country/Components/CountryGuide";
+import CountryArticles from "src/pages/Country/Components/CountryArticles";
+import CountryDestinations from "src/pages/Country/Components/CountryDestinations";
+import CountryOverview from "src/pages/Country/Components/CountryOverview";
+import CountryHero from "src/pages/Country/Components/CountryHero";
+import NotFoundPage from "src/pages/404/404";
 
 // Utilities
 import config from "src/config/config";

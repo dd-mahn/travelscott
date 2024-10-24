@@ -20,7 +20,7 @@ import { motion } from "framer-motion";
 
 // Component imports
 import Earth from "src/../public/Earth";
-import { LeftCountryCarousel, RightCountryCarousel } from "./CountryCarousel";
+import { LeftCountryCarousel, RightCountryCarousel } from "src/pages/Home/Components/CountryCarousel";
 import { VisibilityVariants } from "src/utils/constants/variants";
 
 // Component props

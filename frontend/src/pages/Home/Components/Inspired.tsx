@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import { motion } from "framer-motion";
-import { MarqueeCountryCarousel } from "./CountryCarousel";
+import { MarqueeCountryCarousel } from "src/pages/Home/Components/CountryCarousel";
 import { VisibilityVariants } from "src/utils/constants/variants";
 
 // Framer motion variants for animations

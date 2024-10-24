@@ -4,7 +4,7 @@ import Lenis from "lenis";
 import Blog from "src/types/Blog";
 import Country from "src/types/Country";
 import Destination from "src/types/Destination";
-import "src/common/style/search-result.css";
+import "src/common/styles/search-result.css";
 import { Link } from "react-router-dom";
 import {
   HoverVariants,

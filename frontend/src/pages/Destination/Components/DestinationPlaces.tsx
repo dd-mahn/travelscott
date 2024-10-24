@@ -5,7 +5,7 @@ import {
   placeToStay,
   placeToVisit,
 } from "src/types/Destination";
-import PlaceDialog from "./PlaceDialog";
+import PlaceDialog from "src/pages/Destination/Components/PlaceDialog";
 import SlideRevealIconHeading from "src/common/SlideRevealIconHeading";
 import { AnimatePresence, motion } from "framer-motion";
 import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";

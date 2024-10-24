@@ -7,13 +7,13 @@ import { setHomeBlogs } from "src/store/slices/blogSlice";
 import "src/styles/home.css";
 
 // Component imports
-import Hero from "./Components/Hero";
-import Brief from "./Components/Brief";
-import Featured from "./Components/Featured";
-import Starter from "./Components/Starter";
-import Articles from "./Components/Articles";
-import Inspired from "./Components/Inspired";
-import Quote from "./Components/Quote";
+import Hero from "src/pages/Home/Components/Hero";
+import Brief from "src/pages/Home/Components/Brief";
+import Featured from "src/pages/Home/Components/Featured";
+import Starter from "src/pages/Home/Components/Starter";
+import Articles from "src/pages/Home/Components/Articles";
+import Inspired from "src/pages/Home/Components/Inspired";
+import Quote from "src/pages/Home/Components/Quote";
 import useFetch from "src/hooks/useFetch/useFetch";
 import { FetchBlogsType } from "src/types/FetchData";
 import config from "src/config/config";
@@ -21,7 +21,7 @@ import {
   useSectionTransition,
   useSectionTransition2,
 } from "src/hooks/useSectionTransition/useSectionTransition";
-import Hook from "./Components/Hook";
+import Hook from "src/pages/Home/Components/Hook";
 
 // Home component
 const Home: React.FC = () => {

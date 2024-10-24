@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import Slider from "react-slick";
 import { Link } from "react-router-dom";
-import "src/common/style/related-section.css";
+import "src/common/styles/related-section.css";
 
 // Component imports
 import useFetch from "src/hooks/useFetch/useFetch";

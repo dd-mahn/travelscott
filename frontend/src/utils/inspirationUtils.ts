@@ -1,4 +1,4 @@
-import { getSeason } from "./getSeason";
+import { getSeason } from "src/utils/getSeason";
 
 // Function to get the heading based on the category
 export const getInspirationHeading = (category: string): string => {

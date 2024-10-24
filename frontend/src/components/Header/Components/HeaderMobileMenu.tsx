@@ -2,10 +2,8 @@ import React, { memo, useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
 import ReactDOM from "react-dom";
-import { HoverVariants } from "../../../utils/constants/headerVariants";
 import { BlobVariants, VisibilityVariants } from "src/utils/constants/variants";
-import ThemeButton from "./ThemeButton";
-import HeaderSearch from "./HeaderSearch";
+import ThemeButton from "src/components/Header/Components/ThemeButton";
 
 // Navigation links
 const navs = [

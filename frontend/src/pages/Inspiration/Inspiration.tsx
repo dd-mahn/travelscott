@@ -9,12 +9,12 @@ import { FetchBlogsType } from "src/types/FetchData";
 import { VisibilityVariants } from "src/utils/constants/variants";
 
 import FeaturedBlogs from "src/common/FeaturedBlogs";
-import NotFoundPage from "./404";
+import NotFoundPage from "src/pages/404/404";
 import Loading from "src/common/Loading";
-import InspirationCatalog from "./Inspiration/Components/InspirationCatalog";
-import InspirationHero from "./Inspiration/Components/InspirationHero";
-import InspirationButtons from "./Inspiration/Components/InspirationButtons";
-import InspirationHeading from "./Inspiration/Components/InspirationHeading";
+import InspirationCatalog from "src/pages/Inspiration/Components/InspirationCatalog";
+import InspirationHero from "src/pages/Inspiration/Components/InspirationHero";
+import InspirationButtons from "src/pages/Inspiration/Components/InspirationButtons";
+import InspirationHeading from "src/pages/Inspiration/Components/InspirationHeading";
 
 // Framer motion variants
 const variants = {

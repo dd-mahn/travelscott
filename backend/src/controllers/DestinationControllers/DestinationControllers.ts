@@ -1,7 +1,6 @@
 import path from "path";
 import fs from "fs";
 import { Request, Response } from "express";
-
 import Destination from "src/models/Destination";
 import createRegexArray from "src/utils/createRegexArray";
 import s3 from "src/utils/aws";

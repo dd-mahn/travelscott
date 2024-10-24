@@ -4,10 +4,10 @@ import { motion } from "framer-motion";
 // Asset imports
 import "src/styles/about.css";
 import { VisibilityVariants } from "src/utils/constants/variants";
-import AboutHero from "./About/Components/AboutHero";
-import AboutHow from "./About/Components/AboutHow";
-import AboutWho from "./About/Components/AboutWho";
-import AboutWhy from "./About/Components/AboutWhy";
+import AboutHero from "src/pages/About/Components/AboutHero";
+import AboutHow from "src/pages/About/Components/AboutHow";
+import AboutWho from "src/pages/About/Components/AboutWho";
+import AboutWhy from "src/pages/About/Components/AboutWhy";
 import useStackedSections from "src/hooks/useStackedSections/useStackedSections";
 import {
   useSectionTransition,

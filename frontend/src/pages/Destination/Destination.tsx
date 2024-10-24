@@ -16,15 +16,15 @@ import useStackedSections from "src/hooks/useStackedSections/useStackedSections"
 
 // Components
 import RelatedSections from "src/common/RelatedSections";
-import NotFoundPage from "./404";
+import NotFoundPage from "src/pages/404/404";
 import Loading from "src/common/Loading";
-import DestinationHero from "./Destination/Components/DestinationHero";
-import DestinationOverview from "./Destination/Components/DestinationOverview";
-import DestinationTransportation from "./Destination/Components/DestinationTransportation";
-import DestinationPlaces from "./Destination/Components/DestinationPlaces";
-import DestinationInsight from "./Destination/Components/DestinationInsight";
-import DestinationVideo from "./Destination/Components/DestinationVideo";
-import DestinationSummary from "./Destination/Components/DestinationSummary";
+import DestinationHero from "src/pages/Destination/Components/DestinationHero";
+import DestinationOverview from "src/pages/Destination/Components/DestinationOverview";
+import DestinationTransportation from "src/pages/Destination/Components/DestinationTransportation";
+import DestinationPlaces from "src/pages/Destination/Components/DestinationPlaces";
+import DestinationInsight from "src/pages/Destination/Components/DestinationInsight";
+import DestinationVideo from "src/pages/Destination/Components/DestinationVideo";
+import DestinationSummary from "src/pages/Destination/Components/DestinationSummary";
 
 // Animation Variants
 import { VisibilityVariants } from "src/utils/constants/variants";

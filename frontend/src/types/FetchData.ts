@@ -1,7 +1,7 @@
 // Importing necessary types
 import Destination from "src/types/Destination";
-import Country from "./Country";
-import Blog from "./Blog";
+import Country from "src/types/Country";
+import Blog from "src/types/Blog";
 
 // Generic interface to handle fetch data responses
 interface FetchData<T> {

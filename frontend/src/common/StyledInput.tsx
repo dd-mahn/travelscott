@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "src/common/style/styled-input.css";
+import "src/common/styles/styled-input.css";
 
 // Define the props for the StyledInput component
 interface StyledInputProps {

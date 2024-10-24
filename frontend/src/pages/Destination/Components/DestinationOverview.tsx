@@ -1,12 +1,12 @@
 import React, { memo } from "react";
 import Destination from "src/types/Destination";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   HoverVariants,
   TapVariants,
   VisibilityVariants,
 } from "src/utils/constants/variants";
-import DestinationMenu from "./DestinationMenu";
+import DestinationMenu from "src/pages/Destination/Components/DestinationMenu";
 
 // Define animation variants
 const variants = {

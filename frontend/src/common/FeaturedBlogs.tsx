@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 import Blog from "src/types/Blog";
-import FeaturedContentSlider from "./FeaturedContentSlider";
+import FeaturedContentSlider from "src/common/FeaturedContentSlider";
 import { formatDate } from "src/utils/formatDate";
 import { HoverVariants, TapVariants } from "src/utils/constants/variants";
 import OptimizedImage from "src/common/OptimizedImage";

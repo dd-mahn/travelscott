@@ -8,10 +8,10 @@ import "src/styles/header.css";
 import {
   HeaderVariants,
   HoverVariants,
-} from "../../utils/constants/headerVariants";
-import HeaderSearch from "./Components/HeaderSearch";
-import ThemeButton from "./Components/ThemeButton";
-import HeaderMobileMenu from "./Components/HeaderMobileMenu";
+} from "src/utils/constants/headerVariants";
+import HeaderSearch from "src/components/Header/Components/HeaderSearch";
+import ThemeButton from "src/components/Header/Components/ThemeButton";
+import HeaderMobileMenu from "src/components/Header/Components/HeaderMobileMenu";
 
 // Navigation items
 const navs = [

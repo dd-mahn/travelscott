@@ -1,5 +1,5 @@
 import React, { memo, useRef } from "react";
-import EarthScene from "./EarthScene";
+import EarthScene from "src/pages/Home/Components/EarthScene";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 // Define the props for the Globe component

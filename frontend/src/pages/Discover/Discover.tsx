@@ -8,12 +8,12 @@ import {
   getFeaturedDestinations,
 } from "src/utils/filterUtils";
 import { FetchCountriesType, FetchDestinationType } from "src/types/FetchData";
-import NotFoundPage from "../404/404";
+import NotFoundPage from "src/pages/404/404";
 import Loading from "src/common/Loading";
-import DiscoverDestinations from "./Components/DiscoverDestinations";
-import DiscoverCountries from "./Components/DiscoverCountries";
+import DiscoverDestinations from "src/pages/Discover/Components/DiscoverDestinations";
+import DiscoverCountries from "src/pages/Discover/Components/DiscoverCountries";
 import useFetch from "src/hooks/useFetch/useFetch";
-import DiscoverPoster from "./Components/DiscoverPoster";
+import DiscoverPoster from "src/pages/Discover/Components/DiscoverPoster";
 import { setCountries } from "src/store/slices/countrySlice";
 import { setAllDestinations, setFeaturedDestinations } from "src/store/slices/destinationSlice";
 import { setContinents } from "src/store/slices/continentSlice";
