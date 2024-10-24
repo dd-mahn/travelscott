@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 import planeIcon from "src/assets/svg/plane-icon.svg";
-import { ButtonVariants } from "src/utils/variants";
+import { ButtonVariants } from "src/utils/constants/variants";
 
 // Define the ButtonProps interface for type-checking
 interface ButtonProps {

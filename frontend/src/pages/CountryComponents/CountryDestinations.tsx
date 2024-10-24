@@ -2,7 +2,7 @@ import React, { memo, useEffect, useMemo, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "src/store/store";
-import { BASE_URL } from "src/utils/config";
+import config from "src/config/config";
 import useFetch from "src/hooks/useFetch";
 import { FetchDestinationType } from "src/types/FetchData";
 import Country from "src/types/Country";
@@ -17,7 +17,7 @@ import {
   HoverVariants,
   TapVariants,
   VisibilityVariants,
-} from "src/utils/variants";
+} from "src/utils/constants/variants";
 import FilterButton from "src/common/FilterButton";
 import DestinationCatalog from "src/common/DestinationCatalog";
 import { useViewportWidth } from "src/utils/imageUtils";
@@ -52,7 +52,7 @@ const CountryDestinations: React.FC<CountryDestinationsProps> = ({ country }) =>
 
   // Constructing the URL for fetching destinations
   const url = useMemo(() => {
-    let baseUrl = `${BASE_URL}/destinations?page=${currentPage}&limit=${limit}&countries=${country.name}`;
+    let baseUrl = `${config.api.baseUrl}/destinations?page=${currentPage}&limit=${limit}&countries=${country.name}`;
     if (tags.length > 0) {
       baseUrl += `&tags=${tags.join(",")}`;
     }

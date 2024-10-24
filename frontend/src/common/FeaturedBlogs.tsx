@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import Blog from "src/types/Blog";
 import FeaturedContentSlider from "./FeaturedContentSlider";
 import { formatDate } from "src/utils/formatDate";
-import { HoverVariants, TapVariants } from "src/utils/variants";
+import { HoverVariants, TapVariants } from "src/utils/constants/variants";
 import OptimizedImage from "src/common/OptimizedImage";
 
 // Define the props type for the component

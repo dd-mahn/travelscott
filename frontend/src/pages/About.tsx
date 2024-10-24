@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 // Asset imports
 import "src/styles/about.css";
-import { VisibilityVariants } from "src/utils/variants";
+import { VisibilityVariants } from "src/utils/constants/variants";
 import AboutHero from "./AboutComponents/AboutHero";
 import AboutHow from "./AboutComponents/AboutHow";
 import AboutWho from "./AboutComponents/AboutWho";
@@ -40,7 +40,7 @@ const About: React.FC = () => {
       {/* Stacked Section */}
       <motion.section
         style={{ scale: scale2 }}
-        className="flex flex-col items-center justify-start pb-32 pt-64 md:py-48 lg:py-40 2xl:py-sect-default"
+        className="flex flex-col items-center justify-start pb-32 pt-64 md:py-48 lg:py-64 2xl:py-sect-default"
       >
         {/* How Section */}
         <motion.h2

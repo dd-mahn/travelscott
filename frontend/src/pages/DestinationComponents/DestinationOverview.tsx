@@ -5,7 +5,7 @@ import {
   HoverVariants,
   TapVariants,
   VisibilityVariants,
-} from "src/utils/variants";
+} from "src/utils/constants/variants";
 import DestinationMenu from "./DestinationMenu";
 
 // Define animation variants

@@ -1,7 +1,7 @@
 import React, { memo, useCallback, useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { DotPagination } from "./Pagination";
-import { VisibilityVariants } from "src/utils/variants";
+import { VisibilityVariants } from "src/utils/constants/variants";
 
 // Framer motion variants
 const variants = {

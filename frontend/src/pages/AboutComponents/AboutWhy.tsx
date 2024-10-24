@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import { motion } from "framer-motion";
-import { HoverVariants, VisibilityVariants } from "src/utils/variants";
+import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
 import { useViewportWidth } from "src/utils/imageUtils";
 
 // Importing assets

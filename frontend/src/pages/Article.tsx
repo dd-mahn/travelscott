@@ -5,10 +5,10 @@ import { motion } from "framer-motion";
 import RelatedSections from "src/common/RelatedSections";
 import useFetch from "src/hooks/useFetch";
 import Blog from "src/types/Blog";
-import { BASE_URL } from "src/utils/config";
+import config from "src/config/config";
 import NotFoundPage from "./404";
 import Loading from "src/common/Loading";
-import { VisibilityVariants } from "src/utils/variants";
+import { VisibilityVariants } from "src/utils/constants/variants";
 import { formatDate } from "src/utils/formatDate";
 import OptimizedImage from "src/common/OptimizedImage";
 
@@ -28,7 +28,7 @@ const Article: React.FC = () => {
     data: blogData,
     loading: blogLoading,
     error: blogError,
-  } = useFetch<Blog>(`${BASE_URL}/blogs/${id}`);
+  } = useFetch<Blog>(`${config.api.baseUrl}/blogs/${id}`);
 
   // Handle loading and error states
   if (blogLoading) return <Loading />;
@@ -158,28 +158,29 @@ const Article: React.FC = () => {
       </div>
 
       {/* Related articles */}
-      <motion.div
-        variants={variants}
-        initial="hiddenY"
-        whileInView="visible"
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="py-20 lg:py-40 2xl:py-sect-default"
-      >
+      <div className="py-20 lg:py-40 2xl:py-sect-default">
         <div className="overflow-hidden">
           <motion.h2
             variants={variants}
             initial="hiddenFullY"
             whileInView="visible"
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.5 }}
+            transition={{ duration: 0.5 }}
             className="h2-md px-sect w-full pb-4 text-center lg:pb-8 2xl:pb-12"
           >
-            Related articles
+            More articles
           </motion.h2>
         </div>
-        <RelatedSections type={"blog"} data={blogData} />
-      </motion.div>
+        <motion.div
+          variants={variants}
+          initial="hiddenY"
+          whileInView="visible"
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+        >
+          <RelatedSections type={"blog"} data={blogData} />
+        </motion.div>
+      </div>
     </main>
   );
 };

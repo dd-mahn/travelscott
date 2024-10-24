@@ -13,7 +13,7 @@ const blogSchema: Schema = new Schema({
     enum: [
       "Wilderness",
       "Culture&Heritage",
-      "Food&Drink",
+      "FoodLovers",
       "SoloJourneys",
       "CityScape",
       "Season&Festival",

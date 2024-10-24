@@ -4,12 +4,12 @@ import { InspirationFilter } from "src/common/FilterBoards";
 import { CatalogPagination } from "src/common/Pagination";
 import { FetchBlogsType } from "src/types/FetchData";
 import useFetch from "src/hooks/useFetch";
-import { BASE_URL } from "src/utils/config";
+import config from "src/config/config";
 import InspirationCard from "./InspirationCard";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "src/store/store";
 import { setInspirationCatalogBlogs } from "src/store/slices/blogSlice";
-import { VisibilityVariants } from "src/utils/variants";
+import { VisibilityVariants } from "src/utils/constants/variants";
 import { usePagedData } from "src/hooks/usePagedData";
 import { createSelector } from 'reselect';
 import {
@@ -79,7 +79,7 @@ const InspirationCatalog: React.FC<InspirationCatalogProps> = memo(
       loading: blogsLoading,
       error: blogsError,
     } = useFetch<FetchBlogsType>(
-      `${BASE_URL}/blogs?limit=${limit}&page=${currentPage}&category=${
+      `${config.api.baseUrl}/blogs?limit=${limit}&page=${currentPage}&category=${
         currentCategory === "All" ? "" : encodeURIComponent(currentCategory)
       }&tags=${blogTagsQuery}&searchQuery=${encodeURIComponent(searchQuery)}`,
       [currentCategory, currentPage, blogTags, searchQuery],

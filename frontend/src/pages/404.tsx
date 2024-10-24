@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import "src/styles/404.css";
 import { NoirButton } from "src/common/Button";
-import { AuroraVariants, VisibilityVariants, BlobVariants } from "src/utils/variants";
+import { AuroraVariants, VisibilityVariants, BlobVariants } from "src/utils/constants/variants";
 
 // Define motion variants for different animations
 const variants = {

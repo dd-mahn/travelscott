@@ -16,12 +16,12 @@ import { FetchBlogsType } from "src/types/FetchData";
 import useFetch from "src/hooks/useFetch";
 
 // Utils
-import { BASE_URL } from "src/utils/config";
+import config from "src/config/config";
 import {
   HoverVariants,
   TapVariants,
   VisibilityVariants,
-} from "src/utils/variants";
+} from "src/utils/constants/variants";
 
 // Define the props for the CountryArticles component
 interface CountryArticlesProps {
@@ -51,7 +51,7 @@ const CountryArticles: React.FC<CountryArticlesProps> = ({ country }) => {
     loading: blogLoading,
     error: blogError,
   } = useFetch<FetchBlogsType>(
-    `${BASE_URL}/blogs?limit=20&tags=${country.name}`
+    `${config.api.baseUrl}/blogs?limit=20&tags=${country.name}`,
   );
 
   // Update the country blogs in the store when blogData changes

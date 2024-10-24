@@ -1,8 +1,8 @@
 import React, { memo, useState } from "react";
 import "src/styles/contact.css";
 import { AnimatePresence, motion } from "framer-motion";
-import { sendFeedback } from "src/apis/sendFeedback";
-import { BASE_URL } from "src/utils/config";
+import { sendFeedback } from "src/services/apis/sendFeedback";
+import config from "src/config/config";
 import { resetForm } from "src/utils/resetForm";
 import StyledInput from "src/common/StyledInput";
 import { SecondaryButton } from "src/common/Button";
@@ -10,7 +10,7 @@ import {
   HoverVariants,
   TapVariants,
   VisibilityVariants,
-} from "src/utils/variants";
+} from "src/utils/constants/variants";
 import { useNotification } from "src/context/NotificationContext";
 import { Link } from "react-router-dom";
 

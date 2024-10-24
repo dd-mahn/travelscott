@@ -1,6 +1,6 @@
 import React, { memo, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 
 // Component imports
 import HorizontalScrollCarousel from "./FeaturedHorizontalScroller";
@@ -8,15 +8,13 @@ import { SecondaryButton } from "src/common/Button";
 import { ErrorState, LoadingState } from "src/common/CatalogStates";
 
 // Utility imports
-import { VisibilityVariants } from "src/utils/variants";
+import { VisibilityVariants } from "src/utils/constants/variants";
 import { useViewportWidth } from "src/utils/imageUtils";
 import useFetch from "src/hooks/useFetch";
-import { BASE_URL } from "src/utils/config";
+import config from "src/config/config";
 
 // Type imports
-import Destination from "src/types/Destination";
 import { FetchDestinationType } from "src/types/FetchData";
-import { RootState } from "src/store/store";
 
 // Redux actions
 import { setFeaturedDestinations } from "src/store/slices/destinationSlice";
@@ -39,7 +37,7 @@ const Featured: React.FC = () => {
 
   // Fetch featured destinations
   const { data, loading, error } = useFetch<FetchDestinationType>(
-    `${BASE_URL}/destinations?featured=true`,
+    `${config.api.baseUrl}/destinations?featured=true`,
   );
   const featuredDestinations = data?.result;
 

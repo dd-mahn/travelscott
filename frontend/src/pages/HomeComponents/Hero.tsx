@@ -9,7 +9,7 @@ import airplane3 from "src/assets/svg/airplane-3.svg";
 
 // Import custom button components
 import { PrimaryButton, SecondaryButton } from "src/common/Button";
-import { HoverVariants, VisibilityVariants } from "src/utils/variants";
+import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
 import { useViewportWidth } from "src/utils/imageUtils";
 
 // Define Framer Motion animation variants

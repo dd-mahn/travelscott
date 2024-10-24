@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { VisibilityVariants } from "src/utils/variants";
+import { VisibilityVariants } from "src/utils/constants/variants";
 import SeasonHeading from "src/common/SeasonHeading";
 import { getInspirationHeading } from "src/utils/inspirationUtils";
 

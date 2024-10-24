@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 // Component imports
 import "src/styles/discover.css";
-import { BASE_URL } from "src/utils/config";
+import config from "src/config/config";
 import {
   getCountryByContinent,
   getFeaturedDestinations,
@@ -19,7 +19,7 @@ import { setAllDestinations, setFeaturedDestinations } from "src/store/slices/de
 import { setContinents } from "src/store/slices/continentSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "src/store/store";
-import { continents } from "src/utils/continents";
+import { continents } from "src/utils/constants/continents";
 
 // Discover component
 const Discover: React.FC = () => {
@@ -34,13 +34,13 @@ const Discover: React.FC = () => {
     data: allDestinationData,
     loading: allDestinationLoading,
     error: allDestinationError,
-  } = useFetch<FetchDestinationType>(`${BASE_URL}/destinations?limit=1000`);
+  } = useFetch<FetchDestinationType>(`${config.api.baseUrl}/destinations?limit=1000`);
 
   const {
     data: countryData,
     loading: countryLoading,
     error: countryError,
-  } = useFetch<FetchCountriesType>(`${BASE_URL}/countries?limit=1000`);
+  } = useFetch<FetchCountriesType>(`${config.api.baseUrl}/countries?limit=1000`);
 
   // Handle fetched data for rendering
   useEffect(() => {

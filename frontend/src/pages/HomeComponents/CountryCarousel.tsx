@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useMemo } from "react";
 import Slider from "react-slick";
 import Marquee from "react-marquee-slider";
 import { Motion } from "react-marquee-slider";

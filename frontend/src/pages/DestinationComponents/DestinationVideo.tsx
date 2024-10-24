@@ -1,6 +1,6 @@
 import React, { memo, useMemo, useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { VisibilityVariants } from "src/utils/variants";
+import { VisibilityVariants } from "src/utils/constants/variants";
 import ReactPlayer from "react-player";
 
 // Define animation variants for the motion component

@@ -1,9 +1,23 @@
 import React, { Suspense, useMemo } from "react";
 import { motion } from "framer-motion";
-import { getImageSize, optimizeImage, useViewportWidth } from "src/utils/imageUtils";
+import {
+  getImageSize,
+  optimizeImage,
+  useViewportWidth,
+} from "src/utils/imageUtils";
 
 // OptimizedImage component to load images lazily
-const OptimizedImage = ({ src, alt, className, ...motionProps }: { src: string; alt: string; className?: string; [key: string]: any }) => {
+const OptimizedImage = ({
+  src,
+  alt,
+  className,
+  ...motionProps
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+  [key: string]: any;
+}) => {
   const viewportWidth = useViewportWidth();
   const optimizedImage = useMemo(
     () =>
@@ -16,14 +30,14 @@ const OptimizedImage = ({ src, alt, className, ...motionProps }: { src: string; 
   );
 
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<div className="h-full w-full bg-transparent"></div>}>
       <motion.img
         loading="lazy"
-      src={optimizedImage.src}
-      srcSet={optimizedImage.srcSet}
-      alt={alt}
-      className={className}
-      {...motionProps}
+        src={optimizedImage.src}
+        srcSet={optimizedImage.srcSet}
+        alt={alt}
+        className={className}
+        {...motionProps}
       />
     </Suspense>
   );

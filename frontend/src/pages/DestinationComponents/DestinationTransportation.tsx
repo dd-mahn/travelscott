@@ -1,7 +1,7 @@
 import React, { memo, useState } from "react";
 import { destinationTransportation } from "src/types/Destination";
 import { AnimatePresence, motion } from "framer-motion";
-import { HoverVariants, VisibilityVariants } from "src/utils/variants";
+import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
 import SlideRevealIconHeading from "src/common/SlideRevealIconHeading";
 
 // Define the props for the DestinationTransportation component
@@ -112,8 +112,8 @@ const DestinationTransportation: React.FC<DestinationTransportationProps> = ({ t
                     key={`transportation-type-${type.name}`}
                     className="flex flex-col gap-2 md:gap-4"
                   >
-                    <div className="flex flex-row gap-4 md:gap-8">
-                      <i className="ri-information-2-line p-large mt-2 md:mt-4"></i>
+                    <div className="flex flex-row items-center gap-4 md:gap-8">
+                      <i className="ri-information-2-line p-large"></i>
                       <div className="flex flex-col">
                         <p className="p-regular">{type.description}</p>
                         <ul>
@@ -139,7 +139,7 @@ const DestinationTransportation: React.FC<DestinationTransportationProps> = ({ t
                       </p>
                     </div>
                     {type.quick_review && (
-                      <div className="flex items-start gap-4 md:gap-8">
+                      <div className="flex items-center gap-4 md:gap-8">
                         <i className="ri-arrow-right-line p-large"></i>
                         <p className="p-regular">{type.quick_review}</p>
                       </div>

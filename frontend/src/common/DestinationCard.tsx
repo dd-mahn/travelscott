@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import Destination from "src/types/Destination";
 import OptimizedImage from "src/common/OptimizedImage";
-import { HoverVariants } from "src/utils/variants";
+import { HoverVariants } from "src/utils/constants/variants";
 
 // Define the props for the DestinationCard component
 interface DestinationCardProps {

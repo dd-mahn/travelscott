@@ -6,7 +6,7 @@ import s3 from "src/utils/aws";
 import path from "path";
 import fs from "fs";
 
-const ALLOWED_EXTENSIONS = [".png", ".jpg"];
+const ALLOWED_EXTENSIONS = [".png", ".jpg", ".webp", ".jpeg"];
 
 export const createCountry = async (req: Request, res: Response) => {
   try {

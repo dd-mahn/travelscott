@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 // Import asset files
 import airplane1 from "src/assets/svg/airplane-1.svg";
 import briefVideo from "src/assets/videos/brief.mp4";
-import { VisibilityVariants } from "src/utils/variants";
+import { VisibilityVariants } from "src/utils/constants/variants";
 import { useViewportWidth } from "src/utils/imageUtils";
 
 // Define animation variants for Framer Motion

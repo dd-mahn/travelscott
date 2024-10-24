@@ -1,4 +1,4 @@
-import { BASE_URL } from "src/utils/config";
+import config from "src/config/config";
 
 /**
  * Sends a subscription request to the server with the provided email.
@@ -8,7 +8,7 @@ import { BASE_URL } from "src/utils/config";
 export const sendSubscribe = async (email: string): Promise<boolean> => {
   try {
     // Make a POST request to the subscribe endpoint with the email in the request body
-    const res = await fetch(`${BASE_URL}/subscribe`, {
+    const res = await fetch(`${config.api.baseUrl}/subscribe`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

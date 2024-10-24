@@ -10,7 +10,7 @@ import {
   HoverVariants,
   TapVariants,
   VisibilityVariants,
-} from "src/utils/variants";
+} from "src/utils/constants/variants";
 
 // Define the type for the component props
 type SearchResultProps = {

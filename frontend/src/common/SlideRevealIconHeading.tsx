@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useRef, useState, useCallback } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
-import { VisibilityVariants } from "src/utils/variants";
+import { VisibilityVariants } from "src/utils/constants/variants";
 
 // Define the prop types for the component
 type SlideRevealIconHeadingProps = {
@@ -68,7 +68,7 @@ const SlideRevealIconHeading = ({
         variants={variants}
         whileInView="visible"
         initial="hidden"
-        viewport={{ once: true }}
+        viewport={{ once: true, amount: 0.5 }}
         transition={{ duration: 0.5, delay: 1.3 }}
         className={`${iconClass} h1-md absolute left-0 `}
       ></motion.i>

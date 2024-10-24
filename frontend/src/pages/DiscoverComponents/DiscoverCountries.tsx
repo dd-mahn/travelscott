@@ -11,7 +11,7 @@ import {
   HoverVariants,
   TapVariants,
   VisibilityVariants,
-} from "src/utils/variants";
+} from "src/utils/constants/variants";
 import {
   ErrorState,
   LoadingState,
@@ -38,7 +38,8 @@ const DiscoverCountries: React.FC = () => {
   const { loading, error } = useSelector((state: RootState) => state.country);
 
   // State hooks for selected continent name
-  const [selectedContinentName, setSelectedContinentName] = useState<string>("Asia");
+  const [selectedContinentName, setSelectedContinentName] =
+    useState<string>("Asia");
 
   // Memoized selected continent object
   const selectedContinent = useMemo(() => {
@@ -109,7 +110,7 @@ const DiscoverCountries: React.FC = () => {
           transition={{ duration: 0.5, delay: 0.4 }}
           variants={variants}
           viewport={{ once: true }}
-          className="grid place-items-center z-50 lg:w-1/6"
+          className="z-50 grid place-items-center lg:w-1/6"
         >
           {/* @ts-ignore */}
           <Select {...selectProps}>
@@ -211,7 +212,7 @@ const DiscoverCountries: React.FC = () => {
             exit="hiddenY"
             variants={variants}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
           >
             <RelatedSections type={"blog"} data={selectedContinentName} />
           </motion.div>

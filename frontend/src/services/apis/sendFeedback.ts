@@ -1,4 +1,4 @@
-import { BASE_URL } from "src/utils/config";
+import config from "src/config/config";
 
 // Define the type for feedback data
 interface FeedbackData {
@@ -14,7 +14,7 @@ interface FeedbackData {
 export const sendFeedback = async (feedbackData: FeedbackData): Promise<boolean> => {
   try {
     // Make a POST request to the feedback endpoint
-    const res = await fetch(`${BASE_URL}/feedback`, {
+    const res = await fetch(`${config.api.baseUrl}/feedback`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

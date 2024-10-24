@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 import { RootState } from "src/store/store";
-import { VisibilityVariants } from "src/utils/variants";
+import { VisibilityVariants } from "src/utils/constants/variants";
 import { getInspirationHeading } from "src/utils/inspirationUtils";
 import { selectIsDarkMode } from "src/store/slices/themeSlice";
 

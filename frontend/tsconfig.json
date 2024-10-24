@@ -14,7 +14,11 @@
       "resolveJsonModule": true,
       "isolatedModules": true,
       "jsx": "react",
-      "baseUrl": "."
+      "baseUrl": ".",
+      "noUnusedLocals": true,
+      "noUnusedParameters": true,
+      "noImplicitReturns": true,
+      "noFallthroughCasesInSwitch": true
     },
     "include": ["src"],
     "references": [{ "path": "./tsconfig.node.json" }]

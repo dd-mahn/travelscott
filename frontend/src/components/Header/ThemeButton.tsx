@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleDarkMode, selectIsDarkMode, setDarkMode } from "src/store/slices/themeSlice";
 import { useViewportWidth } from "src/utils/imageUtils";
-import { HoverVariants } from "src/utils/variants";
+import { HoverVariants } from "src/utils/constants/variants";
 
 const ThemeButton = () => {
   const viewportWidth = useViewportWidth();

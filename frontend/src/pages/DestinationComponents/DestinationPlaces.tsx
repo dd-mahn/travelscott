@@ -8,7 +8,7 @@ import {
 import PlaceDialog from "./PlaceDialog";
 import SlideRevealIconHeading from "src/common/SlideRevealIconHeading";
 import { AnimatePresence, motion } from "framer-motion";
-import { HoverVariants, VisibilityVariants } from "src/utils/variants";
+import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
 import { getSelectedCategoryPlaces } from "src/utils/destinationPlaceUtils";
 import {
   getDestinationPlaceHeading,
@@ -55,12 +55,12 @@ const PlaceCard: React.FC<{
       transition={{ duration: 0.5 }}
     >
       <div className="flex flex-col gap-2 md:gap-4">
-        <div className="overflow-hidden rounded-xl shadow-component dark:shadow-component-dark">
+        <div className="overflow-hidden rounded-xl shadow-component h-[30svh] lg:h-[50svh] dark:shadow-component-dark">
           <OptimizedImage
             whileHover="hoverScale"
             variants={variants}
             transition={{ duration: 0.5 }}
-            className="cursor-hover-small h-[30svh] lg:h-[50svh] cursor-pointer rounded-xl"
+            className="cursor-hover-small object-cover h-full w-full cursor-pointer rounded-xl"
             src={place.image_url}
             alt="place image"
             onClick={callBack}
@@ -157,7 +157,7 @@ const DestinationPlaces: React.FC<DestinationPlacesProps> = ({ places }) => {
                     .map((category, index) => (
                       <span
                         key={index}
-                        className="cursor-pointer text-gray transition-colors duration-300 hover:text-text-light"
+                        className="cursor-pointer text-gray dark:text-gray transition-colors duration-300 hover:text-text-light dark:hover:text-text-dark"
                         onClick={() =>
                           handlePlaceCategoryChange(
                             getPlaceCategoryChange(placeCategory, category),

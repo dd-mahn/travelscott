@@ -3,7 +3,7 @@ import Joi from 'joi';
 export const blogSchema = Joi.object({
   title: Joi.string().required(),
   author: Joi.string().required(),
-  category: Joi.string().valid('Wilderness', 'Culture&Heritage', 'Food&Drink', 'SoloJourneys', 'CityScape', 'Season&Festival', 'Relaxation', 'FirstTimeAbroad').required(),
+  category: Joi.string().valid('Wilderness', 'Culture&Heritage', 'FoodLovers', 'SoloJourneys', 'CityScape', 'Season&Festival', 'Relaxation', 'FirstTimeAbroad').required(),
   image: Joi.string().allow(''),
   content: Joi.array().items(Joi.object({
     sectionTitle: Joi.string().required(),
@@ -21,7 +21,11 @@ export const blogSchema = Joi.object({
 
 export const destinationSchema = Joi.object({
   name: Joi.string().required(),
+  video: Joi.string().required(),
   country: Joi.string().required(),
+  places: Joi.object(),
+  transportation: Joi.object(),
+  insight: Joi.object(),
   continent: Joi.string().required(),
   location: Joi.string().required(),
   description: Joi.string().required(),
@@ -34,6 +38,15 @@ export const destinationSchema = Joi.object({
 export const countrySchema = Joi.object({
   name: Joi.string().required(),
   continent: Joi.string().required(),
+  description: Joi.array().items(Joi.string()).required(),
+  images: Joi.object(),
+  capital: Joi.string(),
+  currency: Joi.string(),
+  language: Joi.string(),
+  visaRequirement: Joi.string(),
+  dialInCode: Joi.string(),
+  timeZone: Joi.string(),
+  additionalInfo: Joi.object()
 });
 
 export const feedbackSchema = Joi.object({

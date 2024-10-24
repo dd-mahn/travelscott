@@ -2,9 +2,8 @@ import React, { memo } from "react";
 import { Carousel } from "@material-tailwind/react";
 import Destination from "src/types/Destination";
 import OptimizedImage from "src/common/OptimizedImage";
-import { useViewportWidth } from "src/utils/imageUtils";
 import { motion } from "framer-motion";
-import { HoverVariants, VisibilityVariants } from "src/utils/variants";
+import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
 
 // Define the interface for the component props
 interface DestinationHeroProps {
@@ -20,7 +19,6 @@ const variants = {
 };
 
 const DestinationHero: React.FC<DestinationHeroProps> = ({ destination }) => {
-  const viewportWidth = useViewportWidth();
 
   return (
     <section className="hero relative h-screen">

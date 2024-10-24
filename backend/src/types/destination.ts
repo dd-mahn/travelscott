@@ -51,6 +51,12 @@ export interface DestinationTransportation {
   types?: TransportationType[];
 }
 
+type Rating = {
+  website: string,
+  value: number,
+  link: string;
+}
+
 interface PlaceToStay {
   name: string;
   type?: string;
@@ -64,9 +70,7 @@ interface PlaceToStay {
     currency?: string;
     value?: number;
   };
-  rating?: {
-    [website: string]: number;
-  };
+  rating?: Rating[];
 }
 
 interface PlaceToVisit {
@@ -95,9 +99,7 @@ interface PlaceToEat {
     value?: number;
   };
   favorites?: string[];
-  rating?: {
-    [website: string]: number;
-  };
+  rating?: Rating[];
 }
 
 export interface DestinationPlace {

@@ -11,7 +11,7 @@ import Blog from "src/types/Blog";
 import { formatDate } from "src/utils/formatDate";
 import FeaturedContentSlider from "src/common/FeaturedContentSlider";
 import OptimizedImage from "src/common/OptimizedImage";
-import { HoverVariants, VisibilityVariants } from "src/utils/variants";
+import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
 import { createBlogChunks } from "src/utils/createBlogChunks";
 import SeasonHeading from "src/common/SeasonHeading";
 import { getSeason } from "src/utils/getSeason";

@@ -22,7 +22,7 @@ import {
   HoverVariants,
   TapVariants,
   VisibilityVariants,
-} from "src/utils/variants";
+} from "src/utils/constants/variants";
 import { createSelector } from "reselect";
 
 // Define motion variants
@@ -85,7 +85,7 @@ export const DestinationFilter: React.FC = memo(() => {
     () => [
       "Wilderness",
       "Culture&Heritage",
-      "Food&Drink",
+      "FoodLovers",
       "SoloJourneys",
       "CityScape",
       "Season&Festival",
@@ -257,7 +257,7 @@ export const CountryDestinationFilter: React.FC = memo(() => {
     () => [
       "Wilderness",
       "Culture&Heritage",
-      "Food&Drink",
+      "FoodLovers",
       "SoloJourneys",
       "CityScape",
       "Season&Festival",

@@ -1,6 +1,6 @@
 import React, { memo, Suspense } from "react";
 import { motion, useInView } from "framer-motion";
-import { HoverVariants, VisibilityVariants } from "src/utils/variants";
+import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
 import { people } from "src/data/about-people";
 import OptimizedImage from "src/common/OptimizedImage";
 

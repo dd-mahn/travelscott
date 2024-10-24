@@ -5,9 +5,9 @@ import planeIcon from "src/assets/svg/plane-icon.svg";
 import { motion } from "framer-motion";
 import { scrollToTop } from "src/utils/scrollToTop";
 import StaggerLogo from "../../common/StaggerLogo";
-import { VisibilityVariants } from "src/utils/variants";
+import { VisibilityVariants } from "src/utils/constants/variants";
 import { useNotification } from "src/context/NotificationContext";
-import { sendSubscribe } from "src/apis/sendSubscribe";
+import { sendSubscribe } from "src/services/apis/sendSubscribe";
 
 // Sitemap links
 const sitemap = [

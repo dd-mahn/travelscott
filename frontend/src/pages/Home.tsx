@@ -16,18 +16,12 @@ import Inspired from "./HomeComponents/Inspired";
 import Quote from "./HomeComponents/Quote";
 import useFetch from "src/hooks/useFetch";
 import { FetchBlogsType } from "src/types/FetchData";
-import { BASE_URL } from "src/utils/config";
-import { VisibilityVariants } from "src/utils/variants";
+import config from "src/config/config";
 import {
   useSectionTransition,
   useSectionTransition2,
 } from "src/hooks/useSectionTransition";
-
-// Framer motion variants for animations
-const variants = {
-  hiddenFullY: VisibilityVariants.hiddenFullY,
-  visible: VisibilityVariants.visible,
-};
+import Hook from "./HomeComponents/Hook";
 
 // Home component
 const Home: React.FC = () => {
@@ -44,7 +38,7 @@ const Home: React.FC = () => {
 
   // Fetch blogs data for Articles and Starter sections
   const { data: blogsData } = useFetch<FetchBlogsType>(
-    `${BASE_URL}/blogs?limit=100`,
+    `${config.api.baseUrl}/blogs?limit=100`,
   );
 
   // Dispatch fetched blogs data to the Redux store
@@ -81,36 +75,7 @@ const Home: React.FC = () => {
         </div>
 
         {/* Starter hook section */}
-        <motion.div className="sticky top-0 -z-10">
-          <section className="hook px-sect flex h-[120svh] items-center">
-            <div className="mb-20 md:mb-40">
-              <div className="overflow-hidden lg:pb-2">
-                <motion.h2
-                  initial="hiddenFullY"
-                  whileInView="visible"
-                  transition={{ duration: 0.5 }}
-                  viewport={{ once: true }}
-                  variants={variants}
-                  className="h2-inter"
-                >
-                  If you are still hesitant,
-                </motion.h2>
-              </div>
-              <div className="overflow-hidden lg:pb-2">
-                <motion.h2
-                  initial="hiddenFullY"
-                  whileInView="visible"
-                  transition={{ duration: 0.5, delay: 0.1 }}
-                  viewport={{ once: true }}
-                  variants={variants}
-                  className="h2-inter"
-                >
-                  perhaps some of the articles below can help.
-                </motion.h2>
-              </div>
-            </div>
-          </section>
-        </motion.div>
+        <Hook />
 
         {/* Starter section */}
         <Starter blogs={blogs} />

@@ -1,7 +1,7 @@
 import React, { memo, useState } from "react";
 import Country from "src/types/Country";
 import { AnimatePresence, motion } from "framer-motion";
-import { HoverVariants, TapVariants, VisibilityVariants } from "src/utils/variants";
+import { HoverVariants, TapVariants, VisibilityVariants } from "src/utils/constants/variants";
 
 // Define the props for the CountryGuide component
 interface CountryGuideProps {

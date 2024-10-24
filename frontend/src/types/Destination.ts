@@ -11,8 +11,10 @@ type Price = {
 };
 
 // Define a common rating type to avoid repetition
-type Rating = {
-  [website: string]: number;
+export type Rating = {
+  website: string;
+  value: number;
+  link: string;
 };
 
 // Define the type for a place to stay

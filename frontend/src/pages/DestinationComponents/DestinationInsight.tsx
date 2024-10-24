@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import RelatedSections from "src/common/RelatedSections";
 import SlideRevealIconHeading from "src/common/SlideRevealIconHeading";
 import DestinationType from "src/types/Destination";
-import { HoverVariants, VisibilityVariants } from "src/utils/variants";
+import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
 
 // Define animation variants
 const variants = {

@@ -1,10 +1,16 @@
 import React, { memo } from "react";
 import { motion } from "framer-motion";
-import { placeToEat, placeToStay, placeToVisit } from "src/types/Destination";
+import {
+  placeToEat,
+  placeToStay,
+  placeToVisit,
+  Rating,
+} from "src/types/Destination";
 import bookingImg from "src/assets/images/ui/destination/booking.png";
 import agodaImg from "src/assets/images/ui/destination/agoda-light.png";
 import tripadvisorImg from "src/assets/images/ui/destination/tripadvisor-light.png";
-import { HoverVariants, VisibilityVariants } from "src/utils/variants";
+import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
+import { Link } from "react-router-dom";
 
 // Define animation variants
 const variants = {
@@ -47,7 +53,7 @@ const PlaceToStayDialog: React.FC<{ place: placeToStay }> = ({ place }) => {
   return (
     <DialogWrapper name={name} image_url={image_url}>
       <div className="flex flex-col gap-4 px-2 sm:px-4 md:px-6 lg:px-8">
-        <DialogHeader name={name} type={type} rating={rating} />
+        <DialogHeader name={name} type={type} rating={rating as unknown as Rating[]} />
         <DialogLocation location={location} />
         <DialogPrice price={price} />
         <p className="p-regular mt-4 pb-4 sm:pb-6 md:pb-sect-short">
@@ -78,7 +84,7 @@ const PlaceToEatDialog: React.FC<{ place: placeToEat }> = ({ place }) => {
   return (
     <DialogWrapper name={name} image_url={image_url}>
       <div className="flex flex-col gap-4 px-4 sm:px-4 md:px-6 lg:px-8">
-        <DialogHeader name={name} type={type} rating={rating} />
+        <DialogHeader name={name} type={type} rating={rating as unknown as Rating[]} />
         <DialogLocation location={location} />
         <DialogPrice price={price} />
         <p className="p-regular mt-4">{description}</p>
@@ -95,7 +101,7 @@ const DialogWrapper: React.FC<{
 }> = ({ name, image_url, children }) => (
   <motion.dialog
     open={true}
-    className="place-dialog custom-scrollbar h-[85svh] w-[90vw] overflow-y-scroll bg-background-light dark:bg-background-dark rounded-xl pb-8 sm:w-[80vw] md:w-[60svw]"
+    className="place-dialog custom-scrollbar h-[85svh] w-[90vw] overflow-y-scroll rounded-xl bg-background-light pb-8 dark:bg-background-dark sm:w-[80vw] md:w-[60svw]"
   >
     <motion.div
       className="dialog-content h-full w-full"
@@ -117,7 +123,7 @@ const DialogWrapper: React.FC<{
 const DialogHeader: React.FC<{
   name: string;
   type: string;
-  rating?: Record<string, number>;
+  rating?: Rating[];
 }> = ({ name, type, rating }) => (
   <div className="mt-4 flex flex-col gap-2 lg:gap-4">
     <div className="flex flex-col lg:gap-2">
@@ -141,36 +147,37 @@ const DialogHeader: React.FC<{
       </motion.h3>
     </div>
     {rating && (
-      <div className="grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 items-center justify-start gap-x-2 gap-y-4">
-        {Object.entries(rating).map(([website, rating], index) => (
-          <motion.div
-            key={website}
-            variants={variants}
-            initial="hidden"
-            animate="visible"
-            whileHover="hoverRotate"
-            transition={{ duration: 0.3 }}
-            className="flex h-8 sm:h-10 lg:h-12 items-center gap-4 sm:gap-8 rounded-xl bg-background-light dark:bg-gray px-2 shadow-component dark:shadow-component-dark"
-          >
-            <div className="h-full p-1 grid place-items-center">
-              <img
-                src={
-                  website === "booking.com"
-                    ? bookingImg
-                    : website === "agoda"
-                      ? agodaImg
-                      : tripadvisorImg
-                }
-                className="h-full w-auto max-h-full max-w-full"
-                alt=""
-              />
-            </div>
+      <div className="grid grid-cols-2 items-center justify-start gap-x-2 gap-y-4 md:grid-cols-3 2xl:grid-cols-4">
+        {rating.map(({ website, value, link }) => (
+          <Link to={link} target="_blank" key={link}>
+            <motion.div
+              variants={variants}
+              initial="hidden"
+              animate="visible"
+              whileHover="hoverRotate"
+              transition={{ duration: 0.3 }}
+              className="flex h-8 items-center gap-4 rounded-xl bg-background-light px-2 shadow-component dark:bg-gray dark:shadow-component-dark sm:h-10 sm:gap-8 lg:h-12"
+            >
+              <div className="grid h-full place-items-center p-1">
+                <img
+                  src={
+                    website === "booking.com"
+                      ? bookingImg
+                      : website === "agoda"
+                        ? agodaImg
+                        : tripadvisorImg
+                  }
+                  className="h-full max-h-full w-auto max-w-full"
+                  alt=""
+                />
+              </div>
 
-            <span className="span-regular flex items-center gap-2">
-              {rating}{" "}
-              <i className="ri-shining-2-fill span-small text-yellow dark:text-yellow"></i>
-            </span>
-          </motion.div>
+              <span className="span-regular flex items-center gap-2">
+                {value}{" "}
+                <i className="ri-shining-2-fill span-small text-yellow dark:text-yellow"></i>
+              </span>
+            </motion.div>
+          </Link>
         ))}
       </div>
     )}
@@ -190,12 +197,13 @@ const DialogLocation: React.FC<{
     transition={{ duration: 0.5 }}
   >
     <i className="p-medium ri-map-pin-2-line"></i>
-    <a
+    <Link
       className="span-regular cursor-hover border-none underline outline-none md:no-underline"
-      href={location.on_map}
+      to={location.on_map}
+      target="_blank"
     >
       {location.address}
-    </a>
+    </Link>
   </motion.div>
 );
 

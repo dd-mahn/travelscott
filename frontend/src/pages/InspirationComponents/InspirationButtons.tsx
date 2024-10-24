@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import { motion } from "framer-motion";
-import { ButtonVariants, VisibilityVariants } from "src/utils/variants";
+import { ButtonVariants, VisibilityVariants } from "src/utils/constants/variants";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "src/store/store";
 import {
@@ -11,7 +11,7 @@ import {
 // Import images
 import wildernessImage from "src/assets/images/ui/inspiration/wilder-alt.webp";
 import cultureHeritageImage from "src/assets/images/ui/inspiration/culture.webp";
-import foodDrinkImage from "src/assets/images/ui/inspiration/food.webp";
+import foodLoversImage from "src/assets/images/ui/inspiration/food.webp";
 import soloJourneyImage from "src/assets/images/ui/inspiration/solo.webp";
 import cityScapeImage from "src/assets/images/ui/inspiration/city.webp";
 import seasonFestivalImage from "src/assets/images/ui/inspiration/season.webp";
@@ -30,7 +30,7 @@ const categories = [
   "All",
   "Wilderness",
   "Culture&Heritage",
-  "Food&Drink",
+  "FoodLovers",
   "SoloJourneys",
   "CityScape",
   "Season&Festival",
@@ -41,7 +41,7 @@ const categories = [
 const images: { [key: string]: string } = {
   Wilderness: wildernessImage,
   "Culture&Heritage": cultureHeritageImage,
-  "Food&Drink": foodDrinkImage,
+  "FoodLovers": foodLoversImage,
   SoloJourneys: soloJourneyImage,
   CityScape: cityScapeImage,
   "Season&Festival": seasonFestivalImage,

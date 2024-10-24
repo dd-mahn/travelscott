@@ -14,7 +14,7 @@ import {
   FetchCountriesType,
   FetchDestinationType,
 } from "src/types/FetchData";
-import { BASE_URL } from "src/utils/config";
+import config from "src/config/config";
 import SearchResult from "src/common/SearchResult";
 import { BorderVariants, HoverVariants, InputVariants } from "./headerVariants";
 import { useViewportWidth } from "src/utils/imageUtils";
@@ -35,13 +35,13 @@ const HeaderSearch: React.FC = () => {
 
   // Fetch data
   const { data: destinationsData } = useFetch<FetchDestinationType>(
-    `${BASE_URL}/destinations?limit=100&searchQuery=${debouncedSearchQuery}`,
+    `${config.api.baseUrl}/destinations?limit=100&searchQuery=${debouncedSearchQuery}`,
   );
   const { data: countriesData } = useFetch<FetchCountriesType>(
-    `${BASE_URL}/countries?limit=100&searchQuery=${debouncedSearchQuery}`,
+    `${config.api.baseUrl}/countries?limit=100&searchQuery=${debouncedSearchQuery}`,
   );
   const { data: blogsData } = useFetch<FetchBlogsType>(
-    `${BASE_URL}/blogs?limit=100&searchQuery=${debouncedSearchQuery}`,
+    `${config.api.baseUrl}/blogs?limit=100&searchQuery=${debouncedSearchQuery}`,
   );
 
   // Memoized data

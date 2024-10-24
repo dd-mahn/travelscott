@@ -5,7 +5,7 @@ export const getInspirationHeading = (category: string): string => {
   const headings: { [key: string]: string } = {
     Wilderness: "Wilderness",
     "Culture&Heritage": "Culture & Heritage",
-    "Food&Drink": "Food & Drink",
+    "FoodLovers": "Food Lovers",
     SoloJourneys: "Solo Journeys",
     CityScape: "City Scape",
     "Season&Festival": "Season & Festival",
@@ -23,7 +23,7 @@ export const getBackgroundKey = (category: string): string => {
     All: "background-dark",
     Wilderness: "wilderness",
     "Culture&Heritage": "cultureheritage",
-    "Food&Drink": "fooddrink",
+    "FoodLovers": "foodlovers",
     SoloJourneys: "solojourneys",
     CityScape: "cityscape",
     "Season&Festival": "seasonfestival",

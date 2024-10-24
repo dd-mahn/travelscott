@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "src/store/store";
 import {
@@ -21,8 +21,8 @@ import CountryHero from "./CountryComponents/CountryHero";
 import NotFoundPage from "./404";
 
 // Utilities
-import { BASE_URL } from "src/utils/config";
-import { VisibilityVariants } from "src/utils/variants";
+import config from "src/config/config";
+import { VisibilityVariants } from "src/utils/constants/variants";
 import useStackedSections from "src/hooks/useStackedSections";
 import { selectIsDarkMode } from "src/store/slices/themeSlice";
 import Country from "src/types/Country";
@@ -47,7 +47,7 @@ const CountryPage: React.FC = () => {
     data: countryData,
     loading: fetchLoading,
     error: fetchError,
-  } = useFetch(`${BASE_URL}/countries/${id}`, [id]);
+  } = useFetch(`${config.api.baseUrl}/countries/${id}`, [id]);
 
   useEffect(() => {
     dispatch(setLoading(fetchLoading));
@@ -61,13 +61,6 @@ const CountryPage: React.FC = () => {
 
   // Handle sticky sections top value
   const { refs: stackedRefs, setRef } = useStackedSections();
-
-  // Handle section transition
-  const articlesRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress: articlesScrollYProgress } = useScroll({
-    target: articlesRef,
-  });
-  const scaleArticles = useTransform(articlesScrollYProgress, [0, 1], [0.8, 1]);
 
   // Render loading state
   if (loading) {
@@ -145,7 +138,16 @@ const CountryPage: React.FC = () => {
             More countries
           </motion.h2>
         </div>
-        <RelatedSections type="country" data={currentCountry} />
+
+        <motion.div
+          initial="hiddenY"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={variants}
+          transition={{ duration: 0.5, delay: 0.5 }}
+        >
+          <RelatedSections type="country" data={currentCountry} />
+        </motion.div>
       </section>
     </main>
   );

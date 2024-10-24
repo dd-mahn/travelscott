@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import { motion } from "framer-motion";
-import { VisibilityVariants } from "src/utils/variants";
+import { VisibilityVariants } from "src/utils/constants/variants";
 import SlideRevealIconHeading from "src/common/SlideRevealIconHeading";
 
 // Define animation variants for motion components

@@ -10,7 +10,7 @@ import {
   setError,
 } from "src/store/slices/destinationSlice";
 import type Destination from "src/types/Destination";
-import { BASE_URL } from "src/utils/config";
+import config from "src/config/config";
 import "src/styles/destination.css";
 import useStackedSections from "src/hooks/useStackedSections";
 
@@ -27,7 +27,7 @@ import DestinationVideo from "./DestinationComponents/DestinationVideo";
 import DestinationSummary from "./DestinationComponents/DestinationSummary";
 
 // Animation Variants
-import { VisibilityVariants } from "src/utils/variants";
+import { VisibilityVariants } from "src/utils/constants/variants";
 
 // Define animation variants
 const variants = {
@@ -50,7 +50,7 @@ const DestinationPage: React.FC = () => {
     data: destination,
     loading: destinationLoading,
     error: destinationError,
-  } = useFetch<Destination>(`${BASE_URL}/destinations/${id}`);
+  } = useFetch<Destination>(`${config.api.baseUrl}/destinations/${id}`);
 
   // Update Redux store based on fetch results
   useEffect(() => {
@@ -89,7 +89,7 @@ const DestinationPage: React.FC = () => {
       <section className="relative">
         <section
           id="additional"
-          className="additional px-sect sticky top-0 grid h-[120svh] place-items-start pt-32 lg:pt-sect-default"
+          className="additional px-sect sticky top-0 grid h-[120svh] place-items-start pt-32 lg:pt-40 2xl:pt-sect-default"
         >
           <div className="grid grid-cols-1 gap-x-3 gap-y-10 md:grid-cols-2 md:gap-x-4 md:gap-y-16">
             {Object.entries(currentDestination.additionalInfo).map(
@@ -148,7 +148,7 @@ const DestinationPage: React.FC = () => {
             variants={variants}
             transition={{ duration: 0.5 }}
           >
-            Related destination
+            More destinations
           </motion.h2>
         </div>
 
@@ -158,7 +158,7 @@ const DestinationPage: React.FC = () => {
           whileInView="visible"
           viewport={{ once: true }}
           variants={variants}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
         >
           <RelatedSections type={"destination"} data={currentDestination} />
         </motion.div>

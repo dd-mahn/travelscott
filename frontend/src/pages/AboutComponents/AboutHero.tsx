@@ -1,9 +1,8 @@
 import React, { memo, useEffect, useRef, useState } from "react";
 import { motion, useAnimation, useScroll, useTransform } from "framer-motion";
 
-import { HoverVariants, VisibilityVariants } from "src/utils/variants";
+import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
 import heroVideo from "src/assets/videos/about-hero.mp4";
-import { useViewportWidth } from "src/utils/imageUtils";
 
 // Define animation variants
 const variants = {
@@ -35,7 +34,6 @@ const variants = {
 };
 
 const AboutHero = () => {
-  const viewportWidth = useViewportWidth();
   const [leftValue, setLeftValue] = useState(0);
 
   // Refs for DOM elements

@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { usePagedData } from "src/hooks/usePagedData";
 import DestinationCard from "src/common/DestinationCard";
 import { CatalogPagination } from "src/common/Pagination";
-import { HoverVariants, VisibilityVariants } from "src/utils/variants";
+import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
 import {
   ErrorState,
   LoadingState,

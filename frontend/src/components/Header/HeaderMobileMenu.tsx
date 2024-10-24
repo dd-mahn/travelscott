@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
 import ReactDOM from "react-dom";
 import { HoverVariants } from "./headerVariants";
-import { BlobVariants, VisibilityVariants } from "src/utils/variants";
+import { BlobVariants, VisibilityVariants } from "src/utils/constants/variants";
 import ThemeButton from "./ThemeButton";
 import HeaderSearch from "./HeaderSearch";
 

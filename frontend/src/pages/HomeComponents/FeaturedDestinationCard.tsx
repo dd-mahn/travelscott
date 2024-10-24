@@ -3,8 +3,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 import Destination from "src/types/Destination";
-import { useViewportWidth } from "src/utils/imageUtils";
-import { HoverVariants, VisibilityVariants } from "src/utils/variants";
+import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
 import OptimizedImage from "src/common/OptimizedImage";
 
 // Define prop types for the component
@@ -25,14 +24,11 @@ const variants = {
 // FeaturedDestinationCard component
 const FeaturedDestinationCard: React.FC<DestinationCardProps> = memo(
   ({ destination }) => {
-    // Get the current viewport width
-    const viewportWidth = useViewportWidth();
-
     return (
       <div className="destination-card flex h-full flex-col gap-1 lg:gap-2 lg:pb-6 2xl:gap-4 2xl:pb-8">
         {/* Image container */}
         <Link
-          to={`/destinations/${destination._id}`}
+          to={`/discover/destinations/${destination._id}`}
           target="_top"
           className="h-[60svh] w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray shadow-component dark:shadow-component-dark md:h-[65svh] lg:h-[65svh] 2xl:h-[70svh]"
         >

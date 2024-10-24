@@ -14,8 +14,7 @@ import { setStarterBlogs } from "src/store/slices/blogSlice";
 
 // Import custom types and utility functions
 import BlogType from "src/types/Blog";
-import { useViewportWidth } from "src/utils/imageUtils";
-import { HoverVariants, VisibilityVariants } from "src/utils/variants";
+import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
 import OptimizedImage from "src/common/OptimizedImage";
 
 // Define interfaces for component props and state
@@ -80,7 +79,6 @@ const BlogComponent: React.FC<{
   position: Position;
   onDragStart: () => void;
   onDragEnd: (event: MouseEvent | TouchEvent | PointerEvent, info: any) => void;
-  viewportWidth: number;
   dragConstraints: DragConstraints;
 }> = React.memo(
   ({
@@ -88,7 +86,6 @@ const BlogComponent: React.FC<{
     position,
     onDragStart,
     onDragEnd,
-    viewportWidth,
     dragConstraints,
   }) => {
     const dragControls = useDragControls();
@@ -160,7 +157,6 @@ const StarterBlogs: React.FC<StarterBlogsProps> = React.memo(({ blogs }) => {
   const { starterBlogs } = useSelector((state: RootState) => state.blog);
   const [positions, dispatchPositions] = useReducer(positionReducer, {});
   const [maxZIndex, setMaxZIndex] = useState(1);
-  const viewportWidth = useViewportWidth();
   const containerRef = useRef<HTMLDivElement>(null);
   const [dragConstraints, setDragConstraints] = useState<DragConstraints>(
     { top: 0, left: 0, right: 0, bottom: 0 },
@@ -225,7 +221,6 @@ const StarterBlogs: React.FC<StarterBlogsProps> = React.memo(({ blogs }) => {
   const handleDragEnd = useCallback(
     (
       title: string,
-      event: MouseEvent | TouchEvent | PointerEvent,
       info: any,
     ) => {
       if (!containerRef.current) return;
@@ -286,9 +281,8 @@ const StarterBlogs: React.FC<StarterBlogsProps> = React.memo(({ blogs }) => {
           key={blog.title}
           blog={blog}
           onDragStart={() => handleDragStart(blog.title)}
-          onDragEnd={(event, info) => handleDragEnd(blog.title, event, info)}
+          onDragEnd={(info) => handleDragEnd(blog.title, info)}
           position={positions[blog.title] || { x: 0, y: 0, zIndex: 1 }}
-          viewportWidth={viewportWidth}
           dragConstraints={dragConstraints}
         />
       ))}

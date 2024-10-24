@@ -4,9 +4,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "src/store/store";
 import { setAllBlogs, setFeaturedBlogs } from "src/store/slices/blogSlice";
 import useFetch from "src/hooks/useFetch";
-import { BASE_URL } from "src/utils/config";
+import config from "src/config/config";
 import { FetchBlogsType } from "src/types/FetchData";
-import { VisibilityVariants } from "src/utils/variants";
+import { VisibilityVariants } from "src/utils/constants/variants";
 
 import FeaturedBlogs from "src/common/FeaturedBlogs";
 import NotFoundPage from "./404";
@@ -34,7 +34,7 @@ const Inspiration: React.FC = () => {
     loading: allBlogsLoading,
     error: allBlogsError,
   } = useFetch<FetchBlogsType>(
-    `${BASE_URL}/blogs?limit=1000&category=${currentCategory === "All" ? "" : encodeURIComponent(currentCategory)}`,
+    `${config.api.baseUrl}/blogs?limit=1000&category=${currentCategory === "All" ? "" : encodeURIComponent(currentCategory)}`,
     [currentCategory],
   );
 

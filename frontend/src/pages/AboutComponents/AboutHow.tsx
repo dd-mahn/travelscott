@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import { motion } from "framer-motion";
-import { HoverVariants, VisibilityVariants } from "src/utils/variants";
+import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
 
 // Define motion variants
 const variants = {
@@ -24,8 +24,20 @@ const MotionNumber = ({ number, delay }: { number: string; delay: number }) => (
   </motion.div>
 );
 
+
+
 // Define a reusable Section component
-const Section = ({ title, subtitle, number, description, bgColor, topClass, zIndex }: { title: string; subtitle: string; number: string[]; description: string; bgColor: string; topClass: string; zIndex: string }) => (
+interface SectionProps {
+  title: string;
+  subtitle: string;
+  number: [string, string];
+  description: string;
+  bgColor: string;
+  topClass: string;
+  zIndex: string;
+}
+
+const Section: React.FC<SectionProps> = React.memo(({ title, subtitle, number, description, bgColor, topClass, zIndex }) => (
   <div className={`sticky ${topClass} ${zIndex} mx-auto mb-24 mt-sect-medium flex w-4/5 flex-col items-start gap-8 md:gap-12 rounded-xl ${bgColor} px-8 pb-16 pt-4 shadow-section dark:shadow-section-dark md:h-[40svh] md:pb-24 lg:h-[50svh] lg:w-3/4 2xl:w-3/4`}>
     <div className="flex w-full justify-between">
       {/* Number */}
@@ -67,7 +79,7 @@ const Section = ({ title, subtitle, number, description, bgColor, topClass, zInd
       {description}
     </p>
   </div>
-);
+));
 
 const AboutHow = () => {
   return (

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 // Component imports
 import Country from "src/types/Country";
 import OptimizedImage from "src/common/OptimizedImage";
-import { HoverVariants, TapVariants } from "src/utils/variants";
+import { HoverVariants, TapVariants } from "src/utils/constants/variants";
 
 // Component props type
 type CountryCardProps = {

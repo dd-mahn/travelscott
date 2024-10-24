@@ -3,8 +3,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { formatDate } from "src/utils/formatDate";
 import Blog from "src/types/Blog";
-import { useViewportWidth } from "src/utils/imageUtils";
-import { HoverVariants, VisibilityVariants } from "src/utils/variants";
+import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
 import OptimizedImage from "src/common/OptimizedImage";
 
 // Define motion variants for animations
@@ -20,8 +19,6 @@ interface InspirationCardProps {
 }
 
 const InspirationCard: React.FC<InspirationCardProps> = memo(({ blog }) => {
-  const viewportWidth = useViewportWidth();
-
   const blogLink = `/inspiration/${blog._id}`;
 
   return (

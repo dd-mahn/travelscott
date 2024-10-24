@@ -21,7 +21,7 @@ import { motion } from "framer-motion";
 // Component imports
 import Earth from "src/../public/Earth";
 import { LeftCountryCarousel, RightCountryCarousel } from "./CountryCarousel";
-import { VisibilityVariants } from "src/utils/variants";
+import { VisibilityVariants } from "src/utils/constants/variants";
 
 // Component props
 type SceneProps = {
