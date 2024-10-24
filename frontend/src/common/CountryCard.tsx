@@ -26,15 +26,15 @@ const CountryCard: React.FC<CountryCardProps> = ({ country }) => {
   return (
     <Suspense
       fallback={
-        <div className="rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray h-full w-full lg:h-20 lg:w-32" />
+        <div className="h-full w-full rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray lg:h-20 lg:w-32" />
       }
     >
-      <div className="flex h-fit lg:flex-row flex-col gap-2 lg:gap-4 2xl:gap-4">
+      <div className="flex h-fit flex-col gap-2 lg:flex-row lg:gap-4 2xl:gap-4">
         <motion.div
           whileHover="hoverRotate"
           whileTap="tapRotate"
           variants={variants}
-          className="flex cursor-pointer items-center justify-center overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray shadow-component dark:shadow-component-dark h-24 lg:h-20 lg:w-2/3"
+          className="flex h-24 cursor-pointer items-center justify-center overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray shadow-component dark:shadow-component-dark lg:h-20 lg:w-2/3"
         >
           <Link
             to={`countries/${country._id}`}

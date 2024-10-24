@@ -48,7 +48,7 @@ const SearchResult: React.FC<SearchResultProps> = ({
     return (
       <div className="border-t border-gray pt-2">
         <p className="span-medium mb-2 font-prima">Countries</p>
-        <div className="grid gap-x-2 gap-y-4 grid-cols-2 md:grid-cols-4">
+        <div className="grid grid-cols-2 gap-x-2 gap-y-4 md:grid-cols-4">
           {countries.map((country) => (
             <Link
               to={`/discover/countries/${country._id}`}
@@ -90,7 +90,7 @@ const SearchResult: React.FC<SearchResultProps> = ({
         className={`${countries.length > 0 ? "mt-16" : ""} flex flex-col border-t border-gray pt-2`}
       >
         <p className="span-medium mb-2 font-prima">Destinations</p>
-        <div className="grid h-fit grid-cols-2 md:grid-cols-3 gap-x-2 gap-y-4">
+        <div className="grid h-fit grid-cols-2 gap-x-2 gap-y-4 md:grid-cols-3">
           {destinations.map((destination) => (
             <Link
               to={`/discover/destinations/${destination._id}`}
@@ -137,7 +137,7 @@ const SearchResult: React.FC<SearchResultProps> = ({
             to={`/inspiration/${blog._id}`}
             target="_top"
             key={blog._id}
-            className="flex cursor-pointer gap-4 rounded-xl h-20 lg:h-24 2xl:h-32"
+            className="flex h-20 cursor-pointer gap-4 rounded-xl lg:h-24 2xl:h-32"
           >
             <div className="h-full w-1/3 overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray">
               <motion.img
@@ -150,7 +150,7 @@ const SearchResult: React.FC<SearchResultProps> = ({
               />
             </div>
             <motion.span
-              className="cursor-hover-small span-regular mt-1 md:mt-3 w-2/3"
+              className="cursor-hover-small span-regular mt-1 w-2/3 md:mt-3"
               whileHover="hoverX"
               variants={variants}
               transition={{ duration: 0.2 }}
@@ -209,9 +209,9 @@ const SearchResult: React.FC<SearchResultProps> = ({
           exit="exit"
           variants={variants}
           transition={{ duration: 0.4 }}
-          className={`search-result fixed top-20 z-50 flex w-[80svw] h-[60svh] md:h-[50svh] md:w-[40svw] flex-col rounded-2xl bg-background-light dark:bg-background-dark-transparent pb-8 shadow-component dark:shadow-component-dark right-6 md:right-8 lg:right-12 xl:right-16 2xl:right-20 3xl:right-24`}
+          className={`search-result fixed right-6 top-20 z-50 flex h-[60svh] w-[80svw] flex-col rounded-2xl bg-background-light pb-8 shadow-component dark:bg-background-dark-transparent dark:shadow-component-dark md:right-8 md:h-[50svh] md:w-[40svw] lg:right-12 xl:right-16 2xl:right-20 3xl:right-24`}
         >
-          <div className="sticky top-0 z-10 flex w-full items-center justify-between rounded-2xl bg-background-light dark:bg-background-dark-transparent px-4 py-2 lg:px-8 lg:py-4">
+          <div className="sticky top-0 z-10 flex w-full items-center justify-between rounded-2xl bg-background-light px-4 py-2 dark:bg-background-dark-transparent lg:px-8 lg:py-4">
             <span className="span-regular">
               {destinations.length + countries.length + blogs.length} results
               found

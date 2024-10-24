@@ -70,7 +70,7 @@ const SlideRevealIconHeading = ({
         initial="hidden"
         viewport={{ once: true, amount: 0.5 }}
         transition={{ duration: 0.5, delay: 1.3 }}
-        className={`${iconClass} h1-md absolute left-0 `}
+        className={`${iconClass} h1-md absolute left-0`}
       ></motion.i>
 
       <div className="overflow-hidden">

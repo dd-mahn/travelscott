@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import "src/common/style/related-section.css";
 
 // Component imports
-import useFetch from "src/hooks/useFetch";
-import { useViewportWidth } from "src/utils/imageUtils";
+import useFetch from "src/hooks/useFetch/useFetch";
+import { useViewportWidth } from "src/hooks/useViewportWidth/useViewportWidth";
 import config from "src/config/config";
 import OptimizedImage from "src/common/OptimizedImage";
 
@@ -130,7 +130,12 @@ const RelatedCountries: React.FC<{ country: Country }> = ({ country }) => {
     return countriesData.result.filter((c) => c.name !== country.name);
   }, [countriesData, country.name]);
 
-  if (countriesLoading || countriesError || !relatedCountries || relatedCountries.length === 0) {
+  if (
+    countriesLoading ||
+    countriesError ||
+    !relatedCountries ||
+    relatedCountries.length === 0
+  ) {
     return (
       <div className="">
         <p className="h3-md mt-4">
@@ -143,21 +148,15 @@ const RelatedCountries: React.FC<{ country: Country }> = ({ country }) => {
   return (
     <>
       {relatedCountries.length < 6 ? (
-        <div className="related-countries px-sect grid min-h-[20svh] w-screen gap-2 pb-12 md:pb-sect-short grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5">
+        <div className="related-countries px-sect grid min-h-[20svh] w-screen grid-cols-1 gap-2 pb-12 sm:grid-cols-2 md:grid-cols-3 md:pb-sect-short lg:grid-cols-4 2xl:grid-cols-5">
           {relatedCountries.map((country) => (
-            <CountryCard
-              key={country._id}
-              country={country}
-            />
+            <CountryCard key={country._id} country={country} />
           ))}
         </div>
       ) : (
         <Slider {...settings}>
           {relatedCountries.map((country) => (
-            <CountryCard
-              key={country._id}
-              country={country}
-            />
+            <CountryCard key={country._id} country={country} />
           ))}
         </Slider>
       )}
@@ -173,7 +172,9 @@ const RelatedDestinations: React.FC<{ destination: Destination }> = ({
     data: destinationsData,
     error: destinationsError,
     loading: destinationsLoading,
-  } = useFetch<FetchDestinationType>(`${config.api.baseUrl}/destinations?limit=100`);
+  } = useFetch<FetchDestinationType>(
+    `${config.api.baseUrl}/destinations?limit=100`,
+  );
 
   // Filter out the current destination from the related destinations
   const relatedDestinations = useMemo(() => {
@@ -186,7 +187,12 @@ const RelatedDestinations: React.FC<{ destination: Destination }> = ({
     );
   }, [destinationsData, destination]);
 
-  if (destinationsLoading || destinationsError || !relatedDestinations || relatedDestinations.length === 0) {
+  if (
+    destinationsLoading ||
+    destinationsError ||
+    !relatedDestinations ||
+    relatedDestinations.length === 0
+  ) {
     return (
       <div className="px-sect grid place-items-center">
         <p className="h3-md mt-4">
@@ -199,21 +205,15 @@ const RelatedDestinations: React.FC<{ destination: Destination }> = ({
   return (
     <>
       {relatedDestinations.length < 5 ? (
-        <div className="related-destinations px-sect grid min-h-[20svh] w-screen gap-2 pb-12 md:pb-sect-short grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5">
+        <div className="related-destinations px-sect grid min-h-[20svh] w-screen grid-cols-1 gap-2 pb-12 sm:grid-cols-2 md:grid-cols-3 md:pb-sect-short lg:grid-cols-4 2xl:grid-cols-5">
           {relatedDestinations.map((destination) => (
-            <DestinationCard
-              key={destination._id}
-              destination={destination}
-            />
+            <DestinationCard key={destination._id} destination={destination} />
           ))}
         </div>
       ) : (
         <Slider {...settings}>
           {relatedDestinations.map((destination) => (
-            <DestinationCard
-              key={destination._id}
-              destination={destination}
-            />
+            <DestinationCard key={destination._id} destination={destination} />
           ))}
         </Slider>
       )}
@@ -257,27 +257,25 @@ const RelatedArticles: React.FC<{
   }, [blogData, data]);
 
   if (blogLoading || blogError || !relatedBlogs || relatedBlogs.length === 0) {
-    return <div className="mt-4 h3-md">There are no related articles at the moment.</div>;
+    return (
+      <div className="h3-md mt-4">
+        There are no related articles at the moment.
+      </div>
+    );
   }
 
   return (
     <>
       {relatedBlogs.length < 5 ? (
-        <div className="related-blogs px-sect grid min-h-[20svh] w-screen gap-2 pb-12 md:pb-sect-short grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5">
+        <div className="related-blogs px-sect grid min-h-[20svh] w-screen grid-cols-1 gap-2 pb-12 sm:grid-cols-2 md:grid-cols-3 md:pb-sect-short lg:grid-cols-4 2xl:grid-cols-5">
           {relatedBlogs.map((blog) => (
-            <BlogCard
-              key={blog._id}
-              blog={blog}
-            />
+            <BlogCard key={blog._id} blog={blog} />
           ))}
         </div>
       ) : (
         <Slider {...settings}>
           {relatedBlogs.map((blog) => (
-            <BlogCard
-              key={blog._id}
-              blog={blog}
-            />
+            <BlogCard key={blog._id} blog={blog} />
           ))}
         </Slider>
       )}
@@ -287,13 +285,16 @@ const RelatedArticles: React.FC<{
 
 // Card components
 const CountryCard: React.FC<{ country: Country }> = ({ country }) => {
-  const imageSrc = country.images.otherImages && country.images.otherImages.length > 0 ? country.images.otherImages[0] : "";
+  const imageSrc =
+    country.images.otherImages && country.images.otherImages.length > 0
+      ? country.images.otherImages[0]
+      : "";
 
   return (
     <Link
       to={`/discover/countries/${country._id}`}
       target="_top"
-      className="relative block w-full cursor-hover cursor-pointer rounded-lg bg-gradient-to-t from-blue-gray-900 to-gray h-[25svh] md:h-[30svh] lg:h-[35svh] 2xl:h-[30svh]"
+      className="cursor-hover relative block h-[25svh] w-full cursor-pointer rounded-lg bg-gradient-to-t from-blue-gray-900 to-gray md:h-[30svh] lg:h-[35svh] 2xl:h-[30svh]"
     >
       <OptimizedImage
         src={imageSrc}
@@ -313,13 +314,14 @@ const CountryCard: React.FC<{ country: Country }> = ({ country }) => {
 const DestinationCard: React.FC<{
   destination: Destination;
 }> = ({ destination }) => {
-  const imageSrc = destination.images && destination.images[0] ? destination.images[0] : "";
+  const imageSrc =
+    destination.images && destination.images[0] ? destination.images[0] : "";
 
   return (
     <Link
       to={`/discover/destinations/${destination._id}`}
       target="_top"
-      className="relative block w-full cursor-hover cursor-pointer rounded-lg bg-gradient-to-t from-blue-gray-900 to-gray h-[25svh] md:h-[30svh] lg:h-[35svh] 2xl:h-[30svh]"
+      className="cursor-hover relative block h-[25svh] w-full cursor-pointer rounded-lg bg-gradient-to-t from-blue-gray-900 to-gray md:h-[30svh] lg:h-[35svh] 2xl:h-[30svh]"
     >
       <OptimizedImage
         src={imageSrc}
@@ -344,7 +346,7 @@ const BlogCard: React.FC<{ blog: Blog }> = ({ blog }) => {
     <Link
       to={`/inspiration/${blog._id}`}
       target="_top"
-      className="relative block w-full cursor-hover cursor-pointer rounded-lg border-background-light bg-gradient-to-t from-blue-gray-900 to-gray h-[25svh] md:h-[30svh] lg:h-[35svh] 2xl:h-[30svh]"
+      className="cursor-hover relative block h-[25svh] w-full cursor-pointer rounded-lg border-background-light bg-gradient-to-t from-blue-gray-900 to-gray md:h-[30svh] lg:h-[35svh] 2xl:h-[30svh]"
       style={{
         backgroundImage: `url(${imageSrc})`,
         backgroundSize: "cover",
@@ -359,7 +361,9 @@ const BlogCard: React.FC<{ blog: Blog }> = ({ blog }) => {
         whileHover="hoverBrightness"
         transition={{ duration: 0.4 }}
       />
-      <p className={`cursor-hover-small ${viewportWidth < 768 ? "h3-md" : "p-large"} pointer-events-none absolute left-0 right-0 top-[40%] z-10 px-8 text-center font-prima text-text-dark`}>
+      <p
+        className={`cursor-hover-small ${viewportWidth < 768 ? "h3-md" : "p-large"} pointer-events-none absolute left-0 right-0 top-[40%] z-10 px-8 text-center font-prima text-text-dark`}
+      >
         {blog.title}
       </p>
     </Link>

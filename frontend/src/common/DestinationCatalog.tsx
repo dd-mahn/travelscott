@@ -1,9 +1,12 @@
 import React, { memo } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { usePagedData } from "src/hooks/usePagedData";
+import { usePagedData } from "src/hooks/usePagedData/usePagedData";
 import DestinationCard from "src/common/DestinationCard";
 import { CatalogPagination } from "src/common/Pagination";
-import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
+import {
+  HoverVariants,
+  VisibilityVariants,
+} from "src/utils/constants/variants";
 import {
   ErrorState,
   LoadingState,
@@ -51,14 +54,16 @@ const DestinationCatalog: React.FC<DestinationCatalogProps> = ({
   );
 
   return (
-    <section className="min-h-[50svh] z-0 w-full" ref={sectionRef}>
+    <section className="z-0 min-h-[50svh] w-full" ref={sectionRef}>
       <AnimatePresence mode="wait">
         {loading ? (
           <LoadingState keyName={`loading-state-${currentPage}-${filterKey}`} />
         ) : error ? (
           <ErrorState keyName={`error-state-${currentPage}-${filterKey}`} />
         ) : destinations.length === 0 ? (
-          <NotFoundState keyName={`not-found-state-${currentPage}-${filterKey}`} />
+          <NotFoundState
+            keyName={`not-found-state-${currentPage}-${filterKey}`}
+          />
         ) : (
           destinations.length > 0 && (
             <motion.div
@@ -78,7 +83,7 @@ const DestinationCatalog: React.FC<DestinationCatalogProps> = ({
                 transition={{
                   staggerChildren: 0.2,
                 }}
-                className="grid w-full grid-cols-2 md:grid-cols-3 items-start gap-x-4 gap-y-8 lg:gap-x-8 lg:gap-y-12"
+                className="grid w-full grid-cols-2 items-start gap-x-4 gap-y-8 md:grid-cols-3 lg:gap-x-8 lg:gap-y-12"
               >
                 {destinations.map((destination) => (
                   <motion.div

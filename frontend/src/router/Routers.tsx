@@ -2,17 +2,17 @@ import React, { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import App from "src/App";
 import Layout from "src/components/Layout/Layout";
-import PrivacyPolicy from "src/pages/PrivacyPolicy";
+import PrivacyPolicy from "src/pages/PrivacyPolicy/PrivacyPolicy";
 
 // Lazy load pages
 const About = lazy(() => import("src/pages/About"));
-const Contact = lazy(() => import("src/pages/Contact"));
+const Contact = lazy(() => import("src/pages/Contact/Contact"));
 const Inspiration = lazy(() => import("src/pages/Inspiration"));
-const Home = lazy(() => import("src/pages/Home"));
-const Discover = lazy(() => import("src/pages/Discover"));
+const Home = lazy(() => import("src/pages/Home/Home"));
+const Discover = lazy(() => import("src/pages/Discover/Discover"));
 const Country = lazy(() => import("src/pages/Country"));
 const Destination = lazy(() => import("src/pages/Destination"));
-const Article = lazy(() => import("src/pages/Article"));
+const Article = lazy(() => import("src/pages/Article/Article"));
 
 // Fallback component for Suspense
 const SuspenseFallback = () => <div className="h-screen w-screen"></div>;

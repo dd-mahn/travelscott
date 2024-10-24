@@ -26,7 +26,7 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ destination }) => {
       <Link
         to={`/discover/destinations/${destination._id}`}
         target="_top"
-        className="grid h-[30svh] sm:h-[35svh] lg:h-[50svh] place-items-center overflow-hidden rounded-2xl shadow-component dark:shadow-component-dark bg-gradient-to-t from-blue-gray-900 to-gray"
+        className="grid h-[30svh] place-items-center overflow-hidden rounded-2xl bg-gradient-to-t from-blue-gray-900 to-gray shadow-component dark:shadow-component-dark sm:h-[35svh] lg:h-[50svh]"
       >
         {destination.images && destination.images.length > 0 && (
           <OptimizedImage
@@ -43,7 +43,7 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ destination }) => {
         <span className="span-regular text-gray">
           {destination.country || "Country"}
         </span>
-        
+
         <motion.span
           whileHover="hoverX"
           variants={variants}
@@ -54,15 +54,16 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ destination }) => {
             {destination.name}
           </Link>
         </motion.span>
-        <div className="mt-2 md:mt-4 flex flex-row items-start flex-wrap justify-start gap-1 md:gap-2">
-          {destination.tags && destination.tags.map((tag) => (
-            <span
-              key={tag}
-              className="span-small rounded-2xl border-solid border-gray px-2 lg:px-4 border"
-            >
-              {tag}
-            </span>
-          ))}
+        <div className="mt-2 flex flex-row flex-wrap items-start justify-start gap-1 md:mt-4 md:gap-2">
+          {destination.tags &&
+            destination.tags.map((tag) => (
+              <span
+                key={tag}
+                className="span-small rounded-2xl border border-solid border-gray px-2 lg:px-4"
+              >
+                {tag}
+              </span>
+            ))}
         </div>
       </div>
     </div>

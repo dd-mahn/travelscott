@@ -6,7 +6,7 @@ import Layout from "src/components/Layout/Layout";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 import { Provider } from 'react-redux';
 import { store } from './store/store';
-import { NotificationProvider } from "./context/NotificationContext";
+import { NotificationProvider } from "./context/NotificationContext/NotificationContext";
 
 function App() {
   return (

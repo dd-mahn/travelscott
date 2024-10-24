@@ -7,7 +7,7 @@ const AnimatedLogoScreen: React.FC = () => {
     <motion.div className="grid h-screen w-screen place-items-center bg-background-light dark:bg-background-dark">
       <motion.div
         transition={{ layout: { duration: 1.5 } }}
-        className="w-screen pointer-events-none leading-[1] overflow-hidden text-center font-logo lg:mr-16 lg:pr-12 lg:text-12xl xl:text-13xl 2xl:pr-20 2xl:text-14xl 3xl:text-15xl"
+        className="pointer-events-none w-screen overflow-hidden text-center font-logo leading-[1] lg:mr-16 lg:pr-12 lg:text-12xl xl:text-13xl 2xl:pr-20 2xl:text-14xl 3xl:text-15xl"
       >
         {/* StaggerLogo component */}
         <StaggerLogo />

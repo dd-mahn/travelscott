@@ -3,8 +3,8 @@ import { motion } from "framer-motion";
 import {
   getImageSize,
   optimizeImage,
-  useViewportWidth,
 } from "src/utils/imageUtils";
+import { useViewportWidth } from "src/hooks/useViewportWidth/useViewportWidth";
 
 // OptimizedImage component to load images lazily
 const OptimizedImage = ({

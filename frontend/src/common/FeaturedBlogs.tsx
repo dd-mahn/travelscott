@@ -26,12 +26,12 @@ const FeaturedBlogs: React.FC<FeaturedBlogsProps> = ({ blogs }) => {
         {blogs.map((blog) => (
           <div
             key={blog._id}
-            className="px-sect flex h-fit w-svw flex-col items-center gap-2 md:gap-6 lg:gap-8 pt-8"
+            className="px-sect flex h-fit w-svw flex-col items-center gap-2 pt-8 md:gap-6 lg:gap-8"
           >
             <Link
               to={`/inspiration/${blog._id}`}
               target="_top"
-              className="h-[50svh] md:h-[75svh] w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray shadow-section dark:shadow-section-dark"
+              className="h-[50svh] w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray shadow-section dark:shadow-section-dark md:h-[75svh]"
             >
               <OptimizedImage
                 whileHover="hoverScale"
@@ -42,7 +42,7 @@ const FeaturedBlogs: React.FC<FeaturedBlogsProps> = ({ blogs }) => {
                 className="cursor-hover h-full w-full cursor-pointer rounded-xl object-cover"
               />
             </Link>
-            <div className="flex flex-col items-center mt-2 md:gap-2">
+            <div className="mt-2 flex flex-col items-center md:gap-2">
               <span className="span-regular text-gray">{blog.category}</span>
               <Link to={`/inspiration/${blog._id}`} target="_top">
                 <motion.h2
@@ -54,7 +54,7 @@ const FeaturedBlogs: React.FC<FeaturedBlogsProps> = ({ blogs }) => {
                 </motion.h2>
               </Link>
             </div>
-            <p className="p-regular md:w-2/3 lg:w-2/5 text-center mt-2">
+            <p className="p-regular mt-2 text-center md:w-2/3 lg:w-2/5">
               {blog.content?.[0]?.sectionText?.[0]}
             </p>
             <span className="span-regular flex items-center gap-2 lg:gap-3">

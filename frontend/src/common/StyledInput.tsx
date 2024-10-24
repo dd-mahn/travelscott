@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "src/common/style/styled-input.css"
+import "src/common/style/styled-input.css";
 
 // Define the props for the StyledInput component
 interface StyledInputProps {
@@ -9,7 +9,6 @@ interface StyledInputProps {
 }
 
 const StyledInput: React.FC<StyledInputProps> = ({ type, id, label }) => {
-
   // Handle focus event to add 'active' class to the closest styled-input element
   const handleFocus = () => {
     const input = document.getElementById(id);
@@ -57,7 +56,7 @@ const StyledInput: React.FC<StyledInputProps> = ({ type, id, label }) => {
         clearInterval(intervalId);
       };
     }
-  }, [id]); // Add 'id' as a dependency
+  }, [id]);
 
   return (
     <div className="styled-input flex w-full items-center border-b border-text-light dark:border-text-dark">
@@ -67,7 +66,7 @@ const StyledInput: React.FC<StyledInputProps> = ({ type, id, label }) => {
       <input
         type={type}
         id={id}
-        className="input border-0 bg-transparent focus:outline-none p-regular w-full"
+        className="input p-regular w-full border-0 bg-transparent focus:outline-none"
         onFocus={handleFocus}
         onBlur={handleBlur}
       />

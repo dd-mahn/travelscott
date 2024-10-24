@@ -1,6 +1,3 @@
-import { debounce } from "lodash";
-import { useCallback, useEffect, useState } from "react";
-
 /**
  * Get the appropriate image size based on the viewport width.
  * @param {number} viewportWidth - The width of the viewport.
@@ -10,31 +7,6 @@ export const getImageSize = (viewportWidth: number) => {
   if (viewportWidth < 640) return 640;
   if (viewportWidth < 1024) return 1024;
   return 1440;
-};
-
-/**
- * Custom hook to get the current viewport width and update it on resize.
- * @returns {number} - The current viewport width.
- */
-export const useViewportWidth = () => {
-  const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
-
-  const handleResize = useCallback(
-    debounce(() => {
-      setViewportWidth(window.innerWidth);
-    }, 100),
-    [],
-  );
-
-  useEffect(() => {
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [handleResize]);
-
-  return viewportWidth;
 };
 
 interface ImageKitOptions {

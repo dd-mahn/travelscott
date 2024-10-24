@@ -3,7 +3,10 @@ import { motion } from "framer-motion";
 import { VisibilityVariants } from "src/utils/constants/variants";
 
 // Common motion div component to avoid repetition
-const MotionDiv: React.FC<{ keyName: string; children: React.ReactNode }> = ({ keyName, children }) => (
+const MotionDiv: React.FC<{ keyName: string; children: React.ReactNode }> = ({
+  keyName,
+  children,
+}) => (
   <motion.div
     key={keyName}
     initial="hiddenY"

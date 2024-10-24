@@ -1,12 +1,12 @@
 import React, { memo } from "react";
-import "src/components/Footer/footer.css";
+import "src/styles/footer.css";
 import { NavLink, Link } from "react-router-dom";
 import planeIcon from "src/assets/svg/plane-icon.svg";
 import { motion } from "framer-motion";
 import { scrollToTop } from "src/utils/scrollToTop";
 import StaggerLogo from "../../common/StaggerLogo";
 import { VisibilityVariants } from "src/utils/constants/variants";
-import { useNotification } from "src/context/NotificationContext";
+import { useNotification } from "src/context/NotificationContext/NotificationContext";
 import { sendSubscribe } from "src/services/apis/sendSubscribe";
 
 // Sitemap links
@@ -27,9 +27,7 @@ const socials = [
 ];
 
 // Other links
-const otherLinks = [
-  { path: "/privacy", display: "Privacy Policy" },
-];
+const otherLinks = [{ path: "/privacy", display: "Privacy Policy" }];
 
 // Animation variants
 const variants = {
@@ -87,7 +85,7 @@ const Footer = () => {
           <input
             type="email"
             id="subscribe-email"
-            className="input p-regular border-0 bg-transparent focus:outline-none invalid:text-main-brown valid:text-main-green"
+            className="input p-regular border-0 bg-transparent valid:text-main-green invalid:text-main-brown focus:outline-none"
             onFocus={() => {
               const input = document.getElementById("subscribe-email");
               if (input) {

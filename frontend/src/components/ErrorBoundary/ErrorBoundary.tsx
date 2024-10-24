@@ -1,5 +1,5 @@
 import React, { Component, ErrorInfo, ReactNode } from "react";
-import NotFoundPage from "src/pages/404";
+import NotFoundPage from "src/pages/404/404";
 
 // Define the props interface
 interface Props {
@@ -14,7 +14,7 @@ interface State {
 class ErrorBoundary extends Component<Props, State> {
   // Initialize state
   public state: State = {
-    hasError: false
+    hasError: false,
   };
 
   // Update state when an error is thrown

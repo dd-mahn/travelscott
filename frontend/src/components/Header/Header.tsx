@@ -4,11 +4,14 @@ import "remixicon/fonts/remixicon.css";
 import { motion } from "framer-motion";
 
 // Styles and components
-import "src/components/Header/header.css";
-import { HeaderVariants, HoverVariants } from "./headerVariants";
-import HeaderSearch from "./HeaderSearch";
-import ThemeButton from "./ThemeButton";
-import HeaderMobileMenu from "./HeaderMobileMenu";
+import "src/styles/header.css";
+import {
+  HeaderVariants,
+  HoverVariants,
+} from "../../utils/constants/headerVariants";
+import HeaderSearch from "./Components/HeaderSearch";
+import ThemeButton from "./Components/ThemeButton";
+import HeaderMobileMenu from "./Components/HeaderMobileMenu";
 
 // Navigation items
 const navs = [
@@ -76,7 +79,7 @@ const Header: React.FC = () => {
         {/* Navigation menu */}
         <motion.ul
           layout
-          className="hidden md:flex md:gap-4 md:justify-between lg:gap-4 xl:gap-6 2xl:gap-8 3xl:gap-8"
+          className="hidden md:flex md:justify-between md:gap-4 lg:gap-4 xl:gap-6 2xl:gap-8 3xl:gap-8"
         >
           {renderNavItems}
         </motion.ul>
@@ -88,11 +91,10 @@ const Header: React.FC = () => {
         </div>
 
         {/* Menu button for mobile view */}
-        <div className="md:hidden flex gap-4">
+        <div className="flex gap-4 md:hidden">
           <HeaderSearch />
           <HeaderMobileMenu />
         </div>
-        
       </div>
     </motion.header>
   );
