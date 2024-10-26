@@ -38,7 +38,6 @@ const CountryCard: React.FC<CountryCardProps> = ({ country }) => {
         >
           <Link
             to={`countries/${country._id}`}
-            target="_top"
             className="h-full w-full"
           >
             {country?.images?.flagImages?.[0] && (
@@ -60,7 +59,7 @@ const CountryCard: React.FC<CountryCardProps> = ({ country }) => {
             variants={variants}
             className="cursor-hover-small span-medium cursor-pointer"
           >
-            <Link to={`countries/${country._id}`} target="_top">
+            <Link to={`countries/${country._id}`}>
               {country.name}
             </Link>
           </motion.span>

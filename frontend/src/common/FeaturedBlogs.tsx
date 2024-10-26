@@ -30,7 +30,6 @@ const FeaturedBlogs: React.FC<FeaturedBlogsProps> = ({ blogs }) => {
           >
             <Link
               to={`/inspiration/${blog._id}`}
-              target="_top"
               className="h-[50svh] w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray shadow-section dark:shadow-section-dark md:h-[75svh]"
             >
               <OptimizedImage
@@ -44,7 +43,7 @@ const FeaturedBlogs: React.FC<FeaturedBlogsProps> = ({ blogs }) => {
             </Link>
             <div className="mt-2 flex flex-col items-center md:gap-2">
               <span className="span-regular text-gray">{blog.category}</span>
-              <Link to={`/inspiration/${blog._id}`} target="_top">
+              <Link to={`/inspiration/${blog._id}`}>
                 <motion.h2
                   whileHover={{ y: -3 }}
                   transition={{ duration: 0.3 }}

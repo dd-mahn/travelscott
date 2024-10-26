@@ -47,7 +47,6 @@ const DiscoverPoster: React.FC<DiscoverPosterProps> = ({ featuredDestinations })
           >
             <Link
               to={`destinations/${destination._id}`}
-              target="_top"
               className="absolute left-0 top-0 h-full w-full overflow-hidden"
             >
               <OptimizedImage

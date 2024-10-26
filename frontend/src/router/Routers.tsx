@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import App from "src/App";
+import Loading from "src/common/Loading";
 
 // Lazy load pages
 const About = lazy(() => import("src/pages/About/About"));
@@ -13,9 +14,6 @@ const Destination = lazy(() => import("src/pages/Destination/Destination"));
 const Article = lazy(() => import("src/pages/Article/Article"));
 const PrivacyPolicy = lazy(() => import("src/pages/PrivacyPolicy/PrivacyPolicy"));
 
-// Fallback component for Suspense
-const SuspenseFallback = () => <div className="h-screen w-screen"></div>;
-
 // Define routes
 const routes = [
   {
@@ -25,7 +23,7 @@ const routes = [
       {
         path: "/",
         element: (
-          <Suspense fallback={<SuspenseFallback />}>
+          <Suspense fallback={<Loading />}>
             <Home />
           </Suspense>
         ),
@@ -33,7 +31,7 @@ const routes = [
       {
         path: "/about",
         element: (
-          <Suspense fallback={<SuspenseFallback />}>
+          <Suspense fallback={<Loading />}>
             <About />
           </Suspense>
         ),
@@ -41,7 +39,7 @@ const routes = [
       {
         path: "/contact",
         element: (
-          <Suspense fallback={<SuspenseFallback />}>
+          <Suspense fallback={<Loading />}>
             <Contact />
           </Suspense>
         ),
@@ -49,7 +47,7 @@ const routes = [
       {
         path: "/discover",
         element: (
-          <Suspense fallback={<SuspenseFallback />}>
+          <Suspense fallback={<Loading />}>
             <Discover />
           </Suspense>
         ),
@@ -57,7 +55,7 @@ const routes = [
       {
         path: "/discover/countries/:id",
         element: (
-          <Suspense fallback={<SuspenseFallback />}>
+          <Suspense fallback={<Loading />}>
             <Country />
           </Suspense>
         ),
@@ -65,7 +63,7 @@ const routes = [
       {
         path: "/discover/destinations/:id",
         element: (
-          <Suspense fallback={<SuspenseFallback />}>
+          <Suspense fallback={<Loading />}>
             <Destination />
           </Suspense>
         ),
@@ -73,7 +71,7 @@ const routes = [
       {
         path: "/inspiration",
         element: (
-          <Suspense fallback={<SuspenseFallback />}>
+          <Suspense fallback={<Loading />}>
             <Inspiration />
           </Suspense>
         ),
@@ -81,7 +79,7 @@ const routes = [
       {
         path: "/inspiration/:id",
         element: (
-          <Suspense fallback={<SuspenseFallback />}>
+          <Suspense fallback={<Loading />}>
             <Article />
           </Suspense>
         ),
@@ -89,7 +87,7 @@ const routes = [
       {
         path: "/privacy",
         element: (
-          <Suspense fallback={<SuspenseFallback />}>
+          <Suspense fallback={<Loading />}>
             <PrivacyPolicy />
           </Suspense>
         ),

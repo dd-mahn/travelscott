@@ -37,7 +37,6 @@ const Header: React.FC = () => {
         >
           <NavLink
             to={item.path}
-            target="_top"
             className={({ isActive, isPending }) =>
               isPending
                 ? "p-regular opacity-40"
@@ -63,9 +62,9 @@ const Header: React.FC = () => {
     >
       <div className="flex items-center justify-between">
         {/* Logo */}
-        <NavLink to="/" target="_top">
+        <NavLink to="/" 
+        >
           <motion.h1
-            layoutId="main-logo"
             variants={HoverVariants}
             whileHover="hoverScale"
             transition={{ duration: 0.2 }}
@@ -78,7 +77,6 @@ const Header: React.FC = () => {
 
         {/* Navigation menu */}
         <motion.ul
-          layout
           className="hidden md:flex md:justify-between md:gap-4 lg:gap-4 xl:gap-6 2xl:gap-8 3xl:gap-8"
         >
           {renderNavItems}

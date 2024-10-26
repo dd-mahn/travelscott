@@ -51,15 +51,15 @@ const Inspiration: React.FC = () => {
   if (allBlogsError) return <NotFoundPage />;
 
   return (
-    <AnimatePresence mode="sync">
-      {currentCategory && (
+    <AnimatePresence mode="wait">
+      {currentCategory !== "" && (
         <motion.main
           key={`inspiration-page-category-${currentCategory}`}
-          initial="hiddenY"
+          initial="hidden"
           animate="visible"
-          exit="hiddenY"
+          exit="hidden"
           variants={variants}
-          transition={{ duration: 1 }}
+          transition={{ duration: 1, ease: "easeInOut" }}
           className="inspiration relative flex min-h-screen flex-col items-center gap-8 pb-sect-short md:pb-sect-default"
           data-filter={currentCategory}
         >

@@ -2,7 +2,7 @@ header {
   h1,
   a,
   i {
-    @apply text-text-dark;
+    @apply text-white;
   }
 
   ::placeholder{

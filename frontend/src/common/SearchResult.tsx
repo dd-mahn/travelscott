@@ -52,7 +52,6 @@ const SearchResult: React.FC<SearchResultProps> = ({
           {countries.map((country) => (
             <Link
               to={`/discover/countries/${country._id}`}
-              target="_top"
               key={country._id}
               className="flex cursor-pointer flex-col items-center gap-2"
             >
@@ -94,7 +93,6 @@ const SearchResult: React.FC<SearchResultProps> = ({
           {destinations.map((destination) => (
             <Link
               to={`/discover/destinations/${destination._id}`}
-              target="_top"
               key={destination._id}
               className="flex h-[15svh] cursor-pointer flex-col items-center gap-2 rounded-xl"
             >
@@ -135,7 +133,6 @@ const SearchResult: React.FC<SearchResultProps> = ({
         {blogs.map((blog) => (
           <Link
             to={`/inspiration/${blog._id}`}
-            target="_top"
             key={blog._id}
             className="flex h-20 cursor-pointer gap-4 rounded-xl lg:h-24 2xl:h-32"
           >

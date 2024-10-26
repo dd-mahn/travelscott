@@ -45,7 +45,6 @@ const RenderBlog: React.FC<{ blog: Blog; isFeatured: boolean }> = ({
     >
       <Link
         to={`/inspiration/${blog._id}`}
-        target="_top"
         className={`w-full overflow-hidden rounded-lg bg-gradient-to-t from-blue-gray-900 to-gray shadow-component dark:shadow-component-dark`}
       >
         <OptimizedImage
@@ -68,7 +67,7 @@ const RenderBlog: React.FC<{ blog: Blog; isFeatured: boolean }> = ({
           <span className={`span-small text-blue-gray-100`}>
             {blog.category}
           </span>
-          <Link to={`/inspiration/${blog._id}`} target="_top">
+          <Link to={`/inspiration/${blog._id}`}>
             <motion.p
               whileHover="hoverX"
               transition={{ duration: 0.3 }}

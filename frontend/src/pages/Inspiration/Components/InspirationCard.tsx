@@ -3,7 +3,10 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { formatDate } from "src/utils/formatDate";
 import Blog from "src/types/Blog";
-import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
+import {
+  HoverVariants,
+  VisibilityVariants,
+} from "src/utils/constants/variants";
 import OptimizedImage from "src/common/OptimizedImage";
 
 // Define motion variants for animations
@@ -33,8 +36,7 @@ const InspirationCard: React.FC<InspirationCardProps> = memo(({ blog }) => {
       {/* Blog Image Link */}
       <Link
         to={blogLink}
-        target="_top"
-        className="h-[30svh] md:h-[50svh] w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray shadow-section dark:shadow-section-dark"
+        className="h-[30svh] w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray shadow-section dark:shadow-section-dark md:h-[50svh]"
       >
         <OptimizedImage
           whileHover="hoverScale"
@@ -49,7 +51,7 @@ const InspirationCard: React.FC<InspirationCardProps> = memo(({ blog }) => {
       {/* Blog Title and Category */}
       <div className="mt-4 flex flex-col md:gap-2">
         <span className="span-regular text-gray">{blog.category}</span>
-        <Link to={blogLink} target="_top">
+        <Link to={blogLink}>
           <motion.h3
             variants={variants}
             whileHover="hoverX"
@@ -62,7 +64,7 @@ const InspirationCard: React.FC<InspirationCardProps> = memo(({ blog }) => {
       </div>
 
       {/* Blog Content Preview */}
-      <p className="p-regular md:w-3/4 line-clamp-3 md:line-clamp-none">
+      <p className="p-regular line-clamp-3 md:line-clamp-none md:w-3/4">
         {blog.content?.[0]?.sectionText?.[0]}
       </p>
 

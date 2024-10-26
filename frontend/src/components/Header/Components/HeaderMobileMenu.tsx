@@ -92,7 +92,6 @@ const HeaderMobileMenu = () => {
                       >
                         <NavLink
                           to={nav.path}
-                          target="_top"
                           className="h1-md leading-[0.8] text-text-light dark:text-text-dark"
                         >
                           {nav.display}
@@ -113,7 +112,6 @@ const HeaderMobileMenu = () => {
                       >
                         <NavLink
                           to={social.path}
-                          target="_top"
                           className="h3-md text-text-light dark:text-text-dark"
                         >
                           {social.display}

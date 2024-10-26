@@ -3,7 +3,10 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 import Destination from "src/types/Destination";
-import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
+import {
+  HoverVariants,
+  VisibilityVariants,
+} from "src/utils/constants/variants";
 import OptimizedImage from "src/common/OptimizedImage";
 
 // Define prop types for the component
@@ -29,7 +32,6 @@ const FeaturedDestinationCard: React.FC<DestinationCardProps> = memo(
         {/* Image container */}
         <Link
           to={`/discover/destinations/${destination._id}`}
-          target="_top"
           className="h-[60svh] w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray shadow-component dark:shadow-component-dark md:h-[65svh] lg:h-[65svh] 2xl:h-[70svh]"
         >
           <OptimizedImage
@@ -54,7 +56,6 @@ const FeaturedDestinationCard: React.FC<DestinationCardProps> = memo(
             <Link
               to={`/destinations/${destination._id}`}
               aria-label={`View ${destination.name}`}
-              target="_top"
             >
               {destination.name}
             </Link>

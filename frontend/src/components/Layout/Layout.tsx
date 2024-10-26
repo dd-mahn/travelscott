@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { Outlet, ScrollRestoration, useLocation } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
 import Header from "src/components/Header/Header";
 import Footer from "src/components/Footer/Footer";
 import AnimatedLogoScreen from "../../common/AnimatedLogoScreen";
 import Cursor from "../../common/Cursors";
-import ReactLenis from "@studio-freight/react-lenis";
+import LenisProvider from "../Lenis/Lenis";
 
 const Layout: React.FC = () => {
   const location = useLocation();
@@ -28,10 +28,8 @@ const Layout: React.FC = () => {
   // Trigger loading handler on component mount and location change
   useEffect(() => {
     handleLoading();
-    return () => {
-      setLoading(false);
-    };
   }, [handleLoading]);
+
 
   // Animation variants for the loader
   const loaderVariants = {
@@ -55,22 +53,18 @@ const Layout: React.FC = () => {
           transition={{
             duration: 2,
             ease: "easeInOut",
-            layout: { duration: 10, ease: "easeInOut" },
           }}
-          layoutId="main-logo"
-          layoutRoot
         >
           <AnimatedLogoScreen />
         </motion.div>
       ) : (
         // Render main layout after loading
-        <ReactLenis root options={{ lerp: 0.05 }}>
-          <ScrollRestoration />
+        <LenisProvider>
           <Header />
           <Cursor />
           <Outlet />
           <Footer />
-        </ReactLenis>
+        </LenisProvider>
       )}
     </AnimatePresence>
   );

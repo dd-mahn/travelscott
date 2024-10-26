@@ -25,7 +25,7 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ destination }) => {
     >
       <Link
         to={`/discover/destinations/${destination._id}`}
-        target="_top"
+        
         className="grid h-[30svh] place-items-center overflow-hidden rounded-2xl bg-gradient-to-t from-blue-gray-900 to-gray shadow-component dark:shadow-component-dark sm:h-[35svh] lg:h-[50svh]"
       >
         {destination.images && destination.images.length > 0 && (
@@ -50,7 +50,7 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ destination }) => {
           transition={{ duration: 0.3 }}
           className="cursor-hover-small span-medium w-fit uppercase"
         >
-          <Link to={`/discover/destinations/${destination._id}`} target="_top">
+          <Link to={`/discover/destinations/${destination._id}`}>
             {destination.name}
           </Link>
         </motion.span>

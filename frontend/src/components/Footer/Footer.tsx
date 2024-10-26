@@ -147,7 +147,7 @@ const Footer = () => {
                   key={index}
                   className="p-regular"
                 >
-                  <NavLink to={item.path} target="_top">
+                  <NavLink to={item.path} >
                     {item.display}
                   </NavLink>
                 </motion.li>
@@ -200,7 +200,7 @@ const Footer = () => {
                 key={index}
                 className="text-gray"
               >
-                <NavLink to={item.path} target="_top" className="span-small">
+                <NavLink to={item.path} className="span-small">
                   {item.display}
                 </NavLink>
               </motion.li>

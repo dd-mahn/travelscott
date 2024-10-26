@@ -34,7 +34,7 @@ export const PrimaryButton: React.FC<ButtonProps> = ({
   );
 
   return link ? (
-    <Link to={link} target="_top">
+    <Link to={link}>
       {buttonContent}
     </Link>
   ) : (
@@ -70,7 +70,7 @@ export const SecondaryButton: React.FC<ButtonProps> = ({
   );
 
   return link ? (
-    <Link to={link} target="_top">
+    <Link to={link}>
       {buttonContent}
     </Link>
   ) : (
@@ -99,7 +99,7 @@ export const NoirButton: React.FC<ButtonProps> = ({
   );
 
   return link ? (
-    <Link to={link} target="_top">
+    <Link to={link}>
       {buttonContent}
     </Link>
   ) : (

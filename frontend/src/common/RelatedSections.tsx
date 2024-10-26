@@ -293,7 +293,6 @@ const CountryCard: React.FC<{ country: Country }> = ({ country }) => {
   return (
     <Link
       to={`/discover/countries/${country._id}`}
-      target="_top"
       className="cursor-hover relative block h-[25svh] w-full cursor-pointer rounded-lg bg-gradient-to-t from-blue-gray-900 to-gray md:h-[30svh] lg:h-[35svh] 2xl:h-[30svh]"
     >
       <OptimizedImage
@@ -320,7 +319,6 @@ const DestinationCard: React.FC<{
   return (
     <Link
       to={`/discover/destinations/${destination._id}`}
-      target="_top"
       className="cursor-hover relative block h-[25svh] w-full cursor-pointer rounded-lg bg-gradient-to-t from-blue-gray-900 to-gray md:h-[30svh] lg:h-[35svh] 2xl:h-[30svh]"
     >
       <OptimizedImage
@@ -345,7 +343,6 @@ const BlogCard: React.FC<{ blog: Blog }> = ({ blog }) => {
   return (
     <Link
       to={`/inspiration/${blog._id}`}
-      target="_top"
       className="cursor-hover relative block h-[25svh] w-full cursor-pointer rounded-lg border-background-light bg-gradient-to-t from-blue-gray-900 to-gray md:h-[30svh] lg:h-[35svh] 2xl:h-[30svh]"
       style={{
         backgroundImage: `url(${imageSrc})`,

@@ -130,7 +130,7 @@ const BlogComponent: React.FC<{
             variants={variants}
             className="cursor-hover-small span-medium leading-[0.8] z-20 cursor-pointer uppercase line-clamp-21 text-text-dark"
           >
-            <Link to={`/inspiration/${blog._id}`} target="_top">
+            <Link to={`/inspiration/${blog._id}`}>
               {blog.title}
             </Link>
           </motion.span>
@@ -141,7 +141,7 @@ const BlogComponent: React.FC<{
             {blog.content[0].sectionText[0]}
           </p>
           <button className="underline-btn span-medium uppercase">
-            <Link to={`/inspiration/${blog._id}`} target="_top">
+            <Link to={`/inspiration/${blog._id}`}>
               View<i className="ri-arrow-right-up-line pointer-events-none"></i>
             </Link>
           </button>
