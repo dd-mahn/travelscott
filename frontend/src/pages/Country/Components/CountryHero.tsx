@@ -56,7 +56,7 @@ const CountryHero = ({ country }: { country: Country }) => {
               initial="hiddenFullY"
               animate="visible"
               transition={{
-                duration: 0.8,
+                duration: country.name.split("").length < 10 ? 0.8 : 0.6,
                 delay: 1.2 + index * 0.1,
                 type: "spring",
                 bounce: 0.5,

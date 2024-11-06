@@ -4,14 +4,16 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import Header from "src/components/Header/Header";
 import Footer from "src/components/Footer/Footer";
-import AnimatedLogoScreen from "../../common/AnimatedLogoScreen";
-import Cursor from "../../common/Cursors";
-import LenisProvider from "../Lenis/Lenis";
+import AnimatedLogoScreen from "src/common/AnimatedLogoScreen";
+import Cursor from "src/common/Cursors";
+import LenisProvider from "src/components/Lenis/Lenis";
+import PageTransition from "src/components/PageTransition/PageTransition";
 
 const Layout: React.FC = () => {
   const location = useLocation();
   const [loading, setLoading] = useState<boolean>(false);
-  const [loadingShown, setLoadingShown] = useState<boolean>(false);
+  const [loadingFinished, setLoadingFinished] = useState<boolean>(false);
+  const [loadingEnded, setLoadingEnded] = useState<boolean>(false);
 
   // Handle loading state for the home page
   const handleLoading = useCallback(() => {
@@ -20,8 +22,12 @@ const Layout: React.FC = () => {
       // Show loading screen for 2 seconds
       setTimeout(() => {
         setLoading(false);
-        setLoadingShown(true);
+        setLoadingFinished(true);
       }, 2000);
+
+      // setTimeout(() => {
+      //   setLoadingEnded(true);
+      // }, 1500);
     }
   }, [location.pathname]);
 
@@ -30,20 +36,19 @@ const Layout: React.FC = () => {
     handleLoading();
   }, [handleLoading]);
 
-
   // Animation variants for the loader
   const loaderVariants = {
     initial: { opacity: 1 },
     exit: {
       opacity: 0,
-      scale: 0.1,
+      scale: 4,
       transition: { duration: 1.5, ease: "easeInOut" },
     },
   };
 
   return (
     <AnimatePresence mode="wait">
-      {loading && !loadingShown ? (
+      {loading && !loadingFinished ? (
         // Render AnimatedLogoScreen while loading
         <motion.div
           key="logo-loader"

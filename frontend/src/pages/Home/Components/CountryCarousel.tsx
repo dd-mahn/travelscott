@@ -105,26 +105,24 @@ export const MarqueeCountryCarousel = React.memo(() => {
   // Shuffle flags once on component mount
   const shuffledFlags = useMemo(() => shuffleArray(flags), []);
   const scale = viewportWidth > 768 ? 1.5 : 1;
+  const initDeg = Math.random() * 360
 
   return (
     <div className="h-svh w-[100svw]">
+      {/* @ts-ignore */}
       <Marquee
         velocity={viewportWidth > 768 ? 25 : 15}
         resetAfterTries={200}
-        direction={"rtl"}
+        direction="rtl"
         scatterRandomly={false}
         onInit={() => {}}
         onFinish={() => {}}
       >
         {shuffledFlags.map((flag, index) => (
+          // @ts-ignore
           <Motion
-            initDeg={Math.random() * 360}
+            initDeg={initDeg}
             key={index}
-            backgroundColors={{
-              earth: "",
-              solarSystem: "",
-              buffer: "",
-            }}
             direction={Math.random() > 0.5 ? "clockwise" : "counterclockwise"}
             velocity={20}
             radius={scale * 40}

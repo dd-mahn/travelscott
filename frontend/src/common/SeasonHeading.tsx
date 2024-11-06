@@ -27,7 +27,7 @@ const SeasonHeading: React.FC<SeasonHeadingProps> = () => {
             initial="hiddenFullY"
             whileInView="visible"
             transition={{
-              duration: 1,
+              duration: season.split("").length < 10 ? 0.8 : 0.6,
               delay: index * 0.1,
               type: "spring",
               bounce: 0.5,

@@ -7,7 +7,7 @@
 @import "tailwindcss/utilities";
 
 /* Custom Font Faces */
-@font-face {
+/* @font-face {
   font-family: "Kaushan Script";
   src: url("./fonts/KaushanScript/KaushanScript-Regular.ttf") format("opentype");
   font-weight: 500;
@@ -61,7 +61,7 @@
   font-weight: 900;
   font-style: normal;
   font-display: swap;
-}
+} */
 
 /* Default Theme Variables */
 :root {

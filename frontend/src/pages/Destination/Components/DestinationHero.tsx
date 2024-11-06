@@ -45,7 +45,7 @@ const DestinationHero: React.FC<DestinationHeroProps> = ({ destination }) => {
                   initial="hiddenFullY"
                   animate="visible"
                   transition={{
-                    duration: 0.8,
+                    duration: destination.name.split("").length < 10 ? 0.8 : 0.6,
                     delay: 0.5 + index * 0.1,
                     type: "spring",
                     bounce: 0.5,

@@ -30,7 +30,7 @@ const Inspired: React.FC = () => {
         initial="hiddenScaleY"
         whileInView="visible"
         viewport={{ once: true }}
-        transition={{ duration: 1, delay: 2 }}
+        transition={{ duration: 1, delay: 2, type: "tween", ease: "easeInOut" }}
       >
         <MarqueeCountryCarousel />
       </motion.div>

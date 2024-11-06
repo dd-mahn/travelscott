@@ -78,7 +78,10 @@ const BlogComponent: React.FC<{
   blog: BlogType;
   position: Position;
   onDragStart: () => void;
-  onDragEnd: (event: MouseEvent | TouchEvent | PointerEvent, info: any) => void;
+  onDragEnd: (
+    event: MouseEvent | TouchEvent | PointerEvent,
+    info: { point?: { x: number; y: number } }
+  ) => void;
   dragConstraints: DragConstraints;
 }> = React.memo(
   ({
@@ -221,9 +224,25 @@ const StarterBlogs: React.FC<StarterBlogsProps> = React.memo(({ blogs }) => {
   const handleDragEnd = useCallback(
     (
       title: string,
-      info: any,
+      event: MouseEvent | TouchEvent | PointerEvent,
+      info: { point?: { x: number; y: number } }
     ) => {
-      if (!containerRef.current) return;
+      if (!containerRef.current || !info?.point) {
+        // If no point info, use the current position
+        const currentPosition = positions[title];
+        dispatchPositions({
+          type: "UPDATE_POSITION",
+          payload: {
+            title,
+            position: {
+              x: currentPosition.x,
+              y: currentPosition.y,
+              zIndex: currentPosition.zIndex,
+            },
+          },
+        });
+        return;
+      }
 
       const containerRect = containerRef.current.getBoundingClientRect();
       const blogWidth = containerRect.width / 3;
@@ -255,7 +274,7 @@ const StarterBlogs: React.FC<StarterBlogsProps> = React.memo(({ blogs }) => {
         },
       });
     },
-    [positions],
+    [positions]
   );
 
   // Filter blogs based on category and image availability
@@ -281,7 +300,7 @@ const StarterBlogs: React.FC<StarterBlogsProps> = React.memo(({ blogs }) => {
           key={blog.title}
           blog={blog}
           onDragStart={() => handleDragStart(blog.title)}
-          onDragEnd={(info) => handleDragEnd(blog.title, info)}
+          onDragEnd={(event, info) => handleDragEnd(blog.title, event, info)}
           position={positions[blog.title] || { x: 0, y: 0, zIndex: 1 }}
           dragConstraints={dragConstraints}
         />

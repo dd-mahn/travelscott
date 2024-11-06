@@ -22,6 +22,7 @@ import {
   useSectionTransition2,
 } from "src/hooks/useSectionTransition/useSectionTransition";
 import Hook from "src/pages/Home/Components/Hook";
+import useStackedSections from "src/hooks/useStackedSections/useStackedSections";
 
 // Home component
 const Home: React.FC = () => {
@@ -48,25 +49,39 @@ const Home: React.FC = () => {
     }
   }, [blogsData, dispatch]);
 
-  // Create a ref for the Articles component
+  // Refs for the Articles component
   const articlesHookRef = useMemo(() => React.createRef<HTMLSpanElement>(), []);
-  const { ref: refSO, scale: scaleSO, opacity: opacitySO } = useSectionTransition();
+
+  // Stacked section refs
+  const { refs, setRef } = useStackedSections();
+
+  // Section transition hook
+  const {
+    ref: refSO,
+    scale: scaleSO,
+    opacity: opacitySO,
+  } = useSectionTransition(undefined,[1, 0.95],undefined);
   const { ref: refS, scale: scaleS } = useSectionTransition2();
 
   return (
     <main className="home flex flex-col">
       <Hero />
       <Brief />
-      <Featured />
 
       {/* Stacked sections container */}
       <motion.section
         style={{ scale: scaleS }}
-        className="pt-40 md:pt-64 lg:pt-sect-default 2xl:pt-sect-semi"
+        // className="pt-40 md:pt-64 lg:pt-sect-default 2xl:pt-sect-semi"
       >
         {/* Inspired section with scale and opacity transitions */}
-        <motion.div style={{ scale: scaleSO, opacity: opacitySO }} className="sticky top-0 z-0">
-          <Inspired />
+        <motion.div
+          ref={setRef(0)}
+          style={{ scale: scaleSO, opacity: opacitySO }}
+          // className="sticky top-0 z-0"
+          className="pb-sect-default lg:pb-96 sticky"
+        >
+          {/* <Inspired /> */}
+          <Featured />
         </motion.div>
 
         {/* Articles section with ref for section transition */}

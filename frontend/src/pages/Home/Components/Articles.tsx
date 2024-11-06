@@ -114,6 +114,7 @@ const Articles: React.FC<ArticlesProps> = memo(({ articlesHookRef, blogs }) => {
     offset: ["end end", "start start"],
   });
   const x = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  console.log(x)
 
   // Set the background gradient based on the current season
   const [backgroundGradient, setBackgroundGradient] = useState("");

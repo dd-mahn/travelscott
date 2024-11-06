@@ -9,6 +9,7 @@ import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants"
 // Define animation variants
 const variants = {
   hiddenY: VisibilityVariants.hiddenY,
+  hiddenShortY: VisibilityVariants.hiddenShortY,
   hiddenFullY: VisibilityVariants.hiddenFullY,
   visible: VisibilityVariants.visible,
   hoverScale: HoverVariants.hoverScale,
@@ -26,9 +27,9 @@ const DiscoverPoster: React.FC<DiscoverPosterProps> = ({ featuredDestinations })
 
   return (
     <motion.section
-      initial="hiddenY"
+      initial="hiddenShortY"
       animate="visible"
-      transition={{ duration: 0.5, delay: 0.1 }}
+      transition={{ duration: 0.5}}
       variants={variants}
       className="posters h-[60svh] md:h-[95svh] w-screen"
     >
@@ -75,7 +76,7 @@ const DiscoverPoster: React.FC<DiscoverPosterProps> = ({ featuredDestinations })
                     whileInView="visible"
                     viewport={{ once: true }}
                     transition={{
-                      duration: 0.8,
+                      duration: destination.name.split("").length < 10 ? 0.8 : 0.6,
                       delay: 0.5 + index * 0.1,
                       type: "spring",
                       bounce: 0.5,
