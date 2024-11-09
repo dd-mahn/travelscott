@@ -4,16 +4,16 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import Header from "src/components/Header/Header";
 import Footer from "src/components/Footer/Footer";
-import AnimatedLogoScreen from "src/common/AnimatedLogoScreen";
-import Cursor from "src/common/Cursors";
+import AnimatedLogoScreen from "src/common/AnimatedLogoScreen/AnimatedLogoScreen";
+import Cursor from "src/common/Cursors/Cursors";
 import LenisProvider from "src/components/Lenis/Lenis";
-import PageTransition from "src/components/PageTransition/PageTransition";
+// import PageTransition from "src/components/PageTransition/PageTransition";
 
 const Layout: React.FC = () => {
   const location = useLocation();
   const [loading, setLoading] = useState<boolean>(false);
   const [loadingFinished, setLoadingFinished] = useState<boolean>(false);
-  const [loadingEnded, setLoadingEnded] = useState<boolean>(false);
+  // const [loadingEnded, setLoadingEnded] = useState<boolean>(false);
 
   // Handle loading state for the home page
   const handleLoading = useCallback(() => {

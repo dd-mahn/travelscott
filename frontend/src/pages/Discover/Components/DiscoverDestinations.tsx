@@ -5,7 +5,7 @@ import { RootState } from "src/store/store";
 import config from "src/config/config";
 import useFetch from "src/hooks/useFetch/useFetch";
 import { FetchDestinationType } from "src/types/FetchData";
-import { DestinationFilter } from "src/common/FilterBoards";
+import { DestinationFilter } from "src/common/Filters/DestinationFilter";
 import {
   setDestinations,
   setTotalDestinations,
@@ -17,8 +17,8 @@ import {
   TapVariants,
   VisibilityVariants,
 } from "src/utils/constants/variants";
-import FilterButton from "src/common/FilterButton";
-import DestinationCatalog from "src/common/DestinationCatalog";
+import FilterButton from "src/common/Filters/FilterButton";
+import DestinationCatalog from "src/common/Catalogs/DestinationCatalog";
 
 // Define animation variants
 const variants = {

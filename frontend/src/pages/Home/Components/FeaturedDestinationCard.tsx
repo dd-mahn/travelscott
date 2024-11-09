@@ -7,7 +7,7 @@ import {
   HoverVariants,
   VisibilityVariants,
 } from "src/utils/constants/variants";
-import OptimizedImage from "src/common/OptimizedImage";
+import OptimizedImage from "src/common/OptimizedImage/OptimizedImage";
 
 // Define prop types for the component
 type DestinationCardProps = {

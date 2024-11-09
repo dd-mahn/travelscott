@@ -23,7 +23,6 @@ function useStackedSections() {
         
         section.style.top = `${topValue}px`;
         previousBottom = topValue + section.offsetHeight;
-        console.log(`Section ${index} top set to: ${topValue}px`);
       }
     });
   }, []);
@@ -32,7 +31,6 @@ function useStackedSections() {
   useEffect(() => {
     const timer = setTimeout(() => {
       updateSectionTops();
-      console.log("Initial update of section tops");
     }, 1000);
 
     window.addEventListener("resize", updateSectionTops);
@@ -47,7 +45,6 @@ function useStackedSections() {
     if (sectionRefs.current.length > 0) {
       const observer = new MutationObserver(() => {
         updateSectionTops();
-        console.log("Mutation observed, updating section tops");
       });
       sectionRefs.current.forEach((section) => {
         if (section) {

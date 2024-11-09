@@ -15,9 +15,9 @@ import "src/styles/destination.css";
 import useStackedSections from "src/hooks/useStackedSections/useStackedSections";
 
 // Components
-import RelatedSections from "src/common/RelatedSections";
+import RelatedSections from "src/common/RelatedSections/RelatedSections";
 import NotFoundPage from "src/pages/404/404";
-import Loading from "src/common/Loading";
+import Loading from "src/common/Loading/Loading";
 import DestinationHero from "src/pages/Destination/Components/DestinationHero";
 import DestinationOverview from "src/pages/Destination/Components/DestinationOverview";
 import DestinationTransportation from "src/pages/Destination/Components/DestinationTransportation";

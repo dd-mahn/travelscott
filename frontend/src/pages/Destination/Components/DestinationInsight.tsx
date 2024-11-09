@@ -1,8 +1,8 @@
 import React, { memo } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import RelatedSections from "src/common/RelatedSections";
-import SlideRevealIconHeading from "src/common/SlideRevealIconHeading";
+import RelatedSections from "src/common/RelatedSections/RelatedSections";
+import SlideRevealIconHeading from "src/common/SlideRevealIconHeading/SlideRevealIconHeading";
 import DestinationType from "src/types/Destination";
 import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
 

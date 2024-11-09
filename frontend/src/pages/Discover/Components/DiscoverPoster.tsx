@@ -3,7 +3,7 @@ import { Carousel } from "@material-tailwind/react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Destination from "src/types/Destination";
-import OptimizedImage from "src/common/OptimizedImage";
+import OptimizedImage from "src/common/OptimizedImage/OptimizedImage";
 import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
 
 // Define animation variants

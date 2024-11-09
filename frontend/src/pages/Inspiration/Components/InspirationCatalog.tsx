@@ -1,7 +1,7 @@
 import React, { memo, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { InspirationFilter } from "src/common/FilterBoards";
-import { CatalogPagination } from "src/common/Pagination";
+import { InspirationFilter } from "src/common/Filters/InspirationFilter";
+import { CatalogPagination } from "src/common/Pagination/Pagination";
 import { FetchBlogsType } from "src/types/FetchData";
 import useFetch from "src/hooks/useFetch/useFetch";
 import config from "src/config/config";
@@ -11,12 +11,12 @@ import { RootState } from "src/store/store";
 import { setInspirationCatalogBlogs } from "src/store/slices/blogSlice";
 import { VisibilityVariants } from "src/utils/constants/variants";
 import { usePagedData } from "src/hooks/usePagedData/usePagedData";
-import { createSelector } from 'reselect';
+import { createSelector } from "reselect";
 import {
   ErrorState,
   LoadingState,
   NotFoundState,
-} from "src/common/CatalogStates";
+} from "src/common/Catalogs/CatalogStates";
 
 // Animation variants for motion components
 const variants = {
@@ -54,10 +54,11 @@ const InspirationCatalog: React.FC<InspirationCatalogProps> = memo(
         inspirationCatalogBlogs,
         blogTags,
         searchQuery,
-      })
+      }),
     );
 
-    const { inspirationCatalogBlogs, blogTags, searchQuery } = useSelector(selectBlogState);
+    const { inspirationCatalogBlogs, blogTags, searchQuery } =
+      useSelector(selectBlogState);
     const [currentPage, setCurrentPage] = useState(1);
 
     // Custom hook for pagination
@@ -107,7 +108,8 @@ const InspirationCatalog: React.FC<InspirationCatalogProps> = memo(
             <ErrorState
               keyName={`error-state-${currentPage}-${blogTags}-${currentCategory}-${searchQuery}`}
             />
-          ) : inspirationCatalogBlogs && inspirationCatalogBlogs.length === 0 ? (
+          ) : inspirationCatalogBlogs &&
+            inspirationCatalogBlogs.length === 0 ? (
             <NotFoundState
               keyName={`not-found-state-${currentPage}-${blogTags}-${currentCategory}-${searchQuery}`}
             />
@@ -124,7 +126,7 @@ const InspirationCatalog: React.FC<InspirationCatalogProps> = memo(
               <motion.div
                 variants={variants}
                 transition={{ staggerChildren: 0.2 }}
-                className="grid grid-cols-2 justify-between gap-x-4 gap-y-8 lg:gap-x-8 lg:gap-y-12 md:gap-y-20"
+                className="grid grid-cols-2 justify-between gap-x-4 gap-y-8 md:gap-y-20 lg:gap-x-8 lg:gap-y-12"
               >
                 {inspirationCatalogBlogs.map((blog) => (
                   <InspirationCard key={blog._id} blog={blog} />

@@ -7,7 +7,7 @@ import "src/common/styles/related-section.css";
 import useFetch from "src/hooks/useFetch/useFetch";
 import { useViewportWidth } from "src/hooks/useViewportWidth/useViewportWidth";
 import config from "src/config/config";
-import OptimizedImage from "src/common/OptimizedImage";
+import OptimizedImage from "src/common/OptimizedImage/OptimizedImage";
 
 // Types
 import Blog from "src/types/Blog";

@@ -2,7 +2,7 @@ import React, { memo, useState } from "react";
 import { destinationTransportation } from "src/types/Destination";
 import { AnimatePresence, motion } from "framer-motion";
 import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
-import SlideRevealIconHeading from "src/common/SlideRevealIconHeading";
+import SlideRevealIconHeading from "src/common/SlideRevealIconHeading/SlideRevealIconHeading";
 
 // Define the props for the DestinationTransportation component
 type DestinationTransportationProps = {

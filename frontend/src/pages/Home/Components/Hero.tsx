@@ -8,7 +8,7 @@ import airplane2 from "src/assets/svg/airplane-2.svg";
 import airplane3 from "src/assets/svg/airplane-3.svg";
 
 // Import custom button components
-import { PrimaryButton, SecondaryButton } from "src/common/Button";
+import { PrimaryButton, SecondaryButton } from "src/common/Buttons/Button";
 import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
 import { useViewportWidth } from "src/hooks/useViewportWidth/useViewportWidth";
 

@@ -6,7 +6,7 @@ import {
   placeToVisit,
 } from "src/types/Destination";
 import PlaceDialog from "src/pages/Destination/Components/PlaceDialog";
-import SlideRevealIconHeading from "src/common/SlideRevealIconHeading";
+import SlideRevealIconHeading from "src/common/SlideRevealIconHeading/SlideRevealIconHeading";
 import { AnimatePresence, motion } from "framer-motion";
 import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
 import { getSelectedCategoryPlaces } from "src/utils/destinationPlaceUtils";
@@ -14,7 +14,7 @@ import {
   getDestinationPlaceHeading,
   getPlaceCategoryChange,
 } from "src/utils/destinationPlaceUtils";
-import OptimizedImage from "src/common/OptimizedImage";
+import OptimizedImage from "src/common/OptimizedImage/OptimizedImage";
 
 // Define the props for the DestinationPlaces component
 type DestinationPlacesProps = {

@@ -9,11 +9,11 @@ import { setBlogChunks } from "src/store/slices/blogSlice";
 // Import custom types and utility functions
 import Blog from "src/types/Blog";
 import { formatDate } from "src/utils/formatDate";
-import FeaturedContentSlider from "src/common/FeaturedContentSlider";
-import OptimizedImage from "src/common/OptimizedImage";
+import FeaturedContentSlider from "src/common/FeaturedBlogsSlider/FeaturedContentSlider";
+import OptimizedImage from "src/common/OptimizedImage/OptimizedImage";
 import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
 import { createBlogChunks } from "src/utils/createBlogChunks";
-import SeasonHeading from "src/common/SeasonHeading";
+import SeasonHeading from "src/common/SeasonHeading/SeasonHeading";
 import { getSeason } from "src/utils/getSeason";
 import { selectIsDarkMode } from "src/store/slices/themeSlice";
 

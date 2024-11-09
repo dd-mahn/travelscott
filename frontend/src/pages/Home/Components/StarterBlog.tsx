@@ -15,7 +15,7 @@ import { setStarterBlogs } from "src/store/slices/blogSlice";
 // Import custom types and utility functions
 import BlogType from "src/types/Blog";
 import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
-import OptimizedImage from "src/common/OptimizedImage";
+import OptimizedImage from "src/common/OptimizedImage/OptimizedImage";
 
 // Define interfaces for component props and state
 interface Position {

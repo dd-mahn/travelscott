@@ -5,8 +5,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "src/store/store";
 
 // Component imports
-import CountryCard from "src/common/CountryCard";
-import RelatedSections from "src/common/RelatedSections";
+import CountryCard from "src/common/Cards/CountryCard";
+import RelatedSections from "src/common/RelatedSections/RelatedSections";
 import {
   HoverVariants,
   TapVariants,
@@ -16,7 +16,7 @@ import {
   ErrorState,
   LoadingState,
   NotFoundState,
-} from "src/common/CatalogStates";
+} from "src/common/Catalog/CatalogStates";
 
 // Framer motion variants
 const variants = {

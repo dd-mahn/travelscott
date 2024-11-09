@@ -11,7 +11,7 @@ import { motion, useTransform, useScroll } from "framer-motion";
 import { debounce } from "lodash";
 
 import Destination from "src/types/Destination";
-import Loading from "src/common/Loading";
+import Loading from "src/common/Loading/Loading";
 import FeaturedDestinationCard from "src/pages/Home/Components/FeaturedDestinationCard";
 import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
 

@@ -6,7 +6,7 @@ import config from "src/config/config";
 import useFetch from "src/hooks/useFetch/useFetch";
 import { FetchDestinationType } from "src/types/FetchData";
 import Country from "src/types/Country";
-import { CountryDestinationFilter } from "src/common/FilterBoards";
+import { CountryDestinationFilter } from "src/common/Filters/CountryDestinationFilter";
 import {
   setDestinations,
   setTotalDestinations,
@@ -18,8 +18,8 @@ import {
   TapVariants,
   VisibilityVariants,
 } from "src/utils/constants/variants";
-import FilterButton from "src/common/FilterButton";
-import DestinationCatalog from "src/common/DestinationCatalog";
+import FilterButton from "src/common/Filters/FilterButton";
+import DestinationCatalog from "src/common/Catalogs/DestinationCatalog";
 import { useViewportWidth } from "src/hooks/useViewportWidth/useViewportWidth";
 
 interface CountryDestinationsProps {

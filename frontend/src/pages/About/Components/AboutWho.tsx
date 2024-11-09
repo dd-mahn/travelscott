@@ -2,7 +2,7 @@ import React, { memo, Suspense } from "react";
 import { motion, useInView } from "framer-motion";
 import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
 import { people } from "src/data/about-people";
-import OptimizedImage from "src/common/OptimizedImage";
+import OptimizedImage from "src/common/OptimizedImage/OptimizedImage";
 
 // Import images
 import who1 from "src/assets/images/ui/about/about-1.webp";

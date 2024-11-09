@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import StarterBlogs from "src/pages/Home/Components/StarterBlog";
 import airplane1 from "src/assets/svg/airplane-1.svg";
 import Blog from "src/types/Blog";
-import { SecondaryButton } from "src/common/Button";
+import { SecondaryButton } from "src/common/Buttons/Button";
 import { VisibilityVariants } from "src/utils/constants/variants";
 
 // Framer motion variants for animations

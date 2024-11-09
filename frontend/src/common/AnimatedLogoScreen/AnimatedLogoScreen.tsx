@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import { motion } from "framer-motion";
-import StaggerLogo from "src/common/StaggerLogo";
+import StaggerLogo from "src/common/StaggerLogo/StaggerLogo";
 
 const AnimatedLogoScreen: React.FC = () => {
   return (

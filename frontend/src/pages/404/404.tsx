@@ -1,8 +1,12 @@
 import React from "react";
 import { motion } from "framer-motion";
 import "src/styles/404.css";
-import { NoirButton } from "src/common/Button";
-import { AuroraVariants, VisibilityVariants, BlobVariants } from "src/utils/constants/variants";
+import { NoirButton } from "src/common/Buttons/Button";
+import {
+  AuroraVariants,
+  VisibilityVariants,
+  BlobVariants,
+} from "src/utils/constants/variants";
 
 // Define motion variants for different animations
 const variants = {
@@ -22,24 +26,31 @@ const NotFoundPage: React.FC = () => {
         whileHover="auroraHover"
         variants={variants}
         animate="blobAnimation"
+        transition={{ delay: 1 }}
         className="blur-blob blob-1 bottom-0 left-[30%] h-[30%] w-1/5 opacity-80"
       />
       <motion.div
         whileHover="auroraHover"
         variants={variants}
         animate="blobAnimation"
+        transition={{ delay: 1 }}
         className="blur-blob blob-2 right-[30%] top-[10%] h-1/5 w-[30%] opacity-80"
       />
 
       {/* 404 Heading */}
       <div className="big-heading z-20 overflow-hidden">
-        {['4', '0', '4'].map((digit, index) => (
+        {["4", "0", "4"].map((digit, index) => (
           <motion.div
             key={index}
             initial="hiddenFullY"
             animate="visible"
             variants={variants}
-            transition={{ duration: 1, type: "spring", bounce: 0.5, delay: index * 0.2 }}
+            transition={{
+              duration: 1,
+              type: "spring",
+              bounce: 0.5,
+              delay: index * 0.2,
+            }}
             className="pointer-events-none inline-block text-text-light dark:text-text-dark"
           >
             {digit}

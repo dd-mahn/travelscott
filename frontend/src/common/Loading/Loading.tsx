@@ -27,7 +27,7 @@ const variants = {
 const Loading: React.FC = () => {
   return (
     <div className="h-screen w-screen">
-      <motion.div
+      {/* <motion.div
         initial="hidden"
         animate="blob1Animation"
         variants={variants}
@@ -38,7 +38,7 @@ const Loading: React.FC = () => {
         animate="blob2Animation"
         variants={variants}
         className="blur-blob blob-green right-1/4 top-[10%] h-[20%] w-1/3 opacity-10"
-      ></motion.div>
+      ></motion.div> */}
     </div>
   );
 };

@@ -9,7 +9,7 @@ import {
 } from "src/utils/filterUtils";
 import { FetchCountriesType, FetchDestinationType } from "src/types/FetchData";
 import NotFoundPage from "src/pages/404/404";
-import Loading from "src/common/Loading";
+import Loading from "src/common/Loading/Loading";
 import DiscoverDestinations from "src/pages/Discover/Components/DiscoverDestinations";
 import DiscoverCountries from "src/pages/Discover/Components/DiscoverCountries";
 import useFetch from "src/hooks/useFetch/useFetch";

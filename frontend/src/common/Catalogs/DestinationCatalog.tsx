@@ -1,8 +1,8 @@
 import React, { memo } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { usePagedData } from "src/hooks/usePagedData/usePagedData";
-import DestinationCard from "src/common/DestinationCard";
-import { CatalogPagination } from "src/common/Pagination";
+import DestinationCard from "src/common/Cards/DestinationCard";
+import { CatalogPagination } from "src/common/Pagination/Pagination";
 import {
   HoverVariants,
   VisibilityVariants,
@@ -11,7 +11,7 @@ import {
   ErrorState,
   LoadingState,
   NotFoundState,
-} from "src/common/CatalogStates";
+} from "src/common/Catalog/CatalogStates";
 import Destination from "src/types/Destination";
 
 // Define animation variants

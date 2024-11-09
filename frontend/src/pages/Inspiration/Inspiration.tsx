@@ -8,9 +8,9 @@ import config from "src/config/config";
 import { FetchBlogsType } from "src/types/FetchData";
 import { VisibilityVariants } from "src/utils/constants/variants";
 
-import FeaturedBlogs from "src/common/FeaturedBlogs";
+import FeaturedBlogs from "src/common/FeaturedBlogsSlider/FeaturedBlogs";
 import NotFoundPage from "src/pages/404/404";
-import Loading from "src/common/Loading";
+import Loading from "src/common/Loading/Loading";
 import InspirationCatalog from "src/pages/Inspiration/Components/InspirationCatalog";
 import InspirationHero from "src/pages/Inspiration/Components/InspirationHero";
 import InspirationButtons from "src/pages/Inspiration/Components/InspirationButtons";

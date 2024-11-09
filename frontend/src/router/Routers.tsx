@@ -1,7 +1,7 @@
 import React, { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import App from "src/App";
-import Loading from "src/common/Loading";
+import Loading from "src/common/Loading/Loading";
 
 // Lazy load pages
 const About = lazy(() => import("src/pages/About/About"));

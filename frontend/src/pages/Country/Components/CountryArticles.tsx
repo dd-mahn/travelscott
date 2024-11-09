@@ -5,8 +5,8 @@ import { RootState } from "src/store/store";
 import { setCountryBlogs } from "src/store/slices/countrySlice";
 
 // Components
-import FeaturedBlogs from "src/common/FeaturedBlogs";
-import { LoadingState } from "src/common/CatalogStates";
+import FeaturedBlogs from "src/common/FeaturedBlogsSlider/FeaturedBlogs";
+import { LoadingState } from "src/common/Catalog/CatalogStates";
 
 // Types
 import Country from "src/types/Country";

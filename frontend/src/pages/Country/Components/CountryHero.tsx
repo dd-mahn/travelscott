@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import Country from "src/types/Country";
 import { VisibilityVariants } from "src/utils/constants/variants";
 import { Carousel } from "@material-tailwind/react";
-import OptimizedImage from "src/common/OptimizedImage";
+import OptimizedImage from "src/common/OptimizedImage/OptimizedImage";
 
 // Define motion variants for animations
 const variants = {

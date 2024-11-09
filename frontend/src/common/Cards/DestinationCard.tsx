@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 import Destination from "src/types/Destination";
-import OptimizedImage from "src/common/OptimizedImage";
+import OptimizedImage from "src/common/OptimizedImage/OptimizedImage";
 import { HoverVariants } from "src/utils/constants/variants";
 
 // Define the props for the DestinationCard component

@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { VisibilityVariants } from "src/utils/constants/variants";
-import SeasonHeading from "src/common/SeasonHeading";
+import SeasonHeading from "src/common/SeasonHeading/SeasonHeading";
 import { getInspirationHeading } from "src/utils/inspirationUtils";
 
 // Define animation variants for the motion component

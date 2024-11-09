@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import Slider from "react-slick";
 import Marquee from "react-marquee-slider";
 import { Motion } from "react-marquee-slider";
-import OptimizedImage from "src/common/OptimizedImage";
+import OptimizedImage from "src/common/OptimizedImage/OptimizedImage";
 
 // Import flag images
 import vietnamFlag from "src/assets/images/ui/countryFlags/vietnam-flag-medium.webp";

@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import { Carousel } from "@material-tailwind/react";
 import Destination from "src/types/Destination";
-import OptimizedImage from "src/common/OptimizedImage";
+import OptimizedImage from "src/common/OptimizedImage/OptimizedImage";
 import { motion } from "framer-motion";
 import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
 
