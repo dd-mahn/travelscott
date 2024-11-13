@@ -8,18 +8,17 @@ import { useState, useEffect } from 'react';
  * @returns The debounced value.
  */
 function useDebounce<T>(value: T, delay: number): T {
-  // State to store the debounced value
   const [debouncedValue, setDebouncedValue] = useState<T>(value);
 
   useEffect(() => {
     // Set a timeout to update the debounced value after the specified delay
-    const handler = setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       setDebouncedValue(value);
     }, delay);
 
     // Cleanup function to clear the timeout if the value or delay changes
     return () => {
-      clearTimeout(handler);
+      clearTimeout(timeoutId);
     };
   }, [value, delay]); // Re-run the effect if value or delay changes
 

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { renderHook } from '@testing-library/react';
+import { renderHook, act } from '@testing-library/react';
 import useFetch from './useFetch';
 
 describe('useFetch', () => {
@@ -27,10 +27,11 @@ describe('useFetch', () => {
     expect(result.current.data).toBeUndefined();
 
     // Wait for fetch to complete
-    await vi.waitFor(() => {
-      expect(result.current.loading).toBe(false);
+    await act(async () => {
+      await new Promise(resolve => setTimeout(resolve, 0));
     });
 
+    expect(result.current.loading).toBe(false);
     expect(result.current.data).toEqual(mockData.data);
     expect(result.current.error).toBe('');
     expect(mockFetch).toHaveBeenCalledWith('/test-url');
@@ -44,8 +45,8 @@ describe('useFetch', () => {
 
     const { result } = renderHook(() => useFetch('/test-url'));
 
-    await vi.waitFor(() => {
-      expect(result.current.loading).toBe(false);
+    await act(async () => {
+      await new Promise(resolve => setTimeout(resolve, 0));
     });
 
     expect(result.current.error).toBe('Maybe something went wrong, please try again later.');
@@ -58,8 +59,8 @@ describe('useFetch', () => {
 
     const { result } = renderHook(() => useFetch('/test-url'));
 
-    await vi.waitFor(() => {
-      expect(result.current.loading).toBe(false);
+    await act(async () => {
+      await new Promise(resolve => setTimeout(resolve, 0));
     });
 
     expect(result.current.error).toBe('Network error');
@@ -85,16 +86,20 @@ describe('useFetch', () => {
       { initialProps: { dep: 1 } }
     );
 
-    await vi.waitFor(() => {
-      expect(result.current.data).toEqual(mockData1.data);
+    await act(async () => {
+      await new Promise(resolve => setTimeout(resolve, 0));
     });
+
+    expect(result.current.data).toEqual(mockData1.data);
 
     // Trigger refetch by changing dependency
     rerender({ dep: 2 });
 
-    await vi.waitFor(() => {
-      expect(result.current.data).toEqual(mockData2.data);
+    await act(async () => {
+      await new Promise(resolve => setTimeout(resolve, 0));
     });
+
+    expect(result.current.data).toEqual(mockData2.data);
 
     expect(mockFetch).toHaveBeenCalledTimes(2);
   });
@@ -109,17 +114,19 @@ describe('useFetch', () => {
 
     const { result, rerender } = renderHook(() => useFetch<{ id: number }>('/test-url'));
 
-    await vi.waitFor(() => {
-      expect(result.current.data).toEqual(mockData.data);
+    await act(async () => {
+      await new Promise(resolve => setTimeout(resolve, 0));
     });
+
+    expect(result.current.data).toEqual(mockData.data);
 
     const previousData = result.current.data;
     
     // Trigger refetch
     rerender();
 
-    await vi.waitFor(() => {
-      expect(result.current.loading).toBe(false);
+    await act(async () => {
+      await new Promise(resolve => setTimeout(resolve, 0));
     });
 
     // Data reference should remain the same since the data hasn't changed

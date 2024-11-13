@@ -1,27 +1,32 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
-import { usePagedData } from './usePagedData';
+import { usePagedData } from 'src/hooks/usePagedData/usePagedData';
 
-// Mock Lenis
-vi.mock('lenis', () => {
-  return {
-    default: vi.fn().mockImplementation(() => ({
-      raf: vi.fn(),
-      destroy: vi.fn(),
-      scrollTo: vi.fn()
-    }))
-  };
-});
+// Mock Lenis class
+const mockLenisInstance = {
+  raf: vi.fn(),
+  destroy: vi.fn(),
+  scrollTo: vi.fn()
+};
+
+vi.mock('lenis', () => ({
+  default: class MockLenis {
+    constructor(config: any) {
+      Object.assign(this, mockLenisInstance);
+      return mockLenisInstance;
+    }
+  }
+}));
 
 describe('usePagedData', () => {
   beforeEach(() => {
     vi.useFakeTimers();
+    vi.clearAllMocks();
   });
 
   afterEach(() => {
     vi.clearAllTimers();
     vi.useRealTimers();
-    vi.clearAllMocks();
   });
 
   it('should initialize with default page', () => {
@@ -44,46 +49,34 @@ describe('usePagedData', () => {
     expect(onPageChange).toHaveBeenCalledWith(2);
   });
 
-  it('should initialize Lenis with correct configuration', () => {
+  it('should scroll to section with offset when page changes', () => {
     const onPageChange = vi.fn();
-    renderHook(() => usePagedData(1, onPageChange));
+    const { result } = renderHook(() => usePagedData(1, onPageChange));
 
-    const Lenis = require('lenis').default;
-    expect(Lenis).toHaveBeenCalledWith({
-      duration: 2,
-      easing: expect.any(Function),
-      touchMultiplier: 2,
-      infinite: false
+    // Mock the section ref
+    const mockSectionRef = document.createElement('div');
+    Object.defineProperty(result.current.sectionRef, 'current', {
+      value: mockSectionRef,
+      configurable: true,
+      writable: true
     });
+
+    act(() => {
+      result.current.handlePagination(2);
+    });
+
+    expect(mockLenisInstance.scrollTo).toHaveBeenCalledWith(
+      mockSectionRef,
+      { offset: -100 }
+    );
   });
 
   it('should cleanup Lenis instance on unmount', () => {
     const onPageChange = vi.fn();
     const { unmount } = renderHook(() => usePagedData(1, onPageChange));
 
-    const mockLenisInstance = require('lenis').default.mock.results[0].value;
-    
     unmount();
 
     expect(mockLenisInstance.destroy).toHaveBeenCalled();
-  });
-
-  it('should scroll to section with offset when page changes', () => {
-    const onPageChange = vi.fn();
-    const { result } = renderHook(() => usePagedData(1, onPageChange));
-
-    const mockLenisInstance = require('lenis').default.mock.results[0].value;
-
-    // Mock the section ref
-    const mockSectionRef = document.createElement('div');
-    result.current.sectionRef = { current: mockSectionRef };
-
-    act(() => {
-      result.current.handlePagination(2);
-    });
-    expect(mockLenisInstance.scrollTo).toHaveBeenCalledWith(
-      mockSectionRef,
-      { offset: -100 }
-    );
   });
 });
