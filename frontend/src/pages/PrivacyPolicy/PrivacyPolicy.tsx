@@ -6,9 +6,9 @@ const PrivacyPolicy: React.FC = () => {
       <div className="lg:w-2/3 flex flex-col gap-4 md:gap-8">
         <div className="flex flex-col items-center">   
           <h1 className="h1-md">Privacy Policy</h1>
-          <p className="span-medium">Last updated: 10/15/2024</p>
+          <p data-testid="last-updated" className="span-medium">Last updated: 10/15/2024</p>
         </div>
-        <div className="">
+        <div data-testid="section-introduction" className="">
           <h2 className="p-large font-prima pb-2 md:pb-3">1. Introduction</h2>
           <p className="p-regular">
             Welcome to <span className="font-logo">TravelScott</span> ("we,"
@@ -19,7 +19,7 @@ const PrivacyPolicy: React.FC = () => {
           </p>
         </div>
 
-        <div className="">
+        <div data-testid="section-information-collection" className="">
           <h2 className="p-large font-prima pb-2 md:pb-3">2. Information We Collect</h2>
           <p className="p-regular pb-2">
             We collect the following types of information:
@@ -42,7 +42,7 @@ const PrivacyPolicy: React.FC = () => {
           </ul>
         </div>
 
-        <div className="">
+        <div data-testid="section-information-usage" className="">
           <h2 className="p-large font-prima pb-2 md:pb-3">3. How We Use Your Information</h2>
           <p className="p-regular pb-2">
             We use the collected information for the following purposes:
@@ -63,7 +63,7 @@ const PrivacyPolicy: React.FC = () => {
           </ul>
         </div>
 
-        <div className="">
+        <div data-testid="section-data-protection" className="">
           <h2 className="p-large font-prima pb-2 md:pb-3">4. Data Protection</h2>
           <p className="p-regular">
             We implement appropriate technical and organizational measures to
@@ -72,7 +72,7 @@ const PrivacyPolicy: React.FC = () => {
           </p>
         </div>
 
-        <div className="">
+        <div data-testid="section-third-party" className="">
           <h2 className="p-large font-prima pb-2 md:pb-3">5. Third-Party Services</h2>
           <p className="p-regular">
             We may use third-party services for analytics, email marketing, and
@@ -82,7 +82,7 @@ const PrivacyPolicy: React.FC = () => {
           </p>
         </div>
 
-        <div className="">
+        <div data-testid="section-cookies" className="">
           {" "}
           <h2 className="p-large font-prima pb-2 md:pb-3">6. Cookies</h2>
           <p className="p-regular">
@@ -92,7 +92,7 @@ const PrivacyPolicy: React.FC = () => {
           </p>
         </div>
 
-        <div className="">
+        <div data-testid="section-user-rights" className="">
           <h2 className="p-large font-prima pb-2 md:pb-3">7. Your Rights</h2>
           <p className="p-regular pb-2">You have the right to:</p>
           <ul>
@@ -112,7 +112,7 @@ const PrivacyPolicy: React.FC = () => {
           </ul>
         </div>
 
-        <div className="">
+        <div data-testid="section-policy-changes" className="">
           <h2 className="p-large font-prima pb-2 md:pb-3">8. Changes to This Policy</h2>
           <p className="p-regular">
             We may update this Privacy Policy from time to time. We will notify
@@ -121,7 +121,7 @@ const PrivacyPolicy: React.FC = () => {
           </p>
         </div>
 
-        <div className="">
+        <div data-testid="section-contact" className="">
           <h2 className="p-large font-prima pb-2 md:pb-3">9. Contact Us</h2>
           <p className="p-regular">
             If you have any questions about this Privacy Policy, please contact

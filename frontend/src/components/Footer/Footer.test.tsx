@@ -2,17 +2,22 @@ import React from 'react';
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import Footer from './Footer';
+import Footer from 'src/components/Footer/Footer';
 import { NotificationProvider } from 'src/context/NotificationContext/NotificationContext';
 import * as sendSubscribeModule from 'src/services/apis/sendSubscribe';
+import { act } from 'react';
 
 // Mock framer-motion
 vi.mock('framer-motion', () => ({
   motion: {
-    div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
-    p: ({ children, ...props }: any) => <p {...props}>{children}</p>,
-    li: ({ children, ...props }: any) => <li {...props}>{children}</li>,
-    button: ({ children, ...props }: any) => <button {...props}>{children}</button>,
+    div: ({ children, whileInView, whileHover, whileTap, ...props }: any) => 
+      <div {...props}>{children}</div>,
+    p: ({ children, whileInView, whileHover, whileTap, ...props }: any) => 
+      <p {...props}>{children}</p>,
+    li: ({ children, whileInView, whileHover, whileTap, ...props }: any) => 
+      <li {...props}>{children}</li>,
+    button: ({ children, whileInView, whileHover, whileTap, ...props }: any) => 
+      <button {...props}>{children}</button>,
   },
   AnimatePresence: ({ children }: any) => children,
 }));
@@ -21,6 +26,21 @@ vi.mock('framer-motion', () => ({
 vi.mock('src/utils/scrollToTop', () => ({
   scrollToTop: vi.fn(),
 }));
+
+// Mock StaggerLogo
+vi.mock('src/common/StaggerLogo/StaggerLogo', () => ({
+  default: () => <div>Mocked StaggerLogo</div>,
+}));
+
+// Screen size breakpoints from tailwind config
+const SCREEN_SIZES = {
+  sm: 576,
+  md: 768,
+  lg: 1024,
+  xl: 1280,
+  '2xl': 1536,
+  '3xl': 1920
+};
 
 // Test wrapper component
 const TestWrapper = ({ children }: { children: React.ReactNode }) => {
@@ -48,6 +68,9 @@ describe('Footer Component', () => {
 
   afterEach(() => {
     vi.clearAllMocks();
+    // Reset window width
+    window.innerWidth = SCREEN_SIZES.xl;
+    window.dispatchEvent(new Event('resize'));
   });
 
   it('renders the main footer text', () => {
@@ -62,21 +85,47 @@ describe('Footer Component', () => {
     expect(screen.getByTitle('subscribe')).toBeInTheDocument();
   });
 
-  it('renders all sitemap links', () => {
-    render(<Footer />, { wrapper: TestWrapper });
-    
-    const sitemapLinks = ['Home', 'About', 'Discover', 'Inspiration', 'Contact'];
-    sitemapLinks.forEach(link => {
-      expect(screen.getByText(link)).toBeInTheDocument();
+  describe('Desktop Layout (>= 768px)', () => {
+    beforeEach(() => {
+      window.innerWidth = SCREEN_SIZES.md;
+      window.dispatchEvent(new Event('resize'));
+    });
+
+    it('renders sitemap section', () => {
+      render(<Footer />, { wrapper: TestWrapper });
+      expect(screen.getByText('Sitemap')).toBeInTheDocument();
+      const sitemapLinks = ['Home', 'About', 'Discover', 'Inspiration', 'Contact'];
+      sitemapLinks.forEach(link => {
+        expect(screen.getByText(link)).toBeInTheDocument();
+      });
+    });
+
+    it('renders social media section', () => {
+      render(<Footer />, { wrapper: TestWrapper });
+      expect(screen.getByText('Socials')).toBeInTheDocument();
+      const socialLinks = ['ProductHunt', 'Twitter', 'Instagram', 'Facebook'];
+      socialLinks.forEach(link => {
+        expect(screen.getByText(link)).toBeInTheDocument();
+      });
     });
   });
 
-  it('renders all social media links', () => {
-    render(<Footer />, { wrapper: TestWrapper });
-    
-    const socialLinks = ['ProductHunt', 'Twitter', 'Instagram', 'Facebook'];
-    socialLinks.forEach(link => {
-      expect(screen.getByText(link)).toBeInTheDocument();
+  describe('Mobile Layout (< 768px)', () => {
+    beforeEach(() => {
+      window.innerWidth = SCREEN_SIZES.sm;
+      window.dispatchEvent(new Event('resize'));
+    });
+
+    it('does not render sitemap and social sections', () => {
+      render(<Footer />, { wrapper: TestWrapper });
+      expect(screen.queryByText('Sitemap')).not.toBeInTheDocument();
+      expect(screen.queryByText('Socials')).not.toBeInTheDocument();
+    });
+
+    it('renders in a stacked layout', () => {
+      render(<Footer />, { wrapper: TestWrapper });
+      const footer = screen.getByRole('contentinfo');
+      expect(footer).toHaveClass('flex-col');
     });
   });
 
@@ -104,8 +153,10 @@ describe('Footer Component', () => {
     const input = screen.getByLabelText(/Leave your email/i) as HTMLInputElement;
     const subscribeButton = screen.getByTitle('subscribe');
 
-    fireEvent.change(input, { target: { value: 'test@example.com' } });
-    fireEvent.click(subscribeButton);
+    await act(async () => {
+      fireEvent.change(input, { target: { value: 'test@example.com' } });
+      fireEvent.click(subscribeButton);
+    });
 
     expect(mockSendSubscribe).toHaveBeenCalledWith('test@example.com');
   });
@@ -119,10 +170,11 @@ describe('Footer Component', () => {
     const input = screen.getByLabelText(/Leave your email/i) as HTMLInputElement;
     const subscribeButton = screen.getByTitle('subscribe');
 
-    fireEvent.change(input, { target: { value: 'test@example.com' } });
-    fireEvent.click(subscribeButton);
+    await act(async () => {
+      fireEvent.change(input, { target: { value: 'test@example.com' } });
+      fireEvent.click(subscribeButton);
+    });
 
     expect(mockSendSubscribe).toHaveBeenCalledWith('test@example.com');
   });
 });
-

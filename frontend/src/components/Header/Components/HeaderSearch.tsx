@@ -1,4 +1,5 @@
 import React, {
+  memo,
   useCallback,
   useEffect,
   useMemo,
@@ -165,4 +166,4 @@ const HeaderSearch: React.FC = () => {
   );
 };
 
-export default HeaderSearch;
+export default memo(HeaderSearch);

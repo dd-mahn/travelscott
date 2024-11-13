@@ -4,10 +4,11 @@ import { NavLink, Link } from "react-router-dom";
 import planeIcon from "src/assets/svg/plane-icon.svg";
 import { motion } from "framer-motion";
 import { scrollToTop } from "src/utils/scrollToTop";
-import StaggerLogo from "../../common/StaggerLogo/StaggerLogo";
+import StaggerLogo from "src/common/StaggerLogo/StaggerLogo";
 import { VisibilityVariants } from "src/utils/constants/variants";
 import { useNotification } from "src/context/NotificationContext/NotificationContext";
 import { sendSubscribe } from "src/services/apis/sendSubscribe";
+import { useViewportWidth } from "src/hooks/useViewportWidth/useViewportWidth";
 
 // Sitemap links
 const sitemap = [
@@ -42,6 +43,7 @@ const variants = {
 };
 
 const Footer = () => {
+  const viewportWidth = useViewportWidth();
   const { showNotification } = useNotification();
 
   // Handle subscription
@@ -133,6 +135,7 @@ const Footer = () => {
         transition={{ duration: 0.6 }}
         className="px-sect z-10 flex items-center justify-end pb-4 md:mt-4 md:items-end md:justify-between md:pb-4"
       >
+        {viewportWidth >= 768 && (
         <div className="z-10 hidden md:flex md:gap-6 lg:gap-8 xl:gap-10 2xl:gap-12 3xl:gap-12">
           <nav className="flex flex-col md:gap-1 lg:gap-2 2xl:gap-4">
             <span className="p-medium font-medium text-text-light">
@@ -173,7 +176,8 @@ const Footer = () => {
               ))}
             </ul>
           </nav>
-        </div>
+          </div>
+        )}
 
         <button
           className="underline-btn span-medium mt-8 md:mt-0"

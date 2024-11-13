@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 // Define the props for the Notification component
 interface NotificationProps {
@@ -8,16 +8,10 @@ interface NotificationProps {
 
 // Notification component to display a message
 const Notification: React.FC<NotificationProps> = ({ message, visible }) => {
-  // CSS classes for the notification container
-  const containerClasses = `
-    fixed top-20 left-1/2 -translate-x-1/2 transition-opacity duration-300 
-    rounded-md bg-light-brown dark:bg-background-dark-brown text-text-light 
-    dark:text-text-dark shadow-component dark:shadow-component-dark z-[1000] 
-    px-4 py-2 md:px-8 md:py-4 ${visible ? 'opacity-100' : 'opacity-0'}
-  `;
-
   return (
-    <div className={containerClasses}>
+    <div
+      className={`fixed left-1/2 top-20 z-[1000] -translate-x-1/2 rounded-md bg-light-brown px-4 py-2 text-text-light shadow-component transition-opacity duration-300 dark:bg-background-dark-brown dark:text-text-dark dark:shadow-component-dark md:px-8 md:py-4 ${visible ? "opacity-100" : "opacity-0"} `}
+    >
       {message}
     </div>
   );

@@ -4,6 +4,13 @@ import { render, screen } from "@testing-library/react";
 import SeasonHeading from "./SeasonHeading";
 import * as getSeasonModule from "src/utils/getSeason";
 
+// Mock framer-motion
+vi.mock("framer-motion", () => ({
+  motion: {
+    span: ({ children, ...props }: any) => <span {...props}>{children}</span>,
+  },
+}));
+
 // Mock the getSeason utility
 vi.mock("src/utils/getSeason", () => ({
   getSeason: vi.fn()
@@ -11,7 +18,6 @@ vi.mock("src/utils/getSeason", () => ({
 
 describe("SeasonHeading", () => {
   beforeEach(() => {
-    // Reset all mocks before each test
     vi.clearAllMocks();
   });
 
@@ -20,7 +26,6 @@ describe("SeasonHeading", () => {
     
     render(<SeasonHeading />);
     
-    // Check if each letter of "SUMMER" is rendered
     "SUMMER".split("").forEach(letter => {
       expect(screen.getByText(letter)).toBeInTheDocument();
     });
@@ -42,7 +47,6 @@ describe("SeasonHeading", () => {
       vi.mocked(getSeasonModule.getSeason).mockReturnValue(season);
       const { unmount } = render(<SeasonHeading />);
       
-      // Check if each letter of the season is rendered
       season.split("").forEach(letter => {
         expect(screen.getByText(letter)).toBeInTheDocument();
       });

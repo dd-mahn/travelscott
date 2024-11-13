@@ -65,6 +65,7 @@ const SlideRevealIconHeading = ({
     <div className="relative">
       <motion.i
         ref={iconRef}
+        data-testid="icon"
         variants={variants}
         whileInView="visible"
         initial="hidden"

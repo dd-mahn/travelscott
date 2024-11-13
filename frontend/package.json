@@ -9,7 +9,19 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest",
-    "coverage": "vitest run --coverage"
+    "test-components": "vitest run src/components",
+    "test-hooks": "vitest run src/hooks",
+    "test-pages": "vitest run src/pages",
+    "test-states": "vitest run src/store",
+    "test-utils": "vitest run src/utils",
+    "test-contexts": "vitest run src/context",
+    "test-common": "vitest run src/common",
+    "test-config": "vitest run src/config",
+    "test-apis": "vitest run src/services/apis",
+
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest watch"
   },
   "dependencies": {
     "@material-tailwind/react": "^2.1.9",
@@ -49,6 +61,7 @@
     "@types/react-slick": "^0.23.13",
     "@types/three": "^0.165.0",
     "@vitejs/plugin-react": "^4.2.1",
+    "@vitest/coverage-v8": "^2.1.4",
     "autoprefixer": "^10.4.19",
     "css-loader": "^7.1.2",
     "eslint": "^8.57.0",
@@ -56,6 +69,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
     "file-loader": "^6.2.0",
+    "jsdom": "^25.0.1",
     "leva": "^0.9.35",
     "lodash.times": "^4.3.2",
     "mini-css-extract-plugin": "^2.9.1",

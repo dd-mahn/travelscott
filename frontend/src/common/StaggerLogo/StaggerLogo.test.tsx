@@ -36,7 +36,16 @@ describe("StaggerLogo", () => {
     render(<StaggerLogo />);
     
     const container = screen.getByText("T").closest("div")?.parentElement;
-    expect(container).toHaveClass("pointer-events-none", "flex", "w-screen", "items-center", "justify-start", "overflow-y-hidden", "font-logo", "leading-[1]");
+    expect(container).toHaveClass(
+      "pointer-events-none",
+      "flex",
+      "w-screen",
+      "items-center",
+      "justify-start",
+      "overflow-y-hidden",
+      "font-logo",
+      "leading-[1]"
+    );
   });
 
   it("applies whitespace-nowrap class to text container", () => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { VisibilityVariants } from "src/utils/constants/variants";
 
@@ -13,7 +13,7 @@ interface StaggerLogoProps {
   containerClassName?: string;
 }
 
-export default function StaggerLogo({
+function StaggerLogo({
   containerClassName = "",
 }: StaggerLogoProps) {
   const text = "TravelScott";
@@ -97,3 +97,5 @@ export default function StaggerLogo({
     </div>
   );
 }
+
+export default memo(StaggerLogo);

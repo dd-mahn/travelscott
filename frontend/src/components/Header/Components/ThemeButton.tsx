@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { memo, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleDarkMode, selectIsDarkMode, setDarkMode } from "src/store/slices/themeSlice";
@@ -47,4 +47,4 @@ const ThemeButton = () => {
   );
 };
 
-export default ThemeButton;
+export default memo(ThemeButton);

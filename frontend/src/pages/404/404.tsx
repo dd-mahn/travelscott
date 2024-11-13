@@ -23,6 +23,7 @@ const NotFoundPage: React.FC = () => {
     <main className="not-found relative flex h-screen w-full flex-col items-center justify-center gap-8">
       {/* Animated background blobs */}
       <motion.div
+        data-testid="blur-blob"
         whileHover="auroraHover"
         variants={variants}
         animate="blobAnimation"
@@ -30,6 +31,7 @@ const NotFoundPage: React.FC = () => {
         className="blur-blob blob-1 bottom-0 left-[30%] h-[30%] w-1/5 opacity-80"
       />
       <motion.div
+        data-testid="blur-blob"
         whileHover="auroraHover"
         variants={variants}
         animate="blobAnimation"

@@ -41,6 +41,7 @@ const About: React.FC = () => {
       <motion.section
         style={{ scale: scale2 }}
         className="flex flex-col items-center justify-start pb-32 pt-64 md:py-48 lg:py-64 2xl:py-sect-default"
+        data-testid="stacked-section"
       >
         {/* How Section */}
         <motion.h2
@@ -50,6 +51,7 @@ const About: React.FC = () => {
           viewport={{ once: true, margin: "0% 0% -30% 0%" }}
           transition={{ duration: 0.5 }}
           className="h3-inter text-center"
+          data-testid="about-how"
         >
           How?
         </motion.h2>
@@ -60,19 +62,20 @@ const About: React.FC = () => {
             style={{ scale, opacity }}
             ref={setRef(0)}
             className="sticky"
+            data-testid="about-how-section"
           >
             <AboutHow />
           </motion.div>
 
           {/* AboutWho Section */}
-          <div ref={transitionRef} className="">
+          <div ref={transitionRef} className="" data-testid="about-who-section">
             <AboutWho />
           </div>
         </div>
       </motion.section>
 
       {/* AboutWhy Section */}
-      <div ref={transitionRef2} className="z-30">
+      <div ref={transitionRef2} className="z-30" data-testid="about-why-section">
         <AboutWhy />
       </div>
     </main>

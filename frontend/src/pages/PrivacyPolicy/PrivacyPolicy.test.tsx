@@ -1,34 +1,39 @@
 import React from 'react';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, beforeEach, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import PrivacyPolicy from './PrivacyPolicy';
 
 describe('PrivacyPolicy', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
   it('renders privacy policy page with all sections', () => {
     render(<PrivacyPolicy />);
 
-    // Check if main privacy policy section is rendered
-    expect(screen.getByRole('main')).toHaveClass('privacy-policy');
+    // Check main container
+    const mainElement = screen.getByRole('main');
+    expect(mainElement).toHaveClass('privacy-policy');
 
-    // Verify heading and last updated date
-    expect(screen.getByRole('heading', { name: /privacy policy/i })).toBeInTheDocument();
-    expect(screen.getByText(/last updated:/i)).toBeInTheDocument();
+    // Check heading and date
+    expect(screen.getByRole('heading', { level: 1, name: /privacy policy/i })).toBeInTheDocument();
+    expect(screen.getByTestId('last-updated')).toBeInTheDocument();
 
-    // Verify all major sections are present
+    // Check all major sections using data-testid
     const sections = [
-      'Introduction',
-      'Information We Collect',
-      'How We Use Your Information', 
-      'Data Protection',
-      'Third-Party Services',
-      'Cookies',
-      'Your Rights',
-      'Changes to This Policy',
-      'Contact Us'
+      'introduction',
+      'information-collection',
+      'information-usage',
+      'data-protection',
+      'third-party',
+      'cookies',
+      'user-rights',
+      'policy-changes',
+      'contact'
     ];
 
     sections.forEach(section => {
-      expect(screen.getByText(new RegExp(section, 'i'))).toBeInTheDocument();
+      expect(screen.getByTestId(`section-${section}`)).toBeInTheDocument();
     });
   });
 

@@ -12,6 +12,7 @@ import {
 import HeaderSearch from "src/components/Header/Components/HeaderSearch";
 import ThemeButton from "src/components/Header/Components/ThemeButton";
 import HeaderMobileMenu from "src/components/Header/Components/HeaderMobileMenu";
+import { useViewportWidth } from "src/hooks/useViewportWidth/useViewportWidth";
 
 // Navigation items
 const navs = [
@@ -23,6 +24,7 @@ const navs = [
 
 // Header component
 const Header: React.FC = () => {
+  const viewportWidth = useViewportWidth();
   // Memoize the navigation items to avoid unnecessary re-renders
   const renderNavItems = useMemo(
     () =>
@@ -76,23 +78,29 @@ const Header: React.FC = () => {
         </NavLink>
 
         {/* Navigation menu */}
-        <motion.ul
-          className="hidden md:flex md:justify-between md:gap-4 lg:gap-4 xl:gap-6 2xl:gap-8 3xl:gap-8"
-        >
-          {renderNavItems}
-        </motion.ul>
+        {viewportWidth >= 768 && (
+          <motion.ul
+            className="hidden md:flex md:justify-between md:gap-4 lg:gap-4 xl:gap-6 2xl:gap-8 3xl:gap-8"
+          >
+            {renderNavItems}
+          </motion.ul>
+        )}
 
         {/* Search and contrast toggle */}
-        <div className="hidden md:flex md:gap-2 lg:gap-2 xl:gap-3 2xl:gap-3 3xl:gap-4">
-          <HeaderSearch />
-          <ThemeButton />
-        </div>
+        {viewportWidth >= 768 && (
+          <div className="hidden md:flex md:gap-2 lg:gap-2 xl:gap-3 2xl:gap-3 3xl:gap-4">
+            <HeaderSearch />
+            <ThemeButton />
+          </div>
+        )}
 
         {/* Menu button for mobile view */}
-        <div className="flex gap-4 md:hidden">
-          <HeaderSearch />
-          <HeaderMobileMenu />
-        </div>
+        {viewportWidth < 768 && (
+          <div className="flex gap-4">
+            <HeaderSearch />
+            <HeaderMobileMenu />
+          </div>
+        )}
       </div>
     </motion.header>
   );

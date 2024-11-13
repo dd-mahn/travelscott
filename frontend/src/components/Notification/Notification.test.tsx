@@ -13,17 +13,19 @@ describe('Notification Component', () => {
     const { rerender } = render(
       <Notification message="Test notification" visible={true} />
     );
-    expect(screen.getByText('Test notification').parentElement)
-      .toHaveClass('opacity-100');
+    const element = screen.getByText('Test notification');
+    expect(element.className).toMatch(/opacity-100/);
 
     rerender(<Notification message="Test notification" visible={false} />);
-    expect(screen.getByText('Test notification').parentElement)
-      .toHaveClass('opacity-0');
+    expect(element.className).toMatch(/opacity-0/);
   });
 
   it('renders with correct styles', () => {
     render(<Notification message="Test notification" visible={true} />);
-    const notification = screen.getByText('Test notification').parentElement;
-    expect(notification).toHaveClass('fixed', 'top-20', 'left-1/2');
+    const notification = screen.getByText('Test notification');
+    
+    expect(notification.className).toMatch(/fixed/);
+    expect(notification.className).toMatch(/top-20/);
+    expect(notification.className).toMatch(/left-1\/2/);
   });
 });
