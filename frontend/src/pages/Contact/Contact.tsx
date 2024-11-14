@@ -98,7 +98,7 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <main className="contact px-sect relative flex min-h-svh flex-col items-center overflow-hidden pb-20 pt-20 lg:pb-sect-default lg:pt-20 2xl:pt-40">
+    <main data-testid="contact-page" className="contact px-sect relative flex min-h-svh flex-col items-center overflow-hidden pb-20 pt-20 lg:pb-sect-default lg:pt-20 2xl:pt-40">
       {/* Emailing Section */}
       <motion.section
         initial="hiddenY"

@@ -133,7 +133,10 @@ const Hero: React.FC = () => {
   }, [switchTextRef.current]);
 
   return (
-    <section className="hero px-sect relative mb-12 flex h-screen flex-col items-center justify-center md:items-start md:gap-4 lg:mb-0 lg:gap-6 xl:gap-8 2xl:gap-8 3xl:gap-8">
+    <section 
+      data-testid="hero-section"
+      className="hero px-sect relative mb-12 flex h-screen flex-col items-center justify-center md:items-start md:gap-4 lg:mb-0 lg:gap-6 xl:gap-8 2xl:gap-8 3xl:gap-8"
+    >
       {/* Animated blobs for background effect */}
       <motion.div
         animate="blob1Animation"

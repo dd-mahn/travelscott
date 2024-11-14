@@ -73,7 +73,7 @@ const HeaderMobileMenu = () => {
                 <ThemeButton />
                 <motion.button
                   onClick={toggleMenu}
-                  title="Menu"
+                  title="Close Menu"
                   className="flex h-fit w-fit items-center justify-center rounded-md bg-background-dark px-2 py-1 dark:bg-background-light"
                 >
                   <i className="ri-close-line text-xl text-text-dark dark:text-text-light"></i>

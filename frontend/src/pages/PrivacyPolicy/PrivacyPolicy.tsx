@@ -2,7 +2,7 @@ import React from "react";
 
 const PrivacyPolicy: React.FC = () => {
   return (
-    <main className="privacy-policy px-sect flex flex-col items-center justify-center py-sect-short">
+    <main data-testid="privacy-policy-page" className="privacy-policy px-sect flex flex-col items-center justify-center py-sect-short">
       <div className="lg:w-2/3 flex flex-col gap-4 md:gap-8">
         <div className="flex flex-col items-center">   
           <h1 className="h1-md">Privacy Policy</h1>

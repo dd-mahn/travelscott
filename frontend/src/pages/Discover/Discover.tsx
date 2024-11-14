@@ -80,7 +80,7 @@ const Discover: React.FC = () => {
   }
 
   return (
-    <main className="discover">
+    <main data-testid="discover-page" className="discover">
       {/* POSTER SECTION */}
       <DiscoverPoster 
         featuredDestinations={

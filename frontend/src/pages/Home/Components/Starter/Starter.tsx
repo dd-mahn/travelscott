@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import { motion } from "framer-motion";
 
 // Component imports
-import StarterBlogs from "src/pages/Home/Components/StarterBlog";
+import StarterBlogs from "src/pages/Home/Components/Starter/StarterBlog";
 import airplane1 from "src/assets/svg/airplane-1.svg";
 import Blog from "src/types/Blog";
 import { SecondaryButton } from "src/common/Buttons/Button";

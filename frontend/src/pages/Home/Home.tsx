@@ -7,13 +7,12 @@ import { setHomeBlogs } from "src/store/slices/blogSlice";
 import "src/styles/home.css";
 
 // Component imports
-import Hero from "src/pages/Home/Components/Hero";
-import Brief from "src/pages/Home/Components/Brief";
-import Featured from "src/pages/Home/Components/Featured";
-import Starter from "src/pages/Home/Components/Starter";
-import Articles from "src/pages/Home/Components/Articles";
-import Inspired from "src/pages/Home/Components/Inspired";
-import Quote from "src/pages/Home/Components/Quote";
+import Hero from "src/pages/Home/Components/Hero/Hero";
+import Brief from "src/pages/Home/Components/Brief/Brief";
+import Featured from "src/pages/Home/Components/Featured/Featured";
+import Starter from "src/pages/Home/Components/Starter/Starter";
+import Articles from "src/pages/Home/Components/Articles/Articles";
+import Quote from "src/pages/Home/Components/Quote/Quote";
 import useFetch from "src/hooks/useFetch/useFetch";
 import { FetchBlogsType } from "src/types/FetchData";
 import config from "src/config/config";
@@ -21,7 +20,7 @@ import {
   useSectionTransition,
   useSectionTransition2,
 } from "src/hooks/useSectionTransition/useSectionTransition";
-import Hook from "src/pages/Home/Components/Hook";
+import Hook from "src/pages/Home/Components/Hook/Hook";
 import useStackedSections from "src/hooks/useStackedSections/useStackedSections";
 
 // Home component
@@ -64,7 +63,7 @@ const Home: React.FC = () => {
   const { ref: refS, scale: scaleS } = useSectionTransition2();
 
   return (
-    <main className="home flex flex-col">
+    <main data-testid="home-page" className="home flex flex-col">
       <Hero />
       <Brief />
 

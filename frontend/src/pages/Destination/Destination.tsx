@@ -78,7 +78,7 @@ const DestinationPage: React.FC = () => {
 
   // Render main content
   return (
-    <main className="destination relative">
+    <main data-testid="destination-page" className="destination relative">
       <DestinationHero destination={currentDestination} />
       <DestinationOverview destination={currentDestination} />
 

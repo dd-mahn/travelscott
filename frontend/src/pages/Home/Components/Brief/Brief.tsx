@@ -73,7 +73,7 @@ const Brief: React.FC = () => {
   );
 
   return (
-    <section className="brief px-sect flex flex-col py-24 md:pb-40 lg:gap-36 lg:py-sect-medium xl:gap-48 xl:py-sect-semi 2xl:gap-64 2xl:py-sect-long 3xl:gap-80 3xl:py-sect-long">
+    <section data-testid="brief-section" className="brief px-sect flex flex-col py-24 md:pb-40 lg:gap-36 lg:py-sect-medium xl:gap-48 xl:py-sect-semi 2xl:gap-64 2xl:py-sect-long 3xl:gap-80 3xl:py-sect-long">
       {/* Header section with animated airplane */}
       <div className="flex min-h-20 flex-row items-center justify-center md:min-h-40 md:justify-start md:gap-8 xl:gap-28 2xl:gap-44 3xl:gap-52">
         <motion.img
@@ -82,7 +82,7 @@ const Brief: React.FC = () => {
           whileInView="airplaneEnd"
           viewport={{ once: true }}
           src={airplane1}
-          alt=""
+          alt="Decorative airplane"
           className="hidden rotate-[45deg] transform md:block md:w-20 lg:w-24 xl:w-24 2xl:w-28 3xl:w-32"
         />
         <div className="flex flex-col items-center md:items-start">
@@ -91,6 +91,7 @@ const Brief: React.FC = () => {
             className={`${viewportWidth < 768 ? "h3-inter" : "h2-inter"} overflow-hidden 2xl:pb-2`}
           >
             <motion.div
+              data-testid="brief-header"
               variants={variants}
               initial="hiddenFullY"
               whileInView="visible"
@@ -109,6 +110,7 @@ const Brief: React.FC = () => {
             className={`${viewportWidth < 768 ? "h3-inter" : "h2-inter"} overflow-hidden pb-2`}
           >
             <motion.div
+              data-testid="brief-subheader"
               variants={variants}
               initial="hiddenFullY"
               whileInView="visible"
@@ -133,6 +135,7 @@ const Brief: React.FC = () => {
           className="sticky top-0 z-0 h-svh rounded-2xl py-4"
         >
           <video
+            data-testid="brief-video"
             src={briefVideo}
             autoPlay
             muted

@@ -20,7 +20,7 @@ const variants = {
 
 const NotFoundPage: React.FC = () => {
   return (
-    <main className="not-found relative flex h-screen w-full flex-col items-center justify-center gap-8">
+    <main data-testid="not-found-page" className="not-found relative flex h-screen w-full flex-col items-center justify-center gap-8">
       {/* Animated background blobs */}
       <motion.div
         data-testid="blur-blob"

@@ -133,19 +133,19 @@ describe('Home', () => {
   });
 });
 
-vi.mock("src/pages/Home/Components/Hero", () => ({
+vi.mock("src/pages/Home/Components/Hero/Hero", () => ({
   default: () => <section data-testid="hero">Hero Section</section>
 }));
 
-vi.mock("src/pages/Home/Components/Brief", () => ({
+vi.mock("src/pages/Home/Components/Brief/Brief", () => ({
   default: () => <section data-testid="brief">Brief Section</section>
 }));
 
-vi.mock("src/pages/Home/Components/Featured", () => ({
+vi.mock("src/pages/Home/Components/Featured/Featured", () => ({
   default: () => <section data-testid="featured">Featured Section</section>
 }));
 
-vi.mock("src/pages/Home/Components/Starter", () => ({
+vi.mock("src/pages/Home/Components/Starter/Starter", () => ({
   default: ({ blogs }: any) => (
     <section data-testid="starter">
       Starter Section with {blogs.length} blogs
@@ -153,7 +153,7 @@ vi.mock("src/pages/Home/Components/Starter", () => ({
   )
 }));
 
-vi.mock("src/pages/Home/Components/Articles", () => ({
+vi.mock("src/pages/Home/Components/Articles/Articles", () => ({
   default: ({ blogs, articlesHookRef }: any) => (
     <section data-testid="articles" ref={articlesHookRef}>
       Articles Section with {blogs.length} blogs
@@ -161,14 +161,14 @@ vi.mock("src/pages/Home/Components/Articles", () => ({
   )
 }));
 
-vi.mock("src/pages/Home/Components/Inspired", () => ({
+vi.mock("src/pages/Home/Components/Inspired/Inspired", () => ({
   default: () => <section data-testid="inspired">Inspired Section</section>
 }));
 
-vi.mock("src/pages/Home/Components/Quote", () => ({
+vi.mock("src/pages/Home/Components/Quote/Quote", () => ({
   default: () => <section data-testid="quote">Quote Section</section>
 }));
 
-vi.mock("src/pages/Home/Components/Hook", () => ({
+vi.mock("src/pages/Home/Components/Hook/Hook", () => ({
   default: () => <section data-testid="hook">Hook Section</section>
 }));

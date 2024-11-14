@@ -54,6 +54,7 @@ const Inspiration: React.FC = () => {
     <AnimatePresence mode="wait">
       {currentCategory !== "" && (
         <motion.main
+          data-testid="inspiration-page"
           key={`inspiration-page-category-${currentCategory}`}
           initial="hidden"
           animate="visible"

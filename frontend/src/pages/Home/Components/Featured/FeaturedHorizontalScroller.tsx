@@ -12,7 +12,7 @@ import { debounce } from "lodash";
 
 import Destination from "src/types/Destination";
 import Loading from "src/common/Loading/Loading";
-import FeaturedDestinationCard from "src/pages/Home/Components/FeaturedDestinationCard";
+import FeaturedDestinationCard from "src/pages/Home/Components/Featured/FeaturedDestinationCard";
 import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
 
 type HorizontalScrollCarouselProps = {

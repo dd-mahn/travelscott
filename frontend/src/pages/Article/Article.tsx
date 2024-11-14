@@ -35,7 +35,7 @@ const Article: React.FC = () => {
   if (!blogData || blogError) return <NotFoundPage />;
 
   return (
-    <main className="">
+    <main data-testid="article-page" className="article">
       {/* Blog header image */}
       <motion.div
         variants={variants}

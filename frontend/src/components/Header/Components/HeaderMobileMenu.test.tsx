@@ -1,22 +1,57 @@
 import React from "react";
+import ReactDOM from 'react-dom';
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { BrowserRouter } from "react-router-dom";
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+import themeReducer from 'src/store/slices/themeSlice';
 import HeaderMobileMenu from "./HeaderMobileMenu";
 
-// Mock ReactDOM.createPortal
-vi.mock("react-dom", () => ({
-  createPortal: (children: React.ReactNode) => children,
+// Create a mock store
+const store = configureStore({
+  reducer: {
+    theme: themeReducer,
+  },
+});
+
+// Test wrapper component
+const TestWrapper = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <Provider store={store}>
+      <BrowserRouter>{children}</BrowserRouter>
+    </Provider>
+  );
+};
+
+// Mock ReactDOM
+vi.mock('react-dom', async () => ({
+  default: {
+    createPortal: (node: React.ReactNode) => node,
+  },
 }));
 
 // Mock framer-motion
-vi.mock("framer-motion", () => ({
-  motion: {
-    div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
-    button: ({ children, ...props }: any) => <button {...props}>{children}</button>,
-  },
-  AnimatePresence: ({ children }: any) => children,
-}));
+vi.mock('framer-motion', async (importOriginal) => {
+  const actual = await importOriginal() as { motion: any };
+  return {
+    ...actual,
+    motion: {
+      ...actual.motion,
+      div: ({ children, whileInView, whileHover, whileTap, ...props }: any) => 
+        <div {...props}>{children}</div>,
+      button: ({ children, whileInView, whileHover, whileTap, ...props }: any) => 
+        <button {...props}>{children}</button>,
+      nav: ({ children, whileInView, whileHover, whileTap, ...props }: any) => 
+        <nav {...props}>{children}</nav>,
+      ul: ({ children, whileInView, whileHover, whileTap, ...props }: any) => 
+        <ul {...props}>{children}</ul>,
+      li: ({ children, whileInView, whileHover, whileTap, ...props }: any) => 
+        <li {...props}>{children}</li>,
+    },
+    AnimatePresence: ({ children }: any) => children,
+  };
+});
 
 describe("HeaderMobileMenu", () => {
   beforeEach(() => {
@@ -25,9 +60,8 @@ describe("HeaderMobileMenu", () => {
 
   const renderWithRouter = () => {
     return render(
-      <BrowserRouter>
-        <HeaderMobileMenu />
-      </BrowserRouter>
+      <HeaderMobileMenu />,
+      { wrapper: TestWrapper }
     );
   };
 
@@ -68,7 +102,7 @@ describe("HeaderMobileMenu", () => {
     expect(screen.getByText("Home")).toBeInTheDocument();
     
     // Close menu
-    const closeButton = screen.getAllByTitle("Menu")[1];
+    const closeButton = screen.getByTitle("Close Menu");
     fireEvent.click(closeButton);
     
     // Menu button should be visible again
@@ -84,7 +118,7 @@ describe("HeaderMobileMenu", () => {
     expect(document.body.style.height).toBe("100vh");
     
     // Close menu
-    const closeButton = screen.getAllByTitle("Menu")[1];
+    const closeButton = screen.getByTitle("Close Menu");
     fireEvent.click(closeButton);
     expect(document.body.style.overflow).toBe("");
     expect(document.body.style.height).toBe("");

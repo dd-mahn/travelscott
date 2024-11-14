@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useDispatch} from "react-redux";
 
 // Component imports
-import HorizontalScrollCarousel from "src/pages/Home/Components/FeaturedHorizontalScroller";
+import HorizontalScrollCarousel from "src/pages/Home/Components/Featured/FeaturedHorizontalScroller";
 import { SecondaryButton } from "src/common/Buttons/Button";
 import { ErrorState, LoadingState } from "src/common/Catalogs/CatalogStates";
 

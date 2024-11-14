@@ -33,7 +33,7 @@ const About: React.FC = () => {
   const { ref: transitionRef2, scale: scale2 } = useSectionTransition2();
 
   return (
-    <main className="about">
+    <main data-testid="about-page" className="about">
       {/* Hero Section */}
       <AboutHero />
 

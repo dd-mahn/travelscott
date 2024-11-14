@@ -73,7 +73,7 @@ const CountryPage: React.FC = () => {
   }
 
   return (
-    <main className="country">
+    <main data-testid="country-page" className="country">
       {/* HERO SECTION */}
       <CountryHero country={currentCountry} />
 
