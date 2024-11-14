@@ -6,9 +6,45 @@ import SlideRevealIconHeading from "./SlideRevealIconHeading";
 // Mock framer-motion
 vi.mock("framer-motion", () => ({
   motion: {
-    i: ({ children, className }: any) => <i className={className}>{children}</i>,
-    h1: ({ children, className }: any) => <h1 className={className}>{children}</h1>,
-    div: ({ children, className }: any) => <div className={className}>{children}</div>
+    div: React.forwardRef(({ children, layout, variants, initial, animate, transition, ...props }: any, ref) => (
+      <div 
+        ref={ref}
+        data-layout={layout}
+        data-variants={JSON.stringify(variants)}
+        data-initial={initial}
+        data-animate={animate}
+        data-transition={JSON.stringify(transition)}
+        {...props}
+      >
+        {children}
+      </div>
+    )),
+    i: React.forwardRef(({ children, variants, whileInView, initial, viewport, transition, ...props }: any, ref) => (
+      <i
+        ref={ref}
+        data-variants={JSON.stringify(variants)}
+        data-while-in-view={whileInView}
+        data-initial={initial}
+        data-viewport={JSON.stringify(viewport)}
+        data-transition={JSON.stringify(transition)}
+        data-testid="icon"
+        {...props}
+      >
+        {children}
+      </i>
+    )),
+    h1: React.forwardRef(({ children, variants, initial, animate, transition, ...props }: any, ref) => (
+      <h1
+        ref={ref}
+        data-variants={JSON.stringify(variants)}
+        data-initial={initial}
+        data-animate={animate}
+        data-transition={JSON.stringify(transition)}
+        {...props}
+      >
+        {children}
+      </h1>
+    )),
   },
   useAnimation: () => ({
     start: vi.fn(),

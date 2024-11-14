@@ -11,10 +11,23 @@ import continentReducer from "src/store/slices/continentSlice";
 // Mock framer-motion
 vi.mock("framer-motion", () => ({
   motion: {
-    div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
-    button: ({ children, ...props }: any) => <button {...props}>{children}</button>,
-    i: ({ children, ...props }: any) => <i {...props}>{children}</i>,
+    div: React.forwardRef(({ children, whileHover, whileTap, whileInView, animate, variants, ...props }: any, ref) => (
+      <div ref={ref} {...props}>
+        {children}
+      </div>
+    )),
+    i: React.forwardRef(({ children, whileHover, whileTap, whileInView, animate, variants, ...props }: any, ref) => (
+      <i ref={ref} data-testid="ri-search-line" {...props}>
+        {children}
+      </i>
+    )),
+    button: React.forwardRef(({ children, whileHover, whileTap, whileInView, animate, variants, ...props }: any, ref) => (
+      <button ref={ref} {...props}>
+        {children}
+      </button>
+    )),
   },
+  AnimatePresence: ({ children }: any) => <>{children}</>,
 }));
 
 const mockStore = configureStore<{

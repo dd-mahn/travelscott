@@ -6,7 +6,18 @@ import { LoadingState, ErrorState, NotFoundState } from "./CatalogStates";
 // Mock framer-motion to avoid animation issues in tests
 vi.mock("framer-motion", () => ({
   motion: {
-    div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
+    div: ({ children, whileInView, variants, initial, animate, transition, ...props }: any) => (
+      <div 
+        data-while-in-view={whileInView}
+        data-variants={JSON.stringify(variants)}
+        data-initial={initial}
+        data-animate={animate}
+        data-transition={JSON.stringify(transition)}
+        {...props}
+      >
+        {children}
+      </div>
+    ),
   },
 }));
 

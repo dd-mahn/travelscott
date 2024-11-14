@@ -21,6 +21,7 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ destination }) => {
   return (
     <div
       key={destination.name}
+      data-testid="destination-card"
       className="destination-card flex w-full flex-col gap-2"
     >
       <Link

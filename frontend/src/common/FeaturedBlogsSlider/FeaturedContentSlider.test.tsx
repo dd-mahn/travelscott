@@ -6,10 +6,49 @@ import FeaturedContentSlider from "./FeaturedContentSlider";
 // Mock framer-motion to avoid animation issues in tests
 vi.mock("framer-motion", () => ({
   motion: {
-    div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
+    div: React.forwardRef(({ children, whileInView, animate, variants, ...props }: any, ref) => (
+      <div ref={ref} {...props}>
+        {children}
+      </div>
+    )),
   },
-  AnimatePresence: ({ children }: any) => <>{children}</>,
-  useInView: () => true,
+  AnimatePresence: ({ children, mode }: any) => <>{children}</>,
+  useInView: () => [null, true],
+  useAnimation: () => ({
+    start: vi.fn(),
+    set: vi.fn(),
+  }),
+}));
+
+// Mock DotPagination component
+vi.mock("src/common/Pagination/Pagination", () => ({
+  DotPagination: ({ count, index, handleNextClick, handlePreviousClick }: any) => (
+    <div>
+      <button aria-label="Go to previous page" onClick={handlePreviousClick}>Previous</button>
+      <div>
+        {Array.from({ length: count }, (_, i) => (
+          <button 
+            key={i} 
+            data-testid="dot"
+            className={i === index ? "bg-text-light" : ""}
+            aria-label={`Go to page ${i + 1}`} 
+            aria-current={i === index}
+          >
+            {i + 1}
+          </button>
+        ))}
+      </div>
+      <button aria-label="Go to next page" onClick={handleNextClick}>Next</button>
+    </div>
+  ),
+}));
+
+// Mock variants
+vi.mock("src/utils/constants/variants", () => ({
+  VisibilityVariants: {
+    hiddenY: { y: 20, opacity: 0 },
+    visible: { y: 0, opacity: 1 }
+  }
 }));
 
 describe("FeaturedContentSlider", () => {

@@ -9,10 +9,23 @@ import filterReducer from "src/store/slices/filterSlice";
 // Mock framer-motion to avoid animation issues in tests
 vi.mock("framer-motion", () => ({
   motion: {
-    div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
-    i: ({ children, ...props }: any) => <i {...props}>{children}</i>,
-    button: ({ children, ...props }: any) => <button {...props}>{children}</button>,
+    div: React.forwardRef(({ children, whileHover, whileTap, animate, variants, ...props }: any, ref) => (
+      <div ref={ref} {...props}>
+        {children}
+      </div>
+    )),
+    i: React.forwardRef(({ children, whileHover, whileTap, animate, variants, ...props }: any, ref) => (
+      <i ref={ref} data-testid="ri-search-line" {...props}>
+        {children}
+      </i>
+    )),
+    button: React.forwardRef(({ children, whileHover, whileTap, animate, variants, ...props }: any, ref) => (
+      <button ref={ref} {...props}>
+        {children}
+      </button>
+    )),
   },
+  AnimatePresence: ({ children }: any) => <>{children}</>,
 }));
 
 const renderWithRedux = (component: React.ReactNode) => {

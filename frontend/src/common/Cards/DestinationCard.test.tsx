@@ -90,7 +90,7 @@ describe("DestinationCard", () => {
         <DestinationCard destination={mockDestination} />
       </RouterWrapper>
     );
-    const container = screen.getByRole("link").parentElement;
+    const container = screen.getByTestId("destination-card");
     expect(container).toHaveClass("destination-card");
     expect(container).toHaveClass("flex");
     expect(container).toHaveClass("w-full");

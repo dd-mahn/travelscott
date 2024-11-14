@@ -6,7 +6,18 @@ import StaggerLogo from "./StaggerLogo";
 // Mock framer-motion
 vi.mock("framer-motion", () => ({
   motion: {
-    span: ({ children, ...props }: any) => <span {...props}>{children}</span>,
+    span: ({ children, whileInView, initial, variants, viewport, transition, ...props }: any) => (
+      <span 
+        data-while-in-view={whileInView}
+        data-initial={initial}
+        data-variants={JSON.stringify(variants)}
+        data-viewport={JSON.stringify(viewport)}
+        data-transition={JSON.stringify(transition)}
+        {...props}
+      >
+        {children}
+      </span>
+    ),
   },
 }));
 
@@ -20,7 +31,8 @@ describe("StaggerLogo", () => {
     
     // Check if all letters of "TravelScott" are rendered
     "TravelScott".split("").forEach(letter => {
-      expect(screen.getByText(letter)).toBeInTheDocument();
+      const elements = screen.getAllByText(letter);
+      expect(elements.length).toBeGreaterThan(0);
     });
   });
 

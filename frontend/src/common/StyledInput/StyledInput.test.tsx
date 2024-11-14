@@ -79,8 +79,16 @@ describe("StyledInput", () => {
     const input = screen.getByRole("textbox") as HTMLInputElement;
     const styledInput = input.closest(".styled-input");
     
-    // Simulate autofilled value
-    Object.defineProperty(input, 'value', { value: 'autofilled' });
+    // Set the value directly and trigger input event
+    input.value = 'autofilled';
+    fireEvent.input(input);
+    
+    // Trigger animationstart event to simulate autofill
+    fireEvent.animationStart(input, {
+      animationName: 'onAutoFillStart'
+    });
+    
+    // Force a rerender
     rerender(<StyledInput {...defaultProps} />);
     
     expect(styledInput).toHaveClass("active");

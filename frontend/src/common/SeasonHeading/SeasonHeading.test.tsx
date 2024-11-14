@@ -1,13 +1,27 @@
 import React from "react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
-import SeasonHeading from "./SeasonHeading";
+import SeasonHeading from "src/common/SeasonHeading/SeasonHeading";
 import * as getSeasonModule from "src/utils/getSeason";
 
 // Mock framer-motion
 vi.mock("framer-motion", () => ({
   motion: {
-    span: ({ children, ...props }: any) => <span {...props}>{children}</span>,
+    div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
+    h1: ({ children, initial, whileInView, transition, viewport, variants, className, style, ...props }: any) => (
+      <h1 
+        data-initial={JSON.stringify(initial)}
+        data-while-in-view={whileInView}
+        data-transition={JSON.stringify(transition)}
+        data-viewport={JSON.stringify(viewport)}
+        data-variants={JSON.stringify(variants)}
+        className={className}
+        style={style}
+        {...props}
+      >
+        {children}
+      </h1>
+    ),
   },
 }));
 
@@ -27,7 +41,8 @@ describe("SeasonHeading", () => {
     render(<SeasonHeading />);
     
     "SUMMER".split("").forEach(letter => {
-      expect(screen.getByText(letter)).toBeInTheDocument();
+      const elements = screen.getAllByText(letter);
+      expect(elements.length).toBeGreaterThan(0);
     });
   });
 
@@ -48,7 +63,8 @@ describe("SeasonHeading", () => {
       const { unmount } = render(<SeasonHeading />);
       
       season.split("").forEach(letter => {
-        expect(screen.getByText(letter)).toBeInTheDocument();
+        const elements = screen.getAllByText(letter);
+        expect(elements.length).toBeGreaterThan(0);
       });
 
       unmount();

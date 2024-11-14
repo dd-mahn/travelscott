@@ -48,6 +48,6 @@ const config: Config = {
 };
 
 // Validate configuration
-configSchema.parse(config);
+const validatedConfig = configSchema.parse(config);
 
-export default config;
+export default validatedConfig;

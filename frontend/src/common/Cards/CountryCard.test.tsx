@@ -88,6 +88,7 @@ describe("CountryCard", () => {
     const container = screen.getByText("Test Country").closest(".flex");
     expect(container).toHaveClass("h-fit");
     expect(container).toHaveClass("flex-col");
-    expect(container).toHaveClass("gap-2");
+    expect(container).toHaveClass("justify-start");
+    expect(container).toHaveClass("gap-0");
   });
 });

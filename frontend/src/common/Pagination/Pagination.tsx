@@ -227,6 +227,7 @@ export const DotPagination: React.FC<DotPaginationProps> = ({
         {[0, 1, 2].map((i) => (
           <motion.span
             key={i}
+            data-testid="pagination-dot"
             variants={dotVariants}
             animate={i === index % 3 ? "active" : "inactive"}
             transition={{ duration: 0.3 }}

@@ -3,12 +3,33 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { CatalogPagination, ButtonPagination, DotPagination } from "./Pagination";
 
-// Mock framer-motion
+// Update the framer-motion mock
 vi.mock("framer-motion", () => ({
   motion: {
-    div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
-    button: ({ children, ...props }: any) => <button {...props}>{children}</button>,
-    span: ({ children, ...props }: any) => <span {...props}>{children}</span>,
+    div: ({ children, layout, ...props }: any) => (
+      <div data-layout={layout} {...props}>
+        {children}
+      </div>
+    ),
+    button: ({ children, whileHover, whileTap, variants, ...props }: any) => (
+      <button 
+        data-framer-hover={whileHover}
+        data-framer-tap={whileTap}
+        data-variants={JSON.stringify(variants)}
+        {...props}
+      >
+        {children}
+      </button>
+    ),
+    span: ({ children, variants, animate, ...props }: any) => (
+      <span 
+        data-variants={JSON.stringify(variants)}
+        data-animate={animate}
+        {...props}
+      >
+        {children}
+      </span>
+    ),
   },
 }));
 
@@ -24,7 +45,11 @@ describe("CatalogPagination", () => {
 
   it("renders correct range text", () => {
     render(<CatalogPagination {...defaultProps} />);
-    expect(screen.getByText(/Showing 1 to 10 of 100 results/)).toBeInTheDocument();
+    expect(screen.getByText((content, element) => {
+      const hasText = (node: Element | null) => node?.textContent === 'Showing 1 to 10 of 100 results';
+      const elementHasText = hasText(element);
+      return elementHasText;
+    })).toBeInTheDocument();
   });
 
   it("disables previous button on first page", () => {
@@ -42,8 +67,12 @@ describe("CatalogPagination", () => {
 
   it("renders correct number of page buttons", () => {
     render(<CatalogPagination {...defaultProps} />);
-    const pageButtons = screen.getAllByRole("button").filter(button => !isNaN(Number(button.textContent)));
-    expect(pageButtons).toHaveLength(10); // 100 items / 10 per page = 10 pages
+    const pageButtons = screen.getAllByRole("button")
+      .filter(button => {
+        const text = button.textContent;
+        return text && !isNaN(Number(text)) && text.trim() !== '';
+      });
+    expect(pageButtons).toHaveLength(10);
   });
 });
 
@@ -82,7 +111,7 @@ describe("DotPagination", () => {
 
   it("renders three dots", () => {
     render(<DotPagination {...defaultProps} />);
-    const dots = screen.getAllByRole("span");
+    const dots = screen.getAllByTestId('pagination-dot');
     expect(dots).toHaveLength(3);
   });
 

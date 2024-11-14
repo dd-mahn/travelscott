@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import DestinationCatalog from "./DestinationCatalog";
 import Destination from "src/types/Destination";
@@ -7,7 +7,7 @@ import Destination from "src/types/Destination";
 // Mock framer-motion to avoid animation issues in tests
 vi.mock("framer-motion", () => ({
   motion: {
-    div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
+    div: ({ children, whileInView, ...props }: any) => <div {...props}>{children}</div>,
   },
   AnimatePresence: ({ children }: any) => <>{children}</>,
 }));
@@ -21,6 +21,29 @@ vi.mock("src/common/Cards/DestinationCard", () => {
     ),
   };
 });
+
+// Mock CatalogPagination component
+vi.mock("src/common/Pagination/Pagination", () => ({
+  CatalogPagination: function MockCatalogPagination({ 
+    count, 
+    page, 
+    handlePreviousClick, 
+    handleNextClick 
+  }: {
+    count: number;
+    page: number;
+    handlePreviousClick: () => void;
+    handleNextClick: () => void;
+  }) {
+    return (
+      <div data-testid="catalog-pagination">
+        <button onClick={handlePreviousClick} aria-label="Go to previous page">Previous</button>
+        <span>Page {page}</span>
+        <button onClick={handleNextClick} aria-label="Go to next page">Next</button>
+      </div>
+    );
+  }
+}));
 
 const mockDestinations = [
   {
@@ -91,13 +114,16 @@ describe("DestinationCatalog", () => {
     expect(grid).toHaveClass("gap-y-8");
   });
 
-  it("calls onPageChange when pagination is used", () => {
+  it("calls onPageChange when pagination is used", async () => {
     const onPageChange = vi.fn();
     render(<DestinationCatalog {...defaultProps} onPageChange={onPageChange} />);
     
     // Find and click next page button
     const nextButton = screen.getByLabelText("Go to next page");
-    nextButton.click();
+    
+    await act(async () => {
+      nextButton.click();
+    });
     
     expect(onPageChange).toHaveBeenCalledWith(2);
   });

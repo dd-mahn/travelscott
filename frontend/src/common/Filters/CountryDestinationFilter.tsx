@@ -115,6 +115,7 @@ export const CountryDestinationFilter: React.FC = memo(() => {
               <motion.i
                 variants={variants}
                 animate={inputFocus ? "visible" : "hiddenY"}
+                data-testid="ri-search-line"
                 className="cursor-hover-small ri-search-line cursor-pointer text-text-light"
               ></motion.i>
             </div>

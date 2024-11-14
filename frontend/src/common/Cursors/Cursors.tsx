@@ -29,8 +29,12 @@ const Cursor = () => {
 
   // Handle iframe mouse events
   useEffect(() => {
-    const handleIframeMouseEnter = () => setCursorState("disabled");
-    const handleIframeMouseLeave = () => setCursorState("default");
+    const handleIframeMouseEnter = async () => {
+      await Promise.resolve(setCursorState("disabled"));
+    };
+    const handleIframeMouseLeave = async () => {
+      await Promise.resolve(setCursorState("default"));
+    };
 
     const addIframeListeners = () => {
       const iframes = document.querySelectorAll("iframe");
@@ -50,7 +54,6 @@ const Cursor = () => {
 
     addIframeListeners();
 
-    // Re-add listeners when new iframes are added to the DOM
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.type === "childList") {
@@ -70,17 +73,17 @@ const Cursor = () => {
 
   // Handle cursor state changes based on mouse events
   useEffect(() => {
-    const handleMouseEvents = (e: MouseEvent) => {
+    const handleMouseEvents = async (e: MouseEvent) => {
       if (e.target instanceof HTMLElement) {
         const target = e.target;
         switch (e.type) {
           case "mouseover":
             if (target.classList.contains("cursor-disabled")) {
-              setCursorState("disabled");
+              await Promise.resolve(setCursorState("disabled"));
             } else if (target.classList.contains("cursor-hover")) {
-              setCursorState("hover");
+              await Promise.resolve(setCursorState("hover"));
             } else if (target.classList.contains("cursor-hover-link")) {
-              setCursorState("hoverLink");
+              await Promise.resolve(setCursorState("hoverLink"));
             } else if (
               target instanceof HTMLAnchorElement ||
               target instanceof HTMLButtonElement ||
@@ -89,17 +92,19 @@ const Cursor = () => {
               target instanceof HTMLTextAreaElement ||
               target instanceof HTMLSelectElement
             ) {
-              setCursorState("hoverSmall");
+              await Promise.resolve(setCursorState("hoverSmall"));
             }
             break;
           case "mouseout":
-            setCursorState("default");
+            await Promise.resolve(setCursorState("default"));
             break;
           case "mousedown":
-            setCursorState(cursorState === "hover" ? "hoverTap" : "tap");
+            await Promise.resolve(setCursorState((prevState) => 
+              prevState === "hover" ? "hoverTap" : "tap"
+            ));
             break;
           case "mouseup":
-            setCursorState("default");
+            await Promise.resolve(setCursorState("default"));
             break;
         }
       }
@@ -110,14 +115,13 @@ const Cursor = () => {
     document.addEventListener("mousedown", handleMouseEvents);
     document.addEventListener("mouseup", handleMouseEvents);
 
-    // Clean up event listeners
     return () => {
       document.removeEventListener("mouseover", handleMouseEvents);
       document.removeEventListener("mouseout", handleMouseEvents);
       document.removeEventListener("mousedown", handleMouseEvents);
       document.removeEventListener("mouseup", handleMouseEvents);
     };
-  }, [cursorState]);
+  }, []);
 
   // Define animation variants for different cursor states
   const variants = {
@@ -168,8 +172,10 @@ const Cursor = () => {
 
   return (
     <motion.div
+      data-testid="cursor"
       variants={variants}
       animate={cursorState}
+      data-animate={cursorState}
       ref={cursorRef}
       transition={{
         type: "spring",
@@ -183,10 +189,10 @@ const Cursor = () => {
       }`}
     >
       {cursorState === "hover" && (
-        <i className="span-medium ri-arrow-right-line text-text-light dark:text-text-dark"></i>
+        <i data-testid="ri-arrow-right-line" className="span-medium ri-arrow-right-line text-text-light dark:text-text-dark"></i>
       )}
       {cursorState === "hoverLink" && (
-        <i className="span-medium ri-arrow-right-up-line text-text-light dark:text-text-dark"></i>
+        <i data-testid="ri-arrow-right-up-line" className="span-medium ri-arrow-right-up-line text-text-light dark:text-text-dark"></i>
       )}
     </motion.div>
   );

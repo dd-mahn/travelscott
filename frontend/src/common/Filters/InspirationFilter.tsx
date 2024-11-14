@@ -122,6 +122,7 @@ export const InspirationFilter: React.FC<{ continentNames: string[] }> = memo(
             }`}
           />
           <i
+            data-testid="ri-search-line"
             className={`ri-search-line cursor-hover-small span-regular absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-text-light transition-all duration-300`}
           ></i>
         </motion.div>

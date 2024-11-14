@@ -5,12 +5,90 @@ import { BrowserRouter } from "react-router-dom";
 import FeaturedBlogs from "./FeaturedBlogs";
 import Blog from "src/types/Blog";
 
-// Mock framer-motion to avoid animation issues in tests
+// Mock OptimizedImage component
+vi.mock("src/common/OptimizedImage/OptimizedImage", () => ({
+  default: ({ src, alt, ...props }: any) => (
+    <img src={src} alt={alt} {...props} />
+  ),
+}));
+
+// Mock FeaturedContentSlider component
+vi.mock("src/common/FeaturedBlogsSlider/FeaturedContentSlider", () => ({
+  default: ({ children }: any) => <div>{children}</div>,
+}));
+
+// Mock DotPagination component
+vi.mock("src/common/Pagination/Pagination", () => ({
+  DotPagination: ({ count, index, handleNextClick, handlePreviousClick }: any) => (
+    <div>
+      <button aria-label="Go to previous page" onClick={handlePreviousClick}>Previous</button>
+      <div>{Array.from({ length: count }, (_, i) => (
+        <button key={i} aria-label={`Go to page ${i + 1}`} aria-current={i === index}>
+          {i + 1}
+        </button>
+      ))}</div>
+      <button aria-label="Go to next page" onClick={handleNextClick}>Next</button>
+    </div>
+  ),
+}));
+
+// Mock formatDate utility
+vi.mock("src/utils/formatDate", () => ({
+  formatDate: (date: string) => {
+    return new Date(date).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  }
+}));
+
+// Update the framer-motion mock
 vi.mock("framer-motion", () => ({
   motion: {
-    div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
+    div: ({ children, layout, whileHover, whileTap, variants, ...props }: any) => (
+      <div 
+        data-layout={layout}
+        data-framer-hover={whileHover}
+        data-framer-tap={whileTap}
+        data-variants={JSON.stringify(variants)}
+        {...props}
+      >
+        {children}
+      </div>
+    ),
     h2: ({ children, ...props }: any) => <h2 {...props}>{children}</h2>,
+    img: ({ children, whileHover, whileTap, variants, ...props }: any) => (
+      <img 
+        data-framer-hover={whileHover}
+        data-framer-tap={whileTap}
+        data-variants={JSON.stringify(variants)}
+        {...props}
+      >
+        {children}
+      </img>
+    ),
   },
+  useInView: () => [null, true],
+  useAnimation: () => ({
+    start: vi.fn(),
+    set: vi.fn(),
+  }),
+  AnimatePresence: ({ children }: any) => <>{children}</>,
+}));
+
+// Mock variants
+vi.mock("src/utils/constants/variants", () => ({
+  HoverVariants: {
+    hoverScale: { scale: 1.05 }
+  },
+  TapVariants: {
+    tapScale: { scale: 0.95 }
+  },
+  VisibilityVariants: {
+    hiddenY: { y: 20, opacity: 0 },
+    visible: { y: 0, opacity: 1 }
+  }
 }));
 
 const mockBlogs = [
