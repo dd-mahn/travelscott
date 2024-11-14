@@ -51,7 +51,6 @@ const About: React.FC = () => {
           viewport={{ once: true, margin: "0% 0% -30% 0%" }}
           transition={{ duration: 0.5 }}
           className="h3-inter text-center"
-          data-testid="about-how"
         >
           How?
         </motion.h2>

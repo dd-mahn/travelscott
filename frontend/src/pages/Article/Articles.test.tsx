@@ -2,7 +2,7 @@ import React from 'react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
-import Article from './Article';
+import Article from 'src/pages/Article/Article';
 import useFetch from 'src/hooks/useFetch/useFetch';
 
 // Mock the useFetch hook

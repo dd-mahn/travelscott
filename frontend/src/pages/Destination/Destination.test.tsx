@@ -8,6 +8,7 @@ import destinationReducer from 'src/store/slices/destinationSlice';
 import DestinationPage from './Destination';
 import useFetch from 'src/hooks/useFetch/useFetch';
 import useStackedSections from 'src/hooks/useStackedSections/useStackedSections';
+import { ThemeProvider } from '@material-tailwind/react';
 
 // Mock the hooks
 vi.mock('src/hooks/useFetch/useFetch');
@@ -20,6 +21,7 @@ const mockDestinationData = {
   country: 'Test Country',
   description: 'Test Description',
   video: 'test-video-code',
+  tags: ['tag1', 'tag2'],
   additionalInfo: {
     whenToVisit: 'Test when to visit',
     whoToGoWith: 'Test who to go with',
@@ -45,11 +47,13 @@ const renderDestination = () => {
   const store = createMockStore();
   return render(
     <Provider store={store}>
-      <MemoryRouter initialEntries={['/destination/1']}>
-        <Routes>
-          <Route path="/destination/:id" element={<DestinationPage />} />
-        </Routes>
-      </MemoryRouter>
+      <ThemeProvider>
+        <MemoryRouter initialEntries={['/destination/1']}>
+          <Routes>
+            <Route path="/destination/:id" element={<DestinationPage />} />
+          </Routes>
+        </MemoryRouter>
+      </ThemeProvider>
     </Provider>
   );
 };
@@ -131,3 +135,45 @@ describe('DestinationPage', () => {
     expect(screen.getByText(mockDestinationData.additionalInfo.healthAndSafety)).toBeInTheDocument();
   });
 });
+
+vi.mock("@material-tailwind/react", () => ({
+  ThemeProvider: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+  Carousel: ({ children, ...props }: any) => (
+    <div data-testid="mock-carousel" {...props}>{children}</div>
+  ),
+  Card: ({ children, ...props }: any) => (
+    <div data-testid="mock-card" {...props}>{children}</div>
+  )
+}));
+
+vi.mock("src/pages/Destination/Components/DestinationOverview", () => ({
+  default: ({ destination }: any) => (
+    <section data-testid="destination-overview">
+      <h1>{destination.name}</h1>
+      <p>{destination.description}</p>
+      <div>Tags: {destination.tags?.join(', ')}</div>
+    </section>
+  )
+}));
+
+vi.mock('react-player', () => ({
+  default: ({ url }: any) => (
+    <div data-testid="mock-video-player">
+      Playing video: {url}
+    </div>
+  )
+}));
+
+vi.mock("src/pages/Destination/Components/DestinationVideo", () => ({
+  default: ({ videoCode }: any) => (
+    <div data-testid="mock-video">
+      Video code: {videoCode}
+    </div>
+  )
+}));
+
+vi.mock("src/components/Carousel/Carousel", () => ({
+  default: ({ children, autoPlay, autoplayDelay, ...props }: any) => (
+    <div {...props}>{children}</div>
+  )
+}));

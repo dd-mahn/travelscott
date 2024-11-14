@@ -67,18 +67,27 @@ const Discover: React.FC = () => {
   }, [countries, dispatch]);
 
   // Handle render
-  if (countryLoading || allDestinationLoading) {
-    return <Loading />;
-  }
+  if (!countries.length || !allDestinations.length) {
+    if (countryLoading || allDestinationLoading) {
+      return <Loading data-testid="loading"/>;
+    }
 
-  if (countryError || allDestinationError || !countries || !allDestinations) {
-    return <NotFoundPage />;
+    if (countryError || allDestinationError) {
+      return <NotFoundPage />;
+    }
+
+    return <Loading data-testid="loading"/>;
   }
 
   return (
     <main className="discover">
       {/* POSTER SECTION */}
-      <DiscoverPoster featuredDestinations={featuredDestinations || getFeaturedDestinations(allDestinations)} />
+      <DiscoverPoster 
+        featuredDestinations={
+          featuredDestinations || 
+          (allDestinationData?.result ? getFeaturedDestinations(allDestinationData.result) : [])
+        } 
+      />
 
       {/* COUNTRY SECTION */}
       <DiscoverCountries />

@@ -16,7 +16,7 @@ import {
   ErrorState,
   LoadingState,
   NotFoundState,
-} from "src/common/Catalog/CatalogStates";
+} from "src/common/Catalogs/CatalogStates";
 
 // Framer motion variants
 const variants = {

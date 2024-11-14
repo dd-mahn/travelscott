@@ -6,18 +6,26 @@ interface ThemeState {
   isDarkMode: boolean;
 }
 
-// Function to get the initial state from localStorage
+// Modify the getInitialState function to be more explicit
 const getInitialState = (): ThemeState => {
-  const storedDarkMode = localStorage.getItem('isDarkMode');
-  return {
-    isDarkMode: storedDarkMode ? JSON.parse(storedDarkMode) : false,
-  };
+  try {
+    const storedDarkMode = localStorage.getItem('isDarkMode');
+    const isDarkMode = storedDarkMode !== null ? JSON.parse(storedDarkMode) : false;
+    return {
+      isDarkMode: isDarkMode
+    };
+  } catch (error) {
+    console.error('Error parsing isDarkMode from localStorage:', error);
+    return {
+      isDarkMode: false
+    };
+  }
 };
 
-// Create a slice for theme with initial state and reducers
+// Modify the slice creation to use a function for initialState
 const themeSlice = createSlice({
   name: 'theme',
-  initialState: getInitialState(),
+  initialState: getInitialState,  // Pass the function reference instead of calling it
   reducers: {
     // Toggle dark mode and save the new state to localStorage
     toggleDarkMode(state) {

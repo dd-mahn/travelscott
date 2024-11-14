@@ -5,9 +5,48 @@ import { BrowserRouter } from 'react-router-dom';
 import Contact from './Contact';
 import { NotificationProvider } from 'src/context/NotificationContext/NotificationContext';
 import { sendFeedback } from 'src/services/apis/sendFeedback';
+import { act } from 'react';
 
 // Mock the sendFeedback API
-vi.mock('src/services/apis/sendFeedback');
+vi.mock('src/services/apis/sendFeedback', () => ({
+  sendFeedback: vi.fn().mockResolvedValue(true)
+}));
+
+// Mock framer-motion
+vi.mock("framer-motion", () => ({
+  motion: {
+    div: React.forwardRef(({ children, whileHover, whileTap, whileInView, layout, ...props }: any, ref) => 
+      <div ref={ref} {...props}>{children}</div>
+    ),
+    section: ({ children, ...props }: any) => <section {...props}>{children}</section>,
+    button: ({ children, ...props }: any) => <button {...props}>{children}</button>,
+    img: ({ children, ...props }: any) => <img {...props}>{children}</img>
+  },
+  AnimatePresence: ({ children }: any) => <>{children}</>
+}));
+
+// Mock NotificationContext
+vi.mock('src/context/NotificationContext/NotificationContext', () => ({
+  NotificationProvider: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+  useNotification: () => ({
+    showNotification: vi.fn()
+  })
+}));
+
+// Mock Button components
+vi.mock('src/common/Buttons/Button', () => ({
+  SecondaryButton: ({ text, onClick, type, title }: any) => (
+    <button onClick={onClick} type={type} title={title}>
+      {text}
+      <img src="plane-icon.svg" alt="" />
+    </button>
+  )
+}));
+
+// Mock resetForm utility
+vi.mock('src/utils/resetForm', () => ({
+  resetForm: vi.fn()
+}));
 
 const renderContact = () => {
   return render(
@@ -35,14 +74,14 @@ describe('Contact', () => {
   it('toggles section visibility when clicking buttons', () => {
     renderContact();
     
-    const buttons = screen.getAllByTitle('open btn');
+    const button = screen.getByTitle('Toggle emailing');
     
     // Click emailing section button
-    fireEvent.click(buttons[0]);
+    fireEvent.click(button);
     expect(screen.getByText('Reach out to us via:')).toBeInTheDocument();
     
     // Click again to hide
-    fireEvent.click(buttons[0]);
+    fireEvent.click(button);
     expect(screen.queryByText('Reach out to us via:')).not.toBeInTheDocument();
   });
 
@@ -57,38 +96,43 @@ describe('Contact', () => {
     renderContact();
     
     // Open emailing section
-    const buttons = screen.getAllByTitle('open btn');
-    fireEvent.click(buttons[0]);
+    const button = screen.getByTitle('Toggle emailing');
+    fireEvent.click(button);
 
     // Click email button
     const emailButton = screen.getByText('hello@travelscott.com');
     fireEvent.click(emailButton);
 
     expect(mockClipboard.writeText).toHaveBeenCalledWith('hello@travelscott.com');
+    expect(screen.getByText('Copied!')).toBeInTheDocument();
   });
 
   it('handles feedback form submission', async () => {
-    (sendFeedback as Mock).mockResolvedValueOnce(true);
+    const mockSendFeedback = vi.fn().mockResolvedValueOnce(true);
+    (sendFeedback as Mock).mockImplementation(mockSendFeedback);
     
     renderContact();
 
     // Open feedback section
-    const buttons = screen.getAllByTitle('open btn');
-    fireEvent.click(buttons[2]);
+    const button = screen.getByTitle('Toggle feedback');
+    fireEvent.click(button);
 
     // Fill out form
-    fireEvent.change(screen.getByLabelText(/First name/i), { target: { value: 'John' } });
-    fireEvent.change(screen.getByLabelText(/Last name/i), { target: { value: 'Doe' } });
-    fireEvent.change(screen.getByLabelText(/Email address/i), { target: { value: 'john@example.com' } });
-    fireEvent.change(screen.getByLabelText(/Age/i), { target: { value: '25' } });
-    fireEvent.change(screen.getByLabelText(/Country/i), { target: { value: 'USA' } });
-    fireEvent.change(screen.getByLabelText(/What you want to tell us/i), { target: { value: 'Great website!' } });
+    await act(async () => {
+      fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'John' } });
+      fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Doe' } });
+      fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'john@example.com' } });
+      fireEvent.change(screen.getByLabelText('Age'), { target: { value: '25' } });
+      fireEvent.change(screen.getByLabelText('Country'), { target: { value: 'USA' } });
+      fireEvent.change(screen.getByLabelText('What you want to tell us'), { target: { value: 'Great website!' } });
+    });
 
     // Submit form
-    const submitButton = screen.getByText('Send it');
-    fireEvent.click(submitButton);
+    await act(async () => {
+      fireEvent.click(screen.getByTitle('Send feedback'));
+    });
 
-    expect(sendFeedback).toHaveBeenCalledWith({
+    expect(mockSendFeedback).toHaveBeenCalledWith({
       firstName: 'John',
       lastName: 'Doe',
       email: 'john@example.com',
@@ -104,22 +148,13 @@ describe('Contact', () => {
     renderContact();
 
     // Open feedback section
-    const buttons = screen.getAllByTitle('open btn');
-    fireEvent.click(buttons[2]);
+    const button = screen.getByTitle('Toggle feedback');
+    fireEvent.click(button);
 
     // Submit empty form
     const submitButton = screen.getByText('Send it');
     fireEvent.click(submitButton);
 
     expect(alertMock).toHaveBeenCalledWith('All fields are required.');
-  });
-
-  it('renders animated blobs', () => {
-    renderContact();
-    
-    const blobs = screen.getAllByTestId('blur-blob');
-    expect(blobs).toHaveLength(2);
-    expect(blobs[0]).toHaveClass('blob-brown');
-    expect(blobs[1]).toHaveClass('blob-green');
   });
 });

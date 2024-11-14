@@ -5,7 +5,7 @@ import { useDispatch} from "react-redux";
 // Component imports
 import HorizontalScrollCarousel from "src/pages/Home/Components/FeaturedHorizontalScroller";
 import { SecondaryButton } from "src/common/Buttons/Button";
-import { ErrorState, LoadingState } from "src/common/Catalog/CatalogStates";
+import { ErrorState, LoadingState } from "src/common/Catalogs/CatalogStates";
 
 // Utility imports
 import { VisibilityVariants } from "src/utils/constants/variants";

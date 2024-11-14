@@ -61,7 +61,7 @@ const whoImages = [who1, who2, who3, who4, who5, who6, who7, who8];
 // Main component
 const AboutWho = () => {
   return (
-    <section className="who px-sect sticky top-0 z-20 overflow-hidden rounded-5xl bg-background-dark-transparent pb-64 pt-32 shadow-section dark:bg-background-dark-transparent lg:pb-sect-default lg:pt-40 2xl:py-sect-default">
+    <section data-testid="about-who" className="who px-sect sticky top-0 z-20 overflow-hidden rounded-5xl bg-background-dark-transparent pb-64 pt-32 shadow-section dark:bg-background-dark-transparent lg:pb-sect-default lg:pt-40 2xl:py-sect-default">
       <div className="relative flex flex-col">
         {/* Animated blobs */}
         <motion.div

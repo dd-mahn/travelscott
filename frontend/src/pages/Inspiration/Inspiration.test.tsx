@@ -30,11 +30,65 @@ const mockBlogsData = {
   ]
 };
 
+vi.mock("src/pages/404/404", () => ({
+  default: () => <div>The page you are looking for might have been removed</div>
+}));
+
+vi.mock("src/pages/Inspiration/Components/InspirationHero", () => ({
+  default: ({ currentCategory }: any) => (
+    <div data-testid="inspiration-hero">Hero for {currentCategory}</div>
+  )
+}));
+
+vi.mock("src/pages/Inspiration/Components/InspirationHeading", () => ({
+  default: ({ currentCategory }: any) => (
+    <div data-testid="inspiration-heading">Heading for {currentCategory}</div>
+  )
+}));
+
+vi.mock("src/pages/Inspiration/Components/InspirationButtons", () => ({
+  default: () => <div data-testid="inspiration-buttons">Category buttons</div>
+}));
+
+vi.mock("src/pages/Inspiration/Components/InspirationCatalog", () => ({
+  default: ({ currentCategory }: any) => (
+    <div data-testid="inspiration-catalog">Catalog for {currentCategory}</div>
+  )
+}));
+
+vi.mock("src/common/FeaturedBlogsSlider/FeaturedBlogs", () => ({
+  default: ({ blogs }: any) => (
+    <div data-testid="featured-blogs">
+      {blogs.map((blog: any) => (
+        <div key={blog.id}>{blog.title}</div>
+      ))}
+    </div>
+  )
+}));
+
+vi.mock('framer-motion', () => ({
+  motion: {
+    main: ({ children, whileHover, whileTap, whileInView, ...props }: any) => 
+      <main {...props}>{children}</main>,
+    div: ({ children, whileHover, whileTap, whileInView, ...props }: any) => 
+      <div {...props}>{children}</div>,
+    button: ({ children, whileHover, whileTap, whileInView, ...props }: any) => 
+      <button {...props}>{children}</button>,
+    section: ({ children, whileHover, whileTap, whileInView, ...props }: any) => 
+      <section {...props}>{children}</section>
+  },
+  AnimatePresence: ({ children }: any) => <>{children}</>,
+  useScroll: () => ({ scrollYProgress: { current: 0 } }),
+  useTransform: () => 1,
+  useSpring: () => ({ current: 1 })
+}));
+
 const renderInspiration = () => {
   const store = configureStore({
     reducer: {
       blog: blogReducer as any,
-      inspiration: inspirationReducer as any                                                                
+      inspiration: inspirationReducer as any,
+      theme: (state = { isDarkMode: false }) => state
     },
     preloadedState: {
       inspiration: {
@@ -42,6 +96,9 @@ const renderInspiration = () => {
       },
       blog: {
         featuredBlogs: []
+      },
+      theme: {
+        isDarkMode: false
       }
     }
   });

@@ -11,7 +11,7 @@ import {
   ErrorState,
   LoadingState,
   NotFoundState,
-} from "src/common/Catalog/CatalogStates";
+} from "src/common/Catalogs/CatalogStates";
 import Destination from "src/types/Destination";
 
 // Define animation variants

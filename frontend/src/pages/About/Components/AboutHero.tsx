@@ -106,7 +106,7 @@ const AboutHero = () => {
   const opacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   return (
-    <section className="hero px-sect relative flex flex-col items-center gap-3 md:gap-4 lg:gap-6 lg:py-10 2xl:gap-12 2xl:py-sect-short">
+    <section data-testid="about-hero" className="hero px-sect relative flex flex-col items-center gap-3 md:gap-4 lg:gap-6 lg:py-10 2xl:gap-12 2xl:py-sect-short">
       {/* Background blobs */}
       <motion.div
         initial="hidden"

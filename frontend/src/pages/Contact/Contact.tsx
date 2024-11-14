@@ -62,32 +62,26 @@ const Contact: React.FC = () => {
       country.value === "" ||
       message.value === ""
     ) {
-      setFormValid(false);
       alert("All fields are required.");
       return;
-    } else {
-      setFormValid(true);
     }
 
-    // Send feedback if form is valid
-    if (formValid) {
-      const feedbackData = {
-        firstName: firstName.value,
-        lastName: lastName.value,
-        email: email.value,
-        age: age.value,
-        country: country.value,
-        message: message.value,
-      };
+    const feedbackData = {
+      firstName: firstName.value,
+      lastName: lastName.value,
+      email: email.value,
+      age: age.value,
+      country: country.value,
+      message: message.value,
+    };
 
-      const success = await sendFeedback(feedbackData);
+    const success = await sendFeedback(feedbackData);
 
-      if (success) {
-        resetForm();
-        showNotification("Feedback sent successfully!");
-      } else {
-        showNotification("Failed to send feedback. Please try again later.");
-      }
+    if (success) {
+      resetForm();
+      showNotification("Feedback sent successfully!");
+    } else {
+      showNotification("Failed to send feedback. Please try again later.");
     }
   };
 
@@ -125,7 +119,7 @@ const Contact: React.FC = () => {
             animate={visibleSection === "emailing" ? "rotate" : ""}
             variants={variants}
             className={`rounded-full border px-1 md:h-16 md:w-16 lg:h-20 lg:w-20 xl:h-24 xl:w-24 2xl:h-28 2xl:w-28 3xl:h-28 3xl:w-28`}
-            title="open btn"
+            title="Toggle emailing"
             onClick={() => {
               toggleInfo("emailing");
             }}
@@ -223,7 +217,7 @@ const Contact: React.FC = () => {
             transition={{ duration: 0.4 }}
             animate={visibleSection === "contribute" ? "rotate" : ""}
             className={`rounded-full border px-1 md:h-16 md:w-16 lg:h-20 lg:w-20 xl:h-24 xl:w-24 2xl:h-28 2xl:w-28 3xl:h-28 3xl:w-28`}
-            title="open btn"
+            title="Toggle contribute"
             onClick={() => {
               toggleInfo("contribute");
             }}
@@ -276,7 +270,7 @@ const Contact: React.FC = () => {
             transition={{ duration: 0.4 }}
             animate={visibleSection === "feedback" ? "rotate" : ""}
             className={`rounded-full border px-1 md:h-16 md:w-16 lg:h-20 lg:w-20 xl:h-24 xl:w-24 2xl:h-28 2xl:w-28 3xl:h-28 3xl:w-28`}
-            title="open btn"
+            title="Toggle feedback"
             onClick={() => {
               toggleInfo("feedback");
             }}
@@ -330,6 +324,7 @@ const Contact: React.FC = () => {
                     onClick={handleFeedbackSend}
                     text="Send it"
                     type="button"
+                    title="Send feedback"
                   ></SecondaryButton>
                 </form>
               </motion.div>

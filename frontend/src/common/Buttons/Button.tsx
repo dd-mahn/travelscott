@@ -11,6 +11,7 @@ interface ButtonProps {
   onClick?: () => void;
   link?: string;
   type?: "button" | "submit" | "reset";
+  title?: string;
 }
 
 // PrimaryButton component
@@ -19,6 +20,7 @@ export const PrimaryButton: React.FC<ButtonProps> = ({
   onClick,
   link,
   type,
+  title,
 }) => {
   const buttonContent = (
     <motion.button
@@ -28,6 +30,7 @@ export const PrimaryButton: React.FC<ButtonProps> = ({
       className="btn btn-primary z-20"
       type={type}
       onClick={onClick}
+      title={title}
     >
       {text}
     </motion.button>
@@ -48,6 +51,7 @@ export const SecondaryButton: React.FC<ButtonProps> = ({
   onClick,
   link,
   type,
+  title,
 }) => {
   const buttonContent = (
     <motion.button
@@ -55,6 +59,7 @@ export const SecondaryButton: React.FC<ButtonProps> = ({
       whileTap="buttonTap"
       variants={ButtonVariants}
       className="btn btn-secondary z-20"
+      title={title}
       type={type}
       onClick={onClick}
     >
@@ -84,6 +89,7 @@ export const NoirButton: React.FC<ButtonProps> = ({
   onClick,
   link,
   type,
+  title,
 }) => {
   const buttonContent = (
     <motion.button
@@ -93,6 +99,7 @@ export const NoirButton: React.FC<ButtonProps> = ({
       className="btn z-20 bg-background-dark uppercase text-text-dark"
       type={type}
       onClick={onClick}
+      title={title}
     >
       {text}
     </motion.button>

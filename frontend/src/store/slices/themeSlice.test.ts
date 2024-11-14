@@ -49,8 +49,27 @@ describe("Theme Slice", () => {
   });
 
   it("should load initial state from localStorage", () => {
-    localStorageMock.getItem.mockReturnValue("true");
-    const state = reducer(undefined, { type: "" });
+    // Test when dark mode is true in localStorage
+    const mockValue = JSON.stringify(true);
+    console.log('Setting mock localStorage value:', mockValue);
+    localStorageMock.getItem.mockReturnValue(mockValue);
+    
+    let state = reducer(undefined, { type: "" });
+    console.log('Resulting state:', state);
+    
     expect(state.isDarkMode).toBe(true);
+    expect(localStorageMock.getItem).toHaveBeenCalledWith("isDarkMode");
+
+    // Test when dark mode is false in localStorage
+    localStorageMock.getItem.mockReturnValue(JSON.stringify(false));
+    state = reducer(undefined, { type: "" });
+    expect(state.isDarkMode).toBe(false);
+    expect(localStorageMock.getItem).toHaveBeenCalledWith("isDarkMode");
+
+    // Test when localStorage is empty/null
+    localStorageMock.getItem.mockReturnValue(null);
+    state = reducer(undefined, { type: "" });
+    expect(state.isDarkMode).toBe(false);
+    expect(localStorageMock.getItem).toHaveBeenCalledWith("isDarkMode");
   });
 });

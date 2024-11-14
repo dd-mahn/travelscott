@@ -26,7 +26,7 @@ import React from "react";
 // };
 
 const Loading: React.FC = () => {
-  return <div className="h-screen w-screen bg-transparent"></div>;
+  return <div data-testid="loading" className="h-screen w-screen bg-transparent"></div>;
 };
 
 export default Loading;

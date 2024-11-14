@@ -20,7 +20,7 @@ const AboutWhy = () => {
   const viewportWidth = useViewportWidth();
 
   return (
-    <section className="why px-sect relative flex h-[50svh] flex-col items-center mb-32 mt-40 gap-24 lg:mb-32 lg:mt-20 lg:gap-48 2xl:mt-24 2xl:mb-40 2xl:gap-64">
+    <section data-testid="about-why" className="why px-sect relative flex h-[50svh] flex-col items-center mb-32 mt-40 gap-24 lg:mb-32 lg:mt-20 lg:gap-48 2xl:mt-24 2xl:mb-40 2xl:gap-64">
       {/* Airplane images */}
       <img src={airplane1} alt="Airplane 1" className="plane-1 absolute" />
       <img src={airplane2} alt="Airplane 2" className="plane-2 absolute" />

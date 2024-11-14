@@ -18,7 +18,6 @@
     "test-common": "vitest run src/common",
     "test-config": "vitest run src/config",
     "test-apis": "vitest run src/services/apis",
-
     "test:ui": "vitest --ui",
     "test:coverage": "vitest run --coverage",
     "test:watch": "vitest watch"

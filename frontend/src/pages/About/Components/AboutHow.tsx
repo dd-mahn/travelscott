@@ -83,7 +83,7 @@ const Section: React.FC<SectionProps> = React.memo(({ title, subtitle, number, d
 
 const AboutHow = () => {
   return (
-    <section className="how relative">
+    <section data-testid="about-how" className="how relative">
       <Section
         title="Optimal"
         subtitle="Information"

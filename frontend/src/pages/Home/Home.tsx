@@ -29,11 +29,11 @@ const Home: React.FC = () => {
   const dispatch = useDispatch();
 
   // Selector to get home blogs from the Redux store
-  const selectHomeState = useCallback(
+  const selectHomeState = useMemo(() => 
     (state: RootState) => ({
       blogs: state.blog.homeBlogs,
     }),
-    [],
+    []
   );
   const { blogs } = useSelector(selectHomeState);
 
