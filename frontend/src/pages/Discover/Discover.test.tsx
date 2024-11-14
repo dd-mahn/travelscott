@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import { BrowserRouter } from 'react-router-dom';
-import Discover from './Discover';
+import Discover from 'src/pages/Discover/Discover';
 import useFetch from 'src/hooks/useFetch/useFetch';
 import countryReducer from 'src/store/slices/countrySlice';
 import destinationReducer from 'src/store/slices/destinationSlice';
@@ -24,15 +24,15 @@ vi.mock("@material-tailwind/react", () => ({
   Option: ({ children, ...props }: any) => <div data-testid="mock-option" {...props}>{children}</div>
 }));
 
-vi.mock("src/pages/Discover/Components/DiscoverDestinations", () => ({
+vi.mock("src/pages/Discover/Components/DiscoverDestinations/DiscoverDestinations", () => ({
   default: () => <div data-testid="mock-destinations">Discover destinations</div>
 }));
 
-vi.mock("src/pages/Discover/Components/DiscoverCountries", () => ({
+vi.mock("src/pages/Discover/Components/DiscoverCountries/DiscoverCountries", () => ({
   default: () => <div data-testid="mock-countries">Discover countries</div>
 }));
 
-vi.mock("src/pages/Discover/Components/DiscoverPoster", () => ({
+vi.mock("src/pages/Discover/Components/DiscoverPoster/DiscoverPoster", () => ({
   default: ({ featuredDestinations }: any) => (
     <div data-testid="mock-poster">
       {featuredDestinations.map((dest: any) => (

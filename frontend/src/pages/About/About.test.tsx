@@ -1,7 +1,7 @@
 import React from 'react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import About from './About';
+import About from 'src/pages/About/About';
 import useStackedSections from 'src/hooks/useStackedSections/useStackedSections';
 import { useSectionTransition, useSectionTransition2 } from 'src/hooks/useSectionTransition/useSectionTransition';
 

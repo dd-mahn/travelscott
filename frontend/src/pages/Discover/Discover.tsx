@@ -10,10 +10,10 @@ import {
 import { FetchCountriesType, FetchDestinationType } from "src/types/FetchData";
 import NotFoundPage from "src/pages/404/404";
 import Loading from "src/common/Loading/Loading";
-import DiscoverDestinations from "src/pages/Discover/Components/DiscoverDestinations";
-import DiscoverCountries from "src/pages/Discover/Components/DiscoverCountries";
+import DiscoverDestinations from "src/pages/Discover/Components/DiscoverDestinations/DiscoverDestinations";
+import DiscoverCountries from "src/pages/Discover/Components/DiscoverCountries/DiscoverCountries";
 import useFetch from "src/hooks/useFetch/useFetch";
-import DiscoverPoster from "src/pages/Discover/Components/DiscoverPoster";
+import DiscoverPoster from "src/pages/Discover/Components/DiscoverPoster/DiscoverPoster";
 import { setCountries } from "src/store/slices/countrySlice";
 import { setAllDestinations, setFeaturedDestinations } from "src/store/slices/destinationSlice";
 import { setContinents } from "src/store/slices/continentSlice";

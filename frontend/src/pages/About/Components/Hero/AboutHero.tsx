@@ -192,6 +192,7 @@ const AboutHero = () => {
       >
         <motion.video
           ref={aboutVideoRef}
+          data-testid="about-hero-video"
           src={heroVideo}
           style={{ scale }}
           autoPlay
