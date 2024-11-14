@@ -31,8 +31,7 @@ describe('NotificationContext', () => {
     expect(screen.getByText('Test Child')).toBeInTheDocument();
   });
 
-  it('shows and hides notification with correct message', () => {
-    // Create a test component that uses the notification context
+  it('shows and hides notification with correct message', async () => {
     const TestComponent = () => {
       const { showNotification } = useNotification();
       return (
@@ -48,8 +47,10 @@ describe('NotificationContext', () => {
       </NotificationProvider>
     );
 
-    // Click button to show notification
-    screen.getByText('Show Notification').click();
+    // Wrap the click event in act
+    await act(async () => {
+      screen.getByText('Show Notification').click();
+    });
 
     // Check if notification is visible with correct message
     const notification = screen.getByTestId('notification');
@@ -57,7 +58,7 @@ describe('NotificationContext', () => {
     expect(notification).toHaveAttribute('data-visible', 'true');
 
     // Fast-forward time to check if notification hides
-    act(() => {
+    await act(async () => {
       vi.advanceTimersByTime(3000);
     });
 
