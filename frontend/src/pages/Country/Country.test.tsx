@@ -33,7 +33,7 @@ vi.mock("@material-tailwind/react", () => ({
 }));
 
 // Mock Country components
-vi.mock("src/pages/Country/Components/CountryGuide", () => ({
+vi.mock("src/pages/Country/Components/Guide/CountryGuide", () => ({
   default: ({ country }: any) => (
     <div data-testid="country-guide">
       <h2>When to visit?</h2>
@@ -46,7 +46,7 @@ vi.mock("src/pages/Country/Components/CountryGuide", () => ({
   )
 }));
 
-vi.mock("src/pages/Country/Components/CountryArticles", () => ({
+vi.mock("src/pages/Country/Components/Articles/CountryArticles", () => ({
   default: ({ country }: any) => (
     <section data-testid="country-articles">
       <h1>Latest articles in {country.name}</h1>
@@ -55,7 +55,7 @@ vi.mock("src/pages/Country/Components/CountryArticles", () => ({
   )
 }));
 
-vi.mock("src/pages/Country/Components/CountryDestinations", () => ({
+vi.mock("src/pages/Country/Components/Destinations/CountryDestinations", () => ({
   default: ({ country }: any) => (
     <section data-testid="country-destinations">
       <h1>{country.name}'s destinations</h1>
@@ -64,7 +64,7 @@ vi.mock("src/pages/Country/Components/CountryDestinations", () => ({
   )
 }));
 
-vi.mock("src/pages/Country/Components/CountryOverview", () => ({
+vi.mock("src/pages/Country/Components/Overview/CountryOverview", () => ({
   default: ({ country }: any) => (
     <section data-testid="country-overview">
       {country.description.map((desc: string, index: number) => (

@@ -12,9 +12,9 @@ import FeaturedBlogs from "src/common/FeaturedBlogsSlider/FeaturedBlogs";
 import NotFoundPage from "src/pages/404/404";
 import Loading from "src/common/Loading/Loading";
 import InspirationCatalog from "src/pages/Inspiration/Components/InspirationCatalog";
-import InspirationHero from "src/pages/Inspiration/Components/InspirationHero";
-import InspirationButtons from "src/pages/Inspiration/Components/InspirationButtons";
-import InspirationHeading from "src/pages/Inspiration/Components/InspirationHeading";
+import InspirationHero from "src/pages/Inspiration/Components/Hero/InspirationHero";
+import InspirationButtons from "src/pages/Inspiration/Components/Buttons/InspirationButtons";
+import InspirationHeading from "src/pages/Inspiration/Components/Heading/InspirationHeading";
 
 // Framer motion variants
 const variants = {

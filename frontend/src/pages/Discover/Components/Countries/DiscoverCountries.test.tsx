@@ -3,7 +3,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import React from "react";
-import DiscoverCountries from "src/pages/Discover/Components/DiscoverCountries/DiscoverCountries";
+import DiscoverCountries from "src/pages/Discover/Components/Countries/DiscoverCountries";
 
 // Mock components and modules
 vi.mock("framer-motion", () => ({

@@ -1,6 +1,6 @@
 import React from 'react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
@@ -30,10 +30,39 @@ const mockDestinationData = {
   },
   transportation: {
     title: 'Test Transportation',
-    options: []
+    options: [
+      {
+        type: 'Bus',
+        description: 'Test bus description'
+      },
+      {
+        type: 'Train', 
+        description: 'Test train description'
+      }
+    ]
   },
-  places: [],
-  summary: 'Test Summary'
+  places: [
+    {
+      name: 'Test Place 1',
+      description: 'Test place 1 description',
+      images: ['image1.jpg']
+    },
+    {
+      name: 'Test Place 2', 
+      description: 'Test place 2 description',
+      images: ['image2.jpg']
+    }
+  ],
+  summary: 'Test Summary',
+  images: ['main1.jpg', 'main2.jpg'],
+  rating: 4.5,
+  reviews: 120,
+  relatedDestinations: [
+    {
+      id: '2',
+      name: 'Related Destination 1'
+    }
+  ]
 };
 
 // Create a mock store
@@ -45,17 +74,20 @@ const createMockStore = () => configureStore({
 
 const renderDestination = () => {
   const store = createMockStore();
-  return render(
-    <Provider store={store}>
-      <ThemeProvider>
-        <MemoryRouter initialEntries={['/destination/1']}>
-          <Routes>
-            <Route path="/destination/:id" element={<DestinationPage />} />
-          </Routes>
-        </MemoryRouter>
-      </ThemeProvider>
-    </Provider>
-  );
+  return {
+    store,
+    ...render(
+      <Provider store={store}>
+        <ThemeProvider>
+          <MemoryRouter initialEntries={['/destination/1']}>
+            <Routes>
+              <Route path="/destination/:id" element={<DestinationPage />} />
+            </Routes>
+          </MemoryRouter>
+        </ThemeProvider>
+      </Provider>
+    )
+  };
 };
 
 describe('DestinationPage', () => {
@@ -89,53 +121,120 @@ describe('DestinationPage', () => {
     expect(screen.getByText(/the page you are looking for/i)).toBeInTheDocument();
   });
 
-  it('renders destination content when data is loaded', () => {
-    (useFetch as any).mockReturnValue({
-      data: mockDestinationData,
-      loading: false,
-      error: null
+  describe('Hero Section', () => {
+    beforeEach(() => {
+      (useFetch as any).mockReturnValue({
+        data: mockDestinationData,
+        loading: false,
+        error: null
+      });
     });
 
-    renderDestination();
+    it('displays destination name and rating', () => {
+      renderDestination();
+      expect(screen.getByText(mockDestinationData.name)).toBeInTheDocument();
+      expect(screen.getByText(mockDestinationData.rating.toString())).toBeInTheDocument();
+      expect(screen.getByText(`${mockDestinationData.reviews} reviews`)).toBeInTheDocument();
+    });
 
-    // Check if main destination sections are rendered
-    expect(screen.getByRole('main')).toHaveClass('destination');
-    expect(screen.getByText('When to visit?')).toBeInTheDocument();
-    expect(screen.getByText('Who to go with?')).toBeInTheDocument();
-    expect(screen.getByText('What to expect?')).toBeInTheDocument();
-    expect(screen.getByText('Health and safety')).toBeInTheDocument();
-    expect(screen.getByText('More destinations')).toBeInTheDocument();
+    it('renders hero images correctly', () => {
+      renderDestination();
+      const images = screen.getAllByTestId('optimized-image');
+      expect(images.length).toBeGreaterThan(0);
+    });
   });
 
-  it('initializes with correct hooks and store', () => {
-    (useFetch as any).mockReturnValue({
-      data: mockDestinationData,
-      loading: false,
-      error: null
+  describe('Transportation Section', () => {
+    beforeEach(() => {
+      (useFetch as any).mockReturnValue({
+        data: mockDestinationData,
+        loading: false,
+        error: null
+      });
     });
 
-    renderDestination();
-
-    expect(useFetch).toHaveBeenCalled();
-    expect(useStackedSections).toHaveBeenCalled();
+    it('displays all transportation options', () => {
+      renderDestination();
+      mockDestinationData.transportation.options.forEach(option => {
+        expect(screen.getByText(option.type)).toBeInTheDocument();
+        expect(screen.getByText(option.description)).toBeInTheDocument();
+      });
+    });
   });
 
-  it('renders additional info section correctly', () => {
-    (useFetch as any).mockReturnValue({
-      data: mockDestinationData,
-      loading: false,
-      error: null
+  describe('Places Section', () => {
+    beforeEach(() => {
+      (useFetch as any).mockReturnValue({
+        data: mockDestinationData,
+        loading: false,
+        error: null
+      });
     });
 
-    renderDestination();
+    it('renders all destination places', () => {
+      renderDestination();
+      mockDestinationData.places.forEach(place => {
+        expect(screen.getByText(place.name)).toBeInTheDocument();
+        expect(screen.getByText(place.description)).toBeInTheDocument();
+      });
+    });
+  });
 
-    expect(screen.getByText(mockDestinationData.additionalInfo.whenToVisit)).toBeInTheDocument();
-    expect(screen.getByText(mockDestinationData.additionalInfo.whoToGoWith)).toBeInTheDocument();
-    expect(screen.getByText(mockDestinationData.additionalInfo.whatToExpect)).toBeInTheDocument();
-    expect(screen.getByText(mockDestinationData.additionalInfo.healthAndSafety)).toBeInTheDocument();
+  describe('Redux Integration', () => {
+    it('updates store with destination data', async () => {
+      (useFetch as any).mockReturnValue({
+        data: mockDestinationData,
+        loading: false,
+        error: null
+      });
+
+      const { store } = renderDestination();
+
+      await waitFor(() => {
+        const state = store.getState().destination;
+        expect(state.currentDestination).toEqual(mockDestinationData);
+        expect(state.loading).toBe(false);
+        expect(state.error).toBe(null);
+      });
+    });
+
+    it('handles error state in store', async () => {
+      const error = 'Failed to fetch destination';
+      (useFetch as any).mockReturnValue({
+        data: null,
+        loading: false,
+        error
+      });
+
+      const { store } = renderDestination();
+
+      await waitFor(() => {
+        const state = store.getState().destination;
+        expect(state.error).toBe(error);
+      });
+    });
+  });
+
+  describe('Related Destinations Section', () => {
+    beforeEach(() => {
+      (useFetch as any).mockReturnValue({
+        data: mockDestinationData,
+        loading: false,
+        error: null
+      });
+    });
+
+    it('renders related destinations correctly', () => {
+      renderDestination();
+      expect(screen.getByText('More destinations')).toBeInTheDocument();
+      mockDestinationData.relatedDestinations.forEach(destination => {
+        expect(screen.getByText(destination.name)).toBeInTheDocument();
+      });
+    });
   });
 });
 
+// Mocks
 vi.mock("@material-tailwind/react", () => ({
   ThemeProvider: ({ children }: { children: React.ReactNode }) => <>{children}</>,
   Carousel: ({ children, ...props }: any) => (
@@ -146,7 +245,7 @@ vi.mock("@material-tailwind/react", () => ({
   )
 }));
 
-vi.mock("src/pages/Destination/Components/DestinationOverview", () => ({
+vi.mock("src/pages/Destination/Components/Overview/DestinationOverview", () => ({
   default: ({ destination }: any) => (
     <section data-testid="destination-overview">
       <h1>{destination.name}</h1>
@@ -164,7 +263,7 @@ vi.mock('react-player', () => ({
   )
 }));
 
-vi.mock("src/pages/Destination/Components/DestinationVideo", () => ({
+vi.mock("src/pages/Destination/Components/Video/DestinationVideo", () => ({
   default: ({ videoCode }: any) => (
     <div data-testid="mock-video">
       Video code: {videoCode}

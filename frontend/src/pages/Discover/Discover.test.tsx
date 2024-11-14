@@ -24,15 +24,15 @@ vi.mock("@material-tailwind/react", () => ({
   Option: ({ children, ...props }: any) => <div data-testid="mock-option" {...props}>{children}</div>
 }));
 
-vi.mock("src/pages/Discover/Components/DiscoverDestinations/DiscoverDestinations", () => ({
+vi.mock("src/pages/Discover/Components/Destinations/DiscoverDestinations", () => ({
   default: () => <div data-testid="mock-destinations">Discover destinations</div>
 }));
 
-vi.mock("src/pages/Discover/Components/DiscoverCountries/DiscoverCountries", () => ({
+vi.mock("src/pages/Discover/Components/Countries/DiscoverCountries", () => ({
   default: () => <div data-testid="mock-countries">Discover countries</div>
 }));
 
-vi.mock("src/pages/Discover/Components/DiscoverPoster/DiscoverPoster", () => ({
+vi.mock("src/pages/Discover/Components/Poster/DiscoverPoster", () => ({
   default: ({ featuredDestinations }: any) => (
     <div data-testid="mock-poster">
       {featuredDestinations.map((dest: any) => (

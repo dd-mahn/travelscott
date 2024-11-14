@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import React from "react";
-import DiscoverPoster from "./DiscoverPoster";
+import DiscoverPoster from "src/pages/Discover/Components/Poster/DiscoverPoster";
 
 // Mock Framer Motion
 vi.mock("framer-motion", () => ({

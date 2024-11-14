@@ -5,7 +5,7 @@ import { CatalogPagination } from "src/common/Pagination/Pagination";
 import { FetchBlogsType } from "src/types/FetchData";
 import useFetch from "src/hooks/useFetch/useFetch";
 import config from "src/config/config";
-import InspirationCard from "src/pages/Inspiration/Components/InspirationCard";
+import InspirationCard from "src/pages/Inspiration/Components/Card/InspirationCard";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "src/store/store";
 import { setInspirationCatalogBlogs } from "src/store/slices/blogSlice";

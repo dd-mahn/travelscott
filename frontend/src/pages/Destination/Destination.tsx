@@ -18,13 +18,13 @@ import useStackedSections from "src/hooks/useStackedSections/useStackedSections"
 import RelatedSections from "src/common/RelatedSections/RelatedSections";
 import NotFoundPage from "src/pages/404/404";
 import Loading from "src/common/Loading/Loading";
-import DestinationHero from "src/pages/Destination/Components/DestinationHero";
-import DestinationOverview from "src/pages/Destination/Components/DestinationOverview";
-import DestinationTransportation from "src/pages/Destination/Components/DestinationTransportation";
-import DestinationPlaces from "src/pages/Destination/Components/DestinationPlaces";
-import DestinationInsight from "src/pages/Destination/Components/DestinationInsight";
-import DestinationVideo from "src/pages/Destination/Components/DestinationVideo";
-import DestinationSummary from "src/pages/Destination/Components/DestinationSummary";
+import DestinationHero from "src/pages/Destination/Components/Hero/DestinationHero";
+import DestinationOverview from "src/pages/Destination/Components/Overview/DestinationOverview";
+import DestinationTransportation from "src/pages/Destination/Components/Transportation/DestinationTransportation";
+import DestinationPlaces from "src/pages/Destination/Components/Places/DestinationPlaces";
+import DestinationInsight from "src/pages/Destination/Components/Insight/DestinationInsight";
+import DestinationVideo from "src/pages/Destination/Components/Video/DestinationVideo";
+import DestinationSummary from "src/pages/Destination/Components/Summary/DestinationSummary";
 
 // Animation Variants
 import { VisibilityVariants } from "src/utils/constants/variants";

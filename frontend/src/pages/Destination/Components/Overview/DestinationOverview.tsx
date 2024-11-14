@@ -6,7 +6,7 @@ import {
   TapVariants,
   VisibilityVariants,
 } from "src/utils/constants/variants";
-import DestinationMenu from "src/pages/Destination/Components/DestinationMenu";
+import DestinationMenu from "src/pages/Destination/Components/Menu/DestinationMenu";
 
 // Define animation variants
 const variants = {
