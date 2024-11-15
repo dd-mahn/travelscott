@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
-import AboutWho from './AboutWho';
+import AboutWho from 'src/pages/About/Components/Who/AboutWho';
 import { people } from 'src/data/about-people';
 
 // Mock Framer Motion

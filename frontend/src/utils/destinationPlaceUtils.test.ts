@@ -3,7 +3,7 @@ import {
   getSelectedCategoryPlaces,
   getDestinationPlaceHeading,
   getPlaceCategoryChange
-} from "./destinationPlaceUtils";
+} from "src/utils/destinationPlaceUtils";
 import { destinationPlace } from "src/types/Destination";
 
 describe("Destination Place Utils", () => {

@@ -2,7 +2,7 @@ import React from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
-import SearchResult from "./SearchResult";
+import SearchResult from "src/common/SearchResult/SearchResult";
 import Country from "src/types/Country";
 import Blog from "src/types/Blog";
 import Destination from "src/types/Destination";

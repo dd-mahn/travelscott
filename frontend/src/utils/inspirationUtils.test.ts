@@ -1,8 +1,8 @@
 import { describe, it, expect, vi, afterEach, beforeEach } from "vitest";
-import { getInspirationHeading, getBackgroundKey } from "./inspirationUtils";
-import { getSeason } from "./getSeason";
+import { getInspirationHeading, getBackgroundKey } from "src/utils/inspirationUtils";
+import { getSeason } from "src/utils/getSeason";
 
-vi.mock("./getSeason");
+vi.mock("src/utils/getSeason");
 
 describe("inspirationUtils", () => {
   describe("getInspirationHeading", () => {

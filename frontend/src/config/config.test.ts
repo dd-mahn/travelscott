@@ -23,21 +23,21 @@ describe('Config', () => {
       }
     });
     
-    const { default: config } = await import('./config');
+    const { default: config } = await import('src/config/config');
     expect(config.api.baseUrl).toBe('http://localhost:4080');
     expect(config.api.version).toBe('v1');
     expect(config.app.environment).toBe('test');
   });
 
   it('uses default values when environment variables are not set', async () => {
-    const { default: config } = await import('./config');
+    const { default: config } = await import('src/config/config');
     expect(config.api.baseUrl).toBe('http://localhost:4080');
     expect(config.api.timeout).toBe(5000);
     expect(config.api.version).toBe('v1');
   });
 
   it('validates configuration schema', async () => {
-    const { default: config } = await import('./config');
+    const { default: config } = await import('src/config/config');
     expect(config).toMatchObject({
       api: {
         baseUrl: expect.any(String),
@@ -70,7 +70,7 @@ describe('Config', () => {
     });
     
     try {
-      await import('./config');
+      await import('src/config/config');
       fail('Should have thrown an error');
     } catch (error) {
       expect(error).toBeDefined();

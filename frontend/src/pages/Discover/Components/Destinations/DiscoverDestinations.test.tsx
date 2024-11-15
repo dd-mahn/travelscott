@@ -3,7 +3,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import React from "react";
-import DiscoverDestinations from "./DiscoverDestinations";
+import DiscoverDestinations from "src/pages/Discover/Components/Destinations/DiscoverDestinations";
 
 const mockDestinations = [
   {

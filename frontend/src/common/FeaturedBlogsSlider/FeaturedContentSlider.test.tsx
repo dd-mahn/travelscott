@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
-import FeaturedContentSlider from "./FeaturedContentSlider";
+import FeaturedContentSlider from "src/common/FeaturedBlogsSlider/FeaturedContentSlider";
 
 // Mock framer-motion to avoid animation issues in tests
 vi.mock("framer-motion", () => ({

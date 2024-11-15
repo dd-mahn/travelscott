@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, Mock } from 'vitest';
 import { renderHook } from '@testing-library/react';
-import { useSectionTransition, useSectionTransition2 } from './useSectionTransition';
+import { useSectionTransition, useSectionTransition2 } from 'src/hooks/useSectionTransition/useSectionTransition';
 import { useScroll, useTransform } from 'framer-motion';
 
 // Mock framer-motion hooks

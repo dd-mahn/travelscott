@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
-import FilterButton from "./FilterButton";
+import FilterButton from "src/common/Filters/FilterButton";
 
 // Mock framer-motion
 vi.mock("framer-motion", () => ({

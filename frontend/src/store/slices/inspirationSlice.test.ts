@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import reducer, { setCategory, setCategoryImage } from "./inspirationSlice";
+import reducer, { setCategory, setCategoryImage } from "src/store/slices/inspirationSlice";
 
 describe("Inspiration Slice", () => {
   it("should return the initial state", () => {

@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import blogReducer from 'src/store/slices/blogSlice';
 import inspirationReducer from 'src/store/slices/inspirationSlice';
-import Inspiration from './Inspiration';
+import Inspiration from 'src/pages/Inspiration/Inspiration';
 import useFetch from 'src/hooks/useFetch/useFetch';
 
 // Mock useFetch hook

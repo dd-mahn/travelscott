@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import type { ApiResponse } from './ApiResponse';
+import type { ApiResponse } from 'src/types/ApiResponse';
 
 describe('ApiResponse', () => {
   it('should match the expected interface structure', () => {

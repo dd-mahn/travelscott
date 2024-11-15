@@ -2,7 +2,7 @@ import React from 'react';
 import { describe, it, expect, vi, beforeEach, Mock } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import Contact from './Contact';
+import Contact from 'src/pages/Contact/Contact';
 import { NotificationProvider } from 'src/context/NotificationContext/NotificationContext';
 import { sendFeedback } from 'src/services/apis/sendFeedback';
 import { act } from 'react';

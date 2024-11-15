@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
-import useFetch from './useFetch';
+import useFetch from 'src/hooks/useFetch/useFetch';
 
 describe('useFetch', () => {
   beforeEach(() => {

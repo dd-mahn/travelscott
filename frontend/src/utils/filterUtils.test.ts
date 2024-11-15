@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { getCountryByContinent, getFeaturedDestinations } from "./filterUtils";
+import { getCountryByContinent, getFeaturedDestinations } from "src/utils/filterUtils";
 import Country from "src/types/Country";
 import Destination from "src/types/Destination";
 

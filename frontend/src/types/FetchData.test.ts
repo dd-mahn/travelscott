@@ -1,8 +1,8 @@
 import { describe, it, expect } from 'vitest';
-import type { FetchDestinationType, FetchCountriesType, FetchBlogsType } from './FetchData';
-import type Destination from './Destination';
-import type Country from './Country';
-import type Blog from './Blog';
+import type { FetchDestinationType, FetchCountriesType, FetchBlogsType } from 'src/types/FetchData';
+import type Destination from 'src/types/Destination';
+import type Country from 'src/types/Country';
+import type Blog from 'src/types/Blog';
 
 describe('FetchData Types', () => {
   it('should match FetchDestinationType structure', () => {

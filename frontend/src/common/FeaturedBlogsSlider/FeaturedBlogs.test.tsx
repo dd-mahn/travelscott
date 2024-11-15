@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { BrowserRouter } from "react-router-dom";
-import FeaturedBlogs from "./FeaturedBlogs";
+import FeaturedBlogs from "src/common/FeaturedBlogsSlider/FeaturedBlogs";
 import Blog from "src/types/Blog";
 
 // Mock OptimizedImage component

@@ -2,7 +2,7 @@ import React from "react";
 import { beforeEach, describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
-import RelatedSections from "./RelatedSections";
+import RelatedSections from "src/common/RelatedSections/RelatedSections";
 import * as useFetchHook from "src/hooks/useFetch/useFetch";
 import * as viewportHook from "src/hooks/useViewportWidth/useViewportWidth";
 import Country from "src/types/Country";

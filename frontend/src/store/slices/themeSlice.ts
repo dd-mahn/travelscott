@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../store';
+import { RootState } from 'src/store/store';
 
 // Define the shape of the theme state
 interface ThemeState {

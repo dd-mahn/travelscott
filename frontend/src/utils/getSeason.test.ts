@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, afterEach, beforeEach } from "vitest";
-import { getSeason } from "./getSeason";
+import { getSeason } from "src/utils/getSeason";
 
 describe("getSeason", () => {
   beforeEach(() => {

@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
-import AboutHero from './AboutHero';
+import AboutHero from 'src/pages/About/Components/Hero/AboutHero';
 
 // Mock ResizeObserver
 window.ResizeObserver = vi.fn().mockImplementation(() => ({

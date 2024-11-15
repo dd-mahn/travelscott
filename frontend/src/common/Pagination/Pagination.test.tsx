@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
-import { CatalogPagination, ButtonPagination, DotPagination } from "./Pagination";
+import { CatalogPagination, ButtonPagination, DotPagination } from "src/common/Pagination/Pagination";
 
 // Update the framer-motion mock
 vi.mock("framer-motion", () => ({

@@ -6,7 +6,7 @@ import reducer, {
   setDestinationSearchQuery,
   setBlogTags,
   setBlogSearchQuery,
-} from "./filterSlice";
+} from "src/store/slices/filterSlice";
 
 describe("Filter Slice", () => {
   it("should return the initial state", () => {

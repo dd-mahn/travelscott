@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import type Destination from './Destination';
+import type Destination from 'src/types/Destination';
 
 describe('Destination Type', () => {
   it('should match the expected interface structure', () => {

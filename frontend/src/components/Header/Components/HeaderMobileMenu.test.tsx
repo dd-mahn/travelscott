@@ -6,7 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import themeReducer from 'src/store/slices/themeSlice';
-import HeaderMobileMenu from "./HeaderMobileMenu";
+import HeaderMobileMenu from "src/components/Header/Components/HeaderMobileMenu";
 
 // Create a mock store
 const store = configureStore({

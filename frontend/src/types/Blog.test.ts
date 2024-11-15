@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import type Blog from './Blog';
+import type Blog from 'src/types/Blog';
 
 describe('Blog Type', () => {
   it('should match the expected interface structure', () => {

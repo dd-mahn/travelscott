@@ -1,7 +1,7 @@
 import React from 'react';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, act } from '@testing-library/react';
-import { NotificationProvider, useNotification } from './NotificationContext';
+import { NotificationProvider, useNotification } from 'src/context/NotificationContext/NotificationContext';
 
 // Mock the Notification component
 vi.mock('src/components/Notification/Notification', () => ({

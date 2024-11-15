@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { router } from './Routers';
+import { router } from 'src/router/Routers';
 import React from 'react';
 import { RouteObject } from 'react-router-dom';
 

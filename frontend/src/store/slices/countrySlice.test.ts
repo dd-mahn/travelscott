@@ -6,7 +6,7 @@ import reducer, {
   setCountryBlogs,
   setLoading,
   setError
-} from "./countrySlice";
+} from "src/store/slices/countrySlice";
 import type Country from "src/types/Country";
 import type Destination from "src/types/Destination";
 import type Blog from "src/types/Blog";

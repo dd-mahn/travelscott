@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, act } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
-import DestinationCatalog from "./DestinationCatalog";
+import DestinationCatalog from "src/common/Catalogs/DestinationCatalog";
 import Destination from "src/types/Destination";
 
 // Mock framer-motion to avoid animation issues in tests

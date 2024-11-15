@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
-import reducer, { toggleDarkMode, setDarkMode } from "./themeSlice";
+import reducer, { toggleDarkMode, setDarkMode } from "src/store/slices/themeSlice";
 
 describe("Theme Slice", () => {
   const localStorageMock = {

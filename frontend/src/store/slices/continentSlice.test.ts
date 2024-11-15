@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import reducer, { setContinents, updateContinent } from "./continentSlice";
+import reducer, { setContinents, updateContinent } from "src/store/slices/continentSlice";
 import type Country from "src/types/Country";
 
 describe("Continent Slice", () => {

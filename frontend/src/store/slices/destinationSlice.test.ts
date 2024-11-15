@@ -7,7 +7,7 @@ import reducer, {
   setTotalDestinations,
   setLoading,
   setError
-} from "./destinationSlice";
+} from "src/store/slices/destinationSlice";
 import type Destination from "src/types/Destination";
 
 describe("Destination Slice", () => {

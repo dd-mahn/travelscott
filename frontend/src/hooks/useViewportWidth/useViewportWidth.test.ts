@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, afterEach, beforeEach } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
-import { useViewportWidth } from './useViewportWidth';
+import { useViewportWidth } from 'src/hooks/useViewportWidth/useViewportWidth';
 
 describe('useViewportWidth', () => {
   beforeEach(() => {

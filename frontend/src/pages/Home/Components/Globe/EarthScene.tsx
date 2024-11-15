@@ -19,7 +19,7 @@ import { useInView, AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
 
 // Component imports
-import Earth from "src/../public/Earth";
+import Earth from "src/assets/Earth";
 import { LeftCountryCarousel, RightCountryCarousel } from "src/pages/Home/Components/Inspired/CountryCarousel";
 import { VisibilityVariants } from "src/utils/constants/variants";
 

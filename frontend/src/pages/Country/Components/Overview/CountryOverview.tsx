@@ -45,8 +45,8 @@ const InfoItem: React.FC<InfoItemProps> = ({ icon, label, value }) => (
 // CountryOverview component to display country information
 const CountryOverview: React.FC<CountryOverviewProps> = ({ country }) => {
   return (
-    <section className="brief px-sect flex flex-col md:flex-row gap-16 justify-between pb-sect-default pt-sect-short">
-      <div className="flex w-full md:w-1/2 flex-col gap-4 lg:gap-4 2xl:gap-8">
+    <section data-testid="country-overview" className="brief px-sect flex flex-col md:flex-row gap-16 justify-between pb-sect-default pt-sect-short">
+      <motion.div className="flex w-full md:w-1/2 flex-col gap-4 lg:gap-4 2xl:gap-8">
         {country.description.map((desc, index) => (
           <motion.p
             key={index}
@@ -64,7 +64,7 @@ const CountryOverview: React.FC<CountryOverviewProps> = ({ country }) => {
             {desc}
           </motion.p>
         ))}
-      </div>
+      </motion.div>
 
       <motion.div
         variants={variants}

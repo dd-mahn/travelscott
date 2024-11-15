@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { createBlogChunks } from "./createBlogChunks";
+import { createBlogChunks } from "src/utils/createBlogChunks";
 import Blog from "src/types/Blog";
 
 describe("createBlogChunks", () => {

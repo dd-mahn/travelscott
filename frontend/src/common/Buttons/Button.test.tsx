@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { BrowserRouter } from "react-router-dom";
-import { PrimaryButton, SecondaryButton, NoirButton } from "./Button";
+import { PrimaryButton, SecondaryButton, NoirButton } from "src/common/Buttons/Button";
 
 // Wrapper component for Router context
 const RouterWrapper = ({ children }: { children: React.ReactNode }) => (

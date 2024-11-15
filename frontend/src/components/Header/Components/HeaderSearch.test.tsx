@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import ReactDOM from 'react-dom';
-import HeaderSearch from './HeaderSearch';
+import HeaderSearch from 'src/components/Header/Components/HeaderSearch';
 
 // Mock ReactDOM
 vi.mock('react-dom', async (importOriginal) => {

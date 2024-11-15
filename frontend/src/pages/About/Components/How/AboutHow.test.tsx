@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
-import AboutHow from './AboutHow';
+import AboutHow from 'src/pages/About/Components/How/AboutHow';
 
 // Mock Framer Motion
 vi.mock('framer-motion', () => ({

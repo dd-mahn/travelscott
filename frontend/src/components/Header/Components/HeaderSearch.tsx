@@ -17,7 +17,7 @@ import {
 } from "src/types/FetchData";
 import config from "src/config/config";
 import SearchResult from "src/common/SearchResult/SearchResult";
-import { BorderVariants, HoverVariants, InputVariants } from "../../../utils/constants/headerVariants";
+import { BorderVariants, HoverVariants, InputVariants } from "src/utils/constants/headerVariants";
 import { useViewportWidth } from "src/hooks/useViewportWidth/useViewportWidth";
 
 const HeaderSearch: React.FC = () => {

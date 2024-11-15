@@ -1,7 +1,7 @@
 import React from "react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
-import StyledInput from "./StyledInput";
+import StyledInput from "src/common/StyledInput/StyledInput";
 
 describe("StyledInput", () => {
   const defaultProps = {

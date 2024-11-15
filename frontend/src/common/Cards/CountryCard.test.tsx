@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { BrowserRouter } from "react-router-dom";
-import CountryCard from "./CountryCard";
+import CountryCard from "src/common/Cards/CountryCard";
 import Country from "src/types/Country";
 
 // Mock OptimizedImage component

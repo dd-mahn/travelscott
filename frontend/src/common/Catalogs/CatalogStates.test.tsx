@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
-import { LoadingState, ErrorState, NotFoundState } from "./CatalogStates";
+import { LoadingState, ErrorState, NotFoundState } from "src/common/Catalogs/CatalogStates";
 
 // Mock framer-motion to avoid animation issues in tests
 vi.mock("framer-motion", () => ({

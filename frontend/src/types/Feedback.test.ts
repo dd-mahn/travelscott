@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import type { Feedback } from './Feedback';
+import type { Feedback } from 'src/types/Feedback';
 
 describe('Feedback Type', () => {
   it('should match the expected interface structure', () => {

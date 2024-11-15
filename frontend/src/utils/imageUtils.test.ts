@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { getImageSize, optimizeImage } from "./imageUtils";
+import { getImageSize, optimizeImage } from "src/utils/imageUtils";
 
 describe("imageUtils", () => {
   describe("getImageSize", () => {

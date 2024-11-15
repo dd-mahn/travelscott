@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { store } from "./store";
-import type { RootState } from "./store";
+import { store } from "src/store/store";
+import type { RootState } from "src/store/store";
 
 describe("Redux Store", () => {
   it("should initialize with all required reducers", () => {

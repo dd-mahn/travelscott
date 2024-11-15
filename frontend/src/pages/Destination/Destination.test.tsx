@@ -5,7 +5,7 @@ import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import destinationReducer from 'src/store/slices/destinationSlice';
-import DestinationPage from './Destination';
+import DestinationPage from 'src/pages/Destination/Destination';
 import useFetch from 'src/hooks/useFetch/useFetch';
 import useStackedSections from 'src/hooks/useStackedSections/useStackedSections';
 import { ThemeProvider } from '@material-tailwind/react';

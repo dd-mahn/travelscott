@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
-import AnimatedLogoScreen from "./AnimatedLogoScreen";
+import AnimatedLogoScreen from "src/common/AnimatedLogoScreen/AnimatedLogoScreen";
 
 vi.mock("src/common/StaggerLogo/StaggerLogo", () => ({
   default: function MockStaggerLogo() {

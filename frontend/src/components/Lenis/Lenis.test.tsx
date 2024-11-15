@@ -2,7 +2,7 @@ import React, { act } from 'react';
 import { describe, it, expect, vi, Mock, beforeEach, afterEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { useLocation } from 'react-router-dom';
-import LenisProvider from './Lenis';
+import LenisProvider from 'src/components/Lenis/Lenis';
 
 // Mock react-router-dom
 vi.mock('react-router-dom', () => ({

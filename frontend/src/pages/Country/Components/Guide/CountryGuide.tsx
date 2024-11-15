@@ -48,9 +48,9 @@ const CountryGuide: React.FC<CountryGuideProps> = ({ country }) => {
     >
       {/* Render guide sections */}
       {[
-        { title: "When to visit?", content: country.additionalInfo.whenToVisit?.[0], section: "whenToVisit" },
-        { title: "Transportation", content: country.additionalInfo.transportation?.[0], section: "transportation" },
-        { title: "Health & Safety", content: country.additionalInfo.healthAndSafety?.[0], section: "healthAndSafety" },
+        { title: "When to visit?", content: country.additionalInfo.whenToVisit, section: "whenToVisit" },
+        { title: "Transportation", content: country.additionalInfo.transportation, section: "transportation" },
+        { title: "Health & Safety", content: country.additionalInfo.healthAndSafety, section: "healthAndSafety" },
       ].map(({ title, content, section }) => (
         <GuideSection
           key={section}
@@ -111,7 +111,9 @@ const GuideSection: React.FC<GuideSectionProps> = ({
           transition={{ duration: 0.2, ease: "easeInOut" }}
           className="flex flex-col gap-2 overflow-hidden py-8"
         >
-          <p className="p-regular">{content}</p>
+          <p className="p-regular" data-testid={`${title.toLowerCase().replace(/\s+/g, '-')}-content`}>
+            {content}
+          </p>
         </motion.div>
       )}
     </AnimatePresence>

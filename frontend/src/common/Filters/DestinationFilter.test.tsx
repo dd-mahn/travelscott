@@ -3,7 +3,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
-import { DestinationFilter } from "./DestinationFilter";
+import { DestinationFilter } from "src/common/Filters/DestinationFilter";
 import filterReducer from "src/store/slices/filterSlice";
 import countryReducer from "src/store/slices/countrySlice";
 import continentReducer from "src/store/slices/continentSlice";

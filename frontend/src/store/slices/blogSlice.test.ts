@@ -7,7 +7,7 @@ import reducer, {
   setStarterBlogs,
   setHomeBlogs,
   setBlogChunks
-} from "./blogSlice";
+} from "src/store/slices/blogSlice";
 import type BlogType from "src/types/Blog";
 
 describe("Blog Slice", () => {

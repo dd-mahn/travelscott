@@ -3,7 +3,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
-import { CountryDestinationFilter } from "./CountryDestinationFilter";
+import { CountryDestinationFilter } from "src/common/Filters/CountryDestinationFilter";
 import filterReducer from "src/store/slices/filterSlice";
 
 // Mock framer-motion to avoid animation issues in tests

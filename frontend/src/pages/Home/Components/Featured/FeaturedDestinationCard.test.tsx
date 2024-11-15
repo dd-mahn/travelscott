@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import React from 'react';
-import FeaturedDestinationCard from './FeaturedDestinationCard';
+import FeaturedDestinationCard from 'src/pages/Home/Components/Featured/FeaturedDestinationCard';
 import Destination from 'src/types/Destination';
 
 // Mock Framer Motion

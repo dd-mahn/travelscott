@@ -1,7 +1,7 @@
 import React from 'react';
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import Notification from './Notification';
+import Notification from 'src/components/Notification/Notification';
 
 describe('Notification Component', () => {
   it('renders message when visible', () => {

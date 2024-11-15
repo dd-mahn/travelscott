@@ -6,7 +6,7 @@ import RelatedSections from "src/common/RelatedSections/RelatedSections";
 import useFetch from "src/hooks/useFetch/useFetch";
 import Blog from "src/types/Blog";
 import config from "src/config/config";
-import NotFoundPage from "../404/404";
+import NotFoundPage from "src/pages/404/404";
 import Loading from "src/common/Loading/Loading";
 import { VisibilityVariants } from "src/utils/constants/variants";
 import { formatDate } from "src/utils/formatDate";

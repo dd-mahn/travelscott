@@ -46,6 +46,7 @@ const InspirationHero = ({ currentCategory }: { currentCategory: string }) => {
 
   return (
     <motion.div
+      data-testid="hero-container"
       initial="hidden"
       animate="visible"
       transition={{ duration: 1 }}
@@ -55,6 +56,7 @@ const InspirationHero = ({ currentCategory }: { currentCategory: string }) => {
     >
       {currentCategory !== "All" && (
         <motion.div
+          data-testid="hero-overlay"
           initial="hiddenY"
           animate="visible"
           transition={{ duration: 1 }}

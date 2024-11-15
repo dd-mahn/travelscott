@@ -1,7 +1,7 @@
 import React from 'react';
 import { describe, expect, it, beforeEach, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import PrivacyPolicy from './PrivacyPolicy';
+import PrivacyPolicy from 'src/pages/PrivacyPolicy/PrivacyPolicy';
 
 describe('PrivacyPolicy', () => {
   beforeEach(() => {
