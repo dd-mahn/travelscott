@@ -57,4 +57,8 @@ export const setupMiddleware = (app) => {
       imgSrc: ["'self'", "data:", "https:"],
     },
   }));
+
+  app.get('/api/health', (req, res) => {
+    res.status(200).json({ status: 'healthy' });
+  });
 };
