@@ -5,8 +5,8 @@
     "watchPatterns": ["backend/**"]
   },
   "deploy": {
-    "startCommand": "cd backend && npm run start:prod",
-    "restartPolicyType": "on-failure",
+    "startCommand": "npm run start:prod",
+    "restartPolicyType": "always",
     "healthcheckPath": "/health",
     "healthcheckTimeout": 100
   }
