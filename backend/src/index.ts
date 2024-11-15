@@ -1,3 +1,4 @@
+import 'module-alias/register';
 import startServer from "src/utils/server/server";
 
 (async () => {
