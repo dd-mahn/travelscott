@@ -100,9 +100,17 @@ export default defineConfig({
       'X-Content-Type-Options': 'nosniff',
       'Referrer-Policy': 'strict-origin-when-cross-origin',
       'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
+    },
+    proxy: {
+      '/api': {
+        target: process.env.VITE_API_URL || 'http://localhost:4080',
+        changeOrigin: true,
+        secure: false
+      }
     }
   },
   build: {
+    outDir: 'dist',
     sourcemap: process.env.NODE_ENV === 'development',
     minify: process.env.NODE_ENV === 'production',
     rollupOptions: {
@@ -124,5 +132,6 @@ export default defineConfig({
     assetsInlineLimit: 4096,
     reportCompressedSize: true
   },
+  
   
 } as UserConfig);

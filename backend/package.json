@@ -4,14 +4,10 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "build": "npx tsc",
-    "start": "npm run build && node dist/index.js",
+    "build": "tsc",
+    "start": "node dist/index.js",
     "dev": "tsx watch src/index.ts",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
-    "build:prod": "NODE_ENV=production npm run build",
-    "start:prod": "NODE_ENV=production node dist/index.js"
+    "start:prod": "node dist/index.js"
   },
   "author": "",
   "license": "ISC",
