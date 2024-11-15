@@ -21,7 +21,7 @@ const limiter = rateLimit({
 // Export CORS options
 export const corsOptions = {
   origin: process.env.NODE_ENV === 'production' 
-    ? config.security.allowedOrigins 
+    ? [...config.security.allowedOrigins, 'healthcheck.railway.com']
     : ['http://localhost:5173', 'http://localhost:4173'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
