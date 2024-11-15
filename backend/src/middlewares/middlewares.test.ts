@@ -31,8 +31,13 @@ describe('Middleware Setup', () => {
   });
 
   it('should set up CORS with correct options', () => {
-    expect(corsOptions.origin).toBe(true);
+    expect(corsOptions.origin).toEqual(
+      expect.arrayContaining(['http://localhost:5173', 'http://localhost:4173'])
+    );
     expect(corsOptions.credentials).toBe(true);
+    expect(corsOptions.methods).toEqual(
+      expect.arrayContaining(['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'])
+    );
   });
 
   it('should set up routes with correct paths', () => {

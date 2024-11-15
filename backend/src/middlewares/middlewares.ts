@@ -17,6 +17,16 @@ const limiter = rateLimit({
   max: 100 // limit each IP to 100 requests per windowMs
 });
 
+// Export CORS options
+export const corsOptions = {
+  origin: process.env.NODE_ENV === 'production' 
+    ? config.security.allowedOrigins 
+    : ['http://localhost:5173', 'http://localhost:4173'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+};
+
 export const setupMiddleware = (app) => {
   // Security middleware
   app.use(helmet());
@@ -27,14 +37,7 @@ export const setupMiddleware = (app) => {
   app.use(express.urlencoded({ extended: true, limit: '10mb' }));
   
   // CORS setup
-  app.use(cors({
-    origin: process.env.NODE_ENV === 'production' 
-      ? config.security.allowedOrigins 
-      : ['http://localhost:5173', 'http://localhost:4173'],
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true
-  }));
+  app.use(cors(corsOptions));
   
   app.use(cookieParser());
   
