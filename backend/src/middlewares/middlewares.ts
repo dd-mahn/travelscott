@@ -66,12 +66,12 @@ export const setupMiddleware = (app) => {
     try {
       const dbState = mongoose.connection.readyState;
       if (dbState === 1) {
-        res.status(200).json({ status: 'healthy' });
+        res.status(200).json({ status: 'healthy', database: 'connected' });
       } else {
-        res.status(503).json({ status: 'unhealthy', message: 'Database not connected' });
+        res.status(503).json({ status: 'unhealthy', database: 'disconnected' });
       }
     } catch (error: any) {
-      res.status(503).json({ status: 'unhealthy', message: error.message });
+      res.status(503).json({ status: 'unhealthy', error: error.message });
     }
   });
 };
