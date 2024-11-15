@@ -34,3 +34,4 @@ src/data/destinations
 .env.production
 .env.development
 .env.test
+.vercel
