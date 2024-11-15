@@ -10,7 +10,7 @@ const port = process.env.PORT || 4080;
 setupMiddleware(app);
 
 // Add health check endpoint
-app.get('/health', (req, res) => {
+app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'ok' });
 });
 

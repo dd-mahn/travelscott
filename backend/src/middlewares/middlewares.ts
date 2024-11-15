@@ -11,6 +11,7 @@ import countryRoutes from "src/routes/country";
 import subscribeRoutes from "src/routes/subscribe";
 import authRoutes from "src/routes/auth";
 import { errorHandler } from "src/middlewares/errorHandler";
+import mongoose from "mongoose";
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -61,7 +62,16 @@ export const setupMiddleware = (app) => {
     },
   }));
 
-  app.get('/api/health', (req, res) => {
-    res.status(200).json({ status: 'healthy' });
+  app.get('/api/health', async (req, res) => {
+    try {
+      const dbState = mongoose.connection.readyState;
+      if (dbState === 1) {
+        res.status(200).json({ status: 'healthy' });
+      } else {
+        res.status(503).json({ status: 'unhealthy', message: 'Database not connected' });
+      }
+    } catch (error: any) {
+      res.status(503).json({ status: 'unhealthy', message: error.message });
+    }
   });
 };
