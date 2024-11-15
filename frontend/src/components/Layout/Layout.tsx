@@ -7,7 +7,7 @@ import Footer from "src/components/Footer/Footer";
 import AnimatedLogoScreen from "src/common/AnimatedLogoScreen/AnimatedLogoScreen";
 import Cursor from "src/common/Cursors/Cursors";
 import LenisProvider from "src/components/Lenis/Lenis";
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { SpeedInsights } from "@vercel/speed-insights/react"
 
 const Layout: React.FC = () => {
   const location = useLocation();
