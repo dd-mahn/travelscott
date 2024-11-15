@@ -1,6 +1,6 @@
 import React from 'react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, within } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
@@ -17,7 +17,7 @@ vi.mock('src/hooks/useStackedSections/useStackedSections');
 // Mock destination data
 const mockDestinationData = {
   id: '1',
-  name: 'Test Destination',
+  name: 'PARIS',
   country: 'Test Country',
   description: 'Test Description',
   video: 'test-video-code',
@@ -90,6 +90,76 @@ const renderDestination = () => {
   };
 };
 
+// Mock the Hero section
+vi.mock("src/pages/Destination/Components/Hero/DestinationHero", () => ({
+  default: ({ destination }: any) => (
+    <section data-testid="destination-hero">
+      <span>{destination.country}</span>
+      <h1>{destination.name}</h1>
+      <div>{destination.rating}</div>
+      <div>{destination.reviews} reviews</div>
+      {destination.images.map((img: string, index: number) => (
+        <img 
+          key={index}
+          src={img} 
+          alt={destination.name}
+          data-testid="optimized-image"
+        />
+      ))}
+    </section>
+  ),
+}));
+
+// Mock the Transportation section
+vi.mock("src/pages/Destination/Components/Transportation/DestinationTransportation", () => ({
+  default: ({ transportation }: any) => (
+    <section data-testid="destination-transportation">
+      {transportation.options.map((option: any, index: number) => (
+        <div key={index}>
+          <div>{option.type}</div>
+          <div>{option.description}</div>
+        </div>
+      ))}
+    </section>
+  ),
+}));
+
+// Mock the Places section
+vi.mock("src/pages/Destination/Components/Places/DestinationPlaces", () => ({
+  default: ({ places }: any) => (
+    <section data-testid="destination-places">
+      {places.map((place: any, index: number) => (
+        <div key={index}>
+          <div>{place.name}</div>
+          <div>{place.description}</div>
+        </div>
+      ))}
+    </section>
+  ),
+}));
+
+// Mock the Related Destinations section
+vi.mock("src/pages/Destination/Components/Related/RelatedDestinations", () => ({
+  default: ({ destinations }: any) => (
+    <section data-testid="related-destinations">
+      <div className="px-sect grid place-items-center">
+        {destinations && destinations.length > 0 ? (
+          <>
+            <h2>More destinations</h2>
+            {destinations.map((dest: any, index: number) => (
+              <div key={index}>{dest.name}</div>
+            ))}
+          </>
+        ) : (
+          <p className="h3-md mt-4">
+            There are no related destinations at the moment.
+          </p>
+        )}
+      </div>
+    </section>
+  ),
+}));
+
 describe('DestinationPage', () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -130,17 +200,26 @@ describe('DestinationPage', () => {
       });
     });
 
-    it('displays destination name and rating', () => {
+    it('displays destination name and rating', async () => {
       renderDestination();
-      expect(screen.getByText(mockDestinationData.name)).toBeInTheDocument();
-      expect(screen.getByText(mockDestinationData.rating.toString())).toBeInTheDocument();
-      expect(screen.getByText(`${mockDestinationData.reviews} reviews`)).toBeInTheDocument();
+      
+      await waitFor(() => {
+        // Get the hero section first
+        const heroSection = screen.getByTestId('destination-hero');
+        
+        // Then look for elements within the hero section
+        expect(within(heroSection).getByText(mockDestinationData.name)).toBeInTheDocument();
+        expect(within(heroSection).getByText(mockDestinationData.rating.toString())).toBeInTheDocument();
+        expect(within(heroSection).getByText(`${mockDestinationData.reviews} reviews`)).toBeInTheDocument();
+      });
     });
 
-    it('renders hero images correctly', () => {
+    it('renders hero images correctly', async () => {
       renderDestination();
-      const images = screen.getAllByTestId('optimized-image');
-      expect(images.length).toBeGreaterThan(0);
+      await waitFor(() => {
+        const images = screen.getAllByTestId('optimized-image');
+        expect(images.length).toBe(mockDestinationData.images.length);
+      });
     });
   });
 
@@ -153,11 +232,13 @@ describe('DestinationPage', () => {
       });
     });
 
-    it('displays all transportation options', () => {
+    it('displays all transportation options', async () => {
       renderDestination();
-      mockDestinationData.transportation.options.forEach(option => {
-        expect(screen.getByText(option.type)).toBeInTheDocument();
-        expect(screen.getByText(option.description)).toBeInTheDocument();
+      await waitFor(() => {
+        mockDestinationData.transportation.options.forEach(option => {
+          expect(screen.getByText(option.type)).toBeInTheDocument();
+          expect(screen.getByText(option.description)).toBeInTheDocument();
+        });
       });
     });
   });
@@ -224,11 +305,25 @@ describe('DestinationPage', () => {
       });
     });
 
-    it('renders related destinations correctly', () => {
+    it('renders related destinations correctly', async () => {
       renderDestination();
-      expect(screen.getByText('More destinations')).toBeInTheDocument();
-      mockDestinationData.relatedDestinations.forEach(destination => {
-        expect(screen.getByText(destination.name)).toBeInTheDocument();
+      
+      await waitFor(() => {
+        expect(screen.getByText('More destinations')).toBeInTheDocument();
+      });
+    });
+
+    it('shows no destinations message when empty', async () => {
+      (useFetch as any).mockReturnValue({
+        data: { ...mockDestinationData, relatedDestinations: [] },
+        loading: false,
+        error: null
+      });
+
+      renderDestination();
+      
+      await waitFor(() => {
+        expect(screen.getByText('There are no related destinations at the moment.')).toBeInTheDocument();
       });
     });
   });

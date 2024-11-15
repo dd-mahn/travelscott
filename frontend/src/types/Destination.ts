@@ -25,7 +25,7 @@ export type placeToStay = {
   description: string;
   location: Location;
   price: Price;
-  rating: Rating;
+  rating: Rating[];
 };
 
 // Define the type for a place to visit
@@ -47,7 +47,7 @@ export type placeToEat = {
   location: Location;
   price: Price;
   favorites: string[];
-  rating: Rating;
+  rating: Rating[];
 };
 
 // Define the interface for destination places

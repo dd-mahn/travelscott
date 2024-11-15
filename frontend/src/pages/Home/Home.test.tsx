@@ -131,6 +131,55 @@ describe('Home', () => {
     const mainElement = screen.getByRole('main');
     expect(mainElement).toBeInTheDocument();
   });
+
+  describe('Hero Section', () => {
+    it('renders Hero section correctly', () => {
+      renderHome();
+      expect(screen.getByTestId('hero')).toBeInTheDocument();
+    });
+  });
+
+  describe('Brief Section', () => {
+    it('renders Brief section correctly', () => {
+      renderHome();
+      expect(screen.getByTestId('brief')).toBeInTheDocument();
+    });
+  });
+
+  describe('Featured Section', () => {
+    it('renders Featured section correctly', () => {
+      renderHome();
+      expect(screen.getByTestId('featured')).toBeInTheDocument();
+    });
+  });
+
+  describe('Starter Section', () => {
+    it('renders Starter section with correct blog count', () => {
+      renderHome();
+      expect(screen.getByTestId('starter')).toHaveTextContent('Starter Section with 1 blogs');
+    });
+  });
+
+  describe('Articles Section', () => {
+    it('renders Articles section with correct blog count', () => {
+      renderHome();
+      expect(screen.getByTestId('articles')).toHaveTextContent('Articles Section with 1 blogs');
+    });
+  });
+
+  describe('Quote Section', () => {
+    it('renders Quote section correctly', () => {
+      renderHome();
+      expect(screen.getByTestId('quote')).toBeInTheDocument();
+    });
+  });
+
+  describe('Hook Section', () => {
+    it('renders Hook section correctly', () => {
+      renderHome();
+      expect(screen.getByTestId('hook')).toBeInTheDocument();
+    });
+  });
 });
 
 vi.mock("src/pages/Home/Components/Hero/Hero", () => ({
