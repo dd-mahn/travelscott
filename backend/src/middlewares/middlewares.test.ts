@@ -1,13 +1,13 @@
 import express from 'express';
-import { setupMiddleware, corsOptions } from './middlewares';
-import { errorHandler } from './errorHandler';
+import { setupMiddleware, corsOptions } from 'src/middlewares/middlewares';
+import { errorHandler } from 'src/middlewares/errorHandler';
 
 jest.mock('src/routes/destination');
 jest.mock('src/routes/feedback');
 jest.mock('src/routes/blog');
 jest.mock('src/routes/country');
 jest.mock('src/routes/subscribe');
-jest.mock('./errorHandler');
+jest.mock('src/middlewares/errorHandler');
 
 describe('Middleware Setup', () => {
   let app;

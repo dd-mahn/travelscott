@@ -4,16 +4,17 @@ import { setupMiddleware } from "src/middlewares/middlewares";
 import mongoose from "mongoose";
 
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 4080;
+
+// Setup middleware first
+setupMiddleware(app);
+
+// Add health check endpoint
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok' });
+});
 
 const startServer = () => {
-  if (!port) {
-    console.error("PORT is not defined in the environment");
-    process.exit(1);
-  }
-
-  setupMiddleware(app);
-
   const server = app.listen(port, () => {
     connect();
     console.log(`Server listening on port ${port}`);
@@ -22,13 +23,11 @@ const startServer = () => {
   // Close MongoDB connection when server is closed
   process.on("SIGINT", () => {
     server.close(() => {
-      mongoose.connection.on("disconnected", () => {
-        console.log("Mongoose connection disconnected");
-      });
-
       mongoose.connection.close();
     });
   });
+
+  return app;
 };
 
 export default startServer;

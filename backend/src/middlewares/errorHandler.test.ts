@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { errorHandler } from './errorHandler';
+import { errorHandler } from 'src/middlewares/errorHandler';
 import { sendErrorResponse } from 'src/utils/apiResponse';
 
 jest.mock('src/utils/apiResponse');
