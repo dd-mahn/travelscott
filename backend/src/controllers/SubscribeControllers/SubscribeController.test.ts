@@ -1,7 +1,9 @@
+import request from 'supertest';
 import { Request, Response } from 'express';
 import Subscribe from 'src/models/Subscribe';
 import { EmailService } from 'src/services/EmailService';
 import { createSubscription, getSubscriptions, getSubscriptionById, updateSubscription, deleteSubscription } from 'src/controllers/SubscribeControllers/SubscribeController';
+import { createTestApp } from 'src/utils/test/testUtils';
 
 // Mock dependencies
 jest.mock('src/models/Subscribe');
@@ -13,6 +15,8 @@ jest.mock('src/utils/logger', () => ({
   },
   logControllerError: jest.fn()
 }));
+
+const app = createTestApp()
 
 describe('SubscribeController', () => {
   let mockRequest: Partial<Request>;
@@ -69,6 +73,21 @@ describe('SubscribeController', () => {
         message: 'Failed to create subscription or send welcome email',
         error: error.message
       });
+    });
+
+    it("should create subscription and return JWT tokens", async () => {
+      const subscriptionData = {
+        email: 'test@example.com'
+      };
+
+      const res = await request(app)
+        .post("/api/subscribe")
+        .send(subscriptionData);
+      
+      expect(res.status).toBe(201);
+      expect(res.body.tokenPair).toBeDefined();
+      expect(res.body.tokenPair.accessToken).toBeDefined();
+      expect(res.body.tokenPair.refreshToken).toBeDefined();
     });
   });
 

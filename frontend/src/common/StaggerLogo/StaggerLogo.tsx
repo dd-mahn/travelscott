@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { VisibilityVariants } from "src/utils/constants/variants";
 
@@ -19,51 +19,54 @@ function StaggerLogo({
   const text = "TravelScott";
   const containerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
-  const [fontSize, setFontSize] = useState(16); // Default size
+  const [fontSize, setFontSize] = useState(16);
 
-  // Resize text based on container width
-  const resizeText = () => {
+  const resizeText = useCallback(() => {
     const container = containerRef.current;
     const textElement = textRef.current;
 
-    if (!container || !textElement) {
-      return;
-    }
+    if (!container || !textElement) return;
 
-    const containerWidth = container.offsetWidth;
-    let min = 1;
-    let max = 5000;
+    // Reset font size to ensure accurate width calculation
+    textElement.style.fontSize = "16px";
+    
+    // Get the container width after a small delay to ensure styles are applied
+    requestAnimationFrame(() => {
+      if (!container || !textElement) return;
+      
+      const containerWidth = container.offsetWidth;
+      const scale = containerWidth / textElement.offsetWidth;
+      const newFontSize = Math.floor(16 * scale * 0.95); // 0.95 for safety margin
+      
+      setFontSize(newFontSize);
+    });
+  }, []);
 
-    // Binary search to find the optimal font size
-    while (min <= max) {
-      const mid = Math.floor((min + max) / 2);
-      textElement.style.fontSize = mid + "px";
-
-      if (textElement.offsetWidth <= containerWidth) {
-        min = mid + 1;
-      } else {
-        max = mid - 1;
-      }
-    }
-
-    // Ensure the font size is set correctly after the loop
-    textElement.style.fontSize = max + "px";
-    setFontSize(max);
-  };
-
-  // Handle window resize events
+  // Initial resize
   useEffect(() => {
-    const handleResize = () => {
+    // Wait for container to be properly rendered
+    const timer = setTimeout(() => {
       resizeText();
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, [resizeText]);
+
+  // Handle resize events with debounce
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+    
+    const handleResize = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(resizeText, 100);
     };
 
-    resizeText();
     window.addEventListener("resize", handleResize);
-
     return () => {
+      clearTimeout(timeoutId);
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [resizeText]);
 
   return (
     <div
@@ -73,7 +76,7 @@ function StaggerLogo({
       <div
         ref={textRef}
         className="whitespace-nowrap"
-        style={{ fontSize: `${fontSize * 0.95}px` }}
+        style={{ fontSize: `${fontSize}px` }}
       >
         {text.split("").map((char, index) => (
           <motion.span

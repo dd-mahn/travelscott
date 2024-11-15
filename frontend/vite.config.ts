@@ -2,7 +2,6 @@ import { defineConfig, UserConfig } from "vite";
 import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from 'vite-plugin-pwa';
-import { sentryVitePlugin } from "@sentry/vite-plugin";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -58,11 +57,6 @@ export default defineConfig({
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg}']
       }
-    }),
-    sentryVitePlugin({
-      org: "your-org",
-      project: "your-project",
-      authToken: process.env.SENTRY_AUTH_TOKEN,
     }),
   ],
   test: {

@@ -40,5 +40,6 @@ window.matchMedia = vi.fn().mockImplementation(query => ({
 // Cleanup after each test
 afterEach(() => {
   cleanup();
+  vi.clearAllTimers();
   vi.clearAllMocks();
 });

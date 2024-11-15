@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -39,12 +39,16 @@ const Layout: React.FC = () => {
           <AnimatedLogoScreen />
         </motion.div>
       ) : (
-        <LenisProvider>
-          <Header />
-          <Cursor />
-          <Outlet />
-          <Footer />
-        </LenisProvider>
+        <motion.div
+          key={location.pathname}
+        >
+          <LenisProvider>
+            <Header />
+            <Cursor />
+            <Outlet />
+            <Footer />
+          </LenisProvider>
+        </motion.div>
       )}
     </AnimatePresence>
   );

@@ -1,5 +1,5 @@
 import request from 'supertest';
-import startServer from './server';
+import startServer from 'src/utils/server/server';
 
 jest.mock('src/utils/database/db', () => ({
   connect: jest.fn()

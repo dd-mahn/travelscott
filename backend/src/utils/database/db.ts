@@ -1,29 +1,34 @@
 import mongoose from 'mongoose';
 import config from 'src/config/config';
 import dotenv from 'dotenv';
-
+        
 dotenv.config();
 
-if (!config.dbUri) {
+if (!config.database.uri) {
     throw new Error('MONGO_URI is not defined in the environment');
 }
 
 export const dbName = process.env.DB_NAME || 'CollectionDB';
-export const mongoUri: string = config.dbUri;
 
 mongoose.set('strictQuery', false);
 
 export const connect = async () => {
     try {
-        await mongoose.connect(mongoUri, { 
-            dbName,
+        const uri = process.env.NODE_ENV === 'production' 
+            ? config.database.production || config.database.uri
+            : process.env.NODE_ENV === 'test'
+                ? config.database.test || config.database.uri
+                : config.database.development || config.database.uri;
+
+        await mongoose.connect(uri, {
+            dbName: config.database.name,
             serverSelectionTimeoutMS: 5000,
-            autoIndex: false, // Don't build indexes
-            maxPoolSize: 10, // Maintain up to 10 socket connections
-            socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
-            family: 4 // Use IPv4, skip trying IPv6
+            autoIndex: false,
+            maxPoolSize: 10,
+            socketTimeoutMS: 45000,
+            family: 4
         });
-        console.log('Database connected');
+        console.log(`Database connected to ${process.env.NODE_ENV} environment`);
     } catch (error) {
         console.error('Error connecting to database:', error);
         process.exit(1);

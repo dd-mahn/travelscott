@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import Subscribe from 'src/models/Subscribe';
 import { EmailService } from 'src/services/EmailService';
 import { logControllerError } from "src/utils/logger";
+import { generateTokenPair } from 'src/utils/auth/jwt';
 
 const emailService = new EmailService();
 
@@ -12,12 +13,21 @@ export const createSubscription = async (req: Request, res: Response) => {
     
     // Create subscription
     const newSubscription = new Subscribe({ email });
-    await newSubscription.save();
+    const savedSubscription = await newSubscription.save();
+    
+    // Generate JWT token
+    const tokenPair = generateTokenPair({
+      userId: savedSubscription._id.toString(),
+      email: savedSubscription.email
+    });
     
     // Send welcome email
     await emailService.sendWelcomeEmail(email);
     
-    res.status(201).json({ message: 'Subscription created successfully and welcome email sent' });
+    res.status(201).json({ 
+      message: 'Subscription created successfully and welcome email sent',
+      tokenPair
+    });
   } catch (error) {
     logControllerError("createSubscription", error);
     res.status(500).json({ 

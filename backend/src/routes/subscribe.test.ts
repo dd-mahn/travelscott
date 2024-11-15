@@ -33,6 +33,22 @@ describe("Subscribe Routes", () => {
         .toHaveBeenCalledWith(validSubscribeData.email);
     });
 
+    it("should return 400 for invalid email format", async () => {
+      const res = await request(app)
+        .post("/api/subscribe")
+        .send({ email: "invalid-email" });
+      
+      expect(res.status).toBe(400);
+    });
+
+    it("should return 400 when email is missing", async () => {
+      const res = await request(app)
+        .post("/api/subscribe")
+        .send({});
+      
+      expect(res.status).toBe(400);
+    });
+
     it("should return 500 if subscription creation fails", async () => {
       // Mock Subscribe.save to throw error
       jest.spyOn(mongoose.Model.prototype, 'save')
@@ -91,6 +107,15 @@ describe("Subscribe Routes", () => {
       expect(res.status).toBe(200);
       expect(res.body.message).toBe("Subscription updated successfully");
       expect(res.body.updatedSubscription.email).toBe(updateData.email);
+    });
+
+    it("should return 400 for invalid email format", async () => {
+      const subscription = await Subscribe.create(validSubscribeData);
+      const res = await request(app)
+        .put(`/api/subscribe/${subscription._id}`)
+        .send({ email: "invalid-email" });
+      
+      expect(res.status).toBe(400);
     });
 
     it("should return 404 for non-existent subscription", async () => {

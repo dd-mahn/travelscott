@@ -85,9 +85,18 @@ const DestinationPlaces: React.FC<DestinationPlacesProps> = ({ places }) => {
   // State to manage the current place category
   const [placeCategory, setPlaceCategory] = useState("to_visit");
 
+  // Add this ref to track content changes
+  const contentChangeRef = useRef<number>(0);
+
   // Callback to handle place category change
   const handlePlaceCategoryChange = useCallback((category: string) => {
     setPlaceCategory(category);
+    // Increment the content change counter
+    contentChangeRef.current += 1;
+    // Force a resize event after animation
+    setTimeout(() => {
+      window.dispatchEvent(new Event('resize'));
+    }, 600); // Adjust this timing based on your animation duration
   }, []);
 
   // State to manage the current dialog
@@ -121,7 +130,7 @@ const DestinationPlaces: React.FC<DestinationPlacesProps> = ({ places }) => {
   return (
     <section
       id="places"
-      className="places px-sect rounded-3xl bg-light-green pb-sect-short pt-sect-short dark:bg-background-dark-green"
+      className="places px-sect min-h-screen rounded-3xl bg-light-green pb-sect-short pt-sect-short dark:bg-background-dark-green shadow-component"
     >
       <SlideRevealIconHeading
         iconClass="ri-map-pin-fill"

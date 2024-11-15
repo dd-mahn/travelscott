@@ -58,3 +58,17 @@ export const feedbackSchema = Joi.object({
   message: Joi.string().required()
 });
 
+export const subscribeSchema = Joi.object({
+  email: Joi.string()
+    .email()
+    .required()
+    .messages({
+      'string.email': 'Please provide a valid email address',
+      'any.required': 'Email is required'
+    })
+});
+
+export const refreshTokenSchema = Joi.object({
+  refreshToken: Joi.string().required()
+});
+

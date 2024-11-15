@@ -9,6 +9,7 @@ describe('useViewportWidth', () => {
   });
 
   afterEach(() => {
+    vi.clearAllTimers();
     vi.useRealTimers();
   });
 

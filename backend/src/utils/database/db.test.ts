@@ -7,7 +7,7 @@ jest.mock('src/config/config', () => ({
 
 import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
-import { connect, dbName } from './db';
+import { connect, dbName } from 'src/utils/database/db';
 
 describe.skip('Database Connection', () => {
   let mongoServer: MongoMemoryServer;

@@ -1,4 +1,4 @@
-import { blogSchema, destinationSchema, countrySchema, feedbackSchema } from 'src/utils/validation/validationSchemas';
+import { blogSchema, destinationSchema, countrySchema, feedbackSchema, subscribeSchema } from 'src/utils/validation/validationSchemas';
 
 describe('Validation Schemas', () => {
   describe('blogSchema', () => {
@@ -142,6 +142,35 @@ describe('Validation Schemas', () => {
 
       const { error } = feedbackSchema.validate(invalidFeedback);
       expect(error).toBeDefined();
+    });
+  });
+
+  describe('subscribeSchema', () => {
+    it('should validate a valid subscription email', () => {
+      const validSubscription = {
+        email: 'test@example.com'
+      };
+
+      const { error } = subscribeSchema.validate(validSubscription);
+      expect(error).toBeUndefined();
+    });
+
+    it('should reject invalid email format', () => {
+      const invalidSubscription = {
+        email: 'invalid-email'
+      };
+
+      const { error } = subscribeSchema.validate(invalidSubscription);
+      expect(error).toBeDefined();
+      expect(error?.details[0].message).toBe('Please provide a valid email address');
+    });
+
+    it('should reject when email is missing', () => {
+      const invalidSubscription = {};
+
+      const { error } = subscribeSchema.validate(invalidSubscription);
+      expect(error).toBeDefined();
+      expect(error?.details[0].message).toBe('Email is required');
     });
   });
 });
