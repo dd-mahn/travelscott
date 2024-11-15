@@ -66,12 +66,25 @@ export const setupMiddleware = (app) => {
     try {
       const dbState = mongoose.connection.readyState;
       if (dbState === 1) {
-        res.status(200).json({ status: 'healthy', database: 'connected' });
+        res.status(200).json({ 
+          status: 'healthy', 
+          database: 'connected',
+          timestamp: new Date().toISOString()
+        });
       } else {
-        res.status(503).json({ status: 'unhealthy', database: 'disconnected' });
+        res.status(503).json({ 
+          status: 'unhealthy', 
+          database: 'disconnected',
+          dbState,
+          timestamp: new Date().toISOString()
+        });
       }
     } catch (error: any) {
-      res.status(503).json({ status: 'unhealthy', error: error.message });
+      res.status(503).json({ 
+        status: 'unhealthy', 
+        error: error.message,
+        timestamp: new Date().toISOString()
+      });
     }
   });
 };

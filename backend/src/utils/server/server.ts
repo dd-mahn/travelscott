@@ -25,11 +25,12 @@ const startServer = async () => {
       });
     });
 
-    return app;
+    return server;
   } catch (error) {
     console.error('Failed to start server:', error);
     process.exit(1);
   }
 };
 
+export { app };
 export default startServer;

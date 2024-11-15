@@ -124,13 +124,20 @@ export default defineConfig({
           'utils': ['lodash', 'zod'],
           'media': ['react-player', 'react-slick'],
           'ui': ['@material-tailwind/react']
-        }
+        },
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name && assetInfo.name.endsWith('.woff2')) {
+            return 'assets/fonts/[name][extname]';
+          }
+          return 'assets/[name]-[hash][extname]';
+        },
       }
     },
     cssCodeSplit: true,
     chunkSizeWarningLimit: 500,
-    assetsInlineLimit: 4096,
-    reportCompressedSize: true
+    assetsInlineLimit: 0,
+    reportCompressedSize: true,
+    assetsInclude: ['**/*.woff2', '**/*.otf'],
   },
   
   
