@@ -2,6 +2,7 @@ import { defineConfig, UserConfig } from "vite";
 import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from 'vite-plugin-pwa';
+import { sentryVitePlugin } from "@sentry/vite-plugin";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -57,7 +58,12 @@ export default defineConfig({
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg}']
       }
-    })
+    }),
+    sentryVitePlugin({
+      org: "your-org",
+      project: "your-project",
+      authToken: process.env.SENTRY_AUTH_TOKEN,
+    }),
   ],
   test: {
     globals: true,
@@ -70,8 +76,16 @@ export default defineConfig({
         'node_modules/',
         'src/types/',
         'src/**/*.d.ts',
-        'src/**/*.test.{ts,tsx}'
-      ]
+        'src/**/*.test.{ts,tsx}',
+        'src/test-utils/**',
+        'src/mocks/**'
+      ],
+      thresholds: {
+        lines: 90,
+        functions: 85,
+        branches: 85,
+        statements: 90
+      }
     },
     mockReset: true,
     restoreMocks: true,
@@ -102,10 +116,19 @@ export default defineConfig({
         manualChunks: {
           'vendor': ['react', 'react-dom'],
           'animations': ['framer-motion', 'framer-motion-3d'],
-          'three': ['three', '@react-three/fiber', '@react-three/drei']
+          'three': ['three', '@react-three/fiber', '@react-three/drei'],
+          'router': ['react-router-dom'],
+          'state': ['@reduxjs/toolkit', 'react-redux'],
+          'utils': ['lodash', 'zod'],
+          'media': ['react-player', 'react-slick'],
+          'ui': ['@material-tailwind/react']
         }
       }
-    }
+    },
+    cssCodeSplit: true,
+    chunkSizeWarningLimit: 500,
+    assetsInlineLimit: 4096,
+    reportCompressedSize: true
   },
   
 } as UserConfig);

@@ -11,21 +11,28 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest run --coverage",
-    "test:watch": "vitest watch"
+    "test:watch": "vitest watch",
+    "build:prod": "vite build --mode production",
+    "preview:prod": "vite preview --mode production"
   },
   "dependencies": {
+    "@analytics/google-analytics": "^1.0.7",
     "@material-tailwind/react": "^2.1.9",
     "@react-three/drei": "^9.105.4",
     "@react-three/fiber": "^8.16.2",
     "@react-three/postprocessing": "^2.16.2",
     "@reduxjs/toolkit": "^2.2.7",
+    "@sentry/react": "^8.38.0",
+    "@sentry/vite-plugin": "^2.22.6",
     "framer-motion": "^11.3.19",
     "framer-motion-3d": "^11.2.0",
+    "globby": "^14.0.2",
     "lenis": "^1.1.14",
     "lodash": "^4.17.21",
     "postprocessing": "^6.35.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-helmet-async": "^2.0.5",
     "react-lazyload": "^3.2.1",
     "react-marquee-slider": "^1.1.5",
     "react-player": "^2.16.0",
@@ -37,6 +44,7 @@
     "slick-carousel": "^1.8.1",
     "tailwindcss": "^3.4.1",
     "three": "^0.164.1",
+    "web-vitals": "^4.2.4",
     "zod": "^3.23.8"
   },
   "devDependencies": {

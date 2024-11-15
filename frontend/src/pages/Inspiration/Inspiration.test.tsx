@@ -34,23 +34,23 @@ vi.mock("src/pages/404/404", () => ({
   default: () => <div>The page you are looking for might have been removed</div>
 }));
 
-vi.mock("src/pages/Inspiration/Components/InspirationHero", () => ({
+vi.mock("src/pages/Inspiration/Components/Hero/InspirationHero", () => ({
   default: ({ currentCategory }: any) => (
     <div data-testid="inspiration-hero">Hero for {currentCategory}</div>
   )
 }));
 
-vi.mock("src/pages/Inspiration/Components/InspirationHeading", () => ({
+vi.mock("src/pages/Inspiration/Components/Heading/InspirationHeading", () => ({
   default: ({ currentCategory }: any) => (
     <div data-testid="inspiration-heading">Heading for {currentCategory}</div>
   )
 }));
 
-vi.mock("src/pages/Inspiration/Components/InspirationButtons", () => ({
+vi.mock("src/pages/Inspiration/Components/Buttons/InspirationButtons", () => ({
   default: () => <div data-testid="inspiration-buttons">Category buttons</div>
 }));
 
-vi.mock("src/pages/Inspiration/Components/InspirationCatalog", () => ({
+vi.mock("src/pages/Inspiration/Components/Catalog/InspirationCatalog", () => ({
   default: ({ currentCategory }: any) => (
     <div data-testid="inspiration-catalog">Catalog for {currentCategory}</div>
   )
@@ -190,3 +190,4 @@ describe('Inspiration', () => {
     expect(screen.getByText('Test Blog 1')).toBeInTheDocument();
   });
 });
+ 
