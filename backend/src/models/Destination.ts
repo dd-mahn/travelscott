@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document } from "mongoose";
-import { IDestination as IDestinationBase } from "../types/destination";
+import { IDestination as IDestinationBase } from "src/types/destination";
 
 export interface IDestination extends IDestinationBase, Document {}
 

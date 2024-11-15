@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Feedback from "src/models/Feedback";
 import { sendSuccessResponse, sendErrorResponse } from "src/utils/apiResponse";
+import { logControllerError } from "src/utils/logger";
 
 // Create feedback
 export const createFeedback = async (req: Request, res: Response) => {
@@ -9,7 +10,7 @@ export const createFeedback = async (req: Request, res: Response) => {
     await feedback.save();
     sendSuccessResponse(res, "Feedback submitted successfully", feedback, 201);
   } catch (error) {
-    console.error(error);
+    logControllerError("createFeedback", error);
     if (error instanceof Error) {
       sendErrorResponse(res, "Failed to submit feedback", 500, error.message);
     } else {
@@ -29,7 +30,7 @@ export const getFeedback = async (req: Request, res: Response) => {
     const feedback = await Feedback.find();
     sendSuccessResponse(res, "Feedback retrieved successfully", feedback);
   } catch (error) {
-    console.error(error);
+    logControllerError("getFeedback", error);
     if (error instanceof Error) {
       sendErrorResponse(res, "Failed to retrieve feedback", 500, error.message);
     } else {
@@ -53,7 +54,7 @@ export const getFeedbackById = async (req: Request, res: Response) => {
     }
     sendSuccessResponse(res, "Feedback retrieved successfully", feedback);
   } catch (error) {
-    console.error(error);
+    logControllerError("getFeedbackById", error);
     if (error instanceof Error) {
       sendErrorResponse(res, "Failed to retrieve feedback", 500, error.message);
     } else {
@@ -77,7 +78,7 @@ export const deleteFeedback = async (req: Request, res: Response) => {
     }
     sendSuccessResponse(res, "Feedback deleted successfully");
   } catch (error) {
-    console.error(error);
+    logControllerError("deleteFeedback", error);
     if (error instanceof Error) {
       sendErrorResponse(res, "Failed to delete feedback", 500, error.message);
     } else {

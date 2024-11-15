@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import Blog from "src/models/Blog";
 import { sendSuccessResponse, sendErrorResponse } from "src/utils/apiResponse";
 import { blogContent, updateData } from "src/types/blog";
+import logger, { logControllerError } from "src/utils/logger";
 
 const DEFAULT_PAGE = 1;
 const DEFAULT_LIMIT = 10;
@@ -12,7 +13,7 @@ export const createBlog = async (req: Request, res: Response) => {
     await blog.save();
     sendSuccessResponse(res, "Blog created successfully", blog, 201);
   } catch (error: unknown) {
-    console.error(error);
+    logControllerError("createBlog", error);
     if (error instanceof Error) {
       sendErrorResponse(res, "Failed to create blog", 500, error.message);
     } else {
@@ -67,7 +68,7 @@ export const getBlogs = async (req: Request, res: Response) => {
       totalPages,
     });
   } catch (error: unknown) {
-    console.error(error);
+    logControllerError("getBlogs", error);
     if (error instanceof Error) {
       sendErrorResponse(res, "Failed to retrieve blogs", 500, error.message);
     } else {
@@ -90,7 +91,7 @@ export const getBlogById = async (req: Request, res: Response) => {
     }
     sendSuccessResponse(res, "Blog retrieved successfully", blog);
   } catch (error: unknown) {
-    console.error(error);
+    logControllerError("getBlogById", error);
     if (error instanceof Error) {
       sendErrorResponse(res, "Failed to retrieve blog", 500, error.message);
     } else {
@@ -119,7 +120,7 @@ export const updateBlog = async (req: Request, res: Response) => {
     }
     sendSuccessResponse(res, "Blog updated successfully", blog);
   } catch (error: unknown) {
-    console.error(error);
+    logControllerError("updateBlog", error);
     if (error instanceof Error) {
       sendErrorResponse(res, "Failed to update blog", 500, error.message);
     } else {
@@ -142,7 +143,7 @@ export const deleteBlog = async (req: Request, res: Response) => {
     }
     sendSuccessResponse(res, "Blog deleted successfully");
   } catch (error: unknown) {
-    console.error(error);
+    logControllerError("deleteBlog", error);
     if (error instanceof Error) {
       sendErrorResponse(res, "Failed to delete blog", 500, error.message);
     } else {

@@ -1,15 +1,29 @@
 import { Request, Response } from 'express';
 import Subscribe from 'src/models/Subscribe';
+import { EmailService } from 'src/services/EmailService';
+import { logControllerError } from "src/utils/logger";
+
+const emailService = new EmailService();
 
 // Create a new subscription
 export const createSubscription = async (req: Request, res: Response) => {
   try {
     const { email } = req.body;
+    
+    // Create subscription
     const newSubscription = new Subscribe({ email });
     await newSubscription.save();
-    res.status(201).json({ message: 'Subscription created successfully' });
+    
+    // Send welcome email
+    await emailService.sendWelcomeEmail(email);
+    
+    res.status(201).json({ message: 'Subscription created successfully and welcome email sent' });
   } catch (error) {
-    res.status(500).json({ message: 'Failed to create subscription', error });
+    logControllerError("createSubscription", error);
+    res.status(500).json({ 
+      message: 'Failed to create subscription or send welcome email', 
+      error: error instanceof Error ? error.message : 'Unknown error' 
+    });
   }
 };
 
@@ -19,6 +33,7 @@ export const getSubscriptions = async (req: Request, res: Response) => {
     const subscriptions = await Subscribe.find();
     res.status(200).json(subscriptions);
   } catch (error) {
+    logControllerError("getSubscriptions", error);
     res.status(500).json({ message: 'Failed to retrieve subscriptions', error });
   }
 };
@@ -33,6 +48,7 @@ export const getSubscriptionById = async (req: Request, res: Response) => {
     }
     res.status(200).json(subscription);
   } catch (error) {
+    logControllerError("getSubscriptionById", error);
     res.status(500).json({ message: 'Failed to retrieve subscription', error });
   }
 };
@@ -48,6 +64,7 @@ export const updateSubscription = async (req: Request, res: Response) => {
     }
     res.status(200).json({ message: 'Subscription updated successfully', updatedSubscription });
   } catch (error) {
+    logControllerError("updateSubscription", error);
     res.status(500).json({ message: 'Failed to update subscription', error });
   }
 };
@@ -62,6 +79,7 @@ export const deleteSubscription = async (req: Request, res: Response) => {
     }
     res.status(200).json({ message: 'Subscription deleted successfully' });
   } catch (error) {
+    logControllerError("deleteSubscription", error);
     res.status(500).json({ message: 'Failed to delete subscription', error });
   }
 };

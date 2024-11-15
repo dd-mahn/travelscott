@@ -4,6 +4,7 @@ import { Request, Response } from "express";
 import Destination from "src/models/Destination";
 import createRegexArray from "src/utils/createRegexArray";
 import s3 from "src/utils/aws";
+import { logControllerError } from "src/utils/logger";
 
 import {
   DestinationAdditionalInfo,
@@ -30,7 +31,7 @@ export const createDestination = async (req: Request, res: Response) => {
       201
     );
   } catch (error) {
-    console.error(error);
+    logControllerError("createDestination", error);
     if (error instanceof Error) {
       sendErrorResponse(
         res,
@@ -122,7 +123,7 @@ export const getDestinations = async (req: Request, res: Response) => {
       totalPages,
     });
   } catch (error) {
-    console.error(error);
+    logControllerError("getDestinations", error);
     if (error instanceof Error) {
       sendErrorResponse(
         res,
@@ -150,7 +151,7 @@ export const getSingleDestination = async (req: Request, res: Response) => {
     }
     sendSuccessResponse(res, "Destination retrieved successfully", destination);
   } catch (error) {
-    console.error(error);
+    logControllerError("getSingleDestination", error);
     if (error instanceof Error) {
       sendErrorResponse(
         res,
@@ -197,7 +198,7 @@ export const updateDestination = async (req: Request, res: Response) => {
     }
     sendSuccessResponse(res, "Destination updated successfully", destination);
   } catch (error) {
-    console.error(error);
+    logControllerError("updateDestination", error);
     if (error instanceof Error) {
       sendErrorResponse(
         res,
@@ -225,7 +226,7 @@ export const deleteDestination = async (req: Request, res: Response) => {
     }
     sendSuccessResponse(res, "Destination deleted successfully");
   } catch (error) {
-    console.error(error);
+    logControllerError("deleteDestination", error);
     if (error instanceof Error) {
       sendErrorResponse(
         res,
@@ -250,7 +251,7 @@ export const deleteAllDestinations = async (req: Request, res: Response) => {
     await Destination.deleteMany({});
     sendSuccessResponse(res, "All destinations deleted successfully");
   } catch (error) {
-    console.error(error);
+    logControllerError("deleteAllDestinations", error);
     if (error instanceof Error) {
       sendErrorResponse(
         res,
@@ -285,7 +286,7 @@ export const updateDestinationPlaces = async (req: Request, res: Response) => {
       destination.places
     );
   } catch (error) {
-    console.error(error);
+    logControllerError("updateDestinationPlaces", error);
     if (error instanceof Error) {
       sendErrorResponse(
         res,
@@ -324,7 +325,7 @@ export const updateDestinationTransportation = async (
       destination.transportation
     );
   } catch (error) {
-    console.error(error);
+    logControllerError("updateDestinationTransportation", error);
     if (error instanceof Error) {
       sendErrorResponse(
         res,
@@ -360,7 +361,7 @@ export const updateDestinationInsight = async (req: Request, res: Response) => {
       destination.insight
     );
   } catch (error) {
-    console.error(error);
+    logControllerError("updateDestinationInsight", error);
     if (error instanceof Error) {
       sendErrorResponse(
         res,
@@ -444,7 +445,7 @@ export const updateDestinationImages = async (req: Request, res: Response) => {
       destination
     );
   } catch (error) {
-    console.error(error); // log the error details on the server
+    logControllerError("updateDestinationImages", error);
     if (error instanceof Error) {
       sendErrorResponse(
         res,
@@ -496,7 +497,7 @@ export const getDestinationBySearch = async (req: Request, res: Response) => {
       result: destinations,
     });
   } catch (error) {
-    console.error(error);
+    logControllerError("getDestinationBySearch", error);
     if (error instanceof Error) {
       sendErrorResponse(
         res,

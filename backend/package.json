@@ -23,6 +23,8 @@
     "mongodb": "^6.5.0",
     "mongoose": "^8.3.1",
     "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.16",
+    "winston": "^3.17.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
@@ -49,7 +51,8 @@
       "**/*.test.ts"
     ],
     "setupFilesAfterEnv": [
-      "<rootDir>/src/setupTests.ts"
+      "<rootDir>/src/setupTests.ts",
+      "<rootDir>/jest.setup.ts"
     ],
     "coverageThreshold": {
       "global": {
@@ -64,6 +67,7 @@
       "!src/**/*.d.ts",
       "!src/types/*.ts",
       "!src/index.ts"
-    ]
+    ],
+    "testTimeout": 30000
   }
 }

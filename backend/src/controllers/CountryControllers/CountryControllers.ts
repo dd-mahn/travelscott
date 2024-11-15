@@ -5,6 +5,7 @@ import { sendSuccessResponse, sendErrorResponse } from "src/utils/apiResponse";
 import s3 from "src/utils/aws";
 import path from "path";
 import fs from "fs";
+import { logControllerError } from "src/utils/logger";
 
 const ALLOWED_EXTENSIONS = [".png", ".jpg", ".webp", ".jpeg"];
 
@@ -14,7 +15,7 @@ export const createCountry = async (req: Request, res: Response) => {
     await country.save();
     sendSuccessResponse(res, "Country created successfully", country, 201);
   } catch (error) {
-    console.error(error);
+    logControllerError("createCountry", error);
     if (error instanceof Error) {
       sendErrorResponse(res, "Failed to create country", 500, error.message);
     } else {
@@ -45,7 +46,7 @@ export const getCountries = async (req: Request, res: Response) => {
       count,
     });
   } catch (error) {
-    console.error(error);
+    logControllerError("getCountries", error);
     if (error instanceof Error) {
       sendErrorResponse(
         res,
@@ -73,7 +74,7 @@ export const getCountryById = async (req: Request, res: Response) => {
     }
     sendSuccessResponse(res, "Country retrieved successfully", country);
   } catch (error) {
-    console.error(error);
+    logControllerError("getCountryById", error);
     if (error instanceof Error) {
       sendErrorResponse(res, "Failed to retrieve country", 500, error.message);
     } else {
@@ -100,7 +101,7 @@ export const updateCountry = async (req: Request, res: Response) => {
     }
     sendSuccessResponse(res, "Country updated successfully", country);
   } catch (error) {
-    console.error(error);
+    logControllerError("updateCountry", error);
     if (error instanceof Error) {
       sendErrorResponse(res, "Failed to update country", 500, error.message);
     } else {
@@ -123,7 +124,7 @@ export const deleteCountry = async (req: Request, res: Response) => {
     }
     sendSuccessResponse(res, "Country deleted successfully", country);
   } catch (error) {
-    console.error(error);
+    logControllerError("deleteCountry", error);
     if (error instanceof Error) {
       sendErrorResponse(res, "Failed to delete country", 500, error.message);
     } else {
@@ -191,7 +192,7 @@ export const updateCountryImages = async (req: Request, res: Response) => {
 
     sendSuccessResponse(res, "Country images updated successfully", country);
   } catch (error) {
-    console.error(error);
+    logControllerError("updateCountryImages", error);
     if (error instanceof Error) {
       sendErrorResponse(
         res,
@@ -229,7 +230,7 @@ export const updateTotalDestinations = async (req: Request, res: Response) => {
       totalDestinations: destinationCount,
     });
   } catch (error) {
-    console.error(error);
+    logControllerError("updateTotalDestinations", error);
     if (error instanceof Error) {
       sendErrorResponse(
         res,
