@@ -14,8 +14,8 @@ const startServer = async () => {
     // Connect to database first
     await connect();
     
-    const server = app.listen(port, () => {
-      console.log(`Server listening on port ${port}`);
+    const server = app.listen(port as number, '0.0.0.0', () => {
+      console.log(`Server listening on port ${port} on all interfaces`);
     });
 
     // Close MongoDB connection when server is closed

@@ -1,6 +1,7 @@
 import request from 'supertest';
 import startServer, { app } from 'src/utils/server/server';
 import mongoose from 'mongoose';
+import { AddressInfo } from 'net';
 
 jest.mock('src/utils/database/db', () => ({
   connect: jest.fn()
@@ -24,7 +25,9 @@ describe('Server', () => {
     expect(response.body).toEqual({ status: 'ok' });
   });
 
-  it('should listen on configured port', () => {
-    expect(server.address().port).toBe(Number(process.env.PORT) || 4080);
+  it('should listen on configured port and all interfaces', () => {
+    const address = server.address() as AddressInfo;
+    expect(address.port).toBe(Number(process.env.PORT) || 4080);
+    expect(address.address).toBe('0.0.0.0');
   });
 });
