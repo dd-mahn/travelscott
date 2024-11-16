@@ -5,7 +5,7 @@ import { useDispatch} from "react-redux";
 // Component imports
 import HorizontalScrollCarousel from "src/pages/Home/Components/Featured/FeaturedHorizontalScroller";
 import { SecondaryButton } from "src/common/Buttons/Button";
-import { ErrorState, LoadingState } from "src/common/Catalogs/CatalogStates";
+import { ErrorState, LoadingState, NotFoundState } from "src/common/Catalogs/CatalogStates";
 
 // Utility imports
 import { VisibilityVariants } from "src/utils/constants/variants";
@@ -72,14 +72,12 @@ const Featured: React.FC = () => {
           <LoadingState keyName={`featured-loading-${loading}`} />
         ) : error ? (
           <ErrorState keyName={`featured-error-${error}`} />
-        ) : featuredDestinations && featuredDestinations.length >= 5 ? (
+        ) : featuredDestinations ? (
           <div key={`featured-destinations-${featuredDestinations.length}`}>
             <HorizontalScrollCarousel data={featuredDestinations.slice(0, 10)} />
           </div>
         ) : (
-          <div key={`featured-destinations-${featuredDestinations?.length}`}>
-            <HorizontalScrollCarousel data={featuredDemo} />
-          </div>
+          <NotFoundState keyName={`featured-not-found-${featuredDestinations}`} />
         )}
       </AnimatePresence>
 

@@ -60,11 +60,12 @@ const Brief: React.FC = () => {
   const paragraphRefs = [useRef(null), useRef(null), useRef(null)];
 
   // Create scroll-based animations for each paragraph
-  const scrollYProgresses = paragraphRefs.map((ref) =>
-    useScroll({
-      target: ref,
-      offset: ["start center", "end center"],
-    }).scrollYProgress,
+  const scrollYProgresses = paragraphRefs.map(
+    (ref) =>
+      useScroll({
+        target: ref,
+        offset: ["start center", "end center"],
+      }).scrollYProgress,
   );
 
   // Transform scroll progress into opacity values
@@ -73,18 +74,23 @@ const Brief: React.FC = () => {
   );
 
   return (
-    <section data-testid="brief-section" className="brief px-sect flex flex-col py-24 md:pb-40 lg:gap-36 lg:py-sect-medium xl:gap-48 xl:py-sect-semi 2xl:gap-64 2xl:py-sect-long 3xl:gap-80 3xl:py-sect-long">
+    <section
+      data-testid="brief-section"
+      className="brief px-sect flex flex-col py-24 md:pb-40 lg:gap-36 lg:py-sect-medium xl:gap-48 xl:py-sect-semi 2xl:gap-64 2xl:py-sect-long 3xl:gap-80 3xl:py-sect-long"
+    >
       {/* Header section with animated airplane */}
       <div className="flex min-h-20 flex-row items-center justify-center md:min-h-40 md:justify-start md:gap-8 xl:gap-28 2xl:gap-44 3xl:gap-52">
-        <motion.img
-          variants={variants}
-          initial="airplaneStart"
-          whileInView="airplaneEnd"
-          viewport={{ once: true }}
-          src={airplane1}
-          alt="Decorative airplane"
-          className="hidden rotate-[45deg] transform md:block md:w-20 lg:w-24 xl:w-24 2xl:w-28 3xl:w-32"
-        />
+        {viewportWidth >= 768 && (
+          <motion.img
+            variants={variants}
+            initial="airplaneStart"
+            whileInView="airplaneEnd"
+            viewport={{ once: true }}
+            src={airplane1}
+            alt="Decorative airplane"
+            className="w-20 rotate-[45deg] transform lg:w-24 xl:w-24 2xl:w-28 3xl:w-32"
+          />
+        )}
         <div className="flex flex-col items-center md:items-start">
           {/* Animated header text */}
           <div
@@ -148,44 +154,50 @@ const Brief: React.FC = () => {
         <div className="absolute top-[10%] z-10 grid place-items-center sm:top-1/3 md:static md:w-1/2">
           <div className="relative flex w-[90%] flex-col items-center justify-center gap-12 lg:w-full lg:gap-16 xl:gap-20 2xl:gap-20 3xl:gap-24 3xl:pt-48">
             {/* Animated blobs */}
-            <motion.div
-              animate="blob1Animation"
-              variants={variants}
-              className="blob-green blur-blob absolute left-0 top-[15%] h-1/3 w-1/3 opacity-60"
-            ></motion.div>
-            <motion.div
-              animate="blob2Animation"
-              variants={variants}
-              className="blob-brown blur-blob absolute bottom-[15%] right-0 h-1/3 w-1/3 opacity-60"
-            ></motion.div>
+            {viewportWidth >= 768 && (
+              <motion.div
+                animate="blob1Animation"
+                variants={variants}
+                className="blob-green blur-blob absolute left-0 top-[15%] h-1/3 w-1/3 opacity-60"
+              ></motion.div>
+            )}
+            {viewportWidth >= 768 && (
+              <motion.div
+                animate="blob2Animation"
+                variants={variants}
+                className="blob-brown blur-blob absolute bottom-[15%] right-0 h-1/3 w-1/3 opacity-60"
+              ></motion.div>
+            )}
+
             {/* Paragraphs with scroll-based opacity animation */}
             {paragraphRefs.map((ref, index) => (
               <motion.p
                 key={index}
                 ref={ref}
                 style={{ opacity: opacities[index] }}
-                className={`${viewportWidth < 768 ? "text-center p-regular" : "p-regular"} z-10 text-text-dark dark:text-text-dark sm:w-3/4 md:w-2/3 md:text-left md:text-text-light md:dark:text-text-dark lg:w-4/5 3xl:w-2/3`}
+                className={`${viewportWidth < 768 ? "p-regular text-center" : "p-regular"} z-10 text-text-dark dark:text-text-dark sm:w-3/4 md:w-2/3 md:text-left md:text-text-light md:dark:text-text-dark lg:w-4/5 3xl:w-2/3`}
               >
                 {index === 0 && (
                   <>
-                    Take a break from your daily routine. When was the last time you
-                    explored beyond your city? Discover new places, meet new people,
-                    and experience different cultures. It's time to refresh your
-                    spirit and broaden your horizons.
+                    Take a break from your daily routine. When was the last time
+                    you explored beyond your city? Discover new places, meet new
+                    people, and experience different cultures. It's time to
+                    refresh your spirit and broaden your horizons.
                   </>
                 )}
                 {index === 1 && (
                   <>
-                    To help you get started, explore our virtual gallery. It features
-                    a curated selection of global destinations with visuals and key
-                    information to simplify your travel planning and inspire your next
-                    trip.
+                    To help you get started, explore our virtual gallery. It
+                    features a curated selection of global destinations with
+                    visuals and key information to simplify your travel planning
+                    and inspire your next trip.
                   </>
                 )}
                 {index === 2 && (
                   <>
-                    For more insights, visit our blog. Our travel stories and tips
-                    will help you plan and make the most of your adventures.
+                    For more insights, visit our blog. Our travel stories and
+                    tips will help you plan and make the most of your
+                    adventures.
                   </>
                 )}
               </motion.p>

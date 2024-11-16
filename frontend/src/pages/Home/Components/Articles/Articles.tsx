@@ -11,11 +11,16 @@ import Blog from "src/types/Blog";
 import { formatDate } from "src/utils/formatDate";
 import FeaturedContentSlider from "src/common/FeaturedBlogsSlider/FeaturedContentSlider";
 import OptimizedImage from "src/common/OptimizedImage/OptimizedImage";
-import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
+import {
+  HoverVariants,
+  VisibilityVariants,
+} from "src/utils/constants/variants";
 import { createBlogChunks } from "src/utils/createBlogChunks";
 import SeasonHeading from "src/common/SeasonHeading/SeasonHeading";
 import { getSeason } from "src/utils/getSeason";
 import { selectIsDarkMode } from "src/store/slices/themeSlice";
+import { NotFoundState } from "src/common/Catalogs/CatalogStates";
+import { useViewportWidth } from "src/hooks/useViewportWidth/useViewportWidth";
 
 // Define Framer Motion animation variants
 const variants = {
@@ -100,6 +105,7 @@ const Articles: React.FC<ArticlesProps> = memo(({ articlesHookRef, blogs }) => {
   const dispatch = useDispatch();
   const blogChunks = useSelector((state: RootState) => state.blog.blogChunks);
   const isDarkMode = useSelector(selectIsDarkMode);
+  const viewportWidth = useViewportWidth();
 
   // Dispatch blog chunks when blogs are updated
   useEffect(() => {
@@ -114,7 +120,7 @@ const Articles: React.FC<ArticlesProps> = memo(({ articlesHookRef, blogs }) => {
     offset: ["end end", "start start"],
   });
   const x = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-  console.log(x)
+  console.log(x);
 
   // Set the background gradient based on the current season
   const [backgroundGradient, setBackgroundGradient] = useState("");
@@ -135,39 +141,43 @@ const Articles: React.FC<ArticlesProps> = memo(({ articlesHookRef, blogs }) => {
   return (
     <div className="relative">
       {/* Animated hook text */}
-      <motion.span
-        ref={articlesHookRef}
-        style={{ x }}
-        className="article-hook px-sect p-large absolute -top-6 left-0 font-semibold uppercase text-text-light dark:text-text-dark md:-top-6 lg:-top-10"
-      >
-        Discover the latest articles in
-      </motion.span>
-      {/* Render blog articles if available */}
-      {blogChunks?.length > 0 && (
-        <section
-          className="blogs flex flex-col items-center justify-start gap-sect-short pb-48 pt-sect-short lg:pb-sect-default lg:pt-sect-short 2xl:pb-sect-medium 2xl:pt-60"
-          style={{ background: backgroundGradient }}
+      {viewportWidth >= 768 && (
+        <motion.span
+          ref={articlesHookRef}
+          style={{ x }}
+          className="article-hook px-sect p-large absolute -top-6 left-0 whitespace-nowrap font-semibold uppercase text-text-light dark:text-text-dark md:-top-6 lg:-top-10"
         >
-          <SeasonHeading />
-          {/* Featured content slider for blog chunks */}
-          <motion.div
-            initial="hiddenY"
-            whileInView="visible"
-            transition={{ duration: 0.5, delay: 1 }}
-            viewport={{ once: true }}
-            variants={variants}
-            className="w-screen"
-          >
+          Discover the latest articles in
+        </motion.span>
+      )}
+
+      {/* Render blog articles if available */}
+
+      <section
+        className="blogs flex min-h-screen flex-col items-center justify-start gap-sect-short pb-48 pt-sect-short lg:pb-sect-default lg:pt-sect-short 2xl:pb-sect-medium 2xl:pt-60"
+        style={{ background: backgroundGradient }}
+      >
+        <SeasonHeading />
+        {/* Featured content slider for blog chunks */}
+        <motion.div
+          initial="hiddenY"
+          whileInView="visible"
+          transition={{ duration: 0.5, delay: 1 }}
+          viewport={{ once: true }}
+          variants={variants}
+          className="w-screen"
+        >
+          {blogChunks?.length > 0 ? (
             <FeaturedContentSlider>
               {blogChunks.map((chunk, chunkIndex) => (
                 <div
                   key={chunkIndex}
-                  className="px-sect grid h-[60svh] md:h-[60svh] lg:h-[80svh] w-screen grid-cols-2 gap-2 pb-4  md:gap-4 lg:gap-8"
+                  className="px-sect grid h-[60svh] w-screen grid-cols-2 gap-2 pb-4 md:h-[60svh] md:gap-4 lg:h-[80svh] lg:gap-8"
                 >
-                  <div className="pb-4 h-[60svh] md:h-[60svh] lg:h-[80svh]">
+                  <div className="h-[60svh] pb-4 md:h-[60svh] lg:h-[80svh]">
                     <RenderBlog blog={chunk[0]} isFeatured={true} />
                   </div>
-                  <div className="grid w-full h-[60svh] md:h-[60svh] lg:h-[80svh] grid-rows-3 items-stretch gap-2 md:gap-4 pb-4">
+                  <div className="grid h-[60svh] w-full grid-rows-3 items-stretch gap-2 pb-4 md:h-[60svh] md:gap-4 lg:h-[80svh]">
                     {chunk.slice(1).map((blog) => (
                       <RenderBlog
                         key={blog._id}
@@ -179,9 +189,13 @@ const Articles: React.FC<ArticlesProps> = memo(({ articlesHookRef, blogs }) => {
                 </div>
               ))}
             </FeaturedContentSlider>
-          </motion.div>
-        </section>
-      )}
+          ) : (
+            <div className="flex h-full w-full items-center justify-center">
+              <NotFoundState keyName="blogs" />
+            </div>
+          )}
+        </motion.div>
+      </section>
     </div>
   );
 });

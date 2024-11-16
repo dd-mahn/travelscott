@@ -1,6 +1,7 @@
 import React, { memo, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { debounce } from "lodash";
+import { useViewportWidth } from "src/hooks/useViewportWidth/useViewportWidth";
 
 // Define cursor states
 type CursorState =
@@ -13,6 +14,7 @@ type CursorState =
   | "disabled";
 
 const Cursor = () => {
+  const viewportWidth = useViewportWidth();
   const cursorRef = useRef<HTMLDivElement>(null);
   const [cursorPosition, setCursorPosition] = useState({ x: -100, y: -100 });
   const [cursorState, setCursorState] = useState<CursorState>("default");
@@ -99,9 +101,11 @@ const Cursor = () => {
             await Promise.resolve(setCursorState("default"));
             break;
           case "mousedown":
-            await Promise.resolve(setCursorState((prevState) => 
-              prevState === "hover" ? "hoverTap" : "tap"
-            ));
+            await Promise.resolve(
+              setCursorState((prevState) =>
+                prevState === "hover" ? "hoverTap" : "tap",
+              ),
+            );
             break;
           case "mouseup":
             await Promise.resolve(setCursorState("default"));
@@ -171,30 +175,40 @@ const Cursor = () => {
   };
 
   return (
-    <motion.div
-      data-testid="cursor"
-      variants={variants}
-      animate={cursorState}
-      data-animate={cursorState}
-      ref={cursorRef}
-      transition={{
-        type: "spring",
-        stiffness: 500,
-        damping: 28,
-      }}
-      className={`pointer-events-none fixed z-[1000] hidden place-items-center rounded-full lg:grid ${
-        cursorState === "hover"
-          ? "bg-aurora-brown dark:bg-dark-brown"
-          : "bg-white mix-blend-difference"
-      }`}
-    >
-      {cursorState === "hover" && (
-        <i data-testid="ri-arrow-right-line" className="span-medium ri-arrow-right-line text-text-light dark:text-text-dark"></i>
+    <>
+      {viewportWidth > 768 && (
+        <motion.div
+          data-testid="cursor"
+          variants={variants}
+          animate={cursorState}
+          data-animate={cursorState}
+          ref={cursorRef}
+          transition={{
+            type: "spring",
+            stiffness: 500,
+            damping: 28,
+          }}
+          className={`pointer-events-none fixed z-[1000] grid place-items-center rounded-full ${
+            cursorState === "hover"
+              ? "bg-aurora-brown dark:bg-dark-brown"
+              : "bg-white mix-blend-difference"
+          }`}
+        >
+          {cursorState === "hover" && (
+            <i
+              data-testid="ri-arrow-right-line"
+              className="span-medium ri-arrow-right-line text-text-light dark:text-text-dark"
+            ></i>
+          )}
+          {cursorState === "hoverLink" && (
+            <i
+              data-testid="ri-arrow-right-up-line"
+              className="span-medium ri-arrow-right-up-line text-text-light dark:text-text-dark"
+            ></i>
+          )}
+        </motion.div>
       )}
-      {cursorState === "hoverLink" && (
-        <i data-testid="ri-arrow-right-up-line" className="span-medium ri-arrow-right-up-line text-text-light dark:text-text-dark"></i>
-      )}
-    </motion.div>
+    </>
   );
 };
 

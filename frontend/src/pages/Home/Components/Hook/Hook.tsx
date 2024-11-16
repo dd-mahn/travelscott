@@ -9,7 +9,7 @@ const variants = {
 
 const Hook = () => {
   return (
-    <motion.div className="sticky top-0 -z-10" >
+    <motion.div className="sticky top-0" >
       <section data-testid="hook" className="hook px-sect flex h-[120svh] items-center">
         <div className="mb-20 md:mb-40">
           <div className="overflow-hidden lg:pb-2">

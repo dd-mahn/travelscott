@@ -242,7 +242,7 @@ body::-webkit-scrollbar-thumb:hover,
 
 /* Typography Classes */
 .big-heading {
-  @apply font-prima font-bold uppercase text-6.5xl sm:text-7.5xl md:text-9xl lg:text-9xl xl:text-11xl 2xl:text-12xl 2xl:leading-snug 3xl:text-13xl 3xl:leading-snug;
+  @apply font-prima font-bold uppercase text-4xl sm:text-7.5xl md:text-9xl lg:text-9xl xl:text-11xl 2xl:text-12xl 2xl:leading-snug 3xl:text-13xl 3xl:leading-snug;
   line-height: 1 !important;
 }
 
@@ -259,7 +259,7 @@ body::-webkit-scrollbar-thumb:hover,
 }
 
 .h2-md {
-  @apply font-prima font-semibold tracking-normal text-1.5xl sm:text-2.5xl md:text-3.5xl lg:text-4xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl;
+  @apply font-prima font-semibold tracking-normal text-xl sm:text-2.5xl md:text-3.5xl lg:text-4xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl;
 }
 
 .h2-logo {
@@ -267,11 +267,11 @@ body::-webkit-scrollbar-thumb:hover,
 }
 
 .h2-inter {
-  @apply font-medium tracking-tight text-1.5xl sm:text-2.5xl md:text-3xl lg:text-4xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl;
+  @apply font-medium tracking-tight text-xl sm:text-2.5xl md:text-3xl lg:text-4xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl;
 }
 
 .h3-md {
-  @apply font-prima font-semibold leading-[1] tracking-tight text-xl sm:text-1.5xl md:text-2xl lg:text-3xl xl:text-3.5xl 2xl:text-4xl 3xl:text-4.5xl;
+  @apply font-prima font-medium md:font-semibold leading-[1] tracking-tight text-xl sm:text-1.5xl md:text-2xl lg:text-3xl xl:text-3.5xl 2xl:text-4xl 3xl:text-4.5xl;
 }
 
 .h3-inter {
@@ -287,7 +287,7 @@ body::-webkit-scrollbar-thumb:hover,
 }
 
 .p-large {
-  @apply font-medium text-lg sm:text-lg md:text-lg lg:text-xl xl:text-1.5xl 2xl:text-2xl 3xl:text-3xl;
+  @apply font-medium text-base sm:text-lg md:text-lg lg:text-xl xl:text-1.5xl 2xl:text-2xl 3xl:text-3xl;
 }
 
 .span-small {
@@ -330,8 +330,12 @@ body::-webkit-scrollbar-thumb:hover,
   -webkit-text-stroke: 2px #333333;
 }
 
-.text-stroke-light-bold {
+.text-stroke-bright-bold {
   -webkit-text-stroke: 4px #ffffff;
+}
+
+.text-stroke-bright {
+  -webkit-text-stroke: 2px #ffffff;
 }
 
 /* .dark .text-stroke-light-bold {

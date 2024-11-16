@@ -1,5 +1,7 @@
 import React, { memo, useEffect, useRef, useState, useCallback } from "react";
 import { motion } from "framer-motion";
+import { useSelector } from "react-redux";
+import { selectIsDarkMode } from "src/store/slices/themeSlice";
 import { VisibilityVariants } from "src/utils/constants/variants";
 
 // Define animation variants
@@ -16,6 +18,7 @@ interface StaggerLogoProps {
 function StaggerLogo({
   containerClassName = "",
 }: StaggerLogoProps) {
+  const isDarkMode = useSelector(selectIsDarkMode);
   const text = "TravelScott";
   const containerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
@@ -71,7 +74,9 @@ function StaggerLogo({
   return (
     <div
       ref={containerRef}
-      className={`pointer-events-none flex w-screen items-center justify-start overflow-y-hidden font-logo leading-[1] ${containerClassName}`}
+      className={`pointer-events-none flex w-screen items-center justify-start overflow-y-hidden font-logo leading-[1] ${
+        isDarkMode ? 'text-text-dark' : 'text-text-light'
+      } ${containerClassName}`}
     >
       <div
         ref={textRef}
@@ -91,7 +96,9 @@ function StaggerLogo({
               bounce: 0.4,
               delay: index * 0.05,
             }}
-            className="inline-block w-fit select-none"
+            className={`inline-block w-fit select-none ${
+              isDarkMode ? 'text-text-dark' : 'text-text-light'
+            } `}
           >
             {char}
           </motion.span>

@@ -2,6 +2,7 @@ import React, { memo } from "react";
 import { motion } from "framer-motion";
 import { VisibilityVariants } from "src/utils/constants/variants";
 import { getSeason } from "src/utils/getSeason";
+import { useViewportWidth } from "src/hooks/useViewportWidth/useViewportWidth";
 
 // Define the props for the SeasonHeading component
 type SeasonHeadingProps = {};
@@ -14,6 +15,7 @@ const variants = {
 };
 
 const SeasonHeading: React.FC<SeasonHeadingProps> = () => {
+  const viewportWidth = useViewportWidth();
   // Get the current season
   const season = getSeason();
 
@@ -48,7 +50,7 @@ const SeasonHeading: React.FC<SeasonHeadingProps> = () => {
         transition={{ duration: 0.5, delay: 1 }}
         viewport={{ once: true }}
         variants={variants}
-        className="text-stroke-light-bold inline-block border-b-4 border-transparent text-transparent dark:text-transparent"
+        className={`${viewportWidth < 768 ? "text-stroke-bright" : "text-stroke-bright-bold"} inline-block border-b-4 border-transparent text-transparent dark:text-transparent`}
       >
         {new Date().getFullYear()}
       </motion.h1>

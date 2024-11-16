@@ -136,9 +136,9 @@ const Footer = () => {
         className="px-sect z-10 flex items-center justify-end pb-4 md:mt-4 md:items-end md:justify-between md:pb-4"
       >
         {viewportWidth >= 768 && (
-        <div className="z-10 hidden md:flex md:gap-6 lg:gap-8 xl:gap-10 2xl:gap-12 3xl:gap-12">
-          <nav className="flex flex-col md:gap-1 lg:gap-2 2xl:gap-4">
-            <span className="p-medium font-medium text-text-light">
+          <div className="z-10 flex gap-6 lg:gap-8 xl:gap-10 2xl:gap-12 3xl:gap-12">
+            <nav className="flex flex-col gap-1 lg:gap-2 2xl:gap-4">
+              <span className="p-medium font-medium text-text-light">
               Sitemap
             </span>
             <ul className="flex flex-col justify-start">
@@ -157,8 +157,8 @@ const Footer = () => {
               ))}
             </ul>
           </nav>
-
-          <nav className="hidden flex-col md:flex md:gap-1 lg:gap-2 2xl:gap-4">
+              
+          <nav className="flex flex-col gap-1 lg:gap-2 2xl:gap-4">
             <span className="p-medium font-medium text-text-light">
               Socials
             </span>

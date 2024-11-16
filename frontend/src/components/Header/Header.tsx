@@ -80,7 +80,7 @@ const Header: React.FC = () => {
         {/* Navigation menu */}
         {viewportWidth >= 768 && (
           <motion.ul
-            className="hidden md:flex md:justify-between md:gap-4 lg:gap-4 xl:gap-6 2xl:gap-8 3xl:gap-8"
+            className="flex justify-between gap-4 lg:gap-4 xl:gap-6 2xl:gap-8 3xl:gap-8"
           >
             {renderNavItems}
           </motion.ul>
@@ -88,7 +88,7 @@ const Header: React.FC = () => {
 
         {/* Search and contrast toggle */}
         {viewportWidth >= 768 && (
-          <div className="hidden md:flex md:gap-2 lg:gap-2 xl:gap-3 2xl:gap-3 3xl:gap-4">
+          <div className="flex gap-2 lg:gap-2 xl:gap-3 2xl:gap-3 3xl:gap-4">
             <HeaderSearch />
             <ThemeButton />
           </div>

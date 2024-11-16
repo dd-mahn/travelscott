@@ -26,7 +26,7 @@ export const LoadingState: React.FC<{ keyName: string }> = React.memo(
   ({ keyName }) => {
     return (
       <MotionDiv keyName={keyName}>
-        <h3 className="h3-md">Loading...</h3>
+        <h3 className="h3-md text-center md:text-left">Loading...</h3>
       </MotionDiv>
     );
   },
@@ -37,8 +37,8 @@ export const ErrorState: React.FC<{ keyName: string }> = React.memo(
   ({ keyName }) => {
     return (
       <MotionDiv keyName={keyName}>
-        <h3 className="h3-md">
-          Error... Please reload the page or try again later.
+        <h3 className="h3-md text-center md:text-left">
+          Error... Please reload or try again later.
         </h3>
       </MotionDiv>
     );
@@ -50,7 +50,9 @@ export const NotFoundState: React.FC<{ keyName: string }> = React.memo(
   ({ keyName }) => {
     return (
       <MotionDiv keyName={keyName}>
-        <h3 className="h3-md">Nothing found.</h3>
+        <h3 className="h3-md text-center md:text-left">
+          Nothing available at the moment, please reload or try again later.
+        </h3>
       </MotionDiv>
     );
   },
