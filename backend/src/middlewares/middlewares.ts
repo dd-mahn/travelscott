@@ -21,11 +21,12 @@ const limiter = rateLimit({
 // Export CORS options
 export const corsOptions = {
   origin: process.env.NODE_ENV === 'production' 
-    ? [...config.security.allowedOrigins, 'healthcheck.railway.com']
+    ? ['https://travelscott.vercel.app', 'https://railway.app', 'healthcheck.railway.com']
     : ['http://localhost:5173', 'http://localhost:4173'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
+  credentials: true,
+  optionsSuccessStatus: 200
 };
 
 export const setupMiddleware = (app) => {

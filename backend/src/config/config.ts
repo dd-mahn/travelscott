@@ -39,7 +39,9 @@ type Config = z.infer<typeof configSchema>;
 const config: Config = configSchema.parse({
   port: Number(process.env.PORT),
   database: {
-    uri: process.env.MONGO_URI,
+    uri: process.env.NODE_ENV === 'production' 
+    ? process.env.MONGO_URI_PROD 
+    : process.env.NODE_ENV === 'development' ? process.env.MONGO_URI_DEV : process.env.MONGO_URI_TEST,
     name: process.env.DB_NAME || 'CollectionDB',
     development: process.env.MONGO_URI_DEV,
     production: process.env.MONGO_URI_PROD,

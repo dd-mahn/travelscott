@@ -8,6 +8,7 @@
     "startCommand": "npm run start:prod",
     "restartPolicyType": "ON_FAILURE",
     "healthcheckPath": "/api/health",
-    "healthcheckTimeout": 300
+    "healthcheckTimeout": 200,
+    "restartPolicyMaxRetries": 5
   }
 }

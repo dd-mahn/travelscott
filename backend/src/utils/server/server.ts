@@ -18,6 +18,20 @@ const startServer = async () => {
       console.log(`Server listening on port ${port} on all interfaces`);
     });
 
+    // Add health check logging
+    app.use((req, res, next) => {
+      if (req.path === '/api/health') {
+        console.log('Health check requested');
+      }
+      next();
+    });
+
+    // Improved error handling
+    server.on('error', (error: Error) => {
+      console.error('Server error:', error);
+      process.exit(1);
+    });
+
     // Close MongoDB connection when server is closed
     process.on("SIGINT", () => {
       server.close(() => {
