@@ -117,7 +117,7 @@ describe('Header Component', () => {
 
     it('does not render mobile menu button', () => {
       render(<Header />, { wrapper: TestWrapper });
-      expect(screen.queryByTitle('Menu')).not.toBeInTheDocument();
+      expect(screen.queryByTitle('Open Menu')).not.toBeInTheDocument();
     });
   });
 
@@ -129,7 +129,7 @@ describe('Header Component', () => {
 
     it('renders mobile menu button and search', () => {
       render(<Header />, { wrapper: TestWrapper });
-      expect(screen.getByTitle('Menu')).toBeInTheDocument();
+      expect(screen.getByTitle('Open Menu')).toBeInTheDocument();
       expect(screen.getByTitle('Search')).toBeInTheDocument();
     });
 

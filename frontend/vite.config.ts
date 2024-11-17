@@ -91,8 +91,11 @@ export default defineConfig({
     },
   },
   define: {
-    'import.meta.env.VITE_API_BASE_URL': JSON.stringify(process.env.VITE_API_BASE_URL),
-    'import.meta.env.VITE_NODE_ENV': JSON.stringify(process.env.VITE_NODE_ENV),
+    'import.meta.env.VITE_API_BASE_URL': JSON.stringify(process.env.VITE_API_BASE_URL || 'https://travelscott-production.up.railway.app/api'),
+    'import.meta.env.VITE_NODE_ENV': JSON.stringify(process.env.VITE_NODE_ENV || 'production'),
+    'import.meta.env.VITE_API_URL': JSON.stringify(process.env.VITE_API_URL || 'https://travelscott-production.up.railway.app'),
+    'import.meta.env.MODE': JSON.stringify(process.env.NODE_ENV || 'production'),
+    'import.meta.env.VITE_ENABLE_ANALYTICS': JSON.stringify(process.env.VITE_ENABLE_ANALYTICS || 'true'),
   },
   server: {
     headers: {
@@ -103,9 +106,9 @@ export default defineConfig({
     },
     proxy: {
       '/api': {
-        target: process.env.VITE_API_URL || 'http://localhost:4080',
+        target: process.env.VITE_API_URL || 'https://localhost:4080',
         changeOrigin: true,
-        secure: false
+        secure: true
       }
     }
   },

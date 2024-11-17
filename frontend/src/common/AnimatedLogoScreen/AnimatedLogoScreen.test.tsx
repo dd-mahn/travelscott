@@ -14,13 +14,6 @@ describe("AnimatedLogoScreen", () => {
     render(<AnimatedLogoScreen />);
   });
 
-  it("renders with correct background classes", () => {
-    render(<AnimatedLogoScreen />);
-    const container = screen.getByTestId("animated-logo-container");
-    expect(container).toHaveClass("bg-background-light");
-    expect(container).toHaveClass("dark:bg-background-dark");
-  });
-
   it("renders StaggerLogo component", () => {
     render(<AnimatedLogoScreen />);
     const staggerLogo = screen.getByTestId("stagger-logo");

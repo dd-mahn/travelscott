@@ -10,6 +10,7 @@ import Cursor from "src/common/Cursors/Cursors";
 import LenisProvider from "src/components/Lenis/Lenis";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { selectIsDarkMode } from "src/store/slices/themeSlice";
+import { useThemeInitialization } from "src/hooks/useThemeInitialization/useThemeInitialization";
 
 const Layout: React.FC = () => {
   const location = useLocation();
@@ -17,7 +18,12 @@ const Layout: React.FC = () => {
   const isHomePage = location.pathname === "/";
   const isDarkMode = useSelector(selectIsDarkMode);
 
-  // Handle loading screen timing
+  useThemeInitialization();
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', isDarkMode);
+  }, [isDarkMode]);
+
   useEffect(() => {
     if (isHomePage) {
       const timer = setTimeout(() => {

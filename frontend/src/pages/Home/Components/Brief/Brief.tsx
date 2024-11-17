@@ -7,6 +7,7 @@ import airplane1 from "src/assets/svg/airplane-1.svg";
 import briefVideo from "src/assets/videos/brief.mp4";
 import { VisibilityVariants } from "src/utils/constants/variants";
 import { useViewportWidth } from "src/hooks/useViewportWidth/useViewportWidth";
+import BackgroundVideo from "src/common/BackgroundVideo/BackgroundVideo";
 
 // Define animation variants for Framer Motion
 const variants = {
@@ -140,14 +141,11 @@ const Brief: React.FC = () => {
           viewport={{ once: true }}
           className="sticky top-0 z-0 h-svh rounded-2xl py-4"
         >
-          <video
+          <BackgroundVideo
             data-testid="brief-video"
             src={briefVideo}
-            autoPlay
-            muted
-            loop
-            className="h-full rounded-2xl object-cover shadow-component brightness-50 dark:shadow-component-dark lg:brightness-100"
-          ></video>
+            className="rounded-2xl shadow-component brightness-50 dark:shadow-component-dark lg:brightness-100"
+          />
         </motion.div>
 
         {/* Paragraphs section with animated blobs */}

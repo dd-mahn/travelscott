@@ -139,43 +139,41 @@ const Footer = () => {
           <div className="z-10 flex gap-6 lg:gap-8 xl:gap-10 2xl:gap-12 3xl:gap-12">
             <nav className="flex flex-col gap-1 lg:gap-2 2xl:gap-4">
               <span className="p-medium font-medium text-text-light">
-              Sitemap
-            </span>
-            <ul className="flex flex-col justify-start">
-              {sitemap.map((item, index) => (
-                <motion.li
-                  initial={{ opacity: 0.6 }}
-                  whileHover={{ opacity: 1 }}
-                  transition={{ duration: 0.2 }}
-                  key={index}
-                  className="p-regular"
-                >
-                  <NavLink to={item.path} >
-                    {item.display}
-                  </NavLink>
-                </motion.li>
-              ))}
-            </ul>
-          </nav>
-              
-          <nav className="flex flex-col gap-1 lg:gap-2 2xl:gap-4">
-            <span className="p-medium font-medium text-text-light">
-              Socials
-            </span>
-            <ul className="flex flex-col justify-start">
-              {socials.map((item, index) => (
-                <motion.li
-                  initial={{ opacity: 0.6 }}
-                  whileHover={{ opacity: 1 }}
-                  transition={{ duration: 0.2 }}
-                  key={index}
-                  className="p-regular"
-                >
-                  <Link to={item.path}>{item.display}</Link>
-                </motion.li>
-              ))}
-            </ul>
-          </nav>
+                Sitemap
+              </span>
+              <ul className="flex flex-col justify-start">
+                {sitemap.map((item, index) => (
+                  <motion.li
+                    initial={{ opacity: 0.6 }}
+                    whileHover={{ opacity: 1 }}
+                    transition={{ duration: 0.2 }}
+                    key={index}
+                    className="p-regular"
+                  >
+                    <NavLink to={item.path}>{item.display}</NavLink>
+                  </motion.li>
+                ))}
+              </ul>
+            </nav>
+
+            <nav className="flex flex-col gap-1 lg:gap-2 2xl:gap-4">
+              <span className="p-medium font-medium text-text-light">
+                Socials
+              </span>
+              <ul className="flex flex-col justify-start">
+                {socials.map((item, index) => (
+                  <motion.li
+                    initial={{ opacity: 0.6 }}
+                    whileHover={{ opacity: 1 }}
+                    transition={{ duration: 0.2 }}
+                    key={index}
+                    className="p-regular"
+                  >
+                    <Link to={item.path}>{item.display}</Link>
+                  </motion.li>
+                ))}
+              </ul>
+            </nav>
           </div>
         )}
 
@@ -187,8 +185,10 @@ const Footer = () => {
         </button>
       </motion.div>
 
-      <div className="z-10 flex justify-center overflow-hidden border-t border-solid border-gray py-2">
-        <StaggerLogo />
+      <div className="z-10 grid w-screen place-items-center border-t border-solid border-gray py-2">
+        <div className="w-screen overflow-hidden pointer-events-none">
+          <StaggerLogo />
+        </div>
       </div>
 
       <div className="px-sect z-10 flex flex-col items-center justify-between border-t border-solid border-gray py-2 md:flex-row">

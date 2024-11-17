@@ -3,7 +3,7 @@ import { z } from 'zod';
 // Configuration schema
 const configSchema = z.object({
   api: z.object({
-    baseUrl: z.string().url(),
+    baseUrl: z.string().url().startsWith('https', { message: `Production API must use HTTPS. Received URL: ${import.meta.env.VITE_API_BASE_URL}` }),
     timeout: z.number().default(5000),
     version: z.string().default('v1'),
   }),
@@ -21,15 +21,14 @@ const configSchema = z.object({
   }),
 });
 
-// Type inference
-type Config = z.infer<typeof configSchema>;
-
 // Environment variables with fallbacks
 const environment = import.meta.env.VITE_NODE_ENV || 'development';
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'https://travelscott-production.up.railway.app/api';
 
-const config: Config = {
+// Create config object first
+const config = {
   api: {
-    baseUrl: import.meta.env.VITE_API_BASE_URL || 'http://localhost:4080/api',
+    baseUrl: apiBaseUrl,
     timeout: Number(import.meta.env.VITE_API_TIMEOUT) || 5000,
     version: import.meta.env.VITE_API_VERSION || 'v1',
   },
@@ -47,7 +46,14 @@ const config: Config = {
   },
 };
 
-// Validate configuration
-const validatedConfig = configSchema.parse(config);
+// Only validate in production
+if (environment === 'production') {
+  try {
+    configSchema.parse(config);
+  } catch (error: any) {
+    console.error('Configuration validation error:', error);
+    throw new Error(`Invalid configuration: ${error.message}`);
+  }
+}
 
-export default validatedConfig;
+export default config;

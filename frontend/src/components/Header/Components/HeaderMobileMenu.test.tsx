@@ -24,6 +24,17 @@ const TestWrapper = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
+// Mock viewport width hook
+const mockUseViewportWidth = vi.fn().mockReturnValue(767);
+vi.mock('src/hooks/useViewportWidth/useViewportWidth', () => ({
+  useViewportWidth: () => mockUseViewportWidth()
+}));
+
+// Mock scroll lock hook
+vi.mock('src/hooks/useScrollLock/useScrollLock', () => ({
+  useScrollLock: vi.fn()
+}));
+
 // Mock ReactDOM
 vi.mock('react-dom', async () => ({
   default: {
@@ -32,95 +43,73 @@ vi.mock('react-dom', async () => ({
 }));
 
 // Mock framer-motion
-vi.mock('framer-motion', async (importOriginal) => {
-  const actual = await importOriginal() as { motion: any };
-  return {
-    ...actual,
-    motion: {
-      ...actual.motion,
-      div: ({ children, whileInView, whileHover, whileTap, ...props }: any) => 
-        <div {...props}>{children}</div>,
-      button: ({ children, whileInView, whileHover, whileTap, ...props }: any) => 
-        <button {...props}>{children}</button>,
-      nav: ({ children, whileInView, whileHover, whileTap, ...props }: any) => 
-        <nav {...props}>{children}</nav>,
-      ul: ({ children, whileInView, whileHover, whileTap, ...props }: any) => 
-        <ul {...props}>{children}</ul>,
-      li: ({ children, whileInView, whileHover, whileTap, ...props }: any) => 
-        <li {...props}>{children}</li>,
-    },
-    AnimatePresence: ({ children }: any) => children,
-  };
-});
+vi.mock('framer-motion', async () => ({
+  motion: {
+    div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
+    button: ({ children, ...props }: any) => <button {...props}>{children}</button>,
+  },
+  AnimatePresence: ({ children }: any) => children,
+}));
 
 describe("HeaderMobileMenu", () => {
   beforeEach(() => {
     document.body.innerHTML = "";
+    mockUseViewportWidth.mockReturnValue(767); // Reset to mobile width
   });
 
   const renderWithRouter = () => {
     return render(
-      <HeaderMobileMenu />,
-      { wrapper: TestWrapper }
+      <TestWrapper>
+        <HeaderMobileMenu />
+      </TestWrapper>
     );
   };
 
   it("renders menu button when closed", () => {
     renderWithRouter();
-    expect(screen.getByTitle("Menu")).toBeInTheDocument();
+    expect(screen.getByTitle("Open Menu")).toBeInTheDocument();
   });
 
-  it("opens menu when menu button is clicked", () => {
+  it("opens menu when menu button is clicked", async () => {
     renderWithRouter();
-    const menuButton = screen.getByTitle("Menu");
+    const menuButton = screen.getByTitle("Open Menu");
     fireEvent.click(menuButton);
     
     // Check if navigation links are visible
-    expect(screen.getByText("Home")).toBeInTheDocument();
+    expect(await screen.findByText("Home")).toBeInTheDocument();
     expect(screen.getByText("About")).toBeInTheDocument();
     expect(screen.getByText("Discover")).toBeInTheDocument();
     expect(screen.getByText("Inspiration")).toBeInTheDocument();
     expect(screen.getByText("Contact")).toBeInTheDocument();
   });
 
-  it("displays social media links when menu is open", () => {
+  it("displays social media links when menu is open", async () => {
     renderWithRouter();
-    const menuButton = screen.getByTitle("Menu");
-    fireEvent.click(menuButton);
+    fireEvent.click(screen.getByTitle("Open Menu"));
 
-    expect(screen.getByText("ProductHunt")).toBeInTheDocument();
+    expect(await screen.findByText("ProductHunt")).toBeInTheDocument();
     expect(screen.getByText("Twitter")).toBeInTheDocument();
     expect(screen.getByText("Instagram")).toBeInTheDocument();
     expect(screen.getByText("Facebook")).toBeInTheDocument();
   });
 
-  it("closes menu when close button is clicked", () => {
+  it("closes menu when close button is clicked", async () => {
     renderWithRouter();
     
     // Open menu
-    fireEvent.click(screen.getByTitle("Menu"));
-    expect(screen.getByText("Home")).toBeInTheDocument();
+    fireEvent.click(screen.getByTitle("Open Menu"));
+    expect(await screen.findByText("Home")).toBeInTheDocument();
     
     // Close menu
-    const closeButton = screen.getByTitle("Close Menu");
-    fireEvent.click(closeButton);
+    fireEvent.click(screen.getByTitle("Close Menu"));
     
     // Menu button should be visible again
-    expect(screen.getByTitle("Menu")).toBeInTheDocument();
+    expect(screen.getByTitle("Open Menu")).toBeInTheDocument();
   });
 
-  it("manages body overflow style when menu opens and closes", () => {
-    renderWithRouter();
-    
-    // Open menu
-    fireEvent.click(screen.getByTitle("Menu"));
-    expect(document.body.style.overflow).toBe("hidden");
-    expect(document.body.style.height).toBe("100vh");
-    
-    // Close menu
-    const closeButton = screen.getByTitle("Close Menu");
-    fireEvent.click(closeButton);
-    expect(document.body.style.overflow).toBe("");
-    expect(document.body.style.height).toBe("");
+  it("does not render when viewport width is >= 768px", () => {
+    mockUseViewportWidth.mockReturnValue(768);
+    const { container } = renderWithRouter();
+    expect(container.firstChild).toBeNull();
   });
 });

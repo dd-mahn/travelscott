@@ -1,7 +1,5 @@
 import React, { memo, useEffect, useRef, useState, useCallback } from "react";
 import { motion } from "framer-motion";
-import { useSelector } from "react-redux";
-import { selectIsDarkMode } from "src/store/slices/themeSlice";
 import { VisibilityVariants } from "src/utils/constants/variants";
 
 // Define animation variants
@@ -18,7 +16,6 @@ interface StaggerLogoProps {
 function StaggerLogo({
   containerClassName = "",
 }: StaggerLogoProps) {
-  const isDarkMode = useSelector(selectIsDarkMode);
   const text = "TravelScott";
   const containerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
@@ -38,9 +35,11 @@ function StaggerLogo({
       if (!container || !textElement) return;
       
       const containerWidth = container.offsetWidth;
+      console.log(containerWidth)
       const scale = containerWidth / textElement.offsetWidth;
+      console.log(scale)
       const newFontSize = Math.floor(16 * scale * 0.95); // 0.95 for safety margin
-      
+      console.log(newFontSize)
       setFontSize(newFontSize);
     });
   }, []);
@@ -74,9 +73,7 @@ function StaggerLogo({
   return (
     <div
       ref={containerRef}
-      className={`pointer-events-none flex w-screen items-center justify-start overflow-y-hidden font-logo leading-[1] ${
-        isDarkMode ? 'text-text-dark' : 'text-text-light'
-      } ${containerClassName}`}
+      className={`pointer-events-none flex w-full items-center justify-start overflow-y-hidden font-logo leading-[1] text-text-light dark:text-text-dark ${containerClassName}`}
     >
       <div
         ref={textRef}
@@ -96,9 +93,7 @@ function StaggerLogo({
               bounce: 0.4,
               delay: index * 0.05,
             }}
-            className={`inline-block w-fit select-none ${
-              isDarkMode ? 'text-text-dark' : 'text-text-light'
-            } `}
+            className={`inline-block w-fit select-none text-text-light dark:text-text-dark`}
           >
             {char}
           </motion.span>

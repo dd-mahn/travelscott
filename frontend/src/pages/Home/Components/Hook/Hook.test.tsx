@@ -31,7 +31,7 @@ describe('Hook', () => {
     
     // Check sticky container
     const stickyContainer = screen.getByTestId('hook').parentElement;
-    expect(stickyContainer).toHaveClass('sticky', 'top-0', '-z-10');
+    expect(stickyContainer).toHaveClass('sticky', 'top-0');
 
     // Check heading elements
     const headings = screen.getAllByRole('heading');

@@ -2,6 +2,7 @@ import React, { useMemo, memo } from "react";
 import { NavLink } from "react-router-dom";
 import "remixicon/fonts/remixicon.css";
 import { motion } from "framer-motion";
+import { useViewportWidth } from "src/hooks/useViewportWidth/useViewportWidth";
 
 // Styles and components
 import "src/styles/header.css";
@@ -12,7 +13,6 @@ import {
 import HeaderSearch from "src/components/Header/Components/HeaderSearch";
 import ThemeButton from "src/components/Header/Components/ThemeButton";
 import HeaderMobileMenu from "src/components/Header/Components/HeaderMobileMenu";
-import { useViewportWidth } from "src/hooks/useViewportWidth/useViewportWidth";
 
 // Navigation items
 const navs = [

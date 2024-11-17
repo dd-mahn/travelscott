@@ -11,7 +11,7 @@ const AnimatedLogoScreen: React.FC = () => {
     >
       <motion.div
         data-testid="animated-logo-text"
-        className="pointer-events-none w-screen overflow-hidden text-center font-logo leading-[1] lg:mr-16 lg:pr-12 lg:text-12xl xl:text-13xl 2xl:pr-20 2xl:text-14xl 3xl:text-15xl"
+        className="pointer-events-none w-screen overflow-hidden text-center font-logo leading-[1] lg:mr-16 lg:pr-12 2xl:pr-20"
       >
         <StaggerLogo />
       </motion.div>

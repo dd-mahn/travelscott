@@ -51,13 +51,13 @@ describe("StaggerLogo", () => {
     expect(container).toHaveClass(
       "pointer-events-none",
       "flex",
-      "w-screen",
+      "w-full",
       "items-center",
       "justify-start",
       "overflow-y-hidden",
       "font-logo",
       "leading-[1]"
-    );
+    ); 
   });
 
   it("applies whitespace-nowrap class to text container", () => {

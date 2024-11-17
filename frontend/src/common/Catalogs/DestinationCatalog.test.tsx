@@ -86,7 +86,7 @@ describe("DestinationCatalog", () => {
   it("displays error state when there is an error", () => {
     render(<DestinationCatalog {...defaultProps} error="Test error" />);
     expect(
-      screen.getByText("Error... Please reload the page or try again later.")
+      screen.getByText("Error... Please reload or try again later.")
     ).toBeInTheDocument();
   });
 
@@ -94,7 +94,7 @@ describe("DestinationCatalog", () => {
     render(
       <DestinationCatalog {...defaultProps} destinations={[]} totalDestinations={0} />
     );
-    expect(screen.getByText("Nothing found.")).toBeInTheDocument();
+    expect(screen.getByText("Nothing available at the moment, please reload or try again later.")).toBeInTheDocument();
   });
 
   it("renders destination cards when destinations are provided", () => {

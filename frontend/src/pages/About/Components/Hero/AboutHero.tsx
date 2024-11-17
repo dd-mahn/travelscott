@@ -3,6 +3,7 @@ import { motion, useAnimation, useScroll, useTransform } from "framer-motion";
 
 import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
 import heroVideo from "src/assets/videos/about-hero.mp4";
+import BackgroundVideo from "src/common/BackgroundVideo/BackgroundVideo";
 
 // Define animation variants
 const variants = {
@@ -40,7 +41,7 @@ const AboutHero = () => {
   const sideBlockRefs = [useRef<HTMLDivElement>(null), useRef<HTMLDivElement>(null)];
   const blockRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const aboutVideoRef = useRef<HTMLVideoElement>(null);
+  const aboutVideoRef = useRef<HTMLDivElement>(null);
 
   // Animation controls
   const sideBlockControls = [useAnimation(), useAnimation()];
@@ -188,18 +189,16 @@ const AboutHero = () => {
         animate="visible"
         variants={variants}
         transition={{ duration: 0.8, delay: 1.4 }}
-        className="relative h-[80svh] md:h-screen w-full mt-32 lg:mt-40 2xl:mt-sect-default"
+        className="relative h-[60svh] sm:h-[80svh] md:h-screen w-full mt-32 lg:mt-40 2xl:mt-sect-default"
       >
-        <motion.video
-          ref={aboutVideoRef}
+        <motion.div ref={aboutVideoRef} style={{ scale }} className="absolute top-0 z-10 w-full h-full">
+          <BackgroundVideo
           data-testid="about-hero-video"
           src={heroVideo}
-          style={{ scale }}
-          autoPlay
-          loop
-          muted
-          className="absolute top-0 z-10 w-full h-full object-cover rounded-3xl shadow-section dark:shadow-section-dark"
-        ></motion.video>
+          className="rounded-2xl object-cover shadow-section dark:shadow-section-dark"
+        />
+        </motion.div>
+        
         <motion.h2
           style={{ opacity }}
           className={`h2-md absolute top-1/2 md:top-1/2 z-[15] w-full text-center text-text-dark`}

@@ -109,6 +109,7 @@ const AboutWho = () => {
                     whileHover="hoverScale"
                     variants={variants}
                     transition={{ duration: 0.4 }}
+                    className="overflow-hidden rounded-xl h-full"
                   >
                     <OptimizedImage
                       src={person.img}

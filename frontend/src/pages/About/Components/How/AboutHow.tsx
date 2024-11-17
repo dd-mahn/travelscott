@@ -1,6 +1,9 @@
 import React, { memo } from "react";
 import { motion } from "framer-motion";
-import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
+import {
+  HoverVariants,
+  VisibilityVariants,
+} from "src/utils/constants/variants";
 
 // Define motion variants
 const variants = {
@@ -24,8 +27,6 @@ const MotionNumber = ({ number, delay }: { number: string; delay: number }) => (
   </motion.div>
 );
 
-
-
 // Define a reusable Section component
 interface SectionProps {
   title: string;
@@ -37,49 +38,53 @@ interface SectionProps {
   zIndex: string;
 }
 
-const Section: React.FC<SectionProps> = React.memo(({ title, subtitle, number, description, bgColor, topClass, zIndex }) => (
-  <div className={`sticky ${topClass} ${zIndex} mx-auto mb-24 mt-sect-medium flex w-4/5 flex-col items-start gap-8 md:gap-12 rounded-xl ${bgColor} px-8 pb-16 pt-4 shadow-section dark:shadow-section-dark md:h-[40svh] md:pb-24 lg:h-[50svh] lg:w-3/4 2xl:w-3/4`}>
-    <div className="flex w-full justify-between">
-      {/* Number */}
-      <div className="flex h-fit w-fit gap-1 overflow-hidden md:gap-0">
-        <MotionNumber number={number[0]} delay={0.6} />
-        <MotionNumber number={number[1]} delay={0.8} />
-      </div>
-      {/* Content */}
-      <div className="flex flex-col items-end justify-start gap-12">
-        {/* Title */}
-        <div className="flex w-fit flex-col items-end justify-start gap-0">
-          <div className="overflow-hidden">
-            <motion.h1
-              initial="hiddenFullY"
+const Section: React.FC<SectionProps> = React.memo(
+  ({ title, subtitle, number, description, bgColor, topClass, zIndex }) => (
+    <div
+      className={`sticky ${topClass} ${zIndex} mx-auto mb-24 mt-sect-default flex w-4/5 flex-col items-start gap-8 rounded-xl md:mt-sect-medium md:gap-12 ${bgColor} px-8 pb-16 pt-4 shadow-section dark:shadow-section-dark md:h-[40svh] md:pb-24 lg:h-[50svh] lg:w-3/4 2xl:w-3/4`}
+    >
+      <div className="flex w-full justify-between">
+        {/* Number */}
+        <div className="flex h-fit w-fit gap-1 overflow-hidden md:gap-0">
+          <MotionNumber number={number[0]} delay={0.6} />
+          <MotionNumber number={number[1]} delay={0.8} />
+        </div>
+        {/* Content */}
+        <div className="flex flex-col items-end justify-start gap-12">
+          {/* Title */}
+          <div className="flex w-fit flex-col items-end justify-start gap-0">
+            <div className="overflow-hidden">
+              <motion.h1
+                initial="hiddenFullY"
+                whileInView="visible"
+                transition={{ duration: 0.4 }}
+                viewport={{ once: true, margin: "0% 0% -10% 0%" }}
+                variants={variants}
+                className="h1-md-bold leading-[0.8]"
+              >
+                {title}
+              </motion.h1>
+            </div>
+            <motion.span
+              initial="hiddenY"
               whileInView="visible"
-              transition={{ duration: 0.4 }}
               viewport={{ once: true, margin: "0% 0% -10% 0%" }}
+              transition={{ duration: 0.4, delay: 0.4 }}
               variants={variants}
-              className="h1-md-bold leading-[0.8]"
+              className="span-medium uppercase"
             >
-              {title}
-            </motion.h1>
+              {subtitle}
+            </motion.span>
           </div>
-          <motion.span
-            initial="hiddenY"
-            whileInView="visible"
-            viewport={{ once: true, margin: "0% 0% -10% 0%" }}
-            transition={{ duration: 0.4, delay: 0.4 }}
-            variants={variants}
-            className="span-medium uppercase"
-          >
-            {subtitle}
-          </motion.span>
         </div>
       </div>
+      {/* Description */}
+      <p className="p-medium w-full md:w-3/4 lg:w-2/3 2xl:w-2/3 3xl:w-2/3">
+        {description}
+      </p>
     </div>
-    {/* Description */}
-    <p className="p-medium w-full md:w-3/4 lg:w-2/3 2xl:w-2/3 3xl:w-2/3">
-      {description}
-    </p>
-  </div>
-));
+  ),
+);
 
 const AboutHow = () => {
   return (

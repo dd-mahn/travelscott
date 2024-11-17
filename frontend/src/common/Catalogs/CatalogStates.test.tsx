@@ -42,7 +42,7 @@ describe("CatalogStates", () => {
     it("renders error message", () => {
       render(<ErrorState keyName="test-error" />);
       expect(
-        screen.getByText("Error... Please reload the page or try again later.")
+        screen.getByText("Error... Please reload or try again later.")
       ).toBeInTheDocument();
     });
 
@@ -59,12 +59,12 @@ describe("CatalogStates", () => {
   describe("NotFoundState", () => {
     it("renders not found message", () => {
       render(<NotFoundState keyName="test-not-found" />);
-      expect(screen.getByText("Nothing found.")).toBeInTheDocument();
+      expect(screen.getByText("Nothing available at the moment, please reload or try again later.")).toBeInTheDocument();
     });
 
     it("has correct layout classes", () => {
       render(<NotFoundState keyName="test-not-found" />);
-      const container = screen.getByText("Nothing found.").parentElement;
+      const container = screen.getByText("Nothing available at the moment, please reload or try again later.").parentElement;
       expect(container).toHaveClass("grid");
       expect(container).toHaveClass("h-[50svh]");
       expect(container).toHaveClass("w-full");

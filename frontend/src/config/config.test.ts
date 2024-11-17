@@ -16,7 +16,7 @@ describe('Config', () => {
     vi.stubGlobal('import', {
       meta: {
         env: {
-          VITE_API_BASE_URL: 'http://localhost:4080', 
+          VITE_API_BASE_URL: 'https://localhost:4080', 
           VITE_API_VERSION: 'v1',
           VITE_NODE_ENV: 'test'
         }
@@ -24,14 +24,14 @@ describe('Config', () => {
     });
     
     const { default: config } = await import('src/config/config');
-    expect(config.api.baseUrl).toBe('http://localhost:4080');
+    expect(config.api.baseUrl).toBe('https://localhost:4080');
     expect(config.api.version).toBe('v1');
     expect(config.app.environment).toBe('test');
   });
 
   it('uses default values when environment variables are not set', async () => {
     const { default: config } = await import('src/config/config');
-    expect(config.api.baseUrl).toBe('http://localhost:4080');
+    expect(config.api.baseUrl).toBe('https://localhost:4080');
     expect(config.api.timeout).toBe(5000);
     expect(config.api.version).toBe('v1');
   });

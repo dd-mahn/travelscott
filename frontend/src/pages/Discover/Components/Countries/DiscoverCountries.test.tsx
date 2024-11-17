@@ -152,7 +152,7 @@ describe("DiscoverCountries", () => {
       </Provider>
     );
 
-    expect(screen.getByText("Error... Please reload the page or try again later.")).toBeInTheDocument();
+    expect(screen.getByText("Error... Please reload or try again later.")).toBeInTheDocument();
   });
 
   it("renders related sections", () => {
