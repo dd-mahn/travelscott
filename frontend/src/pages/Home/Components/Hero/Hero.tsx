@@ -340,7 +340,7 @@ const Hero: React.FC = () => {
                 animate="visible"
                 transition={{
                   duration: 0.5,
-                  delay: 0.2,
+                  delay: 0.15,
                   delayChildren: 0.2,
                 }}
                 className="h1-md text-center leading-[0.8]"
@@ -355,7 +355,7 @@ const Hero: React.FC = () => {
                 animate="visible"
                 transition={{
                   duration: 0.5,
-                  delay: 0.4,
+                  delay: 0.3,
                   delayChildren: 0.2,
                 }}
                 className="h1-md text-center uppercase leading-[0.8] text-main-green dark:text-dark-green"
@@ -370,7 +370,7 @@ const Hero: React.FC = () => {
                 animate="visible"
                 transition={{
                   duration: 0.5,
-                  delay: 0.6,
+                  delay: 0.45,
                   delayChildren: 0.2,
                 }}
                 className="h1-md overflow-hidden text-center leading-[0.9]"

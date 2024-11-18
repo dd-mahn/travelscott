@@ -2,7 +2,6 @@ import React, { memo, useState } from "react";
 import "src/styles/contact.css";
 import { AnimatePresence, motion } from "framer-motion";
 import { sendFeedback } from "src/services/apis/sendFeedback";
-import config from "src/config/config";
 import { resetForm } from "src/utils/resetForm";
 import StyledInput from "src/common/StyledInput/StyledInput";
 import { SecondaryButton } from "src/common/Buttons/Button";
@@ -33,7 +32,6 @@ const variants = {
 
 const Contact: React.FC = () => {
   const [visibleSection, setVisibleSection] = useState("");
-  const [formValid, setFormValid] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState<string | null>(null);
   const { showNotification } = useNotification();
 
@@ -95,6 +93,17 @@ const Contact: React.FC = () => {
   // Handle email button click
   const emailButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     copyContent(e.currentTarget.textContent as string);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      // Prevent form submission if the focused element is a textarea
+      if (e.target instanceof HTMLTextAreaElement) {
+        return;
+      }
+      e.preventDefault();
+      handleFeedbackSend();
+    }
   };
 
   return (
@@ -302,6 +311,7 @@ const Contact: React.FC = () => {
 
                 <form
                   action=""
+                  onKeyDown={handleKeyDown}
                   className="flex w-[90%] flex-col gap-8 pt-2 md:w-4/5 lg:w-2/5 lg:gap-12 lg:pt-8"
                 >
                   <StyledInput type="text" id="firstName" label="First name" />

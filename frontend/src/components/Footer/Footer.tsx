@@ -102,6 +102,14 @@ const Footer = () => {
                 if (styledInput) styledInput.classList.remove("active");
               }
             }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleSubscribe(
+                  (document.getElementById("subscribe-email") as HTMLInputElement)
+                    .value
+                );
+              }
+            }}
           />
           <motion.button
             initial={{ x: -40, opacity: 0 }}
@@ -133,7 +141,7 @@ const Footer = () => {
         viewport={{ once: true }}
         variants={variants}
         transition={{ duration: 0.6 }}
-        className="px-sect z-10 flex items-center justify-end pb-4 md:mt-4 md:items-end md:justify-between md:pb-4"
+        className="px-sect z-10 flex items-center justify-center pb-4 md:mt-4 md:items-end md:justify-between md:pb-4"
       >
         {viewportWidth >= 768 && (
           <div className="z-10 flex gap-6 lg:gap-8 xl:gap-10 2xl:gap-12 3xl:gap-12">
@@ -178,18 +186,20 @@ const Footer = () => {
         )}
 
         <button
-          className="underline-btn span-medium mt-8 md:mt-0"
+          className="underline-btn span-medium border-b border-text-light dark:border-text-dark md:border-none mt-8 md:mt-0"
           onClick={scrollToTop}
         >
           Back to top <i className="cursor-hover-small ri-arrow-up-line"></i>
         </button>
       </motion.div>
 
-      <div className="z-10 grid w-screen place-items-center border-t border-solid border-gray py-2">
-        <div className="w-screen overflow-hidden pointer-events-none">
-          <StaggerLogo />
+      {viewportWidth > 768 && (
+        <div className="z-10 grid w-screen place-items-center border-t border-solid border-gray py-2">
+          <div className="pointer-events-none w-screen overflow-hidden">
+            <StaggerLogo />
+          </div>
         </div>
-      </div>
+      )}
 
       <div className="px-sect z-10 flex flex-col items-center justify-between border-t border-solid border-gray py-2 md:flex-row">
         <span className="span-small select-none font-medium uppercase text-gray">

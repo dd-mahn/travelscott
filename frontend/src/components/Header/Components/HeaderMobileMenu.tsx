@@ -73,8 +73,8 @@ const HeaderMobileMenu = () => {
                 </motion.button>
               </div>
 
-              <div className="flex w-full justify-between">
-                <ul className="z-10 flex flex-col gap-8">
+              <div className="flex w-full justify-between pt-8">
+                <ul className="z-10 flex flex-col gap-4">
                   {navs.map((nav, index) => (
                     <li key={index} className="h-fit w-fit overflow-hidden">
                       <motion.div

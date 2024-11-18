@@ -33,17 +33,31 @@ const ThemeButton = () => {
   };
 
   return (
+    viewportWidth > 768 ? (
     <motion.button
       variants={HoverVariants}
       whileHover="hoverScale"
       transition={{ duration: 0.2 }}
       whileTap={{ scale: 1 }}
       title="Toggle Contrast"
-      className={`${viewportWidth > 768 ? "p-large" : "h2-inter"} px-1`}
+      className="p-large px-1"
       onClick={handleToggleDarkMode}
     >
-      <i className="ri-contrast-2-fill pointer-events-none"></i>
-    </motion.button>
+        <i className="ri-contrast-2-fill pointer-events-none"></i>
+      </motion.button>
+    ) : (
+      <motion.button
+      variants={HoverVariants}
+      whileHover="hoverScale"
+      transition={{ duration: 0.2 }}
+      whileTap={{ scale: 1 }}
+      title="Toggle Contrast"
+      className="flex h-fit w-fit items-center justify-center rounded-md bg-background-dark px-2 py-1 dark:bg-background-light"
+      onClick={handleToggleDarkMode}
+    >
+        <i className="ri-contrast-2-fill text-text-dark dark:text-text-light"></i>
+      </motion.button>
+    )
   );
 };
 
