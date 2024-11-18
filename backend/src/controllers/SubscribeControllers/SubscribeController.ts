@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import Subscribe from 'src/models/Subscribe';
 import { EmailService } from 'src/services/EmailService';
 import { logControllerError } from "src/utils/logger";
-import { generateTokenPair } from 'src/utils/auth/jwt';
 
 const emailService = new EmailService();
 
@@ -15,18 +14,15 @@ export const createSubscription = async (req: Request, res: Response) => {
     const newSubscription = new Subscribe({ email });
     const savedSubscription = await newSubscription.save();
     
-    // Generate JWT token
-    const tokenPair = generateTokenPair({
-      userId: savedSubscription._id.toString(),
-      email: savedSubscription.email
-    });
-    
     // Send welcome email
     await emailService.sendWelcomeEmail(email);
     
     res.status(201).json({ 
       message: 'Subscription created successfully and welcome email sent',
-      tokenPair
+      subscription: {
+        id: savedSubscription._id,
+        email: savedSubscription.email
+      }
     });
   } catch (error) {
     logControllerError("createSubscription", error);
@@ -93,3 +89,4 @@ export const deleteSubscription = async (req: Request, res: Response) => {
     res.status(500).json({ message: 'Failed to delete subscription', error });
   }
 };
+

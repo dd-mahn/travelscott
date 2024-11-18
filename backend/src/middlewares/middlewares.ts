@@ -22,7 +22,7 @@ const limiter = rateLimit({
 export const corsOptions = {
   origin: process.env.NODE_ENV === 'production' 
     ? ['https://travelscott.vercel.app', 'https://railway.app', 'healthcheck.railway.com']
-    : ['http://localhost:5173', 'http://localhost:4173'],
+    : process.env.NODE_ENV === 'development' ? ['https://localhost:5173', 'https://localhost:4173'] : ['https://localhost:5173', 'https://localhost:4173'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,

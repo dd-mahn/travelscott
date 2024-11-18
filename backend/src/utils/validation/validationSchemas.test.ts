@@ -1,4 +1,4 @@
-import { blogSchema, destinationSchema, countrySchema, feedbackSchema, subscribeSchema } from 'src/utils/validation/validationSchemas';
+import { blogSchema, destinationSchema, countrySchema, feedbackSchema, subscribeSchema, refreshTokenSchema, authSchema } from 'src/utils/validation/validationSchemas';
 
 describe('Validation Schemas', () => {
   describe('blogSchema', () => {
@@ -171,6 +171,51 @@ describe('Validation Schemas', () => {
       const { error } = subscribeSchema.validate(invalidSubscription);
       expect(error).toBeDefined();
       expect(error?.details[0].message).toBe('Email is required');
+    });
+  });
+
+  describe('refreshTokenSchema', () => {
+    it('should validate a valid refresh token', () => {
+      const validRefreshToken = {
+        refreshToken: 'valid-refresh-token'
+      };
+
+      const { error } = refreshTokenSchema.validate(validRefreshToken);
+      expect(error).toBeUndefined();
+    });
+
+    it('should reject when refresh token is missing', () => {
+      const invalidRefreshToken = {};
+
+      const { error } = refreshTokenSchema.validate(invalidRefreshToken);
+      expect(error).toBeDefined();
+    });
+  });
+
+  describe('authSchema', () => {
+    it('should validate a valid auth object', () => {
+      const validAuth = {
+        email: 'test@example.com'
+      };
+
+      const { error } = authSchema.validate(validAuth);
+      expect(error).toBeUndefined();
+    });
+
+    it('should reject invalid email format', () => {
+      const invalidAuth = {
+        email: 'invalid-email'
+      };
+
+      const { error } = authSchema.validate(invalidAuth);
+      expect(error).toBeDefined();
+    });
+
+    it('should reject when email is missing', () => {
+      const invalidAuth = {};
+
+      const { error } = authSchema.validate(invalidAuth);
+      expect(error).toBeDefined();
     });
   });
 });

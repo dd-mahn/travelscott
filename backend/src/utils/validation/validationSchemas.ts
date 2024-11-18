@@ -72,3 +72,6 @@ export const refreshTokenSchema = Joi.object({
   refreshToken: Joi.string().required()
 });
 
+export const authSchema = Joi.object({
+  email: Joi.string().email().required()
+});

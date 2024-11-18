@@ -74,21 +74,6 @@ describe('SubscribeController', () => {
         error: error.message
       });
     });
-
-    it("should create subscription and return JWT tokens", async () => {
-      const subscriptionData = {
-        email: 'test@example.com'
-      };
-
-      const res = await request(app)
-        .post("/api/subscribe")
-        .send(subscriptionData);
-      
-      expect(res.status).toBe(201);
-      expect(res.body.tokenPair).toBeDefined();
-      expect(res.body.tokenPair.accessToken).toBeDefined();
-      expect(res.body.tokenPair.refreshToken).toBeDefined();
-    });
   });
 
   describe('getSubscriptions', () => {

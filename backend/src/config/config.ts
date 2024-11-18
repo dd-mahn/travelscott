@@ -4,6 +4,8 @@ import { z } from 'zod';
 // Load the correct .env file based on environment
 const envFile = process.env.NODE_ENV === 'production' 
   ? '.env.production'
+  : process.env.NODE_ENV === 'test'
+  ? '.env.test'
   : '.env.development';
 
 dotenv.config({ path: envFile });

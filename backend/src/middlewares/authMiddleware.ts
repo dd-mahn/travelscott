@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { verifyToken, TokenPayload } from 'src/utils/auth/jwt';
+import { verifyToken, TokenPayload, verifyRefreshToken } from 'src/utils/auth/jwt';
 
 declare global {
   namespace Express {
@@ -23,5 +23,21 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
     next();
   } catch (error) {
     return res.status(403).json({ message: 'Invalid or expired token' });
+  }
+};
+
+export const authenticateRefreshToken = async (req: Request, res: Response, next: Function) => {
+  try {
+    const refreshToken = req.headers.authorization?.split(' ')[1];
+    
+    if (!refreshToken) {
+      return res.status(401).json({ message: 'Refresh token is required' });
+    }
+
+    const decoded = verifyRefreshToken(refreshToken);
+    req.user = decoded;
+    next();
+  } catch (error) {
+    res.status(401).json({ message: 'Invalid refresh token' });
   }
 }; 
