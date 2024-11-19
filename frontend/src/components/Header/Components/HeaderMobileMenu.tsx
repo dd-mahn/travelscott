@@ -1,6 +1,6 @@
 import React, { memo, useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { BlobVariants, VisibilityVariants } from "src/utils/constants/variants";
 import ThemeButton from "src/components/Header/Components/ThemeButton";
 import { useViewportWidth } from "src/hooks/useViewportWidth/useViewportWidth";
@@ -81,6 +81,7 @@ const HeaderMobileMenu = () => {
                         variants={VisibilityVariants}
                         initial="hiddenFullY"
                         animate="visible"
+                        onClick={toggleMenu}
                         transition={{ duration: 0.5, delay: index * 0.2 }}
                       >
                         <NavLink
@@ -103,12 +104,13 @@ const HeaderMobileMenu = () => {
                         animate="visible"
                         transition={{ duration: 0.5, delay: index * 0.2 }}
                       >
-                        <NavLink
+                        <Link
+                          target="_blank"
                           to={social.path}
                           className="h3-md text-text-light dark:text-text-dark"
                         >
                           {social.display}
-                        </NavLink>
+                        </Link>
                       </motion.div>
                     </li>
                   ))}
