@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "src/store/store";
 import { setHomeBlogs } from "src/store/slices/blogSlice";
 
-import "src/styles/home.css";
+import "src/styles/components/home.css";
 
 // Component imports
 import Hero from "src/pages/Home/Components/Hero/Hero";

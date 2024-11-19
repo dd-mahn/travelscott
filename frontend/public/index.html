@@ -27,8 +27,7 @@
 
     <!-- Preload critical fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    
+
     <!-- Preload custom fonts with modern formats -->
     <link
       rel="preload"
@@ -52,113 +51,62 @@
       crossorigin
     />
 
-    <style>
-      /* Import Inter font */
-      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+    <!-- Add these preloads after your existing preloads -->
+    <link
+      rel="preload"
+      href="/fonts/Inter/Inter_18pt-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/Inter/Inter_24pt-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/Inter/Inter_28pt-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
 
-      /* Font loading states */
-      .fonts-loading {
-        opacity: 0;
-      }
-      .fonts-loaded {
-        opacity: 1;
-        transition: opacity 0.1s ease-in;
-      }
-
-      /* Font definitions */
-      @font-face {
-        font-family: "Kaushan Script";
-        src: url("/fonts/KaushanScript/KaushanScript-Regular.woff2") format("woff2"),
-             url("/fonts/KaushanScript/KaushanScript-Regular.ttf") format("truetype");
-        font-weight: 500;
-        font-style: normal;
-        font-display: swap;
-      }
-
-      @font-face {
-        font-family: "MD Nichrome";
-        src: url("/fonts/MD-Nichrome/MDNichromeTest-Regular.woff2") format("woff2"),
-             url("/fonts/MD-Nichrome/MDNichromeTest-Regular.otf") format("opentype");
-        font-weight: 500;
-        font-style: normal;
-        font-display: swap;
-      }
-
-      @font-face {
-        font-family: "MD Nichrome";
-        src: url("/fonts/MD-Nichrome/MDNichromeTest-Bold.woff2") format("woff2"),
-             url("/fonts/MD-Nichrome/MDNichromeTest-Bold.otf") format("opentype");
-        font-weight: 700;
-        font-style: normal;
-        font-display: swap;
-      }
-
-      @font-face {
-        font-family: "MD Nichrome";
-        src: url("/fonts/MD-Nichrome/MDNichromeTest-Infra.woff2") format("woff2"),
-             url("/fonts/MD-Nichrome/MDNichromeTest-Infra.otf") format("opentype");
-        font-weight: 200;
-        font-style: normal;
-        font-display: swap;
-      }
-
-      @font-face {
-        font-family: "MD Nichrome";
-        src: url("/fonts/MD-Nichrome/MDNichromeTest-Light.woff2") format("woff2"),
-             url("/fonts/MD-Nichrome/MDNichromeTest-Light.otf") format("opentype");
-        font-weight: 300;
-        font-style: normal;
-        font-display: swap;
-      }
-
-      @font-face {
-        font-family: "MD Nichrome";
-        src: url("/fonts/MD-Nichrome/MDNichromeTest-Dark.woff2") format("woff2"),
-             url("/fonts/MD-Nichrome/MDNichromeTest-Dark.otf") format("opentype");
-        font-weight: 600;
-        font-style: normal;
-        font-display: swap;
-      }
-
-      @font-face {
-        font-family: "MD Nichrome";
-        src: url("/fonts/MD-Nichrome/MDNichromeTest-Black.woff2") format("woff2"),
-             url("/fonts/MD-Nichrome/MDNichromeTest-Black.otf") format("opentype");
-        font-weight: 900;
-        font-style: normal;
-        font-display: swap;
-      }
-
-      /* Add other MD Nichrome weights similarly */
-    </style>
-
+    <link rel="stylesheet" href="/src/styles/base/font.css">
     <script>
       // Check sessionStorage first for cached preference
-      const cachedTheme = sessionStorage.getItem('isDarkMode');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      
+      const cachedTheme = sessionStorage.getItem("isDarkMode");
+      const prefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)",
+      ).matches;
+
       // Set initial theme class before any rendering
-      if (cachedTheme === 'true' || (!cachedTheme && prefersDark)) {
-        document.documentElement.classList.add('dark');
+      if (cachedTheme === "true" || (!cachedTheme && prefersDark)) {
+        document.documentElement.classList.add("dark");
       } else {
-        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.remove("dark");
       }
 
       // Font loading management
-      document.documentElement.classList.add('fonts-loading');
-      
+      document.documentElement.classList.add("fonts-loading");
+
       if ("fonts" in document) {
         Promise.all([
+          document.fonts.load("400 18pt 'Inter'"),
+          document.fonts.load("400 24pt 'Inter'"),
+          document.fonts.load("400 28pt 'Inter'"),
           document.fonts.load("500 1em 'MD Nichrome'"),
           document.fonts.load("700 1em 'MD Nichrome'"),
-          document.fonts.load("500 1em 'Kaushan Script'")
+          document.fonts.load("500 1em 'Kaushan Script'"),
         ]).then(() => {
-          document.documentElement.classList.remove('fonts-loading');
-          document.documentElement.classList.add('fonts-loaded');
-          sessionStorage.setItem('fonts-loaded', 'true');
+          document.documentElement.classList.remove("fonts-loading");
+          document.documentElement.classList.add("fonts-loaded");
+          sessionStorage.setItem("fonts-loaded", "true");
         });
       } else {
-        document.documentElement.classList.remove('fonts-loading');
+        document.documentElement.classList.remove("fonts-loading");
       }
     </script>
 

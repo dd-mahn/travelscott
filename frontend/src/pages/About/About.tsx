@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import { motion } from "framer-motion";
 
 // Asset imports
-import "src/styles/about.css";
+import "src/styles/components/about.css";
 import { VisibilityVariants } from "src/utils/constants/variants";
 import AboutHero from "src/pages/About/Components/Hero/AboutHero";
 import AboutHow from "src/pages/About/Components/How/AboutHow";

@@ -1,0 +1,101 @@
+/* Typography Classes */
+.big-heading {
+    @apply font-prima font-bold uppercase text-4xl sm:text-7.5xl md:text-9xl lg:text-9xl xl:text-11xl 2xl:text-12xl 2xl:leading-snug 3xl:text-13xl 3xl:leading-snug;
+    line-height: 1 !important;
+  }
+  
+  .h1-md {
+    @apply font-prima font-semibold *:leading-[0.8] md:font-bold uppercase text-4xl sm:text-6.5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-8.5xl 3xl:text-9xl 3xl:tracking-wide;
+  }
+  
+  .h1-logo {
+    @apply font-logo font-semibold md:font-bold uppercase text-4xl sm:text-5.5xl md:text-6.5xl lg:text-6xl xl:text-7xl 2xl:text-8xl 3xl:text-9xl;
+  }
+  
+  .h1-md-bold {
+    @apply font-prima font-bold md:font-bold uppercase text-4xl sm:text-5.5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-8.5xl 3xl:text-9xl 3xl:tracking-wide;
+  }
+  
+  .h2-md {
+    @apply font-prima font-semibold tracking-normal text-xl sm:text-2.5xl md:text-3.5xl lg:text-4xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl;
+  }
+  
+  .h2-logo {
+    @apply font-logo font-semibold text-3xl md:text-3xl lg:text-3xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl;
+  }
+  
+  .h2-inter {
+    @apply font-medium tracking-tight text-xl sm:text-2.5xl md:text-3xl lg:text-4xl xl:text-4.5xl 2xl:text-5xl 3xl:text-6xl;
+  }
+  
+  .h3-md {
+    @apply font-prima font-medium md:font-semibold leading-[1] tracking-tight text-xl sm:text-1.5xl md:text-2xl lg:text-3xl xl:text-3.5xl 2xl:text-4xl 3xl:text-4.5xl;
+  }
+  
+  .h3-inter {
+    @apply font-medium leading-normal tracking-tight text-xl sm:text-1.5xl md:text-2xl lg:text-3xl xl:text-3.5xl 2xl:text-4xl 3xl:text-4.5xl;
+  }
+  
+  .p-regular {
+    @apply font-normal text-xs sm:text-sm md:text-base lg:text-base xl:text-lg 2xl:text-xl;
+  }
+  
+  .p-medium {
+    @apply font-medium text-sm sm:text-sm md:text-base lg:text-lg xl:text-lg 2xl:text-xl 3xl:text-1.5xl;
+  }
+  
+  .p-large {
+    @apply font-medium text-base sm:text-lg md:text-lg lg:text-xl xl:text-1.5xl 2xl:text-2xl 3xl:text-3xl;
+  }
+  
+  .span-small {
+    @apply font-normal text-[0.65rem] sm:text-sm md:text-sm lg:text-sm xl:text-sm 2xl:text-base 3xl:text-base;
+  }
+  
+  .span-regular {
+    @apply font-medium text-sm sm:text-sm md:text-base lg:text-base xl:text-base 2xl:text-lg 3xl:text-lg;
+  }
+  
+  .span-medium {
+    @apply font-semibold text-sm sm:text-sm md:text-base lg:text-base xl:text-base 2xl:text-lg 3xl:text-lg;
+  }
+  
+  .span-large {
+    @apply font-extrabold text-sm sm:text-sm md:text-base lg:text-base xl:text-base 2xl:text-lg 3xl:text-lg;
+  }
+  
+  .text-stroke {
+    -webkit-text-stroke: 2px #333333;
+  }
+  
+  .dark .text-stroke {
+    -webkit-text-stroke: 2px #ffffff;
+  }
+  
+  .text-stroke-bold {
+    -webkit-text-stroke: 4px #333333;
+  }
+  
+  .dark .text-stroke-bold {
+    -webkit-text-stroke: 4px #ffffff;
+  }
+  
+  .text-stroke-light {
+    -webkit-text-stroke: 2px #ffffff;
+  }
+  
+  .dark .text-stroke-light {
+    -webkit-text-stroke: 2px #333333;
+  }
+  
+  .text-stroke-bright-bold {
+    -webkit-text-stroke: 4px #ffffff;
+  }
+  
+  .text-stroke-bright {
+    -webkit-text-stroke: 2px #ffffff;
+  }
+  
+  /* .dark .text-stroke-light-bold {
+    -webkit-text-stroke: 4px #333333;
+  } */

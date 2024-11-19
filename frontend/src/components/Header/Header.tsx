@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { useViewportWidth } from "src/hooks/useViewportWidth/useViewportWidth";
 
 // Styles and components
-import "src/styles/header.css";
+import "src/styles/components/header.css";
 import {
   HeaderVariants,
   HoverVariants,

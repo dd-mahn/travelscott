@@ -1,5 +1,5 @@
 import React, { memo, useState } from "react";
-import "src/styles/contact.css";
+import "src/styles/components/contact.css";
 import { AnimatePresence, motion } from "framer-motion";
 import { sendFeedback } from "src/services/apis/sendFeedback";
 import { resetForm } from "src/utils/resetForm";

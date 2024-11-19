@@ -1,0 +1,259 @@
+/* Font loading states */
+.fonts-loading {
+  opacity: 0;
+}
+.fonts-loaded {
+  opacity: 1;
+  transition: opacity 0.1s ease-in;
+}
+
+/* Font definitions */
+@font-face {
+  font-family: "Kaushan Script";
+  src:
+    url("/fonts/KaushanScript/KaushanScript-Regular.woff2") format("woff2"),
+    url("/fonts/KaushanScript/KaushanScript-Regular.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "MD Nichrome";
+  src:
+    url("/fonts/MD-Nichrome/MDNichromeTest-Regular.woff2") format("woff2"),
+    url("/fonts/MD-Nichrome/MDNichromeTest-Regular.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "MD Nichrome";
+  src:
+    url("/fonts/MD-Nichrome/MDNichromeTest-Bold.woff2") format("woff2"),
+    url("/fonts/MD-Nichrome/MDNichromeTest-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "MD Nichrome";
+  src:
+    url("/fonts/MD-Nichrome/MDNichromeTest-Infra.woff2") format("woff2"),
+    url("/fonts/MD-Nichrome/MDNichromeTest-Infra.otf") format("opentype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "MD Nichrome";
+  src:
+    url("/fonts/MD-Nichrome/MDNichromeTest-Light.woff2") format("woff2"),
+    url("/fonts/MD-Nichrome/MDNichromeTest-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "MD Nichrome";
+  src:
+    url("/fonts/MD-Nichrome/MDNichromeTest-Dark.woff2") format("woff2"),
+    url("/fonts/MD-Nichrome/MDNichromeTest-Dark.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "MD Nichrome";
+  src:
+    url("/fonts/MD-Nichrome/MDNichromeTest-Black.woff2") format("woff2"),
+    url("/fonts/MD-Nichrome/MDNichromeTest-Black.otf") format("opentype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Add other MD Nichrome weights similarly */
+
+/* 18pt variations */
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter_18pt-Thin.woff2") format("woff2");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 18pt;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter_18pt-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 18pt;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter_18pt-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 18pt;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter_18pt-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 18pt;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter_18pt-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 18pt;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter_18pt-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 18pt;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter_18pt-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 18pt;
+}
+
+/* 24pt variations */
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter_24pt-Thin.woff2") format("woff2");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 24pt;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter_24pt-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 24pt;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter_24pt-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 24pt;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter_24pt-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 24pt;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter_24pt-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 24pt;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter_24pt-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 24pt;
+}
+
+/* Add other 24pt weights */
+
+/* 28pt variations */
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter_28pt-Thin.woff2") format("woff2");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 28pt;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter_28pt-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 28pt;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter_28pt-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 28pt;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter_28pt-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 28pt;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter_28pt-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 28pt;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter_28pt-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 28pt;
+}
+
+/* Add other 28pt weights */

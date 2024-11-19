@@ -14,6 +14,7 @@ import {
   VisibilityVariants,
 } from "src/utils/constants/variants";
 import { useViewportWidth } from "src/hooks/useViewportWidth/useViewportWidth";
+import OptimizedImage from "src/common/OptimizedImage/OptimizedImage";
 
 // Define Framer Motion animation variants
 const variants = {
@@ -165,22 +166,23 @@ const Hero: React.FC = () => {
           viewport={{ once: true }}
           className="airplane-1 absolute -bottom-[80%] -right-[5%] w-[15vw] transform sm:-bottom-[80%] sm:right-[5%] sm:w-[20vw] md:-bottom-[80%] md:right-[0%] md:w-[23vw] lg:-bottom-full lg:right-[0%] lg:w-[25vw] xl:-bottom-full xl:right-0 2xl:-bottom-full 2xl:-right-[5%] 2xl:w-[25vw] 3xl:-bottom-full 3xl:right-[5%]"
         >
-          <motion.img
+          <OptimizedImage
+            src={airplane1}
+            alt="Airplane"
+            className="w-full dark:brightness-90"
             whileHover="hoverScale"
-            loading="lazy"
             transition={{ duration: 0.4 }}
             variants={variants}
             drag
             dragConstraints={{ top: 0, left: 0, right: 0, bottom: 0 }}
-            src={airplane1}
-            alt="Airplane"
-            className="w-full dark:brightness-90"
           />
           <div className="blob-shadow blur-blob -bottom-[20%] h-1/3 w-full opacity-60"></div>
         </motion.div>
-        <motion.img
+        <OptimizedImage
+          src={airplane2}
+          alt="Airplane"
+          className="airplane-2 absolute right-0 top-[0] w-[15vw] transform dark:brightness-90 sm:right-[5%] sm:top-[0%] md:-top-[30%] md:right-[15%] lg:-top-1/2 lg:right-[5%] xl:-top-1/3 xl:right-[5%] 2xl:-top-1/3 2xl:right-0 3xl:-top-1/3 3xl:right-[5%]"
           whileHover="hoverScale"
-          loading="lazy"
           transition={{ duration: 0.4 }}
           variants={variants}
           initial="airplane2Start"
@@ -188,23 +190,19 @@ const Hero: React.FC = () => {
           viewport={{ once: true }}
           drag
           dragConstraints={{ top: 0, left: 0, right: 0, bottom: 0 }}
-          src={airplane2}
-          className="airplane-2 absolute right-0 top-[0] w-[15vw] transform dark:brightness-90 sm:right-[5%] sm:top-[0%] md:-top-[30%] md:right-[15%] lg:-top-1/2 lg:right-[5%] xl:-top-1/3 xl:right-[5%] 2xl:-top-1/3 2xl:right-0 3xl:-top-1/3 3xl:right-[5%]"
-          alt="Airplane"
         />
-        <motion.img
+        <OptimizedImage
+          src={airplane3}
+          alt="Airplane"
+          className="airplane-3 md:w-10vw] absolute left-[5%] top-[10%] w-[10svw] transform dark:brightness-90 sm:left-[5%] sm:top-[15%] sm:w-[10vw] md:-top-[40%] md:left-[40%] lg:-top-1/2 lg:right-[40%] xl:-top-[40%] xl:right-1/3 2xl:-top-1/2 2xl:right-[40%] 3xl:-top-1/2 3xl:right-[40%]"
           variants={variants}
           initial="airplane3Start"
-          loading="lazy"
           whileInView="airPlane3End"
           viewport={{ once: true }}
           whileHover="hoverScale"
           transition={{ duration: 0.4 }}
           drag
           dragConstraints={{ top: 0, left: 0, right: 0, bottom: 0 }}
-          src={airplane3}
-          className="airplane-3 md:w-10vw] absolute left-[5%] top-[10%] w-[10svw] transform dark:brightness-90 sm:left-[5%] sm:top-[15%] sm:w-[10vw] md:-top-[40%] md:left-[40%] lg:-top-1/2 lg:right-[40%] xl:-top-[40%] xl:right-1/3 2xl:-top-1/2 2xl:right-[40%] 3xl:-top-1/2 3xl:right-[40%]"
-          alt="Airplane"
         />
         {/* Animated Star */}
         {viewportWidth >= 768 && (
@@ -382,7 +380,7 @@ const Hero: React.FC = () => {
                     className="relative flex w-fit flex-col overflow-hidden leading-[1]"
                   >
                     <motion.div
-                      className="absolute bottom-0 left-0 h-[4px] w-full origin-left bg-text-light dark:bg-text-dark"
+                      className="absolute z-0 bottom-0 left-0 h-[4px] w-full origin-left bg-text-light dark:bg-text-dark"
                       initial={{ scaleX: 0 }}
                       animate={{ scaleX: 1 }}
                       transition={{
@@ -462,7 +460,7 @@ const Hero: React.FC = () => {
         whileInView="visible"
         transition={{ duration: 0.5, delay: 0.4 }}
         viewport={{ once: true }}
-        className="mt-4 flex flex-row gap-2 lg:mt-8 lg:gap-4 xl:gap-4 2xl:gap-6 3xl:gap-8"
+        className="mt-4 z-10 flex flex-row gap-2 lg:mt-8 lg:gap-4 xl:gap-4 2xl:gap-6 3xl:gap-8"
       >
         <SecondaryButton text="Get started" link="/discover" />
         <PrimaryButton text="Learn more" link="/about" />

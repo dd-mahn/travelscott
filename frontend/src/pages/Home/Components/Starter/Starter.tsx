@@ -7,6 +7,7 @@ import airplane1 from "src/assets/svg/airplane-1.svg";
 import Blog from "src/types/Blog";
 import { SecondaryButton } from "src/common/Buttons/Button";
 import { VisibilityVariants } from "src/utils/constants/variants";
+import OptimizedImage from "src/common/OptimizedImage/OptimizedImage";
 
 // Framer motion variants for animations
 const variants = {
@@ -25,7 +26,9 @@ const Starter: React.FC<{ blogs: Blog[] }> = ({ blogs }) => {
   return (
     <section className="starter relative rounded-5xl dark:from-[#824c2f] dark:to-[#2e190e] bg-gradient-to-b from-[#eb996e] to-[#9e694d] h-[105svh] md:h-[120svh] lg:h-[140svh]">
       {/* Draggable airplane image */}
-      <motion.img
+      <OptimizedImage
+        src={airplane1}
+        alt="Plane"
         initial="hiddenPlane"
         whileInView="visible"
         transition={{ duration: 0.5 }}
@@ -33,8 +36,6 @@ const Starter: React.FC<{ blogs: Blog[] }> = ({ blogs }) => {
         viewport={{ once: true }}
         drag
         dragConstraints={{ top: 0, left: 0, right: 0, bottom: 0 }}
-        src={airplane1}
-        alt="Plane"
         className="absolute z-[1000] dark:brightness-90 -top-[3%] md:-top-[5%] left-[5%] w-24 md:w-32 lg:w-44 xl:w-44 2xl:w-44 3xl:w-48"
       />
       {/* Container for StarterBlogs component */}

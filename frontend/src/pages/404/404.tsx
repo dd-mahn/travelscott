@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import "src/styles/404.css";
+import "src/styles/components/404.css";
 import { NoirButton } from "src/common/Buttons/Button";
 import {
   AuroraVariants,

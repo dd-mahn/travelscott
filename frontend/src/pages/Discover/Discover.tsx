@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 // Component imports
-import "src/styles/discover.css";
+import "src/styles/components/discover.css";
 import config from "src/config/config";
 import {
   getCountryByContinent,

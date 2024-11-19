@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import "src/styles/footer.css";
+import "src/styles/components/footer.css";
 import { NavLink, Link } from "react-router-dom";
 import planeIcon from "src/assets/svg/plane-icon.svg";
 import { motion } from "framer-motion";

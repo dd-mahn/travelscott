@@ -1,0 +1,43 @@
+/* Scrollbar Styles */
+body::-webkit-scrollbar-track,
+.custom-scrollbar::-webkit-scrollbar-track {
+  border-radius: 50px;
+  background-color: transparent;
+}
+
+body::-webkit-scrollbar,
+.custom-scrollbar::-webkit-scrollbar {
+  background-color: transparent;
+}
+
+body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+body::-webkit-scrollbar:hover,
+body::-webkit-scrollbar:active {
+  width: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar:hover,
+.custom-scrollbar::-webkit-scrollbar:active {
+  width: 8px;
+}
+
+body::-webkit-scrollbar-thumb,
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-gray transition-colors;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+body::-webkit-scrollbar-thumb:active,
+.custom-scrollbar::-webkit-scrollbar-thumb:active,
+body::-webkit-scrollbar-thumb:hover,
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  @apply bg-background-dark dark:bg-background-light;
+}

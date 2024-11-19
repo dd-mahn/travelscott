@@ -1,0 +1,67 @@
+/* Default Theme Variables */
+:root {
+    --transparent: transparent;
+    --background-dark: #1e2125;
+    --background-light: #fbf9f7;
+    --background-dark-transparent: #101010;
+    --main-green: #8ab17c;
+    --main-brown: #eb996e;
+    --dark-brown: #b56f49;
+    --dark-green: #658f55;
+    --light-green: #f8fcf3;
+    --light-brown: #fff9f3;
+    --background-dark-green: #374137;
+    --background-dark-brown: #322d27;
+    --yellow: #f1ba50;
+    --text-light: #333333;
+    --text-dark: #ffffff;
+    --gray: #969696;
+    --aurora-green: #90b37f;
+    --aurora-brown: #e7aa75b2;
+    --aurora-brown-gradient: radial-gradient(circle at 50% 50%, var(--aurora-brown), rgba(76, 0, 255, 0));
+    --aurora-green-gradient: radial-gradient(circle at 50% 50%, var(--aurora-green), rgba(76, 0, 255, 0));
+    --space-gradient: linear-gradient(180deg, rgb(0, 0, 0) 0%, rgb(62.05, 75.92, 102.85) 100%);
+    --image-gradient: linear-gradient(to top, #263238, #969696);
+  
+    /* Inspiration Gradients */
+    --inspiration-gradient: linear-gradient(180deg, rgb(10.02, 10.23, 10.38) 0%, rgb(70.95, 96.12, 114.35) 50%, rgb(251, 249, 247) 100%);
+    --inspiration-gradient-dark: linear-gradient(180deg, rgb(10.02, 10.23, 10.38) 0%, rgb(70.95, 96.12, 114.35) 50%, var(--background-dark) 100%);
+  
+    /* Spring Gradients */
+    --spring-gradient: linear-gradient(180deg, rgba(239, 156, 102, 1) 0%, rgba(200, 207, 160, 1) 50%, rgba(251, 249, 247, 1) 100%);
+    --spring-gradient-dark: linear-gradient(180deg, rgba(239, 156, 102, 1) 0%, rgba(200, 207, 160, 1) 50%, var(--background-dark) 100%);
+  
+    --spring-summer-gradient: linear-gradient(180deg, rgba(200, 207, 160, 1) 0%, rgba(120, 171, 168, 1) 50%, rgba(251, 249, 247, 1) 100%);
+    --spring-summer-gradient-dark: linear-gradient(180deg, rgba(200, 207, 160, 1) 0%, rgba(120, 171, 168, 1) 50%, var(--background-dark) 100%);
+  
+    /* Summer Gradients */
+    --summer-gradient: linear-gradient(180deg, rgba(54, 186, 152, 1) 0%, rgba(233, 196, 106, 1) 50%, rgba(251, 249, 247, 1) 100%);
+    --summer-gradient-dark: linear-gradient(180deg, rgba(54, 186, 152, 1) 0%, rgba(233, 196, 106, 1) 50%, var(--background-dark) 100%);
+  
+    --summer-fall-gradient: linear-gradient(180deg, rgb(0, 0, 51) 0%, rgb(255, 165, 0) 50%, rgb(251, 249, 247) 100%);
+    --summer-fall-gradient-dark: linear-gradient(180deg, rgb(0, 0, 51) 0%, rgb(255, 165, 0) 50%, var(--background-dark) 100%);
+  
+    /* Fall Gradients */
+    --fall-gradient: linear-gradient(180deg, rgb(51, 0, 0) 0%, rgb(139, 69, 19) 50%, rgb(251, 249, 247) 100%);
+    --fall-gradient-dark: linear-gradient(180deg, rgb(51, 0, 0) 0%, rgb(139, 69, 19) 50%, var(--background-dark) 100%);
+  
+    --fall-winter-gradient: linear-gradient(180deg, rgb(43, 21, 21) 0%, rgb(184, 134, 11) 50%, rgb(251, 249, 247) 100%);
+    --fall-winter-gradient-dark: linear-gradient(180deg, rgb(43, 21, 21) 0%, rgb(184, 134, 11) 50%, var(--background-dark) 100%);
+  
+    /* Winter Gradients */
+    --winter-gradient: linear-gradient(180deg, rgba(38, 80, 115, 1) 0%, rgba(45, 149, 150, 1) 50%, rgba(251, 249, 247, 1) 100%);
+    --winter-gradient-dark: linear-gradient(180deg, rgba(38, 80, 115, 1) 0%, rgba(45, 149, 150, 1) 50%, var(--background-dark) 100%);
+  
+    --winter-spring-gradient: linear-gradient(180deg, rgba(6, 70, 53, 1) 0%, rgba(240, 187, 98, 1) 50%, rgba(251, 249, 247, 1) 100%);
+    --winter-spring-gradient-dark: linear-gradient(180deg, rgba(6, 70, 53, 1) 0%, rgba(240, 187, 98, 1) 50%, var(--background-dark) 100%);
+  
+    /* Category Colors */
+    --wilderness: #8ab17c;
+    --cultureheritage: #97764f;
+    --foodlovers: #b17c8c;
+    --solojourneys: #333333;
+    --cityscape: #b9d1d1;
+    --seasonfestival: #c35757;
+    --relaxation: #a6dbb8;
+    --firsttimeabroad: #eb996e;
+  }

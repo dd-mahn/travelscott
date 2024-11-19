@@ -11,7 +11,7 @@ import {
 } from "src/store/slices/destinationSlice";
 import type Destination from "src/types/Destination";
 import config from "src/config/config";
-import "src/styles/destination.css";
+import "src/styles/components/destination.css";
 import useStackedSections from "src/hooks/useStackedSections/useStackedSections";
 
 // Components
