@@ -30,13 +30,13 @@ const DestinationInsight: React.FC<DestinationInsightProps> = ({
     destination.insight?.from_us?.tips.map((tip, index) => (
       <motion.div
         key={index}
-        initial="hiddenY"
+        initial="hidden"
         whileHover="hoverRotate"
         whileInView="visible"
         viewport={{ once: true, margin: "-200px" }}
         variants={variants}
         transition={{ duration: 0.5 }}
-        className="rounded-xl bg-background-light dark:bg-background-dark bg-opacity-70 px-4 py-2 md:px-6 md:py-4 shadow-component dark:shadow-component-dark"
+        className="rounded-xl bg-background-light z-10 dark:bg-background-dark bg-opacity-70 px-4 py-2 md:px-6 md:py-4 shadow-component dark:shadow-component-dark"
       >
         <p className="p-medium text-text-light">{tip}</p>
       </motion.div>
@@ -52,13 +52,13 @@ const DestinationInsight: React.FC<DestinationInsightProps> = ({
         className="cursor-hover"
       >
         <motion.div
-          initial="hiddenY"
+          initial="hidden"
           whileHover="hoverRotate"
           whileInView="visible"
           viewport={{ once: true, margin: "-200px" }}
           variants={variants}
           transition={{ duration: 0.5 }}
-          className="cursor-hover p-medium rounded-xl bg-background-light dark:bg-background-dark bg-opacity-70 px-4 md:px-6 py-2 shadow-component dark:shadow-component-dark"
+          className="cursor-hover p-medium rounded-xl z-10 bg-background-light dark:bg-background-dark bg-opacity-70 px-4 md:px-6 py-2 shadow-component dark:shadow-component-dark"
         >
           {article.title}{" "}
           <i className="ri-arrow-right-up-line p-large cursor-hover"></i>
