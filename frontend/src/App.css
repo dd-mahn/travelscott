@@ -234,7 +234,7 @@ body::-webkit-scrollbar-thumb:hover,
 }
 
 .span-small {
-  @apply font-normal text-xs sm:text-sm md:text-sm lg:text-sm xl:text-sm 2xl:text-base 3xl:text-base;
+  @apply font-normal text-[0.65rem] sm:text-sm md:text-sm lg:text-sm xl:text-sm 2xl:text-base 3xl:text-base;
 }
 
 .span-regular {

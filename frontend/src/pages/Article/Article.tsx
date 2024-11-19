@@ -70,7 +70,7 @@ const Article: React.FC = () => {
             initial="hiddenFullY"
             animate="visible"
             transition={{ duration: 0.5, delay: 1 }}
-            className="h2-md"
+            className="h2-md text-center"
           >
             {blogData.title}
           </motion.h2>

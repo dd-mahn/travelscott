@@ -14,8 +14,12 @@ import { setStarterBlogs } from "src/store/slices/blogSlice";
 
 // Import custom types and utility functions
 import BlogType from "src/types/Blog";
-import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
+import {
+  HoverVariants,
+  VisibilityVariants,
+} from "src/utils/constants/variants";
 import OptimizedImage from "src/common/OptimizedImage/OptimizedImage";
+import { useViewportWidth } from "src/hooks/useViewportWidth/useViewportWidth";
 
 // Define interfaces for component props and state
 interface Position {
@@ -80,17 +84,12 @@ const BlogComponent: React.FC<{
   onDragStart: () => void;
   onDragEnd: (
     event: MouseEvent | TouchEvent | PointerEvent,
-    info: { point?: { x: number; y: number } }
+    info: { point?: { x: number; y: number } },
   ) => void;
   dragConstraints: DragConstraints;
 }> = React.memo(
-  ({
-    blog,
-    position,
-    onDragStart,
-    onDragEnd,
-    dragConstraints,
-  }) => {
+  ({ blog, position, onDragStart, onDragEnd, dragConstraints }) => {
+    const viewportWidth = useViewportWidth();
     const dragControls = useDragControls();
 
     return (
@@ -100,7 +99,7 @@ const BlogComponent: React.FC<{
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 1 }}
         variants={variants}
-        className="blog absolute flex h-[35svh] md:h-[45svh] lg:h-[50svh] w-1/2 lg:w-1/3 flex-col gap-4 overflow-hidden rounded-xl bg-background-light dark:bg-background-dark pb-3 lg:pb-4 2xl:pb-8 shadow-component dark:shadow-component-dark"
+        className="blog absolute flex h-[30svh] w-1/2 flex-col gap-4 overflow-hidden rounded-xl bg-background-light pb-3 shadow-component dark:bg-background-dark dark:shadow-component-dark md:h-[45svh] lg:h-[50svh] lg:w-1/3 lg:pb-4 2xl:pb-8"
         style={{
           x: position.x,
           y: position.y,
@@ -115,40 +114,60 @@ const BlogComponent: React.FC<{
         onDragEnd={onDragEnd}
       >
         {/* Blog image and title section */}
-        <div className="relative flex flex-col items-start justify-end gap-0 px-4 lg:px-8 pb-4 h-1/2 lg:h-1/2 2xl:h-3/4">
-          <div className="absolute right-0 select-none top-0 h-full w-full overflow-hidden bg-gradient-to-t from-blue-gray-900 to-gray brightness-75">
+        <div className="relative flex h-3/4 flex-col items-start justify-end gap-0 px-4 pb-4 md:h-1/2 md:px-8 2xl:h-3/4">
+          <div className="absolute right-0 top-0 h-full w-full select-none overflow-hidden bg-gradient-to-t from-blue-gray-900 to-gray brightness-75">
             <OptimizedImage
               whileHover="hoverScale"
               variants={variants}
               transition={{ duration: 0.5 }}
-              className="h-full w-full object-cover pointer-events-none brightness-75"
+              className="pointer-events-none h-full w-full object-cover brightness-75"
               src={blog.image}
               alt={blog.title}
             />
           </div>
           <span className="span-small z-20 text-text-dark">{blog.author}</span>
-          <motion.span
-            whileHover="hoverX"
-            transition={{ duration: 0.3 }}
-            variants={variants}
-            className="cursor-hover-small span-medium leading-[0.8] z-20 cursor-pointer uppercase line-clamp-21 text-text-dark"
-          >
-            <Link to={`/inspiration/${blog._id}`}>
+          {viewportWidth > 768 && (
+            <motion.span
+              whileHover="hoverX"
+              transition={{ duration: 0.3 }}
+              variants={variants}
+              className="cursor-hover-small span-medium line-clamp-2 z-20 cursor-pointer uppercase leading-[0.8] text-text-dark"
+            >
+              <Link to={`/inspiration/${blog._id}`}>{blog.title}</Link>
+            </motion.span>
+          )}
+          {viewportWidth <= 768 && (
+            <span
+              className="cursor-hover-small span-small line-clamp-3 z-20 cursor-pointer uppercase text-text-dark"
+            >
               {blog.title}
-            </Link>
-          </motion.span>
+            </span>
+          )}
         </div>
         {/* Blog content preview and link */}
-        <div className="flex flex-col gap-4 px-4 lg:px-8">
-          <p className="p-regular line-clamp-6 lg:line-clamp-5 w-full overflow-hidden">
-            {blog.content[0].sectionText[0]}
-          </p>
-          <button className="underline-btn span-medium uppercase">
-            <Link to={`/inspiration/${blog._id}`}>
-              View<i className="ri-arrow-right-up-line pointer-events-none"></i>
-            </Link>
-          </button>
-        </div>
+        {viewportWidth > 768 && (
+          <div className="flex flex-col gap-4 px-4 lg:px-8">
+            <p className="p-regular line-clamp-6 w-full overflow-hidden lg:line-clamp-5">
+              {blog.content[0].sectionText[0]}
+            </p>
+            <button className="underline-btn span-medium uppercase">
+              <Link to={`/inspiration/${blog._id}`}>
+                View
+                <i className="ri-arrow-right-up-line pointer-events-none"></i>
+              </Link>
+            </button>
+          </div>
+        )}
+        {viewportWidth <= 768 && (
+          <div className="flex w-full items-center justify-center">
+            <button className="underline-btn span-medium uppercase">
+              <Link to={`/inspiration/${blog._id}`}>
+                View
+                <i className="ri-arrow-right-up-line pointer-events-none"></i>
+              </Link>
+            </button>
+          </div>
+        )}
       </motion.div>
     );
   },
@@ -161,9 +180,12 @@ const StarterBlogs: React.FC<StarterBlogsProps> = React.memo(({ blogs }) => {
   const [positions, dispatchPositions] = useReducer(positionReducer, {});
   const [maxZIndex, setMaxZIndex] = useState(1);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [dragConstraints, setDragConstraints] = useState<DragConstraints>(
-    { top: 0, left: 0, right: 0, bottom: 0 },
-  );
+  const [dragConstraints, setDragConstraints] = useState<DragConstraints>({
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  });
 
   // Initialize blog positions
   const initializePositions = useCallback(() => {
@@ -225,7 +247,7 @@ const StarterBlogs: React.FC<StarterBlogsProps> = React.memo(({ blogs }) => {
     (
       title: string,
       event: MouseEvent | TouchEvent | PointerEvent,
-      info: { point?: { x: number; y: number } }
+      info: { point?: { x: number; y: number } },
     ) => {
       if (!containerRef.current || !info?.point) {
         // If no point info, use the current position
@@ -274,7 +296,7 @@ const StarterBlogs: React.FC<StarterBlogsProps> = React.memo(({ blogs }) => {
         },
       });
     },
-    [positions]
+    [positions],
   );
 
   // Filter blogs based on category and image availability

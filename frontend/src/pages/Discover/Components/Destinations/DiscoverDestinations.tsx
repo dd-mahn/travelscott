@@ -19,6 +19,7 @@ import {
 } from "src/utils/constants/variants";
 import FilterButton from "src/common/Filters/FilterButton";
 import DestinationCatalog from "src/common/Catalogs/DestinationCatalog";
+import { useViewportWidth } from "src/hooks/useViewportWidth/useViewportWidth";
 
 // Define animation variants
 const variants = {
@@ -37,6 +38,7 @@ const variants = {
 const limit = 18;
 
 const DiscoverDestinations: React.FC = () => {
+  const viewportWidth = useViewportWidth();
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -129,7 +131,7 @@ const DiscoverDestinations: React.FC = () => {
         </motion.h1>
       </div>
 
-      <div className="flex w-full flex-row justify-between py-12 z-50 lg:py-sect-short">
+      <div className="z-50 flex w-full flex-row justify-between py-12 lg:py-sect-short">
         <motion.p
           initial="hiddenY"
           whileInView="visible"
@@ -138,7 +140,8 @@ const DiscoverDestinations: React.FC = () => {
           viewport={{ once: true }}
           className="p-medium"
         >
-          Each destination we've covered here is fully filled <br />
+          Each destination we've covered here is fully filled
+          {viewportWidth > 768 && <br />}
           with significant information you will need.
         </motion.p>
         <FilterButton>

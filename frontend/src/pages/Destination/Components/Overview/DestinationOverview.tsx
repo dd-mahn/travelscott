@@ -42,7 +42,7 @@ const DestinationOverview = ({ destination }: { destination: Destination }) => {
               whileInView="visible"
               viewport={{ once: true }}
               transition={{ ease: "easeInOut", duration: 0.5, delay: 0.3 }}
-              className="flex flex-row items-start justify-start gap-2"
+              className="flex flex-row flex-wrap items-start justify-start gap-2"
             >
               {destination.tags.map((tag) => (
                 <span

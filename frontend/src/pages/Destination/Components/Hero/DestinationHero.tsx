@@ -24,14 +24,14 @@ const DestinationHero: React.FC<DestinationHeroProps> = ({ destination }) => {
     <section className="hero relative h-screen">
       {/* Overlay with country and destination name */}
       <div className="pointer-events-none absolute top-0 z-10 grid h-[90%] w-full place-items-center bg-background-dark bg-opacity-20">
-        <div className="flex flex-col items-start gap-0 px-8 py-4">
+        <div className="flex flex-col items-start justify-center gap-0 px-8 py-4">
           {/* Country name */}
           <motion.span
             variants={variants}
             initial="hiddenY"
             animate="visible"
             transition={{ duration: 0.5, delay: 0.8 }}
-            className="span-medium ml-2 text-text-dark"
+            className="span-medium w-full text-center md:ml-2 md:text-left text-text-dark"
           >
             {destination.country}
           </motion.span>
