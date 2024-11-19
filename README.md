@@ -94,7 +94,6 @@ npm run dev
 - Motion design
 
 ## 📱 Progressive Web App
-- Offline support
 - App-like experience
 - Push notifications
 - Fast load times
