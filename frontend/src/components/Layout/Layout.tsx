@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, lazy, Suspense, useMemo } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSelector } from "react-redux";
 
-import Header from "src/components/Header/Header";
-import Footer from "src/components/Footer/Footer";
+const Header = lazy(() => import('src/components/Header/Header'));
+const Footer = lazy(() => import('src/components/Footer/Footer'));
+const Cursor = lazy(() => import('src/common/Cursors/Cursors'));
+
 import AnimatedLogoScreen from "src/common/AnimatedLogoScreen/AnimatedLogoScreen";
-import Cursor from "src/common/Cursors/Cursors";
 import LenisProvider from "src/components/Lenis/Lenis";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { selectIsDarkMode } from "src/store/slices/themeSlice";
@@ -26,14 +27,24 @@ const Layout: React.FC = () => {
 
   useEffect(() => {
     if (isHomePage) {
-      const timer = setTimeout(() => {
+      const handle = setTimeout(() => {
         setShowLoadingScreen(false);
       }, 2000);
-      return () => clearTimeout(timer);
-    } else {
-      setShowLoadingScreen(false);
+      
+      return () => clearTimeout(handle);
     }
+    setShowLoadingScreen(false);
   }, [isHomePage]);
+
+  const content = useMemo(() => (
+    <LenisProvider>
+      <Header />
+      <Cursor />
+      <Outlet />
+      <Footer />
+      <SpeedInsights />
+    </LenisProvider>
+  ), []);
 
   return (
     <main
@@ -41,27 +52,23 @@ const Layout: React.FC = () => {
     >
       <AnimatePresence mode="wait">
         {showLoadingScreen && isHomePage ? (
-          <motion.div
-            key="logo-loader"
-            initial={{ opacity: 1 }}
-            exit={{
-              opacity: 0,
-              scale: 4,
-              transition: { duration: 1.5, ease: "easeInOut" },
-            }}
-            className={`h-screen w-screen`}
-          >
-            <AnimatedLogoScreen />
-          </motion.div>
+          <Suspense fallback={null}>
+            <motion.div
+              key="logo-loader"
+              initial={{ opacity: 1 }}
+              exit={{
+                opacity: 0,
+                scale: 4,
+                transition: { duration: 1.5, ease: "easeInOut" },
+              }}
+              className="h-screen w-screen"
+            >
+              <AnimatedLogoScreen />
+            </motion.div>
+          </Suspense>
         ) : (
           <motion.div key={location.pathname}>
-            <LenisProvider>
-              <Header />
-              <Cursor />
-              <Outlet />
-              <Footer />
-              <SpeedInsights />
-            </LenisProvider>
+            {content}
           </motion.div>
         )}
       </AnimatePresence>

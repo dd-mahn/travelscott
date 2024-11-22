@@ -244,7 +244,7 @@ const Hero: React.FC = () => {
                 }}
                 className="h1-md text-left leading-[0.8]"
               >
-                favorite
+                favorite{" "}
                 <motion.span
                   variants={variants}
                   className="uppercase text-main-green dark:text-dark-green"

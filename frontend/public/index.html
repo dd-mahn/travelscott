@@ -89,25 +89,33 @@
         document.documentElement.classList.remove("dark");
       }
 
-      // Font loading management
-      document.documentElement.classList.add("fonts-loading");
-
-      if ("fonts" in document) {
-        Promise.all([
-          document.fonts.load("400 18pt 'Inter'"),
-          document.fonts.load("400 24pt 'Inter'"),
-          document.fonts.load("400 28pt 'Inter'"),
-          document.fonts.load("500 1em 'MD Nichrome'"),
-          document.fonts.load("700 1em 'MD Nichrome'"),
-          document.fonts.load("500 1em 'Kaushan Script'"),
-        ]).then(() => {
-          document.documentElement.classList.remove("fonts-loading");
-          document.documentElement.classList.add("fonts-loaded");
-          sessionStorage.setItem("fonts-loaded", "true");
-        });
-      } else {
-        document.documentElement.classList.remove("fonts-loading");
-      }
+      // Font loading optimization
+      (function() {
+        if ("fonts" in document) {
+          // Add class immediately to prevent FOUT
+          document.documentElement.classList.add('fonts-loading');
+          
+          // Prioritize logo font loading first
+          Promise.all([
+            document.fonts.load("500 1em 'Kaushan Script'"),
+            document.fonts.load("500 1em 'MD Nichrome'"),
+            document.fonts.load("700 1em 'MD Nichrome'")
+          ]).then(() => {
+            // Load remaining fonts after logo fonts
+            Promise.all([
+              document.fonts.load("400 18pt 'Inter'"),
+              document.fonts.load("400 24pt 'Inter'"),
+              document.fonts.load("400 28pt 'Inter'"),
+            ]).then(() => {
+              document.documentElement.classList.remove('fonts-loading');
+              document.documentElement.classList.add('fonts-loaded');
+              sessionStorage.setItem('fonts-loaded', 'true');
+            });
+          });
+        } else {
+          document.documentElement.classList.remove('fonts-loading');
+        }
+      })();
     </script>
 
     <title>TravelScott</title>

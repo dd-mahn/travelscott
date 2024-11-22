@@ -1,40 +1,45 @@
 /* Button Classes */
 .btn {
-    @apply flex w-fit cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-md border-none py-2 text-xs font-medium uppercase tracking-wide shadow-component dark:shadow-component-dark px-2 md:px-3 md:text-sm lg:gap-2 lg:px-3 lg:py-2 lg:text-base xl:gap-2 xl:px-4 xl:py-2 xl:text-base 2xl:gap-3 2xl:px-5 2xl:py-3 2xl:text-xl 3xl:gap-3 3xl:px-6 3xl:py-3 3xl:text-xl;
-  }
-  
-  .page-btn {
-    @apply text-center grid place-items-center font-medium leading-[0.8] dark:border-text-dark border h-6 w-6 rounded-md lg:h-8 lg:w-8 lg:rounded-lg lg:border lg:text-base xl:text-base 2xl:h-8 2xl:w-8 2xl:rounded-lg 2xl:border-2 2xl:text-lg 3xl:text-lg;
-  }
-  
-  .page-btn.active {
-    @apply bg-background-dark text-text-dark dark:bg-background-light dark:text-text-light;
-  }
-  
-  .btn-primary {
-    @apply bg-main-brown text-text-dark dark:bg-dark-brown;
-    box-shadow: -2px 3px 6.2px 0px rgba(0, 0, 0, 0.25), 0px 4px 4px 0px rgba(255, 242, 242, 0.25) inset !important;
-  }
-  
-  .btn-secondary {
-    @apply border-2 border-solid border-text-light bg-light-green text-text-light dark:border-text-dark dark:bg-dark-green dark:text-text-dark;
-  }
-  
-  .underline-btn {
-    @apply relative w-fit cursor-pointer uppercase lg:text-base lg:font-medium xl:text-lg 2xl:text-xl 2xl:font-semibold 3xl:text-xl;
-  }
-  
-  .underline-btn i {
-    @apply lg:text-xl xl:text-xl 2xl:text-2xl 3xl:text-2xl;
-  }
-  
-  .underline-btn::before {
-    @apply absolute bottom-0 right-0 w-0 rounded-sm bg-text-light dark:bg-text-dark lg:h-[1.5px] 2xl:h-[2px];
-    content: "";
-    transition: right 0.4s, width 0.4s, left 0.4s;
-  }
-  
-  .underline-btn:hover::before {
-    width: 100%;
-    left: 0;
-  }
+  @apply flex w-fit cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-md border-none px-2 py-2 text-xs font-medium uppercase tracking-wide shadow-component dark:shadow-component-dark md:px-3 md:text-sm lg:gap-2 lg:px-3 lg:py-2 lg:text-base xl:gap-2 xl:px-4 xl:py-2 xl:text-base 2xl:gap-3 2xl:px-5 2xl:py-3 2xl:text-xl 3xl:gap-3 3xl:px-6 3xl:py-3 3xl:text-xl;
+}
+
+.page-btn {
+  @apply grid h-6 w-6 place-items-center rounded-md border text-center font-medium leading-[0.8] dark:border-text-dark lg:h-8 lg:w-8 lg:rounded-lg lg:border lg:text-base xl:text-base 2xl:h-8 2xl:w-8 2xl:rounded-lg 2xl:border-2 2xl:text-lg 3xl:text-lg;
+}
+
+.page-btn.active {
+  @apply bg-background-dark text-text-dark dark:bg-background-light dark:text-text-light;
+}
+
+.btn-primary {
+  @apply bg-main-brown text-text-dark dark:bg-dark-brown;
+  box-shadow:
+    -2px 3px 6.2px 0px rgba(0, 0, 0, 0.25),
+    0px 4px 4px 0px rgba(255, 242, 242, 0.25) inset !important;
+}
+
+.btn-secondary {
+  @apply border-2 border-solid border-text-light bg-light-green text-text-light dark:border-text-dark dark:bg-dark-green dark:text-text-dark;
+}
+
+.underline-btn {
+  @apply relative w-fit cursor-pointer uppercase lg:text-base lg:font-medium xl:text-lg 2xl:text-xl 2xl:font-semibold 3xl:text-xl;
+}
+
+.underline-btn i {
+  @apply lg:text-xl xl:text-xl 2xl:text-2xl 3xl:text-2xl;
+}
+
+.underline-btn::before {
+  @apply absolute bottom-0 right-0 w-0 rounded-sm bg-text-light dark:bg-text-dark lg:h-[1.5px] 2xl:h-[2px];
+  content: "";
+  transition:
+    right 0.4s,
+    width 0.4s,
+    left 0.4s;
+}
+
+.underline-btn:hover::before {
+  width: 100%;
+  left: 0;
+}

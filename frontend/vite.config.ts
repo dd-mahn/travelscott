@@ -2,8 +2,9 @@ import { defineConfig, UserConfig } from "vite";
 import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from 'vite-plugin-pwa';
+import compression from 'vite-plugin-compression';
+import { resolve } from 'path';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     react(),
@@ -22,7 +23,7 @@ export default defineConfig({
             params: {
               overrides: {
                 cleanupNumericValues: false,
-                removeViewBox: false, // https://github.com/svg/svgo/issues/1128
+                removeViewBox: false,
               },
             },
           },
@@ -36,19 +37,15 @@ export default defineConfig({
         ],
       },
       png: {
-        // https://sharp.pixelplumbing.com/api-output#png
         quality: 50,
       },
       jpeg: {
-        // https://sharp.pixelplumbing.com/api-output#jpeg
         quality: 50,
       },
       jpg: {
-        // https://sharp.pixelplumbing.com/api-output#jpeg
         quality: 50,
       },
       tiff: {
-        // https://sharp.pixelplumbing.com/api-output#tiff
         quality: 50,
       },
     }),
@@ -58,6 +55,12 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,ico,png,svg}']
       }
     }),
+    compression({
+      algorithm: 'brotliCompress',
+      ext: '.br',
+      threshold: 10240,
+      deleteOriginFile: false
+    })
   ],
   test: {
     globals: true,
@@ -120,8 +123,7 @@ export default defineConfig({
       output: {
         manualChunks: {
           'vendor': ['react', 'react-dom'],
-          'animations': ['framer-motion', 'framer-motion-3d'],
-          'three': ['three', '@react-three/fiber', '@react-three/drei'],
+          'animations': ['framer-motion'],
           'router': ['react-router-dom'],
           'state': ['@reduxjs/toolkit', 'react-redux'],
           'utils': ['lodash', 'zod'],

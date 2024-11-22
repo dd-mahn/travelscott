@@ -1,12 +1,24 @@
 /**
  * Get the appropriate image size based on the viewport width.
+ * @param {number} containerWidth - The width of the container.
  * @param {number} viewportWidth - The width of the viewport.
+ * @param {number} devicePixelRatio - The device pixel ratio.
  * @returns {number} - The appropriate image size.
  */
-export const getImageSize = (viewportWidth: number) => {
-  if (viewportWidth < 640) return 640;
-  if (viewportWidth < 1024) return 1024;
-  return 1440;
+export const getImageSize = (
+  containerWidth: number,
+  viewportWidth: number,
+  devicePixelRatio = window.devicePixelRatio
+) => {
+  // Base size on container width
+  const baseWidth = Math.ceil(containerWidth * devicePixelRatio);
+  
+  // Round up to nearest breakpoint for caching efficiency
+  const breakpoints = [320, 640, 768, 1024, 1280, 1440, 1920];
+  const optimalWidth = breakpoints.find(bp => bp >= baseWidth) || breakpoints[breakpoints.length - 1];
+  
+  // Never exceed viewport width
+  return Math.min(optimalWidth, viewportWidth);
 };
 
 interface ImageKitOptions {
@@ -66,3 +78,27 @@ function applyImageKitTransformations(
 
   return { src: optimizedSrc, srcSet };
 }
+
+/**
+ * Detect the optimal format for the image.
+ * @returns {string} - The optimal format.
+ */
+const detectOptimalFormat = () => {
+  if (window.navigator.userAgent.includes('Safari') && !window.navigator.userAgent.includes('Chrome')) {
+    return 'jpg'; // Safari has better jpg performance
+  }
+  return 'webp'; // Default to WebP for better compression
+};
+
+/**
+ * Determine the quality for the image.
+ * @param {number} width - The width of the image.
+ * @returns {number} - The quality.
+ */
+const determineQuality = (width?: number) => {
+  if (!width) return 80;
+  // Adjust quality based on image size
+  if (width <= 640) return 85;
+  if (width <= 1024) return 80;
+  return 75; // Lower quality for larger images
+};
