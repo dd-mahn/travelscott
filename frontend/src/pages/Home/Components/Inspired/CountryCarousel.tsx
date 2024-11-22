@@ -74,12 +74,12 @@ const CountryCarousel = React.memo(({ settings }: { settings: any }) => {
       <Slider {...settings}>
         {shuffledFlags.map((flag, index) => (
           <div
-            className="pr-4 lg:h-[12svh] lg:w-[18svh] 2xl:h-[15svh] 2xl:w-[20svw] bg-gradient-to-t from-blue-gray-900 to-gray"
+            className="pr-4 lg:h-[12svh] lg:w-[18svh] 2xl:h-[15svh] 2xl:w-[20svw]"
             key={index}
           >
             <OptimizedImage
               src={flag}
-              className="h-full rounded-lg object-cover"
+              className="h-full rounded-lg"
               alt="country flag"
             />
           </div>
@@ -130,7 +130,7 @@ export const MarqueeCountryCarousel = React.memo(() => {
             <div className="mt-[70svh] h-[3svh] md:h-[3.5svh] lg:h-[5svh] 2xl:h-[5svh] bg-gradient-to-t rounded-md lg:rounded-md 2xl:rounded-lg from-blue-gray-900 to-gray">
               <OptimizedImage
                 src={flag}
-                className="h-full rounded-md lg:rounded-md 2xl:rounded-lg object-cover shadow-component dark:shadow-component-dark"
+                className="h-full rounded-md lg:rounded-md 2xl:rounded-lg shadow-component dark:shadow-component-dark"
                 alt="country flag"
               />
             </div>

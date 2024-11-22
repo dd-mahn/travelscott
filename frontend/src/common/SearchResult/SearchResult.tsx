@@ -11,6 +11,7 @@ import {
   TapVariants,
   VisibilityVariants,
 } from "src/utils/constants/variants";
+import OptimizedImage from "../OptimizedImage/OptimizedImage";
 
 // Define the type for the component props
 type SearchResultProps = {
@@ -55,13 +56,13 @@ const SearchResult: React.FC<SearchResultProps> = ({
               key={country._id}
               className="flex cursor-pointer flex-col items-center gap-2"
             >
-              <div className="h-full w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray">
-                <motion.img
+              <div className="h-full w-full overflow-hidden rounded-xl">
+                <OptimizedImage
                   whileHover="hover"
                   variants={variants}
-                  src={country.images.flagImages?.[0]}
+                  src={country.images.flagImages?.[0] || ""}
                   alt={country.name}
-                  className="cursor-hover-small h-full w-full rounded-xl object-cover"
+                  className="cursor-hover-small h-full w-full rounded-xl "
                   transition={{ duration: 0.4 }}
                 />
               </div>
@@ -96,13 +97,13 @@ const SearchResult: React.FC<SearchResultProps> = ({
               key={destination._id}
               className="flex h-[15svh] cursor-pointer flex-col items-center gap-2 rounded-xl"
             >
-              <div className="h-full w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray">
-                <motion.img
+              <div className="h-full w-full overflow-hidden rounded-xl">
+                <OptimizedImage
                   whileHover="hover"
                   variants={variants}
-                  src={destination.images?.[0]}
+                  src={destination.images?.[0] || ""}
                   alt={destination.name}
-                  className="cursor-hover-small h-full w-full rounded-xl object-cover"
+                  className="cursor-hover-small h-full w-full rounded-xl "
                   transition={{ duration: 0.4 }}
                 />
               </div>
@@ -136,13 +137,13 @@ const SearchResult: React.FC<SearchResultProps> = ({
             key={blog._id}
             className="flex h-20 cursor-pointer gap-4 rounded-xl lg:h-24 2xl:h-32"
           >
-            <div className="h-full w-1/3 overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray">
-              <motion.img
+            <div className="h-full w-1/3 overflow-hidden rounded-xl">
+              <OptimizedImage
                 whileHover="hover"
                 variants={variants}
                 src={blog.image}
                 alt={blog.title}
-                className="cursor-hover-small h-full w-full rounded-xl object-cover"
+                className="cursor-hover-small h-full w-full rounded-xl "
                 transition={{ duration: 0.4 }}
               />
             </div>

@@ -43,7 +43,7 @@ const DiscoverPoster: React.FC<DiscoverPosterProps> = ({ featuredDestinations })
       >
         {featuredDestinations.map((destination) => (
           <motion.div
-            className="poster px-sect relative flex h-full w-screen cursor-pointer flex-col gap-0 bg-gradient-to-t from-blue-gray-900 to-gray pb-sect-short lg:pb-sect-default"
+            className="poster px-sect relative flex h-full w-screen cursor-pointer flex-col gap-0 pb-sect-short lg:pb-sect-default"
             key={destination._id}
           >
             <Link
@@ -61,7 +61,8 @@ const DiscoverPoster: React.FC<DiscoverPosterProps> = ({ featuredDestinations })
                       : destination.images[0] || ""
                     : ""
                 }
-                className="cursor-hover z-0 h-full w-full object-cover brightness-75"
+                className="z-0 h-full w-full brightness-75"
+                hoverClassName="cursor-hover"
                 alt={`Featured destination: ${destination.name}`}
               />
             </Link>

@@ -77,13 +77,13 @@ const DestinationHero: React.FC<DestinationHeroProps> = ({ destination }) => {
         >
           {destination.images?.map((image, index) => (
             <div
-              className="grid h-full w-full place-items-center overflow-hidden bg-gradient-to-t from-blue-gray-900 to-gray"
+              className="grid h-full w-full place-items-center overflow-hidden"
               key={index}
             >
               <OptimizedImage
                 src={image}
                 alt={destination.name}
-                className="h-full w-full object-cover"
+                className="h-full w-full"
               />
             </div>
           ))}

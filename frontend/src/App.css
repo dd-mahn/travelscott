@@ -18,7 +18,8 @@
   width: 100%;
 }
 
-html.lenis, html.lenis body {
+html.lenis,
+html.lenis body {
   height: auto;
 }
 
@@ -78,6 +79,9 @@ p {
   line-height: 1.2 !important;
 }
 
+.image-suspense {
+  @apply bg-gradient-to-t from-blue-gray-900 to-gray;
+}
 .blur-blob {
   position: absolute;
   z-index: 0;

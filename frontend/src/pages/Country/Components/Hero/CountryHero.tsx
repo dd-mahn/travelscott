@@ -25,13 +25,13 @@ const CountryHero = ({ country }: { country: Country }) => {
       <Carousel autoplay autoplayDelay={4000} transition={{ duration: 2 }} loop>
         {country.images.otherImages?.map((image, index) => (
           <div
-            className="h-full w-svw bg-gradient-to-t from-blue-gray-900 to-gray"
+            className="h-full w-svw"
             key={index}
           >
             <OptimizedImage
               src={image}
               alt={`${country.name} image`}
-              className="h-full w-full object-cover"
+              className="h-full w-full"
             />
           </div>
         ))}

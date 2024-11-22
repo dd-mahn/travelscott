@@ -11,6 +11,7 @@ import agodaImg from "src/assets/images/ui/destination/agoda-light.png";
 import tripadvisorImg from "src/assets/images/ui/destination/tripadvisor-light.png";
 import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
 import { Link } from "react-router-dom";
+import OptimizedImage from "src/common/OptimizedImage/OptimizedImage";
 
 // Define animation variants
 const variants = {
@@ -107,11 +108,11 @@ const DialogWrapper: React.FC<{
       className="dialog-content h-full w-full"
       onClick={(e) => e.stopPropagation()}
     >
-      <div className="h-2/5 bg-gradient-to-t from-blue-gray-900 to-gray">
-        <img
+      <div className="h-2/5">
+        <OptimizedImage
           src={image_url}
           alt={name}
-          className="h-full w-full object-cover"
+          className="h-full w-full"
         />
       </div>
       {children}
@@ -189,7 +190,7 @@ const DialogLocation: React.FC<{
   location: { on_map: string; address: string };
 }> = ({ location }) => (
   <motion.div
-    className="mt-4 flex items-center gap-2"
+    className="cursor-hover mt-4 flex items-center gap-2"
     initial="hidden"
     animate="visible"
     whileHover="hoverX"
@@ -198,7 +199,7 @@ const DialogLocation: React.FC<{
   >
     <i className="p-medium ri-map-pin-2-line"></i>
     <Link
-      className="span-regular cursor-hover border-none underline outline-none md:no-underline"
+      className="span-regular border-none underline outline-none md:no-underline"
       to={location.on_map}
       target="_blank"
     >

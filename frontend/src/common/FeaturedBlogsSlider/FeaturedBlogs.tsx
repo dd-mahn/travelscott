@@ -30,7 +30,7 @@ const FeaturedBlogs: React.FC<FeaturedBlogsProps> = ({ blogs }) => {
           >
             <Link
               to={`/inspiration/${blog._id}`}
-              className="h-[50svh] w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray shadow-section dark:shadow-section-dark md:h-[75svh]"
+              className="h-[50svh] w-full overflow-hidden rounded-xl shadow-section dark:shadow-section-dark md:h-[75svh]"
             >
               <OptimizedImage
                 whileHover="hoverScale"
@@ -38,7 +38,8 @@ const FeaturedBlogs: React.FC<FeaturedBlogsProps> = ({ blogs }) => {
                 variants={variants}
                 src={blog.image}
                 alt={blog.title}
-                className="cursor-hover h-full w-full cursor-pointer rounded-xl object-cover"
+                className="h-full w-full cursor-pointer rounded-xl"
+                hoverClassName="cursor-hover"
               />
             </Link>
             <div className="mt-2 flex flex-col items-center md:gap-2">

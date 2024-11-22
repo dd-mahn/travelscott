@@ -3,6 +3,7 @@ import { destinationTransportation } from "src/types/Destination";
 import { AnimatePresence, motion } from "framer-motion";
 import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
 import SlideRevealIconHeading from "src/common/SlideRevealIconHeading/SlideRevealIconHeading";
+import OptimizedImage from "src/common/OptimizedImage/OptimizedImage";
 
 // Define the props for the DestinationTransportation component
 type DestinationTransportationProps = {
@@ -63,7 +64,7 @@ const DestinationTransportation: React.FC<DestinationTransportationProps> = ({ t
             transportationIndex === index && (
               <motion.div
                 key={`transportation-type-${type.name}`}
-                className="h-[50svh] md:h-[75svh] md:w-2/3 rounded-xl shadow-component dark:shadow-component-dark bg-gradient-to-t from-blue-gray-900 to-gray"
+                className="h-[50svh] md:h-[75svh] md:w-2/3 rounded-xl shadow-component dark:shadow-component-dark"
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -71,9 +72,9 @@ const DestinationTransportation: React.FC<DestinationTransportationProps> = ({ t
                 variants={variants}
                 transition={{ duration: 0.5 }}
               >
-                <img
-                  className="h-full w-full rounded-xl object-cover"
-                  src={type.image}
+                <OptimizedImage
+                  className="h-full w-full rounded-xl"
+                  src={type.image || ""}
                   alt={type.name}
                 />
               </motion.div>

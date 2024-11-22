@@ -17,6 +17,7 @@ import {
   LoadingState,
   NotFoundState,
 } from "src/common/Catalogs/CatalogStates";
+import OptimizedImage from "src/common/OptimizedImage/OptimizedImage";
 
 // Framer motion variants
 const variants = {
@@ -148,8 +149,8 @@ const DiscoverCountries: React.FC = () => {
                 className="flex w-full flex-col items-start gap-4 md:min-h-[70svh] md:gap-8 lg:flex-row lg:gap-8 2xl:gap-12"
               >
                 <div className="relative flex items-center justify-center">
-                  <div className="w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray shadow-component dark:shadow-component-dark lg:h-[70svh] lg:w-[40svw]">
-                    <motion.img
+                  <div className="w-full overflow-hidden rounded-xl shadow-component dark:shadow-component-dark lg:h-[70svh] lg:w-[40svw]">
+                    <OptimizedImage
                       whileHover="hoverScale"
                       variants={variants}
                       transition={{
@@ -157,7 +158,7 @@ const DiscoverCountries: React.FC = () => {
                       }}
                       src={selectedContinent.image}
                       alt="map"
-                      className="h-full w-full rounded-xl object-cover brightness-75"
+                      className="h-full w-full rounded-xl brightness-75"
                     />
                   </div>
 

@@ -42,13 +42,13 @@ const Article: React.FC = () => {
         initial="hiddenY"
         animate="visible"
         transition={{ duration: 0.5 }}
-        className="h-[50svh] bg-gradient-to-t from-blue-gray-900 to-gray md:h-[75svh]"
+        className="h-[50svh] md:h-[75svh]"
       >
         {blogData.image && (
           <OptimizedImage
             src={blogData.image}
             alt={blogData.title}
-            className="h-full w-full object-cover"
+            className="h-full w-full"
           />
         )}
       </motion.div>

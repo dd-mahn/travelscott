@@ -11,11 +11,13 @@ const OptimizedImage = ({
   src,
   alt,
   className,
+  hoverClassName,
   ...motionProps
 }: {
   src: string;
   alt: string;
   className?: string;
+  hoverClassName?: string;
   [key: string]: any;
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -57,19 +59,19 @@ const OptimizedImage = ({
   );
 
   return (
-    <div ref={containerRef} className={className}>
-      <Suspense fallback={<div className="h-full w-full bg-transparent" />}>
+    <motion.div ref={containerRef} className={className}>
+      <Suspense fallback={<div className="h-full w-full image-suspense" />}>
         <motion.img
           loading="lazy"
           src={optimizedImage.src}
           srcSet={optimizedImage.srcSet}
           sizes={`(max-width: ${viewportWidth}px) 100vw, ${dimensions.width}px`}
           alt={alt}
-          className="h-full w-full object-cover"
+          className={hoverClassName ? hoverClassName : "h-full w-full"}
           {...motionProps}
         />
       </Suspense>
-    </div>
+    </motion.div>
   );
 };
 

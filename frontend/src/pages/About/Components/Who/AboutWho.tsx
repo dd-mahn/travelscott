@@ -103,7 +103,7 @@ const AboutWho = () => {
               className="person flex flex-col items-center gap-2 lg:gap-4"
               key={index}
             >
-              <div className="h-[20svh] w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray shadow-component saturate-0 duration-300 hover:saturate-[0.75] dark:shadow-component-dark sm:h-[25svh] md:h-[30svh] lg:h-[40svh]">
+              <div className="h-[20svh] w-full overflow-hidden rounded-xl shadow-component saturate-0 duration-300 hover:saturate-[0.75] dark:shadow-component-dark sm:h-[25svh] md:h-[30svh] lg:h-[40svh]">
                 {person.img && (
                   <motion.div
                     whileHover="hoverScale"
@@ -114,7 +114,7 @@ const AboutWho = () => {
                     <OptimizedImage
                       src={person.img}
                       alt=""
-                      className="h-full w-full rounded-xl object-cover"
+                      className="h-full w-full rounded-xl"
                     />
                   </motion.div>
                 )}
@@ -175,9 +175,9 @@ const AnimatedImage = memo(({ src, index }: { src: string; index: number }) => {
       whileInView={["visible", "imgFloat"]}
       variants={variants}
       transition={{ delay: 0.2 + index * 0.1 }}
-      className={`img-${index + 1} absolute -z-10 overflow-hidden rounded-md bg-gradient-to-t from-blue-gray-900 to-gray will-change-transform lg:rounded-lg`}
+      className={`img-${index + 1} absolute -z-10 overflow-hidden rounded-md will-change-transform lg:rounded-lg`}
     >
-      <OptimizedImage src={src} alt="" className="h-full w-full object-cover" />
+      <OptimizedImage src={src} alt="" className="h-full w-full" />
     </motion.div>
   );
 });

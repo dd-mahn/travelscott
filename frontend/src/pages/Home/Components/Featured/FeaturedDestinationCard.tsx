@@ -32,12 +32,13 @@ const FeaturedDestinationCard: React.FC<DestinationCardProps> = memo(
         {/* Image container */}
         <Link
           to={`/discover/destinations/${destination._id}`}
-          className="h-[60svh] w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray shadow-component dark:shadow-component-dark md:h-[65svh] lg:h-[65svh] 2xl:h-[70svh]"
+          className="h-[60svh] w-full overflow-hidden rounded-xl shadow-component dark:shadow-component-dark md:h-[65svh] lg:h-[65svh] 2xl:h-[70svh]"
         >
           <OptimizedImage
             src={destination.images?.[0] ?? ""}
             alt={`Image of ${destination.name}`}
-            className="cursor-hover h-full w-full cursor-pointer rounded-xl object-cover"
+            className="h-full w-full cursor-pointer rounded-xl"
+            hoverClassName="cursor-hover"
             whileHover="hoverScale"
             transition={{ duration: 0.4 }}
             variants={variants}

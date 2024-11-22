@@ -36,7 +36,7 @@ const InspirationCard: React.FC<InspirationCardProps> = memo(({ blog }) => {
       {/* Blog Image Link */}
       <Link
         to={blogLink}
-        className="h-[30svh] w-full overflow-hidden rounded-xl bg-gradient-to-t from-blue-gray-900 to-gray shadow-section dark:shadow-section-dark md:h-[50svh]"
+        className="h-[30svh] w-full overflow-hidden rounded-xl shadow-section dark:shadow-section-dark md:h-[50svh]"
       >
         <OptimizedImage
           whileHover="hoverScale"
@@ -44,7 +44,8 @@ const InspirationCard: React.FC<InspirationCardProps> = memo(({ blog }) => {
           variants={variants}
           src={blog.image ?? ""}
           alt={blog.title}
-          className="cursor-hover h-full w-full rounded-xl object-cover"
+          className="h-full w-full rounded-xl"
+          hoverClassName="cursor-hover"
         />
       </Link>
 

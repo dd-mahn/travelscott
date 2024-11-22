@@ -50,12 +50,13 @@ const RenderBlog: React.FC<{ blog: Blog; isFeatured: boolean }> = ({
     >
       <Link
         to={`/inspiration/${blog._id}`}
-        className={`w-full overflow-hidden rounded-lg bg-gradient-to-t from-blue-gray-900 to-gray shadow-component dark:shadow-component-dark`}
+        className={`w-full overflow-hidden rounded-lg shadow-component dark:shadow-component-dark`}
       >
         <OptimizedImage
           src={blog.image}
           alt={`${isFeatured ? "featured" : "normal"}BlogImage`}
-          className="cursor-hover h-full w-full rounded-lg object-cover"
+          className="h-full w-full rounded-lg"
+          hoverClassName="cursor-hover"
           whileHover="hoverScale"
           transition={{ duration: 0.4 }}
           variants={variants}

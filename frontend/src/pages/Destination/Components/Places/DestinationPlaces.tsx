@@ -60,7 +60,7 @@ const PlaceCard: React.FC<{
             whileHover="hoverScale"
             variants={variants}
             transition={{ duration: 0.5 }}
-            className="cursor-hover-small object-cover h-full w-full cursor-pointer rounded-xl"
+            className="cursor-hover-small h-full w-full cursor-pointer rounded-xl"
             src={place.image_url}
             alt="place image"
             onClick={callBack}
