@@ -115,4 +115,4 @@ const CountryOverview: React.FC<CountryOverviewProps> = ({ country }) => {
   );
 };
 
-export default memo(CountryOverview);
+export default CountryOverview;

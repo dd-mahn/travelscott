@@ -59,4 +59,4 @@ const SeasonHeading: React.FC<SeasonHeadingProps> = () => {
 };
 
 // Export the memoized component to prevent unnecessary re-renders
-export default memo(SeasonHeading);
+export default SeasonHeading;

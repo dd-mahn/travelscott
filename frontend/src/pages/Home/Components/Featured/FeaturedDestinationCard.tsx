@@ -25,20 +25,20 @@ const variants = {
 };
 
 // FeaturedDestinationCard component
-const FeaturedDestinationCard: React.FC<DestinationCardProps> = memo(
+const FeaturedDestinationCard: React.FC<DestinationCardProps> = 
   ({ destination }) => {
     return (
       <div className="destination-card flex h-full flex-col gap-1 lg:gap-2 lg:pb-6 2xl:gap-4 2xl:pb-8">
         {/* Image container */}
         <Link
           to={`/discover/destinations/${destination._id}`}
-          className="h-[60svh] w-full overflow-hidden rounded-xl shadow-component dark:shadow-component-dark md:h-[65svh] lg:h-[65svh] 2xl:h-[70svh]"
+          className="image-suspense h-[60svh] w-full overflow-hidden rounded-xl shadow-component dark:shadow-component-dark md:h-[65svh] lg:h-[65svh] 2xl:h-[70svh]"
         >
           <OptimizedImage
             src={destination.images?.[0] ?? ""}
             alt={`Image of ${destination.name}`}
             className="h-full w-full cursor-pointer rounded-xl"
-            hoverClassName="cursor-hover"
+            imageClassName="cursor-hover rounded-xl"
             whileHover="hoverScale"
             transition={{ duration: 0.4 }}
             variants={variants}
@@ -75,7 +75,7 @@ const FeaturedDestinationCard: React.FC<DestinationCardProps> = memo(
         </div>
       </div>
     );
-  },
-);
+  }
+
 
 export default FeaturedDestinationCard;

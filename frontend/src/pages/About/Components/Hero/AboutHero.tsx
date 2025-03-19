@@ -210,4 +210,4 @@ const AboutHero = () => {
   );
 };
 
-export default memo(AboutHero);
+export default AboutHero;

@@ -4,7 +4,10 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Destination from "src/types/Destination";
 import OptimizedImage from "src/common/OptimizedImage/OptimizedImage";
-import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
+import {
+  HoverVariants,
+  VisibilityVariants,
+} from "src/utils/constants/variants";
 
 // Define animation variants
 const variants = {
@@ -19,7 +22,9 @@ interface DiscoverPosterProps {
   featuredDestinations: Destination[];
 }
 
-const DiscoverPoster: React.FC<DiscoverPosterProps> = ({ featuredDestinations }) => {
+const DiscoverPoster: React.FC<DiscoverPosterProps> = ({
+  featuredDestinations,
+}) => {
   // Return null if there are no featured destinations
   if (featuredDestinations.length === 0 || !featuredDestinations) {
     return null;
@@ -29,9 +34,9 @@ const DiscoverPoster: React.FC<DiscoverPosterProps> = ({ featuredDestinations })
     <motion.section
       initial="hiddenShortY"
       animate="visible"
-      transition={{ duration: 0.5}}
+      transition={{ duration: 0.5 }}
       variants={variants}
-      className="posters h-[60svh] md:h-[95svh] w-screen"
+      className="posters h-[60svh] w-screen md:h-[95svh]"
     >
       {/* @ts-ignore */}
       <Carousel
@@ -48,7 +53,7 @@ const DiscoverPoster: React.FC<DiscoverPosterProps> = ({ featuredDestinations })
           >
             <Link
               to={`destinations/${destination._id}`}
-              className="absolute left-0 top-0 h-full w-full overflow-hidden"
+              className="image-suspense absolute left-0 top-0 h-full w-full overflow-hidden"
             >
               <OptimizedImage
                 whileHover="hoverScale"
@@ -61,14 +66,14 @@ const DiscoverPoster: React.FC<DiscoverPosterProps> = ({ featuredDestinations })
                       : destination.images[0] || ""
                     : ""
                 }
-                className="z-0 h-full w-full brightness-75"
-                hoverClassName="cursor-hover"
+                className="z-0 h-full w-full"
+                imageClassName="cursor-hover brightness-75"
                 alt={`Featured destination: ${destination.name}`}
               />
             </Link>
 
             <div className="pointer-events-none z-10 w-fit pt-sect-short">
-              <div className="overflow-hidden big-heading">
+              <div className="big-heading overflow-hidden">
                 {destination.name.split("").map((letter, index) => (
                   <motion.h1
                     key={index}
@@ -77,7 +82,8 @@ const DiscoverPoster: React.FC<DiscoverPosterProps> = ({ featuredDestinations })
                     whileInView="visible"
                     viewport={{ once: true }}
                     transition={{
-                      duration: destination.name.split("").length < 10 ? 0.8 : 0.6,
+                      duration:
+                        destination.name.split("").length < 10 ? 0.8 : 0.6,
                       delay: 0.5 + index * 0.1,
                       type: "spring",
                       bounce: 0.5,
@@ -122,4 +128,4 @@ const DiscoverPoster: React.FC<DiscoverPosterProps> = ({ featuredDestinations })
   );
 };
 
-export default memo(DiscoverPoster);
+export default DiscoverPoster;

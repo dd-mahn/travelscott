@@ -93,5 +93,5 @@ const InspirationButtons = () => {
   );
 };
 
-export default memo(InspirationButtons);
+export default InspirationButtons;
 

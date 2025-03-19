@@ -1,4 +1,11 @@
-import React, { memo, useState, useCallback, useMemo, useEffect, useRef } from "react";
+import React, {
+  memo,
+  useState,
+  useCallback,
+  useMemo,
+  useEffect,
+  useRef,
+} from "react";
 import {
   destinationPlace,
   placeToEat,
@@ -8,7 +15,10 @@ import {
 import PlaceDialog from "src/pages/Destination/Components/Places/PlaceDialog";
 import SlideRevealIconHeading from "src/common/SlideRevealIconHeading/SlideRevealIconHeading";
 import { AnimatePresence, motion } from "framer-motion";
-import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
+import {
+  HoverVariants,
+  VisibilityVariants,
+} from "src/utils/constants/variants";
 import { getSelectedCategoryPlaces } from "src/utils/destinationPlaceUtils";
 import {
   getDestinationPlaceHeading,
@@ -45,7 +55,7 @@ const CATEGORY_DESCRIPTIONS = {
 const PlaceCard: React.FC<{
   place: placeToStay | placeToVisit | placeToEat;
   callBack: () => void;
-}> = memo(({ place, callBack }) => {
+}> = ({ place, callBack }) => {
   return (
     <motion.div
       initial="hiddenY"
@@ -55,12 +65,13 @@ const PlaceCard: React.FC<{
       transition={{ duration: 0.5 }}
     >
       <div className="flex flex-col gap-2 md:gap-4">
-        <div className="overflow-hidden rounded-xl shadow-component h-[30svh] lg:h-[50svh] dark:shadow-component-dark">
+        <div className="image-suspense h-[30svh] overflow-hidden rounded-xl shadow-component dark:shadow-component-dark lg:h-[50svh]">
           <OptimizedImage
             whileHover="hoverScale"
             variants={variants}
             transition={{ duration: 0.5 }}
             className="cursor-hover-small h-full w-full cursor-pointer rounded-xl"
+            imageClassName="rounded-xl"
             src={place.image_url}
             alt="place image"
             onClick={callBack}
@@ -79,7 +90,7 @@ const PlaceCard: React.FC<{
       </div>
     </motion.div>
   );
-});
+};
 
 const DestinationPlaces: React.FC<DestinationPlacesProps> = ({ places }) => {
   // State to manage the current place category
@@ -95,7 +106,7 @@ const DestinationPlaces: React.FC<DestinationPlacesProps> = ({ places }) => {
     contentChangeRef.current += 1;
     // Force a resize event after animation
     setTimeout(() => {
-      window.dispatchEvent(new Event('resize'));
+      window.dispatchEvent(new Event("resize"));
     }, 600); // Adjust this timing based on your animation duration
   }, []);
 
@@ -107,18 +118,21 @@ const DestinationPlaces: React.FC<DestinationPlacesProps> = ({ places }) => {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      if (currentDialog && Math.abs(currentScrollY - scrollRef.current) > window.innerHeight * 0.5) {
+      if (
+        currentDialog &&
+        Math.abs(currentScrollY - scrollRef.current) > window.innerHeight * 0.5
+      ) {
         setCurrentDialog(null);
       }
     };
 
     if (currentDialog) {
       scrollRef.current = window.scrollY;
-      window.addEventListener('scroll', handleScroll);
+      window.addEventListener("scroll", handleScroll);
     }
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, [currentDialog]);
 
@@ -130,7 +144,7 @@ const DestinationPlaces: React.FC<DestinationPlacesProps> = ({ places }) => {
   return (
     <section
       id="places"
-      className="places px-sect min-h-screen rounded-3xl bg-light-green pb-sect-short pt-sect-short dark:bg-background-dark-green shadow-component"
+      className="places px-sect min-h-screen rounded-3xl bg-light-green pb-sect-short pt-sect-short shadow-component dark:bg-background-dark-green"
     >
       <SlideRevealIconHeading
         iconClass="ri-map-pin-fill"
@@ -166,7 +180,7 @@ const DestinationPlaces: React.FC<DestinationPlacesProps> = ({ places }) => {
                     .map((category, index) => (
                       <span
                         key={index}
-                        className="cursor-pointer text-gray dark:text-gray transition-colors duration-300 hover:text-text-light dark:hover:text-text-dark"
+                        className="cursor-pointer text-gray transition-colors duration-300 hover:text-text-light dark:text-gray dark:hover:text-text-dark"
                         onClick={() =>
                           handlePlaceCategoryChange(
                             getPlaceCategoryChange(placeCategory, category),
@@ -194,7 +208,7 @@ const DestinationPlaces: React.FC<DestinationPlacesProps> = ({ places }) => {
               </div>
             </div>
 
-            <div className="mt-10 md:mt-20 grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-8 lg:gap-x-8 lg:gap-y-16">
+            <div className="mt-10 grid grid-cols-2 gap-x-4 gap-y-8 md:mt-20 md:grid-cols-3 lg:gap-x-8 lg:gap-y-16">
               {selectedCategoryPlaces?.map((place, index) => (
                 <PlaceCard
                   key={index}

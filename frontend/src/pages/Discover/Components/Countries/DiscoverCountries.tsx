@@ -50,9 +50,9 @@ const DiscoverCountries: React.FC = () => {
   }, [selectedContinentName, continents]);
 
   // Handle select continent
-  const handleSelectContinent = useCallback((value: string) => {
+  const handleSelectContinent = (value: string) => {
     setSelectedContinentName(value);
-  }, []);
+  };
 
   // Select and SelectOption elements props
   const selectProps = {
@@ -149,7 +149,7 @@ const DiscoverCountries: React.FC = () => {
                 className="flex w-full flex-col items-start gap-4 md:min-h-[70svh] md:gap-8 lg:flex-row lg:gap-8 2xl:gap-12"
               >
                 <div className="relative flex items-center justify-center">
-                  <div className="w-full overflow-hidden rounded-xl shadow-component dark:shadow-component-dark lg:h-[70svh] lg:w-[40svw]">
+                  <div className="image-suspense w-full overflow-hidden rounded-xl shadow-component dark:shadow-component-dark lg:h-[70svh] lg:w-[40svw]">
                     <OptimizedImage
                       whileHover="hoverScale"
                       variants={variants}
@@ -158,7 +158,8 @@ const DiscoverCountries: React.FC = () => {
                       }}
                       src={selectedContinent.image}
                       alt="map"
-                      className="h-full w-full rounded-xl brightness-75"
+                      className="h-full w-full rounded-xl"
+                      imageClassName="brightness-75 rounded-xl"
                     />
                   </div>
 
@@ -192,7 +193,7 @@ const DiscoverCountries: React.FC = () => {
       </section>
 
       {/* RELATED SECTION */}
-      <section className="related overflow-hidden flex flex-col gap-3 lg:gap-4 2xl:gap-8">
+      <section className="related flex flex-col gap-3 overflow-hidden lg:gap-4 2xl:gap-8">
         <div className="px-sect overflow-hidden">
           <motion.h2
             initial="hiddenFullY"

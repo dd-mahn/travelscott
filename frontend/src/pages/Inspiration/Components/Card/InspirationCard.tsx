@@ -21,7 +21,7 @@ interface InspirationCardProps {
   blog: Blog;
 }
 
-const InspirationCard: React.FC<InspirationCardProps> = memo(({ blog }) => {
+const InspirationCard: React.FC<InspirationCardProps> = ({ blog }) => {
   const blogLink = `/inspiration/${blog._id}`;
 
   return (
@@ -36,7 +36,7 @@ const InspirationCard: React.FC<InspirationCardProps> = memo(({ blog }) => {
       {/* Blog Image Link */}
       <Link
         to={blogLink}
-        className="h-[30svh] w-full overflow-hidden rounded-xl shadow-section dark:shadow-section-dark md:h-[50svh]"
+        className="image-suspense h-[30svh] w-full overflow-hidden rounded-xl shadow-section dark:shadow-section-dark md:h-[50svh]"
       >
         <OptimizedImage
           whileHover="hoverScale"
@@ -45,7 +45,7 @@ const InspirationCard: React.FC<InspirationCardProps> = memo(({ blog }) => {
           src={blog.image ?? ""}
           alt={blog.title}
           className="h-full w-full rounded-xl"
-          hoverClassName="cursor-hover"
+          imageClassName="cursor-hover rounded-xl"
         />
       </Link>
 
@@ -75,6 +75,6 @@ const InspirationCard: React.FC<InspirationCardProps> = memo(({ blog }) => {
       </span>
     </motion.div>
   );
-});
+}
 
 export default InspirationCard;

@@ -19,4 +19,4 @@ const AnimatedLogoScreen: React.FC = () => {
   );
 };
 
-export default memo(AnimatedLogoScreen);
+export default AnimatedLogoScreen;

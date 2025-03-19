@@ -362,4 +362,4 @@ const Contact: React.FC = () => {
   );
 };
 
-export default memo(Contact);
+export default Contact;

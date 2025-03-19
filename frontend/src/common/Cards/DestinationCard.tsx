@@ -26,15 +26,14 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ destination }) => {
     >
       <Link
         to={`/discover/destinations/${destination._id}`}
-        
-        className="grid h-[30svh] place-items-center overflow-hidden rounded-2xl shadow-component dark:shadow-component-dark sm:h-[35svh] lg:h-[50svh]"
+        className="image-suspense grid h-[30svh] place-items-center overflow-hidden rounded-2xl shadow-component dark:shadow-component-dark sm:h-[35svh] lg:h-[50svh]"
       >
         {destination.images && destination.images.length > 0 && (
           <OptimizedImage
             src={destination.images[0]}
             alt={destination.name}
             className="h-full w-full rounded-xl"
-            hoverClassName="cursor-hover"
+            imageClassName="cursor-hover rounded-xl"
             whileHover="hoverScale"
             transition={{ duration: 0.4 }}
             variants={variants}

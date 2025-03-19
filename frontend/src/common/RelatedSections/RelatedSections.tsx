@@ -293,13 +293,13 @@ const CountryCard: React.FC<{ country: Country }> = ({ country }) => {
   return (
     <Link
       to={`/discover/countries/${country._id}`}
-      className="cursor-hover relative block h-[25svh] w-full cursor-pointer rounded-lg image-suspense md:h-[30svh] lg:h-[35svh] 2xl:h-[30svh]"
+      className="cursor-hover image-suspense relative block h-[25svh] w-full cursor-pointer rounded-lg md:h-[30svh] lg:h-[35svh] 2xl:h-[30svh]"
     >
       <OptimizedImage
         src={imageSrc}
         alt={country.name}
-        className="absolute right-0 top-0 z-0 h-full w-full rounded-lg brightness-75"
-        hoverClassName="cursor-hover"
+        className="absolute right-0 top-0 z-0 h-full w-full rounded-lg"
+        imageClassName="cursor-hover rounded-lg brightness-75"
         variants={variants}
         whileHover="hoverBrightness"
         transition={{ duration: 0.4 }}
@@ -320,13 +320,13 @@ const DestinationCard: React.FC<{
   return (
     <Link
       to={`/discover/destinations/${destination._id}`}
-      className="cursor-hover relative block h-[25svh] w-full cursor-pointer rounded-lg image-suspense md:h-[30svh] lg:h-[35svh] 2xl:h-[30svh]"
+      className="cursor-hover image-suspense relative block h-[25svh] w-full cursor-pointer rounded-lg md:h-[30svh] lg:h-[35svh] 2xl:h-[30svh]"
     >
       <OptimizedImage
         src={imageSrc}
         alt={destination.name}
-        className="absolute right-0 top-0 z-0 h-full w-full rounded-lg brightness-75"
-        hoverClassName="cursor-hover"
+        className="absolute right-0 top-0 z-0 h-full w-full rounded-lg"
+        imageClassName="cursor-hover rounded-lg brightness-75"
         variants={variants}
         whileHover="hoverBrightness"
         transition={{ duration: 0.4 }}
@@ -345,7 +345,7 @@ const BlogCard: React.FC<{ blog: Blog }> = ({ blog }) => {
   return (
     <Link
       to={`/inspiration/${blog._id}`}
-      className="cursor-hover relative block h-[25svh] w-full cursor-pointer rounded-lg border-background-light image-suspense md:h-[30svh] lg:h-[35svh] 2xl:h-[30svh]"
+      className="cursor-hover image-suspense relative block h-[25svh] w-full cursor-pointer rounded-lg border-background-light md:h-[30svh] lg:h-[35svh] 2xl:h-[30svh]"
       style={{
         backgroundImage: `url(${imageSrc})`,
         backgroundSize: "cover",
@@ -355,8 +355,8 @@ const BlogCard: React.FC<{ blog: Blog }> = ({ blog }) => {
       <OptimizedImage
         src={imageSrc}
         alt={blog.title}
-        className="absolute left-0 top-0 z-0 h-full w-full rounded-lg brightness-75"
-        hoverClassName="cursor-hover"
+        className="absolute left-0 top-0 z-0 h-full w-full rounded-lg"
+        imageClassName="cursor-hover rounded-lg brightness-75"
         variants={variants}
         whileHover="hoverBrightness"
         transition={{ duration: 0.4 }}

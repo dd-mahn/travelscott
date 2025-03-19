@@ -9,7 +9,10 @@ import {
 import bookingImg from "src/assets/images/ui/destination/booking.png";
 import agodaImg from "src/assets/images/ui/destination/agoda-light.png";
 import tripadvisorImg from "src/assets/images/ui/destination/tripadvisor-light.png";
-import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
+import {
+  HoverVariants,
+  VisibilityVariants,
+} from "src/utils/constants/variants";
 import { Link } from "react-router-dom";
 import OptimizedImage from "src/common/OptimizedImage/OptimizedImage";
 
@@ -54,7 +57,11 @@ const PlaceToStayDialog: React.FC<{ place: placeToStay }> = ({ place }) => {
   return (
     <DialogWrapper name={name} image_url={image_url}>
       <div className="flex flex-col gap-4 px-2 sm:px-4 md:px-6 lg:px-8">
-        <DialogHeader name={name} type={type} rating={rating as unknown as Rating[]} />
+        <DialogHeader
+          name={name}
+          type={type}
+          rating={rating as unknown as Rating[]}
+        />
         <DialogLocation location={location} />
         <DialogPrice price={price} />
         <p className="p-regular mt-4 pb-4 sm:pb-6 md:pb-sect-short">
@@ -85,7 +92,11 @@ const PlaceToEatDialog: React.FC<{ place: placeToEat }> = ({ place }) => {
   return (
     <DialogWrapper name={name} image_url={image_url}>
       <div className="flex flex-col gap-4 px-4 sm:px-4 md:px-6 lg:px-8">
-        <DialogHeader name={name} type={type} rating={rating as unknown as Rating[]} />
+        <DialogHeader
+          name={name}
+          type={type}
+          rating={rating as unknown as Rating[]}
+        />
         <DialogLocation location={location} />
         <DialogPrice price={price} />
         <p className="p-regular mt-4">{description}</p>
@@ -108,12 +119,8 @@ const DialogWrapper: React.FC<{
       className="dialog-content h-full w-full"
       onClick={(e) => e.stopPropagation()}
     >
-      <div className="h-2/5">
-        <OptimizedImage
-          src={image_url}
-          alt={name}
-          className="h-full w-full"
-        />
+      <div className="image-suspense h-2/5">
+        <OptimizedImage src={image_url} alt={name} className="h-full w-full" />
       </div>
       {children}
     </motion.div>
@@ -226,4 +233,4 @@ const DialogPrice: React.FC<{ price: { currency: string; value: number } }> = ({
   </motion.div>
 );
 
-export default memo(PlaceDialog);
+export default PlaceDialog;

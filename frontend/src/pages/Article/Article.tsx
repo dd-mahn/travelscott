@@ -42,7 +42,7 @@ const Article: React.FC = () => {
         initial="hiddenY"
         animate="visible"
         transition={{ duration: 0.5 }}
-        className="h-[50svh] md:h-[75svh]"
+        className="image-suspense h-[50svh] md:h-[75svh]"
       >
         {blogData.image && (
           <OptimizedImage
@@ -131,7 +131,8 @@ const Article: React.FC = () => {
               >
                 {content.sectionImages && content.sectionImages.length > 0 && (
                   <OptimizedImage
-                    className="w-full rounded-xl"
+                    className="image-suspense w-full rounded-xl"
+                    imageClassName="cursor-hover-small rounded-xl"
                     src={content.sectionImages[0].url}
                     alt={content.sectionTitle}
                   />
@@ -185,4 +186,4 @@ const Article: React.FC = () => {
   );
 };
 
-export default memo(Article);
+export default Article;

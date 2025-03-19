@@ -79,8 +79,7 @@ export const DestinationFilter: React.FC = memo(() => {
     [continents],
   );
 
-  const predefinedTags = useMemo(
-    () => [
+  const predefinedTags = [
       "Wilderness",
       "Culture&Heritage",
       "FoodLovers",
@@ -88,9 +87,7 @@ export const DestinationFilter: React.FC = memo(() => {
       "CityScape",
       "Season&Festival",
       "Relaxation",
-    ],
-    [],
-  );
+    ]
 
   // Handlers
   const continentFilterClick = useCallback(

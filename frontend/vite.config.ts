@@ -1,9 +1,9 @@
 import { defineConfig, UserConfig } from "vite";
 import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
 import react from "@vitejs/plugin-react";
-import { VitePWA } from 'vite-plugin-pwa';
-import compression from 'vite-plugin-compression';
-import { resolve } from 'path';
+import { VitePWA } from "vite-plugin-pwa";
+import compression from "vite-plugin-compression";
+import { resolve } from "path";
 
 export default defineConfig({
   plugins: [
@@ -50,43 +50,49 @@ export default defineConfig({
       },
     }),
     VitePWA({
-      registerType: 'autoUpdate',
+      registerType: "autoUpdate",
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg}']
-      }
+        globPatterns: ["**/*.{js,css,html,ico,png,svg}"],
+      },
     }),
     compression({
-      algorithm: 'brotliCompress',
-      ext: '.br',
+      algorithm: "gzip",
+      ext: ".gz",
       threshold: 10240,
-      deleteOriginFile: false
-    })
+      deleteOriginFile: false,
+    }),
+    compression({
+      algorithm: "brotliCompress",
+      ext: ".br",
+      threshold: 10240,
+      deleteOriginFile: false,
+    }),
   ],
   test: {
     globals: true,
-    environment: 'jsdom',
-    setupFiles: './src/setupTests.ts',
+    environment: "jsdom",
+    setupFiles: "./src/setupTests.ts",
     coverage: {
-      provider: 'v8',
-      reporter: ['text', 'json', 'html'],
+      provider: "v8",
+      reporter: ["text", "json", "html"],
       exclude: [
-        'node_modules/',
-        'src/types/',
-        'src/**/*.d.ts',
-        'src/**/*.test.{ts,tsx}',
-        'src/test-utils/**',
-        'src/mocks/**'
+        "node_modules/",
+        "src/types/",
+        "src/**/*.d.ts",
+        "src/**/*.test.{ts,tsx}",
+        "src/test-utils/**",
+        "src/mocks/**",
       ],
       thresholds: {
         lines: 90,
         functions: 85,
         branches: 85,
-        statements: 90
-      }
+        statements: 90,
+      },
     },
     mockReset: true,
     restoreMocks: true,
-    clearMocks: true
+    clearMocks: true,
   },
   resolve: {
     alias: {
@@ -94,56 +100,66 @@ export default defineConfig({
     },
   },
   define: {
-    'import.meta.env.VITE_API_BASE_URL': JSON.stringify(process.env.VITE_API_BASE_URL || 'https://travelscott-production.up.railway.app/api'),
-    'import.meta.env.VITE_NODE_ENV': JSON.stringify(process.env.VITE_NODE_ENV || 'production'),
-    'import.meta.env.VITE_API_URL': JSON.stringify(process.env.VITE_API_URL || 'https://travelscott-production.up.railway.app'),
-    'import.meta.env.MODE': JSON.stringify(process.env.NODE_ENV || 'production'),
-    'import.meta.env.VITE_ENABLE_ANALYTICS': JSON.stringify(process.env.VITE_ENABLE_ANALYTICS || 'true'),
+    "import.meta.env.VITE_API_BASE_URL": JSON.stringify(
+      process.env.VITE_API_BASE_URL ||
+        "https://travelscott-production.up.railway.app/api",
+    ),
+    "import.meta.env.VITE_NODE_ENV": JSON.stringify(
+      process.env.VITE_NODE_ENV || "production",
+    ),
+    "import.meta.env.VITE_API_URL": JSON.stringify(
+      process.env.VITE_API_URL ||
+        "https://travelscott-production.up.railway.app",
+    ),
+    "import.meta.env.MODE": JSON.stringify(
+      process.env.NODE_ENV || "production",
+    ),
+    "import.meta.env.VITE_ENABLE_ANALYTICS": JSON.stringify(
+      process.env.VITE_ENABLE_ANALYTICS || "true",
+    ),
   },
   server: {
     headers: {
-      'X-Frame-Options': 'DENY',
-      'X-Content-Type-Options': 'nosniff',
-      'Referrer-Policy': 'strict-origin-when-cross-origin',
-      'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
+      "X-Frame-Options": "DENY",
+      "X-Content-Type-Options": "nosniff",
+      "Referrer-Policy": "strict-origin-when-cross-origin",
+      "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
     },
     proxy: {
-      '/api': {
-        target: process.env.VITE_API_URL || 'https://localhost:4080',
+      "/api": {
+        target: process.env.VITE_API_URL || "https://localhost:4080",
         changeOrigin: true,
-        secure: true
-      }
-    }
+        secure: true,
+      },
+    },
   },
   build: {
-    outDir: 'dist',
-    sourcemap: process.env.NODE_ENV === 'development',
-    minify: process.env.NODE_ENV === 'production',
+    outDir: "dist",
+    sourcemap: process.env.NODE_ENV === "development",
+    minify: process.env.NODE_ENV === "production",
     rollupOptions: {
       output: {
         manualChunks: {
-          'vendor': ['react', 'react-dom'],
-          'animations': ['framer-motion'],
-          'router': ['react-router-dom'],
-          'state': ['@reduxjs/toolkit', 'react-redux'],
-          'utils': ['lodash', 'zod'],
-          'media': ['react-player', 'react-slick'],
-          'ui': ['@material-tailwind/react']
+          vendor: ["react", "react-dom"],
+          animations: ["framer-motion"],
+          router: ["react-router-dom"],
+          state: ["@reduxjs/toolkit", "react-redux"],
+          utils: ["lodash", "zod"],
+          media: ["react-player", "react-slick"],
+          ui: ["@material-tailwind/react"],
         },
         assetFileNames: (assetInfo) => {
-          if (assetInfo.name && assetInfo.name.endsWith('.woff2')) {
-            return 'assets/fonts/[name][extname]';
+          if (assetInfo.name && assetInfo.name.endsWith(".woff2")) {
+            return "assets/fonts/[name][extname]";
           }
-          return 'assets/[name]-[hash][extname]';
+          return "assets/[name]-[hash][extname]";
         },
-      }
+      },
     },
     cssCodeSplit: true,
     chunkSizeWarningLimit: 500,
     assetsInlineLimit: 0,
     reportCompressedSize: true,
-    assetsInclude: ['**/*.woff2', '**/*.otf'],
+    assetsInclude: ["**/*.woff2", "**/*.otf"],
   },
-  
-  
 } as UserConfig);

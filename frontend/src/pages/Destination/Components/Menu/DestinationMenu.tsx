@@ -106,4 +106,4 @@ const DestinationMenu = () => {
   );
 };
 
-export default memo(DestinationMenu);
+export default DestinationMenu;

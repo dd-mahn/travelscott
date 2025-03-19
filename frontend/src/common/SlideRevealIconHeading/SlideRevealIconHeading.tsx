@@ -90,4 +90,4 @@ const SlideRevealIconHeading = ({
   );
 };
 
-export default memo(SlideRevealIconHeading);
+export default SlideRevealIconHeading;

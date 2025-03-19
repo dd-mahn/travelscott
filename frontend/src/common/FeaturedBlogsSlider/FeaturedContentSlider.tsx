@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useState, useRef } from "react";
+import React, { useCallback, useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { DotPagination } from "src/common/Pagination/Pagination";
 import { VisibilityVariants } from "src/utils/constants/variants";
@@ -129,4 +129,4 @@ const FeaturedContentSlider: React.FC<FeaturedContentSliderProps> = ({
   );
 };
 
-export default memo(FeaturedContentSlider);
+export default FeaturedContentSlider;

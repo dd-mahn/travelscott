@@ -76,4 +76,4 @@ const DestinationOverview = ({ destination }: { destination: Destination }) => {
 };
 
 // Export the memoized component
-export default memo(DestinationOverview);
+export default DestinationOverview;

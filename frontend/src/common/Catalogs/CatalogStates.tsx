@@ -22,38 +22,32 @@ const MotionDiv: React.FC<{ keyName: string; children: React.ReactNode }> = ({
 );
 
 // Loading state component
-export const LoadingState: React.FC<{ keyName: string }> = React.memo(
-  ({ keyName }) => {
-    return (
-      <MotionDiv keyName={keyName}>
-        <h3 className="h3-md text-center md:text-left">Loading...</h3>
-      </MotionDiv>
-    );
-  },
-);
+export const LoadingState: React.FC<{ keyName: string }> = ({ keyName }) => {
+  return (
+    <MotionDiv keyName={keyName}>
+      <h3 className="h3-md text-center md:text-left">Loading...</h3>
+    </MotionDiv>
+  );
+};
 
 // Error state component
-export const ErrorState: React.FC<{ keyName: string }> = React.memo(
-  ({ keyName }) => {
-    return (
-      <MotionDiv keyName={keyName}>
-        <h3 className="h3-md text-center md:text-left">
-          Error... Please reload or try again later.
-        </h3>
-      </MotionDiv>
-    );
-  },
-);
+export const ErrorState: React.FC<{ keyName: string }> = ({ keyName }) => {
+  return (
+    <MotionDiv keyName={keyName}>
+      <h3 className="h3-md text-center md:text-left">
+        Error... Please reload or try again later.
+      </h3>
+    </MotionDiv>
+  );
+};
 
 // Not found state component
-export const NotFoundState: React.FC<{ keyName: string }> = React.memo(
-  ({ keyName }) => {
-    return (
-      <MotionDiv keyName={keyName}>
-        <h3 className="h3-md text-center md:text-left">
-          Nothing available at the moment, please reload or try again later.
-        </h3>
-      </MotionDiv>
-    );
-  },
-);
+export const NotFoundState: React.FC<{ keyName: string }> = ({ keyName }) => {
+  return (
+    <MotionDiv keyName={keyName}>
+      <h3 className="h3-md text-center md:text-left">
+        Nothing available at the moment, please reload or try again later.
+      </h3>
+    </MotionDiv>
+  );
+};

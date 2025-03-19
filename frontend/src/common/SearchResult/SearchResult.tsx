@@ -56,13 +56,14 @@ const SearchResult: React.FC<SearchResultProps> = ({
               key={country._id}
               className="flex cursor-pointer flex-col items-center gap-2"
             >
-              <div className="h-full w-full overflow-hidden rounded-xl">
+              <div className="image-suspense h-full w-full overflow-hidden rounded-xl">
                 <OptimizedImage
                   whileHover="hover"
                   variants={variants}
                   src={country.images.flagImages?.[0] || ""}
                   alt={country.name}
-                  className="cursor-hover-small h-full w-full rounded-xl "
+                  className="h-full w-full rounded-xl"
+                  imageClassName="cursor-hover-small rounded-xl"
                   transition={{ duration: 0.4 }}
                 />
               </div>
@@ -97,13 +98,14 @@ const SearchResult: React.FC<SearchResultProps> = ({
               key={destination._id}
               className="flex h-[15svh] cursor-pointer flex-col items-center gap-2 rounded-xl"
             >
-              <div className="h-full w-full overflow-hidden rounded-xl">
+              <div className="image-suspense h-full w-full overflow-hidden rounded-xl">
                 <OptimizedImage
                   whileHover="hover"
                   variants={variants}
                   src={destination.images?.[0] || ""}
                   alt={destination.name}
-                  className="cursor-hover-small h-full w-full rounded-xl "
+                  className="h-full w-full rounded-xl"
+                  imageClassName="cursor-hover-small rounded-xl"
                   transition={{ duration: 0.4 }}
                 />
               </div>
@@ -137,13 +139,14 @@ const SearchResult: React.FC<SearchResultProps> = ({
             key={blog._id}
             className="flex h-20 cursor-pointer gap-4 rounded-xl lg:h-24 2xl:h-32"
           >
-            <div className="h-full w-1/3 overflow-hidden rounded-xl">
+            <div className="image-suspense h-full w-1/3 overflow-hidden rounded-xl">
               <OptimizedImage
                 whileHover="hover"
                 variants={variants}
                 src={blog.image}
                 alt={blog.title}
-                className="cursor-hover-small h-full w-full rounded-xl "
+                className="h-full w-full rounded-xl"
+                imageClassName="cursor-hover-small rounded-xl"
                 transition={{ duration: 0.4 }}
               />
             </div>

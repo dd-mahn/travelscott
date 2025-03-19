@@ -96,15 +96,16 @@ const CountryPage: React.FC = () => {
           <OptimizedImage
             src={
               isDarkMode
-                ? currentCountry.images.mapImages?.filter((image) =>
+                ? (currentCountry.images.mapImages?.filter((image) =>
                     image.includes("dark"),
-                  )[0] ?? ""
-                : currentCountry.images.mapImages?.filter(
+                  )[0] ?? "")
+                : (currentCountry.images.mapImages?.filter(
                     (image) => !image.includes("dark"),
-                  )[0] ?? ""
+                  )[0] ?? "")
             }
             alt={`${currentCountry.name} map`}
             className="h-full w-full rounded-2xl"
+            imageClassName="rounded-2xl"
           />
         </motion.div>
 
@@ -141,6 +142,7 @@ const CountryPage: React.FC = () => {
         </div>
 
         <motion.div
+          className="w-screen overflow-x-hidden"
           initial="hiddenY"
           whileInView="visible"
           viewport={{ once: true }}

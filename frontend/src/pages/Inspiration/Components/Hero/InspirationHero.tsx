@@ -25,19 +25,20 @@ const InspirationHero = ({ currentCategory }: { currentCategory: string }) => {
   const isDarkMode = useSelector(selectIsDarkMode);
 
   // Determine the background style based on the current category and dark mode
-  const backgroundStyle = currentCategory !== "All"
-    ? {
-        backgroundImage: `url(${currentCategoryImage})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }
-    : {
-        background: `var(--${heading
-          .toLowerCase()
-          .replace(/ /g, "-")
-          .replace(/\d{4}/, "")
-          .trim()}gradient${isDarkMode ? "-dark" : ""})`,
-      };
+  const backgroundStyle =
+    currentCategory !== "All"
+      ? {
+          backgroundImage: `url(${currentCategoryImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }
+      : {
+          background: `var(--${heading
+            .toLowerCase()
+            .replace(/ /g, "-")
+            .replace(/\d{4}/, "")
+            .trim()}gradient${isDarkMode ? "-dark" : ""})`,
+        };
 
   // Define the gradient style for the overlay
   const overlayGradient = isDarkMode
@@ -70,4 +71,4 @@ const InspirationHero = ({ currentCategory }: { currentCategory: string }) => {
   );
 };
 
-export default memo(InspirationHero);
+export default InspirationHero;

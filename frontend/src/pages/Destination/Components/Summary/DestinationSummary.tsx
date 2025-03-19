@@ -53,4 +53,4 @@ const DestinationSummary = ({ summary }: { summary: string }) => {
 };
 
 // Export the memoized component to prevent unnecessary re-renders
-export default memo(DestinationSummary);
+export default DestinationSummary;

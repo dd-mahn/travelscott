@@ -19,9 +19,6 @@ import { FetchDestinationType } from "src/types/FetchData";
 // Redux actions
 import { setFeaturedDestinations } from "src/store/slices/destinationSlice";
 
-// Demo data
-import { featuredDemo } from "src/data/featuredDemo";
-
 // Framer motion variants for animations
 const variants = {
   hidden: VisibilityVariants.hidden,
@@ -121,4 +118,4 @@ const Featured: React.FC = () => {
 };
 
 // Memoize the component to prevent unnecessary re-renders
-export default memo(Featured);
+export default Featured;

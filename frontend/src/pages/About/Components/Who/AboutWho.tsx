@@ -1,6 +1,9 @@
 import React, { memo, Suspense } from "react";
 import { motion, useInView } from "framer-motion";
-import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
+import {
+  HoverVariants,
+  VisibilityVariants,
+} from "src/utils/constants/variants";
 import { people } from "src/data/about-people";
 import OptimizedImage from "src/common/OptimizedImage/OptimizedImage";
 
@@ -61,7 +64,10 @@ const whoImages = [who1, who2, who3, who4, who5, who6, who7, who8];
 // Main component
 const AboutWho = () => {
   return (
-    <section data-testid="about-who" className="who px-sect sticky top-0 z-20 overflow-hidden rounded-5xl bg-background-dark-transparent pb-64 pt-32 shadow-section dark:bg-background-dark-transparent lg:pb-sect-default lg:pt-40 2xl:py-sect-default">
+    <section
+      data-testid="about-who"
+      className="who px-sect sticky top-0 z-20 overflow-hidden rounded-5xl bg-background-dark-transparent pb-64 pt-32 shadow-section dark:bg-background-dark-transparent lg:pb-sect-default lg:pt-40 2xl:py-sect-default"
+    >
       <div className="relative flex flex-col">
         {/* Animated blobs */}
         <motion.div
@@ -103,13 +109,13 @@ const AboutWho = () => {
               className="person flex flex-col items-center gap-2 lg:gap-4"
               key={index}
             >
-              <div className="h-[20svh] w-full overflow-hidden rounded-xl shadow-component saturate-0 duration-300 hover:saturate-[0.75] dark:shadow-component-dark sm:h-[25svh] md:h-[30svh] lg:h-[40svh]">
+              <div className="h-[20svh] w-full overflow-hidden rounded-xl image-suspense shadow-component saturate-0 duration-300 hover:saturate-[0.75] dark:shadow-component-dark sm:h-[25svh] md:h-[30svh] lg:h-[40svh]">
                 {person.img && (
                   <motion.div
                     whileHover="hoverScale"
                     variants={variants}
                     transition={{ duration: 0.4 }}
-                    className="overflow-hidden rounded-xl h-full"
+                    className="image-suspense h-full overflow-hidden rounded-xl"
                   >
                     <OptimizedImage
                       src={person.img}
@@ -165,7 +171,7 @@ const AboutWho = () => {
 };
 
 // Animated image component
-const AnimatedImage = memo(({ src, index }: { src: string; index: number }) => {
+const AnimatedImage = ({ src, index }: { src: string; index: number }) => {
   const ref = React.useRef(null);
 
   return (
@@ -175,11 +181,11 @@ const AnimatedImage = memo(({ src, index }: { src: string; index: number }) => {
       whileInView={["visible", "imgFloat"]}
       variants={variants}
       transition={{ delay: 0.2 + index * 0.1 }}
-      className={`img-${index + 1} absolute -z-10 overflow-hidden rounded-md will-change-transform lg:rounded-lg`}
+      className={`img-${index + 1} image-suspense absolute -z-10 overflow-hidden rounded-md will-change-transform lg:rounded-lg`}
     >
       <OptimizedImage src={src} alt="" className="h-full w-full" />
     </motion.div>
   );
-});
+};
 
-export default memo(AboutWho);
+export default AboutWho;

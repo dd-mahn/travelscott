@@ -1,7 +1,6 @@
 import React, { Suspense, useMemo, useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
-  getImageSize,
   optimizeImage,
 } from "src/utils/imageUtils";
 import { useViewportWidth } from "src/hooks/useViewportWidth/useViewportWidth";
@@ -11,13 +10,13 @@ const OptimizedImage = ({
   src,
   alt,
   className,
-  hoverClassName,
+  imageClassName,
   ...motionProps
 }: {
   src: string;
   alt: string;
   className?: string;
-  hoverClassName?: string;
+  imageClassName?: string;
   [key: string]: any;
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -59,15 +58,15 @@ const OptimizedImage = ({
   );
 
   return (
-    <motion.div ref={containerRef} className={className}>
-      <Suspense fallback={<div className="h-full w-full image-suspense" />}>
+    <motion.div ref={containerRef} className={`${className}`}>
+      <Suspense fallback={<div className="h-full w-full" />}>
         <motion.img
           loading="lazy"
           src={optimizedImage.src}
           srcSet={optimizedImage.srcSet}
           sizes={`(max-width: ${viewportWidth}px) 100vw, ${dimensions.width}px`}
           alt={alt}
-          className={hoverClassName ? hoverClassName : "h-full w-full"}
+          className={`h-full w-full object-cover ${imageClassName}`}
           {...motionProps}
         />
       </Suspense>
@@ -75,4 +74,4 @@ const OptimizedImage = ({
   );
 };
 
-export default React.memo(OptimizedImage);
+export default OptimizedImage;

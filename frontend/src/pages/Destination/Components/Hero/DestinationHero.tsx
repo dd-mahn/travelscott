@@ -3,7 +3,10 @@ import { Carousel } from "@material-tailwind/react";
 import Destination from "src/types/Destination";
 import OptimizedImage from "src/common/OptimizedImage/OptimizedImage";
 import { motion } from "framer-motion";
-import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
+import {
+  HoverVariants,
+  VisibilityVariants,
+} from "src/utils/constants/variants";
 
 // Define the interface for the component props
 interface DestinationHeroProps {
@@ -19,7 +22,6 @@ const variants = {
 };
 
 const DestinationHero: React.FC<DestinationHeroProps> = ({ destination }) => {
-
   return (
     <section className="hero relative h-screen">
       {/* Overlay with country and destination name */}
@@ -31,7 +33,7 @@ const DestinationHero: React.FC<DestinationHeroProps> = ({ destination }) => {
             initial="hiddenY"
             animate="visible"
             transition={{ duration: 0.5, delay: 0.8 }}
-            className="span-medium w-full text-center md:ml-2 md:text-left text-text-dark"
+            className="span-medium w-full text-center text-text-dark md:ml-2 md:text-left"
           >
             {destination.country}
           </motion.span>
@@ -45,7 +47,8 @@ const DestinationHero: React.FC<DestinationHeroProps> = ({ destination }) => {
                   initial="hiddenFullY"
                   animate="visible"
                   transition={{
-                    duration: destination.name.split("").length < 10 ? 0.8 : 0.6,
+                    duration:
+                      destination.name.split("").length < 10 ? 0.8 : 0.6,
                     delay: 0.5 + index * 0.1,
                     type: "spring",
                     bounce: 0.5,
@@ -77,7 +80,7 @@ const DestinationHero: React.FC<DestinationHeroProps> = ({ destination }) => {
         >
           {destination.images?.map((image, index) => (
             <div
-              className="grid h-full w-full place-items-center overflow-hidden"
+              className="image-suspense grid h-full w-full place-items-center overflow-hidden"
               key={index}
             >
               <OptimizedImage
@@ -93,4 +96,4 @@ const DestinationHero: React.FC<DestinationHeroProps> = ({ destination }) => {
   );
 };
 
-export default memo(DestinationHero);
+export default DestinationHero;

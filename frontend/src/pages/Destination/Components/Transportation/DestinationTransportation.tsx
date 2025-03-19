@@ -1,7 +1,10 @@
 import React, { memo, useState } from "react";
 import { destinationTransportation } from "src/types/Destination";
 import { AnimatePresence, motion } from "framer-motion";
-import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
+import {
+  HoverVariants,
+  VisibilityVariants,
+} from "src/utils/constants/variants";
 import SlideRevealIconHeading from "src/common/SlideRevealIconHeading/SlideRevealIconHeading";
 import OptimizedImage from "src/common/OptimizedImage/OptimizedImage";
 
@@ -20,7 +23,9 @@ const variants = {
 };
 
 // Main component to render transportation options
-const DestinationTransportation: React.FC<DestinationTransportationProps> = ({ transportation }) => {
+const DestinationTransportation: React.FC<DestinationTransportationProps> = ({
+  transportation,
+}) => {
   const [transportationIndex, setTransportationIndex] = useState(0);
 
   // Handle transportation type change
@@ -31,9 +36,9 @@ const DestinationTransportation: React.FC<DestinationTransportationProps> = ({ t
   return (
     <section
       id="transportation"
-      className="transportation px-sect sticky rounded-3xl bg-light-brown dark:bg-background-dark-brown pt-sect-short shadow-section pb-32 lg:pb-40 2xl:pb-sect-short"
+      className="transportation px-sect sticky rounded-3xl bg-light-brown pb-32 pt-sect-short shadow-section dark:bg-background-dark-brown lg:pb-40 2xl:pb-sect-short"
     >
-      <div className="md:mt-sect-short flex flex-col md:gap-8">
+      <div className="flex flex-col md:mt-sect-short md:gap-8">
         <SlideRevealIconHeading
           iconClass="ri-car-fill"
           headingText="Transportation"
@@ -60,26 +65,28 @@ const DestinationTransportation: React.FC<DestinationTransportationProps> = ({ t
         transition={{ duration: 0.5, delay: 1 }}
       >
         <AnimatePresence mode="popLayout">
-          {transportation.types?.map((type, index) => (
-            transportationIndex === index && (
-              <motion.div
-                key={`transportation-type-${type.name}`}
-                className="h-[50svh] md:h-[75svh] md:w-2/3 rounded-xl shadow-component dark:shadow-component-dark"
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                exit="hidden"
-                variants={variants}
-                transition={{ duration: 0.5 }}
-              >
-                <OptimizedImage
-                  className="h-full w-full rounded-xl"
-                  src={type.image || ""}
-                  alt={type.name}
-                />
-              </motion.div>
-            )
-          ))}
+          {transportation.types?.map(
+            (type, index) =>
+              transportationIndex === index && (
+                <motion.div
+                  key={`transportation-type-${type.name}`}
+                  className="image-suspense h-[50svh] rounded-xl shadow-component dark:shadow-component-dark md:h-[75svh] md:w-2/3"
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  exit="hidden"
+                  variants={variants}
+                  transition={{ duration: 0.5 }}
+                >
+                  <OptimizedImage
+                    className="h-full w-full rounded-xl"
+                    imageClassName="rounded-xl"
+                    src={type.image || ""}
+                    alt={type.name}
+                  />
+                </motion.div>
+              ),
+          )}
         </AnimatePresence>
 
         <div className="absolute right-0 top-[20%] w-4/5 md:w-1/2">
@@ -91,7 +98,7 @@ const DestinationTransportation: React.FC<DestinationTransportationProps> = ({ t
               viewport={{ once: true }}
               variants={variants}
               transition={{ duration: 0.5, delay: 0.5 + index * 0.2 }}
-              className="flex w-full flex-col gap-4 md:gap-8 rounded-lg md:rounded-xl bg-light-brown dark:bg-background-dark-brown px-4 pt-2 pb-4 md:px-8 md:py-4 shadow-component dark:shadow-component-dark"
+              className="flex w-full flex-col gap-4 rounded-lg bg-light-brown px-4 pb-4 pt-2 shadow-component dark:bg-background-dark-brown dark:shadow-component-dark md:gap-8 md:rounded-xl md:px-8 md:py-4"
             >
               <motion.button
                 whileHover="hoverX"

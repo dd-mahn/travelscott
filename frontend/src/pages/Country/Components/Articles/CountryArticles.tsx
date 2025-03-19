@@ -100,4 +100,4 @@ const CountryArticles: React.FC<CountryArticlesProps> = ({ country }) => {
   );
 };
 
-export default memo(CountryArticles);
+export default CountryArticles;

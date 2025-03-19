@@ -208,4 +208,4 @@ const Brief: React.FC = () => {
 };
 
 // Export the memoized Brief component
-export default memo(Brief);
+export default Brief;

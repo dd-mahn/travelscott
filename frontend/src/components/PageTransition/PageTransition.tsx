@@ -61,4 +61,4 @@ const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
   );
 };
 
-export default React.memo(PageTransition);
+export default PageTransition;

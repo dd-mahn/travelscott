@@ -26,4 +26,4 @@ const BackgroundVideo: React.FC<BackgroundVideoProps> = ({ src, className, 'data
   );
 };
 
-export default memo(BackgroundVideo);
+export default BackgroundVideo;

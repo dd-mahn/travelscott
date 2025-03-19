@@ -153,7 +153,7 @@ const DestinationPage: React.FC = () => {
         </div>
 
         <motion.div
-          className="mt-4"
+          className="mt-4 w-screen overflow-x-hidden"
           initial="hiddenY"
           whileInView="visible"
           viewport={{ once: true }}
@@ -167,4 +167,4 @@ const DestinationPage: React.FC = () => {
   );
 };
 
-export default memo(DestinationPage);
+export default DestinationPage;

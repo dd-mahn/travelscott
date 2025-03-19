@@ -206,4 +206,4 @@ const Quote = () => {
   );
 };
 
-export default memo(Quote);
+export default Quote;

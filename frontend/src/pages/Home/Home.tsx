@@ -28,12 +28,10 @@ const Home: React.FC = () => {
   const dispatch = useDispatch();
 
   // Selector to get home blogs from the Redux store
-  const selectHomeState = useMemo(() => 
-    (state: RootState) => ({
-      blogs: state.blog.homeBlogs,
-    }),
-    []
-  );
+  const selectHomeState = (state: RootState) => ({
+    blogs: state.blog.homeBlogs,
+  });
+
   const { blogs } = useSelector(selectHomeState);
 
   // Fetch blogs data for Articles and Starter sections
@@ -49,7 +47,9 @@ const Home: React.FC = () => {
   }, [blogsData, dispatch]);
 
   // Refs for the Articles component
-  const articlesHookRef = useMemo(() => React.createRef<HTMLSpanElement>(), []);
+  const articlesHookRef = () => {
+    return React.createRef<HTMLSpanElement>();
+  };
 
   // Stacked section refs
   const { refs, setRef } = useStackedSections();
@@ -59,7 +59,7 @@ const Home: React.FC = () => {
     ref: refSO,
     scale: scaleSO,
     opacity: opacitySO,
-  } = useSectionTransition(undefined,[1, 0.95],undefined);
+  } = useSectionTransition(undefined, [1, 0.95], undefined);
   const { ref: refS, scale: scaleS } = useSectionTransition2();
 
   return (
@@ -77,7 +77,7 @@ const Home: React.FC = () => {
           ref={setRef(0)}
           style={{ scale: scaleSO, opacity: opacitySO }}
           // className="sticky top-0 z-0"
-          className="pb-sect-default lg:pb-96 sticky"
+          className="sticky pb-sect-default lg:pb-96"
         >
           {/* <Inspired /> */}
           <Featured />
@@ -85,7 +85,7 @@ const Home: React.FC = () => {
 
         {/* Articles section with ref for section transition */}
         <div ref={refSO}>
-          <Articles articlesHookRef={articlesHookRef} blogs={blogs} />
+          <Articles articlesHookRef={articlesHookRef()} blogs={blogs} />
         </div>
 
         {/* Starter hook section */}

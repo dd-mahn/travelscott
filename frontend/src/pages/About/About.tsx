@@ -81,4 +81,4 @@ const About: React.FC = () => {
   );
 };
 
-export default memo(About);
+export default About;

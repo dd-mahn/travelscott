@@ -11,21 +11,21 @@ body::-webkit-scrollbar,
 }
 
 body::-webkit-scrollbar {
-  width: 8px;
+  width: 0px;
 }
 
 .custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
+  width: 0px;
 }
 
 body::-webkit-scrollbar:hover,
 body::-webkit-scrollbar:active {
-  width: 10px;
+  width: 0px;
 }
 
 .custom-scrollbar::-webkit-scrollbar:hover,
 .custom-scrollbar::-webkit-scrollbar:active {
-  width: 8px;
+  width: 0px;
 }
 
 body::-webkit-scrollbar-thumb,

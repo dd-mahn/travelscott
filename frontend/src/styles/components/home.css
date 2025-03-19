@@ -11,16 +11,6 @@
   }
 }
 
-.globe {
-  background: var(--space-gradient);
-
-  canvas {
-    width: 100svw !important;
-    height: 100svh !important;
-    transform: scale(2) translateX(16%) translateY(10%);
-  }
-}
-
 .blogs {
   /* background: linear-gradient(180deg, #e7fff3 10%, #fbf9f7 40%); */
   border-top-left-radius: 2.5rem;

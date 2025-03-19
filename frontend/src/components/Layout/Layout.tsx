@@ -3,15 +3,16 @@ import { Outlet, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSelector } from "react-redux";
 
-const Header = lazy(() => import('src/components/Header/Header'));
-const Footer = lazy(() => import('src/components/Footer/Footer'));
-const Cursor = lazy(() => import('src/common/Cursors/Cursors'));
+const Header = lazy(() => import("src/components/Header/Header"));
+const Footer = lazy(() => import("src/components/Footer/Footer"));
+const Cursor = lazy(() => import("src/common/Cursors/Cursors"));
 
 import AnimatedLogoScreen from "src/common/AnimatedLogoScreen/AnimatedLogoScreen";
 import LenisProvider from "src/components/Lenis/Lenis";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { selectIsDarkMode } from "src/store/slices/themeSlice";
 import { useThemeInitialization } from "src/hooks/useThemeInitialization/useThemeInitialization";
+import { Analytics } from "@vercel/analytics/react";
 
 const Layout: React.FC = () => {
   const location = useLocation();
@@ -22,7 +23,7 @@ const Layout: React.FC = () => {
   useThemeInitialization();
 
   useEffect(() => {
-    document.documentElement.classList.toggle('dark', isDarkMode);
+    document.documentElement.classList.toggle("dark", isDarkMode);
   }, [isDarkMode]);
 
   useEffect(() => {
@@ -30,21 +31,22 @@ const Layout: React.FC = () => {
       const handle = setTimeout(() => {
         setShowLoadingScreen(false);
       }, 2000);
-      
+
       return () => clearTimeout(handle);
     }
     setShowLoadingScreen(false);
   }, [isHomePage]);
 
-  const content = useMemo(() => (
+  const content = (
     <LenisProvider>
       <Header />
       <Cursor />
       <Outlet />
       <Footer />
       <SpeedInsights />
+      <Analytics />
     </LenisProvider>
-  ), []);
+  );
 
   return (
     <main
@@ -67,9 +69,7 @@ const Layout: React.FC = () => {
             </motion.div>
           </Suspense>
         ) : (
-          <motion.div key={location.pathname}>
-            {content}
-          </motion.div>
+          <motion.div key={location.pathname}>{content}</motion.div>
         )}
       </AnimatePresence>
     </main>

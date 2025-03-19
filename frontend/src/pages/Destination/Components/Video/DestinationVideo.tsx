@@ -55,4 +55,4 @@ const DestinationVideo: React.FC<DestinationVideoProps> = ({ videoCode }) => {
   );
 };
 
-export default memo(DestinationVideo);
+export default DestinationVideo;

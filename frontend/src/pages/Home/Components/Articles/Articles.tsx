@@ -50,13 +50,13 @@ const RenderBlog: React.FC<{ blog: Blog; isFeatured: boolean }> = ({
     >
       <Link
         to={`/inspiration/${blog._id}`}
-        className={`w-full overflow-hidden rounded-lg shadow-component dark:shadow-component-dark`}
+        className={`image-suspense w-full overflow-hidden rounded-lg shadow-component dark:shadow-component-dark`}
       >
         <OptimizedImage
           src={blog.image}
           alt={`${isFeatured ? "featured" : "normal"}BlogImage`}
           className="h-full w-full rounded-lg"
-          hoverClassName="cursor-hover"
+          imageClassName="cursor-hover rounded-lg"
           whileHover="hoverScale"
           transition={{ duration: 0.4 }}
           variants={variants}
@@ -102,7 +102,7 @@ const RenderBlog: React.FC<{ blog: Blog; isFeatured: boolean }> = ({
 };
 
 // Articles component: Displays a list of blog articles
-const Articles: React.FC<ArticlesProps> = memo(({ articlesHookRef, blogs }) => {
+const Articles: React.FC<ArticlesProps> = ({ articlesHookRef, blogs }) => {
   const dispatch = useDispatch();
   const blogChunks = useSelector((state: RootState) => state.blog.blogChunks);
   const isDarkMode = useSelector(selectIsDarkMode);
@@ -199,7 +199,7 @@ const Articles: React.FC<ArticlesProps> = memo(({ articlesHookRef, blogs }) => {
       </section>
     </div>
   );
-});
+};
 
 // Export memoized Articles component
 export default memo(Articles);

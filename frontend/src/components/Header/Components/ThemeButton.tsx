@@ -61,4 +61,4 @@ const ThemeButton = () => {
   );
 };
 
-export default memo(ThemeButton);
+export default ThemeButton;

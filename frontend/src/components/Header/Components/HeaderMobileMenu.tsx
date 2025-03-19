@@ -154,4 +154,4 @@ const Portal: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return ReactDOM.createPortal(children, el.current);
 };
 
-export default memo(HeaderMobileMenu);
+export default HeaderMobileMenu;

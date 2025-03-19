@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useRef, useState, useCallback } from "react";
+import React, {useEffect, useRef, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { VisibilityVariants } from "src/utils/constants/variants";
 
@@ -103,4 +103,4 @@ function StaggerLogo({
   );
 }
 
-export default memo(StaggerLogo);
+export default StaggerLogo;

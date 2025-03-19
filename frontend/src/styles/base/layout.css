@@ -1,24 +1,24 @@
 /* Layout Classes */
 .px-sect {
-    @apply px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 3xl:px-24;
-  }
-  
-  .pl-sect {
-    @apply pl-6 md:pl-8 lg:pl-12 xl:pl-16 2xl:pl-20 3xl:pl-24;
-  }
-  
-  .pr-sect {
-    @apply pr-6 md:pr-8 lg:pr-12 xl:pr-16 2xl:pr-20 3xl:pr-24;
-  }
-  
-  .mx-sect {
-    @apply mx-6 md:mx-8 lg:mx-12 xl:mx-16 2xl:mx-20 3xl:mx-24;
-  }
-  
-  .ml-sect {
-    @apply ml-6 md:ml-8 lg:ml-12 xl:ml-16 2xl:ml-20 3xl:ml-24;
-  }
-  
-  .mr-sect {
-    @apply mr-6 md:mr-8 lg:mr-12 xl:mr-16 2xl:mr-20 3xl:mr-24;
-  }
+  @apply px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 3xl:px-24;
+}
+
+.pl-sect {
+  @apply pl-6 md:pl-8 lg:pl-12 xl:pl-16 2xl:pl-20 3xl:pl-24;
+}
+
+.pr-sect {
+  @apply pr-6 md:pr-8 lg:pr-12 xl:pr-16 2xl:pr-20 3xl:pr-24;
+}
+
+.mx-sect {
+  @apply mx-6 md:mx-8 lg:mx-12 xl:mx-16 2xl:mx-20 3xl:mx-24;
+}
+
+.ml-sect {
+  @apply ml-6 md:ml-8 lg:ml-12 xl:ml-16 2xl:ml-20 3xl:ml-24;
+}
+
+.mr-sect {
+  @apply mr-6 md:mr-8 lg:mr-12 xl:mr-16 2xl:mr-20 3xl:mr-24;
+}

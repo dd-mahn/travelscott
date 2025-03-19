@@ -25,27 +25,22 @@ const CountryCard: React.FC<CountryCardProps> = ({ country }) => {
   // Render logic
   return (
     <Suspense
-      fallback={
-        <div className="h-full w-full rounded-xl lg:h-20 lg:w-32" />
-      }
+      fallback={<div className="h-full w-full rounded-xl lg:h-20 lg:w-32" />}
     >
       <div className="flex h-fit flex-col gap-2 lg:flex-row lg:gap-4 2xl:gap-4">
         <motion.div
           whileHover="hoverRotate"
           whileTap="tapRotate"
           variants={variants}
-          className="flex h-16 sm:h-20 cursor-pointer items-center justify-center overflow-hidden rounded-xl shadow-component dark:shadow-component-dark lg:h-20 lg:w-2/3"
+          className="image-suspense flex h-16 cursor-pointer items-center justify-center overflow-hidden rounded-xl shadow-component dark:shadow-component-dark sm:h-20 lg:h-20 lg:w-2/3"
         >
-          <Link
-            to={`countries/${country._id}`}
-            className="h-full w-full"
-          >
+          <Link to={`countries/${country._id}`} className="h-full w-full">
             {country?.images?.flagImages?.[0] && (
               <OptimizedImage
                 src={country.images.flagImages[0]}
                 alt={country.name}
                 className="h-full w-full rounded-xl"
-                hoverClassName="cursor-hover"
+                imageClassName="cursor-hover rounded-xl"
                 whileHover="hoverScale"
                 transition={{ duration: 0.4 }}
                 variants={variants}
@@ -60,9 +55,7 @@ const CountryCard: React.FC<CountryCardProps> = ({ country }) => {
             variants={variants}
             className="cursor-hover-small span-medium cursor-pointer"
           >
-            <Link to={`countries/${country._id}`}>
-              {country.name}
-            </Link>
+            <Link to={`countries/${country._id}`}>{country.name}</Link>
           </motion.span>
           <span className="span-small whitespace-nowrap">
             {country.totalDestinations} destinations
@@ -73,4 +66,4 @@ const CountryCard: React.FC<CountryCardProps> = ({ country }) => {
   );
 };
 
-export default memo(CountryCard);
+export default CountryCard;

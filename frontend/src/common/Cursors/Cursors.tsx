@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { debounce } from "lodash";
 import { useViewportWidth } from "src/hooks/useViewportWidth/useViewportWidth";
@@ -212,4 +212,4 @@ const Cursor = () => {
   );
 };
 
-export default memo(Cursor);
+export default Cursor;

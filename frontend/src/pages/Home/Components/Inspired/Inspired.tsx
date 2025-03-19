@@ -77,4 +77,4 @@ const Inspired: React.FC = () => {
 };
 
 // Memoize the component to prevent unnecessary re-renders
-export default memo(Inspired);
+export default Inspired;

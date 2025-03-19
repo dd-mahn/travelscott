@@ -4,7 +4,10 @@ import { motion } from "framer-motion";
 import RelatedSections from "src/common/RelatedSections/RelatedSections";
 import SlideRevealIconHeading from "src/common/SlideRevealIconHeading/SlideRevealIconHeading";
 import DestinationType from "src/types/Destination";
-import { HoverVariants, VisibilityVariants } from "src/utils/constants/variants";
+import {
+  HoverVariants,
+  VisibilityVariants,
+} from "src/utils/constants/variants";
 
 // Define animation variants
 const variants = {
@@ -33,10 +36,10 @@ const DestinationInsight: React.FC<DestinationInsightProps> = ({
         initial="hidden"
         whileHover="hoverRotate"
         whileInView="visible"
-        viewport={{ once: true, margin: "-200px" }}
+        viewport={{ once: true }}
         variants={variants}
-        transition={{ duration: 0.5 }}
-        className="rounded-xl bg-background-light z-10 dark:bg-background-dark bg-opacity-70 px-4 py-2 md:px-6 md:py-4 shadow-component dark:shadow-component-dark"
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className="z-10 rounded-xl bg-background-light bg-opacity-70 px-4 py-2 shadow-component dark:bg-background-dark dark:shadow-component-dark md:px-6 md:py-4"
       >
         <p className="p-medium text-text-light">{tip}</p>
       </motion.div>
@@ -55,10 +58,10 @@ const DestinationInsight: React.FC<DestinationInsightProps> = ({
           initial="hidden"
           whileHover="hoverRotate"
           whileInView="visible"
-          viewport={{ once: true, margin: "-200px" }}
+          viewport={{ once: true }}
           variants={variants}
-          transition={{ duration: 0.5 }}
-          className="cursor-hover p-medium rounded-xl z-10 bg-background-light dark:bg-background-dark bg-opacity-70 px-4 md:px-6 py-2 shadow-component dark:shadow-component-dark"
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="cursor-hover p-medium z-10 rounded-xl bg-background-light bg-opacity-70 px-4 py-2 shadow-component dark:bg-background-dark dark:shadow-component-dark md:px-6"
         >
           {article.title}{" "}
           <i className="ri-arrow-right-up-line p-large cursor-hover"></i>
@@ -69,7 +72,7 @@ const DestinationInsight: React.FC<DestinationInsightProps> = ({
   return (
     <section
       id="insight"
-      className="insight px-sect sticky flex flex-col gap-10 md:gap-20 rounded-3xl bg-light-brown dark:bg-background-dark-brown pb-sect-short lg:pb-sect-default pt-sect-short shadow-component"
+      className="insight px-sect sticky flex flex-col gap-10 rounded-3xl bg-light-brown pb-sect-short pt-sect-short shadow-component dark:bg-background-dark-brown md:gap-20 lg:pb-sect-default"
     >
       <SlideRevealIconHeading iconClass="ri-eye-fill" headingText="Insight" />
 
@@ -85,7 +88,7 @@ const DestinationInsight: React.FC<DestinationInsightProps> = ({
         >
           From us
         </motion.h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-8">
+        <div className="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-3">
           {renderTips()}
         </div>
         <motion.div
@@ -127,7 +130,7 @@ const DestinationInsight: React.FC<DestinationInsightProps> = ({
           experiences can inspire you and give you a clearer idea of what to
           expect.
         </motion.p>
-        <div className="mt-4 md:mt-8 flex flex-wrap gap-4">
+        <div className="mt-4 flex flex-wrap gap-4 md:mt-8">
           {renderArticles()}
         </div>
       </div>
@@ -135,4 +138,4 @@ const DestinationInsight: React.FC<DestinationInsightProps> = ({
   );
 };
 
-export default memo(DestinationInsight);
+export default DestinationInsight;

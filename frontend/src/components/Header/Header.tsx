@@ -26,33 +26,31 @@ const navs = [
 const Header: React.FC = () => {
   const viewportWidth = useViewportWidth();
   // Memoize the navigation items to avoid unnecessary re-renders
-  const renderNavItems = useMemo(
-    () =>
-      navs.map((item, index) => (
-        <motion.li
-          key={index}
-          variants={HoverVariants}
-          whileHover="hoverScale"
-          transition={{ duration: 0.2 }}
-          whileTap={{ scale: 1 }}
-          className="nav__item h-fit w-fit"
+  const renderNavItems = () => {
+    return navs.map((item, index) => (
+      <motion.li
+        key={index}
+        variants={HoverVariants}
+        whileHover="hoverScale"
+        transition={{ duration: 0.2 }}
+        whileTap={{ scale: 1 }}
+        className="nav__item h-fit w-fit"
+      >
+        <NavLink
+          to={item.path}
+          className={({ isActive, isPending }) =>
+            isPending
+              ? "p-regular opacity-40"
+              : isActive
+                ? "p-regular"
+                : "p-regular opacity-40 transition-opacity duration-300 hover:opacity-100"
+          }
         >
-          <NavLink
-            to={item.path}
-            className={({ isActive, isPending }) =>
-              isPending
-                ? "p-regular opacity-40"
-                : isActive
-                  ? "p-regular"
-                  : "p-regular opacity-40 transition-opacity duration-300 hover:opacity-100"
-            }
-          >
-            {item.display}
-          </NavLink>
-        </motion.li>
-      )),
-    [],
-  );
+          {item.display}
+        </NavLink>
+      </motion.li>
+    ));
+  };
 
   return (
     <motion.header
@@ -64,8 +62,7 @@ const Header: React.FC = () => {
     >
       <div className="flex items-center justify-between">
         {/* Logo */}
-        <NavLink to="/" 
-        >
+        <NavLink to="/">
           <motion.h1
             variants={HoverVariants}
             whileHover="hoverScale"
@@ -79,10 +76,8 @@ const Header: React.FC = () => {
 
         {/* Navigation menu */}
         {viewportWidth >= 768 && (
-          <motion.ul
-            className="flex justify-between gap-4 lg:gap-4 xl:gap-6 2xl:gap-8 3xl:gap-8"
-          >
-            {renderNavItems}
+          <motion.ul className="flex justify-between gap-4 lg:gap-4 xl:gap-6 2xl:gap-8 3xl:gap-8">
+            {renderNavItems()}
           </motion.ul>
         )}
 

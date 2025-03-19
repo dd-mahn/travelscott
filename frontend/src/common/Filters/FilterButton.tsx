@@ -81,4 +81,4 @@ const FilterButton: React.FC<FilterButtonProps> = ({
   );
 };
 
-export default memo(FilterButton);
+export default FilterButton;

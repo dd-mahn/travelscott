@@ -74,4 +74,4 @@ const AboutWhy = () => {
   );
 };
 
-export default memo(AboutWhy);
+export default AboutWhy;

@@ -120,4 +120,4 @@ const GuideSection: React.FC<GuideSectionProps> = ({
   </motion.div>
 );
 
-export default memo(CountryGuide);
+export default CountryGuide;

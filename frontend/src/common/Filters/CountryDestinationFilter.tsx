@@ -50,18 +50,15 @@ export const CountryDestinationFilter: React.FC = memo(() => {
   const [localSearchQuery, setLocalSearchQuery] = useState(selectSearchQuery);
   const debouncedSearchQuery = useDebounce(localSearchQuery, 500);
 
-  const predefinedTags = useMemo(
-    () => [
-      "Wilderness",
-      "Culture&Heritage",
-      "FoodLovers",
-      "SoloJourneys",
-      "CityScape",
-      "Season&Festival",
-      "Relaxation",
-    ],
-    [],
-  );
+  const predefinedTags = [
+    "Wilderness",
+    "Culture&Heritage",
+    "FoodLovers",
+    "SoloJourneys",
+    "CityScape",
+    "Season&Festival",
+    "Relaxation",
+  ];
 
   // Handlers
   const handleTagFilter = useCallback(
