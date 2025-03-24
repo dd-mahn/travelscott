@@ -36,7 +36,7 @@ const Home: React.FC = () => {
 
   // Fetch blogs data for Articles and Starter sections
   const { data: blogsData } = useFetch<FetchBlogsType>(
-    `${config.api.baseUrl}/blogs?limit=100`,
+    `/api/blogs?limit=100`,
   );
 
   // Dispatch fetched blogs data to the Redux store

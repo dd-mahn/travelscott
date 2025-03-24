@@ -80,7 +80,7 @@ const InspirationCatalog: React.FC<InspirationCatalogProps> = memo(
       loading: blogsLoading,
       error: blogsError,
     } = useFetch<FetchBlogsType>(
-      `${config.api.baseUrl}/blogs?limit=${limit}&page=${currentPage}&category=${
+      `/api/blogs?limit=${limit}&page=${currentPage}&category=${
         currentCategory === "All" ? "" : encodeURIComponent(currentCategory)
       }&tags=${blogTagsQuery}&searchQuery=${encodeURIComponent(searchQuery)}`,
       [currentCategory, currentPage, blogTags, searchQuery],

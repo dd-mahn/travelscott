@@ -56,7 +56,7 @@ const DiscoverDestinations: React.FC = () => {
 
   // Construct the URL for fetching destinations
   const url = useMemo(() => {
-    let url = `${config.api.baseUrl}/destinations?page=${currentPage}&limit=${limit}`;
+    let url = `/api/destinations?page=${currentPage}&limit=${limit}`;
     if (tags.length > 0) {
       url += `&tags=${tags.join(",")}`;
     }

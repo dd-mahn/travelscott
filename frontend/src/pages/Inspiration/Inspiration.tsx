@@ -34,7 +34,7 @@ const Inspiration: React.FC = () => {
     loading: allBlogsLoading,
     error: allBlogsError,
   } = useFetch<FetchBlogsType>(
-    `${config.api.baseUrl}/blogs?limit=1000&category=${currentCategory === "All" ? "" : encodeURIComponent(currentCategory)}`,
+    `/api/blogs?limit=1000&category=${currentCategory === "All" ? "" : encodeURIComponent(currentCategory)}`,
     [currentCategory],
   );
 

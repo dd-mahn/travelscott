@@ -28,7 +28,7 @@ const Article: React.FC = () => {
     data: blogData,
     loading: blogLoading,
     error: blogError,
-  } = useFetch<Blog>(`${config.api.baseUrl}/blogs/${id}`);
+  } = useFetch<Blog>(`/api/blogs/${id}`);
 
   // Handle loading and error states
   if (blogLoading) return <Loading />;

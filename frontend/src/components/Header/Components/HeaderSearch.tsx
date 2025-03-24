@@ -36,13 +36,13 @@ const HeaderSearch: React.FC = () => {
 
   // Fetch data
   const { data: destinationsData } = useFetch<FetchDestinationType>(
-    `${config.api.baseUrl}/destinations?limit=100&searchQuery=${debouncedSearchQuery}`,
+    `/api/destinations?limit=100&searchQuery=${debouncedSearchQuery}`,
   );
   const { data: countriesData } = useFetch<FetchCountriesType>(
-    `${config.api.baseUrl}/countries?limit=100&searchQuery=${debouncedSearchQuery}`,
+    `/api/countries?limit=100&searchQuery=${debouncedSearchQuery}`,
   );
   const { data: blogsData } = useFetch<FetchBlogsType>(
-    `${config.api.baseUrl}/blogs?limit=100&searchQuery=${debouncedSearchQuery}`,
+    `/api/blogs?limit=100&searchQuery=${debouncedSearchQuery}`,
   );
 
   // Memoized data

@@ -8,7 +8,7 @@ import config from "src/config/config";
 export const sendSubscribe = async (email: string): Promise<boolean> => {
   try {
     // Make a POST request to the subscribe endpoint with the email in the request body
-    const res = await fetch(`${config.api.baseUrl}/subscribe`, {
+    const res = await fetch(`/api/subscribe`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -121,7 +121,7 @@ const RelatedCountries: React.FC<{ country: Country }> = ({ country }) => {
     error: countriesError,
     loading: countriesLoading,
   } = useFetch<FetchCountriesType>(
-    `${config.api.baseUrl}/countries?continent=${country.continent}`,
+    `/api/countries?continent=${country.continent}`,
   );
 
   // Filter out the current country from the related countries
@@ -173,7 +173,7 @@ const RelatedDestinations: React.FC<{ destination: Destination }> = ({
     error: destinationsError,
     loading: destinationsLoading,
   } = useFetch<FetchDestinationType>(
-    `${config.api.baseUrl}/destinations?limit=100`,
+    `/api/destinations?limit=100`,
   );
 
   // Filter out the current destination from the related destinations
@@ -229,7 +229,7 @@ const RelatedArticles: React.FC<{
     data: blogData,
     error: blogError,
     loading: blogLoading,
-  } = useFetch<FetchBlogsType>(`${config.api.baseUrl}/blogs?limit=100`);
+  } = useFetch<FetchBlogsType>(`/api/blogs?limit=100`);
 
   // Filter related blogs based on the type of data
   const relatedBlogs = useMemo(() => {

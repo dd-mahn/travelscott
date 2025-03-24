@@ -24,7 +24,7 @@ describe("sendSubscribe", () => {
 
     expect(result).toBe(true);
     expect(mockFetch).toHaveBeenCalledWith(
-      `${config.api.baseUrl}/subscribe`,
+      `/api/subscribe`,
       {
         method: "POST",
         headers: {

@@ -32,7 +32,7 @@ describe("sendFeedback", () => {
 
     expect(result).toBe(true);
     expect(mockFetch).toHaveBeenCalledWith(
-      `${config.api.baseUrl}/feedback`,
+      `/api/feedback`,
       {
         method: "POST",
         headers: {

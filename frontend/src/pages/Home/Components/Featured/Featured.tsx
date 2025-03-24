@@ -34,7 +34,7 @@ const Featured: React.FC = () => {
 
   // Fetch featured destinations
   const { data, loading, error } = useFetch<FetchDestinationType>(
-    `${config.api.baseUrl}/destinations?featured=true`,
+    `/api/destinations?featured=true`,
   );
   const featuredDestinations = data?.result;
 

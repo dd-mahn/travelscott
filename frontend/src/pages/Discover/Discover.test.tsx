@@ -149,7 +149,7 @@ describe('Discover', () => {
 
     renderWithProviders(<Discover />);
 
-    expect(useFetch).toHaveBeenCalledWith(`${config.api.baseUrl}/destinations?limit=1000`);
-    expect(useFetch).toHaveBeenCalledWith(`${config.api.baseUrl}/countries?limit=1000`);
+    expect(useFetch).toHaveBeenCalledWith(`/api/destinations?limit=1000`);
+    expect(useFetch).toHaveBeenCalledWith(`/api/countries?limit=1000`);
   });
 });

@@ -23,7 +23,7 @@ const configSchema = z.object({
 
 // Environment variables with fallbacks
 const environment = import.meta.env.VITE_NODE_ENV || 'development';
-const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'https://travelscott-production.up.railway.app/api';
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'https://travelscott-production.up.railway.app/api'
 
 // Create config object first
 const config = {

@@ -50,7 +50,7 @@ const DestinationPage: React.FC = () => {
     data: destination,
     loading: destinationLoading,
     error: destinationError,
-  } = useFetch<Destination>(`${config.api.baseUrl}/destinations/${id}`);
+  } = useFetch<Destination>(`/api/destinations/${id}`);
 
   // Update Redux store based on fetch results
   useEffect(() => {
