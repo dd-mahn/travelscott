@@ -24,9 +24,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="manifest" href="/site.webmanifest" />
-
-    <!-- Preload critical fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="/api">
 
     <!-- Preload custom fonts with modern formats -->
     <link
@@ -74,7 +72,7 @@
       crossorigin
     />
 
-    <link rel="stylesheet" href="/src/styles/base/font.css">
+    <link rel="stylesheet" href="../src/styles/base/font.css">
     <script>
       // Check sessionStorage first for cached preference
       const cachedTheme = sessionStorage.getItem("isDarkMode");
@@ -88,34 +86,6 @@
       } else {
         document.documentElement.classList.remove("dark");
       }
-
-      // Font loading optimization
-      (function() {
-        if ("fonts" in document) {
-          // Add class immediately to prevent FOUT
-          document.documentElement.classList.add('fonts-loading');
-          
-          // Prioritize logo font loading first
-          Promise.all([
-            document.fonts.load("500 1em 'Kaushan Script'"),
-            document.fonts.load("500 1em 'MD Nichrome'"),
-            document.fonts.load("700 1em 'MD Nichrome'")
-          ]).then(() => {
-            // Load remaining fonts after logo fonts
-            Promise.all([
-              document.fonts.load("400 18pt 'Inter'"),
-              document.fonts.load("400 24pt 'Inter'"),
-              document.fonts.load("400 28pt 'Inter'"),
-            ]).then(() => {
-              document.documentElement.classList.remove('fonts-loading');
-              document.documentElement.classList.add('fonts-loaded');
-              sessionStorage.setItem('fonts-loaded', 'true');
-            });
-          });
-        } else {
-          document.documentElement.classList.remove('fonts-loading');
-        }
-      })();
     </script>
 
     <title>TravelScott</title>

@@ -27,7 +27,7 @@
     url("/fonts/KaushanScript/KaushanScript-Regular.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -47,7 +47,7 @@
     url("/fonts/MD-Nichrome/MDNichromeTest-Bold.otf") format("opentype");
   font-weight: 700;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -228,7 +228,7 @@
   src: url("/fonts/Inter/Inter_28pt-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
   size-adjust: 28pt;
 }
 

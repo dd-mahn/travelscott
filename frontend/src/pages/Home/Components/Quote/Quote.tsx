@@ -30,7 +30,7 @@ const Quote = () => {
 
   // Check if icon siblings are in view
   const iconSiblingInView = iconSiblingRefs.map((ref, index) => {
-    const inView = useInView(ref, { once: true });
+    const inView = useInView(ref, { once: true, margin: "40px 0px 0px 0px" });
     useEffect(() => {
       if (inView) {
         setInViewed((prev) => {
@@ -86,9 +86,9 @@ const Quote = () => {
     <section className="quote px-sect relative flex flex-col gap-2 py-48 md:gap-4 lg:py-sect-default 2xl:py-sect-medium">
       {/* Background blob animation */}
       <motion.div
-        initial="hidden"
-        animate="blobAnimation"
-        variants={variants}
+        // initial="hidden"
+        // animate="blobAnimation"
+        // variants={variants}
         className="blob-brown blur-blob absolute -left-1/3 top-[10%] z-0 h-[80%] w-1/2 opacity-60"
       ></motion.div>
 
@@ -100,7 +100,7 @@ const Quote = () => {
               <motion.h1
                 initial="hiddenFullY"
                 whileInView="visible"
-                viewport={{ once: true }}
+                viewport={{ once: true, margin: "40px 0px 0px 0px" }}
                 transition={{ duration: 0.5 }}
                 variants={variants}
                 className="pr-2 md:pr-3"
@@ -113,8 +113,8 @@ const Quote = () => {
               <motion.i
                 initial="hiddenLeft"
                 whileInView="visible"
-                transition={{ delay: 1.8, duration: 0.5 }}
-                viewport={{ once: true }}
+                transition={{ delay: 2, duration: 0.5 }}
+                viewport={{ once: true, margin: "40px 0px 0px 0px" }}
                 variants={variants}
                 className="ri-footprint-fill px-4"
               ></motion.i>
@@ -141,7 +141,7 @@ const Quote = () => {
               <motion.h1
                 initial="hiddenFullY"
                 whileInView="visible"
-                viewport={{ once: true }}
+                viewport={{ once: true, margin: "40px 0px 0px 0px" }}
                 variants={variants}
                 transition={{ duration: 0.5 }}
                 className=""
@@ -157,8 +157,8 @@ const Quote = () => {
               <motion.i
                 initial="hiddenLeft"
                 whileInView="visible"
-                transition={{ delay: 2, duration: 0.5 }}
-                viewport={{ once: true }}
+                transition={{ delay: 2.2, duration: 0.5 }}
+                viewport={{ once: true, margin: "40px 0px 0px 0px" }}
                 variants={variants}
                 className="ri-sun-line px-4"
               ></motion.i>

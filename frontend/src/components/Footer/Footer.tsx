@@ -59,9 +59,9 @@ const Footer = () => {
   return (
     <footer className="relative flex flex-col self-end overflow-hidden border-t border-solid border-gray pt-6 lg:pt-12 xl:pt-20 2xl:pt-20">
       <motion.div
-        initial="hidden"
-        animate="blobAnimation"
-        variants={variants}
+        // initial="hidden"
+        // animate="blobAnimation"
+        // variants={variants}
         className="blob-brown blur-blob absolute -right-1/3 top-[40%] z-0 h-[80%] w-1/2 opacity-60"
       ></motion.div>
 

@@ -21,12 +21,25 @@ const Cursor = () => {
 
   // Handle mouse movement
   useEffect(() => {
-    const handleMouseMove = debounce((e: MouseEvent) => {
-      setCursorPosition({ x: e.clientX, y: e.clientY });
-    }, 10);
+    let rafId: number;
+    const cursorEl = cursorRef.current;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      // Store the raw position values
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
+
+      // Update in the next animation frame
+      rafId = requestAnimationFrame(() => {
+        setCursorPosition({ x: mouseX, y: mouseY });
+      });
+    };
 
     document.addEventListener("mousemove", handleMouseMove);
-    return () => document.removeEventListener("mousemove", handleMouseMove);
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+      cancelAnimationFrame(rafId);
+    };
   }, []);
 
   // Handle iframe mouse events

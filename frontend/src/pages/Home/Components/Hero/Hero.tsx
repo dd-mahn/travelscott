@@ -145,14 +145,14 @@ const Hero: React.FC = () => {
 
       <div className="absolute inset-0 h-full w-screen overflow-x-hidden md:overflow-visible">
         <motion.div
-          animate="blob1Animation"
-          variants={variants}
+          // animate="blob1Animation"
+          // variants={variants}
           className="blob-brown blur-blob -left-[10%] top-[5%] z-0 h-1/3 w-1/3 opacity-60"
         ></motion.div>
 
         <motion.div
-          animate="blob2Animation"
-          variants={variants}
+          // animate="blob2Animation"
+          // variants={variants}
           className="blob-green blur-blob -right-1/3 bottom-[20%] z-0 h-3/5 w-3/5 opacity-40"
         ></motion.div>
       </div>

@@ -139,12 +139,12 @@ const Brief: React.FC = () => {
           whileInView="visible"
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="sticky top-0 z-0 h-svh rounded-2xl py-4"
+          className="sticky top-0 z-0 h-svh rounded-2xl py-4 lg:max-w-[40svw]"
         >
           <BackgroundVideo
             data-testid="brief-video"
             src={briefVideo}
-            className="rounded-2xl shadow-component brightness-50 dark:shadow-component-dark lg:brightness-100"
+            className="rounded-2xl bg-gradient-to-t from-blue-gray-900 to-gray shadow-component brightness-50 dark:shadow-component-dark lg:brightness-100"
           />
         </motion.div>
 
@@ -154,15 +154,15 @@ const Brief: React.FC = () => {
             {/* Animated blobs */}
             {viewportWidth >= 768 && (
               <motion.div
-                animate="blob1Animation"
-                variants={variants}
+                // animate="blob1Animation"
+                // variants={variants}
                 className="blob-green blur-blob absolute left-0 top-[15%] h-1/3 w-1/3 opacity-60"
               ></motion.div>
             )}
             {viewportWidth >= 768 && (
               <motion.div
-                animate="blob2Animation"
-                variants={variants}
+                // animate="blob2Animation"
+                // variants={variants}
                 className="blob-brown blur-blob absolute bottom-[15%] right-0 h-1/3 w-1/3 opacity-60"
               ></motion.div>
             )}

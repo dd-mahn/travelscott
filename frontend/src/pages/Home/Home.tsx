@@ -35,9 +35,7 @@ const Home: React.FC = () => {
   const { blogs } = useSelector(selectHomeState);
 
   // Fetch blogs data for Articles and Starter sections
-  const { data: blogsData } = useFetch<FetchBlogsType>(
-    `/api/blogs?limit=100`,
-  );
+  const { data: blogsData } = useFetch<FetchBlogsType>(`/api/blogs?limit=100`);
 
   // Dispatch fetched blogs data to the Redux store
   useEffect(() => {
@@ -68,30 +66,20 @@ const Home: React.FC = () => {
       <Brief />
 
       {/* Stacked sections container */}
-      <motion.section
-        style={{ scale: scaleS }}
-        // className="pt-40 md:pt-64 lg:pt-sect-default 2xl:pt-sect-semi"
-      >
-        {/* Inspired section with scale and opacity transitions */}
+      <motion.section style={{ scale: scaleS }}>
         <motion.div
           ref={setRef(0)}
           style={{ scale: scaleSO, opacity: opacitySO }}
-          // className="sticky top-0 z-0"
           className="sticky pb-sect-default lg:pb-96"
         >
-          {/* <Inspired /> */}
           <Featured />
         </motion.div>
 
-        {/* Articles section with ref for section transition */}
         <div ref={refSO}>
           <Articles articlesHookRef={articlesHookRef()} blogs={blogs} />
         </div>
 
-        {/* Starter hook section */}
         <Hook />
-
-        {/* Starter section */}
         <Starter blogs={blogs} />
       </motion.section>
 

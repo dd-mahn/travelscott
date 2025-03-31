@@ -39,7 +39,8 @@ type ArticlesProps = {
 };
 
 // Child component to render a blog
-const RenderBlog: React.FC<{ blog: Blog; isFeatured: boolean }> = ({
+const RenderBlog: React.FC<{ season: string; blog: Blog; isFeatured: boolean }> = ({
+  season,
   blog,
   isFeatured,
 }) => {
@@ -50,7 +51,7 @@ const RenderBlog: React.FC<{ blog: Blog; isFeatured: boolean }> = ({
     >
       <Link
         to={`/inspiration/${blog._id}`}
-        className={`image-suspense w-full overflow-hidden rounded-lg shadow-component dark:shadow-component-dark`}
+        className={`image-suspense w-full overflow-hidden grow rounded-lg shadow-component dark:shadow-component-dark`}
       >
         <OptimizedImage
           src={blog.image}
@@ -70,7 +71,7 @@ const RenderBlog: React.FC<{ blog: Blog; isFeatured: boolean }> = ({
         }`}
       >
         <div className="flex flex-col gap-1 pt-2">
-          <span className={`span-small text-blue-gray-100`}>
+          <span className={`span-small ${season === 'Winter' || season === 'Summer' ? 'text-text-dark' : 'text-text-light'}`}>
             {blog.category}
           </span>
           <Link to={`/inspiration/${blog._id}`}>
@@ -78,7 +79,7 @@ const RenderBlog: React.FC<{ blog: Blog; isFeatured: boolean }> = ({
               whileHover="hoverX"
               transition={{ duration: 0.3 }}
               variants={variants}
-              className={`cursor-hover-small span-medium ${isFeatured ? "uppercase text-text-dark" : "w-full text-text-dark"}`}
+              className={`cursor-hover-small span-medium ${isFeatured ? 'uppercase' : 'w-full'} ${season === 'Winter' || season === 'Summer' ? 'text-text-dark' : 'text-text-light'}`}
             >
               {blog.title}
             </motion.p>
@@ -87,11 +88,11 @@ const RenderBlog: React.FC<{ blog: Blog; isFeatured: boolean }> = ({
 
         {isFeatured && (
           <>
-            <p className="p-regular overflow-hidden text-blue-gray-50 2xl:w-4/5 3xl:w-3/4">
+            <p className={`p-regular overflow-hidden 2xl:w-4/5 3xl:w-3/4 ${season === 'Winter' || season === 'Summer' ? 'text-text-dark' : 'text-text-light'}`}>
               {blog.content[0].sectionText[0]}
             </p>
-            <span className="span-small 2xl:span-regular w-3/4 overflow-hidden text-blue-gray-50">
-              <i className="ri-time-line text-blue-gray-50"></i>{" "}
+            <span className={`span-small 2xl:span-regular w-3/4 overflow-hidden ${season === 'Winter' || season === 'Summer' ? 'text-text-dark' : 'text-text-light'}`}>
+              <i className={`ri-time-line ${season === 'Winter' || season === 'Summer' ? 'text-text-dark' : 'text-text-light'}`}></i>{" "}
               {formatDate(blog.time)}
             </span>
           </>
@@ -115,6 +116,8 @@ const Articles: React.FC<ArticlesProps> = ({ articlesHookRef, blogs }) => {
     }
   }, [blogs, dispatch]);
 
+  const season = getSeason();
+
   // Set up scroll-based animation
   const { scrollYProgress } = useScroll({
     target: articlesHookRef,
@@ -127,7 +130,6 @@ const Articles: React.FC<ArticlesProps> = ({ articlesHookRef, blogs }) => {
   const [backgroundGradient, setBackgroundGradient] = useState("");
 
   useEffect(() => {
-    const season = getSeason();
     const gradient = `var(--${season.toLowerCase().replace(/ /g, "-")}-gradient)`;
     const darkGradient = `var(--${season.toLowerCase().replace(/ /g, "-")}-gradient-dark)`;
 
@@ -161,11 +163,6 @@ const Articles: React.FC<ArticlesProps> = ({ articlesHookRef, blogs }) => {
         <SeasonHeading />
         {/* Featured content slider for blog chunks */}
         <motion.div
-          initial="hiddenY"
-          whileInView="visible"
-          transition={{ duration: 0.5, delay: 1 }}
-          viewport={{ once: true }}
-          variants={variants}
           className="w-screen"
         >
           {blogChunks?.length > 0 ? (
@@ -176,11 +173,12 @@ const Articles: React.FC<ArticlesProps> = ({ articlesHookRef, blogs }) => {
                   className="px-sect grid h-[60svh] w-screen grid-cols-2 gap-2 pb-4 md:h-[60svh] md:gap-4 lg:h-[80svh] lg:gap-8"
                 >
                   <div className="h-[60svh] pb-4 md:h-[60svh] lg:h-[80svh]">
-                    <RenderBlog blog={chunk[0]} isFeatured={true} />
+                    <RenderBlog season={season} blog={chunk[0]} isFeatured={true} />
                   </div>
                   <div className="grid h-[60svh] w-full grid-rows-3 items-stretch gap-2 pb-4 md:h-[60svh] md:gap-4 lg:h-[80svh]">
                     {chunk.slice(1).map((blog) => (
                       <RenderBlog
+                        season={season}
                         key={blog._id}
                         blog={blog}
                         isFeatured={false}
