@@ -35,29 +35,20 @@ interface PageTransitionProps {
 
 const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
   const location = useLocation();
-  const [isFirstMount, setIsFirstMount] = useState(true);
-
-  useEffect(() => {
-    if (isFirstMount && location.pathname === "/") {
-      setIsFirstMount(false);
-      return;
-    }
-  }, [location.pathname]);
-
-  if (isFirstMount && location.pathname === "/") {
-    return <>{children}</>;
-  }
 
   return (
-    <motion.div
-      variants={slideVariants}
-      initial="enter"
-      animate="center"
-      exit="exit"
-      className="w-full h-full"
+    <AnimatePresence>
+
+      <motion.div
+        variants={slideVariants}
+        initial="enter"
+        animate="center"
+        exit="exit"
+        className="w-full h-full"
     >
-      {children}
-    </motion.div>
+        {children}
+      </motion.div>
+    </AnimatePresence>
   );
 };
 

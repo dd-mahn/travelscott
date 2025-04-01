@@ -119,8 +119,9 @@ const RelatedCountries: React.FC<{ country: Country }> = ({ country }) => {
   const {
     data: countriesData,
     error: countriesError,
-    loading: countriesLoading,
+    isLoading: countriesLoading,
   } = useFetch<FetchCountriesType>(
+    "countries",
     `/api/countries?continent=${country.continent}`,
   );
 
@@ -171,8 +172,9 @@ const RelatedDestinations: React.FC<{ destination: Destination }> = ({
   const {
     data: destinationsData,
     error: destinationsError,
-    loading: destinationsLoading,
+    isLoading: destinationsLoading,
   } = useFetch<FetchDestinationType>(
+    "destinations",
     `/api/destinations?limit=100`,
   );
 
@@ -228,8 +230,11 @@ const RelatedArticles: React.FC<{
   const {
     data: blogData,
     error: blogError,
-    loading: blogLoading,
-  } = useFetch<FetchBlogsType>(`/api/blogs?limit=100`);
+    isLoading: blogLoading,
+  } = useFetch<FetchBlogsType>(
+    "blogs",
+    `/api/blogs?limit=100`,
+  );
 
   // Filter related blogs based on the type of data
   const relatedBlogs = useMemo(() => {

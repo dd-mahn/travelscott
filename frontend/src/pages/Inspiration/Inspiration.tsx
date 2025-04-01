@@ -31,11 +31,11 @@ const Inspiration: React.FC = () => {
   // Fetch blogs data
   const {
     data: allBlogsData,
-    loading: allBlogsLoading,
+    isLoading: allBlogsLoading,
     error: allBlogsError,
   } = useFetch<FetchBlogsType>(
+    "blogs",
     `/api/blogs?limit=1000&category=${currentCategory === "All" ? "" : encodeURIComponent(currentCategory)}`,
-    [currentCategory],
   );
 
   // Update blogs data in the store

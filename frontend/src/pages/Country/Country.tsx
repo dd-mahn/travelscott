@@ -46,9 +46,12 @@ const CountryPage: React.FC = () => {
   // Fetch country data
   const {
     data: countryData,
-    loading: fetchLoading,
+    isLoading: fetchLoading,
     error: fetchError,
-  } = useFetch(`/api/countries/${id}`, [id]);
+  } = useFetch(
+    "countries",
+    `/api/countries/${id}`,
+  );
 
   useEffect(() => {
     dispatch(setLoading(fetchLoading));

@@ -26,9 +26,12 @@ const Article: React.FC = () => {
   // Fetch blog data
   const {
     data: blogData,
-    loading: blogLoading,
+    isLoading: blogLoading,
     error: blogError,
-  } = useFetch<Blog>(`/api/blogs/${id}`);
+  } = useFetch<Blog>(
+    "blogs",
+    `/api/blogs/${id}`,
+  );
 
   // Handle loading and error states
   if (blogLoading) return <Loading />;

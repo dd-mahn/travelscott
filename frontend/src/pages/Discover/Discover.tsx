@@ -32,15 +32,21 @@ const Discover: React.FC = () => {
   // Fetch data for all destinations
   const {
     data: allDestinationData,
-    loading: allDestinationLoading,
+    isLoading: allDestinationLoading,
     error: allDestinationError,
-  } = useFetch<FetchDestinationType>(`/api/destinations?limit=1000`);
+  } = useFetch<FetchDestinationType>(
+    "destinations",
+    `/api/destinations?limit=1000`,
+  );
 
   const {
     data: countryData,
-    loading: countryLoading,
+    isLoading: countryLoading,
     error: countryError,
-  } = useFetch<FetchCountriesType>(`/api/countries?limit=1000`);
+  } = useFetch<FetchCountriesType>(
+    "countries",
+    `/api/countries?limit=1000`,
+  );
 
   // Handle fetched data for rendering
   useEffect(() => {

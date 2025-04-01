@@ -33,7 +33,8 @@ const Featured: React.FC = () => {
   const dispatch = useDispatch();
 
   // Fetch featured destinations
-  const { data, loading, error } = useFetch<FetchDestinationType>(
+  const { data, isLoading, error } = useFetch<FetchDestinationType>(
+    "destinations",
     `/api/destinations?featured=true`,
   );
   const featuredDestinations = data?.result;
@@ -65,8 +66,8 @@ const Featured: React.FC = () => {
 
       {/* Horizontal scroll carousel */}
       <AnimatePresence mode="wait">
-        {loading ? (
-          <LoadingState keyName={`featured-loading-${loading}`} />
+        {isLoading ? (
+          <LoadingState keyName={`featured-loading-${isLoading}`} />
         ) : error ? (
           <ErrorState keyName={`featured-error-${error}`} />
         ) : featuredDestinations ? (

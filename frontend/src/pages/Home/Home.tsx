@@ -35,7 +35,10 @@ const Home: React.FC = () => {
   const { blogs } = useSelector(selectHomeState);
 
   // Fetch blogs data for Articles and Starter sections
-  const { data: blogsData } = useFetch<FetchBlogsType>(`/api/blogs?limit=100`);
+  const { data: blogsData } = useFetch<FetchBlogsType>(
+    "blogs",
+    `/api/blogs?limit=100`,
+  );
 
   // Dispatch fetched blogs data to the Redux store
   useEffect(() => {

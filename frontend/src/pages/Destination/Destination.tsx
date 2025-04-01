@@ -48,15 +48,18 @@ const DestinationPage: React.FC = () => {
   // Fetch destination data
   const {
     data: destination,
-    loading: destinationLoading,
+    isLoading: destinationLoading,
     error: destinationError,
-  } = useFetch<Destination>(`/api/destinations/${id}`);
+  } = useFetch<Destination>(
+    "destinations",
+    `/api/destinations/${id}`,
+  );
 
   // Update Redux store based on fetch results
   useEffect(() => {
     dispatch(setLoading(destinationLoading));
     if (destinationError) {
-      dispatch(setError(destinationError));
+      dispatch(setError(destinationError ? destinationError.message : null));
     } else {
       dispatch(setError(null));
       dispatch(setCurrentDestination(destination as Destination));

@@ -81,9 +81,12 @@ const DiscoverDestinations: React.FC = () => {
   // Fetch destination data
   const {
     data: destinationData,
-    loading: destinationLoading,
+    isLoading: destinationLoading,
     error: destinationError,
-  } = useFetch<FetchDestinationType>(url, [url]);
+  } = useFetch<FetchDestinationType>(
+    "destinations",
+    url,
+  );
 
   // Update Redux store with fetched data
   useEffect(() => {
@@ -91,7 +94,7 @@ const DiscoverDestinations: React.FC = () => {
       dispatch(setDestinations(destinationData.result));
       dispatch(setTotalDestinations(destinationData.count || 0));
       dispatch(setLoading(destinationLoading));
-      dispatch(setError(destinationError));
+      dispatch(setError(destinationError ? destinationError.message : null));
     }
   }, [destinationData, destinationLoading, destinationError, dispatch]);
 

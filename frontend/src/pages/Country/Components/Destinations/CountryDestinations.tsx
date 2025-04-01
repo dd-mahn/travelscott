@@ -63,7 +63,10 @@ const CountryDestinations: React.FC<CountryDestinationsProps> = ({ country }) =>
   }, [currentPage, country.name, tags, searchQuery]);
 
   // Fetching destination data
-  const { data: destinationData, loading: destinationLoading, error: destinationError } = useFetch<FetchDestinationType>(url, [url]);
+  const { data: destinationData, isLoading: destinationLoading, error: destinationError } = useFetch<FetchDestinationType>(
+    "destinations",
+    url,
+  );
 
   // Updating Redux store with fetched data
   useEffect(() => {
@@ -71,7 +74,7 @@ const CountryDestinations: React.FC<CountryDestinationsProps> = ({ country }) =>
       dispatch(setDestinations(destinationData.result));
       dispatch(setTotalDestinations(destinationData.count || 0));
       dispatch(setLoading(destinationLoading));
-      dispatch(setError(destinationError));
+      dispatch(setError(destinationError ? destinationError.message : null));
     }
   }, [destinationData, destinationLoading, destinationError, dispatch]);
 

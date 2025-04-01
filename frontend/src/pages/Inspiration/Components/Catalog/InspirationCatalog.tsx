@@ -77,13 +77,13 @@ const InspirationCatalog: React.FC<InspirationCatalogProps> = memo(
     const blogTagsQuery = blogTags.length > 0 ? blogTags.join(",") : "";
     const {
       data: blogsData,
-      loading: blogsLoading,
+      isLoading: blogsLoading,
       error: blogsError,
     } = useFetch<FetchBlogsType>(
+      "blogs",
       `/api/blogs?limit=${limit}&page=${currentPage}&category=${
         currentCategory === "All" ? "" : encodeURIComponent(currentCategory)
       }&tags=${blogTagsQuery}&searchQuery=${encodeURIComponent(searchQuery)}`,
-      [currentCategory, currentPage, blogTags, searchQuery],
     );
 
     // Update Redux store with fetched blogs data

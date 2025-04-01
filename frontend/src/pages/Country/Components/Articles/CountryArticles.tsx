@@ -48,9 +48,10 @@ const CountryArticles: React.FC<CountryArticlesProps> = ({ country }) => {
   // Fetch blogs data
   const {
     data: blogData,
-    loading: blogLoading,
+    isLoading: blogLoading,
     error: blogError,
   } = useFetch<FetchBlogsType>(
+    "blogs",
     `/api/blogs?limit=20&tags=${country.name}`,
   );
 
