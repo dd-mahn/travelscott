@@ -35,11 +35,8 @@ function StaggerLogo({
       if (!container || !textElement) return;
       
       const containerWidth = container.offsetWidth;
-      console.log(containerWidth)
       const scale = containerWidth / textElement.offsetWidth;
-      console.log(scale)
       const newFontSize = Math.floor(16 * scale * 0.95); // 0.95 for safety margin
-      console.log(newFontSize)
       setFontSize(newFontSize);
     });
   }, []);

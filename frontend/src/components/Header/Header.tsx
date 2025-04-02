@@ -25,8 +25,9 @@ const navs = [
 // Header component
 const Header: React.FC = () => {
   const viewportWidth = useViewportWidth();
+  
   // Memoize the navigation items to avoid unnecessary re-renders
-  const renderNavItems = () => {
+  const renderNavItems = useMemo(() => {
     return navs.map((item, index) => (
       <motion.li
         key={index}
@@ -50,7 +51,7 @@ const Header: React.FC = () => {
         </NavLink>
       </motion.li>
     ));
-  };
+  }, []);
 
   return (
     <motion.header
@@ -77,7 +78,7 @@ const Header: React.FC = () => {
         {/* Navigation menu */}
         {viewportWidth >= 768 && (
           <motion.ul className="flex justify-between gap-4 lg:gap-4 xl:gap-6 2xl:gap-8 3xl:gap-8">
-            {renderNavItems()}
+            {renderNavItems}
           </motion.ul>
         )}
 

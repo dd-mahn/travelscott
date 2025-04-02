@@ -1,77 +1,44 @@
-import React, { useEffect, useState, lazy, Suspense, useMemo } from "react";
-import { Outlet, useLocation } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useEffect, useState, lazy, Suspense } from "react";
+import { Outlet, useLocation, useOutlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const Header = lazy(() => import("src/components/Header/Header"));
 const Footer = lazy(() => import("src/components/Footer/Footer"));
 const Cursor = lazy(() => import("src/common/Cursors/Cursors"));
 
-import AnimatedLogoScreen from "src/common/AnimatedLogoScreen/AnimatedLogoScreen";
 import LenisProvider from "src/components/Lenis/Lenis";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { selectIsDarkMode } from "src/store/slices/themeSlice";
 import { useThemeInitialization } from "src/hooks/useThemeInitialization/useThemeInitialization";
 import { Analytics } from "@vercel/analytics/react";
+import PageTransition from "../PageTransition/PageTransition";
 
 const Layout: React.FC = () => {
-  const location = useLocation();
-  const [showLoadingScreen, setShowLoadingScreen] = useState(true);
-  const isHomePage = location.pathname === "/";
   const isDarkMode = useSelector(selectIsDarkMode);
 
   useThemeInitialization();
+
+  const element = useOutlet();
+  const location = useLocation();
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", isDarkMode);
   }, [isDarkMode]);
 
-  useEffect(() => {
-    if (isHomePage) {
-      const handle = setTimeout(() => {
-        setShowLoadingScreen(false);
-      }, 2000);
-
-      return () => clearTimeout(handle);
-    }
-    setShowLoadingScreen(false);
-  }, [isHomePage]);
-
-  const content = (
-    <LenisProvider>
-      <Header />
-      <Cursor />
-      <Outlet />
-      <Footer />
-      <SpeedInsights />
-      <Analytics />
-    </LenisProvider>
-  );
-
   return (
     <main
       className={`${isDarkMode ? "bg-background-dark" : "bg-background-light"}`}
     >
-      <AnimatePresence mode="wait">
-        {showLoadingScreen && isHomePage ? (
-          <Suspense fallback={null}>
-            <motion.div
-              key="logo-loader"
-              initial={{ opacity: 1 }}
-              exit={{
-                opacity: 0,
-                scale: 4,
-                transition: { duration: 1.5, ease: "easeInOut" },
-              }}
-              className="h-screen w-screen"
-            >
-              <AnimatedLogoScreen />
-            </motion.div>
-          </Suspense>
-        ) : (
-          <motion.div key={location.pathname}>{content}</motion.div>
-        )}
-      </AnimatePresence>
+      <LenisProvider>
+        <Header />
+        <Cursor />
+        <PageTransition>
+          {element && React.cloneElement(element, { key: location.pathname })}
+        </PageTransition>
+        <Footer />
+        <SpeedInsights />
+        <Analytics />
+      </LenisProvider>
     </main>
   );
 };
