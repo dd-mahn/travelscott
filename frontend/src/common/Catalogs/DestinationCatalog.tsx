@@ -53,6 +53,52 @@ const DestinationCatalog: React.FC<DestinationCatalogProps> = ({
     onPageChange,
   );
 
+  // Function to render destination cards with proper animations
+  const renderDestinationCards = () => (
+    <motion.div
+      key={`destinations-content-${filterKey}`}
+      initial="hiddenY"
+      animate="visible"
+      exit="exitScale"
+      variants={variants}
+      transition={{
+        duration: 0.3,
+        ease: "easeInOut",
+      }}
+      className="w-full"
+    >
+      <motion.div
+        variants={variants}
+        transition={{
+          staggerChildren: 0.1,
+        }}
+        className="grid w-full grid-cols-2 items-start gap-x-4 gap-y-8 md:grid-cols-3 lg:gap-x-8 lg:gap-y-12"
+      >
+        {destinations.map((destination) => (
+          <motion.div
+            variants={variants}
+            key={`destination-${destination._id}`}
+            className="w-full"
+          >
+            <DestinationCard destination={destination} />
+          </motion.div>
+        ))}
+      </motion.div>
+      <motion.div variants={variants} className="w-full">
+        <CatalogPagination
+          count={totalDestinations}
+          page={currentPage}
+          limit={limit}
+          handlePreviousClick={() =>
+            handlePagination(Math.max(1, currentPage - 1))
+          }
+          handlePageClick={(page) => handlePagination(page)}
+          handleNextClick={() => handlePagination(currentPage + 1)}
+        />
+      </motion.div>
+    </motion.div>
+  );
+
   return (
     <section className="z-0 min-h-[50svh] w-full" ref={sectionRef}>
       <AnimatePresence mode="wait">
@@ -65,50 +111,7 @@ const DestinationCatalog: React.FC<DestinationCatalogProps> = ({
             keyName={`not-found-state-${currentPage}-${filterKey}`}
           />
         ) : (
-          destinations.length > 0 && (
-            <motion.div
-              key={`discover-destinations-${currentPage}-${filterKey}`}
-              initial="hiddenY"
-              whileInView="visible"
-              viewport={{ once: true }}
-              exit="hiddenShort"
-              transition={{
-                duration: 0.5,
-                ease: "easeInOut",
-              }}
-              variants={variants}
-            >
-              <motion.div
-                variants={variants}
-                transition={{
-                  staggerChildren: 0.2,
-                }}
-                className="grid w-full grid-cols-2 items-start gap-x-4 gap-y-8 md:grid-cols-3 lg:gap-x-8 lg:gap-y-12"
-              >
-                {destinations.map((destination) => (
-                  <motion.div
-                    variants={variants}
-                    key={`destination-${destination._id}`}
-                    className="w-full"
-                  >
-                    <DestinationCard destination={destination} />
-                  </motion.div>
-                ))}
-              </motion.div>
-              <motion.div variants={variants} className="w-full">
-                <CatalogPagination
-                  count={totalDestinations}
-                  page={currentPage}
-                  limit={limit}
-                  handlePreviousClick={() =>
-                    handlePagination(Math.max(1, currentPage - 1))
-                  }
-                  handlePageClick={(page) => handlePagination(page)}
-                  handleNextClick={() => handlePagination(currentPage + 1)}
-                />
-              </motion.div>
-            </motion.div>
-          )
+          renderDestinationCards()
         )}
       </AnimatePresence>
     </section>

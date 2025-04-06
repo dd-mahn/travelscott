@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useMemo } from "react";
 import { motion } from "framer-motion";
 
 // Component imports
@@ -23,6 +23,13 @@ const variants = {
 
 // Starter component: Displays a section with blog posts for first-time travelers
 const Starter: React.FC<{ blogs: Blog[] }> = ({ blogs }) => {
+  // Filter out blogs without images for safety
+  const validBlogs = useMemo(() => {
+    const filtered = blogs.filter(blog => blog.image);
+    console.log("Starter filtered blogs:", filtered.length);
+    return filtered;
+  }, [blogs]);
+
   return (
     <section className="starter relative h-[105svh] rounded-5xl bg-gradient-to-b from-[#eb996e] to-[#9e694d] dark:from-[#824c2f] dark:to-[#2e190e] md:h-[120svh] lg:h-[140svh]">
       {/* Draggable airplane image */}
@@ -41,7 +48,7 @@ const Starter: React.FC<{ blogs: Blog[] }> = ({ blogs }) => {
       />
       {/* Container for StarterBlogs component */}
       <div className="h-full w-full overflow-hidden">
-        <StarterBlogs blogs={blogs} />
+        <StarterBlogs blogs={validBlogs} />
       </div>
       {/* "Find More" button */}
       <motion.div
@@ -59,4 +66,4 @@ const Starter: React.FC<{ blogs: Blog[] }> = ({ blogs }) => {
 };
 
 // Export memoized Starter component for performance optimization
-export default Starter;
+export default memo(Starter);

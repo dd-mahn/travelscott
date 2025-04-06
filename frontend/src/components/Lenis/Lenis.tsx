@@ -10,13 +10,15 @@ const LenisProvider = ({ children }: PropsWithChildren) => {
   useEffect(() => {
     if (!lenis) return;
     
-    lenis.stop();
-    window.scrollTo(0, 0);
+    setTimeout(() => {
+      lenis.stop();
+      window.scrollTo(0, 0);
+    }, 300);
     
     // Start Lenis after scroll
     const timeoutId = setTimeout(() => {
       lenis.start();
-    }, 0);
+    }, 300);
 
     return () => {
       clearTimeout(timeoutId);

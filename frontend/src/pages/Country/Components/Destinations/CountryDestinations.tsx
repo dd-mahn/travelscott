@@ -2,7 +2,6 @@ import React, { memo, useEffect, useMemo, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "src/store/store";
-import config from "src/config/config";
 import useFetch from "src/hooks/useFetch/useFetch";
 import { FetchDestinationType } from "src/types/FetchData";
 import Country from "src/types/Country";
@@ -41,7 +40,7 @@ const variants = {
 
 const limit = 18;
 
-const CountryDestinations: React.FC<CountryDestinationsProps> = ({ country }) => {
+const CountryDestinations: React.FC<CountryDestinationsProps> = memo(({ country }) => {
   const viewportWidth = useViewportWidth();
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
@@ -62,10 +61,20 @@ const CountryDestinations: React.FC<CountryDestinationsProps> = ({ country }) =>
     return baseUrl;
   }, [currentPage, country.name, tags, searchQuery]);
 
-  // Fetching destination data
-  const { data: destinationData, isLoading: destinationLoading, error: destinationError } = useFetch<FetchDestinationType>(
-    "destinations",
+  // Fetching destination data with optimized parameters
+  const { 
+    data: destinationData, 
+    isLoading: destinationLoading, 
+    error: destinationError,
+    isFetching: destinationFetching
+  } = useFetch<FetchDestinationType>(
+    `country-destinations-${country._id}-${currentPage}`,
     url,
+    "country",
+    {
+      staleTime: 2 * 60 * 1000, // 2 minutes cache
+      cacheTime: 10 * 60 * 1000, // 10 minutes
+    }
   );
 
   // Updating Redux store with fetched data
@@ -73,6 +82,8 @@ const CountryDestinations: React.FC<CountryDestinationsProps> = ({ country }) =>
     if (destinationData) {
       dispatch(setDestinations(destinationData.result));
       dispatch(setTotalDestinations(destinationData.count || 0));
+      
+      // Only set loading for initial page load and navigation
       dispatch(setLoading(destinationLoading));
       dispatch(setError(destinationError ? destinationError.message : null));
     }
@@ -81,10 +92,36 @@ const CountryDestinations: React.FC<CountryDestinationsProps> = ({ country }) =>
   // Handling page change
   const handlePageChange = useCallback((newPage: number) => {
     setCurrentPage(newPage);
+    
+    // Scroll to top of destinations section when page changes
+    window.scrollTo({ top: window.scrollY - 200, behavior: 'smooth' });
   }, []);
 
+  // Determine if catalog should show loading state - only for navigation
+  const showCatalogLoading = useMemo(() => {
+    // Show loading only for initial page load
+    return loading;
+  }, [loading]);
+
   // Unique key for filtering
-  const filterKey = `${currentPage}-${tags.join(",")}-${country.name}-${searchQuery}`;
+  const filterKey = useMemo(() => 
+    `${currentPage}-${tags.join(",")}-${country.name}-${searchQuery}`,
+    [currentPage, tags, country.name, searchQuery]
+  );
+
+  // Prefetch next page if needed
+  useEffect(() => {
+    // Calculate total pages
+    const totalPages = Math.ceil((totalDestinations || 0) / limit);
+    
+    // If more pages exist and we're not on the last page, prefetch next page
+    if (totalPages > currentPage) {
+      const prefetchUrl = url.replace(`page=${currentPage}`, `page=${currentPage + 1}`);
+      // Preload next page data
+      const img = new Image();
+      img.src = prefetchUrl;
+    }
+  }, [currentPage, totalDestinations, url]);
 
   return (
     <motion.section
@@ -128,7 +165,7 @@ const CountryDestinations: React.FC<CountryDestinationsProps> = ({ country }) =>
       <DestinationCatalog
         destinations={destinations}
         totalDestinations={totalDestinations}
-        loading={loading}
+        loading={showCatalogLoading}
         error={error}
         currentPage={currentPage}
         onPageChange={handlePageChange}
@@ -137,6 +174,6 @@ const CountryDestinations: React.FC<CountryDestinationsProps> = ({ country }) =>
       />
     </motion.section>
   );
-};
+});
 
-export default memo(CountryDestinations);
+export default CountryDestinations;

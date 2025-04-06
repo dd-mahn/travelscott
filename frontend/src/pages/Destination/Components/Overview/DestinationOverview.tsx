@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useMemo } from "react";
 import Destination from "src/types/Destination";
 import { motion } from "framer-motion";
 import {
@@ -18,7 +18,19 @@ const variants = {
 };
 
 // Define the DestinationOverview component
-const DestinationOverview = ({ destination }: { destination: Destination }) => {
+const DestinationOverview = memo(({ destination }: { destination: Destination }) => {
+  // Memoize tags to prevent unnecessary re-renders
+  const destinationTags = useMemo(() => {
+    return destination.tags.map((tag) => (
+      <span
+        key={tag}
+        className="span-small rounded-2xl border border-solid border-text-light px-4 dark:border-text-dark lg:border 2xl:border-2"
+      >
+        {tag}
+      </span>
+    ));
+  }, [destination.tags]);
+
   return (
     <section id="overview" className="overview px-sect md:py-sect-short">
       <div className="flex flex-col gap-8">
@@ -44,14 +56,7 @@ const DestinationOverview = ({ destination }: { destination: Destination }) => {
               transition={{ ease: "easeInOut", duration: 0.5, delay: 0.3 }}
               className="flex flex-row flex-wrap items-start justify-start gap-2"
             >
-              {destination.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="span-small rounded-2xl border border-solid border-text-light px-4 dark:border-text-dark lg:border 2xl:border-2"
-                >
-                  {tag}
-                </span>
-              ))}
+              {destinationTags}
             </motion.div>
           </div>
           {/* Destination menu */}
@@ -73,7 +78,7 @@ const DestinationOverview = ({ destination }: { destination: Destination }) => {
       </div>
     </section>
   );
-};
+});
 
-// Export the memoized component
+// Export the component
 export default DestinationOverview;

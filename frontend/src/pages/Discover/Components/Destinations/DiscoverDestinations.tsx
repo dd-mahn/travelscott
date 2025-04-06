@@ -2,7 +2,6 @@ import React, { memo, useCallback, useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "src/store/store";
-import config from "src/config/config";
 import useFetch from "src/hooks/useFetch/useFetch";
 import { FetchDestinationType } from "src/types/FetchData";
 import { DestinationFilter } from "src/common/Filters/DestinationFilter";
@@ -78,14 +77,21 @@ const DiscoverDestinations: React.FC = () => {
     destinationSearchQuery,
   ]);
 
-  // Fetch destination data
+  // Fetch destination data with optimized parameters
   const {
     data: destinationData,
     isLoading: destinationLoading,
     error: destinationError,
+    isFetching: destinationFetching,
   } = useFetch<FetchDestinationType>(
-    "destinations",
+    `dest-page-${currentPage}`,
     url,
+    "discover",
+    {
+      staleTime: 2 * 60 * 1000, // 2 minutes
+      refetchOnWindowFocus: false,
+      cacheTime: 10 * 60 * 1000, // 10 minutes
+    }
   );
 
   // Update Redux store with fetched data
@@ -93,6 +99,8 @@ const DiscoverDestinations: React.FC = () => {
     if (destinationData) {
       dispatch(setDestinations(destinationData.result));
       dispatch(setTotalDestinations(destinationData.count || 0));
+      
+      // Only set loading for initial page load and navigation
       dispatch(setLoading(destinationLoading));
       dispatch(setError(destinationError ? destinationError.message : null));
     }
@@ -101,6 +109,12 @@ const DiscoverDestinations: React.FC = () => {
   // Handle page change
   const handlePageChange = useCallback((newPage: number) => {
     setCurrentPage(newPage);
+    
+    // Scroll to top of destinations section when page changes
+    const destinationsElement = document.getElementById("destinations");
+    if (destinationsElement) {
+      destinationsElement.scrollIntoView({ behavior: "smooth" });
+    }
   }, []);
 
   // Generate a unique key for filtering
@@ -115,6 +129,25 @@ const DiscoverDestinations: React.FC = () => {
       destinationSearchQuery,
     ],
   );
+
+  // Determine if catalog should show loading state - only for navigation
+  const showCatalogLoading = useMemo(() => {
+    // Show loading only for initial page load
+    return loading;
+  }, [loading]);
+
+  // Prefetch next page if needed
+  useEffect(() => {
+    // Calculate total pages
+    const totalPages = Math.ceil((totalDestinations || 0) / limit);
+    
+    // If more pages exist and we're not on the last page, prefetch next page
+    if (totalPages > currentPage) {
+      const prefetchUrl = url.replace(`page=${currentPage}`, `page=${currentPage + 1}`);
+      const img = new Image();
+      img.src = prefetchUrl;
+    }
+  }, [currentPage, totalDestinations, url]);
 
   return (
     <section
@@ -155,7 +188,7 @@ const DiscoverDestinations: React.FC = () => {
       <DestinationCatalog
         destinations={destinations}
         totalDestinations={totalDestinations}
-        loading={loading}
+        loading={showCatalogLoading}
         error={error}
         currentPage={currentPage}
         onPageChange={handlePageChange}

@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useMemo } from "react";
 import { Carousel } from "@material-tailwind/react";
 import Destination from "src/types/Destination";
 import OptimizedImage from "src/common/OptimizedImage/OptimizedImage";
@@ -21,7 +21,45 @@ const variants = {
   hoverScale: HoverVariants.hoverScale,
 };
 
-const DestinationHero: React.FC<DestinationHeroProps> = ({ destination }) => {
+const DestinationHero: React.FC<DestinationHeroProps> = memo(({ destination }) => {
+  // Memoize the letter animations to prevent unnecessary re-renders
+  const destinationNameLetters = useMemo(() => {
+    return destination.name.split("").map((letter, index) => (
+      <motion.h1
+        key={index}
+        variants={variants}
+        initial="hiddenFullY"
+        animate="visible"
+        transition={{
+          duration:
+            destination.name.split("").length < 10 ? 0.8 : 0.6,
+          delay: 0.5 + index * 0.1,
+          type: "spring",
+          bounce: 0.5,
+        }}
+        className="inline-block text-text-dark"
+      >
+        {letter}
+      </motion.h1>
+    ));
+  }, [destination.name, variants]);
+
+  // Memoize carousel images to prevent unnecessary re-renders
+  const carouselImages = useMemo(() => {
+    return destination.images?.map((image, index) => (
+      <div
+        className="image-suspense grid h-full w-full place-items-center overflow-hidden"
+        key={index}
+      >
+        <OptimizedImage
+          src={image}
+          alt={destination.name}
+          className="h-full w-full"
+        />
+      </div>
+    ));
+  }, [destination.images, destination.name]);
+
   return (
     <section className="hero relative h-screen">
       {/* Overlay with country and destination name */}
@@ -40,24 +78,7 @@ const DestinationHero: React.FC<DestinationHeroProps> = ({ destination }) => {
           {/* Destination name */}
           <div className="overflow-hidden">
             <div className="big-heading overflow-hidden">
-              {destination.name.split("").map((letter, index) => (
-                <motion.h1
-                  key={index}
-                  variants={variants}
-                  initial="hiddenFullY"
-                  animate="visible"
-                  transition={{
-                    duration:
-                      destination.name.split("").length < 10 ? 0.8 : 0.6,
-                    delay: 0.5 + index * 0.1,
-                    type: "spring",
-                    bounce: 0.5,
-                  }}
-                  className="inline-block text-text-dark"
-                >
-                  {letter}
-                </motion.h1>
-              ))}
+              {destinationNameLetters}
             </div>
           </div>
         </div>
@@ -78,22 +99,11 @@ const DestinationHero: React.FC<DestinationHeroProps> = ({ destination }) => {
           transition={{ duration: 2 }}
           loop
         >
-          {destination.images?.map((image, index) => (
-            <div
-              className="image-suspense grid h-full w-full place-items-center overflow-hidden"
-              key={index}
-            >
-              <OptimizedImage
-                src={image}
-                alt={destination.name}
-                className="h-full w-full"
-              />
-            </div>
-          ))}
+          {carouselImages}
         </Carousel>
       </motion.div>
     </section>
   );
-};
+});
 
 export default DestinationHero;

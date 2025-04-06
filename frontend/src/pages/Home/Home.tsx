@@ -2,7 +2,8 @@ import React, { memo, useCallback, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "src/store/store";
-import { setHomeBlogs } from "src/store/slices/blogSlice";
+import { setHomeBlogs, setBlogChunks, setStarterBlogs } from "src/store/slices/blogSlice";
+import { setPageLoading } from "src/store/slices/loadingSlice";
 
 import "src/styles/components/home.css";
 
@@ -15,7 +16,7 @@ import Articles from "src/pages/Home/Components/Articles/Articles";
 import Quote from "src/pages/Home/Components/Quote/Quote";
 import useFetch from "src/hooks/useFetch/useFetch";
 import { FetchBlogsType } from "src/types/FetchData";
-import config from "src/config/config";
+import { createBlogChunks } from "src/utils/createBlogChunks";
 import {
   useSectionTransition,
   useSectionTransition2,
@@ -27,30 +28,89 @@ import useStackedSections from "src/hooks/useStackedSections/useStackedSections"
 const Home: React.FC = () => {
   const dispatch = useDispatch();
 
-  // Selector to get home blogs from the Redux store
-  const selectHomeState = (state: RootState) => ({
-    blogs: state.blog.homeBlogs,
-  });
+  // Selector to get blogs from the Redux store
+  const { homeBlogs, starterBlogs, blogChunks } = useSelector((state: RootState) => ({
+    homeBlogs: state.blog.homeBlogs,
+    starterBlogs: state.blog.starterBlogs,
+    blogChunks: state.blog.blogChunks
+  }));
 
-  const { blogs } = useSelector(selectHomeState);
-
-  // Fetch blogs data for Articles and Starter sections
-  const { data: blogsData } = useFetch<FetchBlogsType>(
-    "blogs",
-    `/api/blogs?limit=100`,
+  // Fetch regular blogs data for Articles section
+  const { 
+    data: blogsData, 
+    isSuccess: blogsSuccess, 
+    isLoading: blogsLoading 
+  } = useFetch<FetchBlogsType>(
+    "home-blogs",
+    `/api/blogs?limit=20`, // Fetch enough blogs for the Articles section
+    "home", // Page identifier for loading state
+    {
+      staleTime: 5 * 60 * 1000, // 5 minutes cache
+      cacheTime: 30 * 60 * 1000, // 30 minutes
+    }
   );
 
-  // Dispatch fetched blogs data to the Redux store
+  // Fetch starter blogs data using category filter
+  const { 
+    data: starterBlogsData, 
+    isSuccess: starterSuccess, 
+    isLoading: starterLoading 
+  } = useFetch<FetchBlogsType>(
+    "starter-blogs",
+    `/api/blogs?category=FirstTimeAbroad&limit=6`, // Directly fetch blogs with the right category
+    "home", // Page identifier for loading state
+    {
+      staleTime: 5 * 60 * 1000, // 5 minutes cache
+      cacheTime: 30 * 60 * 1000, // 30 minutes
+    }
+  );
+
+  // Mark page as loaded when all fetches complete
   useEffect(() => {
-    if (blogsData?.result) {
+    const allDataLoaded = blogsSuccess && starterSuccess;
+    
+    if (allDataLoaded) {
+      dispatch(setPageLoading({ page: 'home', isLoading: false }));
+    }
+    
+    return () => {
+      // Reset loading state when component unmounts
+      dispatch(setPageLoading({ page: 'home', isLoading: true }));
+    };
+  }, [blogsSuccess, starterSuccess, dispatch]);
+
+  // Process fetched blogs data for Articles section
+  useEffect(() => {
+    if (blogsData?.result && blogsData.result.length > 0) {
+      // Store all blogs in home blogs slice
       dispatch(setHomeBlogs(blogsData.result));
+      
+      // Create and store blog chunks for Articles section
+      const chunks = createBlogChunks(blogsData.result);
+      dispatch(setBlogChunks(chunks));
+      
+      console.log("Home blogs processed:", {
+        totalBlogs: blogsData.result.length,
+        chunks: chunks.length
+      });
     }
   }, [blogsData, dispatch]);
 
+  // Process fetched starter blogs data
+  useEffect(() => {
+    if (starterBlogsData?.result && starterBlogsData.result.length > 0) {
+      dispatch(setStarterBlogs(starterBlogsData.result));
+      
+      console.log("Starter blogs processed:", {
+        starterBlogs: starterBlogsData.result.length
+      });
+    }
+  }, [starterBlogsData, dispatch]);
+
   // Refs for the Articles component
-  const articlesHookRef = () => {
+  const articlesHookRef = useCallback(() => {
     return React.createRef<HTMLSpanElement>();
-  };
+  }, []);
 
   // Stacked section refs
   const { refs, setRef } = useStackedSections();
@@ -62,6 +122,20 @@ const Home: React.FC = () => {
     opacity: opacitySO,
   } = useSectionTransition(undefined, [1, 0.95], undefined);
   const { ref: refS, scale: scaleS } = useSectionTransition2();
+
+  // Memoize blogs to prevent unnecessary re-renders
+  const memoizedHomeBlogs = useMemo(() => homeBlogs, [homeBlogs]);
+  const memoizedStarterBlogs = useMemo(() => starterBlogs, [starterBlogs]);
+
+  // Log data availability for debugging
+  useEffect(() => {
+    console.log("Home rendering with:", {
+      homeBlogs: homeBlogs.length,
+      blogChunks: blogChunks.length,
+      starterBlogs: starterBlogs.length,
+      isLoading: blogsLoading || starterLoading
+    });
+  }, [homeBlogs, blogChunks, starterBlogs, blogsLoading, starterLoading]);
 
   return (
     <main data-testid="home-page" className="home flex flex-col">
@@ -79,11 +153,11 @@ const Home: React.FC = () => {
         </motion.div>
 
         <div ref={refSO}>
-          <Articles articlesHookRef={articlesHookRef()} blogs={blogs} />
+          <Articles articlesHookRef={articlesHookRef()} blogs={memoizedHomeBlogs} />
         </div>
 
         <Hook />
-        <Starter blogs={blogs} />
+        <Starter blogs={memoizedStarterBlogs} />
       </motion.section>
 
       {/* Quote section with ref for section transition */}

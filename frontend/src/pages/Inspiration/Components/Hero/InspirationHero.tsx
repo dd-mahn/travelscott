@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useMemo } from "react";
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 import { RootState } from "src/store/store";
@@ -12,21 +12,23 @@ const variants = {
   visible: VisibilityVariants.visible,
 };
 
-const InspirationHero = ({ currentCategory }: { currentCategory: string }) => {
+const InspirationHero = memo(({ currentCategory }: { currentCategory: string }) => {
   // Get the current category image from the Redux store
   const { currentCategoryImage } = useSelector(
     (state: RootState) => state.inspiration,
   );
 
-  // Get the heading based on the current category
-  const heading = getInspirationHeading(currentCategory);
-
   // Determine if dark mode is enabled
   const isDarkMode = useSelector(selectIsDarkMode);
 
-  // Determine the background style based on the current category and dark mode
-  const backgroundStyle =
-    currentCategory !== "All"
+  // Memoize the heading based on the current category
+  const heading = useMemo(() => 
+    getInspirationHeading(currentCategory),
+  [currentCategory]);
+
+  // Memoize the background style based on the current category and dark mode
+  const backgroundStyle = useMemo(() => {
+    return currentCategory !== "All"
       ? {
           backgroundImage: `url(${currentCategoryImage})`,
           backgroundSize: "cover",
@@ -39,11 +41,14 @@ const InspirationHero = ({ currentCategory }: { currentCategory: string }) => {
             .replace(/\d{4}/, "")
             .trim()}gradient${isDarkMode ? "-dark" : ""})`,
         };
+  }, [currentCategory, currentCategoryImage, heading, isDarkMode]);
 
-  // Define the gradient style for the overlay
-  const overlayGradient = isDarkMode
-    ? "linear-gradient(180deg, rgba(30, 33, 37, 0.5) 50%, #1e2125 100%)"
-    : "linear-gradient(180deg, rgb(10.02, 10.23, 10.38, 0.2) 50%, #FBF9F7 100%)";
+  // Memoize the gradient style for the overlay
+  const overlayGradient = useMemo(() => {
+    return isDarkMode
+      ? "linear-gradient(180deg, rgba(30, 33, 37, 0.5) 50%, #1e2125 100%)"
+      : "linear-gradient(180deg, rgb(10.02, 10.23, 10.38, 0.2) 50%, #FBF9F7 100%)";
+  }, [isDarkMode]);
 
   return (
     <motion.div
@@ -69,6 +74,6 @@ const InspirationHero = ({ currentCategory }: { currentCategory: string }) => {
       )}
     </motion.div>
   );
-};
+});
 
 export default InspirationHero;

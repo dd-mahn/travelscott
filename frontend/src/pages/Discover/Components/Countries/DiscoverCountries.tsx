@@ -50,12 +50,12 @@ const DiscoverCountries: React.FC = () => {
   }, [selectedContinentName, continents]);
 
   // Handle select continent
-  const handleSelectContinent = (value: string) => {
+  const handleSelectContinent = useCallback((value: string) => {
     setSelectedContinentName(value);
-  };
+  }, []);
 
-  // Select and SelectOption elements props
-  const selectProps = {
+  // Select and SelectOption elements props - memoize to prevent re-renders
+  const selectProps = useMemo(() => ({
     color: "gray",
     label: "Select Continent",
     variant: "outlined",
@@ -76,16 +76,27 @@ const DiscoverCountries: React.FC = () => {
       className:
         "font-medium text-text-light after:border-none before:border-none",
     },
-  };
+  }), [handleSelectContinent]);
 
-  const selectOptionProp = {
+  const selectOptionProp = useMemo(() => ({
     className: "span-small font-sans",
-  };
+  }), []);
 
   // Memoized filter key
   const filterKey = useMemo(() => {
     return selectedContinentName;
   }, [selectedContinentName]);
+
+  // Memoize country cards to avoid re-renders
+  const countryCards = useMemo(() => {
+    if (!selectedContinent || !selectedContinent.countries) return null;
+    
+    return selectedContinent.countries.map((country) => (
+      <motion.div variants={variants} key={country._id}>
+        <CountryCard country={country} />
+      </motion.div>
+    ));
+  }, [selectedContinent, variants]);
 
   // Render logic
   return (
@@ -180,11 +191,7 @@ const DiscoverCountries: React.FC = () => {
                   className="grid grid-cols-3 justify-between gap-2 sm:grid-cols-4 md:gap-4 lg:grid-cols-2 lg:gap-8 xl:grid-cols-3 2xl:grid-cols-3 2xl:gap-8 3xl:grid-cols-4"
                   aria-label="Country list"
                 >
-                  {selectedContinent.countries.map((country) => (
-                    <motion.div variants={variants} key={country._id}>
-                      <CountryCard country={country} />
-                    </motion.div>
-                  ))}
+                  {countryCards}
                 </motion.div>
               </motion.div>
             )}

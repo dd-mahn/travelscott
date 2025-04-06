@@ -1,4 +1,4 @@
-import React, { useEffect, memo } from "react";
+import React, { useEffect, memo, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
@@ -9,6 +9,7 @@ import {
   setLoading,
   setError,
 } from "src/store/slices/destinationSlice";
+import { setPageLoading } from "src/store/slices/loadingSlice";
 import type Destination from "src/types/Destination";
 import config from "src/config/config";
 import "src/styles/components/destination.css";
@@ -50,9 +51,15 @@ const DestinationPage: React.FC = () => {
     data: destination,
     isLoading: destinationLoading,
     error: destinationError,
+    isSuccess: destinationSuccess,
   } = useFetch<Destination>(
-    "destinations",
+    `destination-${id}`,
     `/api/destinations/${id}`,
+    "destination",
+    {
+      staleTime: 5 * 60 * 1000, // 5 minutes cache
+      cacheTime: 30 * 60 * 1000, // 30 minutes
+    }
   );
 
   // Update Redux store based on fetch results
@@ -66,8 +73,52 @@ const DestinationPage: React.FC = () => {
     }
   }, [dispatch, destinationLoading, destinationError, destination]);
 
+  // Update loading state in global store
+  useEffect(() => {
+    if (destinationSuccess) {
+      dispatch(setPageLoading({ page: 'destination', isLoading: false }));
+    }
+    
+    return () => {
+      // Reset loading state when component unmounts
+      dispatch(setPageLoading({ page: 'destination', isLoading: true }));
+    };
+  }, [destinationSuccess, dispatch]);
+
   // Handle sticky sections top value
   const { refs: stackedRefs, setRef } = useStackedSections();
+
+  // Memoize additionalInfo rendering to prevent unnecessary re-renders
+  const additionalInfoElements = useMemo(() => {
+    if (!currentDestination) return null;
+    
+    return Object.entries(currentDestination.additionalInfo).map(
+      ([key, value], index) => (
+        <motion.div
+          key={key}
+          className="flex h-fit flex-col items-center gap-4 md:items-start"
+          variants={variants}
+          initial="hiddenY"
+          whileInView="visible"
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: index * 0.2 }}
+        >
+          <h2 className="h2-md">
+            {key === "whenToVisit"
+              ? "When to visit?"
+              : key === "whoToGoWith"
+                ? "Who to go with?"
+                : key === "whatToExpect"
+                  ? "What to expect?"
+                  : key === "healthAndSafety"
+                    ? "Health and safety"
+                    : ""}
+          </h2>
+          <p className="p-regular sm:w-4/5 md:w-3/4">{value}</p>
+        </motion.div>
+      ),
+    );
+  }, [currentDestination, variants]);
 
   // Render loading state
   if (loading) {
@@ -95,32 +146,7 @@ const DestinationPage: React.FC = () => {
           className="additional px-sect sticky top-0 grid h-[120svh] place-items-start pb-32 md:pt-40 2xl:pt-sect-default"
         >
           <div className="grid grid-cols-1 gap-x-3 gap-y-10 md:grid-cols-2 md:gap-x-4 md:gap-y-16">
-            {Object.entries(currentDestination.additionalInfo).map(
-              ([key, value], index) => (
-                <motion.div
-                  key={key}
-                  className="flex h-fit flex-col items-center gap-4 md:items-start"
-                  variants={variants}
-                  initial="hiddenY"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.2 }}
-                >
-                  <h2 className="h2-md">
-                    {key === "whenToVisit"
-                      ? "When to visit?"
-                      : key === "whoToGoWith"
-                        ? "Who to go with?"
-                        : key === "whatToExpect"
-                          ? "What to expect?"
-                          : key === "healthAndSafety"
-                            ? "Health and safety"
-                            : ""}
-                  </h2>
-                  <p className="p-regular sm:w-4/5 md:w-3/4">{value}</p>
-                </motion.div>
-              ),
-            )}
+            {additionalInfoElements}
           </div>
         </section>
 
@@ -170,4 +196,4 @@ const DestinationPage: React.FC = () => {
   );
 };
 
-export default DestinationPage;
+export default memo(DestinationPage);

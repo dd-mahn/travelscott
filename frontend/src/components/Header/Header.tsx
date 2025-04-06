@@ -38,6 +38,7 @@ const Header: React.FC = () => {
         className="nav__item h-fit w-fit"
       >
         <NavLink
+          
           to={item.path}
           className={({ isActive, isPending }) =>
             isPending

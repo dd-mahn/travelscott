@@ -8,6 +8,7 @@ import countryReducer from "src/store/slices/countrySlice";
 import destinationReducer from "src/store/slices/destinationSlice";
 import continentReducer from "src/store/slices/continentSlice";
 import themeReducer from "src/store/slices/themeSlice";
+import loadingReducer from "src/store/slices/loadingSlice";
 
 // Configure the store with all the reducers
 export const store = configureStore({
@@ -19,6 +20,7 @@ export const store = configureStore({
     destination: destinationReducer,
     continent: continentReducer,
     theme: themeReducer,
+    loading: loadingReducer,
   },
 });
 

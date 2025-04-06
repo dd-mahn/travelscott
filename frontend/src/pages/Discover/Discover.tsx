@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 
 // Component imports
 import "src/styles/components/discover.css";
-import config from "src/config/config";
 import {
   getCountryByContinent,
   getFeaturedDestinations,
@@ -17,6 +16,7 @@ import DiscoverPoster from "src/pages/Discover/Components/Poster/DiscoverPoster"
 import { setCountries } from "src/store/slices/countrySlice";
 import { setAllDestinations, setFeaturedDestinations } from "src/store/slices/destinationSlice";
 import { setContinents } from "src/store/slices/continentSlice";
+import { setPageLoading } from "src/store/slices/loadingSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "src/store/store";
 import { continents } from "src/utils/constants/continents";
@@ -29,38 +29,63 @@ const Discover: React.FC = () => {
     (state: RootState) => state.destination,
   );
 
-  // Fetch data for all destinations
+  // Fetch data for all destinations with optimized parameters
   const {
     data: allDestinationData,
     isLoading: allDestinationLoading,
     error: allDestinationError,
+    isSuccess: allDestinationSuccess
   } = useFetch<FetchDestinationType>(
-    "destinations",
-    `/api/destinations?limit=1000`,
+    "discover-destinations",
+    `/api/destinations?limit=50&featured=true`,
+    "discover",
+    {
+      staleTime: 5 * 60 * 1000, // 5 minutes cache
+      cacheTime: 30 * 60 * 1000, // 30 minutes
+    }
   );
 
   const {
     data: countryData,
     isLoading: countryLoading,
     error: countryError,
+    isSuccess: countrySuccess
   } = useFetch<FetchCountriesType>(
-    "countries",
-    `/api/countries?limit=1000`,
+    "discover-countries",
+    `/api/countries?limit=50`,
+    "discover",
+    {
+      staleTime: 5 * 60 * 1000, // 5 minutes cache  
+      cacheTime: 30 * 60 * 1000, // 30 minutes
+    }
   );
+
+  // Track loading state
+  useEffect(() => {
+    // Mark page as loaded when all critical data is loaded
+    if (allDestinationSuccess && countrySuccess) {
+      dispatch(setPageLoading({ page: 'discover', isLoading: false }));
+    }
+    
+    return () => {
+      // Reset loading state when component unmounts
+      dispatch(setPageLoading({ page: 'discover', isLoading: true }));
+    };
+  }, [allDestinationSuccess, countrySuccess, dispatch]);
 
   // Handle fetched data for rendering
   useEffect(() => {
-    if (countryData) {
+    if (countryData?.result) {
       dispatch(setCountries(countryData.result));
     }
 
-    if (allDestinationData) {
+    if (allDestinationData?.result) {
       dispatch(setAllDestinations(allDestinationData.result));
       dispatch(setFeaturedDestinations(getFeaturedDestinations(allDestinationData.result)));
     }
   }, [allDestinationData, countryData, dispatch]);
 
-  // Handle continent data
+  // Handle continent data - memoize computation to prevent unnecessary recalculations
   useEffect(() => {
     if (countries.length > 0) {
       const updatedContinents = continents.map((continent) => ({
@@ -71,6 +96,13 @@ const Discover: React.FC = () => {
       dispatch(setContinents(updatedContinents));
     }
   }, [countries, dispatch]);
+
+  // Memoize featured destinations to prevent unnecessary re-renders
+  const memoizedFeaturedDestinations = useMemo(() => 
+    featuredDestinations || 
+    (allDestinationData?.result ? getFeaturedDestinations(allDestinationData.result) : []),
+    [featuredDestinations, allDestinationData]
+  );
 
   // Handle render
   if (!countries.length || !allDestinations.length) {
@@ -88,12 +120,7 @@ const Discover: React.FC = () => {
   return (
     <main data-testid="discover-page" className="discover">
       {/* POSTER SECTION */}
-      <DiscoverPoster 
-        featuredDestinations={
-          featuredDestinations || 
-          (allDestinationData?.result ? getFeaturedDestinations(allDestinationData.result) : [])
-        } 
-      />
+      <DiscoverPoster featuredDestinations={memoizedFeaturedDestinations} />
 
       {/* COUNTRY SECTION */}
       <DiscoverCountries />

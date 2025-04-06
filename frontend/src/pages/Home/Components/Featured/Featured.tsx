@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from "react";
+import React, { memo, useEffect, useMemo } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useDispatch} from "react-redux";
 
@@ -32,16 +32,26 @@ const Featured: React.FC = () => {
   const viewportWidth = useViewportWidth();
   const dispatch = useDispatch();
 
-  // Fetch featured destinations
+  // Fetch featured destinations with optimized parameters
   const { data, isLoading, error } = useFetch<FetchDestinationType>(
-    "destinations",
-    `/api/destinations?featured=true`,
+    "featured-destinations",
+    `/api/destinations?featured=true&limit=10`, // Limit to 10 featured destinations
+    "home", // Page identifier for loading state
+    {
+      staleTime: 5 * 60 * 1000, // 5 minutes cache
+      cacheTime: 30 * 60 * 1000, // 30 minutes
+    }
   );
-  const featuredDestinations = data?.result;
+  
+  // Memoize featured destinations to prevent unnecessary re-renders
+  const featuredDestinations = useMemo(() => 
+    data?.result?.slice(0, 10) || [], 
+    [data?.result]
+  );
 
   // Dispatch featured destinations to the store
   useEffect(() => {
-    if (featuredDestinations) {
+    if (featuredDestinations.length > 0) {
       dispatch(setFeaturedDestinations(featuredDestinations));
     }
   }, [featuredDestinations, dispatch]);
@@ -70,12 +80,12 @@ const Featured: React.FC = () => {
           <LoadingState keyName={`featured-loading-${isLoading}`} />
         ) : error ? (
           <ErrorState keyName={`featured-error-${error}`} />
-        ) : featuredDestinations ? (
+        ) : featuredDestinations.length > 0 ? (
           <div key={`featured-destinations-${featuredDestinations.length}`}>
-            <HorizontalScrollCarousel data={featuredDestinations.slice(0, 10)} />
+            <HorizontalScrollCarousel data={featuredDestinations} />
           </div>
         ) : (
-          <NotFoundState keyName={`featured-not-found-${featuredDestinations}`} />
+          <NotFoundState keyName="featured-not-found" />
         )}
       </AnimatePresence>
 
@@ -119,4 +129,4 @@ const Featured: React.FC = () => {
 };
 
 // Memoize the component to prevent unnecessary re-renders
-export default Featured;
+export default memo(Featured);

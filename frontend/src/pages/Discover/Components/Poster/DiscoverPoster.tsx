@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useMemo } from "react";
 import { Carousel } from "@material-tailwind/react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
@@ -26,9 +26,15 @@ const DiscoverPoster: React.FC<DiscoverPosterProps> = ({
   featuredDestinations,
 }) => {
   // Return null if there are no featured destinations
-  if (featuredDestinations.length === 0 || !featuredDestinations) {
+  if (!featuredDestinations || featuredDestinations.length === 0) {
     return null;
   }
+
+  // Limit to top 5 destinations for better performance
+  const topDestinations = useMemo(() => 
+    featuredDestinations.slice(0, 5), 
+    [featuredDestinations]
+  );
 
   return (
     <motion.section
@@ -40,13 +46,13 @@ const DiscoverPoster: React.FC<DiscoverPosterProps> = ({
     >
       {/* @ts-ignore */}
       <Carousel
-        autoplay={featuredDestinations.length > 1}
+        autoplay={topDestinations.length > 1}
         autoplayDelay={5000}
         transition={{ duration: 2 }}
         loop
         className="h-full"
       >
-        {featuredDestinations.map((destination) => (
+        {topDestinations.map((destination) => (
           <motion.div
             className="poster px-sect relative flex h-full w-screen cursor-pointer flex-col gap-0 pb-sect-short lg:pb-sect-default"
             key={destination._id}
@@ -128,4 +134,4 @@ const DiscoverPoster: React.FC<DiscoverPosterProps> = ({
   );
 };
 
-export default DiscoverPoster;
+export default memo(DiscoverPoster);

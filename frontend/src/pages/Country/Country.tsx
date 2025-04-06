@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, memo, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +8,7 @@ import {
   setLoading,
   setError,
 } from "src/store/slices/countrySlice";
+import { setPageLoading } from "src/store/slices/loadingSlice";
 import useFetch from "src/hooks/useFetch/useFetch";
 
 // Components
@@ -21,7 +22,6 @@ import CountryHero from "src/pages/Country/Components/Hero/CountryHero";
 import NotFoundPage from "src/pages/404/404";
 
 // Utilities
-import config from "src/config/config";
 import { VisibilityVariants } from "src/utils/constants/variants";
 import useStackedSections from "src/hooks/useStackedSections/useStackedSections";
 import { selectIsDarkMode } from "src/store/slices/themeSlice";
@@ -43,28 +43,59 @@ const CountryPage: React.FC = () => {
     (state: RootState) => state.country,
   );
 
-  // Fetch country data
+  // Fetch country data with optimized parameters
   const {
     data: countryData,
     isLoading: fetchLoading,
     error: fetchError,
-  } = useFetch(
-    "countries",
+    isSuccess: fetchSuccess,
+  } = useFetch<Country>(
+    `country-${id}`,
     `/api/countries/${id}`,
+    "country",
+    {
+      staleTime: 5 * 60 * 1000, // 5 minutes cache
+      cacheTime: 30 * 60 * 1000, // 30 minutes
+    }
   );
 
+  // Update global loading state
+  useEffect(() => {
+    if (fetchSuccess) {
+      dispatch(setPageLoading({ page: 'country', isLoading: false }));
+    }
+    
+    return () => {
+      // Reset loading state when component unmounts
+      dispatch(setPageLoading({ page: 'country', isLoading: true }));
+    };
+  }, [fetchSuccess, dispatch]);
+
+  // Update Redux store with fetched data
   useEffect(() => {
     dispatch(setLoading(fetchLoading));
     if (fetchError) {
       dispatch(setError("Error fetching country data"));
-    } else {
+    } else if (countryData) {
       dispatch(setError(null));
-      dispatch(setCurrentCountry(countryData as Country));
+      dispatch(setCurrentCountry(countryData));
     }
   }, [dispatch, fetchLoading, fetchError, countryData]);
 
   // Handle sticky sections top value
   const { refs: stackedRefs, setRef } = useStackedSections();
+
+  // Memoize the country map image source for better performance
+  const mapImageSrc = useMemo(() => {
+    if (!currentCountry?.images?.mapImages) return "";
+    return isDarkMode
+      ? (currentCountry.images.mapImages?.filter((image) =>
+          image.includes("dark"),
+        )[0] ?? "")
+      : (currentCountry.images.mapImages?.filter(
+          (image) => !image.includes("dark"),
+        )[0] ?? "");
+  }, [currentCountry?.images?.mapImages, isDarkMode]);
 
   // Render loading state
   if (loading) {
@@ -97,15 +128,7 @@ const CountryPage: React.FC = () => {
           className="sticky right-0 top-0 z-0 ml-auto h-screen w-full rounded-2xl to-gray lg:w-2/3"
         >
           <OptimizedImage
-            src={
-              isDarkMode
-                ? (currentCountry.images.mapImages?.filter((image) =>
-                    image.includes("dark"),
-                  )[0] ?? "")
-                : (currentCountry.images.mapImages?.filter(
-                    (image) => !image.includes("dark"),
-                  )[0] ?? "")
-            }
+            src={mapImageSrc}
             alt={`${currentCountry.name} map`}
             className="h-full w-full rounded-2xl"
             imageClassName="rounded-2xl"
@@ -159,4 +182,4 @@ const CountryPage: React.FC = () => {
   );
 };
 
-export default CountryPage;
+export default memo(CountryPage);

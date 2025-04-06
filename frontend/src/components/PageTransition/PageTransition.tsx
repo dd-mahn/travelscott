@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import airplane1 from "src/assets/svg/airplane-1.svg";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { selectIsDarkMode } from "src/store/slices/themeSlice";
+import { RootState } from "src/store/store";
+import { setPageLoading } from "src/store/slices/loadingSlice";
 
 interface PageTransitionProps {
   children: React.ReactNode;
@@ -12,41 +14,92 @@ interface PageTransitionProps {
 const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
   const location = useLocation();
   const isDarkMode = useSelector(selectIsDarkMode);
-  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
+  const [forceRender, setForceRender] = useState(false);
+  
+  // Get current page from location pathname
+  const rawPath = location.pathname.split('/')[1] || 'home';
+  
+  // Map the path segment to an actual page name
+  const getPageName = (path: string, nestedPath?: string): string => {
+    if (path === 'discover') {
+      if (nestedPath === 'countries') return 'country';
+      if (nestedPath === 'destinations') return 'destination';
+      return 'discover';
+    }
+    if (path === 'inspiration' && nestedPath) {
+      return 'article';
+    }
+    return path;
+  };
+  
+  const nestedPath = location.pathname.split('/')[2];
+  const currentPage = getPageName(rawPath, nestedPath);
+  
+  // Debug loading state info
+  const loadingState = useSelector((state: RootState) => ({
+    pageLoading: state.loading.pageLoading,
+    requestLoading: state.loading.requestLoading,
+    activeRequests: state.loading.activeRequests,
+    lastUpdated: state.loading.lastUpdated
+  }));
+  
+  // Use the loading state from Redux
+  const isLoading = useSelector((state: RootState) => {
+    return state.loading.pageLoading[currentPage] || false;
+  });
 
+  // Log page and loading info for debugging
   useEffect(() => {
-    console.log("Location changed:", location.key);
-    console.log(`loader-${location.pathname}-${location.key}`);
-    console.log(`page-${location.pathname}-${location.key}`);
-    // Start transition on location change
-    setIsLoading(true);
+    console.log(`Page transition for ${currentPage} (path: ${location.pathname})`);
+    console.log(`Current loading state: ${isLoading}`);
+    console.log('Loading details:', loadingState);
+  }, [currentPage, isLoading, location.pathname, loadingState]);
 
-    // End transition after delay
-    const timeout = setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
+  // Safety mechanism to prevent infinite loading
+  useEffect(() => {
+    // Reset force render state on location change
+    setForceRender(false);
+    
+    let timeoutId: NodeJS.Timeout;
+    
+    // Set a timeout to force loading to complete after 5 seconds
+    if (isLoading) {
+      timeoutId = setTimeout(() => {
+        console.warn(`Loading timeout for page ${currentPage} - forcing render`);
+        dispatch(setPageLoading({ page: currentPage, isLoading: false }));
+        setForceRender(true);
+      }, 5000);
+    }
+    
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+    };
+  }, [currentPage, isLoading, dispatch, location.pathname]);
 
-    return () => clearTimeout(timeout);
-  }, [location.key]);
+  // Determine if we should show loading screen considering both states
+  const shouldShowLoading = isLoading && !forceRender;
 
   return (
     <AnimatePresence mode="wait" initial={false}>
-      {isLoading ? (
+      {shouldShowLoading ? (
         <motion.div
           key={`loader-${location.pathname}-${location.key}`}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
-          onAnimationComplete={() => console.log("Animation complete")}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.8 }}
+          transition={{ duration: 0.3, staggerChildren: 0.3 }}
           className={`flex h-screen w-screen items-center justify-center ${
             isDarkMode ? "bg-background-dark" : "bg-background-light"
           }`}
         >
-          <img
+          <motion.img
             src={airplane1}
+            initial={{scale: 0}}
+            animate={{scale: 1}}
+            transition={{duration: 0.5, ease: "easeInOut"}}
             alt="airplane"
-            className="h-16 w-16 animate-bounce"
+            className="h-20 w-20 animate-bounce"
           />
         </motion.div>
       ) : (
@@ -63,7 +116,6 @@ const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
             filter: "blur(8px)",
             transition: { duration: 0.3, ease: "easeInOut" },
           }}
-          onAnimationComplete={() => console.log("Animation complete")}
           className={`${isDarkMode ? "bg-background-dark" : "bg-background-light"}`}
         >
           {children}

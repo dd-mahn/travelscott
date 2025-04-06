@@ -175,7 +175,6 @@ const BlogComponent: React.FC<{
 // StarterBlogs: Main component to render all blog cards
 const StarterBlogs: React.FC<StarterBlogsProps> = React.memo(({ blogs }) => {
   const dispatch = useDispatch();
-  const { starterBlogs } = useSelector((state: RootState) => state.blog);
   const [positions, dispatchPositions] = useReducer(positionReducer, {});
   const [maxZIndex, setMaxZIndex] = useState(1);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -298,13 +297,10 @@ const StarterBlogs: React.FC<StarterBlogsProps> = React.memo(({ blogs }) => {
     [positions],
   );
 
-  // Filter blogs based on category and image availability
+  // Log for debugging
   useEffect(() => {
-    const filteredBlogs = blogs.filter(
-      (blog) => blog.category === "FirstTimeAbroad" && blog.image,
-    );
-    dispatch(setStarterBlogs(filteredBlogs));
-  }, [blogs, dispatch]);
+    console.log("StarterBlogs rendering with:", blogs.length, "blogs");
+  }, [blogs]);
 
   return (
     <motion.div
@@ -316,7 +312,7 @@ const StarterBlogs: React.FC<StarterBlogsProps> = React.memo(({ blogs }) => {
       transition={{ staggerChildren: 0.2 }}
       className="relative h-full w-full"
     >
-      {starterBlogs.map((blog) => (
+      {blogs.map((blog) => (
         <BlogComponent
           key={blog.title}
           blog={blog}

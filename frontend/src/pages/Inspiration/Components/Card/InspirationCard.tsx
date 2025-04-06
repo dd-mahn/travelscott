@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { formatDate } from "src/utils/formatDate";
@@ -21,8 +21,17 @@ interface InspirationCardProps {
   blog: Blog;
 }
 
-const InspirationCard: React.FC<InspirationCardProps> = ({ blog }) => {
-  const blogLink = `/inspiration/${blog._id}`;
+const InspirationCard: React.FC<InspirationCardProps> = memo(({ blog }) => {
+  // Memoize the blog link to prevent unnecessary calculations
+  const blogLink = useMemo(() => `/inspiration/${blog._id}`, [blog._id]);
+  
+  // Get the first paragraph of content with fallback
+  const contentPreview = useMemo(() => {
+    return blog.content?.[0]?.sectionText?.[0] || "No content preview available";
+  }, [blog.content]);
+  
+  // Format the date once
+  const formattedDate = useMemo(() => formatDate(blog.time), [blog.time]);
 
   return (
     <motion.div
@@ -46,6 +55,7 @@ const InspirationCard: React.FC<InspirationCardProps> = ({ blog }) => {
           alt={blog.title}
           className="h-full w-full rounded-xl"
           imageClassName="cursor-hover rounded-xl"
+          loading="lazy"
         />
       </Link>
 
@@ -66,15 +76,15 @@ const InspirationCard: React.FC<InspirationCardProps> = ({ blog }) => {
 
       {/* Blog Content Preview */}
       <p className="p-regular line-clamp-3 md:line-clamp-none md:w-3/4">
-        {blog.content?.[0]?.sectionText?.[0]}
+        {contentPreview}
       </p>
 
       {/* Blog Publish Time */}
       <span className="span-regular flex items-center gap-1 md:gap-3">
-        <i className="ri-time-line p-medium"></i> {formatDate(blog.time)}
+        <i className="ri-time-line p-medium"></i> {formattedDate}
       </span>
     </motion.div>
   );
-}
+});
 
 export default InspirationCard;

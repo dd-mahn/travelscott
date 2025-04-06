@@ -108,7 +108,7 @@ const RelatedSections: React.FC<{
     default:
       return (
         <div className="px-sect w-full">
-          <p className="h3-md mt-4">Nothing related at the moment.</p>
+          <p className="p-medium mt-4">Nothing related at the moment.</p>
         </div>
       );
   }
@@ -123,6 +123,11 @@ const RelatedCountries: React.FC<{ country: Country }> = ({ country }) => {
   } = useFetch<FetchCountriesType>(
     "countries",
     `/api/countries?continent=${country.continent}`,
+    "country",
+    {
+      staleTime: 5 * 60 * 1000, // 5 minutes cache
+      cacheTime: 30 * 60 * 1000, // 30 minutes
+    }
   );
 
   // Filter out the current country from the related countries
@@ -139,7 +144,7 @@ const RelatedCountries: React.FC<{ country: Country }> = ({ country }) => {
   ) {
     return (
       <div className="">
-        <p className="h3-md mt-4">
+        <p className="p-medium mt-4 ">
           There are no related countries at the moment.
         </p>
       </div>
@@ -174,19 +179,29 @@ const RelatedDestinations: React.FC<{ destination: Destination }> = ({
     error: destinationsError,
     isLoading: destinationsLoading,
   } = useFetch<FetchDestinationType>(
-    "destinations",
-    `/api/destinations?limit=100`,
+    "related-destinations",
+    `/api/destinations?limit=10&continent=${destination.continent}`,
+    "destination",
+    {
+      staleTime: 5 * 60 * 1000, // 5 minutes
+      cacheTime: 30 * 60 * 1000, // 30 minutes
+    }
   );
 
   // Filter out the current destination from the related destinations
   const relatedDestinations = useMemo(() => {
     if (!destinationsData?.result) return [];
-    return destinationsData.result.filter(
+    
+    // Get destinations with same continent or tags, excluding current destination
+    const filtered = destinationsData.result.filter(
       (d) =>
         (d.continent === destination.continent ||
           d.tags.some((tag) => destination.tags.includes(tag))) &&
         d._id !== destination._id,
     );
+    
+    // Limit to 10 destinations for better performance
+    return filtered.slice(0, 10);
   }, [destinationsData, destination]);
 
   if (
@@ -196,8 +211,8 @@ const RelatedDestinations: React.FC<{ destination: Destination }> = ({
     relatedDestinations.length === 0
   ) {
     return (
-      <div className="px-sect grid place-items-center">
-        <p className="h3-md mt-4">
+      <div className="px-sect w-screen grid place-items-center">
+        <p className="p-medium mt-4">
           There are no related destinations at the moment.
         </p>
       </div>
@@ -233,7 +248,12 @@ const RelatedArticles: React.FC<{
     isLoading: blogLoading,
   } = useFetch<FetchBlogsType>(
     "blogs",
-    `/api/blogs?limit=100`,
+    `/api/blogs?limit=20`,
+    "blog",
+    {
+      staleTime: 5 * 60 * 1000, // 5 minutes cache
+      cacheTime: 30 * 60 * 1000, // 30 minutes
+    }
   );
 
   // Filter related blogs based on the type of data
@@ -263,7 +283,7 @@ const RelatedArticles: React.FC<{
 
   if (blogLoading || blogError || !relatedBlogs || relatedBlogs.length === 0) {
     return (
-      <div className="h3-md mt-4">
+      <div className="p-medium mt-4 text-center">
         There are no related articles at the moment.
       </div>
     );

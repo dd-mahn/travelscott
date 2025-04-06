@@ -12,7 +12,9 @@ const Discover = lazy(() => import("src/pages/Discover/Discover"));
 const Country = lazy(() => import("src/pages/Country/Country"));
 const Destination = lazy(() => import("src/pages/Destination/Destination"));
 const Article = lazy(() => import("src/pages/Article/Article"));
-const PrivacyPolicy = lazy(() => import("src/pages/PrivacyPolicy/PrivacyPolicy"));
+const PrivacyPolicy = lazy(
+  () => import("src/pages/PrivacyPolicy/PrivacyPolicy"),
+);
 
 // Define routes
 const routes = [
@@ -22,75 +24,39 @@ const routes = [
     children: [
       {
         path: "/",
-        element: (
-          <Suspense fallback={<Loading />}>
-            <Home />
-          </Suspense>
-        ),
+        element: <Home />,
       },
       {
         path: "/about",
-        element: (
-          <Suspense fallback={<Loading />}>
-            <About />
-          </Suspense>
-        ),
+        element: <About />,
       },
       {
         path: "/contact",
-        element: (
-          <Suspense fallback={<Loading />}>
-            <Contact />
-          </Suspense>
-        ),
+        element: <Contact />,
       },
       {
         path: "/discover",
-        element: (
-          <Suspense fallback={<Loading />}>
-            <Discover />
-          </Suspense>
-        ),
+        element: <Discover />,
       },
       {
         path: "/discover/countries/:id",
-        element: (
-          <Suspense fallback={<Loading />}>
-            <Country />
-          </Suspense>
-        ),
+        element: <Country />,
       },
       {
         path: "/discover/destinations/:id",
-        element: (
-          <Suspense fallback={<Loading />}>
-            <Destination />
-          </Suspense>
-        ),
+        element: <Destination />,
       },
       {
         path: "/inspiration",
-        element: (
-          <Suspense fallback={<Loading />}>
-            <Inspiration />
-          </Suspense>
-        ),
+        element: <Inspiration />,
       },
       {
         path: "/inspiration/:id",
-        element: (
-          <Suspense fallback={<Loading />}>
-            <Article />
-          </Suspense>
-        ),
+        element: <Article />,
       },
       {
         path: "/privacy",
-        element: (
-          <Suspense fallback={<Loading />}>
-            <PrivacyPolicy />
-          </Suspense>
-        ),
+        element: <PrivacyPolicy />,
       },
     ],
   },
