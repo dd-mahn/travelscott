@@ -19,6 +19,7 @@ import {
 import FilterButton from "src/common/Filters/FilterButton";
 import DestinationCatalog from "src/common/Catalogs/DestinationCatalog";
 import { useViewportWidth } from "src/hooks/useViewportWidth/useViewportWidth";
+import { startRequest, endRequest } from "src/store/slices/loadingSlice";
 
 // Define animation variants
 const variants = {
@@ -77,6 +78,19 @@ const DiscoverDestinations: React.FC = () => {
     destinationSearchQuery,
   ]);
 
+  // Generate a unique key for filtering
+  const filterKey = useMemo(
+    () =>
+      `${currentPage}-${tags.join(",")}-${computedCountries.join(",")}-${computedContinents.join(",")}-${destinationSearchQuery}`,
+    [
+      currentPage,
+      tags,
+      computedCountries,
+      computedContinents,
+      destinationSearchQuery,
+    ],
+  );
+
   // Fetch destination data with optimized parameters
   const {
     data: destinationData,
@@ -106,6 +120,23 @@ const DiscoverDestinations: React.FC = () => {
     }
   }, [destinationData, destinationLoading, destinationError, dispatch]);
 
+  // Handle filter changes with content-only loading
+  useEffect(() => {
+    if (destinationFetching) {
+      dispatch(startRequest({ 
+        page: 'discover', 
+        requestId: `discover-destinations-${filterKey}`,
+        isContentOnly: true 
+      }));
+    } else {
+      dispatch(endRequest({ 
+        page: 'discover', 
+        requestId: `discover-destinations-${filterKey}`,
+        isContentOnly: true 
+      }));
+    }
+  }, [destinationFetching, filterKey, dispatch]);
+
   // Handle page change
   const handlePageChange = useCallback((newPage: number) => {
     setCurrentPage(newPage);
@@ -117,24 +148,11 @@ const DiscoverDestinations: React.FC = () => {
     }
   }, []);
 
-  // Generate a unique key for filtering
-  const filterKey = useMemo(
-    () =>
-      `${currentPage}-${tags.join(",")}-${computedCountries.join(",")}-${computedContinents.join(",")}-${destinationSearchQuery}`,
-    [
-      currentPage,
-      tags,
-      computedCountries,
-      computedContinents,
-      destinationSearchQuery,
-    ],
-  );
-
   // Determine if catalog should show loading state - only for navigation
   const showCatalogLoading = useMemo(() => {
-    // Show loading only for initial page load
-    return loading;
-  }, [loading]);
+    // Show loading only for initial page load or content updates
+    return loading || destinationFetching;
+  }, [loading, destinationFetching]);
 
   // Prefetch next page if needed
   useEffect(() => {

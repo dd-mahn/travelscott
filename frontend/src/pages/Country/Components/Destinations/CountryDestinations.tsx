@@ -20,6 +20,7 @@ import {
 import FilterButton from "src/common/Filters/FilterButton";
 import DestinationCatalog from "src/common/Catalogs/DestinationCatalog";
 import { useViewportWidth } from "src/hooks/useViewportWidth/useViewportWidth";
+import { startRequest, endRequest } from "src/store/slices/loadingSlice";
 
 interface CountryDestinationsProps {
   country: Country;
@@ -48,6 +49,12 @@ const CountryDestinations: React.FC<CountryDestinationsProps> = memo(({ country 
   // Extracting necessary state from Redux store
   const { tags, searchQuery } = useSelector((state: RootState) => state.filter.destination);
   const { destinations, totalDestinations, loading, error } = useSelector((state: RootState) => state.destination);
+
+  // Unique key for filtering - moved up before it's used
+  const filterKey = useMemo(() => 
+    `${currentPage}-${tags.join(",")}-${country.name}-${searchQuery}`,
+    [currentPage, tags, country.name, searchQuery]
+  );
 
   // Constructing the URL for fetching destinations
   const url = useMemo(() => {
@@ -89,6 +96,23 @@ const CountryDestinations: React.FC<CountryDestinationsProps> = memo(({ country 
     }
   }, [destinationData, destinationLoading, destinationError, dispatch]);
 
+  // Handle filter changes with content-only loading
+  useEffect(() => {
+    if (destinationFetching) {
+      dispatch(startRequest({ 
+        page: 'country', 
+        requestId: `country-destinations-${filterKey}`,
+        isContentOnly: true 
+      }));
+    } else {
+      dispatch(endRequest({ 
+        page: 'country', 
+        requestId: `country-destinations-${filterKey}`,
+        isContentOnly: true 
+      }));
+    }
+  }, [destinationFetching, filterKey, dispatch]);
+
   // Handling page change
   const handlePageChange = useCallback((newPage: number) => {
     setCurrentPage(newPage);
@@ -97,17 +121,11 @@ const CountryDestinations: React.FC<CountryDestinationsProps> = memo(({ country 
     window.scrollTo({ top: window.scrollY - 200, behavior: 'smooth' });
   }, []);
 
-  // Determine if catalog should show loading state - only for navigation
+  // Determine if catalog should show loading state
   const showCatalogLoading = useMemo(() => {
-    // Show loading only for initial page load
-    return loading;
-  }, [loading]);
-
-  // Unique key for filtering
-  const filterKey = useMemo(() => 
-    `${currentPage}-${tags.join(",")}-${country.name}-${searchQuery}`,
-    [currentPage, tags, country.name, searchQuery]
-  );
+    // Show loading for both initial page load and content updates
+    return loading || destinationFetching;
+  }, [loading, destinationFetching]);
 
   // Prefetch next page if needed
   useEffect(() => {

@@ -49,12 +49,17 @@ const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
     return state.loading.pageLoading[currentPage] || false;
   });
 
+  // Get content loading state
+  const isContentLoading = useSelector((state: RootState) => {
+    return state.loading.isContentLoading[currentPage] || false;
+  });
+
   // Log page and loading info for debugging
   useEffect(() => {
     console.log(`Page transition for ${currentPage} (path: ${location.pathname})`);
-    console.log(`Current loading state: ${isLoading}`);
+    console.log(`Page loading: ${isLoading}, Content loading: ${isContentLoading}`);
     console.log('Loading details:', loadingState);
-  }, [currentPage, isLoading, location.pathname, loadingState]);
+  }, [currentPage, isLoading, isContentLoading, location.pathname, loadingState]);
 
   // Safety mechanism to prevent infinite loading
   useEffect(() => {
@@ -64,7 +69,7 @@ const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
     let timeoutId: NodeJS.Timeout;
     
     // Set a timeout to force loading to complete after 5 seconds
-    if (isLoading) {
+    if (isLoading && !isContentLoading) {
       timeoutId = setTimeout(() => {
         console.warn(`Loading timeout for page ${currentPage} - forcing render`);
         dispatch(setPageLoading({ page: currentPage, isLoading: false }));
@@ -75,10 +80,10 @@ const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
     return () => {
       if (timeoutId) clearTimeout(timeoutId);
     };
-  }, [currentPage, isLoading, dispatch, location.pathname]);
+  }, [currentPage, isLoading, isContentLoading, dispatch, location.pathname]);
 
-  // Determine if we should show loading screen considering both states
-  const shouldShowLoading = isLoading && !forceRender;
+  // Determine if we should show loading screen - only for page loading, not content loading
+  const shouldShowLoading = isLoading && !isContentLoading && !forceRender;
 
   return (
     <AnimatePresence mode="wait" initial={false}>

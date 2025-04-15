@@ -20,6 +20,11 @@ interface LoadingState {
     [key: string]: boolean;
   };
   
+  // Flag to indicate if the loading is just for content/filters
+  isContentLoading: {
+    [key: string]: boolean;
+  };
+  
   // Count of active requests for each page
   activeRequests: {
     [key: string]: number;
@@ -42,6 +47,7 @@ const initialState: LoadingState = {
     inspiration: true,
   },
   requestLoading: {},
+  isContentLoading: {},
   activeRequests: {},
   lastUpdated: {}
 };
@@ -67,8 +73,8 @@ const loadingSlice = createSlice({
       }
     },
     
-    startRequest: (state, action: PayloadAction<{page: string, requestId: string}>) => {
-      const { page, requestId } = action.payload;
+    startRequest: (state, action: PayloadAction<{page: string, requestId: string, isContentOnly?: boolean}>) => {
+      const { page, requestId, isContentOnly = false } = action.payload;
       
       // Set request-specific loading state
       state.requestLoading[requestId] = true;
@@ -76,33 +82,36 @@ const loadingSlice = createSlice({
       // Increment active request count for the page
       state.activeRequests[page] = (state.activeRequests[page] || 0) + 1;
       
-      // Update page loading state
-      state.pageLoading[page] = true;
+      // Only set page loading if it's not a content-only request
+      if (!isContentOnly) {
+        state.pageLoading[page] = true;
+      } else {
+        state.isContentLoading[page] = true;
+      }
       
       // Record the timestamp
       state.lastUpdated[page] = Date.now();
     },
     
-    finishRequest: (state, action: PayloadAction<{page: string, requestId: string}>) => {
-      const { page, requestId } = action.payload;
+    endRequest: (state, action: PayloadAction<{page: string, requestId: string, isContentOnly?: boolean}>) => {
+      const { page, requestId, isContentOnly = false } = action.payload;
       
-      // Update request-specific loading state
-      state.requestLoading[requestId] = false;
+      // Clear request-specific loading state
+      delete state.requestLoading[requestId];
       
-      // Decrement active request count for the page
-      if (state.activeRequests[page]) {
-        state.activeRequests[page] = Math.max(0, state.activeRequests[page] - 1);
-        
-        // If no active requests for the page, update page loading state
-        if (state.activeRequests[page] === 0) {
+      // Decrement active request count
+      state.activeRequests[page] = Math.max(0, (state.activeRequests[page] || 1) - 1);
+      
+      // Only clear page loading if no active requests remain
+      if (state.activeRequests[page] === 0) {
+        if (!isContentOnly) {
           state.pageLoading[page] = false;
-          state.lastUpdated[page] = Date.now();
         }
-      } else {
-        // If somehow we have no active requests tracked, just set to not loading
-        state.pageLoading[page] = false;
-        state.lastUpdated[page] = Date.now();
+        state.isContentLoading[page] = false;
       }
+      
+      // Record the timestamp
+      state.lastUpdated[page] = Date.now();
     },
     
     // New reducer to check for and reset stuck loading states
@@ -130,7 +139,7 @@ export const {
   setAppLoading,
   setPageLoading,
   startRequest,
-  finishRequest,
+  endRequest,
   resetStuckLoadingStates
 } = loadingSlice.actions;
 

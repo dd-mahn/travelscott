@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { ApiResponse } from "src/types/ApiResponse";
 import { useDispatch } from "react-redux";
-import { startRequest, finishRequest } from "src/store/slices/loadingSlice";
+import { startRequest, endRequest } from "src/store/slices/loadingSlice";
 import { useEffect } from "react";
 
 /**
@@ -61,7 +61,7 @@ const useFetch = <T>(
     } else {
       // Small delay to ensure smooth transitions
       const timeout = setTimeout(() => {
-        dispatch(finishRequest({ page, requestId }));
+        dispatch(endRequest({ page, requestId }));
       }, 200);
       
       return () => clearTimeout(timeout);

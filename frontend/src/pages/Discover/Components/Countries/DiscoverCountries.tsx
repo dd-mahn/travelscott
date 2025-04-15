@@ -1,8 +1,9 @@
-import React, { memo, useCallback, useMemo, useState } from "react";
+import React, { memo, useCallback, useMemo, useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Select, Option } from "@material-tailwind/react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "src/store/store";
+import { startRequest, endRequest } from "src/store/slices/loadingSlice";
 
 // Component imports
 import CountryCard from "src/common/Cards/CountryCard";
@@ -37,6 +38,7 @@ const DiscoverCountries: React.FC = () => {
   // Redux selectors
   const { continents } = useSelector((state: RootState) => state.continent);
   const { loading, error } = useSelector((state: RootState) => state.country);
+  const dispatch = useDispatch();
 
   // State hooks for selected continent name
   const [selectedContinentName, setSelectedContinentName] =
@@ -97,6 +99,23 @@ const DiscoverCountries: React.FC = () => {
       </motion.div>
     ));
   }, [selectedContinent, variants]);
+
+  // Start request with content-only flag for filter changes
+  useEffect(() => {
+    if (loading) {
+      dispatch(startRequest({ 
+        page: 'discover', 
+        requestId: `discover-countries-${filterKey}`,
+        isContentOnly: true 
+      }));
+    } else {
+      dispatch(endRequest({ 
+        page: 'discover', 
+        requestId: `discover-countries-${filterKey}`,
+        isContentOnly: true 
+      }));
+    }
+  }, [loading, filterKey, dispatch]);
 
   // Render logic
   return (

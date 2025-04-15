@@ -92,6 +92,24 @@ const LoadingDebugger: React.FC = () => {
         </div>
       </div>
       
+      {/* Content loading states */}
+      <div className={debuggerStyles.section}>
+        <h4 className={debuggerStyles.sectionTitle}>Content Loading States</h4>
+        <div className={debuggerStyles.list}>
+          {Object.entries(loading.isContentLoading).map(([page, isLoading]) => (
+            <div key={page} className={debuggerStyles.item}>
+              <span>{page}</span>
+              <span className={isLoading ? debuggerStyles.loading : debuggerStyles.notLoading}>
+                {isLoading ? 'Updating Content' : 'Content Ready'}
+                <span className={debuggerStyles.timestamp}>
+                  {' '}({formatTimestamp(loading.lastUpdated[page])})
+                </span>
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+      
       {/* Active requests */}
       <div className={debuggerStyles.section}>
         <h4 className={debuggerStyles.sectionTitle}>Active Requests</h4>

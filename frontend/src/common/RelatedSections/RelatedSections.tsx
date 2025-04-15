@@ -371,11 +371,6 @@ const BlogCard: React.FC<{ blog: Blog }> = ({ blog }) => {
     <Link
       to={`/inspiration/${blog._id}`}
       className="cursor-hover image-suspense relative block h-[25svh] w-full cursor-pointer rounded-lg border-background-light md:h-[30svh] lg:h-[35svh] 2xl:h-[30svh]"
-      style={{
-        backgroundImage: `url(${imageSrc})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
     >
       <OptimizedImage
         src={imageSrc}
