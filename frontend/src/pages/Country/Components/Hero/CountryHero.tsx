@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import Country from "src/types/Country";
 import { VisibilityVariants } from "src/utils/constants/variants";
 import { Carousel } from "@material-tailwind/react";
-import OptimizedImage from "src/common/OptimizedImage/OptimizedImage";
 
 // Define motion variants for animations
 const variants = {
@@ -17,10 +16,10 @@ const CountryHero = memo(({ country }: { country: Country }) => {
   const carouselImages = useMemo(() => {
     return country.images.otherImages?.map((image, index) => (
       <div className="image-suspense h-full w-svw" key={index}>
-        <OptimizedImage
+        <motion.img
           src={image}
           alt={`${country.name} image`}
-          className="h-full w-full"
+          className="h-full w-full object-cover"
         />
       </div>
     ));
@@ -68,7 +67,7 @@ const CountryHero = memo(({ country }: { country: Country }) => {
           variants={variants}
           transition={{ duration: 0.5, delay: 1 }}
           src={country.images.flagImages?.[0]}
-          className="w-1/4 rounded-lg md:w-1/6 md:rounded-xl"
+          className="w-1/4 rounded-lg md:w-1/6 md:rounded-xl object-cover"
           alt={`${country.name} flag`}
           loading="eager" // Prioritize flag loading
         />

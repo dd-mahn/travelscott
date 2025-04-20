@@ -3,7 +3,6 @@ import { Carousel } from "@material-tailwind/react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Destination from "src/types/Destination";
-import OptimizedImage from "src/common/OptimizedImage/OptimizedImage";
 import {
   HoverVariants,
   VisibilityVariants,
@@ -61,8 +60,7 @@ const DiscoverPoster: React.FC<DiscoverPosterProps> = ({
               to={`destinations/${destination._id}`}
               className="image-suspense absolute left-0 top-0 h-full w-full overflow-hidden poster-image-layer"
             >
-              <OptimizedImage
-                lazy={false}
+              <motion.img
                 whileHover="hoverScale"
                 transition={{ duration: 0.4 }}
                 variants={variants}
@@ -73,8 +71,7 @@ const DiscoverPoster: React.FC<DiscoverPosterProps> = ({
                       : destination.images[0] || ""
                     : ""
                 }
-                className="z-0 h-full w-full"
-                imageClassName="cursor-hover brightness-75"
+                className="z-0 h-full w-full cursor-hover brightness-75"
                 alt={`Featured destination: ${destination.name}`}
               />
             </Link>

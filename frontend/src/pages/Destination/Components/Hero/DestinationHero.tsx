@@ -1,7 +1,6 @@
 import React, { memo, useMemo } from "react";
 import { Carousel } from "@material-tailwind/react";
 import Destination from "src/types/Destination";
-import OptimizedImage from "src/common/OptimizedImage/OptimizedImage";
 import { motion } from "framer-motion";
 import {
   HoverVariants,
@@ -51,10 +50,10 @@ const DestinationHero: React.FC<DestinationHeroProps> = memo(({ destination }) =
         className="image-suspense grid h-full w-full place-items-center overflow-hidden"
         key={index}
       >
-        <OptimizedImage
+        <motion.img
           src={image}
           alt={destination.name}
-          className="h-full w-full"
+          className="h-full w-full object-cover"
         />
       </div>
     ));
