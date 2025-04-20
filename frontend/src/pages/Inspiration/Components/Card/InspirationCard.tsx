@@ -40,12 +40,12 @@ const InspirationCard: React.FC<InspirationCardProps> = memo(({ blog }) => {
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: 0.2 }}
       variants={variants}
-      className="flex flex-col gap-3 lg:gap-2 2xl:gap-4"
+      className="flex flex-col gap-3 lg:gap-2 2xl:gap-4 blog-card-layer"
     >
       {/* Blog Image Link */}
       <Link
         to={blogLink}
-        className="image-suspense h-[30svh] w-full overflow-hidden rounded-xl shadow-section dark:shadow-section-dark md:h-[50svh]"
+        className="image-suspense h-[30svh] w-full overflow-hidden rounded-xl shadow-section dark:shadow-section-dark md:h-[50svh] blog-card-layer-md"
       >
         <OptimizedImage
           whileHover="hoverScale"

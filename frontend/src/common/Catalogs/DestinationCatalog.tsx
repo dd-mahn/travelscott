@@ -83,13 +83,13 @@ const DestinationCatalog: React.FC<DestinationCatalogProps> = ({
                 transition={{
                   staggerChildren: 0.2,
                 }}
-                className="grid w-full grid-cols-2 items-start gap-x-4 gap-y-8 md:grid-cols-3 lg:gap-x-8 lg:gap-y-12"
+                className="grid w-full grid-cols-2 items-start gap-x-4 gap-y-8 md:grid-cols-3 lg:gap-x-8 lg:gap-y-12 destination-grid-layer"
               >
                 {destinations.map((destination) => (
                   <motion.div
                     variants={variants}
                     key={`destination-${destination._id}`}
-                    className="w-full"
+                    className="w-full country-card-layer"
                   >
                     <DestinationCard destination={destination} />
                   </motion.div>

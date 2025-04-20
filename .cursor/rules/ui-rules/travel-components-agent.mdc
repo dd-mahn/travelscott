@@ -1,0 +1,125 @@
+---
+description: This rule governs the creation and maintenance of UI components specific to travel websites. It should be applied when: (1) Creating new travel-related components, (2) Modifying existing travel UI patterns, (3) Implementing booking flows, or (4) Designing interactive maps and galleries. The rule ensures consistent user experience and accessibility across travel-specific features.
+globs: src/components/**/*.{tsx,css}
+alwaysApply: false
+---
+
+# Travel UI Components
+
+## Critical Rules
+
+- MUST implement consistent travel component patterns:
+  - Destination cards with standardized layout
+  - Search forms with typeahead
+  - Booking flow stepper
+  - Interactive maps with custom markers
+  - Image galleries with lazy loading
+- MUST follow accessibility guidelines:
+  - ARIA labels for interactive elements
+  - Keyboard navigation for booking flows
+  - Screen reader support for prices
+  - Color contrast for important information
+- MUST implement responsive designs:
+  - Mobile-first approach
+  - Touch-friendly controls for maps
+  - Adaptive image loading
+  - Collapsible navigation
+- MUST use Tailwind utility classes effectively:
+  - Custom travel-specific components
+  - Responsive breakpoints
+  - Dark mode support
+  - Animation classes
+- MUST implement loading states:
+  - Skeleton screens for destination cards
+  - Progressive image loading
+  - Map tile loading indicators
+  - Booking step transitions
+- MUST handle error states:
+  - Search with no results
+  - Failed bookings
+  - Network errors
+  - Invalid dates
+
+## Examples
+
+<example>
+  // Valid travel component implementation
+  import { useState, useEffect } from 'react';
+  import { motion } from 'framer-motion';
+  import Image from 'next/image';
+  
+  interface DestinationCardProps {
+    destination: Destination;
+    onSelect: (id: string) => void;
+    isLoading?: boolean;
+  }
+  
+  export function DestinationCard({ destination, onSelect, isLoading }: DestinationCardProps) {
+    if (isLoading) {
+      return (
+        <div className="animate-pulse bg-gray-100 rounded-lg p-4 space-y-4">
+          <div className="h-48 bg-gray-200 rounded-lg" />
+          <div className="h-4 bg-gray-200 rounded w-3/4" />
+          <div className="h-4 bg-gray-200 rounded w-1/2" />
+        </div>
+      );
+    }
+  
+    return (
+      <motion.article
+        whileHover={{ scale: 1.02 }}
+        className="group rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
+        onClick={() => onSelect(destination.id)}
+      >
+        <div className="relative h-48">
+          <Image
+            src={destination.image}
+            alt={destination.name}
+            layout="fill"
+            objectFit="cover"
+            placeholder="blur"
+            blurDataURL={destination.imageBlur}
+            className="group-hover:scale-105 transition-transform duration-300"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+        </div>
+        
+        <div className="p-4 space-y-2">
+          <h3 className="text-xl font-bold text-gray-900">{destination.name}</h3>
+          <p className="text-gray-600 line-clamp-2">{destination.description}</p>
+          <div className="flex items-center justify-between">
+            <span className="text-primary-600 font-semibold">
+              From {formatCurrency(destination.priceRange.min)}
+            </span>
+            <button
+              className="btn-primary"
+              onClick={() => onSelect(destination.id)}
+              aria-label={`View details for ${destination.name}`}
+            >
+              View Details
+            </button>
+          </div>
+        </div>
+      </motion.article>
+    );
+  }
+</example>
+
+<example type="invalid">
+  // Invalid travel component implementation
+  function BadDestinationCard({ data }) {
+    // ❌ No TypeScript props
+    // ❌ No loading state
+    // ❌ No error handling
+    // ❌ No accessibility
+    // ❌ No responsive design
+    return (
+      <div>
+        <img src={data.image} />
+        <h3>{data.name}</h3>
+        <p>{data.description}</p>
+        <button>Book Now</button>
+      </div>
+    );
+  }
+</example> 

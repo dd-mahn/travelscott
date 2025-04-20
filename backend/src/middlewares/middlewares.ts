@@ -22,7 +22,7 @@ const limiter = rateLimit({
 export const corsOptions = {
   origin: process.env.NODE_ENV === 'production' 
     ? ['https://travelscott.vercel.app', 'https://railway.app', 'healthcheck.railway.com']
-    : process.env.NODE_ENV === 'development' ? ['https://localhost:5173', 'https://localhost:4173'] : ['https://localhost:5173', 'https://localhost:4173'],
+    : '*', // Allow all origins in development
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
@@ -30,16 +30,19 @@ export const corsOptions = {
 };
 
 export const setupMiddleware = (app) => {
-  // Security middleware
-  app.use(helmet());
+  // Basic Helmet security headers first
+  app.use(helmet({
+    contentSecurityPolicy: false // Temporarily disable CSP
+  }));
   app.use(limiter);
+  
+  // CORS setup next
+  app.options('*', cors(corsOptions)); // Handle preflight requests
+  app.use(cors(corsOptions));
   
   // Request parsing middleware
   app.use(express.json({ limit: '10mb' }));
   app.use(express.urlencoded({ extended: true, limit: '10mb' }));
-  
-  // CORS setup
-  app.use(cors(corsOptions));
   
   app.use(cookieParser());
   
@@ -54,9 +57,11 @@ export const setupMiddleware = (app) => {
   app.use(errorHandler);
 
   app.disable('x-powered-by');
+  // Apply CSP after CORS if needed, with adjusted settings
   app.use(helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: ["'self'"],
+      connectSrc: ["'self'", "http://localhost:5173", "http://localhost:4173"],
       scriptSrc: ["'self'"],
       styleSrc: ["'self'", "'unsafe-inline'"],
       imgSrc: ["'self'", "data:", "https:"],

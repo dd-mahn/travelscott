@@ -87,7 +87,7 @@ export const InspirationFilter: React.FC<{ continentNames: string[] }> = memo(
           staggerChildren: 0.2,
           delayChildren: 0.5,
         }}
-        className="continent-filter flex w-full flex-row flex-wrap items-center justify-center gap-2 rounded-xl px-2 py-4 shadow-component dark:shadow-component-dark sm:px-4 md:px-4 lg:gap-3 lg:rounded-2xl lg:px-12 lg:py-6 2xl:gap-4 2xl:rounded-3xl 2xl:px-sect-short 2xl:py-8"
+        className="continent-filter flex w-full flex-row flex-wrap items-center justify-center gap-2 rounded-xl px-2 py-4 shadow-component dark:shadow-component-dark sm:px-4 md:px-4 lg:gap-3 lg:rounded-2xl lg:px-12 lg:py-6 2xl:gap-4 2xl:rounded-3xl 2xl:px-sect-short 2xl:py-8 filter-layer"
       >
         {continentNames.map((continent) => (
           <motion.button
@@ -101,7 +101,7 @@ export const InspirationFilter: React.FC<{ continentNames: string[] }> = memo(
               selectTags.includes(continent)
                 ? "bg-background-dark text-text-dark dark:bg-background-light dark:text-text-light"
                 : "bg-transparent text-text-light"
-            }`}
+            } filter-layer`}
           >
             {continent}
           </motion.button>

@@ -113,13 +113,13 @@ const AboutHero = () => {
         initial="hidden"
         animate="blob1Animation"
         variants={variants}
-        className="blur-blob blob-brown left-[10%] top-0 h-1/3 w-1/5 opacity-50"
+        className="blob-layer blur-blob blob-brown left-[10%] top-0 h-1/3 w-1/5 opacity-50"
       ></motion.div>
       <motion.div
         initial="hidden"
         animate="blob2Animation"
         variants={variants}
-        className="blur-blob blob-green right-1/3 top-[10%] h-[20%] w-1/3 opacity-50"
+        className="blob-layer blur-blob blob-green right-1/3 top-[10%] h-[20%] w-1/3 opacity-50"
       ></motion.div>
 
       {/* Hero Title */}
@@ -191,12 +191,16 @@ const AboutHero = () => {
         transition={{ duration: 0.8, delay: 1.4 }}
         className="relative h-[60svh] sm:h-[80svh] md:h-screen w-full mt-32 lg:mt-40 2xl:mt-sect-default"
       >
-        <motion.div ref={aboutVideoRef} style={{ scale }} className="absolute top-0 z-10 w-full h-full">
+        <motion.div 
+          ref={aboutVideoRef} 
+          style={{ scale }} 
+          className="hero-video-layer absolute top-0 z-10 w-full h-full"
+        >
           <BackgroundVideo
-          data-testid="about-hero-video"
-          src={heroVideo}
-          className="rounded-2xl object-cover shadow-section dark:shadow-section-dark"
-        />
+            data-testid="about-hero-video"
+            src={heroVideo}
+            className="rounded-2xl object-cover shadow-section dark:shadow-section-dark"
+          />
         </motion.div>
         
         <motion.h2
@@ -210,4 +214,4 @@ const AboutHero = () => {
   );
 };
 
-export default AboutHero;
+export default memo(AboutHero);

@@ -1,0 +1,111 @@
+---
+description: This rule governs the deployment process for the travel website. It should be applied when: (1) Preparing for production deployment, (2) Setting up staging environments, (3) Configuring CI/CD pipelines, or (4) Managing environment-specific settings. The rule ensures consistent and reliable deployments across different environments.
+globs: 
+alwaysApply: false
+---
+
+# Deployment Process
+
+## Critical Rules
+
+- MUST verify pre-deployment checklist:
+  - All tests passing
+  - Performance benchmarks met
+  - Environment variables configured
+  - API endpoints validated
+- MUST follow environment-specific procedures:
+  - Development: local testing
+  - Staging: integration testing
+  - Production: full validation
+- MUST handle database migrations:
+  - Backup before migration
+  - Validate schema changes
+  - Plan rollback strategy
+- MUST manage static assets:
+  - CDN configuration
+  - Cache invalidation
+  - Image optimization
+  - Map tile caching
+- MUST implement monitoring:
+  - Error tracking setup
+  - Performance monitoring
+  - User analytics
+  - Server health checks
+- MUST document deployment:
+  - Version changelog
+  - Configuration changes
+  - Environment updates
+  - Dependency updates
+
+## Examples
+
+<example>
+  // Valid deployment process
+  📋 Deployment Checklist
+  
+  1. Pre-deployment Validation
+     ✅ Run test suite
+     ```bash
+     npm run test:all
+     npm run e2e
+     ```
+     
+     ✅ Build verification
+     ```bash
+     npm run build
+     npm run analyze # Check bundle sizes
+     ```
+     
+     ✅ Environment setup
+     ```bash
+     # Verify environment variables
+     npx env-cmd -f .env.production verify
+     
+     # Check API endpoints
+     curl -I https://api.travelscott.com/health
+     ```
+  
+  2. Deployment Steps
+     ```bash
+     # Backup database
+     npm run db:backup
+     
+     # Run migrations
+     npm run db:migrate
+     
+     # Build and deploy
+     npm run build
+     npm run deploy:prod
+     
+     # Verify deployment
+     npm run verify:deployment
+     ```
+  
+  3. Post-deployment
+     ```bash
+     # Invalidate CDN cache
+     npm run cdn:invalidate
+     
+     # Run smoke tests
+     npm run test:smoke
+     
+     # Monitor error rates
+     npm run monitor:errors
+     ```
+</example>
+
+<example type="invalid">
+  // Invalid deployment process
+  
+  Deployment Steps:
+  1. Just run build
+  2. Copy files to server
+  3. Restart application
+  
+  // ❌ No environment validation
+  // ❌ No testing requirements
+  // ❌ No backup strategy
+  // ❌ No monitoring setup
+  // ❌ No documentation
+  // ❌ No rollback plan
+</example> 

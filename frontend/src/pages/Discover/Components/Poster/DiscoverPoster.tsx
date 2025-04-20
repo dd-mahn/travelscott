@@ -31,9 +31,9 @@ const DiscoverPoster: React.FC<DiscoverPosterProps> = ({
   }
 
   // Limit to top 5 destinations for better performance
-  const topDestinations = useMemo(() => 
-    featuredDestinations.slice(0, 5), 
-    [featuredDestinations]
+  const topDestinations = useMemo(
+    () => featuredDestinations.slice(0, 5),
+    [featuredDestinations],
   );
 
   return (
@@ -42,7 +42,7 @@ const DiscoverPoster: React.FC<DiscoverPosterProps> = ({
       animate="visible"
       transition={{ duration: 0.5 }}
       variants={variants}
-      className="posters h-[60svh] w-screen md:h-[95svh]"
+      className="posters h-[60svh] w-screen md:h-[95svh] poster-layer"
     >
       {/* @ts-ignore */}
       <Carousel
@@ -54,14 +54,15 @@ const DiscoverPoster: React.FC<DiscoverPosterProps> = ({
       >
         {topDestinations.map((destination) => (
           <motion.div
-            className="poster px-sect relative flex h-full w-screen cursor-pointer flex-col gap-0 pb-sect-short lg:pb-sect-default"
+            className="poster px-sect relative flex h-full w-screen cursor-pointer flex-col gap-0 pb-sect-short lg:pb-sect-default poster-layer"
             key={destination._id}
           >
             <Link
               to={`destinations/${destination._id}`}
-              className="image-suspense absolute left-0 top-0 h-full w-full overflow-hidden"
+              className="image-suspense absolute left-0 top-0 h-full w-full overflow-hidden poster-image-layer"
             >
               <OptimizedImage
+                lazy={false}
                 whileHover="hoverScale"
                 transition={{ duration: 0.4 }}
                 variants={variants}
@@ -78,7 +79,7 @@ const DiscoverPoster: React.FC<DiscoverPosterProps> = ({
               />
             </Link>
 
-            <div className="pointer-events-none z-10 w-fit pt-sect-short">
+            <div className="pointer-events-none z-10 w-fit pt-sect-short poster-layer-md">
               <div className="big-heading overflow-hidden">
                 {destination.name.split("").map((letter, index) => (
                   <motion.h1

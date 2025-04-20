@@ -27,6 +27,7 @@ import useStackedSections from "src/hooks/useStackedSections/useStackedSections"
 import { selectIsDarkMode } from "src/store/slices/themeSlice";
 import Country from "src/types/Country";
 import OptimizedImage from "src/common/OptimizedImage/OptimizedImage";
+import "src/styles/components/country.css";
 
 // Animation variants
 const variants = {
@@ -109,15 +110,14 @@ const CountryPage: React.FC = () => {
 
   return (
     <main data-testid="country-page" className="country">
-      {/* HERO SECTION */}
-      <CountryHero country={currentCountry} />
+      <div className="hero-layer">
+        <CountryHero country={currentCountry} />
+      </div>
 
-      {/* OVERVIEW SECTION */}
-      <motion.div>
+      <div className="overview-layer">
         <CountryOverview country={currentCountry} />
-      </motion.div>
+      </div>
 
-      {/* STACKED SECTIONS */}
       <section className="2xl:pt-30 relative lg:pt-sect-short">
         <motion.div
           variants={variants}
@@ -125,7 +125,7 @@ const CountryPage: React.FC = () => {
           whileInView="visible"
           transition={{ duration: 0.5, delay: 0.5, ease: "easeInOut" }}
           viewport={{ once: true }}
-          className="sticky right-0 top-0 z-0 ml-auto h-screen w-full rounded-2xl to-gray lg:w-2/3"
+          className="map-layer sticky right-0 top-0 z-0 ml-auto h-screen w-full rounded-2xl to-gray lg:w-2/3"
         >
           <OptimizedImage
             src={mapImageSrc}
@@ -135,25 +135,20 @@ const CountryPage: React.FC = () => {
           />
         </motion.div>
 
-        <motion.section ref={setRef(0)} className="sticky">
+        <motion.section ref={setRef(0)} className="guide-layer sticky">
           <CountryGuide country={currentCountry} />
         </motion.section>
 
-        <motion.section ref={setRef(1)} className="sticky">
-          <div>
-            <CountryArticles country={currentCountry} />
-          </div>
+        <motion.section ref={setRef(1)} className="articles-layer sticky">
+          <CountryArticles country={currentCountry} />
         </motion.section>
 
-        <section ref={setRef(2)} className="sticky">
-          <div>
-            <CountryDestinations country={currentCountry} />
-          </div>
+        <section ref={setRef(2)} className="destinations-layer sticky">
+          <CountryDestinations country={currentCountry} />
         </section>
       </section>
 
-      {/* MORE COUNTRIES SECTION */}
-      <section className="flex flex-col gap-4 py-24 lg:py-40 2xl:py-60">
+      <section className="related-layer flex flex-col gap-4 py-24 lg:py-40 2xl:py-60">
         <div className="overflow-hidden">
           <motion.h2
             variants={variants}

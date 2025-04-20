@@ -11,12 +11,14 @@ const OptimizedImage = ({
   alt,
   className,
   imageClassName,
+  lazy = true,
   ...motionProps
 }: {
   src: string;
   alt: string;
   className?: string;
   imageClassName?: string;
+  lazy?: boolean;
   [key: string]: any;
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -61,7 +63,7 @@ const OptimizedImage = ({
     <motion.div ref={containerRef} className={`${className}`}>
       <Suspense fallback={<div className="h-full w-full" />}>
         <motion.img
-          loading="lazy"
+          loading={lazy ? "lazy" : "eager"}
           src={optimizedImage.src}
           srcSet={optimizedImage.srcSet}
           sizes={`(max-width: ${viewportWidth}px) 100vw, ${dimensions.width}px`}

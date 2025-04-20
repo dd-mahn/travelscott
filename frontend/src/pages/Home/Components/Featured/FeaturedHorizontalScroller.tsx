@@ -81,7 +81,7 @@ const HorizontalScrollCarousel: React.FC<HorizontalScrollCarouselProps> = memo(
             <motion.div
               ref={scrollContainerRef}
               style={{ x }}
-              className="px-sect mt-20 grid auto-cols-[70%] md:auto-cols-[60%] lg:auto-cols-[35%] grid-flow-col gap-4 md:gap-8"
+              className="px-sect layer-optimize-scroll mt-20 grid auto-cols-[70%] md:auto-cols-[60%] lg:auto-cols-[35%] grid-flow-col gap-4 md:gap-8"
             >
               {data.map((destination) => (
                 <FeaturedDestinationCard

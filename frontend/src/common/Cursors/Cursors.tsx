@@ -201,7 +201,7 @@ const Cursor = () => {
             stiffness: 500,
             damping: 28,
           }}
-          className={`pointer-events-none fixed z-[1000] grid place-items-center rounded-full ${
+          className={`pointer-events-none fixed z-[1000] grid place-items-center rounded-full will-change-transform ${
             cursorState === "hover"
               ? "bg-aurora-brown dark:bg-dark-brown"
               : "bg-white mix-blend-difference"

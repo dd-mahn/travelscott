@@ -1,0 +1,145 @@
+---
+description: This rule governs frontend optimization practices for the travel website. It provides practical, implementable guidelines for performance optimization, focusing on React, Tailwind, Redux, and FramerMotion. Apply this rule when implementing new features, modifying existing code, or optimizing performance.
+globs: src/**/*.{tsx,ts,css}
+alwaysApply: false
+---
+
+# Frontend Optimization Rule
+
+## Critical Rules
+
+- MUST follow performance optimization hierarchy:
+  1. Optimize bundle size and code splitting
+  2. Implement efficient loading strategies
+  3. Optimize component rendering
+  4. Enhance user perception
+
+- MUST implement code splitting:
+  - Use React.lazy for route-based splitting
+  - Split large components (maps, galleries)
+  - Separate admin/user features
+  - Example: `const MapComponent = lazy(() => import('./MapComponent'))`
+
+- MUST optimize images and media:
+  - Use next/image or similar optimizers
+  - Implement responsive images
+  - Lazy load below-fold images
+  - Use appropriate formats (WebP)
+
+- MUST optimize React components:
+  - Implement useMemo for expensive calculations
+  - Use useCallback for function props
+  - Avoid unnecessary re-renders
+  - Keep component state minimal
+
+- MUST implement Redux efficiently:
+  - Use Redux Toolkit for automatic optimization
+  - Implement selective state updates
+  - Normalize complex state
+  - Use RTK Query for API caching
+
+- MUST optimize Tailwind usage:
+  - Use @apply for repeated patterns
+  - Purge unused styles in production
+  - Group related utilities
+  - Minimize dynamic classes
+
+- MUST optimize animations:
+  - Use CSS transforms over position
+  - Implement will-change hints
+  - Throttle animation frames
+  - Disable on reduced-motion
+
+## Examples
+
+<example>
+  // Valid optimization implementation
+  import { lazy, Suspense, useMemo, useCallback } from 'react';
+  import { useSelector } from '@reduxjs/toolkit';
+  import { motion, AnimatePresence } from 'framer-motion';
+  
+  // Code splitting
+  const DestinationMap = lazy(() => import('./DestinationMap'));
+  
+  function DestinationPage() {
+    // Efficient Redux usage
+    const destination = useSelector(selectDestination);
+    
+    // Memoized calculations
+    const priceRange = useMemo(() => 
+      calculatePriceRange(destination.prices),
+      [destination.prices]
+    );
+    
+    // Optimized event handlers
+    const handleMapClick = useCallback((location) => {
+      // Handle map interaction
+    }, []);
+    
+    return (
+      <div className="destination-page">
+        {/* Critical content first */}
+        <h1 className="text-4xl font-bold">{destination.name}</h1>
+        
+        {/* Optimized image loading */}
+        <Image 
+          src={destination.heroImage}
+          alt={destination.name}
+          width={1200}
+          height={600}
+          priority={true}
+          className="w-full h-[50vh] object-cover"
+        />
+        
+        {/* Deferred content loading */}
+        <Suspense fallback={<LoadingSpinner />}>
+          <DestinationMap 
+            location={destination.coordinates}
+            onClick={handleMapClick}
+          />
+        </Suspense>
+        
+        {/* Optimized animations */}
+        <AnimatePresence>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+            className="content-wrapper"
+          >
+            {/* Content */}
+          </motion.div>
+        </AnimatePresence>
+      </div>
+    );
+  }
+</example>
+
+<example type="invalid">
+  // Invalid implementation with performance issues
+  function BadDestinationPage() {
+    // ❌ No code splitting
+    // ❌ Unoptimized Redux usage
+    // ❌ Unnecessary re-renders
+    // ❌ Poor image handling
+    const allData = useSelector(state => state); // Bad practice
+    
+    return (
+      <div>
+        <img src={data.image} /> // No optimization
+        
+        {allData.destinations.map(dest => (
+          <DestinationCard 
+            key={dest.id}
+            data={dest}
+            onClick={() => handleClick(dest)} // New function every render
+          />
+        ))}
+        
+        <div className={dynamicClasses}> // Tailwind class explosion
+          {heavyCalculation()} // No memoization
+        </div>
+      </div>
+    );
+  }
+</example> 

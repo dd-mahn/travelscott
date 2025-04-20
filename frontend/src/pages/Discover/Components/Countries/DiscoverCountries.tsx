@@ -57,32 +57,38 @@ const DiscoverCountries: React.FC = () => {
   }, []);
 
   // Select and SelectOption elements props - memoize to prevent re-renders
-  const selectProps = useMemo(() => ({
-    color: "gray",
-    label: "Select Continent",
-    variant: "outlined",
-    size: "lg",
-    className:
-      "span-small dark:bg-background-dark-transparent font-sans shadow-component dark:shadow-component-dark rounded-xl border-none",
-    children: undefined,
-    animate: {
-      mount: { y: 0 },
-      unmount: { y: 40 },
-    },
-    onChange: (value: string) => handleSelectContinent(value),
-    menuProps: {
+  const selectProps = useMemo(
+    () => ({
+      color: "gray",
+      label: "Select Continent",
+      variant: "outlined",
+      size: "lg",
       className:
-        "bg-background-light dark:bg-background-dark shadow-component dark:shadow-component-dark rounded-xl",
-    },
-    labelProps: {
-      className:
-        "font-medium text-text-light after:border-none before:border-none",
-    },
-  }), [handleSelectContinent]);
+        "span-small dark:bg-background-dark-transparent font-sans shadow-component dark:shadow-component-dark rounded-xl border-none",
+      children: undefined,
+      animate: {
+        mount: { y: 0 },
+        unmount: { y: 40 },
+      },
+      onChange: (value: string) => handleSelectContinent(value),
+      menuProps: {
+        className:
+          "bg-background-light dark:bg-background-dark shadow-component dark:shadow-component-dark rounded-xl",
+      },
+      labelProps: {
+        className:
+          "font-medium text-text-light after:border-none before:border-none",
+      },
+    }),
+    [handleSelectContinent],
+  );
 
-  const selectOptionProp = useMemo(() => ({
-    className: "span-small font-sans",
-  }), []);
+  const selectOptionProp = useMemo(
+    () => ({
+      className: "span-small font-sans",
+    }),
+    [],
+  );
 
   // Memoized filter key
   const filterKey = useMemo(() => {
@@ -92,7 +98,7 @@ const DiscoverCountries: React.FC = () => {
   // Memoize country cards to avoid re-renders
   const countryCards = useMemo(() => {
     if (!selectedContinent || !selectedContinent.countries) return null;
-    
+
     return selectedContinent.countries.map((country) => (
       <motion.div variants={variants} key={country._id}>
         <CountryCard country={country} />
@@ -103,17 +109,21 @@ const DiscoverCountries: React.FC = () => {
   // Start request with content-only flag for filter changes
   useEffect(() => {
     if (loading) {
-      dispatch(startRequest({ 
-        page: 'discover', 
-        requestId: `discover-countries-${filterKey}`,
-        isContentOnly: true 
-      }));
+      dispatch(
+        startRequest({
+          page: "discover",
+          requestId: `discover-countries-${filterKey}`,
+          isContentOnly: true,
+        }),
+      );
     } else {
-      dispatch(endRequest({ 
-        page: 'discover', 
-        requestId: `discover-countries-${filterKey}`,
-        isContentOnly: true 
-      }));
+      dispatch(
+        endRequest({
+          page: "discover",
+          requestId: `discover-countries-${filterKey}`,
+          isContentOnly: true,
+        }),
+      );
     }
   }, [loading, filterKey, dispatch]);
 
@@ -207,7 +217,7 @@ const DiscoverCountries: React.FC = () => {
                     delayChildren: 0.5,
                     staggerChildren: 0.2,
                   }}
-                  className="grid grid-cols-3 justify-between gap-2 sm:grid-cols-4 md:gap-4 lg:grid-cols-2 lg:gap-8 xl:grid-cols-3 2xl:grid-cols-3 2xl:gap-8 3xl:grid-cols-4"
+                  className="grid grid-cols-3 justify-between gap-2 sm:grid-cols-4 md:gap-4 lg:grid-cols-2 lg:gap-8 xl:grid-cols-3 2xl:grid-cols-3 2xl:gap-8 3xl:grid-cols-4 country-card-layer"
                   aria-label="Country list"
                 >
                   {countryCards}
@@ -232,7 +242,7 @@ const DiscoverCountries: React.FC = () => {
             Related articles
           </motion.h2>
         </div>
-        <AnimatePresence mode="wait">
+        {/* <AnimatePresence mode="wait">
           <motion.div
             key={selectedContinentName}
             initial="hiddenY"
@@ -241,10 +251,10 @@ const DiscoverCountries: React.FC = () => {
             variants={variants}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.5 }}
-          >
-            <RelatedSections type={"blog"} data={selectedContinentName} />
-          </motion.div>
-        </AnimatePresence>
+          > */}
+        <RelatedSections type={"blog"} data={selectedContinentName} />
+        {/* </motion.div>
+        </AnimatePresence> */}
       </section>
     </>
   );

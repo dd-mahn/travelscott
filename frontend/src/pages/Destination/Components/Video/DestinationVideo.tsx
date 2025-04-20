@@ -42,10 +42,10 @@ const DestinationVideo: React.FC<DestinationVideoProps> = ({ videoCode }) => {
     <motion.section
       ref={videoContainerRef}
       variants={variants}
-      initial="hiddenY"
-      whileInView="visible"
-      viewport={{ once: true }}
-      transition={{ duration: 0.8, delay: 1 }}
+      // initial="hiddenY"
+      // whileInView="visible"
+      // viewport={{ once: true }}
+      // transition={{ duration: 0.8, delay: 1 }}
       className="px-sect video h-screen py-sect-short"
     >
       <div className="relative grid h-full w-full place-items-center overflow-hidden rounded-2xl">

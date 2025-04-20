@@ -57,7 +57,7 @@ const InspirationHero = memo(({ currentCategory }: { currentCategory: string }) 
       animate="visible"
       transition={{ duration: 1 }}
       variants={variants}
-      className="absolute top-0 z-0 h-screen w-full"
+      className="absolute top-0 z-0 h-screen w-full hero-layer"
       style={backgroundStyle}
     >
       {currentCategory !== "All" && (
@@ -66,7 +66,7 @@ const InspirationHero = memo(({ currentCategory }: { currentCategory: string }) 
           initial="hiddenY"
           animate="visible"
           transition={{ duration: 1 }}
-          className="h-full w-full"
+          className="h-full w-full hero-image-layer"
           style={{
             background: overlayGradient,
           }}

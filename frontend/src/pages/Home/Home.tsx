@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useMemo } from "react";
+import React, { memo, useCallback, useEffect, useMemo, useRef } from "react";
 import { motion } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "src/store/store";
@@ -107,21 +107,15 @@ const Home: React.FC = () => {
     }
   }, [starterBlogsData, dispatch]);
 
-  // Refs for the Articles component
-  const articlesHookRef = useCallback(() => {
-    return React.createRef<HTMLSpanElement>();
-  }, []);
-
-  // Stacked section refs
-  const { refs, setRef } = useStackedSections();
-
-  // Section transition hook
-  const {
-    ref: refSO,
-    scale: scaleSO,
-    opacity: opacitySO,
-  } = useSectionTransition(undefined, [1, 0.95], undefined);
+  // Section transition hooks
+  const { ref: refSO, scale: scaleSO, opacity: opacitySO } = useSectionTransition();
   const { ref: refS, scale: scaleS } = useSectionTransition2();
+
+  // Create a ref for the Articles hook
+  const articlesHookRef = useRef<HTMLSpanElement>(null);
+
+  // Stacked sections hook
+  const { setRef } = useStackedSections();
 
   // Memoize blogs to prevent unnecessary re-renders
   const memoizedHomeBlogs = useMemo(() => homeBlogs, [homeBlogs]);
@@ -139,29 +133,37 @@ const Home: React.FC = () => {
 
   return (
     <main data-testid="home-page" className="home flex flex-col">
-      <Hero />
-      <Brief />
+      <div className="hero-layer">
+        <Hero />
+      </div>
+      <div className="overview-layer">
+        <Brief />
+      </div>
 
       {/* Stacked sections container */}
-      <motion.section style={{ scale: scaleS }}>
+      <motion.section style={{ scale: scaleS }} className="layer-optimize additional-layer">
         <motion.div
           ref={setRef(0)}
           style={{ scale: scaleSO, opacity: opacitySO }}
-          className="sticky pb-sect-default lg:pb-96"
+          className="sticky pb-sect-default lg:pb-96 layer-optimize-opacity video-layer"
         >
           <Featured />
         </motion.div>
 
-        <div ref={refSO}>
-          <Articles articlesHookRef={articlesHookRef()} blogs={memoizedHomeBlogs} />
+        <div ref={refSO} className="layer-optimize places-layer">
+          <Articles articlesHookRef={articlesHookRef} blogs={memoizedHomeBlogs} />
         </div>
 
-        <Hook />
-        <Starter blogs={memoizedStarterBlogs} />
+        <div className="insight-layer">
+          <Hook />
+        </div>
+        <div className="summary-layer">
+          <Starter blogs={memoizedStarterBlogs} />
+        </div>
       </motion.section>
 
       {/* Quote section with ref for section transition */}
-      <div ref={refS} className="z-30">
+      <div ref={refS} className="z-30 layer-optimize related-layer">
         <Quote />
       </div>
     </main>

@@ -139,7 +139,7 @@ const Brief: React.FC = () => {
           whileInView="visible"
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="sticky top-0 z-0 h-svh rounded-2xl py-4 lg:max-w-[40svw]"
+          className="sticky top-0 z-0 h-svh rounded-2xl py-4 lg:max-w-[40svw] layer-optimize"
         >
           <BackgroundVideo
             data-testid="brief-video"
@@ -154,16 +154,12 @@ const Brief: React.FC = () => {
             {/* Animated blobs */}
             {viewportWidth >= 768 && (
               <motion.div
-                // animate="blob1Animation"
-                // variants={variants}
-                className="blob-green blur-blob absolute left-0 top-[15%] h-1/3 w-1/3 opacity-60"
+                className="blob-green blur-blob layer-optimize-opacity absolute left-0 top-[15%] h-1/3 w-1/3 opacity-60"
               ></motion.div>
             )}
             {viewportWidth >= 768 && (
               <motion.div
-                // animate="blob2Animation"
-                // variants={variants}
-                className="blob-brown blur-blob absolute bottom-[15%] right-0 h-1/3 w-1/3 opacity-60"
+                className="blob-brown blur-blob layer-optimize-opacity absolute bottom-[15%] right-0 h-1/3 w-1/3 opacity-60"
               ></motion.div>
             )}
 
@@ -173,7 +169,7 @@ const Brief: React.FC = () => {
                 key={index}
                 ref={ref}
                 style={{ opacity: opacities[index] }}
-                className={`${viewportWidth < 768 ? "p-regular text-center" : "p-regular"} z-10 text-text-dark dark:text-text-dark sm:w-3/4 md:w-2/3 md:text-left md:text-text-light md:dark:text-text-dark lg:w-4/5 3xl:w-2/3`}
+                className={`${viewportWidth < 768 ? "p-regular text-center" : "p-regular"} layer-optimize-opacity z-10 text-text-dark dark:text-text-dark sm:w-3/4 md:w-2/3 md:text-left md:text-text-light md:dark:text-text-dark lg:w-4/5 3xl:w-2/3`}
               >
                 {index === 0 && (
                   <>

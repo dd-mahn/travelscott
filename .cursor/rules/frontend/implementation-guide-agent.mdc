@@ -1,0 +1,316 @@
+---
+description: This rule provides practical guidance for implementing new features and optimizations in the travel website. It combines implementation best practices with task execution strategies to ensure efficient and maintainable code.
+globs: src/**/*.{tsx,ts,css}
+alwaysApply: false
+---
+
+# Implementation Guide
+
+## Project Structure References
+
+### Core Configuration
+- Vite Config: `vite.config.ts`
+- Redux Store: `src/store/store.ts`
+- API Helpers: `src/hooks/useFetch/useFetch.ts`
+- Animation Variants: `src/utils/constants/variants.ts`
+
+### Layout and Routing
+- Main Layout: `src/components/Layout/Layout.tsx`
+- Routers: `src/router/Routers.tsx`
+- Loading Screen/Page Transition: `src/components/PageTransition/PageTransition.tsx`
+- Entry Points: `src/main.tsx`, `src/App.tsx`, `public/index.html`
+
+### Page-Specific References
+
+1. Home Page:
+   - Main Layout: `src/pages/Home/Home.tsx`
+   - Components:
+     - `src/pages/Home/Components/Hero/Hero.tsx`
+     - `src/pages/Home/Components/Brief/Brief.tsx`
+     - `src/pages/Home/Components/Featured/Featured.tsx`
+     - `src/pages/Home/Components/Starter/Starter.tsx`
+     - `src/pages/Home/Components/Quote/Quote.tsx`
+     - `src/pages/Home/Components/Articles/Articles.tsx`
+   - Styles: `src/styles/components/home.css`
+   - State: `src/store/slices/loading/homeLoadingSlice.ts`, `src/store/slices/blogSlice.ts`
+
+2. Discover Page:
+   - Main Layout: `src/pages/Discover/Discover.tsx`
+   - Components:
+     - `src/pages/Discover/Components/Countries/DiscoverCountries.tsx`
+     - `src/pages/Discover/Components/Destinations/DiscoverDestinations.tsx`
+     - `src/pages/Discover/Components/Poster/DiscoverPoster.tsx`
+   - Styles: `src/styles/components/discover.css`
+   - State: `src/store/slices/loading/discoverLoadingSlice.ts`, `src/store/slices/destinationSlice.ts`, `src/store/slices/countrySlice.ts`
+
+3. Destination Page:
+   - Main Layout: `src/pages/Destination/Destination.tsx`
+   - Components:
+     - `src/pages/Destination/Components/Hero/DestinationHero.tsx`
+     - `src/pages/Destination/Components/Overview/DestinationOverview.tsx`
+     - `src/pages/Destination/Components/Transportation/DestinationTransportation.tsx`
+     - `src/pages/Destination/Components/Places/DestinationPlaces.tsx`
+     - `src/pages/Destination/Components/Insight/DestinationInsight.tsx`
+   - Styles: `src/styles/components/destination.css`
+   - Utils: `src/utils/destinationPlaceUtils.ts`
+   - Types: `src/types/Destination.ts`
+   - State: `src/store/slices/destinationSlice.ts`, `src/store/slices/loading/destinationLoadingSlice.ts`
+
+4. Country Page:
+   - Main Layout: `src/pages/Country/Country.tsx`
+   - Components:
+     - `src/pages/Country/Components/Hero/CountryHero.tsx`
+     - `src/pages/Country/Components/Guide/CountryGuide.tsx`
+     - `src/pages/Country/Components/Overview/CountryOverview.tsx`
+     - `src/pages/Country/Components/Destinations/CountryDestinations.tsx`
+     - `src/pages/Country/Components/Articles/CountryArticles.tsx`
+   - Types: `src/types/Country.ts`
+   - State: `src/store/slices/countrySlice.ts`, `src/store/slices/loading/countryLoadingSlice.ts`
+
+5. Inspiration Page:
+   - Main Layout: `src/pages/Inspiration/Inspiration.tsx`
+   - Components:
+     - `src/pages/Inspiration/Components/Hero/InspirationHero.tsx`
+     - `src/pages/Inspiration/Components/Buttons/InspirationButtons.tsx`
+     - `src/pages/Inspiration/Components/Catalog/InspirationCatalog.tsx`
+     - `src/common/Filters/InspirationFilter.tsx`
+   - Styles: `src/styles/components/inspiration.css`
+   - Utils: `src/utils/inspirationUtils.ts`
+   - State: `src/store/slices/inspirationSlice.ts`, `src/store/slices/loading/inspirationLoadingSlice.ts`
+
+## Critical Rules
+
+- MUST follow feature implementation steps:
+  1. Plan component structure using project references
+  2. Implement core functionality
+  3. Add optimizations
+  4. Handle edge cases
+
+- MUST implement new features with:
+  - TypeScript for type safety
+  - React hooks for state/effects
+  - Redux for global state
+  - Tailwind for styling
+
+- MUST handle data management:
+  - Use RTK Query for API calls
+  - Implement proper loading states
+  - Handle error scenarios
+  - Cache responses appropriately
+
+- MUST ensure code quality:
+  - Follow project structure
+  - Add necessary comments
+  - Include type definitions
+  - Write maintainable code
+
+## Implementation Steps
+
+1. Component Structure:
+```tsx
+// Good: Well-structured component
+import { useState, useCallback } from 'react';
+import { useGetDestinationQuery } from '@/store/api';
+import type { Destination } from '@/types';
+
+interface DestinationViewProps {
+  id: string;
+  onSelect: (dest: Destination) => void;
+}
+
+export function DestinationView({ id, onSelect }: DestinationViewProps) {
+  // 1. Data fetching
+  const { data, isLoading, error } = useGetDestinationQuery(id);
+  
+  // 2. Local state
+  const [activeTab, setActiveTab] = useState('overview');
+  
+  // 3. Callbacks
+  const handleSelect = useCallback(() => {
+    if (data) onSelect(data);
+  }, [data, onSelect]);
+  
+  // 4. Loading state
+  if (isLoading) return <DestinationSkeleton />;
+  
+  // 5. Error state
+  if (error) return <ErrorMessage error={error} />;
+  
+  // 6. Main render
+  return (
+    <div className="destination-view">
+      <Tabs active={activeTab} onChange={setActiveTab} />
+      <TabContent tab={activeTab} data={data} />
+      <ActionButton onClick={handleSelect} />
+    </div>
+  );
+}
+```
+
+2. Feature Implementation:
+```tsx
+// Good: Progressive implementation
+// Step 1: Basic structure
+function SearchForm() {
+  const [query, setQuery] = useState('');
+  return <input value={query} onChange={e => setQuery(e.target.value)} />;
+}
+
+// Step 2: Add functionality
+function SearchForm() {
+  const [query, setQuery] = useState('');
+  const debouncedQuery = useDebounce(query, 300);
+  const { data } = useSearchQuery(debouncedQuery);
+  
+  return (
+    <div>
+      <input value={query} onChange={e => setQuery(e.target.value)} />
+      <SearchResults data={data} />
+    </div>
+  );
+}
+
+// Step 3: Add optimizations
+function SearchForm() {
+  const [query, setQuery] = useState('');
+  const debouncedQuery = useDebounce(query, 300);
+  const { data, isLoading } = useSearchQuery(debouncedQuery);
+  
+  return (
+    <div>
+      <input 
+        value={query}
+        onChange={e => setQuery(e.target.value)}
+        className="search-input"
+      />
+      <Suspense fallback={<SearchSkeleton />}>
+        <SearchResults 
+          data={data}
+          loading={isLoading}
+        />
+      </Suspense>
+    </div>
+  );
+}
+```
+
+3. State Management:
+```tsx
+// Good: RTK Query implementation
+import { createApi } from '@reduxjs/toolkit/query/react';
+
+export const destinationsApi = createApi({
+  reducerPath: 'destinations',
+  baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
+  endpoints: (builder) => ({
+    search: builder.query({
+      query: (term) => `search?q=${term}`,
+      transformResponse: (response) => {
+        return normalizeDestinations(response);
+      },
+    }),
+  }),
+});
+
+// Component usage
+function SearchContainer() {
+  const { data, isLoading } = useSearchQuery(query, {
+    // Caching options
+    pollingInterval: 0,
+    refetchOnMountOrArgChange: false,
+  });
+  
+  return (
+    <div>
+      <SearchResults data={data} loading={isLoading} />
+    </div>
+  );
+}
+```
+
+## Examples
+
+<example>
+  // Valid implementation
+  // 1. Types
+  interface DestinationCardProps {
+    destination: Destination;
+    onSelect: (id: string) => void;
+    variant?: 'compact' | 'full';
+  }
+  
+  // 2. Component
+  export function DestinationCard({
+    destination,
+    onSelect,
+    variant = 'full'
+  }: DestinationCardProps) {
+    // Hooks
+    const handleSelect = useCallback(() => {
+      onSelect(destination.id);
+    }, [destination.id, onSelect]);
+    
+    // Loading state
+    if (!destination) return <CardSkeleton />;
+    
+    // Render
+    return (
+      <motion.div
+        className={clsx(
+          'destination-card',
+          variant === 'compact' && 'compact'
+        )}
+        onClick={handleSelect}
+      >
+        <Image
+          src={destination.image}
+          alt={destination.name}
+          className="card-image"
+        />
+        <CardContent destination={destination} />
+      </motion.div>
+    );
+  }
+  
+  // 3. Container
+  export function DestinationGrid() {
+    const { data, isLoading } = useGetDestinationsQuery();
+    
+    return (
+      <div className="grid grid-cols-3 gap-4">
+        {isLoading ? (
+          <GridSkeleton />
+        ) : (
+          data?.map(dest => (
+            <DestinationCard
+              key={dest.id}
+              destination={dest}
+              onSelect={handleSelect}
+            />
+          ))
+        )}
+      </div>
+    );
+  }
+</example>
+
+<example type="invalid">
+  // Invalid implementation
+  function BadComponent({ data }) {
+    // ❌ No TypeScript
+    // ❌ No loading state
+    // ❌ No error handling
+    // ❌ No optimization
+    
+    return (
+      <div>
+        {data.map(item => (
+          <div onClick={() => handleClick(item)}>
+            <img src={item.image} />
+            <h3>{item.title}</h3>
+          </div>
+        ))}
+      </div>
+    );
+  }
+</example> 

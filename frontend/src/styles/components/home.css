@@ -1,7 +1,7 @@
 .hero {
   .blob-shadow {
     @apply dark:bg-gradient-to-r from-blue-gray-700 to-blue-gray-700;
-    background: radial-gradient( circle at 50% 50%, #595959, rgba(76, 0, 255, 0) ) ;
+    background: radial-gradient(circle at 50% 50%, #595959, rgba(76, 0, 255, 0));
   }
 }
 
@@ -19,4 +19,93 @@
 
 .starter {
   @apply dark:bg-dark-brown bg-gradient-to-b from-[#eb996e] to-[#9e694d];
+}
+
+/* Performance-optimized layer classes */
+
+/* Heavy animation layers - Use for components with continuous animations */
+.heavy-animation-layer {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  contain: layout style paint;
+}
+
+/* Medium animation layers - Use for components with occasional animations */
+.medium-animation-layer {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Light animation layers - Use for simple transitions */
+.light-animation-layer {
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Specific optimizations */
+
+/* Hero section - Heavy animations */
+.hero-blob-layer {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  contain: paint;
+}
+
+.hero-airplane-layer {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Featured section - Medium animations */
+.featured-carousel-layer {
+  will-change: transform;
+  transform: translateZ(0);
+  contain: paint;
+}
+
+/* Articles section - Light animations */
+.articles-grid-layer {
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Brief section - Video and scroll animations */
+.brief-video-layer {
+  will-change: transform;
+  transform: translateZ(0);
+  contain: paint;
+}
+
+.brief-content-layer {
+  will-change: opacity;
+  backface-visibility: hidden;
+}
+
+/* Mobile optimizations */
+@media (max-width: 767px) {
+  .heavy-animation-layer,
+  .medium-animation-layer {
+    will-change: auto;
+    transform: none;
+    contain: none;
+  }
+  
+  .hero-blob-layer,
+  .hero-airplane-layer,
+  .featured-carousel-layer {
+    will-change: auto;
+    transform: none;
+  }
+}
+
+/* Desktop enhancements */
+@media (min-width: 768px) {
+  .desktop-enhanced-layer {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
 }

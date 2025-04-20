@@ -133,41 +133,48 @@ const DestinationPage: React.FC = () => {
   // Render main content
   return (
     <main data-testid="destination-page" className="destination relative">
-      <DestinationHero destination={currentDestination} />
-      <DestinationOverview destination={currentDestination} />
+      <div className="hero-layer">
+        <DestinationHero destination={currentDestination} />
+      </div>
 
-      <motion.div className="z-30">
+      <div className="overview-layer">
+        <DestinationOverview destination={currentDestination} />
+      </div>
+
+      <div className="video-layer z-30">
         <DestinationVideo videoCode={currentDestination.video} />
-      </motion.div>
+      </div>
 
       <section className="relative">
         <section
           id="additional"
-          className="additional px-sect sticky top-0 grid h-[120svh] place-items-start pb-32 md:pt-40 2xl:pt-sect-default"
+          className="additional-layer px-sect sticky top-0 grid h-[120svh] place-items-start pb-32 md:pt-40 2xl:pt-sect-default"
         >
           <div className="grid grid-cols-1 gap-x-3 gap-y-10 md:grid-cols-2 md:gap-x-4 md:gap-y-16">
             {additionalInfoElements}
           </div>
         </section>
 
-        <section ref={setRef(0)} className="sticky">
+        <section ref={setRef(0)} className="transportation-layer sticky">
           <DestinationTransportation
             transportation={currentDestination.transportation}
           />
         </section>
 
-        <section ref={setRef(1)} className="sticky">
+        <section ref={setRef(1)} className="places-layer sticky">
           <DestinationPlaces places={currentDestination.places} />
         </section>
 
-        <section ref={setRef(2)} className="sticky">
+        <section ref={setRef(2)} className="insight-layer sticky">
           <DestinationInsight destination={currentDestination} />
         </section>
       </section>
 
-      <DestinationSummary summary={currentDestination.summary} />
+      <div className="summary-layer">
+        <DestinationSummary summary={currentDestination.summary} />
+      </div>
 
-      <section className="related py-sect-short lg:py-sect-short 2xl:py-40">
+      <section className="related-layer py-sect-short lg:py-sect-short 2xl:py-40">
         <div className="overflow-hidden">
           <motion.h2
             className="h2-md px-sect w-full text-center"
@@ -189,7 +196,7 @@ const DestinationPage: React.FC = () => {
           variants={variants}
           transition={{ duration: 0.5, delay: 0.5 }}
         >
-          <RelatedSections type={"destination"} data={currentDestination} />
+          <RelatedSections type="destination" data={currentDestination} />
         </motion.div>
       </section>
     </main>

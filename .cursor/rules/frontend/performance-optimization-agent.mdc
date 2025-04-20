@@ -1,0 +1,200 @@
+---
+description: This rule provides practical performance optimization strategies for the travel website. It combines size, task, cache, and priority optimizations into a single, actionable guide. Apply this rule when implementing performance improvements or optimizing existing features.
+globs: src/**/*.{tsx,ts,css}
+alwaysApply: false
+---
+
+# Performance Optimization Rule
+
+## Critical Rules
+
+- MUST optimize bundle size:
+  - Enable code splitting for routes and large components
+  - Use dynamic imports for non-critical features
+  - Configure proper Webpack/Vite chunking
+  - Remove unused dependencies
+
+- MUST optimize task execution:
+  - Use Web Workers for heavy computations
+  - Implement request debouncing/throttling
+  - Optimize Redux operations
+  - Break down long-running tasks
+
+- MUST implement caching:
+  - Set up proper browser caching
+  - Implement Redux state caching
+  - Cache API responses with RTK Query
+  - Cache map tiles and images
+
+- MUST prioritize loading:
+  - Load critical content first
+  - Implement progressive loading
+  - Use preload for critical assets
+  - Defer non-essential resources
+
+## Implementation Guide
+
+1. Bundle Size Optimization:
+```tsx
+// Good: Code splitting and lazy loading
+const MapView = lazy(() => import('./MapView'));
+const Gallery = lazy(() => import('./Gallery'));
+
+// Good: Dynamic imports for features
+const loadAnalytics = () => import('./analytics');
+if (process.env.PROD) loadAnalytics();
+
+// Bad: Importing everything eagerly
+import { huge } from 'huge-lib'; // ❌
+```
+
+2. Task Optimization:
+```tsx
+// Good: Web Worker for heavy computation
+const searchWorker = new Worker('./search.worker.ts');
+searchWorker.postMessage({ destinations, filters });
+
+// Good: Debounced search
+const debouncedSearch = debounce((query) => {
+  dispatch(searchDestinations(query));
+}, 300);
+
+// Bad: Blocking main thread
+function heavyCalculation() { // ❌
+  // Expensive loop
+}
+```
+
+3. Caching Implementation:
+```tsx
+// Good: RTK Query with caching
+export const api = createApi({
+  reducerPath: 'api',
+  baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
+  endpoints: (builder) => ({
+    getDestinations: builder.query({
+      query: () => 'destinations',
+      keepUnusedDataFor: 300,
+    }),
+  }),
+});
+
+// Bad: No caching strategy
+async function fetchData() { // ❌
+  const res = await fetch('/api/data');
+  return res.json();
+}
+```
+
+4. Loading Prioritization:
+```tsx
+// Good: Progressive loading
+function DestinationPage() {
+  return (
+    <>
+      {/* Critical content */}
+      <Header />
+      <HeroImage priority />
+      
+      {/* Deferred content */}
+      <Suspense fallback={<Skeleton />}>
+        <DestinationDetails />
+      </Suspense>
+      
+      {/* Below fold content */}
+      <Suspense fallback={<Skeleton />}>
+        <Reviews />
+      </Suspense>
+    </>
+  );
+}
+
+// Bad: Loading everything at once
+function BadPage() { // ❌
+  return (
+    <div>
+      <Everything />
+    </div>
+  );
+}
+```
+
+## Examples
+
+<example>
+  // Valid performance optimization implementation
+  import { lazy, Suspense } from 'react';
+  import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+  
+  // 1. Code Splitting
+  const DestinationMap = lazy(() => import('./DestinationMap'));
+  
+  // 2. API Caching
+  export const destinationsApi = createApi({
+    reducerPath: 'destinations',
+    baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
+    endpoints: (builder) => ({
+      getDestinations: builder.query({
+        query: (filters) => ({
+          url: 'destinations',
+          params: filters,
+        }),
+        keepUnusedDataFor: 300,
+      }),
+    }),
+  });
+  
+  // 3. Optimized Component
+  function DestinationSearch() {
+    const [search, setSearch] = useState('');
+    const debouncedSearch = useDebounce(search, 300);
+    
+    const { data, isLoading } = useGetDestinationsQuery({
+      search: debouncedSearch,
+    });
+    
+    return (
+      <div className="search-container">
+        {/* Critical UI */}
+        <SearchInput
+          value={search}
+          onChange={setSearch}
+        />
+        
+        {/* Deferred Loading */}
+        <Suspense fallback={<SearchSkeleton />}>
+          <SearchResults data={data} loading={isLoading} />
+        </Suspense>
+        
+        {/* Below Fold */}
+        <Suspense fallback={null}>
+          <DestinationMap data={data} />
+        </Suspense>
+      </div>
+    );
+  }
+</example>
+
+<example type="invalid">
+  // Invalid performance implementation
+  function BadImplementation() {
+    // ❌ No caching
+    const [data, setData] = useState([]);
+    
+    // ❌ No debouncing
+    const handleSearch = async (query) => {
+      const res = await fetch(`/api/search?q=${query}`);
+      setData(await res.json());
+    };
+    
+    // ❌ No code splitting
+    // ❌ No progressive loading
+    return (
+      <div>
+        <input onChange={(e) => handleSearch(e.target.value)} />
+        <HeavyComponent data={data} />
+        <MapComponent data={data} />
+      </div>
+    );
+  }
+</example> 

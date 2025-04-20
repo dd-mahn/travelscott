@@ -10,3 +10,38 @@
     @apply font-sans 
   }
 }
+
+/* Layer optimization classes for Discover page */
+.poster-layer {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.poster-image-layer {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.country-card-layer {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.destination-grid-layer {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  contain: layout style paint;
+}
+
+/* Only enable layer optimization for non-mobile devices */
+@media (min-width: 768px) {
+  .poster-layer-md {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+}

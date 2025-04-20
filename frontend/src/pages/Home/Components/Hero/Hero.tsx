@@ -164,7 +164,7 @@ const Hero: React.FC = () => {
           initial="airplane1Start"
           whileInView="airPlane1End"
           viewport={{ once: true }}
-          className="airplane-1 absolute -bottom-[80%] -right-[5%] w-[15vw] transform sm:-bottom-[80%] sm:right-[5%] sm:w-[20vw] md:-bottom-[80%] md:right-[0%] md:w-[23vw] lg:-bottom-full lg:right-[0%] lg:w-[25vw] xl:-bottom-full xl:right-0 2xl:-bottom-full 2xl:-right-[5%] 2xl:w-[25vw] 3xl:-bottom-full 3xl:right-[5%]"
+          className="airplane-1 layer-optimize-md absolute -bottom-[80%] -right-[5%] w-[15vw] transform sm:-bottom-[80%] sm:right-[5%] sm:w-[20vw] md:-bottom-[80%] md:right-[0%] md:w-[23vw] lg:-bottom-full lg:right-[0%] lg:w-[25vw] xl:-bottom-full xl:right-0 2xl:-bottom-full 2xl:-right-[5%] 2xl:w-[25vw] 3xl:-bottom-full 3xl:right-[5%]"
         >
           <motion.img
             src={airplane1}
@@ -181,7 +181,7 @@ const Hero: React.FC = () => {
         <motion.img
           src={airplane2}
           alt="Airplane"
-          className="airplane-2 absolute right-0 top-[0] w-[15vw] transform dark:brightness-90 sm:right-[5%] sm:top-[0%] md:-top-[30%] md:right-[15%] lg:-top-1/2 lg:right-[5%] xl:-top-1/3 xl:right-[5%] 2xl:-top-1/3 2xl:right-0 3xl:-top-1/3 3xl:right-[5%]"
+          className="airplane-2 layer-optimize-md absolute right-0 top-[0] w-[15vw] transform dark:brightness-90 sm:right-[5%] sm:top-[0%] md:-top-[30%] md:right-[15%] lg:-top-1/2 lg:right-[5%] xl:-top-1/3 xl:right-[5%] 2xl:-top-1/3 2xl:right-0 3xl:-top-1/3 3xl:right-[5%]"
           whileHover="hoverScale"
           transition={{ duration: 0.4 }}
           variants={variants}
@@ -194,7 +194,7 @@ const Hero: React.FC = () => {
         <motion.img
           src={airplane3}
           alt="Airplane"
-          className="airplane-3 md:w-10vw] absolute left-[5%] top-[10%] w-[10svw] transform dark:brightness-90 sm:left-[5%] sm:top-[15%] sm:w-[10vw] md:-top-[40%] md:left-[40%] lg:-top-1/2 lg:right-[40%] xl:-top-[40%] xl:right-1/3 2xl:-top-1/2 2xl:right-[40%] 3xl:-top-1/2 3xl:right-[40%]"
+          className="airplane-3 layer-optimize-md absolute left-[5%] top-[10%] w-[10svw] transform dark:brightness-90 sm:left-[5%] sm:top-[15%] sm:w-[10vw] md:-top-[40%] md:left-[40%] lg:-top-1/2 lg:right-[40%] xl:-top-[40%] xl:right-1/3 2xl:-top-1/2 2xl:right-[40%] 3xl:-top-1/2 3xl:right-[40%]"
           variants={variants}
           initial="airplane3Start"
           whileInView="airPlane3End"

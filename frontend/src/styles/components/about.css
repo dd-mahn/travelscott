@@ -1,4 +1,49 @@
 .about {
+  /* Layer optimization classes for About page */
+  .hero-layer {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  .hero-video-layer {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    contain: layout style paint;
+  }
+
+  .how-layer {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  .who-layer {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  .why-layer {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  .blob-layer {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  .stacked-layer {
+    will-change: transform, scale, opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    contain: layout style paint;
+  }
+
   .who {
     .img-1 {
       box-shadow: 0 0 25px 0px var(--aurora-brown);
@@ -547,6 +592,33 @@
         width: 10%;
         transform: rotate(-30deg);
       }
+    }
+  }
+
+  /* Only enable layer optimization for non-mobile devices */
+  @media (min-width: 768px) {
+    .hero-layer-md {
+      will-change: transform;
+      transform: translateZ(0);
+      backface-visibility: hidden;
+    }
+
+    .how-layer-md {
+      will-change: transform;
+      transform: translateZ(0);
+      backface-visibility: hidden;
+    }
+
+    .who-layer-md {
+      will-change: transform;
+      transform: translateZ(0);
+      backface-visibility: hidden;
+    }
+
+    .why-layer-md {
+      will-change: transform;
+      transform: translateZ(0);
+      backface-visibility: hidden;
     }
   }
 }
