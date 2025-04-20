@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 const Header = lazy(() => import("src/components/Header/Header"));
 const Footer = lazy(() => import("src/components/Footer/Footer"));
 const Cursor = lazy(() => import("src/common/Cursors/Cursors"));
-const LoadingDebugger = lazy(() => import("src/components/LoadingDebugger/LoadingDebugger"));
+// const LoadingDebugger = lazy(() => import("src/components/LoadingDebugger/LoadingDebugger"));
 
 import LenisProvider from "src/components/Lenis/Lenis";
 import { SpeedInsights } from "@vercel/speed-insights/react";
@@ -56,7 +56,7 @@ const Layout: React.FC = () => {
           {element}
         </PageTransition>
         <Footer />
-        <LoadingDebugger />
+        {/* <LoadingDebugger /> */}
         <SpeedInsights />
         <Analytics />
       </LenisProvider>

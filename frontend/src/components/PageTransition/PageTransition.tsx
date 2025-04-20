@@ -16,34 +16,34 @@ const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
   const isDarkMode = useSelector(selectIsDarkMode);
   const dispatch = useDispatch();
   const [forceRender, setForceRender] = useState(false);
-  
+
   // Get current page from location pathname
-  const rawPath = location.pathname.split('/')[1] || 'home';
-  
+  const rawPath = location.pathname.split("/")[1] || "home";
+
   // Map the path segment to an actual page name
   const getPageName = (path: string, nestedPath?: string): string => {
-    if (path === 'discover') {
-      if (nestedPath === 'countries') return 'country';
-      if (nestedPath === 'destinations') return 'destination';
-      return 'discover';
+    if (path === "discover") {
+      if (nestedPath === "countries") return "country";
+      if (nestedPath === "destinations") return "destination";
+      return "discover";
     }
-    if (path === 'inspiration' && nestedPath) {
-      return 'article';
+    if (path === "inspiration" && nestedPath) {
+      return "article";
     }
     return path;
   };
-  
-  const nestedPath = location.pathname.split('/')[2];
+
+  const nestedPath = location.pathname.split("/")[2];
   const currentPage = getPageName(rawPath, nestedPath);
-  
+
   // Debug loading state info
   const loadingState = useSelector((state: RootState) => ({
     pageLoading: state.loading.pageLoading,
     requestLoading: state.loading.requestLoading,
     activeRequests: state.loading.activeRequests,
-    lastUpdated: state.loading.lastUpdated
+    lastUpdated: state.loading.lastUpdated,
   }));
-  
+
   // Use the loading state from Redux
   const isLoading = useSelector((state: RootState) => {
     return state.loading.pageLoading[currentPage] || false;
@@ -56,27 +56,39 @@ const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
 
   // Log page and loading info for debugging
   useEffect(() => {
-    console.log(`Page transition for ${currentPage} (path: ${location.pathname})`);
-    console.log(`Page loading: ${isLoading}, Content loading: ${isContentLoading}`);
-    console.log('Loading details:', loadingState);
-  }, [currentPage, isLoading, isContentLoading, location.pathname, loadingState]);
+    console.log(
+      `Page transition for ${currentPage} (path: ${location.pathname})`,
+    );
+    console.log(
+      `Page loading: ${isLoading}, Content loading: ${isContentLoading}`,
+    );
+    console.log("Loading details:", loadingState);
+  }, [
+    currentPage,
+    isLoading,
+    isContentLoading,
+    location.pathname,
+    loadingState,
+  ]);
 
   // Safety mechanism to prevent infinite loading
   useEffect(() => {
     // Reset force render state on location change
     setForceRender(false);
-    
+
     let timeoutId: NodeJS.Timeout;
-    
+
     // Set a timeout to force loading to complete after 5 seconds
     if (isLoading && !isContentLoading) {
       timeoutId = setTimeout(() => {
-        console.warn(`Loading timeout for page ${currentPage} - forcing render`);
+        console.warn(
+          `Loading timeout for page ${currentPage} - forcing render`,
+        );
         dispatch(setPageLoading({ page: currentPage, isLoading: false }));
         setForceRender(true);
       }, 5000);
     }
-    
+
     return () => {
       if (timeoutId) clearTimeout(timeoutId);
     };
@@ -98,14 +110,16 @@ const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
             isDarkMode ? "bg-background-dark" : "bg-background-light"
           }`}
         >
-          <motion.img
-            src={airplane1}
-            initial={{scale: 0}}
-            animate={{scale: 1}}
-            transition={{duration: 0.5, ease: "easeInOut"}}
-            alt="airplane"
-            className="h-20 w-20 animate-bounce"
-          />
+          <div className="h-[150px] w-[150px] rounded-full bg-background-dark-green flex items-center justify-center">
+            <motion.img
+              src={airplane1}
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              alt="airplane"
+              className="h-20 w-20 animate-bounce"
+            />
+          </div>
         </motion.div>
       ) : (
         <motion.div
