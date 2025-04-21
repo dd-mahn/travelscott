@@ -33,9 +33,12 @@ function StaggerLogo({
     // Get the container width after a small delay to ensure styles are applied
     requestAnimationFrame(() => {
       if (!container || !textElement) return;
-      
-      const containerWidth = container.offsetWidth;
-      const scale = containerWidth / textElement.offsetWidth;
+
+      const viewportWidth = window.innerWidth;
+      const viewWidth = viewportWidth > container.offsetWidth ? viewportWidth : container.offsetWidth;
+
+
+      const scale = viewWidth / textElement.offsetWidth;
       const newFontSize = Math.floor(16 * scale * 0.95); // 0.95 for safety margin
       setFontSize(newFontSize);
     });

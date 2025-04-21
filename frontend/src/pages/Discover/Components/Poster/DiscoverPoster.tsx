@@ -37,9 +37,9 @@ const DiscoverPoster: React.FC<DiscoverPosterProps> = ({
 
   return (
     <motion.section
-      initial="hiddenShortY"
-      animate="visible"
-      transition={{ duration: 0.5 }}
+      // initial="hiddenShortY"
+      // animate="visible"
+      // transition={{ duration: 0.5 }}
       variants={variants}
       className="posters h-[60svh] w-screen md:h-[95svh] poster-layer"
     >
