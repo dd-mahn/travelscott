@@ -66,11 +66,6 @@ const Discover: React.FC = () => {
     if (allDestinationSuccess && countrySuccess) {
       dispatch(setPageLoading({ page: 'discover', isLoading: false }));
     }
-    
-    return () => {
-      // Reset loading state when component unmounts
-      dispatch(setPageLoading({ page: 'discover', isLoading: true }));
-    };
   }, [allDestinationSuccess, countrySuccess, dispatch]);
 
   // Handle fetched data for rendering
@@ -106,15 +101,9 @@ const Discover: React.FC = () => {
 
   // Handle render
   if (!countries.length || !allDestinations.length) {
-    if (countryLoading || allDestinationLoading) {
-      return <Loading data-testid="loading"/>;
-    }
-
     if (countryError || allDestinationError) {
       return <NotFoundPage />;
     }
-
-    return <Loading data-testid="loading"/>;
   }
 
   return (

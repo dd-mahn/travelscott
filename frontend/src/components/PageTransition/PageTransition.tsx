@@ -54,23 +54,6 @@ const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
     return state.loading.isContentLoading[currentPage] || false;
   });
 
-  // Log page and loading info for debugging
-  useEffect(() => {
-    console.log(
-      `Page transition for ${currentPage} (path: ${location.pathname})`,
-    );
-    console.log(
-      `Page loading: ${isLoading}, Content loading: ${isContentLoading}`,
-    );
-    console.log("Loading details:", loadingState);
-  }, [
-    currentPage,
-    isLoading,
-    isContentLoading,
-    location.pathname,
-    loadingState,
-  ]);
-
   // Safety mechanism to prevent infinite loading
   useEffect(() => {
     // Reset force render state on location change
@@ -81,9 +64,6 @@ const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
     // Set a timeout to force loading to complete after 5 seconds
     if (isLoading && !isContentLoading) {
       timeoutId = setTimeout(() => {
-        console.warn(
-          `Loading timeout for page ${currentPage} - forcing render`,
-        );
         dispatch(setPageLoading({ page: currentPage, isLoading: false }));
         setForceRender(true);
       }, 5000);

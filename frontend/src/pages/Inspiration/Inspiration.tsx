@@ -55,11 +55,7 @@ const Inspiration: React.FC = () => {
     if (allBlogsSuccess) {
       dispatch(setPageLoading({ page: 'inspiration', isLoading: false }));
     }
-    
-    return () => {
-      // Reset loading state when component unmounts
-      dispatch(setPageLoading({ page: 'inspiration', isLoading: true }));
-    };
+  
   }, [allBlogsSuccess, dispatch]);
 
   // Update blogs data in the store
@@ -93,8 +89,6 @@ const Inspiration: React.FC = () => {
     }
   }, [featuredBlogs, variants]);
 
-  // Render loading or error state
-  if (allBlogsLoading) return <Loading />;
   if (allBlogsError) return <NotFoundPage />;
 
   return (
