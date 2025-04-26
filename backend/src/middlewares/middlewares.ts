@@ -21,7 +21,7 @@ const limiter = rateLimit({
 // Export CORS options
 export const corsOptions = {
   origin: process.env.NODE_ENV === 'production' 
-    ? ['https://travelscott.vercel.app', 'https://railway.app', 'healthcheck.railway.com']
+    ? ['https://travelscott.vercel.app', 'https://staging-travelscott.vercel.app', 'https://railway.app', 'healthcheck.railway.com']
     : '*', // Allow all origins in development
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
