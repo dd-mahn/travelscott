@@ -3,16 +3,17 @@ import { ApiResponse } from "src/types/ApiResponse";
 import { useDispatch } from "react-redux";
 import { startRequest, endRequest } from "src/store/slices/loadingSlice";
 import { useEffect } from "react";
+import config from "src/config/config";
 
 /**
  * Custom hook to fetch data using React Query with integrated loading state management.
- * @param queryKey - Unique key for the query
- * @param url - The URL to fetch data from
+ * Assumes relative URLs are endpoints for the API_BASE_URL unless the URL starts with http/https.
+ * @param queryKey - Unique base key for the query (will be combined with the full URL)
+ * @param url - The relative endpoint path (e.g., /api/blogs) or a full URL
  * @param page - The page this request belongs to (e.g., 'home', 'discover')
  * @param options - Additional options for the query
  * @returns Query result object containing data, error, and loading state
  */
-
 const useFetch = <T>(
   queryKey: string,
   url: string,
@@ -26,8 +27,15 @@ const useFetch = <T>(
   } = {}
 ) => {
   const dispatch = useDispatch();
-  const requestId = `${page}-${queryKey}-${url}`;
-  
+
+  // Construct the full URL inside the hook
+  // If url starts with http, assume it's already a full URL
+  const isFullUrl = url.startsWith('http://') || url.startsWith('https://');
+  const fullUrl = isFullUrl ? url : `${config.api.baseUrl}${url}`;
+
+  // Include the full constructed URL in the requestId and queryKey for uniqueness
+  const requestId = `${page}-${queryKey}-${fullUrl}`;
+
   // Destructure options with defaults
   const {
     enabled = true,
@@ -38,16 +46,16 @@ const useFetch = <T>(
   } = options;
 
   const result = useQuery<T, Error>({
-    queryKey: [queryKey, url],
+    queryKey: [queryKey, fullUrl],
     queryFn: async () => {
-      const res = await fetch(url);
+      const res = await fetch(fullUrl);
       if (!res.ok) {
         throw new Error("Maybe something went wrong, please try again later.");
       }
       const responseData: ApiResponse<T> = await res.json();
       return responseData.data;
     },
-    enabled: !!url && enabled,
+    enabled: !!fullUrl && enabled,
     staleTime,
     refetchOnWindowFocus,
     refetchOnMount,
