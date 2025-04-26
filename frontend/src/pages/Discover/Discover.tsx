@@ -37,7 +37,7 @@ const Discover: React.FC = () => {
     isSuccess: allDestinationSuccess
   } = useFetch<FetchDestinationType>(
     "discover-destinations",
-    `/api/destinations?limit=50&featured=true`,
+    `/destinations?limit=50&featured=true`,
     "discover",
     {
       staleTime: 5 * 60 * 1000, // 5 minutes cache
@@ -52,7 +52,7 @@ const Discover: React.FC = () => {
     isSuccess: countrySuccess
   } = useFetch<FetchCountriesType>(
     "discover-countries",
-    `/api/countries?limit=50`,
+    `/countries?limit=50`,
     "discover",
     {
       staleTime: 5 * 60 * 1000, // 5 minutes cache  

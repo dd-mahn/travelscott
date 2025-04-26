@@ -37,17 +37,17 @@ const HeaderSearch: React.FC = () => {
   // Fetch data
   const { data: destinationsData } = useFetch<FetchDestinationType>(
     "destinations",
-    `/api/destinations?searchQuery=${debouncedSearchQuery}`,
+    `/destinations?searchQuery=${debouncedSearchQuery}`,
     inputDisplay && debouncedSearchQuery ? "destinations" : "",
   );
   const { data: countriesData } = useFetch<FetchCountriesType>(
     "countries",
-    `/api/countries?searchQuery=${debouncedSearchQuery}`,
+    `/countries?searchQuery=${debouncedSearchQuery}`,
     inputDisplay && debouncedSearchQuery ? "countries" : "",
   );
   const { data: blogsData } = useFetch<FetchBlogsType>(
     "blogs",
-    `/api/blogs?searchQuery=${debouncedSearchQuery}`,
+    `/blogs?searchQuery=${debouncedSearchQuery}`,
     inputDisplay && debouncedSearchQuery ? "blogs" : "",
   );
 

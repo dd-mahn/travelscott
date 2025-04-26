@@ -58,7 +58,7 @@ const CountryDestinations: React.FC<CountryDestinationsProps> = memo(({ country 
 
   // Constructing the URL for fetching destinations
   const url = useMemo(() => {
-    let baseUrl = `/api/destinations?page=${currentPage}&limit=${limit}&countries=${country.name}`;
+    let baseUrl = `/destinations?page=${currentPage}&limit=${limit}&countries=${country.name}`;
     if (tags.length > 0) {
       baseUrl += `&tags=${tags.join(",")}`;
     }

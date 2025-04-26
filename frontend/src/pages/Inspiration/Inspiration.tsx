@@ -31,7 +31,7 @@ const Inspiration: React.FC = () => {
 
   // Memoize the URL for fetching blogs to prevent unnecessary data fetching
   const blogsUrl = useMemo(() => {
-    return `/api/blogs?category=${currentCategory === "All" ? "" : encodeURIComponent(currentCategory)}`;
+    return `/blogs?category=${currentCategory === "All" ? "" : encodeURIComponent(currentCategory)}`;
   }, [currentCategory]);
 
   // Fetch blogs data with optimized parameters

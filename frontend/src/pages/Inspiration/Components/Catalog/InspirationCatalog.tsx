@@ -86,7 +86,7 @@ const InspirationCatalog: React.FC<InspirationCatalogProps> = memo(
 
     // Memoize the URL for fetching blogs
     const blogsUrl = useMemo(() => {
-      return `/api/blogs?limit=${limit}&page=${currentPage}&category=${
+      return `/blogs?limit=${limit}&page=${currentPage}&category=${
         currentCategory === "All" ? "" : encodeURIComponent(currentCategory)
       }&tags=${blogTagsQuery}&searchQuery=${encodeURIComponent(searchQuery)}`;
     }, [currentPage, currentCategory, blogTagsQuery, searchQuery]);

@@ -52,7 +52,7 @@ const CountryArticles: React.FC<CountryArticlesProps> = ({ country }) => {
     error: blogError,
   } = useFetch<FetchBlogsType>(
     "blogs",
-    `/api/blogs?limit=20&tags=${country.name}`,
+    `/blogs?limit=20&tags=${country.name}`,
   );
 
   // Update the country blogs in the store when blogData changes

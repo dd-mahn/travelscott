@@ -14,7 +14,7 @@ interface FeedbackData {
 export const sendFeedback = async (feedbackData: FeedbackData): Promise<boolean> => {
   try {
     // Make a POST request to the feedback endpoint
-    const res = await fetch(`/api/feedback`, {
+    const res = await fetch(`/feedback`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

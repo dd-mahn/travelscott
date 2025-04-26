@@ -52,7 +52,7 @@ const CountryPage: React.FC = () => {
     isSuccess: fetchSuccess,
   } = useFetch<Country>(
     `country-${id}`,
-    `/api/countries/${id}`,
+    `/countries/${id}`,
     "country",
     {
       staleTime: 5 * 60 * 1000, // 5 minutes cache

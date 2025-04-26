@@ -54,7 +54,7 @@ const DestinationPage: React.FC = () => {
     isSuccess: destinationSuccess,
   } = useFetch<Destination>(
     `destination-${id}`,
-    `/api/destinations/${id}`,
+    `/destinations/${id}`,
     "destination",
     {
       staleTime: 5 * 60 * 1000, // 5 minutes cache

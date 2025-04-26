@@ -48,7 +48,7 @@ const Home: React.FC = () => {
     isLoading: blogsLoading,
   } = useFetch<FetchBlogsType>(
     "home-blogs",
-    `/api/blogs?limit=20`, // Fetch enough blogs for the Articles section
+    `/blogs?limit=20`, // Fetch enough blogs for the Articles section
     "home", // Page identifier for loading state
     {
       staleTime: 5 * 60 * 1000, // 5 minutes cache
@@ -63,7 +63,7 @@ const Home: React.FC = () => {
     isLoading: starterLoading,
   } = useFetch<FetchBlogsType>(
     "starter-blogs",
-    `/api/blogs?category=FirstTimeAbroad&limit=6`, // Directly fetch blogs with the right category
+    `/blogs?category=FirstTimeAbroad&limit=6`, // Directly fetch blogs with the right category
     "home", // Page identifier for loading state
     {
       staleTime: 5 * 60 * 1000, // 5 minutes cache

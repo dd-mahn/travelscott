@@ -122,7 +122,7 @@ const RelatedCountries: React.FC<{ country: Country }> = ({ country }) => {
     isLoading: countriesLoading,
   } = useFetch<FetchCountriesType>(
     "countries",
-    `/api/countries?continent=${country.continent}`,
+    `/countries?continent=${country.continent}`,
     "country",
     {
       staleTime: 5 * 60 * 1000, // 5 minutes cache
@@ -180,7 +180,7 @@ const RelatedDestinations: React.FC<{ destination: Destination }> = ({
     isLoading: destinationsLoading,
   } = useFetch<FetchDestinationType>(
     "related-destinations",
-    `/api/destinations?limit=10&continent=${destination.continent}`,
+    `/destinations?limit=10&continent=${destination.continent}`,
     "destination",
     {
       staleTime: 5 * 60 * 1000, // 5 minutes
@@ -248,7 +248,7 @@ const RelatedArticles: React.FC<{
     isLoading: blogLoading,
   } = useFetch<FetchBlogsType>(
     "blogs",
-    `/api/blogs?limit=20`,
+    `/blogs?limit=20`,
     "blog",
     {
       staleTime: 5 * 60 * 1000, // 5 minutes cache

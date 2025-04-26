@@ -32,7 +32,7 @@ const Article: React.FC = () => {
     isSuccess: blogSuccess,
   } = useFetch<Blog>(
     `blog-${id}`,
-    `/api/blogs/${id}`,
+    `/blogs/${id}`,
     "blog",
     {
       staleTime: 5 * 60 * 1000, // 5 minutes cache

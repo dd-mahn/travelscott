@@ -35,7 +35,7 @@ const Featured: React.FC = () => {
   // Fetch featured destinations with optimized parameters
   const { data, isLoading, error } = useFetch<FetchDestinationType>(
     "featured-destinations",
-    `/api/destinations?featured=true&limit=10`, // Limit to 10 featured destinations
+    `/destinations?featured=true&limit=10`, // Limit to 10 featured destinations
     "home", // Page identifier for loading state
     {
       staleTime: 5 * 60 * 1000, // 5 minutes cache
