@@ -19,10 +19,10 @@ export const getSeason = (): string => {
 
   // Define the transitional seasons
   const transitionalSeasons: { [key: number]: string } = {
-    1: "Winter-Spring",
-    4: "Spring-Summer",
-    7: "Summer-Fall",
-    10: "Fall-Winter"
+    1: "Winter",
+    4: "Summer",
+    7: "Summer",
+    10: "Fall"
   };
 
   // Check for transitional seasons first
