@@ -4,6 +4,7 @@ import react from "@vitejs/plugin-react";
 import { VitePWA } from 'vite-plugin-pwa';
 import compression from 'vite-plugin-compression';
 import { resolve } from 'path';
+import { visualizer } from 'rollup-plugin-visualizer';
 
 export default defineConfig({
   plugins: [
@@ -60,6 +61,12 @@ export default defineConfig({
       ext: '.br',
       threshold: 10240,
       deleteOriginFile: false
+    }),
+    visualizer({
+      open: true,
+      filename: 'dist/stats.html',
+      gzipSize: true,
+      brotliSize: true,
     })
   ],
   test: {
