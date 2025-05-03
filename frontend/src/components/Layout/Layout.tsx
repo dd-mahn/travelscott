@@ -15,7 +15,7 @@ import { useThemeInitialization } from "src/hooks/useThemeInitialization/useThem
 
 const Layout: React.FC = () => {
   const location = useLocation();
-  const [showLoadingScreen, setShowLoadingScreen] = useState(true);
+  const [showLoadingScreen, setShowLoadingScreen] = useState(false);
   const isHomePage = location.pathname === "/";
   const isDarkMode = useSelector(selectIsDarkMode);
 
@@ -25,16 +25,16 @@ const Layout: React.FC = () => {
     document.documentElement.classList.toggle('dark', isDarkMode);
   }, [isDarkMode]);
 
-  useEffect(() => {
-    if (isHomePage) {
-      const handle = setTimeout(() => {
-        setShowLoadingScreen(false);
-      }, 2000);
+  // useEffect(() => {
+  //   if (isHomePage) {
+  //     const handle = setTimeout(() => {
+  //       setShowLoadingScreen(false);
+  //     }, 2000);
       
-      return () => clearTimeout(handle);
-    }
-    setShowLoadingScreen(false);
-  }, [isHomePage]);
+  //     return () => clearTimeout(handle);
+  //   }
+  //   setShowLoadingScreen(false);
+  // }, [isHomePage]);
 
   const content = useMemo(() => (
     <LenisProvider>
