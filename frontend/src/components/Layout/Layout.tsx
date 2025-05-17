@@ -2,10 +2,12 @@ import React, { useEffect, useState, lazy, Suspense, useMemo } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSelector } from "react-redux";
-
-const Header = lazy(() => import('src/components/Header/Header'));
-const Footer = lazy(() => import('src/components/Footer/Footer'));
-const Cursor = lazy(() => import('src/common/Cursors/Cursors'));
+import Header from "src/components/Header/Header";
+import Footer from "src/components/Footer/Footer";
+import Cursor from "src/common/Cursors/Cursors";
+// const Header = lazy(() => import('src/components/Header/Header'));
+// const Footer = lazy(() => import('src/components/Footer/Footer'));
+// const Cursor = lazy(() => import('src/common/Cursors/Cursors'));
 
 import AnimatedLogoScreen from "src/common/AnimatedLogoScreen/AnimatedLogoScreen";
 import LenisProvider from "src/components/Lenis/Lenis";

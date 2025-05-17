@@ -1,10 +1,5 @@
-import React, { Suspense, useMemo, useRef, useState, useEffect } from "react";
+import React, { Suspense } from "react";
 import { motion } from "framer-motion";
-import {
-  getImageSize,
-  optimizeImage,
-} from "src/utils/imageUtils";
-import { useViewportWidth } from "src/hooks/useViewportWidth/useViewportWidth";
 
 // OptimizedImage component to load images lazily
 const OptimizedImage = ({
