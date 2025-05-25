@@ -225,7 +225,7 @@ const Hero: React.FC = () => {
                 variants={variants}
                 initial="hiddenFullY"
                 animate={starSiblingControls}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: 0.3 }}
                 className="h1-md inline-block leading-[0.8]"
               >
                 From your new
@@ -238,7 +238,7 @@ const Hero: React.FC = () => {
                 initial="hiddenFullY"
                 animate="visible"
                 transition={{
-                  duration: 0.5,
+                  duration: 0.3,
                   delay: 0.15,
                   delayChildren: 0.2,
                 }}
