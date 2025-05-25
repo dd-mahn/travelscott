@@ -260,8 +260,8 @@ const Hero: React.FC = () => {
                 initial="hiddenFullY"
                 animate="visible"
                 transition={{
-                  duration: 0.5,
-                  delay: 0.3,
+                  duration: 0.3,
+                  delay: 0.1,
                   delayChildren: 0.2,
                 }}
                 className="h1-md overflow-hidden text-left leading-[0.9]"
@@ -337,8 +337,8 @@ const Hero: React.FC = () => {
                 initial="hiddenFullY"
                 animate="visible"
                 transition={{
-                  duration: 0.5,
-                  delay: 0.15,
+                  duration: 0.3,
+                  delay: 0,
                   delayChildren: 0.2,
                 }}
                 className="h1-md text-center leading-[0.8]"
@@ -352,8 +352,8 @@ const Hero: React.FC = () => {
                 initial="hiddenFullY"
                 animate="visible"
                 transition={{
-                  duration: 0.5,
-                  delay: 0.3,
+                  duration: 0.3,
+                  delay: 0.05,
                   delayChildren: 0.2,
                 }}
                 className="h1-md text-center uppercase leading-[0.8] text-main-green dark:text-dark-green"
@@ -367,8 +367,8 @@ const Hero: React.FC = () => {
                 initial="hiddenFullY"
                 animate="visible"
                 transition={{
-                  duration: 0.5,
-                  delay: 0.45,
+                  duration: 0.3,
+                  delay: 0.1,
                   delayChildren: 0.2,
                 }}
                 className="h1-md overflow-hidden text-center leading-[0.9]"
