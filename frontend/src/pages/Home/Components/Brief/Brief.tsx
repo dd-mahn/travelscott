@@ -88,6 +88,8 @@ const Brief: React.FC = () => {
             whileInView="airplaneEnd"
             viewport={{ once: true }}
             src={airplane1}
+            width={100}
+            height={100}
             alt="Decorative airplane"
             className="w-20 rotate-[45deg] transform lg:w-24 xl:w-24 2xl:w-28 3xl:w-32"
           />
