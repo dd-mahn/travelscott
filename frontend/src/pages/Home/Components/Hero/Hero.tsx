@@ -171,6 +171,8 @@ const Hero: React.FC = () => {
             alt="Airplane"
             className="w-full dark:brightness-90"
             whileHover="hoverScale"
+            width={viewportWidth >= 768 ? 200 : 100}
+            height={viewportWidth >= 768 ? 200 : 100}
             transition={{ duration: 0.4 }}
             variants={variants}
             drag
@@ -183,6 +185,8 @@ const Hero: React.FC = () => {
           alt="Airplane"
           className="airplane-2 layer-optimize-md absolute right-0 top-[0] w-[15vw] transform dark:brightness-90 sm:right-[5%] sm:top-[0%] md:-top-[30%] md:right-[15%] lg:-top-1/2 lg:right-[5%] xl:-top-1/3 xl:right-[5%] 2xl:-top-1/3 2xl:right-0 3xl:-top-1/3 3xl:right-[5%]"
           whileHover="hoverScale"
+          width={viewportWidth >= 768 ? 200 : 100}
+          height={viewportWidth >= 768 ? 200 : 100}
           transition={{ duration: 0.4 }}
           variants={variants}
           initial="airplane2Start"
@@ -197,6 +201,8 @@ const Hero: React.FC = () => {
           className="airplane-3 layer-optimize-md absolute left-[5%] top-[10%] w-[10svw] transform dark:brightness-90 sm:left-[5%] sm:top-[15%] sm:w-[10vw] md:-top-[40%] md:left-[40%] lg:-top-1/2 lg:right-[40%] xl:-top-[40%] xl:right-1/3 2xl:-top-1/2 2xl:right-[40%] 3xl:-top-1/2 3xl:right-[40%]"
           variants={variants}
           initial="airplane3Start"
+          width={viewportWidth >= 768 ? 200 : 100}
+          height={viewportWidth >= 768 ? 200 : 100}
           whileInView="airPlane3End"
           viewport={{ once: true }}
           whileHover="hoverScale"
@@ -261,7 +267,7 @@ const Hero: React.FC = () => {
                 animate="visible"
                 transition={{
                   duration: 0.3,
-                  delay: 0.1,
+                  delay: 0.2,
                   delayChildren: 0.2,
                 }}
                 className="h1-md overflow-hidden text-left leading-[0.9]"
