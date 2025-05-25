@@ -68,6 +68,8 @@ export const SecondaryButton: React.FC<ButtonProps> = ({
         whileHover={{ x: 3 }}
         transition={{ duration: 0.3 }}
         src={planeIcon}
+        width={40}
+        height={40}
         alt="Plane Icon"
         className="cursor-hover-small h-3 w-3 dark:invert sm:h-4 sm:w-4 lg:h-6 lg:w-6"
       />

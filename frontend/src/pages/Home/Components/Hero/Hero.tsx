@@ -219,7 +219,7 @@ const Hero: React.FC = () => {
             whileInView={["visible", "starRotate"]}
             viewport={{ once: true }}
             whileHover="hoverStar"
-            transition={{ delay: 1, duration: 0.4 }}
+            transition={{ delay: 0.5, duration: 0.3 }}
             className="star ri-shining-2-fill absolute rotate-[30deg] transform text-yellow dark:text-yellow md:top-0 md:text-3xl lg:text-5xl xl:text-6xl 2xl:-top-[5%] 2xl:text-6.5xl 3xl:text-7.5xl"
           ></motion.i>
         )}
@@ -245,7 +245,7 @@ const Hero: React.FC = () => {
                 animate="visible"
                 transition={{
                   duration: 0.3,
-                  delay: 0.15,
+                  delay: 0.1,
                   delayChildren: 0.2,
                 }}
                 className="h1-md text-left leading-[0.8]"
