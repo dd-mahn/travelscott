@@ -172,6 +172,8 @@ const Hero: React.FC = () => {
             className="w-full dark:brightness-90"
             whileHover="hoverScale"
             transition={{ duration: 0.4 }}
+            width={200}
+            height={200}
             variants={variants}
             drag
             dragConstraints={{ top: 0, left: 0, right: 0, bottom: 0 }}
@@ -187,6 +189,8 @@ const Hero: React.FC = () => {
           variants={variants}
           initial="airplane2Start"
           whileInView="airPlane2End"
+          width={100}
+          height={100}
           viewport={{ once: true }}
           drag
           dragConstraints={{ top: 0, left: 0, right: 0, bottom: 0 }}
@@ -199,6 +203,8 @@ const Hero: React.FC = () => {
           initial="airplane3Start"
           whileInView="airPlane3End"
           viewport={{ once: true }}
+          width={100}
+          height={100}
           whileHover="hoverScale"
           transition={{ duration: 0.4 }}
           drag
