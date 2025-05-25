@@ -129,6 +129,8 @@ const Footer = () => {
             <img
               src={planeIcon}
               alt=""
+              width={ 40}
+              height={ 40}
               className="cursor-hover-small dark:invert"
             />
           </motion.button>

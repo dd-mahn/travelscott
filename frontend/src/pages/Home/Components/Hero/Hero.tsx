@@ -90,28 +90,28 @@ const Hero: React.FC = () => {
   const viewportWidth = useViewportWidth();
 
   // Animation controls for star sibling
-  const starSiblingControls = useAnimation();
+  // const starSiblingControls = useAnimation();
 
-  // Effect to animate star sibling
-  useEffect(() => {
-    const updateStarSiblingX = () => {
-      if (starRef.current) {
-        const starWidth = starRef.current.clientWidth + 10;
-        starSiblingControls.start({ opacity: [0, 1], y: [75, 0] });
-        starSiblingControls.start({
-          x: starWidth,
-          transition: { delay: 1, duration: 0.6, ease: "circInOut" },
-        });
-      }
-    };
+  // // Effect to animate star sibling
+  // useEffect(() => {
+  //   const updateStarSiblingX = () => {
+  //     if (starRef.current) {
+  //       const starWidth = starRef.current.clientWidth + 10;
+  //       starSiblingControls.start({ opacity: [0, 1], y: [75, 0] });
+  //       starSiblingControls.start({
+  //         x: starWidth,
+  //         transition: { delay: 1, duration: 0.6, ease: "circInOut" },
+  //       });
+  //     }
+  //   };
 
-    updateStarSiblingX();
-    window.addEventListener("resize", updateStarSiblingX);
+  //   updateStarSiblingX();
+  //   window.addEventListener("resize", updateStarSiblingX);
 
-    return () => {
-      window.removeEventListener("resize", updateStarSiblingX);
-    };
-  }, [starRef, starSiblingControls]);
+  //   return () => {
+  //     window.removeEventListener("resize", updateStarSiblingX);
+  //   };
+  // }, [starRef, starSiblingControls]);
 
   // Effect to set switch container height
   useEffect(() => {
@@ -157,7 +157,7 @@ const Hero: React.FC = () => {
         ></motion.div>
       </div>
 
-      <div className="z-15 relative w-full">
+      <div className="z-15 relative w-full font-prima">
         {/* Animated Airplanes */}
         <motion.div
           variants={variants}
@@ -211,7 +211,7 @@ const Hero: React.FC = () => {
           dragConstraints={{ top: 0, left: 0, right: 0, bottom: 0 }}
         />
         {/* Animated Star */}
-        {viewportWidth >= 768 && (
+        {/* {viewportWidth >= 768 && (
           <motion.i
             ref={starRef}
             variants={variants}
@@ -222,7 +222,7 @@ const Hero: React.FC = () => {
             transition={{ delay: 0.5, duration: 0.3 }}
             className="star ri-shining-2-fill absolute rotate-[30deg] transform text-yellow dark:text-yellow md:top-0 md:text-3xl lg:text-5xl xl:text-6xl 2xl:-top-[5%] 2xl:text-6.5xl 3xl:text-7.5xl"
           ></motion.i>
-        )}
+        )} */}
         {/* Animated Text */}
         {viewportWidth >= 768 && (
           <>
@@ -230,9 +230,10 @@ const Hero: React.FC = () => {
               <motion.h1
                 variants={variants}
                 initial="hiddenFullY"
-                animate={starSiblingControls}
-                transition={{ duration: 0.3 }}
-                className="h1-md inline-block leading-[0.8]"
+                // animate={starSiblingControls}
+                animate="visible"
+                transition={{ duration: 0.5 }}
+                className="h1-common inline-block leading-[0.8]"
               >
                 From your new
               </motion.h1>
@@ -244,11 +245,11 @@ const Hero: React.FC = () => {
                 initial="hiddenFullY"
                 animate="visible"
                 transition={{
-                  duration: 0.3,
-                  delay: 0.1,
+                  duration: 0.5,
+                  delay: 0.15,
                   delayChildren: 0.2,
                 }}
-                className="h1-md text-left leading-[0.8]"
+                className="h1-common text-left leading-[0.8]"
               >
                 favorite{" "}
                 <motion.span
@@ -266,11 +267,11 @@ const Hero: React.FC = () => {
                 initial="hiddenFullY"
                 animate="visible"
                 transition={{
-                  duration: 0.3,
-                  delay: 0.2,
+                  duration: 0.5,
+                  delay: 0.3,
                   delayChildren: 0.2,
                 }}
-                className="h1-md overflow-hidden text-left leading-[0.9]"
+                className="h1-common overflow-hidden text-left leading-[0.9]"
               >
                 <span className="inline-block">to </span>{" "}
                 <div className="inline-block">

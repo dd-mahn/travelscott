@@ -4,6 +4,11 @@
   line-height: 1 !important;
 }
 
+.h1-common {
+  @apply text-4xl font-semibold uppercase *:leading-[0.8] sm:text-6.5xl md:text-6xl md:font-bold lg:text-7xl xl:text-8xl 2xl:text-8.5xl 3xl:text-9xl 3xl:tracking-wide;
+
+}
+
 .h1-md {
   @apply font-prima text-4xl font-semibold uppercase *:leading-[0.8] sm:text-6.5xl md:text-6xl md:font-bold lg:text-7xl xl:text-8xl 2xl:text-8.5xl 3xl:text-9xl 3xl:tracking-wide;
 }
