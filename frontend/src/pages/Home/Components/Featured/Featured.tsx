@@ -15,6 +15,7 @@ import config from "src/config/config";
 
 // Type imports
 import { FetchDestinationType } from "src/types/FetchData";
+import DestinationType from "src/types/Destination";
 
 // Redux actions
 import { setFeaturedDestinations } from "src/store/slices/destinationSlice";
@@ -27,34 +28,45 @@ const variants = {
   visible: VisibilityVariants.visible,
 };
 
+interface FeaturedProps {
+  // Optional props to receive data from parent
+  featuredDestinations?: DestinationType[];
+  isLoading?: boolean;
+}
+
 // Featured component: Displays featured destinations
-const Featured: React.FC = () => {
+const Featured: React.FC<FeaturedProps> = ({ featuredDestinations: propDestinations, isLoading: propLoading }) => {
   const viewportWidth = useViewportWidth();
   const dispatch = useDispatch();
 
-  // Fetch featured destinations with optimized parameters
+  // Only fetch data if props are not provided (standalone mode)
   const { data, isLoading, error } = useFetch<FetchDestinationType>(
     "featured-destinations",
-    `/destinations?featured=true&limit=10`, // Limit to 10 featured destinations
-    "home", // Page identifier for loading state
+    `/destinations?featured=true&limit=10`,
+    "home",
     {
-      staleTime: 5 * 60 * 1000, // 5 minutes cache
-      cacheTime: 30 * 60 * 1000, // 30 minutes
+      staleTime: 5 * 60 * 1000,
+      cacheTime: 30 * 60 * 1000,
+      // Skip fetch if props are provided
+      enabled: !propDestinations,
     }
   );
   
-  // Memoize featured destinations to prevent unnecessary re-renders
-  const featuredDestinations = useMemo(() => 
-    data?.result?.slice(0, 10) || [], 
-    [data?.result]
+  // Use either props or fetched data
+  const destinations = useMemo(() => 
+    propDestinations || data?.result?.slice(0, 10) || [], 
+    [propDestinations, data?.result]
   );
 
-  // Dispatch featured destinations to the store
+  // Use either props loading state or internal loading state
+  const isLoadingState = propLoading !== undefined ? propLoading : isLoading;
+
+  // Only dispatch if we're in standalone mode (no props provided)
   useEffect(() => {
-    if (featuredDestinations.length > 0) {
-      dispatch(setFeaturedDestinations(featuredDestinations));
+    if (!propDestinations && destinations.length > 0) {
+      dispatch(setFeaturedDestinations(destinations));
     }
-  }, [featuredDestinations, dispatch]);
+  }, [destinations, dispatch, propDestinations]);
 
   return (
     <section className="featured flex flex-col lg:gap-28 xl:gap-32 2xl:gap-36 3xl:gap-40">
@@ -76,13 +88,13 @@ const Featured: React.FC = () => {
 
       {/* Horizontal scroll carousel */}
       <AnimatePresence mode="wait">
-        {isLoading ? (
-          <LoadingState keyName={`featured-loading-${isLoading}`} />
+        {isLoadingState ? (
+          <LoadingState keyName={`featured-loading-${isLoadingState}`} />
         ) : error ? (
           <ErrorState keyName={`featured-error-${error}`} />
-        ) : featuredDestinations.length > 0 ? (
-          <div key={`featured-destinations-${featuredDestinations.length}`}>
-            <HorizontalScrollCarousel data={featuredDestinations} />
+        ) : destinations.length > 0 ? (
+          <div key={`featured-destinations-${destinations.length}`}>
+            <HorizontalScrollCarousel data={destinations} />
           </div>
         ) : (
           <NotFoundState keyName="featured-not-found" />

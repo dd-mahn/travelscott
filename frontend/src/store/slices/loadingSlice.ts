@@ -117,7 +117,7 @@ const loadingSlice = createSlice({
     // New reducer to check for and reset stuck loading states
     resetStuckLoadingStates: (state) => {
       const now = Date.now();
-      const TIMEOUT = 10000; // 10 seconds timeout
+      const TIMEOUT = 5000; // 5 seconds timeout (reduced from 10)
       
       // Check each page loading state
       Object.keys(state.pageLoading).forEach(page => {

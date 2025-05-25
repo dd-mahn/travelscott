@@ -7,7 +7,8 @@ import {
   setBlogChunks,
   setStarterBlogs,
 } from "src/store/slices/blogSlice";
-import { setPageLoading } from "src/store/slices/loadingSlice";
+import { setPageLoading, startRequest, endRequest } from "src/store/slices/loadingSlice";
+import { setFeaturedDestinations } from "src/store/slices/destinationSlice";
 
 import "src/styles/components/home.css";
 
@@ -19,7 +20,7 @@ import Starter from "src/pages/Home/Components/Starter/Starter";
 import Articles from "src/pages/Home/Components/Articles/Articles";
 import Quote from "src/pages/Home/Components/Quote/Quote";
 import useFetch from "src/hooks/useFetch/useFetch";
-import { FetchBlogsType } from "src/types/FetchData";
+import { FetchBlogsType, FetchDestinationType } from "src/types/FetchData";
 import { createBlogChunks } from "src/utils/createBlogChunks";
 import {
   useSectionTransition,
@@ -39,6 +40,27 @@ const Home: React.FC = () => {
       starterBlogs: state.blog.starterBlogs,
       blogChunks: state.blog.blogChunks,
     }),
+  );
+
+  // Track initial loading
+  useEffect(() => {
+    // Set initial loading state
+    dispatch(setPageLoading({ page: "home", isLoading: true }));
+  }, [dispatch]);
+
+  // Fetch featured destinations directly in Home component
+  const {
+    data: featuredData,
+    isSuccess: featuredSuccess,
+    isLoading: featuredLoading,
+  } = useFetch<FetchDestinationType>(
+    "featured-destinations",
+    `/destinations?featured=true&limit=10`,
+    "home",
+    {
+      staleTime: 5 * 60 * 1000,
+      cacheTime: 30 * 60 * 1000,
+    }
   );
 
   // Fetch regular blogs data for Articles section
@@ -71,14 +93,21 @@ const Home: React.FC = () => {
     },
   );
 
+  // Process fetched featured destinations data
+  useEffect(() => {
+    if (featuredData?.result && featuredData.result.length > 0) {
+      dispatch(setFeaturedDestinations(featuredData.result));
+    }
+  }, [featuredData, dispatch]);
+
   // Mark page as loaded when all fetches complete
   useEffect(() => {
-    const allDataLoaded = blogsSuccess && starterSuccess;
+    const allDataLoaded = blogsSuccess && starterSuccess && featuredSuccess;
 
     if (allDataLoaded) {
       dispatch(setPageLoading({ page: "home", isLoading: false }));
     }
-  }, [blogsSuccess, starterSuccess, dispatch]);
+  }, [blogsSuccess, starterSuccess, featuredSuccess, dispatch]);
 
   // Process fetched blogs data for Articles section
   useEffect(() => {
@@ -116,6 +145,12 @@ const Home: React.FC = () => {
   // Memoize blogs to prevent unnecessary re-renders
   const memoizedHomeBlogs = useMemo(() => homeBlogs, [homeBlogs]);
   const memoizedStarterBlogs = useMemo(() => starterBlogs, [starterBlogs]);
+  
+  // Pass featured data directly to Featured component
+  const featuredDestinations = useMemo(() => 
+    featuredData?.result?.slice(0, 10) || [], 
+    [featuredData?.result]
+  );
 
   return (
     <main data-testid="home-page" className="home flex flex-col">
@@ -136,7 +171,7 @@ const Home: React.FC = () => {
           style={{ scale: scaleSO, opacity: opacitySO }}
           className="layer-optimize-opacity video-layer sticky pb-sect-default lg:pb-96"
         >
-          <Featured />
+          <Featured featuredDestinations={featuredDestinations} isLoading={featuredLoading} />
         </motion.div>
 
         <div ref={refSO} className="layer-optimize places-layer">

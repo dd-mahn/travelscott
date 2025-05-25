@@ -61,12 +61,12 @@ const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
 
     let timeoutId: NodeJS.Timeout;
 
-    // Set a timeout to force loading to complete after 5 seconds
+    // Set a timeout to force loading to complete after 2 seconds
     if (isLoading && !isContentLoading) {
       timeoutId = setTimeout(() => {
         dispatch(setPageLoading({ page: currentPage, isLoading: false }));
         setForceRender(true);
-      }, 5000);
+      }, 2000);
     }
 
     return () => {
